@@ -1,0 +1,153 @@
+// header de la pagina
+.ant-layout {
+  background: #f7fbff;
+}
+
+.component-header {
+  padding: 0;
+  background: #fff 0 0 no-repeat padding-box;
+  .bar {
+    padding: 0 24px;
+  }
+  .ant-card-extra {
+    padding: 0 !important;
+  }
+  .ant-menu {
+    color: #555;
+    .ant-menu-inline.ant-menu-root .ant-menu-item,
+    .ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+      font-weight: bold;
+      color: #555;
+    }
+  }
+}
+
+.bar {
+  .img-fluid {
+    display: none;
+  }
+}
+
+.deck {
+  display: none;
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  transition: background 300ms;
+  &.active {
+    display: block;
+    z-index: 200;
+    background: rgba(205, 218, 229, 0.7);
+  }
+}
+
+@media (max-width: 576px) {
+  .bar {
+    .img-fluid {
+      display: inherit;
+    }
+    .c-fill {
+      flex: 1 1 auto !important;
+    }
+  }
+  .component-header {
+    height: 123px;
+  }
+
+  .header-name {
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 290px;
+    height: 14px;
+    line-height: 21px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .component-header .bar {
+    padding: 0 16px;
+  }
+}
+
+.user-drawer {
+  .ant-drawer-header {
+    position: absolute;
+    background: transparent;
+    width: 300px;
+    justify-content: end;
+    .ant-drawer-close {
+      color: rgba(255, 255, 255, 0.65);
+      &:focus,
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  .ant-drawer-body {
+    padding: 0;
+
+    .drawer-content {
+      height: calc(100% - 244px);
+    }
+  }
+}
+
+.session-close {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  color: #dc3545;
+  padding: 1.5rem;
+  transition: all 300ms;
+  &:hover {
+    border-color: #dc3545;
+    color: #fff;
+    background-color: #dc3545;
+  }
+}
+
+.medeinn-main-content {
+  height: calc(100% - 30px);
+  .container-fluid:first-child {
+      padding: 32px 16px;
+  }
+}
+
+.medeinn-content {
+  box-shadow: 0 3px 8px #00000029;
+  background: #fff 0 0 no-repeat padding-box;
+  border-radius: 11px;
+  &.dash-card {
+      .ant-card-body {
+          padding: 16px 24px 0 24px;
+      }
+  }
+}
+
+.custom-list-style {
+  list-style: none;
+  li::before {
+      content: attr(data-icon);
+      color: #603CE6;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 16px;
+  }
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #fff !important;
+}
+
+
+.form-error {
+  @extend .text-danger;
+  margin-top: 0.25rem;
+  display: block;
+  width: 100%;
+  height: 22px;
+}
