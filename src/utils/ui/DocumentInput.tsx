@@ -43,7 +43,7 @@ const DocumentInput: FC<InputDocProps> = ({
             </Tag>
           )}
         </div>
-        <button
+        <div
           className="btn btn-clear btn-outline-primary"
           style={{ fontSize: "12px" }}
           onClick={() => {
@@ -53,9 +53,9 @@ const DocumentInput: FC<InputDocProps> = ({
           }}
         >
           Adjuntar
-        </button>
+        </div>
       </div>
-      <div>
+      <div style={{fontSize: '10px', marginTop: '5px'}}>
         Tipo de archivo: {tipos_doc} Máx: {maximum_size}MB.
       </div>
       <input

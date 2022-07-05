@@ -6,39 +6,59 @@ import DocumentInput from "../../../utils/ui/DocumentInput";
 import ErrorMessage from "../../../utils/ui/ErrorMessage";
 import Select from "../../../utils/ui/Select";
 import * as Yup from "yup";
+import { IGeneralInformation } from "../custom_types";
 
-const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
+interface GeneralInformationFormPros {
+  disabled?: boolean;
+  type?: "view" | "create" | "edit";
+  general_: IGeneralInformation;
+  innerRef: any;
+  onSubmit: (values: any) => void;
+}
+
+const FormGeneral: FC<GeneralInformationFormPros> = ({
+  disabled,
+  general_,
+  innerRef,
+  onSubmit,
+}) => {
   const initialValues = {
-    challenge_name: "",
-    profiles: "",
-    dimension: "",
-    dependence: "",
-    start_date: "",
-    closing_date: "",
-    commune: "",
-    neighborhood: "",
-    main_image: "",
-    economic_amount: "",
+    general_information: {
+      challenge_name: "",
+      profiles: [],
+      dimension: null,
+      dependence: null,
+      start_date: "",
+      closing_date: "",
+      description: "",
+      commune: null,
+      neighborhood: null,
+      main_image: "",
+      economic_amount: "",
+      video_url: "",
+      expected_results: "",
+      important_data: "",
+      population_impact: "",
+    },
   };
 
   const schema = Yup.object().shape({
-    challenge_name: Yup.string()
-      .required("Campo obligatorio")
-      .max(80, "El nombre debe tener máximo 80 caracteres"),
-    profiles: Yup.string().required("Campo obligatorio"),
-    dimension: Yup.string().required("Campo obligatorio"),
-    dependence: Yup.string().required("Campo obligatorio"),
-    start_date: Yup.string().required("Campo obligatorio"),
-    closing_date: Yup.string().required("Campo obligatorio"),
-    commune: Yup.string().required("Campo obligatorio"),
-    neighborhood: Yup.string().required("Campo obligatorio"),
-    main_image: Yup.string().required("Campo obligatorio"),
-    economic_amount: Yup.number()
-      .min(0, "El minimo es 0")
-      .max(99999999999, "El máximo 11 es caracteres"),
+    general_information: Yup.object({
+      challenge_name: Yup.string().required("Campo obligatorio"),
+      profiles: Yup.array().required("Campo obligatorio"),
+      dimension: Yup.string().nullable().required("Campo obligatorio"),
+      dependence: Yup.string().nullable().required("Campo obligatorio"),
+      start_date: Yup.string().required("Campo obligatorio"),
+      closing_date: Yup.string().required("Campo obligatorio"),
+      description: Yup.string().required("Campo obligatorio"),
+      commune: Yup.string().nullable().required("Campo obligatorio"),
+      neighborhood: Yup.string().nullable().required("Campo obligatorio"),
+      main_image: Yup.string().required("Campo obligatorio"),
+    }),
   });
 
   const submit = (values: any, actions: any) => {
+    onSubmit(values);
     actions.setSubmitting(false);
   };
 
@@ -50,7 +70,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ handleChange }) => {
+      {({ handleChange, values }) => {
         return (
           <Form>
             <div className="row">
@@ -61,7 +81,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 <Field
                   type="text"
                   id="challenge_name_id"
-                  name="challenge_name"
+                  name="general_information.challenge_name"
                   className="form-control"
                   aria-describedby="nombre del reto"
                   autoComplete="off"
@@ -77,7 +97,11 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="challenge_name" withCount max={80} />
+                <ErrorMessage
+                  name="general_information.challenge_name"
+                  withCount
+                  max={80}
+                />
               </div>
               <div className="col-6">
                 <label htmlFor="profiles_id" className="form-label">
@@ -86,7 +110,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 <Field
                   component={Select}
                   id="profiles_id"
-                  name="profiles"
+                  name="general_information.profiles"
                   className=""
                   options={[
                     {
@@ -110,7 +134,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     );
                   }}
                 />
-                <ErrorMessage name="profiles" />
+                <ErrorMessage name="general_information.profiles" />
               </div>
             </div>
             <div className="row">
@@ -121,7 +145,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 <Field
                   component={Select}
                   id="dimension_id"
-                  name="dimension"
+                  name="general_information.dimension"
                   className=""
                   options={[
                     {
@@ -148,7 +172,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   ]}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="dimension" />
+                <ErrorMessage name="general_information.dimension" />
               </div>
               <div className="col-3">
                 <label htmlFor="dependence_id" className="form-label">
@@ -157,7 +181,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 <Field
                   component={Select}
                   id="dependence_id"
-                  name="dependence"
+                  name="general_information.dependence"
                   className=""
                   options={[
                     {
@@ -167,7 +191,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   ]}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="dependence" />
+                <ErrorMessage name="general_information.dependence" />
               </div>
               <div className="col-3">
                 <label htmlFor="start_date_id" className="form-label">
@@ -175,10 +199,11 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 </label>
                 <Field
                   component={DateInput}
-                  name="start_date"
+                  name="general_information.start_date"
                   id="start_date_id"
                 />
-                <ErrorMessage name="start_date" />
+                
+                <ErrorMessage name="general_information.start_date" />
               </div>
               <div className="col-3">
                 <label htmlFor="closing_date_id" className="form-label">
@@ -186,24 +211,24 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 </label>
                 <Field
                   component={DateInput}
-                  name="closing_date"
+                  name="general_information.closing_date"
                   id="closing_date_id"
                 />
-                <ErrorMessage name="closing_date" />
+                <ErrorMessage name="general_information.closing_date" />
               </div>
             </div>
             <div className="row">
               <div className="col-6">
-                <label htmlFor="dimension_id" className="form-label">
+                <label htmlFor="description_id" className="form-label">
                   Detalles del reto
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="tenure_id"
-                  name="now.tenure"
+                  id="description_id"
+                  name="general_information.description"
                   autoComplete="off"
-                  maxLength={1000}
+                  maxLength={100}
                   style={{ height: "32px" }}
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -216,7 +241,11 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="now.tenure" withCount max={1000} />
+                <ErrorMessage
+                  name="general_information.description"
+                  withCount
+                  max={100}
+                />
               </div>
               <div className="col-3">
                 <label htmlFor="commune_id" className="form-label">
@@ -226,7 +255,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   style={{ height: "32px" }}
                   component={Select}
                   id="commune_id"
-                  name="commune"
+                  name="general_information.commune"
                   className=""
                   options={[
                     {
@@ -236,7 +265,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   ]}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="commune" />
+                <ErrorMessage name="general_information.commune" />
               </div>
               <div className="col-3">
                 <label htmlFor="neighborhood_id" className="form-label">
@@ -245,7 +274,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 <Field
                   component={Select}
                   id="neighborhood_id"
-                  name="neighborhood"
+                  name="general_information.neighborhood"
                   className=""
                   options={[
                     {
@@ -255,19 +284,19 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   ]}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="neighborhood" />
+                <ErrorMessage name="general_information.neighborhood" />
               </div>
             </div>
             <div className="row">
               <div className="col-6">
-                <label htmlFor="population_id" className="form-label">
-                  Detalle población a impactar - Opcional
+                <label htmlFor="population_impact_id" className="form-label">
+                  Detalle población a impactar <span style={{fontSize: '10px'}}> - Opcional </span>
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="population_id"
-                  name="population"
+                  id="population_impact_id"
+                  name="general_information.population_impact"
                   autoComplete="off"
                   style={{ height: "32px" }}
                   maxLength={200}
@@ -282,7 +311,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="population" withCount max={200} />
+                <ErrorMessage name="general_information.population_impact" withCount max={200} />
               </div>
               <div className="col-6">
                 <label htmlFor="main_image_id" className="form-label">
@@ -290,41 +319,42 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                 </label>
                 <Field
                   component={DocumentInput}
-                  tipos_doc="PNG, JPG."
+                  tipos_doc="JPG, JPEG."
                   maximum_size={2}
                   type="text"
                   id="main_image_id"
-                  name="main_image"
+                  name="general_information.main_image"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="main_image" />
+                <ErrorMessage name="general_information.main_image" />
               </div>
             </div>
             <div className="row">
               <div className="col-6">
                 <label htmlFor="dimension_id" className="form-label">
-                  Video - Opcional
+                  Video <span style={{fontSize: '10px'}}> - Opcional </span> 
                 </label>
                 <Field
                   type="text"
                   id="dimension_id"
-                  name="dimension"
+                  name="general_information.video_url"
                   className="form-control"
-                  placeholder="Seleccionar…"
+                  autoComplete="off"
                 />
-                <ErrorMessage name="now.tenure" />
+                <div style={{fontSize: '10px', marginTop: '5px'}}>URL embebida (YouTube, Vimeo)</div>
+                <ErrorMessage name="general_information.video_url" />
               </div>
               <div className="col-6">
                 <label htmlFor="important_data_id" className="form-label">
-                  Datos importantes - Opcional
+                  Datos importantes <span style={{fontSize: '10px'}}> - Opcional </span>
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
                   style={{ height: "32px" }}
                   id="important_data_id"
-                  name="important_data"
+                  name="general_information.important_data"
                   autoComplete="off"
                   maxLength={500}
                   onChange={(e: any) => {
@@ -338,20 +368,20 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="important_data" withCount max={500} />
+                <ErrorMessage name="general_information.important_data" withCount max={500} />
               </div>
             </div>
             <div className="row">
               <div className="col-6">
                 <label htmlFor="expected_results_id" className="form-label">
-                  Resultados esperados - Opcional
+                  Resultados esperados <span style={{fontSize: '10px'}}> - Opcional </span>
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
                   style={{ height: "32px" }}
                   id="expected_results_id"
-                  name="expected_results"
+                  name="general_information.expected_results"
                   autoComplete="off"
                   maxLength={500}
                   onChange={(e: any) => {
@@ -365,7 +395,7 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="expected_results" withCount max={500} />
+                <ErrorMessage name="general_information.expected_results" withCount max={500} />
               </div>
               <div className="col-6">
                 <label htmlFor="economic_amount_id" className="form-label">
@@ -376,9 +406,10 @@ const FormGeneral: FC<{ innerRef?: any }> = ({ innerRef }) => {
                   name="economic_amount"
                   id="economic_amount_id"
                   min={0}
-                  max={99999999999}
+                  max={10000000000}
                   maxLength={14}
                 />
+                <div style={{fontSize: '10px', marginTop: '5px'}}>Máx: $10.000.000.000</div>
                 <ErrorMessage name="economic_amount" />
               </div>
             </div>

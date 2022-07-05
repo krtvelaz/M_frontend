@@ -1,20 +1,22 @@
 import { DatePicker, Form } from "antd";
+import { FieldProps } from "formik";
 import moment from "moment";
 import { FC, useEffect, useState } from "react";
 import { inputCalendar } from "../assets/img";
 
-interface IProps {
-  save?: any;
+interface IProps extends FieldProps {
   dia?: string;
   mes?: string;
   anio?: string;
+  extra_on_change?: (value: any, prev_value?: any) => void;
 }
 
-const DateInput: FC<IProps> = ({ save, dia, mes, anio }) => {
+const DateInput: FC<IProps> = ({  field, form, extra_on_change, dia, mes, anio }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+
 
   useEffect(() => {
     if (dia || dia === "") {
@@ -39,7 +41,8 @@ const DateInput: FC<IProps> = ({ save, dia, mes, anio }) => {
     setDay(moment(fecha).format("DD"));
     setMonth(moment(fecha).format("MM"));
     setYear(moment(fecha).format("YYYY"));
-    save(moment(fecha).format("YYYY-MM-DD"));
+    form.setFieldValue(field.name, moment(fecha).format("YYYY-MM-DD"), false);
+    extra_on_change && extra_on_change(moment(fecha).format("YYYY-MM-DD"), field.value);
   };
   return (
     <>
