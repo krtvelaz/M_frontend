@@ -1,79 +1,104 @@
 html,
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 body {
-    background-color: #f7fbff;
-    // font-family: 'Lato', sans-serif;
-    font-size: 12px !important;
-    font-family: 'Montserrat-Regular' !important;
+  background-color: #f7fbff;
+  // font-family: 'Lato', sans-serif;
+  font-size: 12px !important;
+  font-family: "Montserrat-Regular" !important;
 }
 
 #texto-superior {
-    background: white;
-    color: #000;
-    padding-bottom: 6rem;
-    box-shadow: 0 5px 3px #00000015 inset;
+  background: white;
+  color: #000;
+  padding-bottom: 6rem;
+  box-shadow: 0 5px 3px #00000015 inset;
 }
 #texto-superior h4 {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Montserrat-Bold' !important;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Montserrat-Bold" !important;
 }
 
 #texto-superior p {
-    font-size: 12px;
-    font-family: 'Work-Sans-Regular' !important;
-    color: #000000;
+  font-size: 12px;
+  font-family: "Work-Sans-Regular" !important;
+  color: #000000;
 }
 
 .content-cards {
-    position: relative;
-    top: -4.6rem;
-    bottom: 0;
+  position: relative;
+  top: -4.6rem;
+  bottom: 0;
 }
 
 #cards .card {
-    min-width: 267px;
-    max-width: 267px;
-    min-height: 202px;
-    max-height: 202px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    border-radius: 15px;
-    border: 0;
+  min-width: 267px;
+  max-width: 267px;
+  min-height: 202px;
+  max-height: 202px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 15px;
+  border: 0;
 }
 
 #cards .card .card-header {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    background-color: #ffffff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: #ffffff;
 }
 
 #cards .card .card-header span {
-    color: #632264;
-    font-size: 18px;
+  color: #632264;
+  font-size: 18px;
 }
 #cards .card .card-header span > h5 {
-    font-weight: 700;
+  font-weight: 700;
 }
 #cards .card .card-body p {
-    font-size: 14px;
+  font-size: 14px;
 }
 #cards .card .button-card {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
 }
 
 #cards .card .button-card:hover {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 main {
-    display: flex;
-    flex-wrap: nowrap;
-    height: 100vh;
-    max-height: 100vh;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  max-height: 100vh;
 }
 
+// swal alert
+.title-myswal-alert {
+  color: #ad0808;
+  font-size: 22px !important;
+  font-family: "Montserrat-SemiBold" !important;
+}
+
+.mysubtitle {
+  margin-bottom: 10px;
+  font-size: 14px !important;
+  color: #000000;
+  font-family: "Work-Sans-Regular" !important;
+}
+
+.mytext {
+    padding-bottom: 20px;
+    font-size: 14px !important;
+    color: #000000 !important;
+    font-family: "Work-Sans-SemiBold" !important;
+    border-bottom: #00000029 solid 1px;
+}
+
+.popover-span:hover {
+  color: #F28C02;
+}

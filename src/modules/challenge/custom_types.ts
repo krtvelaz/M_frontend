@@ -1,7 +1,7 @@
 export interface IChallenge {
   general_information: IGeneralInformation;
   documents: IDocuments;
-  reports: IReport;
+  reports: IDocument[];
 }
 
 export interface IGeneralInformation {
@@ -20,18 +20,19 @@ export interface IGeneralInformation {
   expected_results: string;
   important_data: string;
   population_impact: string;
+  challenge_details: string;
+  impact_type?: string;
 }
 export interface IDocuments {
-  general: IDocumentGeneral[];
-  technical: string;
-  administrative: string;
+  general: IDocument[];
+  technical: IDocument[];
+  administrative: IDocument[];
 }
 
-export interface IReport {
-  report: string;
+export interface IDocument {
+  document_type?: string;
+  template?: File | Blob;
+  profile?: string;
+  document_name?: string;
 }
 
-interface IDocumentGeneral {
-  document_type: string;
-  template: string;
-}

@@ -18,7 +18,7 @@ const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...pro
         <InputNumber
             style={{
                 margin: 0,
-                borderRadius: '3.5px',
+                borderRadius: '6px',
             }}
             defaultValue={0}
             formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(/\.(?=\d{0,2}$)/g, ",")}

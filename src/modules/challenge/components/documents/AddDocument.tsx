@@ -6,25 +6,37 @@ import FormAddDocument from "./FormAddDocument";
 import TableDocs from "./TableDocs";
 
 interface DocsFormPros {
-  typeDoc?: "general" | "administrative" | "technicians";
+  typeDoc: "general" | "administrative" | "technicians" | "report";
   setChallenge: any;
   challenge: IChallenge;
   title: string;
 }
-const AddDocument: FC<DocsFormPros> = ({ setChallenge, typeDoc, challenge, title }) => {
+const AddDocument: FC<DocsFormPros> = ({
+  setChallenge,
+  typeDoc,
+  challenge,
+  title,
+}) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
 
-
   const onAddDocument = (values: any) => {
-    setChallenge((data: any) => {
-      return {
+    setChallenge((data: IChallenge) => {
+       return {
         ...data,
         documents: {
-          general : [
-            ...data.documents.general, values
-          ]
-        }
-      }
+          ...data.documents,
+          ...(typeDoc === "general"
+            ? { general: [...data.documents.general, values] }
+            : typeDoc === "technicians"
+            ? { technical: [...data.documents.technical, values] }
+            : typeDoc === "administrative" && {
+                administrative: [...data.documents.administrative, values],
+              }),
+        },
+        ...(typeDoc === "report" && {
+          reports: [...data.reports, values],
+        }),
+      };
     });
   };
 
@@ -34,9 +46,15 @@ const AddDocument: FC<DocsFormPros> = ({ setChallenge, typeDoc, challenge, title
         <div className="col-md-12">
           <Card
             title={
-              <span style={{ fontSize: "14px" }}>
-               {title}
-              </span>
+              <>
+                <span style={{ fontSize: "14px" }}>{title}</span>
+                {typeDoc === "report" && (
+                  <span style={{ color: "#AD0808", fontSize: "10px" }}>
+                    {" "}
+                    - Todos los campos son obligatorios
+                  </span>
+                )}
+              </>
             }
             actions={[
               <div className="d-flex justify-content-end pe-4 ps-4">
@@ -58,10 +76,23 @@ const AddDocument: FC<DocsFormPros> = ({ setChallenge, typeDoc, challenge, title
               typeDoc={typeDoc}
             />
           </Card>
-          <Card
-          >
-             <span className="my-3" style={{ fontSize: "14px"}}>Documentos agregados</span>
-            <TableDocs documents={challenge.documents.general} typeDoc={typeDoc} />
+          <Card>
+            <span className="my-3" style={{ fontSize: "14px" }}>
+              Documentos agregados
+            </span>
+            <TableDocs
+              documents={
+                typeDoc === "general"
+                  ? challenge.documents.general
+                  : typeDoc === "technicians"
+                  ? challenge.documents.technical
+                  : typeDoc === "administrative"
+                  ? challenge.documents.administrative
+                  : challenge.reports
+              }
+              setChallenge={setChallenge}
+              typeDoc={typeDoc}
+            />
           </Card>
         </div>
       </div>

@@ -22,7 +22,7 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ name, withCount, max, className, 
             </div>
             {hasCount && (
                 <div className="col-4">
-                    <span className="text-end d-block w-100 mt-1" style={{ height: '22px', color: '#F28C02' }}>
+                    <span className="text-end d-block w-100 mt-1" style={{ height: '22px', fontSize: '10px', color: '#F28C02' }}>
                         {`${`${value}`.length}${max ? `/${max}` : ''}`}
                     </span>
                 </div>

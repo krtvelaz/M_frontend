@@ -1,5 +1,5 @@
 import { Tabs } from "antd";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { IChallenge, } from "../../custom_types";
 import AddDocument from "./AddDocument";
 
@@ -12,10 +12,6 @@ interface DocumentsProps {
 const DocumentFormTags: FC<DocumentsProps> = ({ setChallenge, challenge, active_key }) => {
   
   
-  useEffect(()=> {
-    console.log('cambio', active_key);
-    
-  },[active_key])
   const { TabPane } = Tabs;
   return (
     <Tabs

@@ -6,7 +6,7 @@ import DocumentInput from "../../../utils/ui/DocumentInput";
 import ErrorMessage from "../../../utils/ui/ErrorMessage";
 import Select from "../../../utils/ui/Select";
 import * as Yup from "yup";
-import { IGeneralInformation } from "../custom_types";
+import { IChallenge, IGeneralInformation } from "../custom_types";
 
 interface GeneralInformationFormPros {
   disabled?: boolean;
@@ -39,6 +39,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
       expected_results: "",
       important_data: "",
       population_impact: "",
+      challenge_details: "",
+      impact_type: "",
     },
   };
 
@@ -54,6 +56,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
       commune: Yup.string().nullable().required("Campo obligatorio"),
       neighborhood: Yup.string().nullable().required("Campo obligatorio"),
       main_image: Yup.string().required("Campo obligatorio"),
+      population_impact: Yup.string().required("Campo obligatorio"),
+      important_data: Yup.string().required("Campo obligatorio"),
+      expected_results: Yup.string().required("Campo obligatorio"),
     }),
   });
 
@@ -202,7 +207,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   name="general_information.start_date"
                   id="start_date_id"
                 />
-                
+
                 <ErrorMessage name="general_information.start_date" />
               </div>
               <div className="col-3">
@@ -220,7 +225,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
             <div className="row">
               <div className="col-6">
                 <label htmlFor="description_id" className="form-label">
-                  Detalles del reto
+                  Descripción
                 </label>
                 <Field
                   as="textarea"
@@ -228,8 +233,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="description_id"
                   name="general_information.description"
                   autoComplete="off"
-                  maxLength={100}
-                  style={{ height: "32px" }}
+                  maxLength={250}
+                  style={{ height: "38px" }}
                   onChange={(e: any) => {
                     e.preventDefault();
                     const { value } = e.target;
@@ -244,15 +249,46 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <ErrorMessage
                   name="general_information.description"
                   withCount
-                  max={100}
+                  max={250}
                 />
               </div>
+              <div className="col-6">
+                <label htmlFor="challenge_details_id" className="form-label">
+                  Detalles del reto
+                </label>
+                <Field
+                  as="textarea"
+                  className="form-control"
+                  id="challenge_details_id"
+                  name="general_information.challenge_details"
+                  autoComplete="off"
+                  maxLength={1000}
+                  style={{ height: "38px" }}
+                  onChange={(e: any) => {
+                    e.preventDefault();
+                    const { value } = e.target;
+                    const regex = new RegExp(
+                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                    );
+                    if (regex.test(value.toString())) {
+                      handleChange(e);
+                    }
+                  }}
+                />
+                <ErrorMessage
+                  name="general_information.challenge_details"
+                  withCount
+                  max={1000}
+                />
+              </div>
+            </div>
+            <div className="row">
               <div className="col-3">
                 <label htmlFor="commune_id" className="form-label">
                   Comuna
                 </label>
                 <Field
-                  style={{ height: "32px" }}
+                  style={{ height: "38px" }}
                   component={Select}
                   id="commune_id"
                   name="general_information.commune"
@@ -286,11 +322,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.neighborhood" />
               </div>
-            </div>
-            <div className="row">
               <div className="col-6">
                 <label htmlFor="population_impact_id" className="form-label">
-                  Detalle población a impactar <span style={{fontSize: '10px'}}> - Opcional </span>
+                  Detalle población a impactar{" "}
                 </label>
                 <Field
                   as="textarea"
@@ -298,7 +332,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="population_impact_id"
                   name="general_information.population_impact"
                   autoComplete="off"
-                  style={{ height: "32px" }}
+                  style={{ height: "38px" }}
                   maxLength={200}
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -311,7 +345,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="general_information.population_impact" withCount max={200} />
+                <ErrorMessage
+                  name="general_information.population_impact"
+                  withCount
+                  max={200}
+                />
               </div>
               <div className="col-6">
                 <label htmlFor="main_image_id" className="form-label">
@@ -321,6 +359,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   component={DocumentInput}
                   tipos_doc="JPG, JPEG."
                   maximum_size={2}
+                  file_type='img'
                   type="text"
                   id="main_image_id"
                   name="general_information.main_image"
@@ -329,11 +368,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.main_image" />
               </div>
-            </div>
-            <div className="row">
               <div className="col-6">
                 <label htmlFor="dimension_id" className="form-label">
-                  Video <span style={{fontSize: '10px'}}> - Opcional </span> 
+                  Video <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field
                   type="text"
@@ -342,17 +379,21 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   className="form-control"
                   autoComplete="off"
                 />
-                <div style={{fontSize: '10px', marginTop: '5px'}}>URL embebida (YouTube, Vimeo)</div>
+                <div style={{ fontSize: "10px", marginTop: "5px" }}>
+                  URL embebida (YouTube, Vimeo)
+                </div>
                 <ErrorMessage name="general_information.video_url" />
               </div>
+            </div>
+            <div className="row">
               <div className="col-6">
                 <label htmlFor="important_data_id" className="form-label">
-                  Datos importantes <span style={{fontSize: '10px'}}> - Opcional </span>
+                  Datos importantes{" "}
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  style={{ height: "32px" }}
+                  style={{ height: "38px" }}
                   id="important_data_id"
                   name="general_information.important_data"
                   autoComplete="off"
@@ -368,18 +409,20 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="general_information.important_data" withCount max={500} />
+                <ErrorMessage
+                  name="general_information.important_data"
+                  withCount
+                  max={500}
+                />
               </div>
-            </div>
-            <div className="row">
               <div className="col-6">
                 <label htmlFor="expected_results_id" className="form-label">
-                  Resultados esperados <span style={{fontSize: '10px'}}> - Opcional </span>
+                  Resultados esperados{" "}
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  style={{ height: "32px" }}
+                  style={{ height: "38px" }}
                   id="expected_results_id"
                   name="general_information.expected_results"
                   autoComplete="off"
@@ -395,11 +438,48 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="general_information.expected_results" withCount max={500} />
+                <ErrorMessage
+                  name="general_information.expected_results"
+                  withCount
+                  max={500}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <label htmlFor="impact_type_id" className="form-label">
+                  Tipo de impacto
+                  <span style={{ fontSize: "10px" }}> - Opcional </span>
+                </label>
+                <Field
+                  as="textarea"
+                  className="form-control"
+                  id="impact_type_id"
+                  name="general_information.impact_type"
+                  autoComplete="off"
+                  maxLength={100}
+                  style={{ height: "38px" }}
+                  onChange={(e: any) => {
+                    e.preventDefault();
+                    const { value } = e.target;
+                    const regex = new RegExp(
+                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                    );
+                    if (regex.test(value.toString())) {
+                      handleChange(e);
+                    }
+                  }}
+                />
+                <ErrorMessage
+                  name="general_information.impact_type"
+                  withCount
+                  max={100}
+                />
               </div>
               <div className="col-6">
                 <label htmlFor="economic_amount_id" className="form-label">
                   Monto económico
+                  <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field
                   component={Input}
@@ -409,7 +489,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={10000000000}
                   maxLength={14}
                 />
-                <div style={{fontSize: '10px', marginTop: '5px'}}>Máx: $10.000.000.000</div>
+                <div style={{ fontSize: "10px", marginTop: "5px" }}>
+                  Máx: $10.000.000.000
+                </div>
                 <ErrorMessage name="economic_amount" />
               </div>
             </div>

@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IChallenge } from "../custom_types";
 import CreateGeneral from "./CreateGeneral";
-import DocumentFormTags from "./documents/documentFormTags";
+import AddDocument from "./documents/AddDocument";
+import DocumentFormTags from "./documents/DocumentFormTags";
 
 const ChallengeFormTags = () => {
   const { TabPane } = Tabs;
@@ -52,12 +53,16 @@ const ChallengeFormTags = () => {
                     setChallenge={setChallenge}
                     challenge={challenge}
                     active_key={active_key_docs}
-                    // documents={challenge?.documents}
-                    // innerRef={steps[0].ref}
-                    // onSubmit={steps[0].onSave}
                   />
                 </TabPane>
-                <TabPane tab="Informes" key="3" disabled></TabPane>
+                <TabPane tab="Informes" key="3" disabled>
+                  <AddDocument
+                    setChallenge={setChallenge}
+                    challenge={challenge}
+                    typeDoc="report"
+                    title="Agregar informe"
+                  />
+                </TabPane>
               </Tabs>
             </div>
           </div>
@@ -113,31 +118,43 @@ const useInit = (): [
 ] => {
   const navigate = useNavigate();
   const location = useLocation();
-  const active_key: any = location?.state?.active_key || "1";
-  const active_key_docs: any = location?.state?.active_key_docs || "doc-1";
+  const state = location.state as {
+    active_key_docs: Location;
+    active_key: Location;
+    max: number;
+  };
+  const active_key: any = state?.active_key || "1";
+  const active_key_docs: any = state?.active_key_docs || "docs-1";
   const ls = location.state;
-  const initial_values = {
+  const initial_values: IChallenge = {
     general_information: {
       challenge_name: "",
-      profiles: "",
+      profiles: [],
       dimension: "",
       dependence: "",
       start_date: "",
       closing_date: "",
+      description: "",
       commune: "",
       neighborhood: "",
       main_image: "",
       economic_amount: "",
+      video_url: "",
+      expected_results: "",
+      important_data: "",
+      population_impact: "",
+      challenge_details: "",
+      impact_type: "",
     },
     documents: {
       general: [],
+      technical: [],
+      administrative: [],
     },
-    reports: {
-      report: "",
-    },
+    reports: [],
   };
   const [challenge, setChallenge] = useState(initial_values);
-  const [max, set_max] = useState<number>(location.state?.max || 1);
+  const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
   const [go_next_doc, set_go_next_doc] = useState<string>("");
@@ -157,7 +174,6 @@ const useInit = (): [
             ...values.general_information,
           },
         }));
-        console.log(1, "guardado");
       },
     },
     {
@@ -168,58 +184,44 @@ const useInit = (): [
           return;
         }
         set_is_saving(true);
-        await steps[1].ref.current?.submitForm();
-      },
-      onSave: async (values: any) => {
-        setChallenge((data: any) => ({
-          ...data,
-          documents: {
-            ...challenge?.documents,
-            ...values,
-          },
-        }));
-        console.log(2, "guardado");
-        set_is_saving(false);
       },
     },
     {
       ref: useRef<FormikProps<FormikValues>>(),
       save: async (is_finish = false) => {
-        console.log(6);
-        set_is_saving(true);
-        if (is_finish) {
-          steps[5].ref.current?.setFieldValue("finish", true, false);
-        }
-        await steps[5].ref.current?.submitForm();
+        set_is_saving(false);
+        //guardar info
+
+        // set_is_saving(true);
+        // if (is_finish) {
+        //   steps[2].ref.current?.setFieldValue("finish", true, false);
+        // }
+        // await steps[2].ref.current?.submitForm();
       },
       onSave: async (values: any) => {
         const new_data = {
           ...challenge,
-          reports: {
-            ...challenge.reports,
-          },
         };
-        console.log(new_data);
-        setChallenge(new_data);
-        console.log(6, "guardado");
         set_is_saving(false);
         if (values.finish) {
-          console.log({ final_data: new_data });
+          //enviar data
         }
       },
     },
   ];
   const limit = 3;
   const show_next = parseInt(active_key) < limit;
-  const next_tab = () => {    
+  const next_tab = () => {
     const key = parseInt(active_key);
-    if (key === 2 && active_key_docs === "doc-1") {
-      const next = key;
-      const next_docs = "doc-2";
-      if (next <= limit) {
-        callback(`${next}`, next_docs);
+    if (key === 2 && key <= limit) {
+      if (active_key_docs === "docs-1") {
+        callback(`${key}`, "docs-2");
+        return;
       }
-      return;
+      if (active_key_docs === "docs-2") {
+        callback(`${key}`, "docs-3");
+        return;
+      }
     }
     const next = key + 1;
     if (next <= limit) {
@@ -230,13 +232,27 @@ const useInit = (): [
     const key = parseInt(active_key);
     const prev = key - 1;
     if (prev > 0) {
-      callback(`${prev}`);
+      if (key === 3) {
+        callback(`${prev}`, "docs-3");
+        return;
+      }
+      if (key === 2) {
+        if (active_key_docs === "docs-3") {
+          callback(`${key}`, "docs-2");
+          return;
+        }
+        if (active_key_docs === "docs-2") {
+          callback(`${key}`, "docs-1");
+          return;
+        }
+      }
+      callback(`${prev}`,);
     }
   };
 
-  const callback = (key: string, next_docs = "doc-1") => {
+  const callback = (key: string, next_docs = "docs-1") => {
     const int_key = parseInt(active_key);
-    const save = steps[int_key - 1]?.save;    
+    const save = steps[int_key - 1]?.save;
     save &&
       save().then(() => {
         set_go_next(key);
@@ -246,7 +262,7 @@ const useInit = (): [
 
   const goBack = () => {
     if (active_key === "1") {
-      // history.goBack();
+      navigate('challenge/list');
     } else {
       prev_tab();
     }
@@ -257,9 +273,7 @@ const useInit = (): [
   };
 
   useEffect(() => {
-    if (!is_saving && go_next ) {  
-      console.log(go_next, go_next_doc);
-          
+    if (!is_saving && go_next) {
       const key = parseInt(go_next);
       if (key > max) {
         set_max(key);
@@ -273,12 +287,10 @@ const useInit = (): [
         },
       });
       set_go_next("");
-      set_go_next_doc("")
+      set_go_next_doc("");
       console.groupEnd();
     }
-  }, [is_saving, go_next]);
-
- 
+  }, [is_saving, go_next, go_next_doc]);
 
   return [
     active_key,

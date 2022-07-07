@@ -47,29 +47,29 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, dia, mes, anio }
   return (
     <>
       <div className="row g-2">
-        <div className="col-3">
+        <div className="col-3 text-center">
           <div
             className="form-control"
-            style={{ borderRadius: "4px", color: "#ABAFB3" }}
+            style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
-            <span style={{fontSize: '14px'}}> {day || "DD"}</span>
+            <span style={{lineHeight: '25px'}}> {day || "DD"}</span>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-3 text-center">
           <div
             className="form-control"
-            style={{ borderRadius: "4px", color: "#ABAFB3" }}
+            style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
            
-            <span style={{fontSize: '14px'}}> {month || "MM"}</span>
+            <span style={{lineHeight: '25px'}}> {month || "MM"}</span>
           </div>
         </div>
-        <div className="col-4">
+        <div className="col-4 text-center">
           <div
             className="form-control"
-            style={{ borderRadius: "4px", color: "#ABAFB3" }}
+            style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
-            <span style={{fontSize: '14px'}}>{year || "AAAA"}</span>
+            <span  style={{lineHeight: '25px'}}>{year || "AAAA"}</span>
           </div>
         </div>
         <div className="col-1">
@@ -77,6 +77,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, dia, mes, anio }
             style={{
               paddingLeft: 0,
               cursor: "pointer",
+              lineHeight: '25px'
             }}
             className="font-size-20px font-color-1FAEEF datepicker-hidden"
             suffixIcon={
