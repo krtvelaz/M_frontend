@@ -2,6 +2,7 @@ import { FormikProps, FormikValues } from "formik";
 import React, { FC, useRef, useState } from "react";
 import { Card } from "../../../../utils/ui";
 import { IChallenge, IDocuments } from "../../custom_types";
+import useDocument from "../../hooks/useTypeDocs";
 import FormAddDocument from "./FormAddDocument";
 import TableDocs from "./TableDocs";
 
@@ -18,27 +19,8 @@ const AddDocument: FC<DocsFormPros> = ({
   title,
 }) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
-
-  const onAddDocument = (values: any) => {
-    setChallenge((data: IChallenge) => {
-       return {
-        ...data,
-        documents: {
-          ...data.documents,
-          ...(typeDoc === "general"
-            ? { general: [...data.documents.general, values] }
-            : typeDoc === "technicians"
-            ? { technical: [...data.documents.technical, values] }
-            : typeDoc === "administrative" && {
-                administrative: [...data.documents.administrative, values],
-              }),
-        },
-        ...(typeDoc === "report" && {
-          reports: [...data.reports, values],
-        }),
-      };
-    });
-  };
+  const { typesDocument, onAddDocument, onDelete, editListDocs } =
+    useDocument(typeDoc, setChallenge, challenge);
 
   return (
     <div className="container-fluid">
@@ -74,6 +56,8 @@ const AddDocument: FC<DocsFormPros> = ({
               innerRef={form_ref}
               onSubmit={onAddDocument}
               typeDoc={typeDoc}
+              editListDocs={editListDocs}
+              typesDocument={typesDocument}
             />
           </Card>
           <Card>
@@ -91,7 +75,10 @@ const AddDocument: FC<DocsFormPros> = ({
                   : challenge.reports
               }
               setChallenge={setChallenge}
+              onDelete={onDelete}
               typeDoc={typeDoc}
+              typesDocument={typesDocument}
+              editListDocs={editListDocs}
             />
           </Card>
         </div>

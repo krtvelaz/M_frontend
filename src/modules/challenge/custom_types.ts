@@ -6,7 +6,7 @@ export interface IChallenge {
 
 export interface IGeneralInformation {
   challenge_name: string;
-  profiles: [];
+  profiles: string[];
   dimension: string | null;
   dependence: string | null;
   start_date: string;

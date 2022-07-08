@@ -21,27 +21,29 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
   general_,
   innerRef,
   onSubmit,
-}) => {
+}) => {  
   const initialValues = {
-    general_information: {
-      challenge_name: "",
-      profiles: [],
-      dimension: null,
-      dependence: null,
-      start_date: "",
-      closing_date: "",
-      description: "",
-      commune: null,
-      neighborhood: null,
-      main_image: "",
-      economic_amount: "",
-      video_url: "",
-      expected_results: "",
-      important_data: "",
-      population_impact: "",
-      challenge_details: "",
-      impact_type: "",
-    },
+    general_information: general_
+      ? { ...general_ }
+      : {
+          challenge_name: "",
+          profiles: [],
+          dimension: null,
+          dependence: null,
+          start_date: "",
+          closing_date: "",
+          description: "",
+          commune: null,
+          neighborhood: null,
+          main_image: "",
+          economic_amount: "",
+          video_url: "",
+          expected_results: "",
+          important_data: "",
+          population_impact: "",
+          challenge_details: "",
+          impact_type: "",
+        },
   };
 
   const schema = Yup.object().shape({
@@ -359,7 +361,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   component={DocumentInput}
                   tipos_doc="JPG, JPEG."
                   maximum_size={2}
-                  file_type='img'
+                  file_type="img"
                   type="text"
                   id="main_image_id"
                   name="general_information.main_image"

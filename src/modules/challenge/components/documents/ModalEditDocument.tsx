@@ -10,12 +10,16 @@ interface ModalPros {
   doc: IDocument;
   indexDoc: number;
   setChallenge: any;
+  typesDocument: any[];
+  editListDocs: (value: string) => void;
 }
 const ModalEditDocument: FC<ModalPros> = ({
   typeDoc,
   doc,
   indexDoc,
   setChallenge,
+  typesDocument,
+  editListDocs,
 }) => {
   const [is_visible, set_is_visible] = useState<boolean>(false);
   const open = () => set_is_visible(true);
@@ -74,6 +78,8 @@ const ModalEditDocument: FC<ModalPros> = ({
           onSubmit={onEditDocument}
           typeDoc={typeDoc}
           doc={doc}
+          typesDocument={typesDocument}
+          editListDocs={editListDocs}
         />
       </Modal>
     </>

@@ -10,26 +10,12 @@ interface DocsFormPros {
   documents: IDocument[];
   setChallenge: any;
   typeDoc?: "general" | "administrative" | "technicians" | "report";
+  onDelete: (index: number) => void;
+  typesDocument: any[];
+  editListDocs: (value: string) => void;
 }
 
-const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, setChallenge }) => {
-  const onDelete = (index: number) => {
-    const newDocuments = documents.filter((doc, i) => i !== index);
-    setChallenge((data: IChallenge) => {
-      return {
-        ...data,
-        documents: {
-          ...data.documents,
-          ...(typeDoc === "general"
-            ? { general: newDocuments }
-            : typeDoc === "technicians"
-            ? { technical: newDocuments }
-            : { administrative: newDocuments }),
-        },
-        ...(typeDoc === "report" && { reports: newDocuments }),
-      };
-    });
-  };
+const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, setChallenge, onDelete, typesDocument, editListDocs }) => {
 
   const table_columns: any = [
     {
@@ -97,6 +83,8 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, setChallenge }) => {
                 doc={values}
                 indexDoc={index}
                 setChallenge={setChallenge}
+                typesDocument={typesDocument}
+                editListDocs={editListDocs}
               />
             );
           },

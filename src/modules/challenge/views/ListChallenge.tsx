@@ -1,4 +1,5 @@
 import { Popover, Radio } from "antd";
+import { pencil } from "../../../utils/assets/img";
 import { Card, Link, Table } from "../../../utils/ui";
 
 const ListChallenge = () => {
@@ -40,7 +41,6 @@ const ListChallenge = () => {
       align: "left" as "left",
       render: (value: string) => {
         const onChange = (e: any) => {
-          console.log("radio checked", e.target.value);
         };
         return (
           <Radio.Group onChange={onChange} value={value}>
@@ -66,8 +66,26 @@ const ListChallenge = () => {
       children: [
         {
           title: <span style={{ fontSize: "9px" }}>Editar</span>,
+          dataIndex: "id",
           fixed: "right",
           align: "center" as "center",
+          render: (id: string) => {
+            return (
+              <Link
+                to={`/challenge/edit/${id}/`}
+                name=""
+                avatar={false}
+                icon={
+                  <img
+                    src={pencil}
+                    style={{ cursor: "pointer" }}
+                    className="img-fluid"
+                    alt=""
+                  />
+                }
+              />
+            );
+          },
         },
         {
           title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
