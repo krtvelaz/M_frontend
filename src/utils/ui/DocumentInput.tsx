@@ -62,7 +62,7 @@ const DocumentInput: FC<InputDocProps> = ({
         </div>
       </div>
       <div style={{ fontSize: "10px", marginTop: "5px" }}>
-        Tipo de archivo: {file_type} Máx: {maximum_size}MB.
+        Tipo de archivo: {file_type === 'img' ? 'PNG, JPG.' : file_type} Máx: {maximum_size}MB.
       </div>
       <input
         ref={fileInputRef}

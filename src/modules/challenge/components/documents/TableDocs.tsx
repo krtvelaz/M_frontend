@@ -3,7 +3,7 @@ import { swal_error, Table } from "../../../../utils/ui";
 import { trash } from "../../../../utils/assets/img";
 import { IChallenge, IDocument } from "../../custom_types";
 import ModalEditDocument from "./ModalEditDocument";
-import ModalDetailDocument from "./ModalDetailDocument";
+import ModalDetailDocument from "../../../../utils/ui/ModalDetailDocument";
 import moment from "moment";
 import Swal from "sweetalert2";
 interface DocsFormPros {

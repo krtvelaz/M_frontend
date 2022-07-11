@@ -100,16 +100,11 @@ const ListChallenge = () => {
       <div className="row justify-content-center">
         <div className="col-md-12">
           <div className="row">
-            <div
-              style={{
-                fontSize: "14px",
-                fontFamily: "Montserrat-SemiBold",
-                margin: "0 0 5px 10px",
-              }}
+            <h5
               className="col d-flex justify-content-start"
             >
               Gestionar Retos
-            </div>
+            </h5>
             <div
               style={{
                 margin: "0 20px 10px 0",

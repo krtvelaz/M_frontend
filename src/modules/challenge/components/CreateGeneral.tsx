@@ -15,7 +15,7 @@ const CreateGeneral: FC<GeneralInformationProps> = ({ general_information, inner
           <Card
             title={
               <>
-                <span style={{ fontSize: "14px" }}>Información general</span>
+                Información general
                 <span style={{ color: "#AD0808", fontSize: "10px" }}>
                   {" "}
                   - Todos los campos son obligatorios

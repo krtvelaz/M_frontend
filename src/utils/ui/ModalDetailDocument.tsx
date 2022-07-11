@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 import { FC, useState } from "react";
-import { watch } from "../../../../utils/assets/img";
+import { watch } from "../assets/img";
 
 interface DocumetFormProps {
   document: File;
