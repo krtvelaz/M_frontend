@@ -12,3 +12,9 @@ export interface ITestimony {
     title: string;
     description: string;
 }
+export interface IIndicator {
+    number_challenge:number;
+    number_person:number;
+    number_actor:number;
+    number_solution:number;
+}

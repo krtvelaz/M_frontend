@@ -1,14 +1,12 @@
 import { FormikProps, FormikValues } from "formik"
 import { useRef, useState } from "react"
 import { Card } from "../../../utils/ui"
-import { swal_success } from "../../../utils/ui/swalAlert"
-import FormMainBanner from "../components/FormMainBanner"
-import FormTestimony from "../components/FormTestimony"
+import FormIndicator from "../components/FormIndicator"
 import ListTestimony from "../components/ListTestimony"
 import { ITestimony } from "../custom_types"
 
 
-const CreateTestimony = () => {
+const CreateIndicator = () => {
      const [data, setData] = useState<ITestimony[]>([])
 
     const form_ref = useRef<FormikProps<FormikValues>>()
@@ -50,30 +48,14 @@ const CreateTestimony = () => {
                     onClick={() => {
                         form_ref.current?.submitForm();
                     }}
-                    // onClick={async () => {
-                    //     const result =  await swal_success.fire({
-                    //         title: "¿Agregar elemento?",
-                    //         showCancelButton: false,
-                    //         showDenyButton: true,
-                    //         confirmButtonText: "Agregar",
-                    //         denyButtonText: `Cancelar`,
-                    //       });
-                    //       if(result.isConfirmed){
-                    //         form_ref.current?.submitForm();
-                    //       }
-                    //     }}
                     >
                     Agregar
                      </button>
                      </div>,
                 ]}>
-                        <FormTestimony innerRef={form_ref} onSubmit={addTestimony}/>
+                        <FormIndicator innerRef={form_ref} onSubmit={addTestimony}/>
                     </Card >
 
-                    <Card>
-                    <h5>Elementos Agregados</h5>
-                        <ListTestimony data={data} onEdit={editTetimony} onDelete={onDelete}/>
-                    </Card>
                 </div>
             </div>
         </div>
@@ -104,4 +86,4 @@ const CreateTestimony = () => {
   )
 }
 
-export default CreateTestimony
+export default CreateIndicator

@@ -22,6 +22,9 @@ const ListTestimony: FC<IListTestimony> = ({
             title:"No.",
             dataIndex:"id",
             align:"center" as "center",
+            render: (data: ITestimony, values: any, i: number) => {
+                return i + 1;
+              },
 
         },
         {
