@@ -1,12 +1,17 @@
 import { Tabs } from "antd";
 import { FormikProps, FormikValues } from "formik";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { swal_error } from "../../../utils/ui";
 import { IPublication, IPublicationInfo } from "../custom_types";
 import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
 
-const PublicationFormTags = () => {
+interface ITagsPublication {
+  type: "create" | "edit";
+}
+
+const PublicationFormTags: FC<ITagsPublication> = ({ type }) => {
   const { TabPane } = Tabs;
   let [
     active_key,
@@ -18,8 +23,9 @@ const PublicationFormTags = () => {
     goBack,
     execute_save,
     callback,
+    setPublication,
   ] = useInit();
-  
+
   return (
     <>
       <div className="h-100 d-flex flex-column">
@@ -29,12 +35,12 @@ const PublicationFormTags = () => {
               <span
                 style={{ fontSize: "14px", fontFamily: "Montserrat-SemiBold" }}
               >
-                Nueva publicación
+                {type === "create" ? "Nueva publicación" : "Editar publicación"}
               </span>
             </div>
             <div className="">
               <Tabs
-                activeKey='2'
+                activeKey={active_key}
                 className="w-100 h-100"
                 onChange={callback}
               >
@@ -42,12 +48,15 @@ const PublicationFormTags = () => {
                   <GeneralInformation
                     innerRef={steps[0].ref}
                     onSubmit={steps[0].onSave}
+                    publication={publication}
                   />
                 </TabPane>
                 <TabPane tab="Agregar Galería" key="2" disabled={max < 1}>
                   <AddGallery
-                  onSubmit={steps[1].onSave}
-                  images={ publication.gallery }
+                    innerRef={steps[1].ref}
+                    onSubmit={steps[1].onSave}
+                    images={publication.gallery}
+                    setImages={setPublication}
                   />
                 </TabPane>
               </Tabs>
@@ -66,17 +75,24 @@ const PublicationFormTags = () => {
             Atrás
           </button>
           <div className="flex-fill" />
-
-          <button
-            type="button"
-            className="btn btn-outline-primary me-3"
-            onClick={next_tab}
-          >
-            Agregar Galería
-          </button>
-          {/* <button type="button" className="btn btn-primary" onClick={execute_save}>
-            Publicar
-          </button> */}
+          {show_next && (
+            <button
+              type="button"
+              className="btn btn-outline-primary me-3"
+              onClick={next_tab}
+            >
+              Agregar Galería
+            </button>
+          )}
+          {!show_next && (
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={execute_save}
+            >
+              Publicar
+            </button>
+          )}
         </div>
       </div>
     </>
@@ -93,6 +109,7 @@ const useInit = (): [
   () => void,
   () => void,
   (key: string) => void,
+  any
 ] => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -120,33 +137,52 @@ const useInit = (): [
   const steps = [
     {
       ref: useRef<FormikProps<FormikValues>>(),
-      save: async () => {
-          set_is_saving(true);          
-          await steps[0].ref.current?.submitForm();
+      save: async (back: boolean) => {
+        set_is_saving(true);
+        await steps[0].ref.current?.submitForm();
       },
-      onSave: async (values: any) => {
-        console.log(1, 'guardado');
-          set_is_saving(false);
+      onSave: (values: IPublicationInfo) => {
+        setPublication((data: IPublication) => {
+          return {
+            ...data,
+            general_information: values,
+          };
+        });
+        set_is_saving(false);
       },
-  },
+    },
     {
       ref: useRef<FormikProps<FormikValues>>(),
-      save: async (is_finish = false) => {
-        set_is_saving(true);
-        if (is_finish) {
-          await steps[1].ref.current?.submitForm();
+      save: async (back: boolean, is_finish = false) => {
+        if (back) {
+          set_is_saving(false);
+          return;
         }
+        if (is_finish) {
+          console.log("volver al tablero y guardar");
+          navigate("/publication/list");
+          return;
+        }
+        set_is_saving(true);
+        await steps[1].ref.current?.submitForm();
       },
       onSave: async (values: IPublicationInfo) => {
         set_is_saving(false);
+        if (publication.gallery.length >= 3) {
+          await swal_error.fire({
+            title: "Ha llegado al máximo de elementos",
+            html:
+              '<div class="mysubtitle">Máximo de 3 fotos</div>' +
+              '<div class="mytext">Se debe eliminar alguno para que se pueda publicar uno nuevo.</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
+          return;
+        }
         setPublication({
           ...publication,
-          gallery : [
-            ...publication.gallery,
-            values
-          ]
-        })
-        
+          gallery: [...publication.gallery, values],
+        });
       },
     },
   ];
@@ -162,30 +198,31 @@ const useInit = (): [
   const prev_tab = () => {
     const key = parseInt(active_key);
     const prev = key - 1;
+    const back = true;
     if (prev > 0) {
-      callback(`${prev}`);
+      callback(`${prev}`, back);
     }
   };
 
-  const callback = (key: string) => {    
+  const callback = (key: string, back = false) => {
     const int_key = parseInt(active_key);
     const save = steps[int_key - 1]?.save;
     save &&
-      save().then(() => {
+      save(back).then(() => {
         set_go_next(key);
       });
   };
 
   const goBack = () => {
     if (active_key === "1") {
-      navigate("challenge/list");
+      navigate("/publication/list");
     } else {
       prev_tab();
     }
   };
 
   const execute_save = async () => {
-    await steps[limit - 1].save(true);
+    await steps[limit - 1].save(false, true);
   };
 
   useEffect(() => {
@@ -216,6 +253,7 @@ const useInit = (): [
     goBack,
     execute_save,
     callback,
+    setPublication,
   ];
 };
 

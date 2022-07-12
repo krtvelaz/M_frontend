@@ -1,14 +1,17 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { trash } from '../../../utils/assets/img';
 import { swal_error, Table } from '../../../utils/ui'
 import ModalDetailDocument from '../../../utils/ui/ModalDetailDocument';
 import { IPublicationInfo } from '../custom_types';
+import ModalEditGallery from './ModalEditGallery';
 
 interface IGalleryProps {
   images: IPublicationInfo[];
+  onEdit: (values: IPublicationInfo, index: number) => any;
+  onDelete: (index: number) => any;
 }
 
-const ListPostulation: FC<IGalleryProps> = ({ images}) => {
+const ListPostulation: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
   const table_columns = [
     {
       title: 'No.',
@@ -54,8 +57,8 @@ const ListPostulation: FC<IGalleryProps> = ({ images}) => {
           title: <span style={{ fontSize: "9px" }}>Editar</span>,
           fixed: "right",
           align: "center" as "center",
-          render: (values: any, data: any, index: number) => {
-            return  "";
+          render: (values:  IPublicationInfo, data: any, index: number) => {
+            return  <ModalEditGallery onSubmit={(publication) => onEdit(publication, index)}  gallery={values} />;
           },
         },
         {
@@ -81,7 +84,7 @@ const ListPostulation: FC<IGalleryProps> = ({ images}) => {
                     denyButtonText: `Cancelar`,
                   });
                   if(result.isConfirmed){                          
-                    // eliminar
+                    onDelete(index)
                   }
                 }}
               />
@@ -92,7 +95,7 @@ const ListPostulation: FC<IGalleryProps> = ({ images}) => {
     },
   ]
   return (
-   <Table columns={table_columns} items={images}/>
+   <Table columns={table_columns} items={images} with_pagination={false}/>
   )
 }
 

@@ -2,7 +2,7 @@ import { Popover, Radio } from "antd";
 import { pencil, trash } from "../../../utils/assets/img";
 import { Card, Link, swal_error, Table } from "../../../utils/ui";
 
-const ListChallenge = () => {
+const ListPublication = () => {
   const table_columns: any = [
     {
       title: "No.",
@@ -11,7 +11,7 @@ const ListChallenge = () => {
       align: "center" as "center",
     },
     {
-      title: "Nombre del reto",
+      title: "Nombre",
       dataIndex: "challenge_name",
       align: "left" as "left",
       render: (value: string) => {
@@ -31,16 +31,18 @@ const ListChallenge = () => {
       },
     },
     {
-      title: "Creado por",
+      title: "Tipo",
       dataIndex: "audit_trail",
       align: "left" as "left",
     },
     {
-      title: "Publicado",
+      title: "Publicada",
       dataIndex: "is_published",
       align: "left" as "left",
       render: (value: string) => {
-        const onChange = (e: any) => {};
+        const onChange = (e: any) => {
+          // llamar editar publicacion
+        };
         return (
           <Radio.Group onChange={onChange} value={value}>
             <Radio value="Si">Si</Radio>
@@ -50,13 +52,8 @@ const ListChallenge = () => {
       },
     },
     {
-      title: "Fecha inicio",
+      title: "Creado por",
       dataIndex: "start_date",
-      align: "left" as "left",
-    },
-    {
-      title: "Fecha cierre",
-      dataIndex: "closing_date",
       align: "left" as "left",
     },
     {
@@ -71,7 +68,7 @@ const ListChallenge = () => {
           render: (id: string) => {
             return (
               <Link
-                to={`/challenge/edit/${id}/`}
+                to={`/publication/edit/${id}/`}
                 name=""
                 avatar={false}
                 icon={
@@ -98,7 +95,7 @@ const ListChallenge = () => {
                 alt=""
                 style={{ cursor: "pointer" }}
                 onClick={async () => {
-                  const result = await swal_error.fire({
+                const result =  await swal_error.fire({
                     title: "Eliminar elemento",
                     html:
                       '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
@@ -108,7 +105,7 @@ const ListChallenge = () => {
                     confirmButtonText: "Aceptar",
                     denyButtonText: `Cancelar`,
                   });
-                  if (result.isConfirmed) {
+                  if(result.isConfirmed){
                   }
                 }}
               />
@@ -124,7 +121,7 @@ const ListChallenge = () => {
         <div className="col-md-12">
           <div className="row">
             <h5 className="col d-flex justify-content-start">
-              Gestionar Retos
+              Gestionar publicaciones
             </h5>
             <div
               style={{
@@ -132,11 +129,12 @@ const ListChallenge = () => {
               }}
               className="col d-flex justify-content-end"
             >
-              <Link to="/challenge/create" name="Crear Reto" iconText="+" />
+              <Link to="/publication/create" name="Crear Publicación" iconText="+" />
             </div>
           </div>
 
           <Card>
+            <h4>Lista de retos</h4>
             <Table
               columns={table_columns}
               // title="Lista de retos"
@@ -159,4 +157,4 @@ const ListChallenge = () => {
   );
 };
 
-export default ListChallenge;
+export default ListPublication;

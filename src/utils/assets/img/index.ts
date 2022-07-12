@@ -8,3 +8,4 @@ export { default as inputCalendar } from './input-calendar.svg';
 export { default as pencil } from './pencil.svg';
 export { default as trash } from './trash.svg';
 export { default as watch } from './watch.svg';
+export { default as arrowMenu } from './arrowMenu.svg';

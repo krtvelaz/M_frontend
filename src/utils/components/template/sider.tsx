@@ -26,7 +26,7 @@ const sider: FC<{ width: number }> = ({ width }) => {
       label: "Publicaciones",
       children: [
         {
-          path: "/news/create",
+          path: "/publication/create",
           label: "Crear Noticia",
         },
         {
@@ -34,8 +34,8 @@ const sider: FC<{ width: number }> = ({ width }) => {
           label: "Crear Evento",
         },
         {
-          path: "/publication/create",
-          label: "Crear Publicaciones",
+          path: "/publication/list",
+          label: "Gestionar publicaciones",
         },
       ],
     },

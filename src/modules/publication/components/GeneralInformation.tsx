@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { Card } from "../../../utils/ui";
+import { IPublication } from "../custom_types";
 import FormPublication from "./FormPublication";
 
 interface IGeneralInformationProps {
   innerRef: any;
   onSubmit: (values: any) => void;
+  publication: IPublication
 }
 
-const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit}) => {
+const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, publication}) => {
   return (
     <div className="container-fluid">
       <div className="row">
@@ -24,9 +26,10 @@ const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit})
             }
           >
            <FormPublication
-              type="gallery"
+              type="general"
               innerRef={innerRef}
               onSubmit={onSubmit}
+              publication={publication.general_information}
             />
           </Card>
         </div>

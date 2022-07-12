@@ -2,26 +2,26 @@ import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
 import { pencil } from "../../../utils/assets/img";
-import { IMainBanner } from "../custom_types";
-import FormMainBanner from "./FormMainBanner";
+import { IPublicationInfo } from "../custom_types";
+import FormPublication from "./FormPublication";
 
-interface BannerFormPros {
-  data_image?: IMainBanner;
-  onSubmit: (values: IMainBanner) => any;
+interface ModalEditFormPros {
+  gallery: IPublicationInfo;
+  onSubmit: (values: IPublicationInfo) => any;
 }
 
-const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
+const ModalEditGallery: FC<ModalEditFormPros> = ({
+    gallery,
+  onSubmit,
+}) => {
   const [is_visible, set_is_visible] = useState<boolean>(false);
   const form_ref = useRef<FormikProps<FormikValues>>();
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
-
-  const editImage = (value: IMainBanner) => {
-    onSubmit(value);
+  const edit = (values: any) => {
+    onSubmit(values);
     set_is_visible(false);
-    
   };
- 
   return (
     <>
       <img
@@ -56,10 +56,10 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
           </button>,
         ]}
       >
-        <FormMainBanner innerRef={form_ref} onSubmit={editImage} data_image={data_image} />
+        <FormPublication publication={gallery} innerRef={form_ref} onSubmit={edit} type="gallery" />
       </Modal>
     </>
   );
 };
 
-export default ModalEditMainBanner;
+export default ModalEditGallery;

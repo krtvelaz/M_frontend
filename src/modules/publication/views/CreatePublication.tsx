@@ -2,7 +2,7 @@ import PublicationFormTags from "../components/PublicationFormTags"
 
 const CreatePublication = () => {
   return (
-    <PublicationFormTags />
+    <PublicationFormTags type="create" />
   )
 }
 

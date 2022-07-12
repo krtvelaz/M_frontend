@@ -1,6 +1,7 @@
 import { IRoute } from "../../utils/components/router/custom_types";
-import CreateNews from "./views/CreateNews";
+import EditPublication from "./EditPublication";
 import CreatePublication from "./views/CreatePublication";
+import ListPublication from "./views/ListPublication";
 
 // import store from '../../config/store';
 ;
@@ -11,10 +12,26 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: true,
             can_access: true,
+            path: '/publication/list',
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Gestionar publicaciones' },
+                ],
+            },
+            component: ListPublication,
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access: true,
             path: '/publication/create',
             template_props: {
                 breadcrumbs: [
-                    { name: 'Carrusel principal' },
+                    {
+                        name: 'Gestionar publicaciones',
+                        to: '/publication/list',
+                    },
+                    { name: 'Nueva publicación' },
                 ],
             },
             component: CreatePublication,
@@ -23,13 +40,17 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: true,
             can_access: true,
-            path: '/news/create',
+            path: '/publication/edit/:id',
             template_props: {
                 breadcrumbs: [
-                    { name: 'Carrusel principal' },
+                    {
+                        name: 'Gestionar publicaciones',
+                        to: '/publication/list',
+                    },
+                    { name: 'Editar publicación' },
                 ],
             },
-            component: CreateNews,
+            component: EditPublication,
         },
     ];
 };

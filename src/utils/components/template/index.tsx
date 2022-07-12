@@ -118,7 +118,7 @@ const Template: FC<ITemplate> = ({
           </div>
         </div>
         <div className="drawer-content d-flex flex-column">
-          <div style={{ padding: 16 }}>
+          <div style={{ padding: '16px 0px 16px 16px' }}>
             <Menu
               mode="inline"
               selectedKeys={[]}

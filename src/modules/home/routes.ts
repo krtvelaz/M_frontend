@@ -11,7 +11,9 @@ const get_routes = (): IRoute[] => {
             path: '/',
             component: Home,
             template_props: {
-                show_breadcrumbs: false,
+                breadcrumbs: [
+                    { name: 'Inicio' },
+                ],
             },
         },
     ];

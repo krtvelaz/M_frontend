@@ -2,37 +2,54 @@ import { Field, Form, Formik } from "formik";
 import { FC } from "react";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage, Select } from "../../../utils/ui";
+import { IPublication, IPublicationInfo } from "../custom_types";
 
 interface PublicationPros {
   innerRef: any;
   onSubmit: (values: any) => void;
   type: "general" | "gallery";
+  publication?: IPublicationInfo;
 }
 
-const FormPublication: FC<PublicationPros> = ({ innerRef, type, onSubmit }) => {
+const FormPublication: FC<PublicationPros> = ({
+  innerRef,
+  type,
+  onSubmit,
+  publication,
+}) => {
   const initial_values = {
     title: "",
     description: "",
     image: "",
+    publication_type: "",
+    ...publication,
   };
 
   const schema = Yup.object().shape({
     title: Yup.string().required("Campo obligatorio"),
-    description: Yup.string().required("Campo obligatorio"),
+
     image: Yup.string().required("Campo obligatorio"),
+    ...(type === "general"
+      ? {
+          publication_type: Yup.string().required("Campo Obligatorio"),
+        }
+      : {
+          description: Yup.string().required("Campo obligatorio"),
+        }),
   });
 
   const submit = (values: any, actions: any) => {
     onSubmit(values);
     actions.setSubmitting(false);
-};
+    if (type === "gallery") actions.resetForm();
+  };
   return (
     <Formik
       enableReinitialize
       onSubmit={submit}
       initialValues={initial_values}
       validationSchema={schema}
-        innerRef={innerRef}
+      innerRef={innerRef}
     >
       {({ values, handleChange }) => {
         return (
@@ -59,15 +76,13 @@ const FormPublication: FC<PublicationPros> = ({ innerRef, type, onSubmit }) => {
                       },
                     ]}
                     placeholder="Seleccionar…"
-                    
-                    
                   />
-                  <ErrorMessage name="publication_type"/>
+                  <ErrorMessage name="publication_type" />
                 </div>
               )}
               <div className="col-6">
                 <label htmlFor="image_id" className="form-label">
-                  Imagen {type === 'general' && 'principal'}
+                  Imagen {type === "general" && "principal"}
                 </label>
                 <Field
                   component={DocumentInput}

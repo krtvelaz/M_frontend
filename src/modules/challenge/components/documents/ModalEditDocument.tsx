@@ -45,7 +45,7 @@ const ModalEditDocument: FC<ModalPros> = ({
         src={pencil}
         style={{ cursor: "pointer" }}
         onClick={() => open()}
-        className="img-fluid"
+        className="img-pencil"
         alt=""
       />
       <Modal
