@@ -1,10 +1,9 @@
 import { FormikProps, FormikValues } from "formik"
 import { useRef, useState } from "react"
 import { Card } from "../../../utils/ui"
-import { swal_success } from "../../../utils/ui/swalAlert"
-import FormMainBanner from "../components/FormMainBanner"
-import FormTestimony from "../components/FormTestimony"
-import ListTestimony from "../components/ListTestimony"
+import { swal, swal_error, swal_success } from "../../../utils/ui/swalAlert"
+import FormTestimony from "../components/testimony/FormTestimony"
+import ListTestimony from "../components/testimony/ListTestimony"
 import { ITestimony } from "../custom_types"
 
 
@@ -12,9 +11,22 @@ const CreateTestimony = () => {
      const [data, setData] = useState<ITestimony[]>([])
 
     const form_ref = useRef<FormikProps<FormikValues>>()
-    const addTestimony = (values:ITestimony) =>{
-        setData([...data, values])
+    const addTestimony = async (values:ITestimony) =>{
+        if (data.length > 3) {
+            await swal_error.fire({
+            title: "Ha llegado al máximo de elementos",
+            html:
+              '<div class="mysubtitle">Máximo de 4 testimonios</div>' +
+              '<div class="mytext">Se debe eliminar un elemento para poder publicar uno nuevo.</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
+          return 
+        }
+        setData([...data, values]);
+         
     }
+
 
     const editTetimony = (values:ITestimony, index: number) => {
         setData((data)=>{
@@ -50,18 +62,6 @@ const CreateTestimony = () => {
                     onClick={() => {
                         form_ref.current?.submitForm();
                     }}
-                    // onClick={async () => {
-                    //     const result =  await swal_success.fire({
-                    //         title: "¿Agregar elemento?",
-                    //         showCancelButton: false,
-                    //         showDenyButton: true,
-                    //         confirmButtonText: "Agregar",
-                    //         denyButtonText: `Cancelar`,
-                    //       });
-                    //       if(result.isConfirmed){
-                    //         form_ref.current?.submitForm();
-                    //       }
-                    //     }}
                     >
                     Agregar
                      </button>
@@ -71,7 +71,7 @@ const CreateTestimony = () => {
                     </Card >
 
                     <Card>
-                    <h5>Elementos Agregados</h5>
+                    <h4>Elementos Agregados</h4>
                         <ListTestimony data={data} onEdit={editTetimony} onDelete={onDelete}/>
                     </Card>
                 </div>

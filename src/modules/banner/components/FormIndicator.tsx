@@ -2,32 +2,41 @@ import { Formik, Form, FormikProps, FormikValues, Field } from "formik";
 import { FC, MutableRefObject } from "react";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage } from "../../../utils/ui";
-import { ITestimony } from "../custom_types";
+import { IIndicator } from "../custom_types";
 
-interface BannerFormPros {
+interface IndicarFormPros {
   innerRef: any;
   onSubmit: (values:any, form?:any) => any;
-  testimony?: ITestimony
+  indicator?: IIndicator
 }
-const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => { 
+const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) => { 
 
     const initial_values = {
-        image_logo:"",
-        image_entrepreneur:"",
-        title:"",
-        description:"",
-        ...testimony
+        number_challenge:"0",
+        number_person:"0",
+        number_actor:"0",
+        number_solution:"0",
+        description_challenge:"",
+        description_person:"",
+        description_actor:"",
+        description_solution:"",
+        ...indicator
     };
 
     const schema = Yup.object().shape({
-        title: Yup.string().required("Campo obligatorio"),
-        description: Yup.string().required("Campo obligatorio"),
-        image_entrepreneur: Yup.string().required("Campo obligatorio"),
-        image_logo: Yup.string().required("Campo obligatorio"), 
+        number_challenge:Yup.string().required("Campo obligatorio"),
+        number_person:Yup.string().required("Campo obligatorio"),
+        number_actor:Yup.string().required("Campo obligatorio"),
+        number_solution:Yup.string().required("Campo obligatorio"),
+        description_challenge:Yup.string().required("Campo obligatorio"),
+        description_person:Yup.string().required("Campo obligatorio"),
+        description_actor:Yup.string().required("Campo obligatorio"),
+        description_solution:Yup.string().required("Campo obligatorio"),
     });
   
     const submit = (values: any, form: any) => {
         onSubmit(values);
+        
     };
     
     return (
@@ -42,40 +51,41 @@ const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => 
           return (
             <Form >
                 <div className="row ">
-                    <div className="col-6 col-md-6 p-2   ">
-                        <label htmlFor="title_id" className="form-label">
-                        Titulo
-                        </label>
-                        <Field
-                        type="number"
-                        className="form-control"
-                        id="title_id"
-                        name="title"
-                        autoComplete="off"
-                        maxLength={6}
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                        <ErrorMessage name="title" withCount max={6} />
-                    </div>
-
-                    <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description" className="form-label">
-                        Descripción
+                <div className="col-6 col-md-6   ">
+                        <label htmlFor="number_challenge_id" className="form-label">
+                        Número de Retos lanzados
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="description_id"
-                        name="description"
+                        id="number_challenge_id"
+                        name="number_challenge"
+                        autoComplete="off"
+                        min={0}
+                        max={999999}
+                        onChange={(e:any) => {
+                            e.preventDefault();
+                            const { value } = e.target;
+                            const regex = /^[0-9]{0,6}$/;
+                            if (regex.test(value.toString())) {
+                                handleChange(e);
+                            }
+                        }
+                    }
+                        />
+                        <ErrorMessage name="number_challenge" withCount max={6} />
+                    </div>
+
+                    <div className={`col-6 col-md-6  `}>
+                        <label htmlFor="description_challenge_id" className="form-label">
+                        Descripción
+                        </label>
+                        <Field
+                        as="textarea"
+                        style={{ height: "38px" }}
+                        className="form-control"
+                        id="description_challenge_id"
+                        name="description_challenge"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -89,45 +99,46 @@ const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => 
                             }
                         }}
                         />
-                        <ErrorMessage name="description" withCount max={48} />
+                        <ErrorMessage name="description_challenge" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
-                    <div className="col-6 col-md-6 p-2   ">
-                        <label htmlFor="title_id" className="form-label">
-                        Titulo
-                        </label>
-                        <Field
-                        type="number"
-                        className="form-control"
-                        id="title_id"
-                        name="title"
-                        autoComplete="off"
-                        maxLength={6}
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                        <ErrorMessage name="title" withCount max={6} />
-                    </div>
-
-                    <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description" className="form-label">
-                        Descripción
+              <div className="col-6 col-md-6   ">
+                        <label htmlFor="number_person_id" className="form-label">
+                        Número de Personas impactadas
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="description_id"
-                        name="description"
+                        id="number_person_id"
+                        name="number_person"
+                        autoComplete="off"
+                        min={0}
+                        max={999999}
+                        onChange={(e:any) => {
+                            e.preventDefault();
+                            const { value } = e.target;
+                            const regex = /^[0-9]{0,6}$/;
+                            if (regex.test(value.toString())) {
+                                handleChange(e);
+                            }
+                        }
+                    }
+                        />
+                        <ErrorMessage name="number_person" withCount max={6} />
+                    </div>
+
+                    <div className={`col-6 col-md-6  `}>
+                        <label htmlFor="description_person_id" className="form-label">
+                        Descripción
+                        </label>
+                        <Field
+                        as="textarea"
+                        style={{ height: "38px" }}
+                        className="form-control"
+                        id="description_person_id"
+                        name="description_person"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -141,45 +152,46 @@ const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => 
                             }
                         }}
                         />
-                        <ErrorMessage name="description" withCount max={48} />
+                        <ErrorMessage name="description_person" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
-                    <div className="col-6 col-md-6 p-2   ">
-                        <label htmlFor="title_id" className="form-label">
-                        Titulo
-                        </label>
-                        <Field
-                        type="number"
-                        className="form-control"
-                        id="title_id"
-                        name="title"
-                        autoComplete="off"
-                        maxLength={6}
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                        <ErrorMessage name="title" withCount max={6} />
-                    </div>
-
-                    <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description" className="form-label">
-                        Descripción
+              <div className="col-6 col-md-6   ">
+                        <label htmlFor="number_actor_id" className="form-label">
+                        Número de Actores conectados
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="description_id"
-                        name="description"
+                        id="number_actor_id"
+                        name="number_actor"
+                        autoComplete="off"
+                        min={0}
+                        max={999999}
+                        onChange={(e:any) => {
+                            e.preventDefault();
+                            const { value } = e.target;
+                            const regex = /^[0-9]{0,6}$/;
+                            if (regex.test(value.toString())) {
+                                handleChange(e);
+                            }
+                        }
+                    }
+                        />
+                        <ErrorMessage name="number_actor" withCount max={6} />
+                    </div>
+
+                    <div className={`col-6 col-md-6  `}>
+                        <label htmlFor="description_actor_id" className="form-label">
+                        Descripción
+                        </label>
+                        <Field
+                        as="textarea"
+                        style={{ height: "38px" }}
+                        className="form-control"
+                        id="description_actor_id"
+                        name="description_actor"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -193,45 +205,46 @@ const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => 
                             }
                         }}
                         />
-                        <ErrorMessage name="description" withCount max={48} />
+                        <ErrorMessage name="description_actor" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
-                    <div className="col-6 col-md-6 p-2   ">
-                        <label htmlFor="title_id" className="form-label">
-                        Titulo
-                        </label>
-                        <Field
-                        type="number"
-                        className="form-control"
-                        id="title_id"
-                        name="title"
-                        autoComplete="off"
-                        maxLength={6}
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                        <ErrorMessage name="title" withCount max={6} />
-                    </div>
-
-                    <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description" className="form-label">
-                        Descripción
+                    <div className="col-6 col-md-6   ">
+                        <label htmlFor="number_solution_id" className="form-label">
+                        Número de Soluciones implementadas
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="description_id"
-                        name="description"
+                        id="number_solution_id"
+                        name="number_solution"
+                        autoComplete="off"
+                        min={0}
+                        max={999999}
+                        onChange={(e:any) => {
+                            e.preventDefault();
+                            const { value } = e.target;
+                            const regex = /^[0-9]{0,6}$/;
+                            if (regex.test(value.toString())) {
+                                handleChange(e);
+                            }
+                        }
+                    }
+                        />
+                        <ErrorMessage name="number_solution" withCount max={6} />
+                    </div>
+
+                    <div className={`col-6 col-md-6  `}>
+                        <label htmlFor="description_solution_id" className="form-label">
+                        Descripción
+                        </label>
+                        <Field
+                        as="textarea"
+                        style={{ height: "38px" }}
+                        className="form-control"
+                        id="description_solution_id"
+                        name="description_solution"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -245,61 +258,11 @@ const FormIndicator: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => 
                             }
                         }}
                         />
-                        <ErrorMessage name="description" withCount max={48} />
+                        <ErrorMessage name="description_solution" withCount max={48} />
                     </div>
               </div>
 
-              {/* <div className="row ">
-              <div className="col-6">
-                        <label htmlFor="image_entrepreneur" className="form-label">
-                        Imagen - Empresario
-                        </label>
-                        <Field
-                        file_type = "img"
-                        maximum_size = {2}
-                        component = {DocumentInput}
-                        className="form-control"
-                        id="image_entrepreneur_id"
-                        name="image_entrepreneur"
-                        autoComplete="off"
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                    </div>
-
-                    <div className="col-6">
-                        <label htmlFor="image_logo" className="form-label">
-                        Imagen - Logo
-                        </label>
-                        <Field
-                        file_type = "img"
-                        maximum_size = {2}
-                        component = {DocumentInput}
-                        className="form-control"
-                        id="image_logo_id"
-                        name="image_logo"
-                        autoComplete="off"
-                        onChange={(e: any) => {
-                            e.preventDefault();
-                            const { value } = e.target;
-                            const regex = new RegExp(
-                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                            );
-                            if (regex.test(value.toString())) {
-                            handleChange(e);
-                            }
-                        }}
-                        />
-                    </div>
-              </div> */}
+              
               
             </Form>
           );

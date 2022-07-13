@@ -1,8 +1,8 @@
 import { Formik, Form, FormikProps, FormikValues, Field } from "formik";
 import { FC, MutableRefObject } from "react";
 import * as Yup from "yup";
-import { DocumentInput, ErrorMessage } from "../../../utils/ui";
-import { ITestimony } from "../custom_types";
+import { DocumentInput, ErrorMessage } from "../../../../utils/ui";
+import { ITestimony } from "../../custom_types";
 
 interface BannerFormPros {
   innerRef: any;
@@ -28,6 +28,8 @@ const FormTestimony : FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) =>
   
     const submit = (values: any, form: any) => {
         onSubmit(values);
+        form.setSubmitting(false);
+        form.resetForm();
     };
     
     return (
@@ -68,11 +70,12 @@ const FormTestimony : FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) =>
                     </div>
 
                     <div className={`col-12 col-md-6 `}>
-                        <label htmlFor="description" className="form-label">
+                        <label htmlFor="description_id" className="form-label">
                         Descripción
                         </label>
                         <Field
-                        type="text"
+                        as="textarea"
+                        style={{ height: "38px" }}
                         className="form-control"
                         id="description_id"
                         name="description"
