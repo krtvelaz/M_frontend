@@ -5,6 +5,8 @@ import { ErrorMessage } from "../../../utils/ui";
 import Input from "../../../utils/ui/CurrencyInput";
 import DateInput from "../../../utils/ui/DateInput";
 import { IEvent } from "../custom_types";
+import * as Yup from "yup";
+
 
 interface EventFormPros {
     innerRef?: any;
@@ -28,6 +30,14 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
         ...event,
     };
 
+    const schema = Yup.object().shape({
+        title: Yup.string().required("Campo obligatorio"),
+        description: Yup.string().required("Campo obligatorio"),
+        start_date: Yup.string().required("Campo obligatorio"),
+        start_time: Yup.string().required("Campo obligatorio"),
+       
+    });
+
     const submit = (values: any, form: any) => {
         onSubmit(values);
     };
@@ -36,7 +46,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
             enableReinitialize
             onSubmit={submit}
             initialValues={initial_values}
-            // validationSchema={schema}
+            validationSchema={schema}
             innerRef={innerRef}
         >
             {({ values, handleChange }) => {
