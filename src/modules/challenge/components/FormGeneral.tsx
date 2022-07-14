@@ -212,6 +212,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
 
                 <ErrorMessage name="general_information.start_date" />
               </div>
+              
               <div className="col-3">
                 <label htmlFor="closing_date_id" className="form-label">
                   Fecha de cierre

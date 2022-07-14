@@ -9,7 +9,7 @@ interface BannerFormPros {
   onSubmit: (values:any, form?:any) => any;
   testimony?: ITestimony
 }
-const FormTestimony : FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => { 
+const FormTestimony: FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) => { 
 
     const initial_values = {
         image_logo:"",
@@ -149,6 +149,7 @@ const FormTestimony : FC<BannerFormPros> = ({ innerRef ,onSubmit, testimony}) =>
           );
         }}
       </Formik>
+      
     );
 }
 

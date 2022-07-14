@@ -1,5 +1,6 @@
 import { IRoute } from "../../utils/components/router/custom_types";
 import EditPublication from "./EditPublication";
+import CreateEvent from "./views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";
 import ListPublication from "./views/ListPublication";
 
@@ -35,6 +36,18 @@ const get_routes = (): IRoute[] => {
                 ],
             },
             component: CreatePublication,
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access: true,
+            path: '/event/create',
+            template_props: {
+                breadcrumbs: [
+                       { name: 'Crear evento',}
+                ],
+            },
+            component: CreateEvent,
         },
         {
             exact: true,
