@@ -10,3 +10,13 @@ export interface IPublicationInfo {
     description: string;
     image: string;
 }
+
+export interface IEvent {
+    title: string;
+    description: string;
+    start_date: string;
+    start_time: string;
+    radiogrou: string;
+    number_quotas: string;
+    
+}
