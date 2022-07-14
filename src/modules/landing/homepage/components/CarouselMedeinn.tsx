@@ -1,5 +1,4 @@
 import { Carousel } from "antd";
-import { prueba } from "../../../utils/assets/img";
 
 const CarouselMedeinn = () => {
   const contentStyle: React.CSSProperties = {

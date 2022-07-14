@@ -1,4 +1,4 @@
-import { IRoute } from "../../utils/components/router/custom_types";
+import { IRoute } from "../../../utils/components/router/custom_types";
 import Homepage from "./views/Homepage";
 
 

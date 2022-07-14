@@ -1,4 +1,3 @@
-import { rocket } from "../../../utils/assets/img";
 import CarouselMedeinn from "../components/CarouselMedeinn";
 
 const Homepage = () => {
