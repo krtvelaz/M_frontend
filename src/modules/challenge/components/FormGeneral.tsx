@@ -81,7 +81,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
         return (
           <Form>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="challenge_name_id" className="form-label">
                   Nombre
                 </label>
@@ -110,7 +110,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={80}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="profiles_id" className="form-label">
                   Perfiles
                 </label>
@@ -145,7 +145,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="dimension_id" className="form-label">
                   Dimensión
                 </label>
@@ -181,7 +181,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.dimension" />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="dependence_id" className="form-label">
                   Dependencia
                 </label>
@@ -200,7 +200,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.dependence" />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="start_date_id" className="form-label">
                   Fecha de inicio
                 </label>
@@ -212,7 +212,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
 
                 <ErrorMessage name="general_information.start_date" />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="closing_date_id" className="form-label">
                   Fecha de cierre
                 </label>
@@ -225,7 +225,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="description_id" className="form-label">
                   Descripción
                 </label>
@@ -254,7 +254,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={250}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="challenge_details_id" className="form-label">
                   Detalles del reto
                 </label>
@@ -285,7 +285,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="commune_id" className="form-label">
                   Comuna
                 </label>
@@ -305,7 +305,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.commune" />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="neighborhood_id" className="form-label">
                   Barrio
                 </label>
@@ -324,7 +324,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.neighborhood" />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="population_impact_id" className="form-label">
                   Detalle población a impactar{" "}
                 </label>
@@ -353,7 +353,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={200}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="main_image_id" className="form-label">
                   Imagen principal
                 </label>
@@ -370,7 +370,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 />
                 <ErrorMessage name="general_information.main_image" />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="dimension_id" className="form-label">
                   Video <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
@@ -388,7 +388,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="important_data_id" className="form-label">
                   Datos importantes{" "}
                 </label>
@@ -417,7 +417,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={500}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="expected_results_id" className="form-label">
                   Resultados esperados{" "}
                 </label>
@@ -448,7 +448,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="impact_type_id" className="form-label">
                   Tipo de impacto
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
@@ -478,7 +478,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   max={100}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="economic_amount_id" className="form-label">
                   Monto económico
                   <span style={{ fontSize: "10px" }}> - Opcional </span>

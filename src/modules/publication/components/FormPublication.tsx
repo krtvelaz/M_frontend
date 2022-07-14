@@ -1,8 +1,9 @@
+import React, { FC, useRef } from "react";
+import { IPublicationInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
-import { FC } from "react";
 import * as Yup from "yup";
-import { DocumentInput, ErrorMessage, Select } from "../../../utils/ui";
-import { IPublication, IPublicationInfo } from "../custom_types";
+import { Select, ErrorMessage, DocumentInput } from "../../../utils/ui";
+
 
 interface PublicationPros {
   innerRef: any;
@@ -37,12 +38,12 @@ const FormPublication: FC<PublicationPros> = ({
           description: Yup.string().required("Campo obligatorio"),
         }),
   });
-
   const submit = (values: any, actions: any) => {
     onSubmit(values);
     actions.setSubmitting(false);
     if (type === "gallery") actions.resetForm();
   };
+
   return (
     <Formik
       enableReinitialize
@@ -52,11 +53,12 @@ const FormPublication: FC<PublicationPros> = ({
       innerRef={innerRef}
     >
       {({ values, handleChange }) => {
+        
         return (
           <Form>
             <div className="row">
               {type === "general" && (
-                <div className="col-6">
+                <div className="col-12 col-md-6 col-lg-6">
                   <label htmlFor="publication_type_id" className="form-label">
                     Tipo de publicación
                   </label>
@@ -80,7 +82,9 @@ const FormPublication: FC<PublicationPros> = ({
                   <ErrorMessage name="publication_type" />
                 </div>
               )}
-              <div className="col-6">
+
+              
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="image_id" className="form-label">
                   Imagen {type === "general" && "principal"}
                 </label>
@@ -96,7 +100,7 @@ const FormPublication: FC<PublicationPros> = ({
                 />
                 <ErrorMessage name="image" />
               </div>
-              <div className={`col-${type === "gallery" ? 6 : 12}`}>
+              <div className={`col-12 col-md-${type === "gallery" ? 6 : 12}`}>
                 <label htmlFor="title_id" className="form-label">
                   Título
                 </label>

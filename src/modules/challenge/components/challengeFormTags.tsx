@@ -61,12 +61,13 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                     active_key={active_key_docs}
                   />
                 </TabPane>
-                <TabPane tab="Informes" key="3" disabled>
+                <TabPane tab="Informes" key="3" disabled={max < 3}>
                   <AddDocument
                     setChallenge={setChallenge}
                     challenge={challenge}
                     typeDoc="report"
                     title="Agregar informe"
+                    seeTable={challenge.reports.length > 0 ? true : false}
                   />
                 </TabPane>
               </Tabs>

@@ -44,7 +44,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
         return (
           <Form>
             <div className="row">
-              <div className={`col-12 col-md-6`}>
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="title_id" className="form-label">
                   Título
                 </label>
@@ -68,7 +68,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                 />
                 <ErrorMessage name="title" withCount max={47} />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="description_id" className="form-label">
                   Descripción
                 </label>
@@ -97,7 +97,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                   max={220}
                 />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="button_url_id" className="form-label">
                   Url botón{" "}
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
@@ -111,7 +111,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                 />
                 <ErrorMessage name="button_url" />
               </div>
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="video_url_id" className="form-label">
                   URL Video{" "}
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
@@ -128,7 +128,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                 </div>
                 <ErrorMessage name="video_url" />
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="background_image_id" className="form-label">
                   Imagen (Fondo)
                 </label>

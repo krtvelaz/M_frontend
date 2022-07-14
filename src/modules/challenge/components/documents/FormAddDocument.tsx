@@ -68,7 +68,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
           <Form>
             <div className="row">
               {typeDoc !== "general" && typeDoc !== "report" && (
-                <div className="col-3">
+                <div className="col-12 col-md-3 col-lg-3">
                   <label htmlFor="profile_id" className="form-label">
                     Perfil
                   </label>
@@ -96,7 +96,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                 </div>
               )}
               {typeDoc !== "report" && (
-                <div className={`col-${typeDoc !== "general" ? 3 : 6} `}>
+                <div className={`col-12 col-md${typeDoc !== "general" ? 3 : 6} `}>
                   <label htmlFor="document_type_id" className="form-label">
                     Tipo de documento
                   </label>
@@ -113,7 +113,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
               )}
 
               {(values.document_type === "Otro" || typeDoc === "report") && (
-                <div className="col-6">
+                <div className="col-12 col-md-6 col-lg-6">
                   <label htmlFor="document_name_id" className="form-label">
                     {typeDoc !== "report" ? "Nombre" : "Titulo del informe"}
                   </label>
@@ -144,7 +144,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                 </div>
               )}
 
-              <div className="col-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="template_id" className="form-label">
                   {typeDoc !== "report" ? (
                     <>

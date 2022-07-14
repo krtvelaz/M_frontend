@@ -85,7 +85,7 @@ const ModalImgTestimony: FC<IModalImage> = ({
         ]}
       >
         <div>
-          <embed src={`${url}#toolbar=0`} width="100%" height="100%" />
+          <embed src={`${url}#toolbar=0`} width="100%" height="375px" />
         </div>
       </Modal>
     </>

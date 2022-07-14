@@ -1,5 +1,5 @@
 import { FormikProps, FormikValues } from "formik";
-import React, { FC, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { Card } from "../../../../utils/ui";
 import { IChallenge, IDocuments } from "../../custom_types";
 import useDocument from "../../hooks/useTypeDocs";
@@ -11,16 +11,21 @@ interface DocsFormPros {
   setChallenge: any;
   challenge: IChallenge;
   title: string;
+  seeTable: boolean;
 }
 const AddDocument: FC<DocsFormPros> = ({
   setChallenge,
   typeDoc,
   challenge,
   title,
+  seeTable,
 }) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
-  const { typesDocument, onAddDocument, onDelete, editListDocs } =
-    useDocument(typeDoc, setChallenge, challenge);
+  const { typesDocument, onAddDocument, onDelete, editListDocs } = useDocument(
+    typeDoc,
+    setChallenge,
+    challenge
+  );
 
   return (
     <div className="container-fluid">
@@ -39,7 +44,10 @@ const AddDocument: FC<DocsFormPros> = ({
               </>
             }
             actions={[
-              <div className="d-flex justify-content-end pe-4 ps-4">
+              <div
+                className="d-flex justify-content-end"
+                style={{ padding: "20px" }}
+              >
                 <button
                   type="button"
                   className="btn btn-outline-primary"
@@ -60,27 +68,29 @@ const AddDocument: FC<DocsFormPros> = ({
               typesDocument={typesDocument}
             />
           </Card>
-          <Card>
-            <span className="my-3" style={{ fontSize: "14px" }}>
-              Documentos agregados
-            </span>
-            <TableDocs
-              documents={
-                typeDoc === "general"
-                  ? challenge.documents.general
-                  : typeDoc === "technicians"
-                  ? challenge.documents.technical
-                  : typeDoc === "administrative"
-                  ? challenge.documents.administrative
-                  : challenge.reports
-              }
-              setChallenge={setChallenge}
-              onDelete={onDelete}
-              typeDoc={typeDoc}
-              typesDocument={typesDocument}
-              editListDocs={editListDocs}
-            />
-          </Card>
+          {seeTable && (
+            <Card>
+              <span className="my-3" style={{ fontSize: "14px" }}>
+                Documentos agregados
+              </span>
+              <TableDocs
+                documents={
+                  typeDoc === "general"
+                    ? challenge.documents.general
+                    : typeDoc === "technicians"
+                    ? challenge.documents.technical
+                    : typeDoc === "administrative"
+                    ? challenge.documents.administrative
+                    : challenge.reports
+                }
+                setChallenge={setChallenge}
+                onDelete={onDelete}
+                typeDoc={typeDoc}
+                typesDocument={typesDocument}
+                editListDocs={editListDocs}
+              />
+            </Card>
+          )}
         </div>
       </div>
     </div>

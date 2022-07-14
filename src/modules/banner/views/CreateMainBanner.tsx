@@ -13,7 +13,7 @@ const CreateMainBanner = () => {
   const dispatch = useDispatch<any>();
 
   const addImage = async (value: IMainBanner) => {
-    if(images.length > 3) {
+    if (images.length > 3) {
       await swal_error.fire({
         title: "Ha llegado al máximo de elementos",
         html:
@@ -37,7 +37,7 @@ const CreateMainBanner = () => {
   const deleteImage = (index: number) => {
     const newImages = images.filter((value, id) => id != index);
     return setImages(newImages);
-  }
+  };
 
   return (
     <div className="h-100 d-flex flex-column">
@@ -51,7 +51,10 @@ const CreateMainBanner = () => {
               <Card
                 title="Agregar elemento"
                 actions={[
-                  <div className="d-flex justify-content-end pe-4 ps-4">
+                  <div
+                    className="d-flex justify-content-end"
+                    style={{ padding: "20px" }}
+                  >
                     <button
                       type="button"
                       className="btn btn-outline-primary"
@@ -66,10 +69,16 @@ const CreateMainBanner = () => {
               >
                 <FormMainBanner innerRef={form_ref} onSubmit={addImage} />
               </Card>
-              <Card>
-                <h4>Elementos agregados</h4>
-                <ListMainBanner data={images} onSubmit={editImage} onDelete={deleteImage} />
-              </Card>
+              {images.length > 0 && (
+                <Card>
+                  <h4>Elementos agregados</h4>
+                  <ListMainBanner
+                    data={images}
+                    onSubmit={editImage}
+                    onDelete={deleteImage}
+                  />
+                </Card>
+              )}
             </div>
           </div>
         </div>
@@ -86,9 +95,13 @@ const CreateMainBanner = () => {
           Atrás
         </button>
         <div className="flex-fill" />
-        <button type="button" className="btn btn-primary" onClick={() => {
-          dispatch(actions.create_main_banner(images))
-        }}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            dispatch(actions.create_main_banner(images));
+          }}
+        >
           Guardar
         </button>
       </div>

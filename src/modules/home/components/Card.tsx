@@ -51,7 +51,7 @@ const Card: FC<CardProps> = ({ name, links, image }) => {
         <ul className="custom-list-style p-0">
           {links.map((link, i) => {
             return (
-              <div className="row my-3">
+              <div className="row my-3" key={`card-${i}`}>
                 <div className="col">
                   <img
                     src={arrowMenu}

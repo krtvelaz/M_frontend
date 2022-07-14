@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { trash } from '../../../utils/assets/img';
-import { swal_error, Table } from '../../../utils/ui'
-import ModalDetailDocument from '../../../utils/ui/ModalDetailDocument';
-import { IPublicationInfo } from '../custom_types';
-import ModalEditGallery from './ModalEditGallery';
+import { ModalDetailDocument, swal_error, Table } from '../../../utils/ui';
+import { IPublicationInfo } from "../custom_types";
+import ModalEditGallery from "./ModalEditGallery";
+
 
 interface IGalleryProps {
   images: IPublicationInfo[];
@@ -11,7 +11,7 @@ interface IGalleryProps {
   onDelete: (index: number) => any;
 }
 
-const ListPostulation: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
+const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
   const table_columns = [
     {
       title: 'No.',
@@ -99,4 +99,4 @@ const ListPostulation: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
   )
 }
 
-export default ListPostulation
+export default ListGallery

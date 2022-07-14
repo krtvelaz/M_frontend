@@ -1,10 +1,8 @@
-import { FormikProps, FormikValues } from "formik";
-import { FC, useRef } from "react";
+import React, { FC } from "react";
 import { Card } from "../../../utils/ui";
 import { IPublication, IPublicationInfo } from "../custom_types";
 import FormPublication from "./FormPublication";
 import ListGallery from "./ListGallery";
-
 interface IGalleryProps {
   innerRef: any;
   onSubmit: (values: any) => void;
@@ -35,7 +33,6 @@ const AddGallery: FC<IGalleryProps> = ({
       };
     });
   };
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -43,7 +40,10 @@ const AddGallery: FC<IGalleryProps> = ({
           <Card
             title="Agregar elementos"
             actions={[
-              <div className="d-flex justify-content-end pe-4 ps-4">
+              <div
+                className="d-flex justify-content-end"
+                style={{ padding: "20px" }}
+              >
                 <button
                   type="button"
                   className="btn btn-outline-primary"
@@ -62,14 +62,16 @@ const AddGallery: FC<IGalleryProps> = ({
               onSubmit={onSubmit}
             />
           </Card>
-          <Card>
-            <h4>Elementos agregados</h4>
-            <ListGallery
-              images={images}
-              onEdit={editImage}
-              onDelete={deleteImage}
-            />
-          </Card>
+          {images.length > 0 && (
+            <Card>
+              <h4>Elementos agregados</h4>
+              <ListGallery
+                images={images}
+                onEdit={editImage}
+                onDelete={deleteImage}
+              />
+            </Card>
+          )}
         </div>
       </div>
     </div>

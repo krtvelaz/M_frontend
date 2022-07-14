@@ -11,7 +11,6 @@ const useRoutes = (props = null): IRoute[] => {
         challengeRoutes,
         bannerRoutes,
         publicationRoutes
-
     ]);
 };
 

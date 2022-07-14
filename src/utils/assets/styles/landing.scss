@@ -1,0 +1,33 @@
+.footer-landing {
+  border-top: 1px solid #e8e8e8;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #e4eff0;
+  text-align: center;
+  display: flex;
+}
+
+.landing-header {
+  padding: 0;
+  height: 100px;
+  background: #e4eff0 0 0 no-repeat padding-box;
+}
+
+.logo {
+  float: left;
+  width: 200px;
+  height: 50px;
+  margin: 16px 24px 16px 100px;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    margin: 16px 24px 16px 30px;
+  }
+}
+
+.img-rocket {
+  float: left;
+}

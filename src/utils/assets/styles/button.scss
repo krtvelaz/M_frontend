@@ -5,10 +5,9 @@
   transition: all 300ms;
   font-size: 12px;
   &:hover {
-    background-color: #00FFE0 !important;
-    border: 1px solid #00FFE0 !important;
+    background-color: #00ffe0 !important;
+    border: 1px solid #00ffe0 !important;
     color: #fff !important;
-    
   }
   &:focus {
     box-shadow: none !important;
@@ -33,4 +32,14 @@
   color: #603ce6 !important;
   background: transparent !important;
   border: 1px solid#603CE6 !important;
+}
+
+.btn-cancel-primary {
+  background-color: #fff !important;
+  color: #505050 !important;
+  &:hover {
+    background-color: #fff !important;
+    border: 1px solid #fff !important;
+    color: #00ffe0 !important;
+  }
 }
