@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { trash } from "../../../utils/assets/img";
-import { swal_error, Table } from "../../../utils/ui"
-import { ITestimony } from "../custom_types"
+import { trash } from "../../../../utils/assets/img";
+import { swal_error, Table } from "../../../../utils/ui"
+import { ITestimony } from "../../custom_types"
 import ModalEditTestimony from "./ModalEditTestimony";
 import ModalImgTestimony from "./ModalImgTestimony";
 
@@ -22,6 +22,9 @@ const ListTestimony: FC<IListTestimony> = ({
             title:"No.",
             dataIndex:"id",
             align:"center" as "center",
+            render: (data: ITestimony, values: any, i: number) => {
+                return i + 1;
+              },
 
         },
         {

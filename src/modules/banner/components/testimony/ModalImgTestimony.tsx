@@ -1,9 +1,8 @@
-import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { FC, useState } from 'react';
-import { watch } from '../../../utils/assets/img';
-import { ITestimony } from '../custom_types';
+import { watch } from '../../../../utils/assets/img';
+import { ITestimony } from '../../custom_types';
 
 interface IModalImage {
     document_entrepreneur: File;
@@ -17,7 +16,6 @@ const ModalImgTestimony: FC<IModalImage> = ({
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const open = () => set_is_visible(true);
     const close = () => set_is_visible(false);
-    // const url = window.URL.createObjectURL(document);
 
     const menu = (
         
@@ -54,7 +52,6 @@ const ModalImgTestimony: FC<IModalImage> = ({
         className="img"
         alt=""
         style={{ cursor: "pointer" }}
-        // onClick={() => open()}
       />
  
   </Dropdown>

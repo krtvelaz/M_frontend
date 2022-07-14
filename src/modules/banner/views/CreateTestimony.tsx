@@ -1,25 +1,42 @@
-import { FormikProps, FormikValues } from "formik";
-import { useRef, useState } from "react";
-import { Card } from "../../../utils/ui";
-import FormMainBanner from "../components/FormMainBanner";
-import FormTestimony from "../components/FormTestimony";
-import ListTestimony from "../components/ListTestimony";
-import { ITestimony } from "../custom_types";
+import { FormikProps, FormikValues } from "formik"
+import { useRef, useState } from "react"
+import { Card } from "../../../utils/ui"
+import { swal, swal_error, swal_success } from "../../../utils/ui/swalAlert"
+import FormTestimony from "../components/testimony/FormTestimony"
+import ListTestimony from "../components/testimony/ListTestimony"
+import { ITestimony } from "../custom_types"
+
 
 const CreateTestimony = () => {
   const [data, setData] = useState<ITestimony[]>([]);
 
-  const form_ref = useRef<FormikProps<FormikValues>>();
-  const addTestimony = (values: ITestimony) => {
-    setData([...data, values]);
-  };
+    const form_ref = useRef<FormikProps<FormikValues>>()
+    const addTestimony = async (values:ITestimony) =>{
+        if (data.length > 3) {
+            await swal_error.fire({
+            title: "Ha llegado al máximo de elementos",
+            html:
+              '<div class="mysubtitle">Máximo de 4 testimonios</div>' +
+              '<div class="mytext">Se debe eliminar un elemento para poder publicar uno nuevo.</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
+          return 
+        }
+        setData([...data, values]);
+         
+    }
 
-  const editTetimony = (values: ITestimony, index: number) => {
-    setData((data) => {
-      data[index] = values;
-      return [...data];
-    });
-  };
+
+    const editTetimony = (values:ITestimony, index: number) => {
+        setData((data)=>{
+            data[index]= values;
+            return [
+                ...data
+            ]
+        })
+        
+    }
 
   const onDelete = (index: number) => {
     const updatedItems = data.filter((_values, i) => i !== index);
@@ -32,7 +49,7 @@ const CreateTestimony = () => {
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="d-flex flex-row mb-3">
-              <h5 className="">Carrusel principal</h5>
+              <h5 className="">Carrusel Testimonios</h5>
             </div>
             <div className="col-md-12">
               <Card

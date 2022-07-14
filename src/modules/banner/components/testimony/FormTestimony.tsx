@@ -1,8 +1,8 @@
 import { Formik, Form, FormikProps, FormikValues, Field } from "formik";
 import { FC, MutableRefObject } from "react";
 import * as Yup from "yup";
-import { DocumentInput, ErrorMessage } from "../../../utils/ui";
-import { ITestimony } from "../custom_types";
+import { DocumentInput, ErrorMessage } from "../../../../utils/ui";
+import { ITestimony } from "../../custom_types";
 
 interface BannerFormPros {
   innerRef: any;
