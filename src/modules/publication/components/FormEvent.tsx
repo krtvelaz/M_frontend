@@ -118,6 +118,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     name="start_time"
                                     id="start_time_id"
                                     style={{ height: "38px" }}
+                                    format="h:mm A"
 
                                 />
 
