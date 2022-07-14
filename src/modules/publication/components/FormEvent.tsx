@@ -13,7 +13,7 @@ interface EventFormPros {
 }
 
 const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
-    const [value_radio, setValue_radio] = useState();
+    const [value_radio, setValue_radio] = useState("no");
     const onChange = (e: any) => {
         setValue_radio(e.target.value);
     };
@@ -129,7 +129,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <label htmlFor="radiogrou_id" className="form-label mb-4">
                                     ¿Cupos limitados?
                                 </label>
-                                <Radio.Group name="radiogroup" id="radiogrou_id" onChange={onChange} value={value_radio} >
+                                <Radio.Group name="radiogroup" id="radiogrou_id" defaultValue={"no"} onChange={onChange} value={value_radio} >
                                     <Radio value={"si"}>Si</Radio>
                                     <Radio value={"no"}>No</Radio>
                                 </Radio.Group>
