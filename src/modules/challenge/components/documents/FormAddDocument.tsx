@@ -25,26 +25,31 @@ const FormAddDocument: FC<DocsFormPros> = ({
   typesDocument,
 }) => {
   const initialValues = {
-    document_type: null,
-    profile: null,
-    template: "",
-    document_name: "",
+    cha_document_type: "",
+    cha_document_name: "",
+    cha_profile: "",
+    cha_template_path: "",
+    cha_template_name: "",
     ...doc,
   };
   const schema = Yup.object().shape({
     ...(typeDoc === "report"
       ? {
-          template: Yup.string().required("Campo obligatorio"),
-          document_name: Yup.string().required("Campo obligatorio"),
+          cha_template_path: Yup.string().required("Campo obligatorio"),
+          cha_document_name: Yup.string().required("Campo obligatorio"),
         }
       : {
-          document_type: Yup.string().nullable().required("Campo Obligatorio"),
-          document_name: Yup.string().when("document_type", {
+          cha_document_type: Yup.string()
+            .nullable()
+            .required("Campo Obligatorio"),
+            cha_document_name: Yup.string().when("document_type", {
             is: "Otro",
             then: Yup.string().required("Campo obligatorio"),
           }),
           ...(typeDoc !== "general" && {
-            profile: Yup.string().nullable().required("Campo obligatorio"),
+            cha_profile: Yup.string()
+              .nullable()
+              .required("Campo obligatorio"),
           }),
         }),
   });
@@ -69,13 +74,13 @@ const FormAddDocument: FC<DocsFormPros> = ({
             <div className="row">
               {typeDoc !== "general" && typeDoc !== "report" && (
                 <div className="col-12 col-md-3 col-lg-3">
-                  <label htmlFor="profile_id" className="form-label">
+                  <label htmlFor="cha_profile_id" className="form-label">
                     Perfil
                   </label>
                   <Field
                     component={Select}
-                    id="profile_id"
-                    name="profile"
+                    id="cha_profile_id"
+                    name="cha_profile"
                     options={[
                       {
                         name: "Grupo de investigación",
@@ -92,35 +97,37 @@ const FormAddDocument: FC<DocsFormPros> = ({
                       editListDocs(value);
                     }}
                   />
-                  <ErrorMessage name="profile" />
+                  <ErrorMessage name="cha_profile" />
                 </div>
               )}
               {typeDoc !== "report" && (
-                <div className={`col-12 col-md${typeDoc !== "general" ? 3 : 6} `}>
-                  <label htmlFor="document_type_id" className="form-label">
+                <div
+                  className={`col-12 col-md-${typeDoc !== "general" ? 3 : 6} `}
+                >
+                  <label htmlFor="cha_document_type_id" className="form-label">
                     Tipo de documento
                   </label>
                   <Field
                     component={Select}
-                    id="document_type_id"
-                    name="document_type"
+                    id="cha_document_type_id"
+                    name="cha_document_type"
                     className=""
                     options={typesDocument}
                     placeholder="Seleccionar…"
                   />
-                  <ErrorMessage name="document_type" />
+                  <ErrorMessage name="cha_document_type" />
                 </div>
               )}
 
-              {(values.document_type === "Otro" || typeDoc === "report") && (
+              {(values.cha_document_type === 16 || typeDoc === "report") && (
                 <div className="col-12 col-md-6 col-lg-6">
-                  <label htmlFor="document_name_id" className="form-label">
+                  <label htmlFor="cha_document_name_id" className="form-label">
                     {typeDoc !== "report" ? "Nombre" : "Titulo del informe"}
                   </label>
                   <Field
                     type="text"
-                    id="document_name_id"
-                    name="document_name"
+                    id="cha_document_name_id"
+                    name="cha_document_name"
                     className="form-control"
                     aria-describedby="nombre del documento"
                     autoComplete="off"
@@ -137,7 +144,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                     }}
                   />
                   <ErrorMessage
-                    name="document_name"
+                    name="cha_document_name"
                     withCount
                     max={typeDoc === "report" ? 50 : 80}
                   />
@@ -145,7 +152,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
               )}
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="template_id" className="form-label">
+                <label htmlFor="cha_template_path_id" className="form-label">
                   {typeDoc !== "report" ? (
                     <>
                       Adjuntar plantilla{" "}
@@ -160,12 +167,12 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   tipos_doc="PDF."
                   maximum_size={5}
                   type="text"
-                  id="template_id"
-                  name="template"
+                  id="cha_template_path_id"
+                  name="cha_template_path"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="template" />
+                <ErrorMessage name="cha_template_path" />
               </div>
             </div>
           </Form>

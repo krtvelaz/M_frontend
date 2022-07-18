@@ -1,8 +1,10 @@
 import { FormikProps, FormikValues } from "formik";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
-import { IChallenge, IDocuments } from "../../custom_types";
+import { IChallenge } from "../../custom_types";
 import useDocument from "../../hooks/useTypeDocs";
+import { actions } from "../../redux";
 import FormAddDocument from "./FormAddDocument";
 import TableDocs from "./TableDocs";
 
@@ -20,12 +22,23 @@ const AddDocument: FC<DocsFormPros> = ({
   title,
   seeTable,
 }) => {
+  const dispatch = useDispatch<any>();
+  const documents: any = useSelector((store: any) => store.challenge.documents_challenge.value);
+  const loading: boolean = useSelector((store: any) => store.challenge.documents_challenge.loading);
+  const { total_results } = useSelector((store: any) => store.challenge.documents_challenge.pagination);
   const form_ref = useRef<FormikProps<FormikValues>>();
   const { typesDocument, onAddDocument, onDelete, editListDocs } = useDocument(
     typeDoc,
     setChallenge,
     challenge
   );
+  const get_documents = async () => {
+    await dispatch(actions.get_list_document(typeDoc));
+  }
+
+  useEffect(() => {
+   get_documents();
+  }, [])
 
   return (
     <div className="container-fluid">

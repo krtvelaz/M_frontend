@@ -5,23 +5,23 @@ export interface IChallenge {
 }
 
 export interface IGeneralInformation {
-  challenge_name: string;
-  profiles: string[];
-  dimension: string | null;
-  dependence: string | null;
-  start_date: string;
-  closing_date: string;
-  description: string;
-  commune: string | null;
-  neighborhood: string | null;
-  main_image: string;
-  economic_amount: string;
-  video_url: string;
-  expected_results: string;
-  important_data: string;
-  population_impact: string;
-  challenge_details: string;
-  impact_type?: string;
+  key?: number;
+  cha_name: string,
+  cha_profile: any,
+  cha_dimension: number | string,
+  cha_dependence: number | string,
+  cha_start_date: string,
+  cha_end_date: string,
+  cha_challenge_detail: string,
+  cha_commune: number | string,
+  cha_neighborhood: number | string,
+  cha_population_detail: string,
+  cha_principal_image: string,
+  cha_principal_image_name: string,
+  cha_video: string,
+  cha_important_data: string,
+  cha_expected_result: string,
+  cha_economic_amount: number | string,
 }
 export interface IDocuments {
   general: IDocument[];
@@ -30,9 +30,10 @@ export interface IDocuments {
 }
 
 export interface IDocument {
-  document_type?: string;
-  template?: File | Blob;
-  profile?: string;
-  document_name?: string;
+  cha_document_type : number | string,
+  cha_document_name: string,
+  cha_profile : string,
+  cha_template_path: string,
+  cha_template_name: string
 }
 

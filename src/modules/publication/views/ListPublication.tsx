@@ -134,7 +134,7 @@ const ListPublication = () => {
           </div>
 
           <Card>
-            <h4>Lista de retos</h4>
+            <h4>Lista de publicaciones</h4>
             <Table
               columns={table_columns}
               // title="Lista de retos"

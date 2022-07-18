@@ -1,110 +1,124 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { IChallenge, IDocument } from "../custom_types";
+import { actions } from "../redux";
 
 const useDocument = (
   typeDoc: "general" | "administrative" | "technicians" | "report",
   setChallenge: any,
   challenge: IChallenge
 ) => {
+  const dispatch = useDispatch<any>();
   const [typesDocument, setTypesDocument] = useState([
     ...(typeDoc === "general"
       ? [
           {
             name: "Ficha del reto",
-            id: "Ficha del reto",
+            id: 1,
           },
           {
             name: "Términos generales",
-            id: "Términos generales",
+            id: 2,
           },
           {
             name: "Matriz de riesgo",
-            id: "Matriz de riesgo",
+            id: 3,
           },
         ]
       : typeDoc === "technicians"
       ? [
           {
             name: "Formato presentación solución",
-            id: "Formato presentación solución",
+            id: 4,
           },
           {
             name: "Certificado experiencia desarrollo tecnológico",
-            id: "Certificado experiencia desarrollo tecnológico",
+            id: 5,
           },
           {
             name: "Matriz de riesgo",
-            id: "Matriz de riesgo",
+            id: 6,
           },
           {
             name: "Diagrama arquitectónico",
-            id: "Diagrama arquitectónico",
+            id: 7,
           },
           {
             name: "Otro",
-            id: "Otro",
+            id: 16,
           },
         ]
       : typeDoc === "administrative"
       ? [
           {
             name: "RUT",
-            id: "RUT",
+            id: 8,
           },
           {
             name: "Cédula representante",
-            id: "Cédula representante",
+            id: 9,
           },
           {
             name: "Certificado seguridad social",
-            id: "Certificado seguridad social",
+            id: 10,
           },
           {
             name: "Carta de presentación",
-            id: "Carta de presentación",
+            id: 11,
           },
           {
             name: "Cédula mujeres",
-            id: "Cédula mujeres",
+            id: 12,
           },
           {
             name: "Certificado discapacidad",
-            id: "Certificado discapacidad",
+            id: 13,
           },
           {
             name: "Certificado único victimas",
-            id: "Certificado único victimas",
+            id: 14,
           },
           {
             name: "Certificado población minoritaria",
-            id: "Certificado población minoritaria",
+            id: 15,
           },
         ]
       : []),
   ]);
 
-  const onAddDocument = (values: any) => {
+  const onAddDocument = async (values: IDocument) => {
     setTypesDocument(
-      typesDocument.filter((doc) => doc.name !== values.document_type)
+      typesDocument.filter((doc) => doc.name !== values.cha_document_type)
     );
-    setChallenge((data: IChallenge) => {
-      return {
-        ...data,
-        documents: {
-          ...data.documents,
-          ...(typeDoc === "general"
-            ? { general: [...data.documents.general, values] }
-            : typeDoc === "technicians"
-            ? { technical: [...data.documents.technical, values] }
-            : typeDoc === "administrative" && {
-                administrative: [...data.documents.administrative, values],
-              }),
-        },
-        ...(typeDoc === "report" && {
-          reports: [...data.reports, values],
-        }),
-      };
-    });
+
+    const res = await dispatch(
+      actions.create_challenge_document(
+        values,
+        challenge.general_information.key || -1,
+        typeDoc
+      )
+    );
+
+    if (res) {
+      setChallenge((data: IChallenge) => {
+        return {
+          ...data,
+          documents: {
+            ...data.documents,
+            ...(typeDoc === "general"
+              ? { general: [...data.documents.general, values] }
+              : typeDoc === "technicians"
+              ? { technical: [...data.documents.technical, values] }
+              : typeDoc === "administrative" && {
+                  administrative: [...data.documents.administrative, values],
+                }),
+          },
+          ...(typeDoc === "report" && {
+            reports: [...data.reports, values],
+          }),
+        };
+      });
+    }
   };
 
   const onDelete = (index: number) => {
@@ -116,13 +130,15 @@ const useDocument = (
         : typeDoc === "administrative"
         ? challenge.documents.administrative
         : challenge.reports;
-    let restore_value = documents[index].document_type;
-    if (restore_value) {
-      setTypesDocument([
-        ...typesDocument,
-        { name: restore_value, id: restore_value },
-      ]);
-    }
+    let restore_value = documents[index].cha_document_type;
+    console.log(restore_value);
+
+    // if (restore_value) {
+    //   setTypesDocument([
+    //     ...typesDocument,
+    //     { name: restore_value, id: restore_value },
+    //   ]);
+    // }
     const newDocuments = documents.filter((doc, i) => i !== index);
     setChallenge((data: IChallenge) => {
       return {
@@ -189,12 +205,16 @@ const useDocument = (
                     id: "Certificado de antecedentes  judiciales",
                   },
                   {
-                    name: "Autorización al representante legal para contratar cuando esta sea necesaria",
-                    id: "Autorización al representante legal para contratar cuando esta sea necesaria",
+                    name:
+                      "Autorización al representante legal para contratar cuando esta sea necesaria",
+                    id:
+                      "Autorización al representante legal para contratar cuando esta sea necesaria",
                   },
                   {
-                    name: "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
-                    id: "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
+                    name:
+                      "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
+                    id:
+                      "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
                   },
                 ]
               : []),

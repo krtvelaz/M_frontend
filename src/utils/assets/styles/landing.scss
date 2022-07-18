@@ -1,3 +1,12 @@
+// .ant-layout {
+//   background-color: #E4EFF0;
+// }
+
+img {
+  max-width: 100%;
+  // display: block;
+}
+
 .footer-landing {
   border-top: 1px solid #e8e8e8;
   position: fixed;
@@ -28,6 +37,74 @@
   }
 }
 
-.img-rocket {
-  float: left;
+// estadisticas
+
+.statistics {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 20px 100px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+
+}
+
+.img-number {
+  display: flex;
+}
+
+.item-cifras p {
+  font-family: "Montserrat-Regular";
+  font-size: 15px;
+}
+
+.img-number p {
+  font-family: "Montserrat-Black";
+  font-size: 42px;
+  margin-bottom: 0px;
+}
+
+.img-number img {
+  margin: 0 20px 10px 0;
+  width: 45px;
+}
+
+.item-cifras {
+  padding: 0 20px;
+}
+
+
+
+.item-challenge {
+  height: 248px;
+  width: 248px;
+  background-color: #ffffff;
+  border-radius: 100%;
+}
+
+
+// carrusel
+
+.sobre-nosotros {
+  background-image: linear-gradient(to right, #E4EFF0 40%, transparent 100%),
+    url(../img/prueba.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+    padding: 100px 0;
+}
+
+.sobre-nosotros-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 40px;
+}
+
+.texto-nosotros h2 {
+  font-family: 'Montserrat-Bold';
+  font-size: 38px;
+}
+.texto-nosotros p {
+  font-size: 15px;
 }

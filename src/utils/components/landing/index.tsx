@@ -22,20 +22,13 @@ const LandingPage: FC<ILanding> = ({ children }) => {
           <div className="d-flex flex-column w-100">
             <div className="content overflow-auto">{children}</div>
           </div>
+          
         </Content>
         <Footer className="footer-landing">
-          <div className="h-100 d-flex flex-column">
-            <div className="flex-fill overflow-auto">
-              <div className="container-fluid">
-                <div className="row justify-content-center">
-                  <div className="d-flex flex-row mb-3"></div>
-                  <div className="col-md-12">
-                    <div className="d-flex flex-row justify-content-between" style={{backgroundColor: '#3366CC'}}>alcaldia de medellin</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="footer-logo" >
+          <img src={logoAlcaldiaNegro} style={{margin: '0 auto'}}/>
           </div>
+          
         </Footer>
       </Layout>
       <Drawer

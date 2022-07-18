@@ -1,7 +1,9 @@
 import { FormikProps, FormikValues } from "formik";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IChallenge } from "../custom_types";
+import { IChallenge, IGeneralInformation } from "../custom_types";
+import { actions } from "../redux";
 
 export const useInit = (
   type: "create" | "edit",
@@ -22,34 +24,35 @@ export const useInit = (
 ] => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch<any>();
   const state = location.state as {
     active_key_docs: Location;
     active_key: Location;
     max: number;
+    challenge?: IChallenge
   };
   const active_key: any = state?.active_key || "1";
   const active_key_docs: any = state?.active_key_docs || "docs-1";
-  const ls = location.state;
+  const ls = state;
 
   const initial_values: IChallenge = {
     general_information: {
-      challenge_name: "",
-      profiles: [],
-      dimension: "",
-      dependence: "",
-      start_date: "",
-      closing_date: "",
-      description: "",
-      commune: "",
-      neighborhood: "",
-      main_image: "",
-      economic_amount: "",
-      video_url: "",
-      expected_results: "",
-      important_data: "",
-      population_impact: "",
-      challenge_details: "",
-      impact_type: "",
+      cha_name: "",
+      cha_profile: "",
+      cha_dimension: "",
+      cha_dependence: "",
+      cha_start_date: "",
+      cha_end_date: "",
+      cha_challenge_detail: "",
+      cha_commune: "",
+      cha_neighborhood: "",
+      cha_population_detail: "",
+      cha_principal_image: "",
+      cha_principal_image_name: "",
+      cha_video: "",
+      cha_important_data: "",
+      cha_expected_result: "",
+      cha_economic_amount: "",
     },
     documents: {
       general: [],
@@ -59,7 +62,7 @@ export const useInit = (
     reports: [],
   };
 
-  const [challenge, setChallenge] = useState(initial_values);
+  const [challenge, setChallenge] = useState(ls.challenge ? ls.challenge : initial_values);
   const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
@@ -72,27 +75,39 @@ export const useInit = (
         set_is_saving(true);
         await ref.current?.submitForm();
       },
-      onSave: async (values: any) => {
-        set_is_saving(false);
-        setChallenge((data: any) => ({
-          ...data,
-          general_information: {
-            ...values.general_information,
-          },
-        }));
-        if (type === "create") {
-          // enviar a crear
-          // obtener id
-          // el resto a editar :)
-          return;
+      onSave: async (values: IGeneralInformation) => {
+        if (!challenge.general_information.key) {
+          // crear el reto
+          console.log("no hay key se debe crear");
+          const res = await dispatch(actions.create_challenge(values));
+          if (res) {
+            set_is_saving(false);
+            setChallenge((data: any) => ({
+              ...data,
+              general_information: {
+                ...values,
+                key: res.body.key,
+              },
+            }));
+          }
+        } else {
+          console.log("hay key se debe editar");
+          set_is_saving(false);
+          setChallenge((data: any) => ({
+            ...data,
+            general_information: {
+              ...values,
+            },
+          }));
+
+          // editar por id recibido
         }
-        // editar por id recibido
       },
     },
     {
       save: async () => {
         if (challenge.documents.general.length > 0) {
-          // guardar documentos
+          // no se que
           set_is_saving(false);
           return;
         }
