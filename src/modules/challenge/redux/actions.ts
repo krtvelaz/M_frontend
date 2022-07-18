@@ -101,6 +101,8 @@ const create_challenge_document = (
     },
   };
 
+  console.log(JSON.stringify(data));
+
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
     try {
@@ -133,36 +135,23 @@ const create_challenge_document = (
   };
 };
 
-const get_list_document = (type: string, filters?: any) => {
+const get_list_document = (type: string, { page = 1, pageSize = 10 }) => {
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
       const URI =
         type === "general"
-          ? "/general/list"
+          ? `/general/list/${page}/${pageSize}`
           : type === "technicians"
           ? "/technical/list"
           : type === "administrative"
           ? "/administrative/list"
           : "/report/list";
-      const res: any = await http.get(URI, {
-        params: {
-          ...filters,
-        },
-      });
-      console.log(res);
-
-      // dispatch(get_document_challenge(res.data));
-      await swal_success.fire({
-        title: "Proceso exitoso",
-        html:
-          `<div class="mysubtitle">${res.data.messega}</div>` +
-          '<div class="mytext">De click en aceptar para continuar</div>',
-        showCancelButton: false,
-        confirmButtonText: "Aceptar",
-      });
-
-      return res.data;
+      const res: any = await http.get(URI);
+      console.log(res.data.body.Document.data);
+      
+      dispatch(success_get_list_documents(res.data.body.Document.data));
+      return res.data.body.Document.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");

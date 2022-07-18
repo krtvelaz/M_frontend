@@ -25,7 +25,6 @@ const AddDocument: FC<DocsFormPros> = ({
   const dispatch = useDispatch<any>();
   const documents: any = useSelector((store: any) => store.challenge.documents_challenge.value);
   const loading: boolean = useSelector((store: any) => store.challenge.documents_challenge.loading);
-  const { total_results } = useSelector((store: any) => store.challenge.documents_challenge.pagination);
   const form_ref = useRef<FormikProps<FormikValues>>();
   const { typesDocument, onAddDocument, onDelete, editListDocs } = useDocument(
     typeDoc,
@@ -33,8 +32,11 @@ const AddDocument: FC<DocsFormPros> = ({
     challenge
   );
   const get_documents = async () => {
-    await dispatch(actions.get_list_document(typeDoc));
+    await dispatch(actions.get_list_document(typeDoc, {}));
   }
+
+  console.log(documents);
+  
 
   useEffect(() => {
    get_documents();
@@ -81,21 +83,13 @@ const AddDocument: FC<DocsFormPros> = ({
               typesDocument={typesDocument}
             />
           </Card>
-          {seeTable && (
+          {documents.length > 0 && (
             <Card>
               <span className="my-3" style={{ fontSize: "14px" }}>
                 Documentos agregados
               </span>
               <TableDocs
-                documents={
-                  typeDoc === "general"
-                    ? challenge.documents.general
-                    : typeDoc === "technicians"
-                    ? challenge.documents.technical
-                    : typeDoc === "administrative"
-                    ? challenge.documents.administrative
-                    : challenge.reports
-                }
+                documents={documents}
                 setChallenge={setChallenge}
                 onDelete={onDelete}
                 typeDoc={typeDoc}

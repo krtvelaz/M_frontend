@@ -29,7 +29,7 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, setChallenge, onDelet
       ? [
           {
             title: "Perfil asociado",
-            dataIndex: "profile",
+            dataIndex: "cha_profile",
             align: "left" as "left",
           },
         ]
@@ -37,7 +37,7 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, setChallenge, onDelet
 
     {
       title: typeDoc === "report" ? "Titulo del informe" : "Tipo de documento",
-      dataIndex: typeDoc === "report" ? "document_name" : "document_type",
+      dataIndex: typeDoc === "report" ? "cha_document_name" : "cha_document_type",
       align: "left" as "left",
     },
     {

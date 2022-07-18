@@ -101,9 +101,11 @@ export const challengeSlice = createSlice({
       };
     },
     success_get_list_documents: (state, action) => {
+      console.log('accion',action);
+      
       state.documents_challenge = {
         ...state.documents_challenge,
-        value: action.payload?.results || [],
+        value: action.payload || [],
         pagination: {
           page: action.payload?.page || 1,
           count: action.payload?.count || 0,
