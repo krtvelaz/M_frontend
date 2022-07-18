@@ -1,5 +1,6 @@
 import { IRoute } from "../../../utils/components/router/custom_types";
 import CreatePostulation from "./views/CreatePostulation";
+import CreatePostulationTeam from "./views/CreatePostulationTeam";
 
 
 const get_routes = (): IRoute[] => {
@@ -12,9 +13,24 @@ const get_routes = (): IRoute[] => {
             component: CreatePostulation,
             template_props: {
                 breadcrumbs: [
-                    { name: 'Inicio' },
+                    { name: 'Postulation' },
+                    
                 ],
             },
+            
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access: true,
+            path: '/postulation-team-challenge',
+            component: CreatePostulationTeam,
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Team' },
+                ],
+            },
+            
         },
     ];
 };
