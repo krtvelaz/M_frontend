@@ -53,6 +53,8 @@ export const useInit = (
       cha_important_data: "",
       cha_expected_result: "",
       cha_economic_amount: "",
+      cha_description: "",
+      cha_impact_type: "",
     },
     documents: {
       general: [],
@@ -77,7 +79,7 @@ export const useInit = (
       },
       onSave: async (values: IGeneralInformation) => {
         if (!challenge.general_information.key) {
-          // crear el reto
+          // crear el reto          
           console.log("no hay key se debe crear");
           const res = await dispatch(actions.create_challenge(values));
           if (res) {

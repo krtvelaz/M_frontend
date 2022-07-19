@@ -22,38 +22,38 @@ const ListTestimony: FC<IListTestimony> = ({
             title:"No.",
             dataIndex:"id",
             align:"center" as "center",
-            render: (data: ITestimony, values: any, i: number) => {
-                return i + 1;
-              },
+            // render: (data: ITestimony, values: any, i: number) => {
+            //     return i + 1;
+            //   },
 
         },
         {
             title:"Titulo",
-            dataIndex:"title",
+            dataIndex:"mas_title",
             align:"left" as "left",
 
         },
         {
             title:"Descripción",
-            dataIndex:"description",
+            dataIndex:"mas_description",
             align:"left" as "left",
         },
-        {
-            title:"Imagen Empresario",
-            dataIndex:"image_entrepreneur",
-            align:"left" as "left",
-            render: (value: File)=>{
-                return value.name
-            }
-        },
-        {
-            title:"Imagen Logo",
-            dataIndex:"image_logo",
-            align:"left" as "left",
-            render: (value: File)=>{
-                return value.name
-            }
-        },
+        // {
+        //     title:"Imagen Empresario",
+        //     dataIndex:"image_entrepreneur",
+        //     align:"left" as "left",
+        //     render: (value: File)=>{
+        //         return value.name
+        //     }
+        // },
+        // {
+        //     title:"Imagen Logo",
+        //     dataIndex:"image_logo",
+        //     align:"left" as "left",
+        //     render: (value: File)=>{
+        //         return value.name
+        //     }
+        // },
         {
             title: "Acciones",
             fixed: "right",
@@ -63,7 +63,7 @@ const ListTestimony: FC<IListTestimony> = ({
                     fixed: "right",
                     align: "center" as "center",
                     render: (data: ITestimony)=>{
-                        return <ModalImgTestimony document_entrepreneur={data.image_entrepreneur} document_logo={data.image_logo}/>
+                        // return <ModalImgTestimony document_entrepreneur={data.image_entrepreneur} document_logo={data.image_logo}/>
                     }
                 },
                 {
@@ -71,6 +71,9 @@ const ListTestimony: FC<IListTestimony> = ({
                     fixed: "right",
                     align: "center" as "center",
                     render: (value: ITestimony, _data: ITestimony, index: number )=>{
+                        console.log(value);
+                        console.log(index);
+                        
                         return <ModalEditTestimony onSubmit={ (values) => onEdit(values, index)} data={value}/>
                     }
                    

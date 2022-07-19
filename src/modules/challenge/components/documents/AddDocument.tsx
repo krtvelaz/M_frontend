@@ -35,9 +35,6 @@ const AddDocument: FC<DocsFormPros> = ({
     await dispatch(actions.get_list_document(typeDoc, {}));
   }
 
-  console.log(documents);
-  
-
   useEffect(() => {
    get_documents();
   }, [])

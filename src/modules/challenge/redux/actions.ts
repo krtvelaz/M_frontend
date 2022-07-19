@@ -35,26 +35,18 @@ const create_challenge = (values: IGeneralInformation) => {
       key: -1,
     },
     data: {
-      cha_name: "test",
+      ...values,
+      cha_document_number: "123456",
       cha_profile: {
         data: values.cha_profile,
       },
-      cha_dimension: values.cha_dimension,
-      cha_dependence: values.cha_dependence,
-      cha_start_date: values.cha_start_date,
-      cha_end_date: values.cha_end_date,
-      cha_challenge_detail: values.cha_challenge_detail,
-      cha_commune: values.cha_commune,
-      cha_neighborhood: values.cha_neighborhood,
-      cha_population_detail: values.cha_population_detail,
       cha_principal_image: null,
       cha_principal_image_name: "",
-      cha_video: values.cha_video,
-      cha_important_data: values.cha_important_data,
-      cha_expected_result: values.cha_expected_result,
       cha_economic_amount: values.cha_economic_amount || 0,
     },
   };
+  console.log(JSON.stringify(data));
+  
 
   return async (dispatch: any) => {
     dispatch(loading_challenge());
@@ -62,7 +54,7 @@ const create_challenge = (values: IGeneralInformation) => {
       const URI = "/information/general";
       const res: any = await http.post(URI, data);
       console.log(res);
-
+      
       // dispatch(get_challenge(res.data));
       await swal_success.fire({
         title: "Proceso exitoso",
@@ -114,7 +106,6 @@ const create_challenge_document = (
           ? "/administrative/document"
           : "/report/document";
       const res: any = await http.post(URI, data);
-      console.log(res);
 
       // dispatch(get_document_challenge(res.data));
       await swal_success.fire({
@@ -146,11 +137,9 @@ const get_list_document = (type: string, { page = 1, pageSize = 10 }) => {
           : type === "administrative"
           ? "/administrative/list"
           : "/report/list";
-      const res: any = await http.get(URI);
-      console.log(res.data.body.Document.data);
-      
-      dispatch(success_get_list_documents(res.data.body.Document.data));
-      return res.data.body.Document.data;
+      const { data }: any = await http.get(URI);      
+      dispatch(success_get_list_documents(data.body.data));
+      return data.body.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");

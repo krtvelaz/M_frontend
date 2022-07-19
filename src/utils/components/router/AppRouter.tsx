@@ -14,9 +14,7 @@ const AppRouter: React.FC<IAppRouter> = ({
   // user, //TODO: agregar cuando este login
   show,
 }) => {
-  
-  console.log(routes);
-  
+   
   return (
     <>
     <BrowserRouter>

@@ -22,6 +22,8 @@ export interface IGeneralInformation {
   cha_important_data: string,
   cha_expected_result: string,
   cha_economic_amount: number | string,
+  cha_description: string;
+  cha_impact_type: string;
 }
 export interface IDocuments {
   general: IDocument[];

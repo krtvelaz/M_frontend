@@ -131,7 +131,6 @@ const useDocument = (
         ? challenge.documents.administrative
         : challenge.reports;
     let restore_value = documents[index].cha_document_type;
-    console.log(restore_value);
 
     // if (restore_value) {
     //   setTypesDocument([

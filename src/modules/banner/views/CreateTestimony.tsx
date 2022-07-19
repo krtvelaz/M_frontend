@@ -1,64 +1,62 @@
-import { FormikProps, FormikValues } from "formik"
-import { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Card } from "../../../utils/ui"
-import { swal, swal_error, swal_success } from "../../../utils/ui/swalAlert"
-import FormTestimony from "../components/testimony/FormTestimony"
-import ListTestimony from "../components/testimony/ListTestimony"
-import { ITestimony } from "../custom_types"
-import { actions } from "../redux"
-
+import { FormikProps, FormikValues } from "formik";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Card } from "../../../utils/ui";
+import { swal, swal_error, swal_success } from "../../../utils/ui/swalAlert";
+import FormTestimony from "../components/testimony/FormTestimony";
+import ListTestimony from "../components/testimony/ListTestimony";
+import { ITestimony } from "../custom_types";
+import { actions } from "../redux";
 
 const CreateTestimony = () => {
-  const testimonials: ITestimony = useSelector((store:any) => store.banner.testimonials.value);
+  
   const [data, setData] = useState<ITestimony[]>([]);
   const dispatch = useDispatch<any>();
 
-    const form_ref = useRef<FormikProps<FormikValues>>()
-    const addTestimony = async (values:ITestimony) =>{
+  const form_ref = useRef<FormikProps<FormikValues>>();
+  const addTestimony = async (values: ITestimony) => {
     await dispatch(actions.create_testimony(values));
 
-        if (data.length > 3) {
-            await swal_error.fire({
-            title: "Ha llegado al máximo de elementos",
-            html:
-              '<div class="mysubtitle">Máximo de 4 testimonios</div>' +
-              '<div class="mytext">Se debe eliminar un elemento para poder publicar uno nuevo.</div>',
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-          });
-          return 
-        }
-        setData([...data, values]);
-         
+    if (data.length > 3) {
+      await swal_error.fire({
+        title: "Ha llegado al máximo de elementos",
+        html:
+          '<div class="mysubtitle">Máximo de 4 testimonios</div>' +
+          '<div class="mytext">Se debe eliminar un elemento para poder publicar uno nuevo.</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return;
     }
+    setData([...data, values]);
+  };
 
+  
+  
 
-    const editTetimony = (values:ITestimony, index: number) => {
-        setData((data)=>{
-            data[index]= values;
-            return [
-                ...data
-            ]
-        })
-        
-    }
+  const editTetimony = (values: ITestimony, index: number) => {
+    
+    setData((data) => {
+      data[index] = values;
+      return [...data];
+    });
+  };
 
   const onDelete = (index: number) => {
     const updatedItems = data.filter((_values, i) => i !== index);
     return setData(updatedItems);
   };
 
-  const get_testimonals = async () =>{
-    
-     await dispatch(actions.get_list_testimonials());
-     console.log(testimonials)
-  }
+  const get_testimonals = async () => {
+    const testimonials = await dispatch(actions.get_list_testimonials());
+    if(testimonials) {
+      setData(testimonials);
+
+    }
+  };
   useEffect(() => {
     get_testimonals();
-    
-  }, [])
-  
+  }, []);
 
   return (
     <div className="h-100 d-flex flex-column">

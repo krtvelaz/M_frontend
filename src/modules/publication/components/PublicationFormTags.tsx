@@ -159,7 +159,6 @@ const useInit = (): [
           return;
         }
         if (is_finish) {
-          console.log("volver al tablero y guardar");
           navigate("/publication/list");
           return;
         }

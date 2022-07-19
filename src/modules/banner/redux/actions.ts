@@ -5,8 +5,16 @@
 import { master_http } from "../../../config/axios_instances";
 import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
 import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
-import { statistics_default, statistics_fail, statistics_success, testimonials_list_default, testimonials_list_fail, testimonials_list_success, testimony_default, testimony_fail } from "./slice";
-
+import {
+  statistics_default,
+  statistics_fail,
+  statistics_success,
+  testimonials_list_default,
+  testimonials_list_fail,
+  testimonials_list_success,
+  testimony_default,
+  testimony_fail,
+} from "./slice";
 
 // const example = (filters = {}) =>
 //     request_dispatch(types.example_type, service.example_service(filters));
@@ -32,17 +40,17 @@ const create_statistics = (data: IIndicator) => {
   return async (dispatch: any) => {
     dispatch(statistics_default());
     let values = JSON.parse(JSON.stringify(data));
-      values.mas_challenges_number = Number(values.mas_challenges_number);
-      values.mas_impacted_people = Number(values.mas_impacted_people);
-      values.mas_connected_actors = Number(values.mas_connected_actors);
-      values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
-      values.mas_status = true;
-      delete values.created_at;
-      delete values.id;
-      delete values.updated_at
+    values.mas_challenges_number = Number(values.mas_challenges_number);
+    values.mas_impacted_people = Number(values.mas_impacted_people);
+    values.mas_connected_actors = Number(values.mas_connected_actors);
+    values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
+    values.mas_status = true;
+    delete values.created_at;
+    delete values.id;
+    delete values.updated_at;
     try {
       const URI = "/statistics/statistic";
-      const res = await master_http.post(URI,values);
+      const res = await master_http.post(URI, values);
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",
@@ -83,20 +91,18 @@ const get_statistics = () => {
   };
 };
 
-
 /*-----------------------------testimony-------------------------------------*/
 const create_testimony = (data: ITestimony) => {
   return async (dispatch: any) => {
     dispatch(testimony_default());
     let values = JSON.parse(JSON.stringify(data));
-   
     values.mas_image = "";
     values.mas_logo = "";
     values.mas_status = true;
 
     try {
-      const URI = "/testimonial";
-      const res = await master_http.post(URI,values);
+      const URI = "testimonials/testimonial";
+      const res = await master_http.post(URI, values);
       // dispatch();
       console.log(res);
       // return res.data;
@@ -119,17 +125,16 @@ const get_list_testimonials = () => {
   return async (dispatch: any) => {
     dispatch(testimonials_list_default());
     try {
-      const URI = "/listTestimonials";
+      const URI = "testimonials/listTestimonials";
       const res = await master_http.get(URI);
-      dispatch(testimonials_list_success(res.data.body.information[0]));
-      return res.data.body.information[0];
+      dispatch(testimonials_list_success(res.data.body.information));
+      return res.data.body.information;
     } catch (error) {
       dispatch(testimonials_list_fail());
       return Promise.reject("Error");
     }
   };
 };
-
 
 const actions = {
   create_main_banner,
