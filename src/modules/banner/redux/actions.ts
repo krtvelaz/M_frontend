@@ -38,8 +38,8 @@ const create_statistics = (data: IIndicator) => {
       values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
       values.mas_status = true;
       delete values.created_at;
-      // delete values.id;
-      // delete values.updated_at
+      delete values.id;
+      delete values.updated_at
     try {
       const URI = "/statistics/statistic";
       const res = await master_http.post(URI,values);
