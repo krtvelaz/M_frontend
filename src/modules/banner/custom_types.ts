@@ -7,10 +7,11 @@ export interface IMainBanner {
     background_image: string;
 }
 export interface ITestimony {
-    image_logo: File;
-    image_entrepreneur: File;
-    title: string;
-    description: string;
+    mas_title: string;
+    mas_description: string;
+    mas_image: string;
+    mas_logo: string;
+   
 }
 export interface IIndicator {
     mas_challenges_number:string | number;

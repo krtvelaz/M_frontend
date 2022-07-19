@@ -18,7 +18,6 @@ const CreateIndicator = () => {
 
   useEffect(() => {
   dispatch(actions.get_statistics());
-  console.log("mensaje")
   }, [])
   
 

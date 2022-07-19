@@ -4,29 +4,29 @@ import * as Yup from "yup";
 import { DocumentInput, ErrorMessage } from "../../../../utils/ui";
 import { ITestimony } from "../../custom_types";
 
-interface BannerFormPros {
+interface TestimonyFormPros {
   innerRef: any;
   onSubmit: (values: any, form?: any) => any;
   testimony?: ITestimony;
 }
-const FormTestimony: FC<BannerFormPros> = ({
+const FormTestimony: FC<TestimonyFormPros> = ({
   innerRef,
   onSubmit,
   testimony,
 }) => {
   const initial_values = {
-    image_logo: "",
-    image_entrepreneur: "",
-    title: "",
-    description: "",
+    mas_title: "",
+    mas_description: "",
+    mas_image: "",
+    mas_logo: "",
     ...testimony,
   };
 
   const schema = Yup.object().shape({
-    title: Yup.string().required("Campo obligatorio"),
-    description: Yup.string().required("Campo obligatorio"),
-    image_entrepreneur: Yup.string().required("Campo obligatorio"),
-    image_logo: Yup.string().required("Campo obligatorio"),
+    mas_title: Yup.string().required("Campo obligatorio"),
+    mas_description: Yup.string().required("Campo obligatorio"),
+    mas_image: Yup.string().required("Campo obligatorio"),
+    mas_logo: Yup.string().required("Campo obligatorio"),
   });
 
   const submit = (values: any, form: any) => {
@@ -46,14 +46,14 @@ const FormTestimony: FC<BannerFormPros> = ({
           <Form>
             <div className="row ">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="title_id" className="form-label">
+                <label htmlFor="mas_title_id" className="form-label">
                   Titulo
                 </label>
                 <Field
                   type="text"
                   className="form-control"
-                  id="title_id"
-                  name="title"
+                  id="mas_title_id"
+                  name="mas_title"
                   autoComplete="off"
                   maxLength={70}
                   onChange={(e: any) => {
@@ -67,18 +67,18 @@ const FormTestimony: FC<BannerFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="title" withCount max={70} />
+                <ErrorMessage name="mas_title" withCount max={70} />
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="description" className="form-label">
+                <label htmlFor="mas_description_id" className="form-label">
                   Descripción
                 </label>
                 <Field
                   type="text"
                   className="form-control"
-                  id="description_id"
-                  name="description"
+                  id="mas_description_id"
+                  name="mas_description"
                   autoComplete="off"
                   maxLength={300}
                   onChange={(e: any) => {
@@ -92,13 +92,13 @@ const FormTestimony: FC<BannerFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="description" withCount max={300} />
+                <ErrorMessage name="mas_description" withCount max={300} />
               </div>
             </div>
 
             <div className="row ">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="image_entrepreneur" className="form-label">
+                <label htmlFor="mas_image_id" className="form-label">
                   Imagen - Empresario
                 </label>
                 <Field
@@ -106,8 +106,8 @@ const FormTestimony: FC<BannerFormPros> = ({
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"
-                  id="image_entrepreneur_id"
-                  name="image_entrepreneur"
+                  id="mas_id"
+                  name="mas_image"
                   autoComplete="off"
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -120,11 +120,12 @@ const FormTestimony: FC<BannerFormPros> = ({
                     }
                   }}
                 />
+                <ErrorMessage name="mas_image" />
                 
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="image_logo" className="form-label">
+                <label htmlFor="mas_logo_id" className="form-label">
                   Imagen - Logo
                 </label>
                 <Field
@@ -132,8 +133,8 @@ const FormTestimony: FC<BannerFormPros> = ({
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"
-                  id="image_logo_id"
-                  name="image_logo"
+                  id="mas_logo_id"
+                  name="mas_logo"
                   autoComplete="off"
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -146,6 +147,8 @@ const FormTestimony: FC<BannerFormPros> = ({
                     }
                   }}
                 />
+                <ErrorMessage name="mas_logo"  />
+
               </div>
             </div>
           </Form>
