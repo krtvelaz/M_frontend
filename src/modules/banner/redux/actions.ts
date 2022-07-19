@@ -2,7 +2,11 @@
 // import service from './service';
 // import { request_dispatch } from '../../../utils';
 
-import { IMainBanner } from "../custom_types";
+import { master_http } from "../../../config/axios_instances";
+import { swal_success } from "../../../utils/ui/swalAlert";
+import { IIndicator, IMainBanner } from "../custom_types";
+import { statistics_default, statistics_fail, statistics_success } from "./slice";
+
 
 // const example = (filters = {}) =>
 //     request_dispatch(types.example_type, service.example_service(filters));
@@ -22,8 +26,55 @@ const create_main_banner = (data: IMainBanner[]) => {
   };
 };
 
+/*----------------statistics---------------------*/
 
+const create_statistics = (data: IIndicator) => {
+  return async (dispatch: any) => {
+    dispatch(statistics_default());
+    let values = JSON.parse(JSON.stringify(data));
+      values.mas_challenges_number = Number(values.mas_challenges_number);
+      values.mas_impacted_people = Number(values.mas_impacted_people);
+      values.mas_connected_actors = Number(values.mas_connected_actors);
+      values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
+      values.mas_status = true;
+    try {
+      const URI = "/statistics/statistic";
+      const res = await master_http.post(URI,values);
+      // dispatch();
+      console.log(res);
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.messega}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res;
+    } catch (error) {
+      dispatch(statistics_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const get_statistics = () => {
+  return async (dispatch: any) => {
+    dispatch(statistics_default());
+    try {
+      const URI = "/statistics/listLastOneStatistic";
+      const res = await master_http.get(URI);
+      dispatch(statistics_success(res.data.body.information[0]));
+      return res.data.body.information[0];
+    } catch (error) {
+      dispatch(statistics_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
 const actions = {
   create_main_banner,
+  create_statistics,
+  get_statistics,
 };
 export default actions;
