@@ -38,7 +38,7 @@ export const useInit = (
   const initial_values: IChallenge = {
     general_information: {
       cha_name: "",
-      cha_profile: "",
+      cha_profile: null,
       cha_dimension: "",
       cha_dependence: "",
       cha_start_date: "",

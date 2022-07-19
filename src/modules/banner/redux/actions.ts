@@ -3,7 +3,7 @@
 // import { request_dispatch } from '../../../utils';
 
 import { master_http } from "../../../config/axios_instances";
-import { swal_success } from "../../../utils/ui/swalAlert";
+import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
 import { IIndicator, IMainBanner } from "../custom_types";
 import { statistics_default, statistics_fail, statistics_success } from "./slice";
 
@@ -37,6 +37,9 @@ const create_statistics = (data: IIndicator) => {
       values.mas_connected_actors = Number(values.mas_connected_actors);
       values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
       values.mas_status = true;
+      delete values.created_at;
+      // delete values.id;
+      // delete values.updated_at
     try {
       const URI = "/statistics/statistic";
       const res = await master_http.post(URI,values);
@@ -45,7 +48,7 @@ const create_statistics = (data: IIndicator) => {
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
-          `<div class="mysubtitle">${res.data.messega}</div>` +
+          `<div class="mysubtitle">${res.data.message}</div>` +
           '<div class="mytext">De click en aceptar para continuar</div>',
         showCancelButton: false,
         confirmButtonText: "Aceptar",
@@ -53,6 +56,14 @@ const create_statistics = (data: IIndicator) => {
       return res;
     } catch (error) {
       dispatch(statistics_fail());
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
       return Promise.reject("Error");
     }
   };

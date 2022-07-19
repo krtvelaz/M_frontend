@@ -101,7 +101,6 @@ const create_challenge_document = (
     },
   };
 
-  console.log(JSON.stringify(data));
 
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());

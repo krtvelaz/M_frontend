@@ -1,7 +1,5 @@
 import { Tabs } from "antd";
-import { FormikProps, FormikValues } from "formik";
-import { FC, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FC } from "react";
 import { IChallenge } from "../custom_types";
 import { useInit } from "../hooks/useInit";
 import CreateGeneral from "./CreateGeneral";
