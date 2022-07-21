@@ -80,7 +80,7 @@ export const useInit = (
       onSave: async (values: IGeneralInformation) => {
         if (!challenge.general_information.key) {
           // crear el reto          
-          console.log("no hay key se debe crear");
+          // console.log("no hay key se debe crear");
           const res = await dispatch(actions.create_challenge(values));
           if (res) {
             set_is_saving(false);
@@ -93,7 +93,7 @@ export const useInit = (
             }));
           }
         } else {
-          console.log("hay key se debe editar");
+          // console.log("hay key se debe editar");
           set_is_saving(false);
           setChallenge((data: any) => ({
             ...data,
@@ -121,7 +121,7 @@ export const useInit = (
         set_is_saving(true);
         if (is_finish) {
           set_is_saving(false);
-          console.log({ final_data: challenge });
+          // console.log({ final_data: challenge });
           //enviar data y redirigir
         }
       },

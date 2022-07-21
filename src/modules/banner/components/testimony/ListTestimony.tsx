@@ -20,11 +20,11 @@ const ListTestimony: FC<IListTestimony> = ({
     const table_columns = [
         {
             title:"No.",
-            dataIndex:"id",
+            // dataIndex:"id",
             align:"center" as "center",
-            // render: (data: ITestimony, values: any, i: number) => {
-            //     return i + 1;
-            //   },
+            render: (data: ITestimony, values: any, i: number) => {
+                return i + 1;
+              },
 
         },
         {
@@ -70,19 +70,19 @@ const ListTestimony: FC<IListTestimony> = ({
                     title: "Editar",
                     fixed: "right",
                     align: "center" as "center",
-                    render: (value: ITestimony, _data: ITestimony, index: number )=>{
-                        console.log(value);
-                        console.log(index);
+                    render: (value: ITestimony, _data: ITestimony )=>{
+                      
                         
-                        return <ModalEditTestimony onSubmit={ (values) => onEdit(values, index)} data={value}/>
+                        return <ModalEditTestimony onSubmit={ (values) => onEdit(values, values.id)} data={value}/>
                     }
                    
                 },
                 {
                     title: "Eliminar",
                     fixed: "right",
+                    dataIndex:"id",
                     align: "center" as "center",
-                    render: (data: ITestimony, values: any, index: number) => {
+                    render: (id: number) => {
                         return (
                           <img
                             src={trash}
@@ -101,7 +101,7 @@ const ListTestimony: FC<IListTestimony> = ({
                                 denyButtonText: `Cancelar`,
                               });
                               if(result.isConfirmed){
-                                onDelete(index);
+                                onDelete(id);
                               }
                             }}
                           />

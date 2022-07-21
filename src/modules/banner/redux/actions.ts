@@ -1,7 +1,3 @@
-// import types from './types';
-// import service from './service';
-// import { request_dispatch } from '../../../utils';
-
 import { master_http } from "../../../config/axios_instances";
 import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
 import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
@@ -15,9 +11,6 @@ import {
   testimony_default,
   testimony_fail,
 } from "./slice";
-
-// const example = (filters = {}) =>
-//     request_dispatch(types.example_type, service.example_service(filters));
 
 const create_main_banner = (data: IMainBanner[]) => {
   return async (dispatch: any) => {
@@ -104,8 +97,15 @@ const create_testimony = (data: ITestimony) => {
       const URI = "testimonials/testimonial";
       const res = await master_http.post(URI, values);
       // dispatch();
-      console.log(res);
-      // return res.data;
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data;
     } catch (error) {
       dispatch(testimony_fail);
       await swal_error.fire({
@@ -136,11 +136,86 @@ const get_list_testimonials = () => {
   };
 };
 
+const edit_testimonial = (data: ITestimony , id: number) => {
+
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+    let values = JSON.parse(JSON.stringify(data));
+    values.mas_image = "";
+    values.mas_logo = "";
+    values.mas_status = true;
+    delete values.created_at;
+    delete values.id;
+    delete values.updated_at;
+    delete values.key;
+    try {
+    const URI = `testimonials/testimonial/${id}` ;
+      const res = await master_http.put(URI, values);
+      // dispatch();
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data;
+    } catch (error) {
+      dispatch(testimony_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+}
+
+const delete_testimonial = ( id: number) => {
+
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+   
+    try {
+    const URI = `testimonials/testimonial/${id}` ;
+      const res = await master_http.delete(URI);
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      // dispatch();
+      return res.data;
+    } catch (error) {
+      dispatch(testimony_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+}
+
 const actions = {
   create_main_banner,
   create_statistics,
   get_statistics,
   create_testimony,
   get_list_testimonials,
+  edit_testimonial,
+  delete_testimonial,
 };
 export default actions;

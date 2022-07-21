@@ -45,7 +45,6 @@ const create_challenge = (values: IGeneralInformation) => {
       cha_economic_amount: values.cha_economic_amount || 0,
     },
   };
-  console.log(JSON.stringify(data));
   
 
   return async (dispatch: any) => {
@@ -53,7 +52,6 @@ const create_challenge = (values: IGeneralInformation) => {
     try {
       const URI = "/information/general";
       const res: any = await http.post(URI, data);
-      console.log(res);
       
       // dispatch(get_challenge(res.data));
       await swal_success.fire({

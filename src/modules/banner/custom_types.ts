@@ -7,6 +7,7 @@ export interface IMainBanner {
     background_image: string;
 }
 export interface ITestimony {
+    id?: number;
     mas_title: string;
     mas_description: string;
     mas_image: string;
