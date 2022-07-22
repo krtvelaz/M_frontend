@@ -1,4 +1,4 @@
-import { Radio, TimePicker } from "antd";
+// import {  TimePicker } from "antd";
 import { Formik, Form, Field } from "formik";
 import { FC, useState } from "react";
 import { ErrorMessage } from "../../../utils/ui";
@@ -6,6 +6,8 @@ import Input from "../../../utils/ui/CurrencyInput";
 import DateInput from "../../../utils/ui/DateInput";
 import { IEvent } from "../custom_types";
 import * as Yup from "yup";
+import RadioMedeinn from "../../../utils/ui/Radio";
+import TimeInput from "../../../utils/ui/TimeInput";
 
 
 interface EventFormPros {
@@ -15,17 +17,14 @@ interface EventFormPros {
 }
 
 const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
-    const [value_radio, setValue_radio] = useState("no");
-    const onChange = (e: any) => {
-        setValue_radio(e.target.value);
-    };
+  
 
     const initial_values = {
         title: "",
         description: "",
         start_date: "",
         start_time: "",
-        radiogrou: "",
+        radio: "",
         number_quotas: "",
         ...event,
     };
@@ -35,7 +34,12 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
         description: Yup.string().required("Campo obligatorio"),
         start_date: Yup.string().required("Campo obligatorio"),
         start_time: Yup.string().required("Campo obligatorio"),
-       
+        radio: Yup.string().required("Campo obligatorio"),
+        number_quotas: Yup.string().when("radio", {
+            is: "si",
+            then: Yup.string().required("Campo obligatorio")
+        }),
+
     });
 
     const submit = (values: any, form: any) => {
@@ -50,6 +54,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
             innerRef={innerRef}
         >
             {({ values, handleChange }) => {
+                console.log(values)
                 return (
                     <Form>
                         <div className="row ">
@@ -124,7 +129,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     Hora
                                 </label>
                                 <Field
-                                    component={TimePicker}
+                                    component={TimeInput}
                                     name="start_time"
                                     id="start_time_id"
                                     style={{ height: "38px" }}
@@ -135,27 +140,29 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <ErrorMessage name="start_time" />
                             </div>
 
-                            <div className="col-2 ">
-                                <label htmlFor="radiogrou_id" className="form-label mb-4">
+                            <div className="col-3 ">
+                                <label htmlFor="radio_id" className="form-label mb-4">
                                     ¿Cupos limitados?
                                 </label>
-                                <Radio.Group name="radiogroup" id="radiogrou_id" defaultValue={"no"} onChange={onChange} value={value_radio} >
-                                    <Radio value={"si"}>Si</Radio>
-                                    <Radio value={"no"}>No</Radio>
-                                </Radio.Group>
+                                <Field
+                                        component={RadioMedeinn}
+                                        name="radio"
+                                        id="radio_id"
+                                        min={0}
+                                        max={10000}
+                                        maxLength={6}
+                                        placeholder="0"
+                                    />
+                                
 
-                                <ErrorMessage name="radiogrou_id" />
+                                <ErrorMessage name="radio" />
                             </div>
 
-                            {value_radio === "no" ?
+                            {values.radio === "si" ?
 
-                                <div >
+                                <div className="col-3" >
 
-                                </div>
-                                :
-                                <div className="col-3 col-md-3  flex-fill " >
-
-                                    <label htmlFor="number_quotas_id" className="form-label">
+                                    <label htmlFor="number_quotas" className="form-label">
                                         Número de cupos
                                     </label>
                                     <Field
@@ -169,6 +176,8 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     />
                                     <ErrorMessage name="number_quotas" />
                                 </div>
+                                :
+                                <div></div>
                             }
 
                         </div>
