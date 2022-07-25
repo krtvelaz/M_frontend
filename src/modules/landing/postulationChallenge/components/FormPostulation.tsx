@@ -4,6 +4,8 @@ import { ErrorMessage, Select } from '../../../../utils/ui';
 import * as Yup from "yup";
 import { IPostulation } from '../custom_types';
 import { Link } from 'react-router-dom';
+import LocationModal from '../../../../utils/components/location/LocationModal';
+import FormLocation from '../../../../utils/components/location/FormLocation';
 
 interface PostulationFormPros {
     innerRef: any;
@@ -118,6 +120,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                                 );
                                             }}
                                         />
+                                         <ErrorMessage name="document_type"  />
                                     </div>
                                     <div className="col">
                                         <Field
@@ -230,6 +233,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                                 );
                                             }}
                                         />
+                                         <ErrorMessage name="type_contact" />
                                     </div>
                                     <div className="col">
                                         <Field

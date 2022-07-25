@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Loadable, Pageable } from "../../../custom_types";
-import { IIndicator, ITestimony } from "../custom_types";
+import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
 
 interface State {
     statistics: Loadable<IIndicator | null>;
     testimony: Loadable<ITestimony | null>;
     testimonials: any;
-  
+    banner: Loadable<IMainBanner | null>;
+    list_banners: any;
 }
 
 const initialState: State = {
@@ -21,6 +22,16 @@ const initialState: State = {
     loaded: false,
   },
   testimonials: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
+  banner: {
+    value: null,
+    loading: false,
+    loaded: false,
+  },
+  list_banners: {
     value: [],
     loading: false,
     loaded: false,
@@ -98,6 +109,49 @@ export const bannerSlice = createSlice({
         loaded: false,
       };
     },
+
+    banner_default: (state) => {
+      state.banner = {
+        value: state.banner.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    banner_success: (state, action) => {
+      state.banner = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    banner_fail: (state) => {
+      state.banner = {
+        value: initialState.banner.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+    banners_list_default: (state) => {
+      state.list_banners = {
+        value: state.list_banners.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    banners_list_success: (state, action) => {
+      state.list_banners = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    banners_list_fail: (state) => {
+      state.list_banners = {
+        value: initialState.list_banners.value,
+        loading: false,
+        loaded: false,
+      };
+    },
    
   },
 });
@@ -113,4 +167,10 @@ export const {
     testimonials_list_default,
     testimonials_list_success,
     testimonials_list_fail,
+    banner_default,
+    banner_success,
+    banner_fail,
+    banners_list_default,
+    banners_list_success,
+    banners_list_fail,
 } = bannerSlice.actions;

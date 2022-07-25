@@ -1,6 +1,6 @@
 import { FormikProps, FormikValues } from "formik";
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, swal_error } from "../../../utils/ui";
 import FormMainBanner from "../components/FormMainBanner";
 import ListMainBanner from "../components/ListMainBanner";
@@ -8,23 +8,16 @@ import { IMainBanner } from "../custom_types";
 import { actions } from "../redux";
 
 const CreateMainBanner = () => {
+  const list_banners: IMainBanner[] = useSelector((store: any) => store.banner.list_banners.value);
+
   const form_ref = useRef<FormikProps<FormikValues>>();
   const [images, setImages] = useState<IMainBanner[]>([]);
   const dispatch = useDispatch<any>();
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const addImage = async (value: IMainBanner) => {
-    if (images.length > 3) {
-      await swal_error.fire({
-        title: "Ha llegado al máximo de elementos",
-        html:
-          '<div class="mysubtitle">Máximo de 4 slider</div>' +
-          '<div class="mytext">Se debe eliminar alguno para que se pueda publicar uno nuevo.</div>',
-        showCancelButton: false,
-        confirmButtonText: "Aceptar",
-      });
-      return;
-    }
-    setImages([...images, value]);
+    await dispatch(actions.create_main_banner(value));
+    setIsSuccess(true);
   };
 
   const editImage = (value: IMainBanner, index: number) => {
@@ -34,10 +27,26 @@ const CreateMainBanner = () => {
     });
   };
 
-  const deleteImage = (index: number) => {
-    const newImages = images.filter((value, id) => id != index);
-    return setImages(newImages);
+  const deleteImage = async (id: number) => {
+    await dispatch(actions.delete_banner(id));
+    setIsSuccess(true);
+  
   };
+
+  const get_banners = async () => {
+    await dispatch(actions.get_list_banners());
+  };
+
+  useEffect(() => {
+    get_banners();
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      get_banners();
+      setIsSuccess(false);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="h-100 d-flex flex-column">
@@ -69,11 +78,11 @@ const CreateMainBanner = () => {
               >
                 <FormMainBanner innerRef={form_ref} onSubmit={addImage} />
               </Card>
-              {images.length > 0 && (
+              {list_banners.length > 0 && (
                 <Card>
                   <h4>Elementos agregados</h4>
                   <ListMainBanner
-                    data={images}
+                    data={list_banners}
                     onSubmit={editImage}
                     onDelete={deleteImage}
                   />
@@ -99,7 +108,7 @@ const CreateMainBanner = () => {
           type="button"
           className="btn btn-primary"
           onClick={() => {
-            dispatch(actions.create_main_banner(images));
+            // dispatch(actions.create_main_banner(images));
           }}
         >
           Guardar

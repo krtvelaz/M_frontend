@@ -31,6 +31,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
 
   const submit = (values: any, form: any) => {
     onSubmit(values);
+    form.setSubmitting(false);
     form.resetForm();
   };
 

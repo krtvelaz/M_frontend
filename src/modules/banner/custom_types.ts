@@ -1,10 +1,12 @@
 export default {};
 export interface IMainBanner {
-    title: string;
-    description: string;
-    button_url: string;
-    video_url: string;
-    background_image: string;
+    car_codigo_usuario?:string;
+    car_titulo: string;
+    car_descripcion: string;
+    car_url: string;
+    car_url_video: string;
+    car_ruta_imagen: string;
+    car_nombre_imagen: string;
 }
 export interface ITestimony {
     id?: number;
