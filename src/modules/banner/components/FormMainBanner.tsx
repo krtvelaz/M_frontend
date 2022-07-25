@@ -12,18 +12,19 @@ interface BannerFormPros {
 
 const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) => {
   const initial_values = {
-    title: '',
-    description: '',
-    button_url: '',
-    video_url: '',
-    background_image: "",
+    car_titulo: '',
+    car_descripcion: '',
+    car_url: '',
+    car_url_video: '',
+    car_ruta_imagen: "",
+    car_nombre_imagen: "",
     ...data_image,
   };
 
   const schema = Yup.object().shape({
-    title: Yup.string().required('Campo obligatorio'),
-    description: Yup.string().required('Campo obligatorio'),
-    background_image: Yup.string().required('Campo obligatorio'),
+    car_titulo: Yup.string().required('Campo obligatorio'),
+    car_descripcion: Yup.string().required('Campo obligatorio'),
+    car_ruta_imagen: Yup.string().required('Campo obligatorio'),
   });
 
   const submit = (values: any, form: any) => {
@@ -45,14 +46,14 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
           <Form>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="title_id" className="form-label">
+                <label htmlFor="car_titulo_id" className="form-label">
                   Título
                 </label>
                 <Field
                   type="text"
                   className="form-control"
-                  id="title_id"
-                  name="title"
+                  id="car_titulo_id"
+                  name="car_titulo"
                   autoComplete="off"
                   maxLength={47}
                   onChange={(e: any) => {
@@ -66,17 +67,17 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                     }
                   }}
                 />
-                <ErrorMessage name="title" withCount max={47} />
+                <ErrorMessage name="car_titulo" withCount max={47} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="description_id" className="form-label">
+                <label htmlFor="car_descripcion_id" className="form-label">
                   Descripción
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="description_id"
-                  name="description"
+                  id="car_descripcion_id"
+                  name="car_descripcion"
                   autoComplete="off"
                   maxLength={220}
                   style={{ height: "38px" }}
@@ -92,44 +93,44 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                   }}
                 />
                 <ErrorMessage
-                  name="description"
+                  name="car_descripcion"
                   withCount
                   max={220}
                 />
               </div>
               <div className="col-12 col-md-6 col-lg-3">
-                <label htmlFor="button_url_id" className="form-label">
+                <label htmlFor="car_url_id" className="form-label">
                   Url botón{" "}
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field
                   type="text"
-                  id="button_url_id"
-                  name="button_url"
+                  id="car_url_id"
+                  name="car_url"
                   className="form-control"
                   autoComplete="off"
                 />
-                <ErrorMessage name="button_url" />
+                <ErrorMessage name="car_url" />
               </div>
               <div className="col-12 col-md-6 col-lg-3">
-                <label htmlFor="video_url_id" className="form-label">
+                <label htmlFor="car_url_video_id" className="form-label">
                   URL Video{" "}
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field
                   type="text"
-                  id="video_url_id"
-                  name="video_url"
+                  id="car_url_video_id"
+                  name="car_url_video"
                   className="form-control"
                   autoComplete="off"
                 />
                 <div style={{ fontSize: "10px", marginTop: "5px" }}>
                   URL embebida (YouTube, Vimeo)
                 </div>
-                <ErrorMessage name="video_url" />
+                <ErrorMessage name="car_url_video" />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="background_image_id" className="form-label">
+                <label htmlFor="car_ruta_imagen_id" className="form-label">
                   Imagen (Fondo)
                 </label>
                 <Field
@@ -137,12 +138,12 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                   maximum_size={2}
                   file_type="img"
                   type="text"
-                  id="background_image_id"
-                  name="background_image"
+                  id="car_ruta_imagen_id"
+                  name="car_ruta_imagen"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="background_image" />
+                <ErrorMessage name="car_ruta_imagen" />
               </div>
             </div>
           </Form>

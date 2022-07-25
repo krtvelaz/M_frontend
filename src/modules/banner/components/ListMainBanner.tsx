@@ -8,7 +8,7 @@ import ModalEditMainBanner from "./ModalEditMainBanner";
 interface BannerFormPros {
   data: IMainBanner[];
   onSubmit: (values: IMainBanner, index: number) => any;
-  onDelete: (index: number) => any;
+  onDelete: (id: number) => any;
 }
 
 const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete}) => {
@@ -23,23 +23,23 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete}) => {
         },
         {
             title: 'Titulo',
-            dataIndex: 'title',
+            dataIndex: 'car_titulo',
             align: 'left' as 'left',
         },
         {
             title: 'Descripción',
-            dataIndex: 'description',
+            dataIndex: 'car_descripcion',
             align: 'left' as 'left',
         },
-        {
-            title: 'Imagen',
-            dataIndex: 'background_image',
-            responsive: ['md'],
-            align: 'left' as 'left',
-            render: (value: File) => {
-              return value.name;
-            },
-        },
+        // {
+        //     title: 'Imagen',
+        //     dataIndex: 'car_nombre_imagen',
+        //     responsive: ['md'],
+        //     align: 'left' as 'left',
+        //     render: (value: File) => {
+        //       return value.name;
+        //     },
+        // },
         {
             title: "Acciones",
             fixed: "right",
@@ -47,10 +47,10 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete}) => {
               {
                 title: <span style={{ fontSize: "9px" }}>Ver</span>,
                 fixed: "right",
-                dataIndex: "background_image",
+                dataIndex: "car_nombre_imagen",
                 align: "center" as "center",
                 render: (value: File) => {
-                  return  <ModalDetailDocument document={value} />;
+                  // return  <ModalDetailDocument document={value} />;
                 },
               },
               {
@@ -63,9 +63,10 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete}) => {
               },
               {
                 title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
+                dataIndex: "id",
                 fixed: "right",
                 align: "center" as "center",
-                render: (data: any, values: any, index: number) => {
+                render: (id: number) => {
                   return (
                     <img
                       src={trash}
@@ -84,7 +85,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete}) => {
                           denyButtonText: `Cancelar`,
                         });
                         if(result.isConfirmed){                          
-                          onDelete(index);
+                          onDelete(id);
                         }
                       }}
                     />
