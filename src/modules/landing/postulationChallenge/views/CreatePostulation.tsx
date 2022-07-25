@@ -19,11 +19,16 @@ const CreatePostulation = () => {
             <div className="d-flex flex-row mb-3 col-md-12">
               <h5 className="my-5">¡Genial! estas a punto de postularte al reto</h5>
             </div>
-            <div className="">
+            {/* <div className="">
               <Card title=" Datos del postulante" actions={[]}>
                 <FormPostulation innerRef={form_ref} onSubmit={addPostulation} />
               </Card>
+            </div> */}
 
+            <div className="col-10">
+              <Card title=" Ingrese la dirección" actions={[]}>
+                <FormLocation innerRef={form_ref} onSubmit={addPostulation} />
+              </Card>
             </div>
 
           </div>
@@ -41,9 +46,9 @@ const CreatePostulation = () => {
           Cancelar
         </button>
         <button type="button" className="btn btn-primary" onClick={() => {
-
+          form_ref.current?.submitForm();
         }}>
-          <Link to="/postulation-team-challenge">Continuar</Link>
+          Continuar
         </button>
       </div>
 

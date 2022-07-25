@@ -51,7 +51,7 @@ const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, mer
                         className="form-control"
                         style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
                     >
-                        <span style={{ lineHeight: '25px' }}> {hour || "hh"}</span>
+                        <span style={{ lineHeight: '25px' }}> {hour || "HH"}</span>
                     </div>
                 </div>
                 <div className="col-3 text-center">
@@ -60,7 +60,7 @@ const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, mer
                         style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
                     >
 
-                        <span style={{ lineHeight: '25px' }}> {minute || "mm"}</span>
+                        <span style={{ lineHeight: '25px' }}> {minute || "MM"}</span>
                     </div>
                 </div>
                 <div className="col-4 text-center">
