@@ -1,37 +1,84 @@
 import { Tabs } from "antd";
-import { FC } from "react";
-import { IChallenge, } from "../../custom_types";
+import { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { IChallenge, IDocument } from "../../custom_types";
+import useDocument from "../../hooks/useTypeDocs";
+import { actions } from "../../redux";
 import AddDocument from "./AddDocument";
 
 interface DocumentsProps {
-  setChallenge: any;
+  typesDocument: any
+  onAddDocument: any
+  onDelete: (index: number) => void;
+  onEditDocument: (values: IDocument) => any;
+  editListDocs: (value: number) => void;
+  typeDoc: "general" | "admin" | "technicians";
   challenge: IChallenge;
   active_key: string;
 }
 
-const DocumentFormTags: FC<DocumentsProps> = ({ setChallenge, challenge, active_key }) => {
-  
-  
+const DocumentFormTags: FC<DocumentsProps> = ({
+  typesDocument,
+  onAddDocument,
+  onDelete,
+  onEditDocument,
+  editListDocs,
+  typeDoc,
+  challenge,
+  active_key,
+}) => {
+
   const { TabPane } = Tabs;
+  console.log(active_key);
+  
   return (
     <Tabs
       className="w-100 h-100 docs-challenge"
       activeKey={active_key}
-      // onChange={callback}
     >
       <TabPane tab="Doc. Generales" key="docs-1">
-        <AddDocument setChallenge={setChallenge} challenge={challenge} typeDoc="general" title='Agregar documentos generales' seeTable={challenge.documents.general.length > 0 ? true : false} />
+        <AddDocument
+          typesDocument={typesDocument}
+          onAddDocument={onAddDocument}
+          onDelete={onDelete}
+          onEditDocument={onEditDocument}
+          editListDocs={editListDocs}
+          typeDoc={typeDoc}
+          title="Agregar documentos generales"
+        />
       </TabPane>
-      <TabPane tab="Doc. Técnicos" key="docs-2" disabled={challenge.documents.general.length === 0}>
-        <AddDocument setChallenge={setChallenge} challenge={challenge} typeDoc="technicians" title='Agregar documentos técnicos' seeTable={challenge.documents.technical.length > 0 ? true : false} />
+      <TabPane
+        tab="Doc. Técnicos"
+        key="docs-2"
+        disabled={challenge.documents.general.length === 0}
+      >
+        <AddDocument
+          typesDocument={typesDocument}
+          onAddDocument={onAddDocument}
+          onDelete={onDelete}
+          onEditDocument={onEditDocument}
+          editListDocs={editListDocs}
+          typeDoc={typeDoc}
+          title="Agregar documentos técnicos"
+        />
       </TabPane>
-      <TabPane tab="Doc. Administrativos" key="docs-3" disabled={challenge.documents.general.length === 0}>
-        <AddDocument setChallenge={setChallenge} challenge={challenge} typeDoc="administrative" title='Agregar documentos adminitrativos' seeTable={challenge.documents.administrative.length > 0 ? true : false} />
+      <TabPane
+        tab="Doc. Administrativos"
+        key="docs-3"
+        disabled={challenge.documents.general.length === 0}
+      >
+        <AddDocument
+          typesDocument={typesDocument}
+          onAddDocument={onAddDocument}
+          onDelete={onDelete}
+          onEditDocument={onEditDocument}
+          editListDocs={editListDocs}
+          typeDoc={typeDoc}
+          title="Agregar documentos adminitrativos"
+        />
       </TabPane>
     </Tabs>
   );
 };
-
-
 
 export default DocumentFormTags;

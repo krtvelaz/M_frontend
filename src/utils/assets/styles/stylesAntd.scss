@@ -234,3 +234,20 @@ textarea.form-control {
 .ant-carousel .slick-dots-bottom {
   margin-bottom: 25px;
 }
+
+
+
+.ant-menu-vertical .ant-menu-submenu:hover {
+  background-color: #603CE6 !important;
+  &.ant-menu-title-content {
+    color: #fff !important;
+  }
+
+}
+
+
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow {
+  color: #fff !important;
+}
+
+

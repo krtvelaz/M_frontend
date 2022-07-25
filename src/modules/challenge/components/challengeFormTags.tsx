@@ -1,9 +1,12 @@
 import { Tabs } from "antd";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { IChallenge } from "../custom_types";
 import { useInit } from "../hooks/useInit";
+import useDocument from "../hooks/useTypeDocs";
+import { actions } from "../redux";
+import AddReport from "./reports/AddReport";
 import CreateGeneral from "./CreateGeneral";
-import AddDocument from "./documents/AddDocument";
 import DocumentFormTags from "./documents/DocumentFormTags";
 
 interface ChallengeFormPros {
@@ -12,7 +15,11 @@ interface ChallengeFormPros {
 }
 
 const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
-  const { TabPane } = Tabs;    
+  const [typeDoc, setTypeDoc] = useState<"general" | "admin" | "technicians">(
+    "general"
+  );
+  const dispatch = useDispatch<any>();
+  const { TabPane } = Tabs;
   let [
     active_key,
     active_key_docs,
@@ -27,6 +34,47 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
     setChallenge,
     ref,
   ] = useInit(type, challenge_data);
+
+  useEffect(() => {
+    active_key_docs === "docs-1" && active_key !== '3'
+      ? setTypeDoc("general")
+      : active_key_docs === "docs-2"
+      ? setTypeDoc("technicians")
+      : setTypeDoc("admin");
+  }, [active_key_docs]);
+
+  const {
+    typesDocument,
+    onAddDocument,
+    onDelete,
+    onEditDocument,
+    editListDocs,
+    setIsChange,
+    isChange,
+    getTypesDocuments,
+  } = useDocument(typeDoc, setChallenge, challenge);
+
+  const get_documents = async () => {
+    await dispatch(actions.get_list_document(typeDoc, {}));
+  };
+
+  useEffect(() => {
+    // se ejecuta cuando cambia de pantalla
+    getTypesDocuments();
+    get_documents();
+  }, [typeDoc]);
+
+  useEffect(() => {
+    // se ejecuta cuando se dispara alguna acción
+    if (isChange) {
+      get_documents();
+      setIsChange(false);
+    }
+  }, [isChange]);  
+
+  console.log(challenge);
+  
+
   return (
     <>
       <div className="h-100 d-flex flex-column">
@@ -54,19 +102,18 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                 </TabPane>
                 <TabPane tab="Documentos" key="2" disabled={max < 2}>
                   <DocumentFormTags
-                    setChallenge={setChallenge}
+                    typesDocument={typesDocument}
+                    onAddDocument={onAddDocument}
+                    onDelete={onDelete}
+                    onEditDocument={onEditDocument}
+                    editListDocs={editListDocs}
+                    typeDoc={typeDoc}
                     challenge={challenge}
                     active_key={active_key_docs}
                   />
                 </TabPane>
                 <TabPane tab="Informes" key="3" disabled={max < 3}>
-                  <AddDocument
-                    setChallenge={setChallenge}
-                    challenge={challenge}
-                    typeDoc="report"
-                    title="Agregar informe"
-                    seeTable={challenge.reports.length > 0 ? true : false}
-                  />
+                 <AddReport challenge={challenge} setChallenge={setChallenge} />
                 </TabPane>
               </Tabs>
             </div>

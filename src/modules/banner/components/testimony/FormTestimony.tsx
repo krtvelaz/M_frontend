@@ -31,6 +31,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
 
   const submit = (values: any, form: any) => {
     onSubmit(values);
+    form.resetForm();
   };
 
   return (
@@ -41,7 +42,9 @@ const FormTestimony: FC<TestimonyFormPros> = ({
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ values, handleChange }) => {
+      {({ values, handleChange, isSubmitting }) => {
+       
+        
         return (
           <Form>
             <div className="row ">

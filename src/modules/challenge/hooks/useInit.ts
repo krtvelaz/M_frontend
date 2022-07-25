@@ -29,32 +29,32 @@ export const useInit = (
     active_key_docs: Location;
     active_key: Location;
     max: number;
-    challenge?: IChallenge
+    challenge?: IChallenge;
   };
   const active_key: any = state?.active_key || "1";
   const active_key_docs: any = state?.active_key_docs || "docs-1";
-  const ls = state;
+  const ls = state;  
 
   const initial_values: IChallenge = {
     general_information: {
-      cha_name: "",
-      cha_profile: null,
-      cha_dimension: "",
-      cha_dependence: "",
-      cha_start_date: "",
-      cha_end_date: "",
-      cha_challenge_detail: "",
-      cha_commune: "",
-      cha_neighborhood: "",
-      cha_population_detail: "",
-      cha_principal_image: "",
-      cha_principal_image_name: "",
-      cha_video: "",
-      cha_important_data: "",
-      cha_expected_result: "",
-      cha_economic_amount: "",
-      cha_description: "",
-      cha_impact_type: "",
+      ret_nombre: "",
+      ret_perfil: [],
+      ret_dimension: "",
+      ret_dependencia: "",
+      ret_fecha_inicio: "",
+      ret_fecha_final: "",
+      ret_detalles: "",
+      ret_comuna: "",
+      ret_barrio: "",
+      ret_detalle_postulacion: "",
+      ret_ruta_imagen_principal: "",
+      ret_nombre_imagen: "",
+      ret_video: "",
+      ret_dato_importante: "",
+      ret_resultado_esperado: "",
+      ret_monto: "",
+      ret_descripcion: "",
+      ret_tipo_impacto: "",
     },
     documents: {
       general: [],
@@ -64,7 +64,12 @@ export const useInit = (
     reports: [],
   };
 
-  const [challenge, setChallenge] = useState(ls.challenge ? ls.challenge : initial_values);
+ 
+  const [challenge, setChallenge] = useState(
+    ls?.challenge ? ls.challenge : initial_values
+  );
+  
+  
   const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
@@ -79,30 +84,30 @@ export const useInit = (
       },
       onSave: async (values: IGeneralInformation) => {
         if (!challenge.general_information.key) {
-          // crear el reto          
-          // console.log("no hay key se debe crear");
+          // crear el reto
           const res = await dispatch(actions.create_challenge(values));
           if (res) {
             set_is_saving(false);
             setChallenge((data: any) => ({
               ...data,
               general_information: {
-                ...values,
-                key: res.body.key,
+                ...res.data,
+                ret_perfil: res.data.ret_perfil.data,
+                key: res.key,
               },
             }));
           }
+          
         } else {
           // console.log("hay key se debe editar");
+          const res = await dispatch(actions.update_challenge(values));
           set_is_saving(false);
-          setChallenge((data: any) => ({
-            ...data,
-            general_information: {
-              ...values,
-            },
-          }));
-
-          // editar por id recibido
+          // setChallenge((data: any) => ({
+          //   ...data,
+          //   general_information: {
+          //     ...values,
+          //   },
+          // }));
         }
       },
     },
@@ -141,12 +146,13 @@ export const useInit = (
         return;
       }
     }
+    
     const next = key + 1;
     if (next <= limit) {
       callback(`${next}`);
     }
   };
-  const prev_tab = () => {
+  const prev_tab = () => {    
     const key = parseInt(active_key);
     const prev = key - 1;
     if (prev > 0) {
@@ -208,6 +214,7 @@ export const useInit = (
           max,
         },
       });
+      
       set_go_next("");
       set_go_next_doc("");
       console.groupEnd();

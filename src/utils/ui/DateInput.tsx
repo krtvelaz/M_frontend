@@ -5,36 +5,26 @@ import { FC, useEffect, useState } from "react";
 import { inputCalendar } from "../assets/img";
 
 interface IProps extends FieldProps {
-  dia?: string;
-  mes?: string;
-  anio?: string;
   extra_on_change?: (value: any, prev_value?: any) => void;
 }
 
-const DateInput: FC<IProps> = ({  field, form, extra_on_change, dia, mes, anio }) => {
+const DateInput: FC<IProps> = ({  field, form, extra_on_change, ...props }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState("");  
 
 
   useEffect(() => {
-    if (dia || dia === "") {
-      setDay(dia);
+    if (field.value) {
+      setDay(moment(field.value).format("DD"));
+      setMonth(moment(field.value).format("MM"));
+      setYear(moment(field.value).format("YYYY"));
     }
-  }, [dia]);
+  }, [field.value]);
 
-  useEffect(() => {
-    if (mes || mes === "") {
-      setMonth(mes);
-    }
-  }, [mes]);
 
-  useEffect(() => {
-    if (anio || anio === "") {
-      setYear(anio);
-    }
-  }, [anio]);
+
 
   const guardarFecha = (fecha: any) => {
     setOpenDatePicker(false);
@@ -89,6 +79,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, dia, mes, anio }
             bordered={false}
             open={openDatePicker}
             onChange={guardarFecha}
+            {...props}
           />
         </div>
       </div>

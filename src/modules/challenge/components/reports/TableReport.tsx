@@ -1,58 +1,42 @@
+import moment from "moment";
 import { FC } from "react";
-import { swal_error, Table } from "../../../../utils/ui";
 import { trash } from "../../../../utils/assets/img";
-import { IDocument } from "../../custom_types";
-import ModalEditDocument from "./ModalEditDocument";
-import ModalDetailDocument from "../../../../utils/ui/ModalDetailDocument";
+import { ModalDetailDocument, swal_error, Table } from "../../../../utils/ui";
+import { Informe } from "../../custom_types";
+import ModalEditReport from "./ModalEditReport";
 
-interface DocsFormPros {
-  documents: IDocument[];
-  typeDoc?: "general" | "admin" | "technicians";
+interface TablePros {
+  reports: Informe[];
   onDelete: (index: number) => void;
-  onEdit: (values: IDocument) => void;
-  typesDocument: any[];
-  editListDocs: (value: number) => void;
+  onEdit: (values: Informe) => void;
   loading: boolean;
 }
 
-const TableDocs: FC<DocsFormPros> = ({
-  documents,
-  typeDoc,
-  onDelete,
-  onEdit,
-  typesDocument,
-  editListDocs,
-  loading,
-}) => {
+const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete }) => {
   const table_columns: any = [
     {
       title: "No.",
       align: "left" as "left",
-      render: (data: IDocument, values: any, i: number) => {
+      render: (data: Informe, values: any, i: number) => {
         return i + 1;
       },
     },
-    ...(typeDoc !== "general" 
-      ? [
-          {
-            title: "Perfil asociado",
-            dataIndex: "ret_perfiles",
-            align: "left" as "left",
-          },
-        ]
-      : []),
-
     {
-      title: "Tipo de documento",
-      dataIndex: "ret_tipo_documento",
+      title: "Titulo del informe",
+      dataIndex: "ret_titulo_reporte",
       align: "left" as "left",
     },
     {
-      title: "Nombre",
-      dataIndex: "ret_nombre_plantilla",
+      title: "Nombre de documento adjunto",
+      dataIndex: "ret_nombre_documento",
       align: "left" as "left",
-      render: (name_document: string) => {
-        return name_document ? name_document : "Sin plantilla";
+    },
+    {
+      title: "Fecha",
+      dataIndex: "dataIndex",
+      align: "left" as "left",
+      render: (date: string) => {
+       return moment(date).format("DD/MM/YYYY")
       },
     },
     {
@@ -72,16 +56,8 @@ const TableDocs: FC<DocsFormPros> = ({
           title: <span style={{ fontSize: "9px" }}>Editar</span>,
           fixed: "right",
           align: "center" as "center",
-          render: (values: IDocument, data: IDocument) => {
-            return (
-              <ModalEditDocument
-                typeDoc={typeDoc}
-                doc={values}
-                typesDocument={typesDocument}
-                onEdit={onEdit}
-                editListDocs={editListDocs}
-              />
-            );
+          render: (values: Informe, data: Informe) => {
+            return <ModalEditReport report={values} onEdit={onEdit} />;
           },
         },
         {
@@ -108,7 +84,7 @@ const TableDocs: FC<DocsFormPros> = ({
                     denyButtonText: `Cancelar`,
                   });
                   if (result.isConfirmed) {
-                    onDelete(id);
+                    onDelete(id)
                   }
                 }}
               />
@@ -121,11 +97,11 @@ const TableDocs: FC<DocsFormPros> = ({
   return (
     <Table
       columns={table_columns}
-      items={documents}
+      items={reports}
       with_pagination={false}
-      loading={loading}
+      //   loading={loading}
     />
   );
 };
 
-export default TableDocs;
+export default TableReport;

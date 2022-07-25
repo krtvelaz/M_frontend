@@ -8,17 +8,22 @@ import { ITestimony } from "../custom_types";
 import { actions } from "../redux";
 
 const CreateTestimony = () => {
-  const testimonials: ITestimony[] = useSelector((store: any) => store.banner.testimonials.value);
+  const testimonials: ITestimony[] = useSelector(
+    (store: any) => store.banner.testimonials.value
+  );
 
   const [isChange, setIsChange] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const dispatch = useDispatch<any>();
 
-  const form_ref = useRef<FormikProps<FormikValues>>();
+  const form_ref = useRef<FormikProps<FormikValues>>();  
 
   const addTestimony = async (values: ITestimony) => {
+    setIsSubmitting(true);
     await dispatch(actions.create_testimony(values));
     setIsChange(true);
+    setIsSubmitting(false);
   };
 
   const editTetimony = async (values: ITestimony, id: number) => {
@@ -29,7 +34,6 @@ const CreateTestimony = () => {
   const onDelete = async (id: number) => {
     await dispatch(actions.delete_testimonial(id));
     setIsChange(true);
-
   };
 
   const get_testimonals = async () => {
@@ -69,8 +73,15 @@ const CreateTestimony = () => {
                       onClick={() => {
                         form_ref.current?.submitForm();
                       }}
+                      disabled={isSubmitting}
                     >
                       Agregar
+                      {isSubmitting && (
+                        <i
+                          className="fa fa-spinner fa-spin"
+                          style={{ fontSize: 12, marginLeft: 4, color: "#603CE6" }}
+                        />
+                      )}
                     </button>
                   </div>,
                 ]}
@@ -98,12 +109,16 @@ const CreateTestimony = () => {
         <button
           type="button"
           className="btn btn-outline-primary"
-          onClick={() => { }}
+          onClick={() => {}}
         >
           Atrás
         </button>
         <div className="flex-fill" />
-        <button type="button" className="btn btn-primary" onClick={() => { }}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {}}
+        >
           Guardar
         </button>
       </div>

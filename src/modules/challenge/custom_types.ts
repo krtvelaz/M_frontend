@@ -1,29 +1,30 @@
 export interface IChallenge {
   general_information: IGeneralInformation;
   documents: IDocuments;
-  reports: IDocument[];
+  reports: Informe[];
 }
 
 export interface IGeneralInformation {
   key?: number;
-  cha_name: string,
-  cha_profile: any,
-  cha_dimension: number | string,
-  cha_dependence: number | string,
-  cha_start_date: string,
-  cha_end_date: string,
-  cha_challenge_detail: string,
-  cha_commune: number | string,
-  cha_neighborhood: number | string,
-  cha_population_detail: string,
-  cha_principal_image: string,
-  cha_principal_image_name: string,
-  cha_video: string,
-  cha_important_data: string,
-  cha_expected_result: string,
-  cha_economic_amount: number | string,
-  cha_description: string;
-  cha_impact_type: string;
+  id?: number;
+  ret_nombre: string;
+  ret_perfil: any;
+  ret_dimension: number | string;
+  ret_dependencia: number | string;
+  ret_fecha_inicio: string;
+  ret_fecha_final: string;
+  ret_detalles: string;
+  ret_comuna: number | string;
+  ret_barrio: number | string;
+  ret_detalle_postulacion: string;
+  ret_ruta_imagen_principal: string;
+  ret_nombre_imagen: string;
+  ret_video: string;
+  ret_dato_importante: string;
+  ret_resultado_esperado: string;
+  ret_monto: number | string;
+  ret_descripcion: string;
+  ret_tipo_impacto: string;
 }
 export interface IDocuments {
   general: IDocument[];
@@ -32,10 +33,25 @@ export interface IDocuments {
 }
 
 export interface IDocument {
-  cha_document_type : number | string,
-  cha_document_name: string,
-  cha_profile : string,
-  cha_template_path: string,
-  cha_template_name: string
-}
+  id?: number;
+  ret_tipo_documento: number;
+  ret_nombre_documento: string;
+  ret_perfiles: string;
+  ret_ruta_plantilla: string;
+  ret_nombre_plantilla: string;
+  ret_tipo_formulario?: number;
+  ret_creado?: string;
+  ret_estado?: boolean;
+  key?: string;
 
+}
+export interface Informe {
+  id?: number;
+  ret_titulo_reporte: string;
+  ret_ruta_documento: string;
+  ret_nombre_documento: string;
+  ret_creado?: string;
+  ret_estado?: boolean;
+  ret_reto_general?: number;
+  key?: string;
+}
