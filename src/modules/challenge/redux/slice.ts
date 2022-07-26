@@ -100,10 +100,10 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
-    success_get_list_documents: (state, action) => {
+    success_get_list_documents: (state, action) => {      
       state.documents_challenge = {
         ...state.documents_challenge,
-        value: action.payload?.results || [],
+        value: action.payload || [],
         pagination: {
           page: action.payload?.page || 1,
           count: action.payload?.count || 0,

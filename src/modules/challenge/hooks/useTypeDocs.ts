@@ -1,96 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IChallenge, IDocument } from "../custom_types";
 import { actions } from "../redux";
 
 const useDocument = (
-  typeDoc: "general" | "administrative" | "technicians" | "report",
+  typeDoc: "general" | "admin" | "technicians",
   setChallenge: any,
   challenge: IChallenge
 ) => {
   const dispatch = useDispatch<any>();
-  const [typesDocument, setTypesDocument] = useState([
-    ...(typeDoc === "general"
-      ? [
-          {
-            name: "Ficha del reto",
-            id: 1,
-          },
-          {
-            name: "Términos generales",
-            id: 2,
-          },
-          {
-            name: "Matriz de riesgo",
-            id: 3,
-          },
-        ]
-      : typeDoc === "technicians"
-      ? [
-          {
-            name: "Formato presentación solución",
-            id: 4,
-          },
-          {
-            name: "Certificado experiencia desarrollo tecnológico",
-            id: 5,
-          },
-          {
-            name: "Matriz de riesgo",
-            id: 6,
-          },
-          {
-            name: "Diagrama arquitectónico",
-            id: 7,
-          },
-          {
-            name: "Otro",
-            id: 16,
-          },
-        ]
-      : typeDoc === "administrative"
-      ? [
-          {
-            name: "RUT",
-            id: 8,
-          },
-          {
-            name: "Cédula representante",
-            id: 9,
-          },
-          {
-            name: "Certificado seguridad social",
-            id: 10,
-          },
-          {
-            name: "Carta de presentación",
-            id: 11,
-          },
-          {
-            name: "Cédula mujeres",
-            id: 12,
-          },
-          {
-            name: "Certificado discapacidad",
-            id: 13,
-          },
-          {
-            name: "Certificado único victimas",
-            id: 14,
-          },
-          {
-            name: "Certificado población minoritaria",
-            id: 15,
-          },
-        ]
-      : []),
-  ]);
+  const [typesDocument, setTypesDocument] = useState<any>([]);
+  const [isChange, setIsChange] = useState<boolean>(false);
 
   const onAddDocument = async (values: IDocument) => {
-    setTypesDocument(
-      typesDocument.filter((doc) => doc.name !== values.cha_document_type)
-    );
-
     const res = await dispatch(
       actions.create_challenge_document(
         values,
@@ -98,137 +20,181 @@ const useDocument = (
         typeDoc
       )
     );
-
     if (res) {
-      setChallenge((data: IChallenge) => {
-        return {
-          ...data,
-          documents: {
-            ...data.documents,
-            ...(typeDoc === "general"
-              ? { general: [...data.documents.general, values] }
-              : typeDoc === "technicians"
-              ? { technical: [...data.documents.technical, values] }
-              : typeDoc === "administrative" && {
-                  administrative: [...data.documents.administrative, values],
-                }),
-          },
-          ...(typeDoc === "report" && {
-            reports: [...data.reports, values],
-          }),
-        };
-      });
+      setIsChange(true);
     }
   };
 
-  const onDelete = (index: number) => {
-    let documents =
-      typeDoc === "general"
-        ? challenge.documents.general
-        : typeDoc === "technicians"
-        ? challenge.documents.technical
-        : typeDoc === "administrative"
-        ? challenge.documents.administrative
-        : challenge.reports;
-    let restore_value = documents[index].cha_document_type;
-    console.log(restore_value);
-
-    // if (restore_value) {
-    //   setTypesDocument([
-    //     ...typesDocument,
-    //     { name: restore_value, id: restore_value },
-    //   ]);
-    // }
-    const newDocuments = documents.filter((doc, i) => i !== index);
-    setChallenge((data: IChallenge) => {
-      return {
-        ...data,
-        documents: {
-          ...data.documents,
-          ...(typeDoc === "general"
-            ? { general: newDocuments }
-            : typeDoc === "technicians"
-            ? { technical: newDocuments }
-            : { administrative: newDocuments }),
-        },
-        ...(typeDoc === "report" && { reports: newDocuments }),
-      };
-    });
+  const onDelete = async (id: number) => {
+    const res = await dispatch(actions.delete_challenge_document(typeDoc, id));
+    if (res) {
+      setIsChange(true);
+    }
   };
 
-  const editListDocs = (value: string) => {
-    let typesDocs = JSON.parse(JSON.stringify(typesDocument));
-    typesDocs = [
-      ...typesDocs,
-      ...(typeDoc === "administrative"
+  const onEditDocument = async (values: IDocument) => {
+    const res = await dispatch(
+      actions.edit_challenge_document(
+        values,
+        challenge.general_information.key || -1,
+        typeDoc
+      )
+    );
+    if (res) setIsChange(true);
+  };
+
+  const editListDocs = (value: number) => {
+    if (typeDoc === "admin") {
+      let typesDocs = JSON.parse(JSON.stringify(typesDocument));
+      typesDocs = [
+        ...typesDocs,
+        ...(value === 3
+          ? [
+              {
+                name: "Recibo de servicios públicos",
+                id: 16,
+              },
+            ]
+          : value === 1
+          ? [
+              {
+                name: "Certificado validación IES que pertenece",
+                id: 17,
+              },
+              {
+                name: "Registro grupLAC, categoría B, A, A1",
+                id: 18,
+              },
+              {
+                name: "Aval institución registrada en el instituLAC",
+                id: 19,
+              },
+              {
+                name: "Tener un proyecto de investigación en ejecución",
+                id: 20,
+              },
+            ]
+          : [
+              {
+                name: "Certificado de existencia y representación legal",
+                id: 21,
+              },
+              {
+                name: "Certificado de antecedentes disciplinarios",
+                id: 22,
+              },
+              {
+                name: "Certificado de antecedentes  judiciales",
+                id: 23,
+              },
+              {
+                name:
+                  "Autorización al representante legal para contratar cuando esta sea necesaria",
+                id: 24,
+              },
+              {
+                name:
+                  "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
+                id: 25,
+              },
+            ]),
+      ];
+      setTypesDocument(typesDocs);
+    }
+  };
+
+  const getTypesDocuments = () => {
+    setTypesDocument([
+      ...(typeDoc === "general"
         ? [
-            ...(value === "Equipo de innovadores"
-              ? [
-                  {
-                    name: "Recibo de servicios públicos",
-                    id: "Recibo de servicios públicos",
-                  },
-                ]
-              : []),
-            ...(value === "Grupo de investigación"
-              ? [
-                  {
-                    name: "Certificado validación IES que pertenece",
-                    id: "Certificado validación IES que pertenece",
-                  },
-                  {
-                    name: "Registro grupLAC, categoría B, A, A1",
-                    id: "Registro grupLAC, categoría B, A, A1",
-                  },
-                  {
-                    name: "Aval institución registrada en el instituLAC",
-                    id: "Aval institución registrada en el instituLAC",
-                  },
-                  {
-                    name: "Tener un proyecto de investigación en ejecución",
-                    id: "Tener un proyecto de investigación en ejecución",
-                  },
-                ]
-              : []),
-            ...(value === "Persona jurídica"
-              ? [
-                  {
-                    name: "Certificado de existencia y representación legal",
-                    id: "Certificado de existencia y representación legal",
-                  },
-                  {
-                    name: "Certificado de antecedentes disciplinarios",
-                    id: "Certificado de antecedentes disciplinarios",
-                  },
-                  {
-                    name: "Certificado de antecedentes  judiciales",
-                    id: "Certificado de antecedentes  judiciales",
-                  },
-                  {
-                    name:
-                      "Autorización al representante legal para contratar cuando esta sea necesaria",
-                    id:
-                      "Autorización al representante legal para contratar cuando esta sea necesaria",
-                  },
-                  {
-                    name:
-                      "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
-                    id:
-                      "Las Asociaciones o corporaciones y fundaciones o instituciones de  utilidad Común, deben allegar con la propuesta de solución, el certificado de cumplimiento de normatividad expedido por la entidad que ejerce la Inspección, vigilancia y Control",
-                  },
-                ]
-              : []),
+            {
+              name: "Ficha del reto",
+              id: 1,
+            },
+            {
+              name: "Términos generales",
+              id: 2,
+            },
+            {
+              name: "Matriz de riesgo",
+              id: 3,
+            },
+          ]
+        : typeDoc === "technicians"
+        ? [
+            {
+              name: "Formato presentación solución",
+              id: 4,
+            },
+            {
+              name: "Certificado experiencia desarrollo tecnológico",
+              id: 5,
+            },
+            {
+              name: "Matriz de riesgo",
+              id: 6,
+            },
+            {
+              name: "Diagrama arquitectónico",
+              id: 7,
+            },
+            {
+              name: "Otro",
+              id: 26,
+            },
+          ]
+        : typeDoc === "admin"
+        ? [
+            {
+              name: "RUT",
+              id: 8,
+            },
+            {
+              name: "Cédula representante",
+              id: 9,
+            },
+            {
+              name: "Certificado seguridad social",
+              id: 10,
+            },
+            {
+              name: "Carta de presentación",
+              id: 11,
+            },
+            {
+              name: "Cédula mujeres",
+              id: 12,
+            },
+            {
+              name: "Certificado discapacidad",
+              id: 13,
+            },
+            {
+              name: "Certificado único victimas",
+              id: 14,
+            },
+            {
+              name: "Certificado población minoritaria",
+              id: 15,
+            },
+            {
+              name: "Otro",
+              id: 26,
+            },
           ]
         : []),
-    ];
-    setTypesDocument(typesDocs);
+    ]);
   };
 
   return {
     typesDocument,
     onAddDocument,
     onDelete,
+    onEditDocument,
     editListDocs,
+    isChange,
+    setIsChange,
+    getTypesDocuments,
   };
 };
 

@@ -48,6 +48,7 @@ const CreateEvent = () => {
                     type="button"
                     className="btn btn-primary"
                     onClick={() => {
+                        form_ref.current?.submitForm();
                     }}
                 >
                     Guardar

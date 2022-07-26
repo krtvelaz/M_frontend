@@ -9,6 +9,9 @@ const sider: FC<{ width: number }> = ({ width }) => {
   const navigate = useNavigate();
   let menu_config: any = [
     {
+      label: <div style={{color: '#245E8E', fontFamily: 'Montserrat-SemiBold'}}>Pagina Principal</div>
+    },
+    {
       label: "Retos",
       children: [
         {
@@ -91,22 +94,9 @@ const sider: FC<{ width: number }> = ({ width }) => {
             src={logoAlcaldia}
             className="img-fluid"
             alt=""
-            width="42%"
-            style={{ paddingTop: "16px" }}
+            width="60%"
+            style={{  padding: "20px 0 20px 0", }}
           />
-          <div
-            className="text-white"
-            style={{
-              fontWeight: 400,
-              padding: "20px 0 38.61px 0",
-              width: "80%",
-              margin: "0 auto",
-              fontFamily: "Montserrat-Bold",
-              fontSize: "12px",
-            }}
-          >
-            Secretaría de innovación digital
-          </div>
         </div>
       )}
       <Menu style={{fontSize: '12px', paddingLeft: '51px'}} onSelect={goTo} items={menu_config} />

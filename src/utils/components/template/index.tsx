@@ -20,7 +20,7 @@ const Template: FC<ITemplate> = ({
   children,
   breadcrumbs,
   show_breadcrumbs,
-}) => {  
+}) => {
   const { Header, Sider, Content } = Layout;
   const context = useContext(TemplateContext);
   const collapsible = context.device === "md" ? true : false;
@@ -42,9 +42,11 @@ const Template: FC<ITemplate> = ({
     <>
       <Layout className="w-100 h-100">
         {context.device !== "sm" && (
-          <Sider {...sider_ops} width={280}>
-            <AppSider width={sider_ops.width} />
-          </Sider>
+          <>
+            <Sider {...sider_ops} width={280}>
+              <AppSider width={sider_ops.width} />
+            </Sider>
+          </>
         )}
         <Layout className="site-layout">
           <Header className="component-header p-0">
@@ -81,9 +83,9 @@ const Template: FC<ITemplate> = ({
         </Layout>
       </Layout>
       <Drawer
-        maskStyle={{
-          backgroundColor: "rgba(6, 100, 144 ,0.8)",
-        }}
+        // maskStyle={{
+        //   backgroundColor: "rgba(6, 100, 144 ,0.8)",
+        // }}
         placement="right"
         onClose={context?.drawer_close}
         visible={context?.drawer_collapsed}
@@ -118,7 +120,7 @@ const Template: FC<ITemplate> = ({
           </div>
         </div>
         <div className="drawer-content d-flex flex-column">
-          <div style={{ padding: '16px 0px 16px 16px' }}>
+          <div style={{ padding: "16px 0px 16px 16px" }}>
             <Menu
               mode="inline"
               selectedKeys={[]}

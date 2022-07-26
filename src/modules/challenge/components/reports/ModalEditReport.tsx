@@ -2,33 +2,24 @@ import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
 import { pencil } from "../../../../utils/assets/img";
-import { IChallenge, IDocument } from "../../custom_types";
-import FormAddDocument from "./FormAddDocument";
+import { Informe } from "../../custom_types";
+import FormReport from "./FormReport";
 
 interface ModalPros {
-  typeDoc?: "general" | "admin" | "technicians";
-  doc: IDocument;
-  typesDocument: any[];
-  onEdit: (values: IDocument) => void;
-  editListDocs: (value: number) => void;
-}
-const ModalEditDocument: FC<ModalPros> = ({
-  typeDoc,
-  doc,
-  typesDocument,
-  editListDocs,
-  onEdit
-}) => {
-  const [is_visible, set_is_visible] = useState<boolean>(false);
+    report: Informe;
+    onEdit: (values: Informe) => void;
+  }
+
+const ModalEditReport: FC<ModalPros> = ({ onEdit, report}) => {
+    const [is_visible, set_is_visible] = useState<boolean>(false);
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
   const form_ref = useRef<FormikProps<FormikValues>>();  
 
-  const onEditDocument = async (values: IDocument) => {
-   await onEdit(values)
+  const onEditDocument = async (values: Informe) => {
+    await onEdit(values);
     set_is_visible(false);
-  };
-
+   };
   return (
     <>
       <img
@@ -63,18 +54,10 @@ const ModalEditDocument: FC<ModalPros> = ({
           </button>,
         ]}
       >
-        <FormAddDocument
-          innerRef={form_ref}
-          onSubmit={onEditDocument}
-          type='edit'
-          typeDoc={typeDoc}
-          doc={doc}
-          typesDocument={typesDocument}
-          editListDocs={editListDocs}
-        />
+       <FormReport innerRef={form_ref} onSubmit={onEditDocument} report={report}/>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default ModalEditDocument;
+export default ModalEditReport

@@ -1,44 +1,37 @@
 import { FormikProps, FormikValues } from "formik";
-import { FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC,  useRef,  } from "react";
+import {  useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
-import { IChallenge } from "../../custom_types";
-import useDocument from "../../hooks/useTypeDocs";
-import { actions } from "../../redux";
+import { IDocument } from "../../custom_types";
 import FormAddDocument from "./FormAddDocument";
 import TableDocs from "./TableDocs";
 
 interface DocsFormPros {
-  typeDoc: "general" | "administrative" | "technicians" | "report";
-  setChallenge: any;
-  challenge: IChallenge;
+  typesDocument: any[];
+  onAddDocument: (values: IDocument) => void
+  onDelete: (index: number) => void;
+  onEditDocument: (values: IDocument) => void;
+  editListDocs: (value: number) => void;
+  typeDoc: "general" | "admin" | "technicians";
   title: string;
-  seeTable: boolean;
 }
 const AddDocument: FC<DocsFormPros> = ({
-  setChallenge,
+  typesDocument,
+  onAddDocument,
+  onDelete,
+  onEditDocument,
+  editListDocs,
   typeDoc,
-  challenge,
   title,
-  seeTable,
 }) => {
-  const dispatch = useDispatch<any>();
-  const documents: any = useSelector((store: any) => store.challenge.documents_challenge.value);
-  const loading: boolean = useSelector((store: any) => store.challenge.documents_challenge.loading);
-  const { total_results } = useSelector((store: any) => store.challenge.documents_challenge.pagination);
-  const form_ref = useRef<FormikProps<FormikValues>>();
-  const { typesDocument, onAddDocument, onDelete, editListDocs } = useDocument(
-    typeDoc,
-    setChallenge,
-    challenge
+  
+  const documents: any = useSelector(
+    (store: any) => store.challenge.documents_challenge.value
   );
-  const get_documents = async () => {
-    await dispatch(actions.get_list_document(typeDoc));
-  }
-
-  useEffect(() => {
-   get_documents();
-  }, [])
+  const loading: boolean = useSelector(
+    (store: any) => store.challenge.documents_challenge.loading
+  );
+  const form_ref = useRef<FormikProps<FormikValues>>();
 
   return (
     <div className="container-fluid">
@@ -48,12 +41,6 @@ const AddDocument: FC<DocsFormPros> = ({
             title={
               <>
                 <span style={{ fontSize: "14px" }}>{title}</span>
-                {typeDoc === "report" && (
-                  <span style={{ color: "#AD0808", fontSize: "10px" }}>
-                    {" "}
-                    - Todos los campos son obligatorios
-                  </span>
-                )}
               </>
             }
             actions={[
@@ -77,30 +64,24 @@ const AddDocument: FC<DocsFormPros> = ({
               innerRef={form_ref}
               onSubmit={onAddDocument}
               typeDoc={typeDoc}
+              type='create'
               editListDocs={editListDocs}
               typesDocument={typesDocument}
             />
           </Card>
-          {seeTable && (
+          {documents.length > 0 && (
             <Card>
               <span className="my-3" style={{ fontSize: "14px" }}>
                 Documentos agregados
               </span>
               <TableDocs
-                documents={
-                  typeDoc === "general"
-                    ? challenge.documents.general
-                    : typeDoc === "technicians"
-                    ? challenge.documents.technical
-                    : typeDoc === "administrative"
-                    ? challenge.documents.administrative
-                    : challenge.reports
-                }
-                setChallenge={setChallenge}
+                documents={documents}
                 onDelete={onDelete}
+                onEdit={onEditDocument}
                 typeDoc={typeDoc}
                 typesDocument={typesDocument}
                 editListDocs={editListDocs}
+                loading={loading}
               />
             </Card>
           )}

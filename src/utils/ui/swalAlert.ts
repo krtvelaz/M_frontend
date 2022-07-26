@@ -30,13 +30,16 @@ export const swal_error = withReactContent(
 
 export const swal_success = withReactContent(
   Swal.mixin({
-    icon: "success",
     customClass: {
       popup: "success",
       confirmButton: "btn btn-primary",
       cancelButton: "btn btn-outline-primary",
       denyButton: "btn btn-outline-primary",
+      title: 'title-myswal-alert-success'
     },
+    showCloseButton: true,
+    reverseButtons: true,
+    width: 662,
     backdrop: "rgba(75 ,100 ,59,0.75)",
   })
 );
