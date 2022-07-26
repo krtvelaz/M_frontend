@@ -17,12 +17,12 @@ export interface ITestimony {
    
 }
 export interface IIndicator {
-    mas_challenges_number:string | number;
-    mas_impacted_people:string | number;
-    mas_connected_actors:string | number;
-    mas_implemented_solutions:string | number;
-    mas_description_challenges_number:string;
-    mas_description_impacted_people:string;
-    mas_description_connected_actors:string;
-    mas_description_implemented_solutions:string;
+    est_numero_reto: string | number;
+    est_persona_impacto: string | number;
+    est_actores_conectados: string | number;
+    est_solucion_implementada: string | number;
+    est_descripcion_numero_reto: string;
+    est_descripcion_persona_impacto: string;
+    est_descripcion_actores_conectados: string;
+    est_descripcion_solucion_implementada: string;
 }

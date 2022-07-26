@@ -1,5 +1,5 @@
 import { FormikProps, FormikValues } from "formik";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../utils/ui";
 import FormIndicator from "../components/FormIndicator";
@@ -9,16 +9,29 @@ import { actions } from "../redux";
 const CreateIndicator = () => {
   const form_ref = useRef<FormikProps<FormikValues>>();
   const dispatch = useDispatch<any>();
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
 
   const statistics: IIndicator = useSelector((store:any) => store.banner.statistics.value)
 
   const addIndicator = async (values: IIndicator) => {
     await dispatch(actions.create_statistics(values));
+    console.log(values)
+    setIsSuccess(true);
+
   };
 
   useEffect(() => {
   dispatch(actions.get_statistics());
   }, [])
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(actions.get_statistics());
+      setIsSuccess(false);
+    }
+  }, [isSuccess]);
+
   
 
   return (

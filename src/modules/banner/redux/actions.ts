@@ -140,7 +140,7 @@ const delete_banner = (id: number) => {
       const res = await cms_http.delete(URI, {
         params: { id }
       });
-      await swal_success.fire({
+      await swal_success.fire({ 
         title: "Proceso exitoso",
         html:
           `<div class="mysubtitle">${res.data.message}</div>` +
@@ -167,21 +167,26 @@ const delete_banner = (id: number) => {
 
 /*-----------------------------statistics---------------------*/
 
-const create_statistics = (data: IIndicator) => {
+const create_statistics = (values: IIndicator) => {
   return async (dispatch: any) => {
     dispatch(statistics_default());
-    let values = JSON.parse(JSON.stringify(data));
-    values.mas_challenges_number = Number(values.mas_challenges_number);
-    values.mas_impacted_people = Number(values.mas_impacted_people);
-    values.mas_connected_actors = Number(values.mas_connected_actors);
-    values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
-    values.mas_status = true;
-    delete values.created_at;
-    delete values.id;
-    delete values.updated_at;
+    const data = {
+      action: "insert",
+      info: {
+        id: -1,
+      },
+      data: {
+        ...values,
+        est_numero_reto: Number(values.est_numero_reto),
+        est_persona_impacto : Number(values.est_persona_impacto),
+        est_actores_conectados : Number(values.est_actores_conectados),
+        est_solucion_implementada: Number(values.est_solucion_implementada),
+      },
+    };
+    console.log(JSON.stringify(data))
     try {
-      const URI = "/statistics/statistic";
-      const res = await master_http.post(URI, values);
+      const URI = "statistics/add";
+      const res = await cms_http.post(URI, data);
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",
@@ -191,7 +196,7 @@ const create_statistics = (data: IIndicator) => {
         showCancelButton: false,
         confirmButtonText: "Aceptar",
       });
-      return res;
+      return res.data.body.data;
     } catch (error) {
       dispatch(statistics_fail());
       await swal_error.fire({
@@ -211,10 +216,10 @@ const get_statistics = () => {
   return async (dispatch: any) => {
     dispatch(statistics_default());
     try {
-      const URI = "/statistics/listLastOneStatistic";
-      const res = await master_http.get(URI);
-      dispatch(statistics_success(res.data.body.information[0]));
-      return res.data.body.information[0];
+      const URI = "statistics/list/1/3";
+      const res = await cms_http.get(URI);
+      dispatch(statistics_success(res.data.body.data[res.data.body.data.length - 1]));
+       return res.data.body.data[res.data.body.data.length - 1];
     } catch (error) {
       dispatch(statistics_fail());
       return Promise.reject("Error");
@@ -223,17 +228,39 @@ const get_statistics = () => {
 };
 
 /*-----------------------------testimony-------------------------------------*/
-const create_testimony = (data: ITestimony) => {
+const create_testimony = (values: ITestimony) => {
   return async (dispatch: any) => {
     dispatch(testimony_default());
-    let values = JSON.parse(JSON.stringify(data));
-    values.mas_image = "";
-    values.mas_logo = "";
-    values.mas_status = true;
+    const img = values.mas_image;
+    const data = {
+      action: "insert",
+      info: {
+        id: -1,
+        key: -1,
+      },
+      data: {
+        ...values,
+        // car_codigo_usuario: "123456",//  ---> Agregar los values correctos
+        // car_ruta_imagen: "",
+
+      },
+    };
+
+    let form = new FormData();
+    form.append("data", JSON.stringify(data));
+    form.append("file", img);
+    // let values = JSON.parse(JSON.stringify(data));
+    // values.mas_image = "";
+    // values.mas_logo = "";
+    // values.mas_status = true;
 
     try {
       const URI = "testimonials/testimonial";
-      const res = await master_http.post(URI, values);
+      const res = await master_http.post(URI,  form, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",
@@ -263,10 +290,10 @@ const get_list_testimonials = () => {
   return async (dispatch: any) => {
     dispatch(testimonials_list_default());
     try {
-      const URI = "testimonials/listTestimonials";
-      const res = await master_http.get(URI);
-      dispatch(testimonials_list_success(res.data.body.information));
-      return res.data.body.information;
+      const URI = "testimonials/listTestimonials";// Cambiar la ruta tetimonials
+      const res = await cms_http.get(URI);
+      dispatch(testimonials_list_success(res.data.body.data));
+      return res.data.body.data;
     } catch (error) {
       dispatch(testimonials_list_fail());
       return Promise.reject("Error");
