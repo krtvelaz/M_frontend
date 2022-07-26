@@ -1,9 +1,10 @@
-import { FC } from "react";
-import { swal_error, Table } from "../../../../utils/ui";
-import { trash } from "../../../../utils/assets/img";
+import { FC, useState } from "react";
+import { ModalDetailDocument, swal_error, Table } from "../../../../utils/ui";
+import { trash, watch } from "../../../../utils/assets/img";
 import { IDocument } from "../../custom_types";
 import ModalEditDocument from "./ModalEditDocument";
-import ModalDetailDocument from "../../../../utils/ui/ModalDetailDocument";
+import { useDispatch } from "react-redux";
+import { actions } from "../../redux";
 
 interface DocsFormPros {
   documents: IDocument[];
@@ -24,6 +25,9 @@ const TableDocs: FC<DocsFormPros> = ({
   editListDocs,
   loading,
 }) => {
+  const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
+  const dispatch = useDispatch<any>();
   const table_columns: any = [
     {
       title: "No.",
@@ -32,7 +36,7 @@ const TableDocs: FC<DocsFormPros> = ({
         return i + 1;
       },
     },
-    ...(typeDoc !== "general" 
+    ...(typeDoc !== "general"
       ? [
           {
             title: "Perfil asociado",
@@ -62,10 +66,37 @@ const TableDocs: FC<DocsFormPros> = ({
         {
           title: <span style={{ fontSize: "9px" }}>Ver</span>,
           fixed: "right",
-          dataIndex: "template",
+          dataIndex: "id",
           align: "center" as "center",
-          render: (template: File) => {
-            return template ? <ModalDetailDocument document={template} /> : "-";
+          render: (id: number) => {
+            return (
+              <>
+                <img
+                  src={watch}
+                  className="img-fluid"
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={async () => {
+                    const res = await dispatch(actions.get_document(id));
+                    if (res) {
+                      const _url = URL.createObjectURL(
+                        new Blob([res], {
+                          type: "application/pdf",
+                        })
+                      );
+
+                      setUrl(_url);
+                      set_is_visible_doc(true);
+                    }
+                  }}
+                />
+                <ModalDetailDocument
+                  open={is_visibleDoc}
+                  setOpen={set_is_visible_doc}
+                  url={url}
+                />
+              </>
+            );
           },
         },
         {

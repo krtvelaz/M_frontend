@@ -1,63 +1,115 @@
-import { FC, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Children, FC, useContext } from "react";
 import { TemplateContext } from "./templateContext";
 import Menu from "antd/lib/menu";
 import logoAlcaldia from "../../../utils/assets/img/logoAlcaldia.svg";
+import { useNavigate } from "react-router-dom";
 
-const sider: FC<{ width: number }> = ({ width }) => {
+const sider: FC<{ width: number; setMenuSider: any }> = ({
+  width,
+  setMenuSider,
+}) => {
   const context = useContext(TemplateContext);
   const navigate = useNavigate();
+
+  let retos = [
+    {
+      path: "/challenge/create",
+      label: "Crear Nuevo Reto",
+    },
+    {
+      path: "/challenge/list",
+      label: "Consutar y Gestionar Retos",
+    },
+  ];
+  const publicaciones = [
+    {
+      path: "/publication/create",
+      label: "Crear Noticia",
+    },
+    {
+      path: "/event/create",
+      label: "Crear Evento",
+    },
+    {
+      path: "/publication/list",
+      label: "Gestionar publicaciones",
+    },
+  ];
+
+  const landingPage = [
+    {
+      path: "/banners/create",
+      label: "Carrusel Banners Principal",
+    },
+    {
+      path: "/indicator/create",
+      label: "Editar Indicadores",
+    },
+    {
+      path: "/testimony/create",
+      label: "Carrusel Testimonios",
+    },
+  ];
+
   let menu_config: any = [
     {
-      label: <div style={{color: '#245E8E', fontFamily: 'Montserrat-SemiBold'}}>Pagina Principal</div>
+      label:
+        context.device === "sm" ? (
+          "Pagina Principal"
+        ) : (
+          <div>
+            <div
+              style={{
+                paddingLeft: "35px",
+                color: "#245E8E",
+                fontFamily: "Montserrat-SemiBold",
+              }}
+            >
+              Pagina Principal
+            </div>
+          </div>
+        ),
+      path: "/",
     },
     {
-      label: "Retos",
-      children: [
-        {
-          path: "/challenge/create",
-          label: 'Crear Nuevo Reto'
-          
-        },
-        {
-          path: "/challenge/list",
-          label: "Consutar y Gestionar Retos",
-        },
-      ],
+      label:
+        context.device === "sm" ? (
+          "Retos"
+        ) : (
+          <div>
+            <div style={{ paddingLeft: "35px" }}>Retos</div>
+            <i className="ant-menu-submenu-arrow" />
+          </div>
+        ),
+      ...(context.device === "sm" ? { children: retos } : { menu: retos }),
     },
     {
-      label: "Publicaciones",
-      children: [
-        {
-          path: "/publication/create",
-          label: "Crear Noticia",
-        },
-        {
-          path: "/event/create",
-          label: "Crear Evento",
-        },
-        {
-          path: "/publication/list",
-          label: "Gestionar publicaciones",
-        },
-      ],
+      label:
+        context.device === "sm" ? (
+          "Publicaciones"
+        ) : (
+          <div>
+            <div style={{ paddingLeft: "35px" }}>Publicaciones</div>
+            <i className="ant-menu-submenu-arrow" />
+          </div>
+        ),
+      ...(context.device === "sm"
+        ? { children: publicaciones }
+        : { menu: publicaciones }),
     },
     {
-      label: "Landing Page",
-      children: [
-        {
-          path: "/banners/create",
-          label: "Carrusel Banners Principal",
-        },
-        {
-          path: "/indicator/create",
-          label: "Editar Indicadores",
-        },
-        {
-          path: "/testimony/create",
-          label: "Carrusel Testimonios",
-        },
-      ],
+      label:
+        context.device === "sm" ? (
+          "Landing Page"
+        ) : (
+          <div>
+            <div style={{ paddingLeft: "35px" }}>Landing Page</div>
+            <i className="ant-menu-submenu-arrow" />
+          </div>
+        ),
+      ...(context.device === "sm"
+        ? { children: landingPage }
+        : { menu: landingPage }),
     },
   ];
 
@@ -76,6 +128,12 @@ const sider: FC<{ width: number }> = ({ width }) => {
   });
 
   const goTo = (to: any) => {
+    if (to.item.props.menu) {
+      setMenuSider(to.item.props.menu);
+      context.sider_open();
+      return;
+    }
+    context.sider_close();
     context.drawer_close();
     navigate(to.item.props.path, { state: to.keyPath });
   };
@@ -95,11 +153,17 @@ const sider: FC<{ width: number }> = ({ width }) => {
             className="img-fluid"
             alt=""
             width="60%"
-            style={{  padding: "20px 0 20px 0", }}
+            style={{ padding: "20px 0 20px 0" }}
           />
         </div>
       )}
-      <Menu style={{fontSize: '12px', paddingLeft: '51px'}} onSelect={goTo} items={menu_config} />
+      <Menu
+        style={{ fontSize: "12px" }}
+        className={`${context.device === "sm" ? "menu-horizontal" : ""}`}
+        onSelect={goTo}
+        items={menu_config}
+        mode={context.device === "sm" ? "inline" : "vertical"}
+      />
     </>
   );
 };

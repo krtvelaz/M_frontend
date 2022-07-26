@@ -1,5 +1,5 @@
 import { http } from "../../../config/axios_instances";
-import { swal_success } from "../../../utils/ui/swalAlert";
+import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
 import {
   IDocument,
   IGeneralInformation,
@@ -141,7 +141,8 @@ const create_challenge_document = (
   key: number,
   type: "general" | "admin" | "technicians"
 ) => {
-  const pdf = values.ret_ruta_plantilla;
+  
+  const pdf = values.ret_plantilla;
   let data = {
     action: "insert",
     info: {
@@ -151,6 +152,7 @@ const create_challenge_document = (
     data: {
       ...values,
       ret_ruta_plantilla: "",
+      ret_nombre_plantilla: values.ret_plantilla?.name || "",
       ret_tipo_formulario:
         type === "general"
           ? 1
@@ -159,9 +161,10 @@ const create_challenge_document = (
           : type === "admin" && 3,
     },
   };
+  delete data.data.ret_plantilla;
   let form = new FormData();
   form.append("data", JSON.stringify(data));
-  form.append("file", pdf);
+  if(pdf) form.append("file", pdf);
 
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
@@ -173,7 +176,7 @@ const create_challenge_document = (
           "Content-Type": "multipart/form-data",
         },
       });
-      dispatch(get_document_challenge(res.data.body.data));
+      dispatch(get_document_challenge(res.data.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -183,13 +186,22 @@ const create_challenge_document = (
         confirmButtonText: "Aceptar",
       });
 
-      return res.data.body.data;
+      return res.data.data;
     } catch (error) {
       dispatch(fail_document_challenge());
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar.</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
       return Promise.reject("Error");
     }
   };
 };
+
 const edit_challenge_document = (
   values: IDocument,
   key: number,
@@ -276,20 +288,21 @@ const delete_challenge_document = (
 
 const get_list_document = (
   type: "general" | "admin" | "technicians",
+  key: number,
   { page = 1, pageSize = 10 }
 ) => {
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
-      const URI = `/documents/list`;
+      const URI = `/documents/references`;
       const { data }: any = await http.post(URI, {
         page: page,
         limit: pageSize,
-        code_user: "123456",
-        typeForm: type === "general" ? 1 : type === "technicians" ? 2 : 3,
+        key: key,
+        type: type === "general" ? 1 : type === "technicians" ? 2 : 3,
       });
-      dispatch(success_get_list_documents(data.body.data));
-      return data.body.data;
+      dispatch(success_get_list_documents(data.body.data.data));
+      return data.body.data.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");
@@ -300,7 +313,7 @@ const get_list_document = (
 /*----------------informes---------------------*/
 
 const create_challenge_report = (values: Informe, key: number) => {
-  const pdf = values.ret_ruta_documento;
+  const pdf = values?.ret_documento;
 
   let data = {
     action: "insert",
@@ -311,12 +324,13 @@ const create_challenge_report = (values: Informe, key: number) => {
     data: {
       ...values,
       ret_ruta_documento: "",
+      ret_nombre_documento: values.ret_documento?.name || "",
     },
   };
-
+  delete data.data.ret_documento;
   let form = new FormData();
   form.append("data", JSON.stringify(data));
-  form.append("file", pdf);
+  if(pdf) form.append("file", pdf);
 
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
@@ -388,18 +402,18 @@ const edit_challenge_report = (values: Informe, key: number) => {
   };
 };
 
-const get_list_challenge_report = ({ page = 1, pageSize = 10 }) => {
+const get_list_challenge_report = (key: number, { page = 1, pageSize = 10 }) => {
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
-      const URI = "/informs/list";
+      const URI = "/informs/references";
       const { data }: any = await http.post(URI, {
         page: page,
         limit: pageSize,
-        code_user: "123456",
+        key: key,
       });
-      dispatch(success_get_list_documents(data.body.data));
-      return data.body.data;
+      dispatch(success_get_list_documents(data.body.data.data));
+      return data.body.data.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");
@@ -435,6 +449,28 @@ const delete_challenge_report = (id: number) => {
   };
 };
 
+/*----------------Documents---------------------*/
+
+const get_document = (id: number, type?: string) => {
+   
+  return async (dispatch: any) => {
+    // dispatch(loading_document_challenge());
+    try {
+      const URI = type === 'report' ? `/informs/pdf/${id}` : `/documents/pdf/${id}`;
+
+      const res: any = await http.get(URI, { 'responseType': "arraybuffer" });
+      
+      // dispatch(get_document_challenge(res.data.body.data));
+      return res.data;
+    } catch (error) {
+      // dispatch(fail_document_challenge());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+
+
 const actions = {
   get_challenge_by_id,
   create_challenge,
@@ -447,6 +483,7 @@ const actions = {
   edit_challenge_report,
   get_list_challenge_report,
   delete_challenge_report,
+  get_document,
 };
 
 export default actions;

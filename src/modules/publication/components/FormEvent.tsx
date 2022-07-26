@@ -54,7 +54,6 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
             innerRef={innerRef}
         >
             {({ values, handleChange }) => {
-                console.log(values)
                 return (
                     <Form>
                         <div className="row ">

@@ -29,9 +29,12 @@ const FormAddDocument: FC<DocsFormPros> = ({
     ret_tipo_documento: "",
     ret_nombre_documento: "",
     ret_perfiles: "",
-    ret_ruta_plantilla: "",
-    ret_nombre_plantilla: "",
+    ret_plantilla: {
+      name:  doc?.ret_nombre_plantilla || "",
+      id: doc?.id || ""
+    }  ,
     ...doc,
+    
   };
 
   const schema = Yup.object().shape({
@@ -148,7 +151,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
               )}
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_ruta_plantilla_id" className="form-label">
+                <label htmlFor="ret_plantilla_id" className="form-label">
                   <>
                     Adjuntar plantilla{" "}
                     <span style={{ fontSize: "10px" }}> - Opcional </span>
@@ -159,12 +162,12 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   tipos_doc="PDF."
                   maximum_size={5}
                   type="text"
-                  id="ret_ruta_plantilla_id"
-                  name="ret_ruta_plantilla"
+                  id="ret_plantilla_id"
+                  name="ret_plantilla"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_ruta_plantilla" />
+                <ErrorMessage name="ret_plantilla" />
               </div>
             </div>
           </Form>

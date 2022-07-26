@@ -37,6 +37,7 @@ export interface IDocument {
   ret_tipo_documento: number;
   ret_nombre_documento: string;
   ret_perfiles: string;
+  ret_plantilla?: File;
   ret_ruta_plantilla: string;
   ret_nombre_plantilla: string;
   ret_tipo_formulario?: number;
@@ -48,6 +49,7 @@ export interface IDocument {
 export interface Informe {
   id?: number;
   ret_titulo_reporte: string;
+  ret_documento?: File;
   ret_ruta_documento: string;
   ret_nombre_documento: string;
   ret_creado?: string;

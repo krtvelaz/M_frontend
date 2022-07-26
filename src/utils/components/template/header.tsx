@@ -19,7 +19,7 @@ const Header: FC<{ collapsible: boolean; name: string }> = ({
                 context.menu_collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
                   className: "trigger",
-                  onClick: context.menu_toggle,
+                  onClick: () => {context.menu_toggle(); context.sider_close()},
                 }
               )
             : context.device === 'lg' ? "Secretaría de Innovación Digital, Medeiin laboratorio de innovación" : ""}

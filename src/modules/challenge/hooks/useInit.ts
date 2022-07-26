@@ -2,6 +2,8 @@ import { FormikProps, FormikValues } from "formik";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { swal_error } from "../../../utils/ui";
+import { swal_success } from "../../../utils/ui/swalAlert";
 import { IChallenge, IGeneralInformation } from "../custom_types";
 import { actions } from "../redux";
 
@@ -14,6 +16,7 @@ export const useInit = (
   IChallenge,
   any[],
   number,
+  boolean,
   boolean,
   () => void,
   () => void,
@@ -68,10 +71,9 @@ export const useInit = (
   const [challenge, setChallenge] = useState(
     ls?.challenge ? ls.challenge : initial_values
   );
-  
-  
   const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
   const [go_next_doc, set_go_next_doc] = useState<string>("");
   const ref = useRef<FormikProps<FormikValues>>();
@@ -84,7 +86,7 @@ export const useInit = (
       },
       onSave: async (values: IGeneralInformation) => {
         if (!challenge.general_information.key) {
-          // crear el reto
+          setIsSubmitting(true);
           const res = await dispatch(actions.create_challenge(values));
           if (res) {
             set_is_saving(false);
@@ -97,10 +99,9 @@ export const useInit = (
               },
             }));
           }
-          
+          setIsSubmitting(false);
         } else {
-          // console.log("hay key se debe editar");
-          const res = await dispatch(actions.update_challenge(values));
+          // const res = await dispatch(actions.update_challenge(values));
           set_is_saving(false);
           // setChallenge((data: any) => ({
           //   ...data,
@@ -114,10 +115,17 @@ export const useInit = (
     {
       save: async () => {
         if (challenge.documents.general.length > 0) {
-          // no se que
           set_is_saving(false);
           return;
         }
+        await swal_error.fire({
+          title: "Error en el proceso",
+          html:
+            '<div class="mysubtitle">Debe agregar por lo menos un documento general.</div>' +
+            '<div class="mytext">De click en aceptar para continuar.</div>',
+          showCancelButton: false,
+          confirmButtonText: "Aceptar",
+        });
         set_is_saving(true);
       },
     },
@@ -126,8 +134,17 @@ export const useInit = (
         set_is_saving(true);
         if (is_finish) {
           set_is_saving(false);
-          // console.log({ final_data: challenge });
-          //enviar data y redirigir
+          //publicar reto
+          await swal_success.fire({
+            title: "Proceso exitoso",
+            html:
+              `<div class="mysubtitle">Se ha creado con éxito el nuevo reto</div>` +
+              '<div class="mytext">A continuación serás dirigido a gestor de retos</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
+          navigate("challenge/list");
+
         }
       },
     },
@@ -157,31 +174,37 @@ export const useInit = (
     const prev = key - 1;
     if (prev > 0) {
       if (key === 3) {
-        callback(`${prev}`, "docs-3");
+        callback(`${prev}`, "docs-3", true);
         return;
       }
       if (key === 2) {
         if (active_key_docs === "docs-3") {
-          callback(`${key}`, "docs-2");
+          callback(`${key}`, "docs-2", true);
           return;
         }
         if (active_key_docs === "docs-2") {
-          callback(`${key}`, "docs-1");
+          callback(`${key}`, "docs-1", true);
           return;
         }
       }
-      callback(`${prev}`);
+      callback(`${prev}`, '', true);
     }
   };
 
-  const callback = (key: string, next_docs = "docs-1") => {
+  const callback = (key: string, next_docs = "docs-1", prev = false) => {
     const int_key = parseInt(active_key);
     const save = steps[int_key - 1]?.save;
-    save &&
+    if(prev) {
+      set_is_saving(false);
+      set_go_next(key);
+      set_go_next_doc(next_docs);
+      return;
+    }
+    save  &&
       save().then(() => {
         set_go_next(key);
         set_go_next_doc(next_docs);
-      });
+      })
   };
 
   const goBack = () => {
@@ -228,6 +251,7 @@ export const useInit = (
     steps,
     max,
     show_next,
+    isSubmitting,
     next_tab,
     goBack,
     execute_save,

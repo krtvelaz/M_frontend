@@ -15,14 +15,13 @@ interface FormPros {
 const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
   const initialValues = {
     ret_titulo_reporte: "",
-    ret_ruta_documento: "",
-    ret_nombre_documento: "",
+    ret_documento: "",
     ...report,
   };
 
   const schema = Yup.object().shape({
     ret_titulo_reporte: Yup.string().required("Campo obligatorio"),
-    ret_ruta_documento: Yup.string().required("Campo obligatorio"),
+    ret_documento: Yup.string().required("Campo obligatorio"),
   });
 
   const submit = (values: any, actions: any) => {
@@ -31,8 +30,6 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
     actions.resetForm();
   };
 
-  
-  
   return (
     <Formik
       enableReinitialize
@@ -41,7 +38,8 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ handleChange, values }) => {        return (
+      {({ handleChange, values }) => {
+        return (
           <Form>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
@@ -71,7 +69,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_ruta_documento_id" className="form-label">
+                <label htmlFor="ret_documento_id" className="form-label">
                   Adjuntar documento
                 </label>
                 <Field
@@ -79,12 +77,12 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                   tipos_doc="PDF."
                   maximum_size={5}
                   type="text"
-                  id="ret_ruta_documento_id"
-                  name="ret_ruta_documento"
+                  id="ret_documento_id"
+                  name="ret_documento"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_ruta_documento" />
+                <ErrorMessage name="ret_documento" />
               </div>
             </div>
           </Form>
