@@ -32,7 +32,9 @@ const CreatePostulationTeam = () => {
                                     >
                                         Agregar otro participante
                                     </button>
-                                    <button type="button" className="btn btn-primary" onClick={() => { }}>
+                                    <button type="button" className="btn btn-primary" onClick={() => { 
+                                        form_ref.current?.submitForm();
+                                    }}>
                                         Continuar
                                     </button>
                                 </div>

@@ -22,4 +22,16 @@ export interface IPostulation {
    radiogroup_victim: string;
    radiogroup_disability:string;
 }
+export interface IAddress{
+   type_via: string; 
+   character: string; 
+   character2: string;
+   number: string;
+   number2: string;
+   number3: string;
+   zone: string; 
+   zone2: string; 
+   observations: string;  
+   address: string;
+}
   

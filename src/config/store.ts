@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { bannerSlice } from '../modules/banner/redux/slice';
 import { challengeSlice } from '../modules/challenge/redux/slice';
 
 
 export const store = configureStore({
   reducer: {
     challenge: challengeSlice.reducer,
+    banner: bannerSlice.reducer,
   },
 })
 

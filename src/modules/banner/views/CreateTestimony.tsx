@@ -1,47 +1,55 @@
-import { FormikProps, FormikValues } from "formik"
-import { useRef, useState } from "react"
-import { Card } from "../../../utils/ui"
-import { swal, swal_error, swal_success } from "../../../utils/ui/swalAlert"
-import FormTestimony from "../components/testimony/FormTestimony"
-import ListTestimony from "../components/testimony/ListTestimony"
-import { ITestimony } from "../custom_types"
-
+import { FormikProps, FormikValues, validateYupSchema } from "formik";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Card } from "../../../utils/ui";
+import FormTestimony from "../components/testimony/FormTestimony";
+import ListTestimony from "../components/testimony/ListTestimony";
+import { ITestimony } from "../custom_types";
+import { actions } from "../redux";
 
 const CreateTestimony = () => {
-  const [data, setData] = useState<ITestimony[]>([]);
+  const testimonials: ITestimony[] = useSelector(
+    (store: any) => store.banner.testimonials.value
+  );
 
-    const form_ref = useRef<FormikProps<FormikValues>>()
-    const addTestimony = async (values:ITestimony) =>{
-        if (data.length > 3) {
-            await swal_error.fire({
-            title: "Ha llegado al máximo de elementos",
-            html:
-              '<div class="mysubtitle">Máximo de 4 testimonios</div>' +
-              '<div class="mytext">Se debe eliminar un elemento para poder publicar uno nuevo.</div>',
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-          });
-          return 
-        }
-        setData([...data, values]);
-         
-    }
+  const [isChange, setIsChange] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const dispatch = useDispatch<any>();
 
-    const editTetimony = (values:ITestimony, index: number) => {
-        setData((data)=>{
-            data[index]= values;
-            return [
-                ...data
-            ]
-        })
-        
-    }
+  const form_ref = useRef<FormikProps<FormikValues>>();  
 
-  const onDelete = (index: number) => {
-    const updatedItems = data.filter((_values, i) => i !== index);
-    return setData(updatedItems);
+  const addTestimony = async (values: ITestimony) => {
+    setIsSubmitting(true);
+    await dispatch(actions.create_testimony(values));
+    setIsChange(true);
+    setIsSubmitting(false);
   };
+
+  const editTetimony = async (values: ITestimony, id: number) => {
+    await dispatch(actions.edit_testimonial(values, id));
+    setIsChange(true);
+  };
+
+  const onDelete = async (id: number) => {
+    await dispatch(actions.delete_testimonial(id));
+    setIsChange(true);
+  };
+
+  const get_testimonals = async () => {
+    await dispatch(actions.get_list_testimonials());
+  };
+
+  useEffect(() => {
+    get_testimonals();
+  }, []);
+
+  useEffect(() => {
+    if (isChange) {
+      get_testimonals();
+      setIsChange(false);
+    }
+  }, [isChange]);
 
   return (
     <div className="h-100 d-flex flex-column">
@@ -65,19 +73,26 @@ const CreateTestimony = () => {
                       onClick={() => {
                         form_ref.current?.submitForm();
                       }}
+                      disabled={isSubmitting}
                     >
                       Agregar
+                      {isSubmitting && (
+                        <i
+                          className="fa fa-spinner fa-spin"
+                          style={{ fontSize: 12, marginLeft: 4, color: "#603CE6" }}
+                        />
+                      )}
                     </button>
                   </div>,
                 ]}
               >
                 <FormTestimony innerRef={form_ref} onSubmit={addTestimony} />
               </Card>
-              {data.length > 0 && (
+              {testimonials.length > 0 && (
                 <Card>
                   <h4>Elementos Agregados</h4>
                   <ListTestimony
-                    data={data}
+                    data={testimonials}
                     onEdit={editTetimony}
                     onDelete={onDelete}
                   />
@@ -99,7 +114,11 @@ const CreateTestimony = () => {
           Atrás
         </button>
         <div className="flex-fill" />
-        <button type="button" className="btn btn-primary" onClick={() => {}}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {}}
+        >
           Guardar
         </button>
       </div>

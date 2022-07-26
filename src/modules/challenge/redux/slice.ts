@@ -100,9 +100,7 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
-    success_get_list_documents: (state, action) => {
-      console.log('accion',action);
-      
+    success_get_list_documents: (state, action) => {      
       state.documents_challenge = {
         ...state.documents_challenge,
         value: action.payload || [],

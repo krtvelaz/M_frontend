@@ -32,7 +32,7 @@ const DocumentInput: FC<InputDocProps> = ({
             height: "38px",
           }}
         >
-          {field.value.name && (
+          {field.value?.name && (
             <Tag
               className="mt-1"
               closable={true}
@@ -41,11 +41,11 @@ const DocumentInput: FC<InputDocProps> = ({
               }}
               onClick={() => {}}
             >
-              {field.value.name.length > 24
+              {field.value?.name?.length > 24
                 ? `${field.value.name.split(".")[0].substring(0, 20)}.${
                     field.value.name.split(".")[1]
                   }`
-                : field.value.name}
+                : field.value?.name}
             </Tag>
           )}
         </div>

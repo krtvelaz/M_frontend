@@ -12,26 +12,26 @@ interface IndicarFormPros {
 const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) => { 
 
     const initial_values = {
-        number_challenge:"0",
-        number_person:"0",
-        number_actor:"0",
-        number_solution:"0",
-        description_challenge:"",
-        description_person:"",
-        description_actor:"",
-        description_solution:"",
+        mas_challenges_number:"",
+        mas_impacted_people:"",
+        mas_connected_actors:"",
+        mas_implemented_solutions:"",
+        mas_description_challenges_number:"",
+        mas_description_impacted_people:"",
+        mas_description_connected_actors:"",
+        mas_description_implemented_solutions:"",
         ...indicator
     };
 
     const schema = Yup.object().shape({
-        number_challenge:Yup.string().required("Campo obligatorio"),
-        number_person:Yup.string().required("Campo obligatorio"),
-        number_actor:Yup.string().required("Campo obligatorio"),
-        number_solution:Yup.string().required("Campo obligatorio"),
-        description_challenge:Yup.string().required("Campo obligatorio"),
-        description_person:Yup.string().required("Campo obligatorio"),
-        description_actor:Yup.string().required("Campo obligatorio"),
-        description_solution:Yup.string().required("Campo obligatorio"),
+        mas_challenges_number:Yup.string().required("Campo obligatorio"),
+        mas_impacted_people:Yup.string().required("Campo obligatorio"),
+        mas_connected_actors:Yup.string().required("Campo obligatorio"),
+        mas_implemented_solutions:Yup.string().required("Campo obligatorio"),
+        mas_description_challenges_number:Yup.string().required("Campo obligatorio"),
+        mas_description_impacted_people:Yup.string().required("Campo obligatorio"),
+        mas_description_connected_actors:Yup.string().required("Campo obligatorio"),
+        mas_description_implemented_solutions:Yup.string().required("Campo obligatorio"),
     });
   
     const submit = (values: any, form: any) => {
@@ -52,14 +52,14 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
             <Form >
                 <div className="row ">
                 <div className="col-6 col-md-6   ">
-                        <label htmlFor="number_challenge_id" className="form-label">
+                        <label htmlFor="mas_challenges_number_id" className="form-label">
                         Número de Retos lanzados
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="number_challenge_id"
-                        name="number_challenge"
+                        id="mas_challenges_number_id"
+                        name="mas_challenges_number"
                         autoComplete="off"
                         min={0}
                         max={999999}
@@ -73,19 +73,19 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         }
                     }
                         />
-                        <ErrorMessage name="number_challenge" withCount max={6} />
+                        <ErrorMessage name="mas_challenges_number" withCount max={6} />
                     </div>
 
                     <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description_challenge_id" className="form-label">
+                        <label htmlFor="mas_description_challenges_number_id" className="form-label">
                         Descripción
                         </label>
                         <Field
                         as="textarea"
                         style={{ height: "38px" }}
                         className="form-control"
-                        id="description_challenge_id"
-                        name="description_challenge"
+                        id="mas_description_challenges_number_id"
+                        name="mas_description_challenges_number"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -99,20 +99,20 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                             }
                         }}
                         />
-                        <ErrorMessage name="description_challenge" withCount max={48} />
+                        <ErrorMessage name="mas_description_challenges_number" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
               <div className="col-6 col-md-6   ">
-                        <label htmlFor="number_person_id" className="form-label">
+                        <label htmlFor="mas_impacted_people_id" className="form-label">
                         Número de Personas impactadas
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="number_person_id"
-                        name="number_person"
+                        id="mas_impacted_people_id"
+                        name="mas_impacted_people"
                         autoComplete="off"
                         min={0}
                         max={999999}
@@ -126,19 +126,19 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         }
                     }
                         />
-                        <ErrorMessage name="number_person" withCount max={6} />
+                        <ErrorMessage name="mas_impacted_people" withCount max={6} />
                     </div>
 
                     <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description_person_id" className="form-label">
+                        <label htmlFor="mas_description_impacted_people_id" className="form-label">
                         Descripción
                         </label>
                         <Field
                         as="textarea"
                         style={{ height: "38px" }}
                         className="form-control"
-                        id="description_person_id"
-                        name="description_person"
+                        id="mas_description_impacted_people_id"
+                        name="mas_description_impacted_people"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -152,20 +152,20 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                             }
                         }}
                         />
-                        <ErrorMessage name="description_person" withCount max={48} />
+                        <ErrorMessage name="mas_description_impacted_people" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
               <div className="col-6 col-md-6   ">
-                        <label htmlFor="number_actor_id" className="form-label">
+                        <label htmlFor="mas_connected_actors_id" className="form-label">
                         Número de Actores conectados
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="number_actor_id"
-                        name="number_actor"
+                        id="mas_connected_actors_id"
+                        name="mas_connected_actors"
                         autoComplete="off"
                         min={0}
                         max={999999}
@@ -179,19 +179,19 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         }
                     }
                         />
-                        <ErrorMessage name="number_actor" withCount max={6} />
+                        <ErrorMessage name="mas_connected_actors" withCount max={6} />
                     </div>
 
                     <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description_actor_id" className="form-label">
+                        <label htmlFor="mas_description_connected_actors_id" className="form-label">
                         Descripción
                         </label>
                         <Field
                         as="textarea"
                         style={{ height: "38px" }}
                         className="form-control"
-                        id="description_actor_id"
-                        name="description_actor"
+                        id="mas_description_connected_actors_id"
+                        name="mas_description_connected_actors"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -205,20 +205,20 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                             }
                         }}
                         />
-                        <ErrorMessage name="description_actor" withCount max={48} />
+                        <ErrorMessage name="mas_description_connected_actors" withCount max={48} />
                     </div>
               </div>
 
               <div className="row ">
                     <div className="col-6 col-md-6   ">
-                        <label htmlFor="number_solution_id" className="form-label">
+                        <label htmlFor="mas_implemented_solutions_id" className="form-label">
                         Número de Soluciones implementadas
                         </label>
                         <Field
                         type="text"
                         className="form-control"
-                        id="number_solution_id"
-                        name="number_solution"
+                        id="mas_implemented_solutions_id"
+                        name="mas_implemented_solutions"
                         autoComplete="off"
                         min={0}
                         max={999999}
@@ -232,19 +232,19 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         }
                     }
                         />
-                        <ErrorMessage name="number_solution" withCount max={6} />
+                        <ErrorMessage name="mas_implemented_solutions" withCount max={6} />
                     </div>
 
                     <div className={`col-6 col-md-6  `}>
-                        <label htmlFor="description_solution_id" className="form-label">
+                        <label htmlFor="mas_description_implemented_solutions_id" className="form-label">
                         Descripción
                         </label>
                         <Field
                         as="textarea"
                         style={{ height: "38px" }}
                         className="form-control"
-                        id="description_solution_id"
-                        name="description_solution"
+                        id="mas_description_implemented_solutions_id"
+                        name="mas_description_implemented_solutions"
                         autoComplete="off"
                         maxLength={48}
                         onChange={(e: any) => {
@@ -258,7 +258,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                             }
                         }}
                         />
-                        <ErrorMessage name="description_solution" withCount max={48} />
+                        <ErrorMessage name="mas_description_implemented_solutions" withCount max={48} />
                     </div>
               </div>
 

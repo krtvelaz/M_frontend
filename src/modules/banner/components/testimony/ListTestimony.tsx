@@ -20,7 +20,7 @@ const ListTestimony: FC<IListTestimony> = ({
     const table_columns = [
         {
             title:"No.",
-            dataIndex:"id",
+            // dataIndex:"id",
             align:"center" as "center",
             render: (data: ITestimony, values: any, i: number) => {
                 return i + 1;
@@ -29,31 +29,31 @@ const ListTestimony: FC<IListTestimony> = ({
         },
         {
             title:"Titulo",
-            dataIndex:"title",
+            dataIndex:"mas_title",
             align:"left" as "left",
 
         },
         {
             title:"Descripción",
-            dataIndex:"description",
+            dataIndex:"mas_description",
             align:"left" as "left",
         },
-        {
-            title:"Imagen Empresario",
-            dataIndex:"image_entrepreneur",
-            align:"left" as "left",
-            render: (value: File)=>{
-                return value.name
-            }
-        },
-        {
-            title:"Imagen Logo",
-            dataIndex:"image_logo",
-            align:"left" as "left",
-            render: (value: File)=>{
-                return value.name
-            }
-        },
+        // {
+        //     title:"Imagen Empresario",
+        //     dataIndex:"image_entrepreneur",
+        //     align:"left" as "left",
+        //     render: (value: File)=>{
+        //         return value.name
+        //     }
+        // },
+        // {
+        //     title:"Imagen Logo",
+        //     dataIndex:"image_logo",
+        //     align:"left" as "left",
+        //     render: (value: File)=>{
+        //         return value.name
+        //     }
+        // },
         {
             title: "Acciones",
             fixed: "right",
@@ -63,23 +63,26 @@ const ListTestimony: FC<IListTestimony> = ({
                     fixed: "right",
                     align: "center" as "center",
                     render: (data: ITestimony)=>{
-                        return <ModalImgTestimony document_entrepreneur={data.image_entrepreneur} document_logo={data.image_logo}/>
+                        // return <ModalImgTestimony document_entrepreneur={data.image_entrepreneur} document_logo={data.image_logo}/>
                     }
                 },
                 {
                     title: "Editar",
                     fixed: "right",
                     align: "center" as "center",
-                    render: (value: ITestimony, _data: ITestimony, index: number )=>{
-                        return <ModalEditTestimony onSubmit={ (values) => onEdit(values, index)} data={value}/>
+                    render: (value: ITestimony, _data: ITestimony )=>{
+                      
+                        
+                        return <ModalEditTestimony onSubmit={ (values) => onEdit(values, values.id)} data={value}/>
                     }
                    
                 },
                 {
                     title: "Eliminar",
                     fixed: "right",
+                    dataIndex:"id",
                     align: "center" as "center",
-                    render: (data: ITestimony, values: any, index: number) => {
+                    render: (id: number) => {
                         return (
                           <img
                             src={trash}
@@ -98,7 +101,7 @@ const ListTestimony: FC<IListTestimony> = ({
                                 denyButtonText: `Cancelar`,
                               });
                               if(result.isConfirmed){
-                                onDelete(index);
+                                onDelete(id);
                               }
                             }}
                           />

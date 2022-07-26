@@ -6,41 +6,42 @@ import { Link } from 'react-router-dom';
 // import { IPostulationTeam } from '../../../modules/landing/postulationChallenge/custom_types';
 
 import { FC } from "react";
-import { IPostulationTeam } from "../../../modules/landing/postulationChallenge/custom_types";
+import { IAddress, IPostulationTeam } from "../../../modules/landing/postulationChallenge/custom_types";
 import { ErrorMessage, Select } from '../../ui';
 import { Radio } from 'antd';
 
 
-interface PostulationTeamFormPros {
+interface IAddressFormPros {
     innerRef: any;
     onSubmit: (values: any, form?: any) => any;
-    postulationTeam?: IPostulationTeam;
+    address?: IAddress;
 }
 
-const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postulationTeam }) => {
+const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => {
     const initial_values = {
-        name_last_name: "",
-        document_type: null,
-        number_document: "",
-        type_sex: null,
-        gender_identity: null,
-        sexual_orientation: null,
-        ethnicity: null,
-        radiogroup_victim: "",
-        radiogroup_disability: "",
-        ...postulationTeam
+        type_via: null,
+        character: "",
+        character2: "",
+        number: "",
+        number2: "",
+        number3: "",
+        zone: null,
+        zone2: null,
+        observations: "",
+        address: "",
+        ...address
     };
 
     const schema = Yup.object().shape({
-        name_last_name: Yup.string().required("Campo obligatorio").min(3, "Mínimo 3 caracteres"),
-        document_type: Yup.string().nullable().required("Campo obligatorio"),
-        number_document: Yup.string().required("Campo obligatorio").min(7, "Mínimo 7 caracteres"),
-        type_sex: Yup.string().nullable().required("Campo obligatorio"),
-        gender_identity: Yup.string().nullable().required("Campo obligatorio"),
-        sexual_orientation: Yup.string().nullable().required("Campo obligatorio"),
-        ethnicity: Yup.string().nullable().required("Campo obligatorio"),
-        radiogroup_victim: Yup.string().required("Campo obligatorio"),
-        radiogroup_disability: Yup.string().required("Campo obligatorio"),
+        type_via: Yup.string().nullable().required("Campo obligatorio"),
+        number: Yup.string().required("Campo obligatorio"),
+        number2: Yup.string().required("Campo obligatorio"),
+        number3: Yup.string().required("Campo obligatorio"),
+        // number: Yup.string().required("Campo obligatorio").min(7, "Mínimo 7 caracteres"),
+        character: Yup.string().required("Campo obligatorio"),
+        zone: Yup.string().nullable().required("Campo obligatorio"),
+        observations: Yup.string().required("Campo obligatorio"),
+       
     });
     const submit = (values: any, form: any) => {
         onSubmit(values);
@@ -75,13 +76,10 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
 
                                     options={[
 
-                                        { name: "Femenino", id: "Femenino" },
-                                        { name: "Masculino", id: "Masculino" },
-                                        { name: "Intersexual", id: "Intersexual" },
-                                        { name: "Indefinido", id: "Indefinido" },
-
+                                        { name: "Calle", id: "Calle" },
+                                       
                                     ]}
-                                    placeholder="Seleccione…"
+                                    placeholder="Calle"
                                     filterOption={(input: any, option: any) => {
                                         return (
                                             option?.children
@@ -104,15 +102,15 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                     id="number_id"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Número"
-                                    minLength={7}
+                                    placeholder="15"
+                                    minLength={6}
                                     maxLength={20}
-                                    onChange={(e: any) => {
+                                    min={0}
+                                    max={999999}
+                                    onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = /^[0-9]{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -132,21 +130,20 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                     name="character"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Letra"
-                                    minLength={3}
-                                    maxLength={50}
+                                    placeholder="B"
+                                    maxLength={1}
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="character" withCount max={50} />
+                                <ErrorMessage name="character" withCount max={1} />
                             </div>
 
                             <div className="col-3 ">
@@ -161,13 +158,13 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
 
                                     options={[
 
-                                        { name: "Femenino", id: "Femenino" },
-                                        { name: "Masculino", id: "Masculino" },
-                                        { name: "Intersexual", id: "Intersexual" },
-                                        { name: "Indefinido", id: "Indefinido" },
+                                        { name: "Norte", id: "Norte" },
+                                        { name: "Sur", id: "Sur" },
+                                        { name: "Este", id: "Este" },
+                                        { name: "Oeste", id: "Oeste" },
 
                                     ]}
-                                    placeholder="Seleccione…"
+                                    placeholder="Sur"
                                     filterOption={(input: any, option: any) => {
                                         return (
                                             option?.children
@@ -179,86 +176,82 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                 <ErrorMessage name="zone" />
                             </div>
                         </div>
-
-
                         <div className='row'>
-
-
-                            <div className="col-3">
-                                <label htmlFor="number_id" className="form-label ">
+                        <div className="col-3">
+                                <label htmlFor="number2_id" className="form-label ">
                                     Número
                                 </label>
 
                                 <Field
                                     type="text"
-                                    name="number"
-                                    id="number_id"
+                                    name="number2"
+                                    id="number2_id"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Número"
-                                    minLength={7}
+                                    placeholder="26"
+                                    minLength={6}
                                     maxLength={20}
-                                    onChange={(e: any) => {
+                                    min={0}
+                                    max={999999}
+                                    onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = /^[0-9]{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="number" withCount max={20} />
+                                <ErrorMessage name="number2" withCount max={20} />
 
                             </div>
 
+
                             <div className="col-3">
-                                <label htmlFor="character_id" className="form-label" >
+                                <label htmlFor="character2_id" className="form-label" >
                                     Letra <span style={{ fontSize: "10px" }}> - Opcional </span>
                                 </label>
                                 <Field
                                     type="text"
-                                    id="character_id"
-                                    name="character"
+                                    id="character2_id"
+                                    name="character2"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Letra"
-                                    minLength={3}
-                                    maxLength={50}
+                                    placeholder="B"
+                                    maxLength={1}
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="character" withCount max={50} />
+                                <ErrorMessage name="character2" withCount max={1} />
                             </div>
 
                             <div className="col-3 ">
-                                <label htmlFor="zone_id" className="form-label">
+                                <label htmlFor="zone2_id" className="form-label">
                                     Zona <span style={{ fontSize: "10px" }}> - Opcional </span>
                                 </label>
                                 <Field
                                     component={Select}
-                                    id="zone_id"
-                                    name="zone"
+                                    id="zone2_id"
+                                    name="zone2"
                                     style={{ height: "38px" }}
 
                                     options={[
 
-                                        { name: "Femenino", id: "Femenino" },
-                                        { name: "Masculino", id: "Masculino" },
-                                        { name: "Intersexual", id: "Intersexual" },
-                                        { name: "Indefinido", id: "Indefinido" },
+                                        { name: "Norte", id: "Norte" },
+                                        { name: "Sur", id: "Sur" },
+                                        { name: "Este", id: "Este" },
+                                        { name: "Oeste", id: "Oeste" },
 
                                     ]}
-                                    placeholder="Seleccione…"
+                                    placeholder="Sur"
                                     filterOption={(input: any, option: any) => {
                                         return (
                                             option?.children
@@ -267,35 +260,35 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                         );
                                     }}
                                 />
-                                <ErrorMessage name="zone" />
+                                <ErrorMessage name="zone2" />
                             </div>
 
                             <div className="col-3">
-                                <label htmlFor="number_id" className="form-label ">
+                                <label htmlFor="number3_id" className="form-label ">
                                     Número
                                 </label>
 
                                 <Field
                                     type="text"
-                                    name="number"
-                                    id="number_id"
+                                    name="number3"
+                                    id="number3_id"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Número"
-                                    minLength={7}
+                                    placeholder="342"
+                                    minLength={6}
                                     maxLength={20}
-                                    onChange={(e: any) => {
+                                    min={0}
+                                    max={999999}
+                                    onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = /^[0-9]{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="number" withCount max={20} />
+                                <ErrorMessage name="number3" withCount max={20} />
 
                             </div>
                         </div>
@@ -303,16 +296,16 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
 
                         <div className='row'>
                             <div className="">
-                                <label htmlFor="character_id" className="form-label" >
+                                <label htmlFor="observations_id" className="form-label" >
                                     Observaciones
                                 </label>
                                 <Field
                                     type="text"
-                                    id="character_id"
-                                    name="character"
+                                    id="observations_id"
+                                    name="observations"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="Observaciones"
+                                    placeholder="Apto 1509"
                                     minLength={3}
                                     maxLength={50}
                                     onChange={(e: any) => {
@@ -326,23 +319,25 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="character" withCount max={50} />
+                                <ErrorMessage name="observations" withCount max={50} />
                             </div>
                         </div>
 
                         <div className='row'>
                             <div className="">
-                                <label htmlFor="character_id" className="form-label" >
+                                <label htmlFor="address_id" className="form-label" >
                                     Dirección ingresada
                                 </label>
                                 <Field
+                                disabled 
                                     type="text"
-                                    id="character_id"
-                                    name="character"
+                                    id="address_id"
+                                    name="address"
                                     className="form-control"
                                     autoComplete="off"
                                     minLength={3}
                                     maxLength={50}
+                                    placeholder="Calle 39B sur # 26D sur 341 - Apto 1509"
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
@@ -354,7 +349,7 @@ const FormLocation: FC<PostulationTeamFormPros> = ({ innerRef, onSubmit, postula
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="character" withCount max={50} />
+                               
                             </div>
                         </div>
 

@@ -1,13 +1,25 @@
 import { FormikProps, FormikValues } from "formik";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../utils/ui";
 import FormIndicator from "../components/FormIndicator";
 import { IIndicator } from "../custom_types";
+import { actions } from "../redux";
 
 const CreateIndicator = () => {
   const form_ref = useRef<FormikProps<FormikValues>>();
+  const dispatch = useDispatch<any>();
 
-  const addIndicator = (values: IIndicator) => {};
+  const statistics: IIndicator = useSelector((store:any) => store.banner.statistics.value)
+
+  const addIndicator = async (values: IIndicator) => {
+    await dispatch(actions.create_statistics(values));
+  };
+
+  useEffect(() => {
+  dispatch(actions.get_statistics());
+  }, [])
+  
 
   return (
     <div className="h-100 d-flex flex-column">
@@ -19,7 +31,7 @@ const CreateIndicator = () => {
             </div>
             <div className="col-md-12">
               <Card title="Editar estadísticas  - Página inicio" actions={[]}>
-                <FormIndicator innerRef={form_ref} onSubmit={addIndicator} />
+                <FormIndicator indicator={statistics} innerRef={form_ref} onSubmit={addIndicator} />
               </Card>
             </div>
           </div>
@@ -37,7 +49,9 @@ const CreateIndicator = () => {
           Atrás
         </button>
         <div className="flex-fill" />
-        <button type="button" className="btn btn-primary" onClick={() => {}}>
+        <button type="button" className="btn btn-primary" onClick={() => {
+            form_ref.current?.submitForm();
+        }}>
           Guardar
         </button>
       </div>

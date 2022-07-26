@@ -1,29 +1,362 @@
-// import types from './types';
-// import service from './service';
-// import { request_dispatch } from '../../../utils';
+import { cms_http, master_http } from "../../../config/axios_instances";
+import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
+import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
+import {
+  banners_list_default,
+  banners_list_fail,
+  banners_list_success,
+  banner_default,
+  banner_fail,
+  statistics_default,
+  statistics_fail,
+  statistics_success,
+  testimonials_list_default,
+  testimonials_list_fail,
+  testimonials_list_success,
+  testimony_default,
+  testimony_fail,
+} from "./slice";
 
-import { IMainBanner } from "../custom_types";
-
-// const example = (filters = {}) =>
-//     request_dispatch(types.example_type, service.example_service(filters));
-
-const create_main_banner = (data: IMainBanner[]) => {
+/*----------------banner---------------------*/
+const create_main_banner = (values: IMainBanner) => {
   return async (dispatch: any) => {
-    dispatch();
+    dispatch(banner_default());
+
+    const img = values.car_ruta_imagen;
+    const data = {
+      action: "insert",
+      info: {
+        id: -1,
+        key: -1,
+      },
+      data: {
+        ...values,
+        car_codigo_usuario: "123456",
+        car_ruta_imagen: "",
+
+      },
+    };
+
+    let form = new FormData();
+    form.append("data", JSON.stringify(data));
+    form.append("file", img);
+
     try {
-      const URI = "";
-      // const res = await http.get(URI);
-      dispatch();
-      // return res.data;
+      const URI = "banner/add";
+      const res = await cms_http.post(URI, form, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+
+      });
+      // dispatch();
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data.body.data;
     } catch (error) {
-      dispatch();
+      dispatch(banner_fail());
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
       return Promise.reject("Error");
     }
   };
 };
 
+const get_list_banners = () => {
+  return async (dispatch: any) => {
+    dispatch(banners_list_default());
+    try {
+      const URI = "banner/list";
+      const res = await cms_http.get(URI);
+      dispatch(banners_list_success(res.data.body.data));
+      return res.data.body.data;
+    } catch (error) {
+      dispatch(banners_list_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const edit_banner = (data: ITestimony, id: number) => {
+
+  return async (dispatch: any) => {
+    // dispatch(banner_default());
+    let values = JSON.parse(JSON.stringify(data));
+    values.car_codigo_usuario = "12345";
+    values.car_nombre_imagen = "";
+    values.car_ruta_imagen = "";
+    // values.mas_status = true; // averiguar si se debe quitar
+    delete values.created_at;
+    delete values.id;
+    delete values.updated_at;
+    delete values.key;
+    try {
+      const URI = `banners${id}`;//agregar url correcta
+      const res = await master_http.put(URI, values);// corregir master_http
+      // dispatch();
+      // await swal_success.fire({
+      //   title: "Proceso exitoso",
+      //   html:
+      //     `<div class="mysubtitle">${res.data.message}</div>` +
+      //     '<div class="mytext">De click en aceptar para continuar</div>',
+      //   showCancelButton: false,
+      //   confirmButtonText: "Aceptar",
+      // });
+      return res.data;
+    } catch (error) {
+      // dispatch(banner_fail); 
+      // await swal_error.fire({
+      //   title: "Error en el proceso",
+      //   html:
+      //     '<div class="mysubtitle">error</div>' +
+      //     '<div class="mytext">De click en aceptar para continuar</div>',
+      //   showCancelButton: false,
+      //   confirmButtonText: "Aceptar",
+      // });
+      return Promise.reject("Error");
+    }
+  };
+}
+
+const delete_banner = (id: number) => {
+
+  return async (dispatch: any) => {
+    dispatch(banner_default());
+
+    try {
+      const URI = 'banner/delete';
+      const res = await cms_http.delete(URI, {
+        params: { id }
+      });
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      // dispatch();
+      return res.data;
+    } catch (error) {
+      dispatch(banner_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+}
+
+/*-----------------------------statistics---------------------*/
+
+const create_statistics = (data: IIndicator) => {
+  return async (dispatch: any) => {
+    dispatch(statistics_default());
+    let values = JSON.parse(JSON.stringify(data));
+    values.mas_challenges_number = Number(values.mas_challenges_number);
+    values.mas_impacted_people = Number(values.mas_impacted_people);
+    values.mas_connected_actors = Number(values.mas_connected_actors);
+    values.mas_implemented_solutions = Number(values.mas_implemented_solutions);
+    values.mas_status = true;
+    delete values.created_at;
+    delete values.id;
+    delete values.updated_at;
+    try {
+      const URI = "/statistics/statistic";
+      const res = await master_http.post(URI, values);
+      // dispatch();
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res;
+    } catch (error) {
+      dispatch(statistics_fail());
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const get_statistics = () => {
+  return async (dispatch: any) => {
+    dispatch(statistics_default());
+    try {
+      const URI = "/statistics/listLastOneStatistic";
+      const res = await master_http.get(URI);
+      dispatch(statistics_success(res.data.body.information[0]));
+      return res.data.body.information[0];
+    } catch (error) {
+      dispatch(statistics_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+/*-----------------------------testimony-------------------------------------*/
+const create_testimony = (data: ITestimony) => {
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+    let values = JSON.parse(JSON.stringify(data));
+    values.mas_image = "";
+    values.mas_logo = "";
+    values.mas_status = true;
+
+    try {
+      const URI = "testimonials/testimonial";
+      const res = await master_http.post(URI, values);
+      // dispatch();
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data;
+    } catch (error) {
+      dispatch(testimony_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const get_list_testimonials = () => {
+  return async (dispatch: any) => {
+    dispatch(testimonials_list_default());
+    try {
+      const URI = "testimonials/listTestimonials";
+      const res = await master_http.get(URI);
+      dispatch(testimonials_list_success(res.data.body.information));
+      return res.data.body.information;
+    } catch (error) {
+      dispatch(testimonials_list_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const edit_testimonial = (data: ITestimony, id: number) => {
+
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+    let values = JSON.parse(JSON.stringify(data));
+    values.mas_image = "";
+    values.mas_logo = "";
+    values.mas_status = true;
+    delete values.created_at;
+    delete values.id;
+    delete values.updated_at;
+    delete values.key;
+    try {
+      const URI = `testimonials/testimonial/${id}`;
+      const res = await master_http.put(URI, values);
+      // dispatch();
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data;
+    } catch (error) {
+      dispatch(testimony_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+}
+
+const delete_testimonial = (id: number) => {
+
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+
+    try {
+      const URI = `testimonials/testimonial/${id}`;
+      const res = await master_http.delete(URI);
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      // dispatch();
+      return res.data;
+    } catch (error) {
+      dispatch(testimony_fail);
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+}
 
 const actions = {
   create_main_banner,
+  get_list_banners,
+  edit_banner,
+  delete_banner,
+  create_statistics,
+  get_statistics,
+  create_testimony,
+  get_list_testimonials,
+  edit_testimonial,
+  delete_testimonial,
 };
 export default actions;
