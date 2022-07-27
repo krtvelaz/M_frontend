@@ -22,7 +22,7 @@ const create_main_banner = (values: IMainBanner) => {
   return async (dispatch: any) => {
     dispatch(banner_default());
 
-    const img = values.car_ruta_imagen;
+    const img = values.car_imagen;
     const data = {
       action: "insert",
       info: {
@@ -32,10 +32,13 @@ const create_main_banner = (values: IMainBanner) => {
       data: {
         ...values,
         car_codigo_usuario: "123456",
-        car_ruta_imagen: "",
+        car_nombre_imagen: values.car_imagen?.name || '',
+        car_ruta_imagen:'',
+        car_nombre_imagen_codificado:'',
 
       },
     };
+    delete data.data.car_imagen;
 
     let form = new FormData();
     form.append("data", JSON.stringify(data));
@@ -89,42 +92,66 @@ const get_list_banners = () => {
   };
 };
 
-const edit_banner = (data: ITestimony, id: number) => {
+const edit_banner = (values: IMainBanner, id: number) => {
 
   return async (dispatch: any) => {
-    // dispatch(banner_default());
-    let values = JSON.parse(JSON.stringify(data));
-    values.car_codigo_usuario = "12345";
-    values.car_nombre_imagen = "";
-    values.car_ruta_imagen = "";
-    // values.mas_status = true; // averiguar si se debe quitar
-    delete values.created_at;
-    delete values.id;
-    delete values.updated_at;
-    delete values.key;
+    dispatch(banner_default());
+
+    const data = {
+      action: "update",
+      info: {
+        id: values.id,
+      },
+      data: {
+        ...values,
+        car_codigo_usuario: "123456",
+        car_nombre_imagen: values.car_imagen?.name || '',
+        car_ruta_imagen:'',
+        car_nombre_imagen_codificado:'',
+
+      },
+    };
+     
+    let form: any = new FormData();
+    if(!data.data.car_imagen.id){
+      const img = values.car_imagen;
+    form.append("file", img); 
+    }else{
+    form.append("file", null)
+    }
+    delete data.data.car_imagen;
+    delete data.data.id;
+    delete data.data.key;
+    delete data.data.car_creado;
+    form.append("data", JSON.stringify(data));
+
     try {
-      const URI = `banners${id}`;//agregar url correcta
-      const res = await master_http.put(URI, values);// corregir master_http
+      const URI = 'banner/add';
+      const res = await cms_http.post(URI, form , {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
       // dispatch();
-      // await swal_success.fire({
-      //   title: "Proceso exitoso",
-      //   html:
-      //     `<div class="mysubtitle">${res.data.message}</div>` +
-      //     '<div class="mytext">De click en aceptar para continuar</div>',
-      //   showCancelButton: false,
-      //   confirmButtonText: "Aceptar",
-      // });
-      return res.data;
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data.body.data;
     } catch (error) {
-      // dispatch(banner_fail); 
-      // await swal_error.fire({
-      //   title: "Error en el proceso",
-      //   html:
-      //     '<div class="mysubtitle">error</div>' +
-      //     '<div class="mytext">De click en aceptar para continuar</div>',
-      //   showCancelButton: false,
-      //   confirmButtonText: "Aceptar",
-      // });
+      dispatch(banner_fail); 
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
       return Promise.reject("Error");
     }
   };
@@ -246,7 +273,7 @@ const create_testimony = (values: ITestimony) => {
       data: {
         ...values,
         // car_codigo_usuario: "123456",//  ---> Agregar los values correctos
-        // car_ruta_imagen: "",
+        // car_imagen: "",
 
       },
     };
@@ -379,6 +406,24 @@ const delete_testimonial = (id: number) => {
   };
 }
 
+const get_image = (id: number) => {
+   
+  return async (dispatch: any) => {
+    // dispatch(loading_document_challenge());
+    try {
+      const URI = `banner/pdf/${id}`;
+
+      const res: any = await cms_http.get(URI);
+      
+      // dispatch(get_document_challenge(res.data.body.data));
+      return res.data;
+    } catch (error) {
+      // dispatch(fail_document_challenge());
+      return Promise.reject("Error");
+    }
+  };
+};
+
 const actions = {
   create_main_banner,
   get_list_banners,
@@ -390,5 +435,6 @@ const actions = {
   get_list_testimonials,
   edit_testimonial,
   delete_testimonial,
+  get_image,
 };
 export default actions;

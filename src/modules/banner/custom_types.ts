@@ -5,8 +5,13 @@ export interface IMainBanner {
     car_descripcion: string;
     car_url: string;
     car_url_video: string;
-    car_ruta_imagen: string;
-    car_nombre_imagen: string;
+    car_imagen?: any;
+    car_ruta_imagen?: string;
+    car_nombre_imagen?: string;
+    id?: number;
+    key?: string;
+    car_creado?: string;
+   
 }
 export interface ITestimony {
     id?: number;

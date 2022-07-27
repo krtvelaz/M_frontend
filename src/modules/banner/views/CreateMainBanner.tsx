@@ -20,11 +20,9 @@ const CreateMainBanner = () => {
     setIsSuccess(true);
   };
 
-  const editImage = (value: IMainBanner, index: number) => {
-    setImages((data: IMainBanner[]) => {
-      data[index] = value;
-      return [...data];
-    });
+  const editImage = async(value: IMainBanner, id: number) => {
+    await dispatch(actions.edit_banner(value, id ));
+    setIsSuccess(true);
   };
 
   const deleteImage = async (id: number) => {
