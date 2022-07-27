@@ -129,7 +129,8 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                 </div>
                 <ErrorMessage name="car_url_video" />
               </div>
-              <div className="col-12 col-md-6 col-lg-6">
+
+              <div className="col-12 col-md-12 col-lg-6">
                 <label htmlFor="car_ruta_imagen_id" className="form-label">
                   Imagen (Fondo)
                 </label>

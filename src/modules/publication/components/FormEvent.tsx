@@ -110,7 +110,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-6 col-md-6  col-lg-6  ">
+                            <div className="col-12 col-md-6  col-lg-6  ">
                                 <label htmlFor="start_date_id" className="form-label">
                                     Fecha
                                 </label>
@@ -123,7 +123,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <ErrorMessage name="start_date" />
                             </div>
 
-                            <div className="col-6 col-md-6  col-lg-6  ">
+                            <div className="col-12 col-md-6  col-lg-6  ">
                                 <label htmlFor="start_time_id" className="form-label">
                                     Hora
                                 </label>
