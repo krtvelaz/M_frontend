@@ -5,8 +5,13 @@ export interface IMainBanner {
     car_descripcion: string;
     car_url: string;
     car_url_video: string;
-    car_ruta_imagen: string;
-    car_nombre_imagen: string;
+    car_imagen?: any;
+    car_ruta_imagen?: string;
+    car_nombre_imagen?: string;
+    id?: number;
+    key?: string;
+    car_creado?: string;
+   
 }
 export interface ITestimony {
     id?: number;
@@ -29,4 +34,7 @@ export interface IIndicator {
     est_descripcion_persona_impacto: string;
     est_descripcion_actores_conectados: string;
     est_descripcion_solucion_implementada: string;
+    est_creacion?: string;
+    est_estado?: string;
+    id?: number;
 }

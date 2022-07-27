@@ -16,15 +16,20 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
     car_descripcion: '',
     car_url: '',
     car_url_video: '',
-    car_ruta_imagen: "",
-    car_nombre_imagen: "",
+    car_imagen: {
+      name: data_image?.car_nombre_imagen || '',
+      id: data_image?.id || '',
+    },
+    
     ...data_image,
   };
 
   const schema = Yup.object().shape({
     car_titulo: Yup.string().required('Campo obligatorio'),
     car_descripcion: Yup.string().required('Campo obligatorio'),
-    car_ruta_imagen: Yup.string().required('Campo obligatorio'),
+    // car_imagen: Yup.object({
+    //   name: Yup.string().required('Campo obligatorio')
+    // })
   });
 
   const submit = (values: any, form: any) => {
@@ -129,8 +134,9 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                 </div>
                 <ErrorMessage name="car_url_video" />
               </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="car_ruta_imagen_id" className="form-label">
+
+              <div className="col-12 col-md-12 col-lg-6">
+                <label htmlFor="car_imagen_id" className="form-label">
                   Imagen (Fondo)
                 </label>
                 <Field
@@ -138,12 +144,12 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
                   maximum_size={2}
                   file_type="img"
                   type="text"
-                  id="car_ruta_imagen_id"
-                  name="car_ruta_imagen"
+                  id="car_imagen_id"
+                  name="car_imagen"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="car_ruta_imagen" />
+                <ErrorMessage name="car_imagen.name" />
               </div>
             </div>
           </Form>
