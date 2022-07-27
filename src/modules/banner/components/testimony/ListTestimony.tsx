@@ -7,7 +7,7 @@ import ModalImgTestimony from "./ModalImgTestimony";
 
 interface IListTestimony {
     data: ITestimony[];
-    onEdit:(values:ITestimony, index: number) => any;
+    onEdit:(values:ITestimony ) => any;
     onDelete: (index: number) => void;
 
 }
@@ -20,7 +20,6 @@ const ListTestimony: FC<IListTestimony> = ({
     const table_columns = [
         {
             title:"No.",
-            // dataIndex:"id",
             align:"center" as "center",
             render: (data: ITestimony, values: any, i: number) => {
                 return i + 1;
@@ -29,31 +28,25 @@ const ListTestimony: FC<IListTestimony> = ({
         },
         {
             title:"Titulo",
-            dataIndex:"mas_title",
+            dataIndex:"tes_titulo",
             align:"left" as "left",
 
         },
         {
             title:"Descripción",
-            dataIndex:"mas_description",
+            dataIndex:"tes_descripcion",
             align:"left" as "left",
         },
-        // {
-        //     title:"Imagen Empresario",
-        //     dataIndex:"image_entrepreneur",
-        //     align:"left" as "left",
-        //     render: (value: File)=>{
-        //         return value.name
-        //     }
-        // },
-        // {
-        //     title:"Imagen Logo",
-        //     dataIndex:"image_logo",
-        //     align:"left" as "left",
-        //     render: (value: File)=>{
-        //         return value.name
-        //     }
-        // },
+        {
+            title:"Imagen Empresario",
+            dataIndex:"tes_nombre_imagen",
+            align:"left" as "left",
+        },
+        {
+            title:"Imagen Logo",
+            dataIndex:"tes_nombre_logo",
+            align:"left" as "left",
+        },
         {
             title: "Acciones",
             fixed: "right",
@@ -61,9 +54,10 @@ const ListTestimony: FC<IListTestimony> = ({
                 {
                     title:  "Ver",
                     fixed: "right",
+                    dataIndex: 'id',
                     align: "center" as "center",
-                    render: (data: ITestimony)=>{
-                        // return <ModalImgTestimony document_entrepreneur={data.image_entrepreneur} document_logo={data.image_logo}/>
+                    render: (id: number)=>{
+                        return <ModalImgTestimony id={id} />
                     }
                 },
                 {
@@ -73,7 +67,7 @@ const ListTestimony: FC<IListTestimony> = ({
                     render: (value: ITestimony, _data: ITestimony )=>{
                       
                         
-                        return <ModalEditTestimony onSubmit={ (values) => onEdit(values, values.id)} data={value}/>
+                        return <ModalEditTestimony onSubmit={ onEdit } data={value}/>
                     }
                    
                 },

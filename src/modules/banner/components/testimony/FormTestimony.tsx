@@ -15,18 +15,28 @@ const FormTestimony: FC<TestimonyFormPros> = ({
   testimony,
 }) => {
   const initial_values = {
-    mas_title: "",
-    mas_description: "",
-    mas_image: "",
-    mas_logo: "",
+    tes_titulo: "",
+    tes_descripcion: "",
+    tes_imagen: {
+      name: testimony?.tes_nombre_imagen || "",
+      id: testimony?.id,
+    },
+    tes_logo: {
+      name: testimony?.tes_nombre_logo || "",
+      id: testimony?.id,
+    },
     ...testimony,
   };
 
   const schema = Yup.object().shape({
-    mas_title: Yup.string().required("Campo obligatorio"),
-    mas_description: Yup.string().required("Campo obligatorio"),
-    mas_image: Yup.string().required("Campo obligatorio"),
-    mas_logo: Yup.string().required("Campo obligatorio"),
+    tes_titulo: Yup.string().required("Campo obligatorio"),
+    tes_descripcion: Yup.string().required("Campo obligatorio"),
+    // tes_imagen: Yup.object({
+    //   name: Yup.string().required("Campo obligatorio"),
+    // }),
+    // tes_logo: Yup.object({
+    //   name: Yup.string().required("Campo obligatorio"),
+    // }),
   });
 
   const submit = (values: any, form: any) => {
@@ -43,21 +53,19 @@ const FormTestimony: FC<TestimonyFormPros> = ({
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ values, handleChange, isSubmitting }) => {
-       
-        
+      {({ handleChange }) => {
         return (
           <Form>
             <div className="row ">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="mas_title_id" className="form-label">
+                <label htmlFor="tes_titulo_id" className="form-label">
                   Titulo
                 </label>
                 <Field
                   type="text"
                   className="form-control"
-                  id="mas_title_id"
-                  name="mas_title"
+                  id="tes_titulo_id"
+                  name="tes_titulo"
                   autoComplete="off"
                   maxLength={70}
                   onChange={(e: any) => {
@@ -71,18 +79,18 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="mas_title" withCount max={70} />
+                <ErrorMessage name="tes_titulo" withCount max={70} />
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="mas_description_id" className="form-label">
+                <label htmlFor="tes_descripcion_id" className="form-label">
                   Descripción
                 </label>
                 <Field
                   type="text"
                   className="form-control"
-                  id="mas_description_id"
-                  name="mas_description"
+                  id="tes_descripcion_id"
+                  name="tes_descripcion"
                   autoComplete="off"
                   maxLength={300}
                   onChange={(e: any) => {
@@ -96,13 +104,13 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="mas_description" withCount max={300} />
+                <ErrorMessage name="tes_descripcion" withCount max={300} />
               </div>
             </div>
 
             <div className="row ">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="mas_image_id" className="form-label">
+                <label htmlFor="tes_imagen_id" className="form-label">
                   Imagen - Empresario
                 </label>
                 <Field
@@ -110,8 +118,8 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"
-                  id="mas_id"
-                  name="mas_image"
+                  id="tes_imagen_id"
+                  name="tes_imagen"
                   autoComplete="off"
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -124,12 +132,11 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="mas_image" />
-                
+                <ErrorMessage name="tes_imagen.name" />
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="mas_logo_id" className="form-label">
+                <label htmlFor="tes_logo_id" className="form-label">
                   Imagen - Logo
                 </label>
                 <Field
@@ -137,8 +144,8 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"
-                  id="mas_logo_id"
-                  name="mas_logo"
+                  id="tes_logo_id"
+                  name="tes_logo"
                   autoComplete="off"
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -151,8 +158,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="mas_logo"  />
-
+                <ErrorMessage name="tes_logo.name" />
               </div>
             </div>
           </Form>

@@ -32,7 +32,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
     ret_plantilla: {
       name:  doc?.ret_nombre_plantilla || "",
       id: doc?.id || ""
-    }  ,
+    },
     ...doc,
     
   };

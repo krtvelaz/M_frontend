@@ -1,4 +1,4 @@
-import { cms_http, master_http } from "../../../config/axios_instances";
+import { cms_http } from "../../../config/axios_instances";
 import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
 import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
 import {
@@ -33,7 +33,6 @@ const create_main_banner = (values: IMainBanner) => {
         ...values,
         car_codigo_usuario: "123456",
         car_ruta_imagen: "",
-
       },
     };
 
@@ -45,9 +44,8 @@ const create_main_banner = (values: IMainBanner) => {
       const URI = "banner/add";
       const res = await cms_http.post(URI, form, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
-
+          "Content-Type": "multipart/form-data",
+        },
       });
       // dispatch();
       await swal_success.fire({
@@ -90,7 +88,6 @@ const get_list_banners = () => {
 };
 
 const edit_banner = (data: ITestimony, id: number) => {
-
   return async (dispatch: any) => {
     // dispatch(banner_default());
     let values = JSON.parse(JSON.stringify(data));
@@ -103,8 +100,8 @@ const edit_banner = (data: ITestimony, id: number) => {
     delete values.updated_at;
     delete values.key;
     try {
-      const URI = `banners${id}`;//agregar url correcta
-      const res = await master_http.put(URI, values);// corregir master_http
+      const URI = `banners${id}`; //agregar url correcta
+      const res = await cms_http.put(URI, values); // corregir master_http
       // dispatch();
       // await swal_success.fire({
       //   title: "Proceso exitoso",
@@ -116,7 +113,7 @@ const edit_banner = (data: ITestimony, id: number) => {
       // });
       return res.data;
     } catch (error) {
-      // dispatch(banner_fail); 
+      // dispatch(banner_fail);
       // await swal_error.fire({
       //   title: "Error en el proceso",
       //   html:
@@ -128,19 +125,18 @@ const edit_banner = (data: ITestimony, id: number) => {
       return Promise.reject("Error");
     }
   };
-}
+};
 
 const delete_banner = (id: number) => {
-
   return async (dispatch: any) => {
     dispatch(banner_default());
 
     try {
-      const URI = 'banner/delete';
+      const URI = "banner/delete";
       const res = await cms_http.delete(URI, {
-        params: { id }
+        params: { id },
       });
-      await swal_success.fire({ 
+      await swal_success.fire({
         title: "Proceso exitoso",
         html:
           `<div class="mysubtitle">${res.data.message}</div>` +
@@ -163,7 +159,7 @@ const delete_banner = (id: number) => {
       return Promise.reject("Error");
     }
   };
-}
+};
 
 /*-----------------------------statistics---------------------*/
 
@@ -178,12 +174,12 @@ const create_statistics = (values: IIndicator) => {
       data: {
         ...values,
         est_numero_reto: Number(values.est_numero_reto),
-        est_persona_impacto : Number(values.est_persona_impacto),
-        est_actores_conectados : Number(values.est_actores_conectados),
+        est_persona_impacto: Number(values.est_persona_impacto),
+        est_actores_conectados: Number(values.est_actores_conectados),
         est_solucion_implementada: Number(values.est_solucion_implementada),
       },
     };
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     try {
       const URI = "statistics/add";
       const res = await cms_http.post(URI, data);
@@ -218,8 +214,10 @@ const get_statistics = () => {
     try {
       const URI = "statistics/list/1/3";
       const res = await cms_http.get(URI);
-      dispatch(statistics_success(res.data.body.data[res.data.body.data.length - 1]));
-       return res.data.body.data[res.data.body.data.length - 1];
+      dispatch(
+        statistics_success(res.data.body.data[res.data.body.data.length - 1])
+      );
+      return res.data.body.data[res.data.body.data.length - 1];
     } catch (error) {
       dispatch(statistics_fail());
       return Promise.reject("Error");
@@ -231,7 +229,8 @@ const get_statistics = () => {
 const create_testimony = (values: ITestimony) => {
   return async (dispatch: any) => {
     dispatch(testimony_default());
-    const img = values.mas_image;
+    const img = values.tes_imagen;
+    const logo = values.tes_logo;
     const data = {
       action: "insert",
       info: {
@@ -240,32 +239,37 @@ const create_testimony = (values: ITestimony) => {
       },
       data: {
         ...values,
-        // car_codigo_usuario: "123456",//  ---> Agregar los values correctos
-        // car_ruta_imagen: "",
-
+        tes_ruta_imagen: "",
+        tes_imagen_codificado: "",
+        tes_ruta_logo: "",
+        tes_logo_codificado: "",
+        tes_nombre_imagen: values.tes_imagen.name || "",
+        tes_nombre_logo: values.tes_logo.name || "",
       },
     };
 
+    delete data.data.tes_imagen;
+    delete data.data.tes_logo;
+
     let form = new FormData();
     form.append("data", JSON.stringify(data));
-    form.append("file", img);
-    // let values = JSON.parse(JSON.stringify(data));
-    // values.mas_image = "";
-    // values.mas_logo = "";
-    // values.mas_status = true;
+    form.append("img", img);
+    form.append("logo", logo);
 
     try {
-      const URI = "testimonials/testimonial";
-      const res = await master_http.post(URI,  form, {
+      const URI = "/testimony/add";
+      const res = await cms_http.post(URI, form, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
+      console.log(res);
+
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
-          `<div class="mysubtitle">${res.data.message}</div>` +
+          `<div class="mysubtitle">Registro de testimonio creado correctamente</div>` +
           '<div class="mytext">De click en aceptar para continuar</div>',
         showCancelButton: false,
         confirmButtonText: "Aceptar",
@@ -290,7 +294,7 @@ const get_list_testimonials = () => {
   return async (dispatch: any) => {
     dispatch(testimonials_list_default());
     try {
-      const URI = "testimonials/listTestimonials";// Cambiar la ruta tetimonials
+      const URI = `testimony/list/1/4`;
       const res = await cms_http.get(URI);
       dispatch(testimonials_list_success(res.data.body.data));
       return res.data.body.data;
@@ -301,21 +305,52 @@ const get_list_testimonials = () => {
   };
 };
 
-const edit_testimonial = (data: ITestimony, id: number) => {
-
+const edit_testimonial = (values: ITestimony) => {
   return async (dispatch: any) => {
     dispatch(testimony_default());
-    let values = JSON.parse(JSON.stringify(data));
-    values.mas_image = "";
-    values.mas_logo = "";
-    values.mas_status = true;
-    delete values.created_at;
-    delete values.id;
-    delete values.updated_at;
-    delete values.key;
+
+    const data = {
+      action: "update",
+      info: {
+        id: values.id,
+      },
+      data: {
+        ...values,
+        tes_nombre_imagen: values.tes_imagen.name || "",
+        tes_nombre_logo: values.tes_logo.name || "",
+      },
+    };
+
+    let form: any = new FormData();
+    
+    if (!data.data.tes_imagen.id) {
+      const img = values.tes_imagen;
+      form.append("img", img);
+    }else {
+      form.append("img", null);
+    }
+    if (!data.data.tes_logo.id) {
+      const logo = values.tes_logo;
+      form.append("logo", logo);
+    }else {
+      form.append("logo", null);
+    }
+
+    delete data.data.tes_imagen;
+    delete data.data.tes_logo;
+    delete data.data.key;
+    delete data.data.id;
+
+
+    form.append("data", JSON.stringify(data));
+
     try {
-      const URI = `testimonials/testimonial/${id}`;
-      const res = await master_http.put(URI, values);
+      const URI = "/testimony/add";
+      const res = await cms_http.post(URI, form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",
@@ -339,16 +374,15 @@ const edit_testimonial = (data: ITestimony, id: number) => {
       return Promise.reject("Error");
     }
   };
-}
+};
 
 const delete_testimonial = (id: number) => {
-
   return async (dispatch: any) => {
     dispatch(testimony_default());
 
     try {
-      const URI = `testimonials/testimonial/${id}`;
-      const res = await master_http.delete(URI);
+      const URI = `/testimony/delete/${id}`;
+      const res = await cms_http.delete(URI);
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -372,7 +406,19 @@ const delete_testimonial = (id: number) => {
       return Promise.reject("Error");
     }
   };
-}
+};
+
+const get_document_testimonial = (id: number, type: "img" | "logo") => {
+  return async (dispatch: any) => {
+    try {
+      const URI = `/testimony/${type}/${id}`;
+      const res: any = await cms_http.get(URI, { responseType: "arraybuffer" });
+      return res.data;
+    } catch (error) {
+      return Promise.reject("Error");
+    }
+  };
+};
 
 const actions = {
   create_main_banner,
@@ -385,5 +431,6 @@ const actions = {
   get_list_testimonials,
   edit_testimonial,
   delete_testimonial,
+  get_document_testimonial,
 };
 export default actions;

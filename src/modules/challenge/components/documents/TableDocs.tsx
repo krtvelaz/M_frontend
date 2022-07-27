@@ -66,9 +66,8 @@ const TableDocs: FC<DocsFormPros> = ({
         {
           title: <span style={{ fontSize: "9px" }}>Ver</span>,
           fixed: "right",
-          dataIndex: "id",
           align: "center" as "center",
-          render: (id: number) => {
+          render: (values: IDocument) => {
             return (
               <>
                 <img
@@ -77,7 +76,10 @@ const TableDocs: FC<DocsFormPros> = ({
                   alt=""
                   style={{ cursor: "pointer" }}
                   onClick={async () => {
-                    const res = await dispatch(actions.get_document(id));
+                    if (!values.ret_nombre_plantilla) return;
+                    const res = await dispatch(
+                      actions.get_document(values?.id || -1)
+                    );
                     if (res) {
                       const _url = URL.createObjectURL(
                         new Blob([res], {

@@ -84,7 +84,7 @@ export const useInit = (
         set_is_saving(true);
         await ref.current?.submitForm();
       },
-      onSave: async (values: IGeneralInformation) => {
+      onSave: async (values: IGeneralInformation) => {        
         if (!challenge.general_information.key) {
           setIsSubmitting(true);
           const res = await dispatch(actions.create_challenge(values));
@@ -113,15 +113,23 @@ export const useInit = (
       },
     },
     {
-      save: async () => {
-        if (challenge.documents.general.length > 0) {
+      save: async () => {        
+        if (challenge.documents.general.length > 0 && active_key_docs === 'docs-1') {
+          set_is_saving(false);
+          return;
+        }
+        if (challenge.documents.technical.length > 0 && active_key_docs === 'docs-2') {
+          set_is_saving(false);
+          return;
+        }
+        if (challenge.documents.administrative.length > 0 && active_key_docs === 'docs-3') {
           set_is_saving(false);
           return;
         }
         await swal_error.fire({
           title: "Error en el proceso",
           html:
-            '<div class="mysubtitle">Debe agregar por lo menos un documento general.</div>' +
+            '<div class="mysubtitle">Debe agregar por lo menos un documento.</div>' +
             '<div class="mytext">De click en aceptar para continuar.</div>',
           showCancelButton: false,
           confirmButtonText: "Aceptar",

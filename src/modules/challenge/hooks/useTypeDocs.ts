@@ -20,14 +20,15 @@ const useDocument = (
         typeDoc
       )
     );
+    
     if (res) {
       setChallenge((data: IChallenge) => ({
         ...data,
         documents: {
           ...data.documents,
           ...(typeDoc === 'general' && {general: [...data.documents.general, res]}),
-          ...(typeDoc === 'technicians' && {general: [...data.documents.technical, res]}),
-          ...(typeDoc === 'admin' && {general: [...data.documents.administrative, res]}),
+          ...(typeDoc === 'technicians' && {technical: [...data.documents.technical, res]}),
+          ...(typeDoc === 'admin' && {administrative: [...data.documents.administrative, res]}),
         },
       }));
       setIsChange(true);

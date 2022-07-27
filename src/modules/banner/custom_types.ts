@@ -10,11 +10,15 @@ export interface IMainBanner {
 }
 export interface ITestimony {
     id?: number;
-    mas_title: string;
-    mas_description: string;
-    mas_image: string;
-    mas_logo: string;
-   
+    key?: string;
+    tes_titulo: string;
+    tes_descripcion: string;
+    tes_ruta_imagen?: string;
+    tes_nombre_imagen: string;
+    tes_ruta_logo?: string;
+    tes_nombre_logo: string;
+    tes_imagen?: any;
+    tes_logo?: any;
 }
 export interface IIndicator {
     est_numero_reto: string | number;

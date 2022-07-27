@@ -15,13 +15,18 @@ interface FormPros {
 const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
   const initialValues = {
     ret_titulo_reporte: "",
-    ret_documento: "",
+    ret_documento: {
+      name: report?.ret_documento?.name || "",
+      id: report?.id,
+    },
     ...report,
   };
 
   const schema = Yup.object().shape({
     ret_titulo_reporte: Yup.string().required("Campo obligatorio"),
-    ret_documento: Yup.string().required("Campo obligatorio"),
+    ret_documento: Yup.object({
+      name: Yup.string().required("Campo obligatorio"),
+    }),
   });
 
   const submit = (values: any, actions: any) => {
@@ -38,7 +43,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ handleChange, values }) => {
+      {({ handleChange, values, errors, touched }) => {
         return (
           <Form>
             <div className="row">
@@ -82,7 +87,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_documento" />
+                <ErrorMessage name="ret_documento.name" />
               </div>
             </div>
           </Form>
