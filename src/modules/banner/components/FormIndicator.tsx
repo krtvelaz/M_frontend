@@ -51,7 +51,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
           return (
             <Form >
                 <div className="row ">
-                <div className="col-6 col-md-6   ">
+                <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_numero_reto_id" className="form-label">
                         Número de Retos lanzados
                         </label>
@@ -76,7 +76,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         <ErrorMessage name="est_numero_reto" withCount max={6} />
                     </div>
 
-                    <div className={`col-6 col-md-6  `}>
+                    <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_descripcion_numero_reto_id" className="form-label">
                         Descripción
                         </label>
@@ -104,7 +104,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
               </div>
 
               <div className="row ">
-              <div className="col-6 col-md-6   ">
+              <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_persona_impacto_id" className="form-label">
                         Número de Personas impactadas
                         </label>
@@ -129,7 +129,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         <ErrorMessage name="est_persona_impacto" withCount max={6} />
                     </div>
 
-                    <div className={`col-6 col-md-6  `}>
+                    <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_descripcion_persona_impacto_id" className="form-label">
                         Descripción
                         </label>
@@ -157,7 +157,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
               </div>
 
               <div className="row ">
-              <div className="col-6 col-md-6   ">
+              <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_actores_conectados_id" className="form-label">
                         Número de Actores conectados
                         </label>
@@ -182,7 +182,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         <ErrorMessage name="est_actores_conectados" withCount max={6} />
                     </div>
 
-                    <div className={`col-6 col-md-6  `}>
+                    <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_descripcion_actores_conectados_id" className="form-label">
                         Descripción
                         </label>
@@ -210,7 +210,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
               </div>
 
               <div className="row ">
-                    <div className="col-6 col-md-6   ">
+                    <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_solucion_implementada_id" className="form-label">
                         Número de Soluciones implementadas
                         </label>
@@ -235,7 +235,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef ,onSubmit, indicator}) =>
                         <ErrorMessage name="est_solucion_implementada" withCount max={6} />
                     </div>
 
-                    <div className={`col-6 col-md-6  `}>
+                    <div className="col-12 col-md-12  col-lg-6  ">
                         <label htmlFor="est_descripcion_solucion_implementada_id" className="form-label">
                         Descripción
                         </label>

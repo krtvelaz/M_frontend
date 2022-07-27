@@ -16,7 +16,6 @@ const CreateIndicator = () => {
 
   const addIndicator = async (values: IIndicator) => {
     await dispatch(actions.create_statistics(values));
-    console.log(values)
     setIsSuccess(true);
 
   };

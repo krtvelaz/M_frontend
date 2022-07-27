@@ -181,8 +181,13 @@ const create_statistics = (values: IIndicator) => {
         est_persona_impacto : Number(values.est_persona_impacto),
         est_actores_conectados : Number(values.est_actores_conectados),
         est_solucion_implementada: Number(values.est_solucion_implementada),
+
       },
+
     };
+    delete data.data.est_creacion;
+    delete data.data.est_estado;
+    delete data.data.id;
     console.log(JSON.stringify(data))
     try {
       const URI = "statistics/add";
@@ -216,10 +221,10 @@ const get_statistics = () => {
   return async (dispatch: any) => {
     dispatch(statistics_default());
     try {
-      const URI = "statistics/list/1/3";
+      const URI = "statistics/last";
       const res = await cms_http.get(URI);
-      dispatch(statistics_success(res.data.body.data[res.data.body.data.length - 1]));
-       return res.data.body.data[res.data.body.data.length - 1];
+      dispatch(statistics_success(res.data.body.data[0]));
+       return res.data.body.data[0];
     } catch (error) {
       dispatch(statistics_fail());
       return Promise.reject("Error");

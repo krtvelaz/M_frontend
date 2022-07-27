@@ -25,4 +25,7 @@ export interface IIndicator {
     est_descripcion_persona_impacto: string;
     est_descripcion_actores_conectados: string;
     est_descripcion_solucion_implementada: string;
+    est_creacion?: string;
+    est_estado?: string;
+    id?: number;
 }

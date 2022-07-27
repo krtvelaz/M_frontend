@@ -49,7 +49,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
         return (
           <Form>
             <div className="row ">
-              <div className="col-12 col-md-6 col-lg-6">
+              <div className="col-12 col-md-12 col-lg-6">
                 <label htmlFor="mas_title_id" className="form-label">
                   Titulo
                 </label>
@@ -74,7 +74,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                 <ErrorMessage name="mas_title" withCount max={70} />
               </div>
 
-              <div className="col-12 col-md-6 col-lg-6">
+              <div className="col-12 col-md-12 col-lg-6">
                 <label htmlFor="mas_description_id" className="form-label">
                   Descripción
                 </label>
@@ -101,7 +101,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
             </div>
 
             <div className="row ">
-              <div className="col-12 col-md-6 col-lg-6">
+              <div className="col-12 col-md-12 col-lg-6">
                 <label htmlFor="mas_image_id" className="form-label">
                   Imagen - Empresario
                 </label>
@@ -128,7 +128,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                 
               </div>
 
-              <div className="col-12 col-md-6 col-lg-6">
+              <div className="col-12 col-md-12 col-lg-6">
                 <label htmlFor="mas_logo_id" className="form-label">
                   Imagen - Logo
                 </label>

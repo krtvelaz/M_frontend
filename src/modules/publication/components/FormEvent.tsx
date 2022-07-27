@@ -57,7 +57,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                 return (
                     <Form>
                         <div className="row ">
-                            <div className="col-6">
+                            <div className="col-12 col-md-12  col-lg-6  ">
                                 <label htmlFor="title_id" className="form-label">
                                     Titulo
                                 </label>
@@ -83,7 +83,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <ErrorMessage name="title" withCount max={90} />
                             </div>
 
-                            <div className={`col-12 col-md-6 `}>
+                            <div className="col-12 col-md-12  col-lg-6  ">
                                 <label htmlFor="description" className="form-label">
                                     Descripción
                                 </label>
@@ -110,7 +110,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-3">
+                            <div className="col-6 col-md-6  col-lg-6  ">
                                 <label htmlFor="start_date_id" className="form-label">
                                     Fecha
                                 </label>
@@ -123,7 +123,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <ErrorMessage name="start_date" />
                             </div>
 
-                            <div className="col-3">
+                            <div className="col-6 col-md-6  col-lg-6  ">
                                 <label htmlFor="start_time_id" className="form-label">
                                     Hora
                                 </label>
@@ -139,7 +139,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                 <ErrorMessage name="start_time" />
                             </div>
 
-                            <div className="col-3 ">
+                            <div className="col-6 col-md-6  col-lg-6  ">
                                 <label htmlFor="radio_id" className="form-label mb-4">
                                     ¿Cupos limitados?
                                 </label>
@@ -159,7 +159,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
 
                             {values.radio === "si" ?
 
-                                <div className="col-3" >
+                                <div className="col-6 col-md-6  col-lg-6  " >
 
                                     <label htmlFor="number_quotas" className="form-label">
                                         Número de cupos
