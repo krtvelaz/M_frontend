@@ -213,7 +213,6 @@ const create_statistics = (values: IIndicator) => {
     delete data.data.est_creacion;
     delete data.data.est_estado;
     delete data.data.id;
-    console.log(JSON.stringify(data))
     try {
       const URI = "statistics/add";
       const res = await cms_http.post(URI, data);
@@ -295,8 +294,6 @@ const create_testimony = (values: ITestimony) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(res);
-
       // dispatch();
       await swal_success.fire({
         title: "Proceso exitoso",

@@ -25,8 +25,6 @@ const ModalImgTestimony: FC<IModalImage> = ({ id }) => {
           );
           if (res) {
             let _img = Buffer.from(res).toString("base64");
-            console.log(img);
-            
             setImg(_img);
             open();
           }

@@ -26,9 +26,7 @@ const CreateTestimony = () => {
     setIsSubmitting(false);
   };
 
-  const editTetimony = async (values: ITestimony) => {
-    console.log('testimonio editar',values);
-    
+  const editTetimony = async (values: ITestimony) => {    
     await dispatch(actions.edit_testimonial(values));
     setIsChange(true);
   };

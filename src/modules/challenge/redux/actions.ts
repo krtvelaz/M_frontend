@@ -232,7 +232,6 @@ const edit_challenge_document = (
     const pdf = values.ret_plantilla;
     pdf && form.append("file", pdf);
   } else {
-    console.log("dejar anterior");
     form.append("file", null);
   }
 
@@ -396,7 +395,6 @@ const edit_challenge_report = (values: Informe, key: number) => {
     const pdf = values.ret_documento;
     pdf && form.append("file", pdf);
   } else {
-    console.log("dejar anterior");
     form.append("file", null);
   }
 
