@@ -1,8 +1,10 @@
 import moment from "moment";
-import { FC } from "react";
-import { trash } from "../../../../utils/assets/img";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
+import { trash, watch } from "../../../../utils/assets/img";
 import { ModalDetailDocument, swal_error, Table } from "../../../../utils/ui";
 import { Informe } from "../../custom_types";
+import { actions } from "../../redux";
 import ModalEditReport from "./ModalEditReport";
 
 interface TablePros {
@@ -13,6 +15,9 @@ interface TablePros {
 }
 
 const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete }) => {
+  const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
+  const dispatch = useDispatch<any>();
   const table_columns: any = [
     {
       title: "No.",
@@ -46,10 +51,37 @@ const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete }) => {
         {
           title: <span style={{ fontSize: "9px" }}>Ver</span>,
           fixed: "right",
-          dataIndex: "template",
+          dataIndex: "id",
           align: "center" as "center",
-          render: (template: File) => {
-            return template ? <ModalDetailDocument document={template} /> : "-";
+          render: (id: number) => {
+            return (
+              <>
+                <img
+                  src={watch}
+                  className="img-fluid"
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={async () => {
+                    const res = await dispatch(actions.get_document(id, 'report'));
+                    if (res) {
+                      const _url = URL.createObjectURL(
+                        new Blob([res], {
+                          type: "application/pdf",
+                        })
+                      );
+
+                      setUrl(_url);
+                      set_is_visible_doc(true);
+                    }
+                  }}
+                />
+                <ModalDetailDocument
+                  open={is_visibleDoc}
+                  setOpen={set_is_visible_doc}
+                  url={url}
+                />
+              </>
+            );
           },
         },
         {

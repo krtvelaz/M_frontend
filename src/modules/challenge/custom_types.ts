@@ -17,6 +17,7 @@ export interface IGeneralInformation {
   ret_comuna: number | string;
   ret_barrio: number | string;
   ret_detalle_postulacion: string;
+  ret_imagen_principal?: any;
   ret_ruta_imagen_principal: string;
   ret_nombre_imagen: string;
   ret_video: string;
@@ -37,6 +38,7 @@ export interface IDocument {
   ret_tipo_documento: number;
   ret_nombre_documento: string;
   ret_perfiles: string;
+  ret_plantilla?: any;
   ret_ruta_plantilla: string;
   ret_nombre_plantilla: string;
   ret_tipo_formulario?: number;
@@ -48,6 +50,7 @@ export interface IDocument {
 export interface Informe {
   id?: number;
   ret_titulo_reporte: string;
+  ret_documento?: any;
   ret_ruta_documento: string;
   ret_nombre_documento: string;
   ret_creado?: string;

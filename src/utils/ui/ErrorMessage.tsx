@@ -15,6 +15,8 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ name, withCount, max, className, 
     if (name && withCount) {
         hasCount = withCount && (typeof value === 'string' || typeof value === 'number');
     }
+
+    
     return (
         <div className="row w-100 m-0">
             <div className="col">

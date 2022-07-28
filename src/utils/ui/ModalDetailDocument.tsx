@@ -1,55 +1,48 @@
 import { Modal } from "antd";
-import { FC, useState } from "react";
-import { watch } from "../assets/img";
+import { FC } from "react";
 
 interface DocumetFormProps {
-  document: File;
+  url: string;
+  open: boolean;
+  setOpen: any;
 }
 
-const ModalDetailDocument: FC<DocumetFormProps> = ({ document }) => {
-  const [is_visible, set_is_visible] = useState<boolean>(false);
-  const open = () => set_is_visible(true);
-  const close = () => set_is_visible(false);
-  const url = window.URL.createObjectURL(document);
+const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen }) => {
+  const close = () => setOpen(false);
   return (
-    <>
-      <img
-        src={watch}
-        className="img-fluid"
-        alt=""
-        style={{ cursor: "pointer" }}
-        onClick={() => open()}
-      />
-      <Modal
-        visible={is_visible}
-        width={751}
-        onCancel={close}
-        title={
-          <span style={{ fontFamily: "Montserrat-SemiBold", fontSize: "16px" }}>
-            Previsualizar documento
-          </span>
-        }
-        maskStyle={{
-          backgroundColor: "rgba(6, 100, 144 ,0.8)",
-        }}
-        footer={[
-          <button
-            key="saveDoc"
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              close();
-            }}
-          >
-            Aceptar
-          </button>,
-        ]}
-      >
-        <div>
+    <Modal
+      visible={open}
+      width={751}
+      onCancel={close}
+      title={
+        <span style={{ fontFamily: "Montserrat-SemiBold", fontSize: "16px" }}>
+          Previsualizar documento
+        </span>
+      }
+      maskStyle={{
+        backgroundColor: "rgba(6, 100, 144 ,0.8)",
+      }}
+      footer={[
+        <button
+          key="saveDoc"
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            close();
+          }}
+        >
+          Aceptar
+        </button>,
+      ]}
+    >
+      <div>
+        {url ? (
           <embed src={`${url}#toolbar=0`} width="100%" height="375px" />
-        </div>
-      </Modal>
-    </>
+        ) : (
+          "No fue posible obtener el documento."
+        )}
+      </div>
+    </Modal>
   );
 };
 

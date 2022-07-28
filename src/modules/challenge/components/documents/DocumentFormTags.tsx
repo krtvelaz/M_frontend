@@ -29,7 +29,6 @@ const DocumentFormTags: FC<DocumentsProps> = ({
 }) => {
 
   const { TabPane } = Tabs;
-  console.log(active_key);
   
   return (
     <Tabs
