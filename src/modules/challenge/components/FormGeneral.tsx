@@ -23,7 +23,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
   innerRef,
   onSubmit,
 }) => {
-  
   const initialValues = {
     ret_nombre: "",
     ret_perfil: [],
@@ -35,6 +34,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_comuna: "",
     ret_barrio: "",
     ret_detalle_postulacion: "",
+    ret_imagen_principal: {
+      name: general_?.ret_nombre_imagen || "",
+    },
     ret_ruta_imagen_principal: "",
     ret_nombre_imagen: "",
     ret_video: "",
@@ -44,27 +46,21 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_descripcion: "",
     ret_tipo_impacto: "",
     ...general_,
-  };
+  };  
 
   const schema = Yup.object().shape({
     ret_nombre: Yup.string().required("Campo obligatorio"),
-    ret_perfil: Yup.array().required("Campo obligatorio"),
-    ret_dimension: Yup.string()
-      .nullable()
-      .required("Campo obligatorio"),
-    ret_dependencia: Yup.string()
-      .nullable()
-      .required("Campo obligatorio"),
+    ret_perfil: Yup.array().min(1, "Campo obligatorio"),
+    ret_dimension: Yup.string().nullable().required("Campo obligatorio"),
+    ret_dependencia: Yup.string().nullable().required("Campo obligatorio"),
     ret_fecha_inicio: Yup.string().required("Campo obligatorio"),
     ret_fecha_final: Yup.string().required("Campo obligatorio"),
     ret_descripcion: Yup.string().required("Campo obligatorio"),
-    ret_comuna: Yup.string()
-      .nullable()
-      .required("Campo obligatorio"),
-    ret_barrio: Yup.string()
-      .nullable()
-      .required("Campo obligatorio"),
-    ret_ruta_imagen_principal: Yup.string().required("Campo obligatorio"),
+    ret_comuna: Yup.string().nullable().required("Campo obligatorio"),
+    ret_barrio: Yup.string().nullable().required("Campo obligatorio"),
+    ret_imagen_principal: Yup.object({
+      name: Yup.string().required("Campo obligatorio")
+    }),
     ret_detalles: Yup.string().required("Campo obligatorio"),
     ret_dato_importante: Yup.string().required("Campo obligatorio"),
     ret_resultado_esperado: Yup.string().required("Campo obligatorio"),
@@ -126,7 +122,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                       name: "Grupo de investigación",
                       id: "Grupo de investigación",
                     },
-                    { name: "Persona jurídica", id: "Persona jurídica" },
+                    {
+                      name: "Persona jurídica",
+                      id: "Persona jurídica",
+                    },
                     {
                       name: "Equipo de innovadores",
                       id: "Equipo de innovadores",
@@ -222,7 +221,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   component={DateInput}
                   name="ret_fecha_final"
                   id="ret_fecha_final_id"
-                  min={moment(values.ret_fecha_inicio).format('YYYY-MM-DD')}
+                  min={moment(values.ret_fecha_inicio).format("YYYY-MM-DD")}
                 />
                 <ErrorMessage name="ret_fecha_final" />
               </div>
@@ -254,7 +253,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <ErrorMessage name="ret_descripcion" withCount max={250} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_detalle_postulacion_id" className="form-label">
+                <label
+                  htmlFor="ret_detalle_postulacion_id"
+                  className="form-label"
+                >
                   Detalles del reto
                 </label>
                 <Field
@@ -346,14 +348,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage
-                  name="ret_detalles"
-                  withCount
-                  max={200}
-                />
+                <ErrorMessage name="ret_detalles" withCount max={200} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_ruta_imagen_principal_id" className="form-label">
+                <label htmlFor="ret_imagen_principal_id" className="form-label">
                   Imagen principal
                 </label>
                 <Field
@@ -362,12 +360,12 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   maximum_size={2}
                   file_type="img"
                   type="text"
-                  id="ret_ruta_imagen_principal_id"
-                  name="ret_ruta_imagen_principal"
+                  id="ret_imagen_principal_id"
+                  name="ret_imagen_principal"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_ruta_imagen_principal" />
+                <ErrorMessage name="ret_imagen_principal.name" />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_video_id" className="form-label">
@@ -413,7 +411,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <ErrorMessage name="ret_dato_importante" withCount max={500} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_resultado_esperado_id" className="form-label">
+                <label
+                  htmlFor="ret_resultado_esperado_id"
+                  className="form-label"
+                >
                   Resultados esperados{" "}
                 </label>
                 <Field
@@ -435,7 +436,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="ret_resultado_esperado" withCount max={500} />
+                <ErrorMessage
+                  name="ret_resultado_esperado"
+                  withCount
+                  max={500}
+                />
               </div>
             </div>
             <div className="row">

@@ -6,6 +6,7 @@ interface TemplateProps {
     menu_collapsed: boolean;
     drawer_collapsed: boolean;
     menu_toggle: () => void;
+    sider_toggle: () => void;
     drawer_open: () => void;
     drawer_close: () => void;
     drawer_menu_collapsed: boolean;
@@ -29,6 +30,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const [menu_collapsed, set_menu_collapsed] = useState<boolean>(false);
     const [menu_key_path, set_menu_key_path] = useState<KeyPath>(['p0']);
     const [drawer_collapsed, set_drawer_collapsed] = useState<boolean>(false);
+    const [sider_collapsed, set_sider_collapsed] = useState<boolean>(false);
     const [drawer_menu_collapsed, set_drawer_menu_collapsed] = useState<boolean>(false);
     const [pass_modal, set_pass_modal] = useState<boolean>(false);
     const [percentege, setpercentege] = useState<boolean>(false);
@@ -77,6 +79,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 menu_key_path,
                 drawer_menu_collapsed,
                 menu_collapsed,
+                sider_collapsed,
                 drawer_collapsed,
                 pass_modal,
                 percentege,
@@ -89,6 +92,8 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 set_drawer_menu_collapsed,
                 setDocReact,
                 menu_toggle: () => set_menu_collapsed((collapsed) => !collapsed),
+                sider_open: () => set_sider_collapsed(true),
+                sider_close: () => set_sider_collapsed(false),
                 drawer_open: () => set_drawer_collapsed(true),
                 drawer_close: () => set_drawer_collapsed(false),
                 toggle_pass_modal: () => set_pass_modal((collapsed) => !collapsed),

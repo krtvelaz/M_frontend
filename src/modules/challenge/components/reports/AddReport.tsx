@@ -16,6 +16,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
   const dispatch = useDispatch<any>();
   const [resports, setReports] = useState([]);
+  const [isChange, setIsChange] = useState<boolean>(false);
 
   const onAddReport = async (values: Informe) => {   
     const res = await dispatch(
@@ -31,6 +32,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
           reports: [...data.reports, res],
         };
       });
+      setIsChange(true);
     }
   };
 
@@ -42,6 +44,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
       )
     );
     if (res) {
+      setIsChange(true);
     }
   };
 
@@ -55,11 +58,12 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
           resports: newDocuments
         };
       });
+      setIsChange(true);
     }
   }
 
   const listReports = async () => {
-    const data = await dispatch(actions.get_list_challenge_report({}));
+    const data = await dispatch(actions.get_list_challenge_report(challenge.general_information.key || -1, {}));
     setReports(data);
   };
 
@@ -67,10 +71,18 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
     listReports();
   }, []);
 
+  useEffect(() => {
+    if (isChange) {
+      listReports();
+      setIsChange(false);
+    }
+  }, [isChange]); 
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
+          <h4 className="text-center mb-3" style={{fontFamily: 'Work-Sans-SemiBold'}}>Este formulario es opcional, si no hay información para asociar puede finalizar la creación del reto haciendo clic en el botón publicar.</h4>
           <Card
             title={
               <>

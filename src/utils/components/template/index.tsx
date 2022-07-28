@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import AppSider from "./sider";
 import AppHeader from "./header";
 import { TemplateContext } from "./templateContext";
@@ -7,6 +7,7 @@ import Drawer from "antd/lib/drawer";
 import Menu from "antd/lib/menu";
 import Breadcrumbs from "./breadcrumbs";
 import { Breadcrumb } from "../router/custom_types";
+import { useNavigate } from "react-router-dom";
 
 interface ITemplate {
   breadcrumbs?: Breadcrumb[];
@@ -23,6 +24,8 @@ const Template: FC<ITemplate> = ({
 }) => {
   const { Header, Sider, Content } = Layout;
   const context = useContext(TemplateContext);
+  const navigate = useNavigate();
+  const [menuSider, setMenuSider] = useState([]);
   const collapsible = context.device === "md" ? true : false;
   const sider_ops = {
     width: 280,
@@ -38,14 +41,36 @@ const Template: FC<ITemplate> = ({
           collapsed: false,
         }),
   };
+
+  const goTo = (to: any) => {
+    context.drawer_close();
+    navigate(to.item.props.path, { state: to.keyPath });
+    context.sider_close();
+  };
+
   return (
     <>
       <Layout className="w-100 h-100">
         {context.device !== "sm" && (
           <>
             <Sider {...sider_ops} width={280}>
-              <AppSider width={sider_ops.width} />
+              <AppSider width={sider_ops.width} setMenuSider={setMenuSider} />
             </Sider>
+            {context.sider_collapsed && (
+              <div className="container-modal">
+                <div className="content-modal">
+                  <Menu
+                    style={{ fontSize: "12px", backgroundColor: "#F2F2F2" }}
+                    onSelect={goTo}
+                    items={menuSider}
+                  />
+                </div>
+                <div
+                  className="cerrar-modal"
+                  onClick={() => context.sider_close()}
+                ></div>
+              </div>
+            )}
           </>
         )}
         <Layout className="site-layout">
@@ -83,9 +108,9 @@ const Template: FC<ITemplate> = ({
         </Layout>
       </Layout>
       <Drawer
-        // maskStyle={{
-        //   backgroundColor: "rgba(6, 100, 144 ,0.8)",
-        // }}
+        maskStyle={{
+          backgroundColor: "rgba(6, 100, 144 ,0.8)",
+        }}
         placement="right"
         onClose={context?.drawer_close}
         visible={context?.drawer_collapsed}
@@ -155,7 +180,7 @@ const Template: FC<ITemplate> = ({
           </div>
           {context?.device === "sm" && (
             <div className="flex-fill" style={{ overflowY: "auto" }}>
-              <AppSider width={sider_ops.width} />
+              <AppSider width={sider_ops.width} setMenuSider={setMenuSider} />
             </div>
           )}
         </div>

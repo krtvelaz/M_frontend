@@ -27,6 +27,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
     steps,
     max,
     show_next,
+    isSubmitting,
     next_tab,
     goBack,
     execute_save,
@@ -36,7 +37,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   ] = useInit(type, challenge_data);
 
   useEffect(() => {
-    active_key_docs === "docs-1" && active_key !== '3'
+    active_key_docs === "docs-1" && active_key !== "3"
       ? setTypeDoc("general")
       : active_key_docs === "docs-2"
       ? setTypeDoc("technicians")
@@ -55,25 +56,26 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   } = useDocument(typeDoc, setChallenge, challenge);
 
   const get_documents = async () => {
-    await dispatch(actions.get_list_document(typeDoc, {}));
+    await dispatch(
+      actions.get_list_document(
+        typeDoc,
+        challenge.general_information.key || -1,
+        {}
+      )
+    );
   };
 
   useEffect(() => {
-    // se ejecuta cuando cambia de pantalla
     getTypesDocuments();
     get_documents();
   }, [typeDoc]);
 
   useEffect(() => {
-    // se ejecuta cuando se dispara alguna acción
     if (isChange) {
       get_documents();
       setIsChange(false);
     }
-  }, [isChange]);  
-
-  console.log(challenge);
-  
+  }, [isChange]);
 
   return (
     <>
@@ -113,7 +115,10 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                   />
                 </TabPane>
                 <TabPane tab="Informes" key="3" disabled={max < 3}>
-                 <AddReport challenge={challenge} setChallenge={setChallenge} />
+                  <AddReport
+                    challenge={challenge}
+                    setChallenge={setChallenge}
+                  />
                 </TabPane>
               </Tabs>
             </div>
@@ -136,8 +141,15 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               type="button"
               className="btn btn-primary"
               onClick={next_tab}
+              disabled={isSubmitting}
             >
               Siguiente
+              {isSubmitting && (
+                <i
+                  className="fa fa-spinner fa-spin"
+                  style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+                />
+              )}
             </button>
           )}
           {!show_next && (
@@ -146,7 +158,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               className="btn btn-primary"
               onClick={execute_save}
             >
-              Guardar
+              Publicar reto
             </button>
           )}
         </div>

@@ -1,6 +1,5 @@
 // export { auth as authttp } from "./auth";
-export { http } from './general';
-export { http as master_http } from './master';
+export { http } from './challenge';
 export { http as cms_http } from './cms';
 // export const UNAUTHORIZED = 401;
 // export const FORBIDDEN = 403;
