@@ -15,6 +15,7 @@ import {
   testimonials_list_success,
   testimony_default,
   testimony_fail,
+  testimony_success,
 } from "./slice";
 
 /*----------------banner---------------------*/
@@ -32,10 +33,9 @@ const create_main_banner = (values: IMainBanner) => {
       data: {
         ...values,
         car_codigo_usuario: "123456",
-        car_nombre_imagen: values.car_imagen?.name || '',
-        car_ruta_imagen:'',
-        car_nombre_imagen_codificado:'',
-
+        car_nombre_imagen: values.car_imagen?.name || "",
+        car_ruta_imagen: "",
+        car_nombre_imagen_codificado: "",
       },
     };
     delete data.data.car_imagen;
@@ -92,7 +92,6 @@ const get_list_banners = () => {
 };
 
 const edit_banner = (values: IMainBanner, id: number) => {
-
   return async (dispatch: any) => {
     dispatch(banner_default());
 
@@ -105,12 +104,9 @@ const edit_banner = (values: IMainBanner, id: number) => {
         ...values,
         car_codigo_usuario: "123456",
         car_nombre_imagen: values.car_imagen?.name || '',
-        car_ruta_imagen: values.car_ruta_imagen || '',
-        car_nombre_imagen_codificado: values.car_nombre_imagen_codificado ||'',
-
       },
     };
-     
+
     let form: any = new FormData();
 
     if(!data.data.car_imagen.id){
@@ -126,11 +122,11 @@ const edit_banner = (values: IMainBanner, id: number) => {
     form.append("data", JSON.stringify(data));
 
     try {
-      const URI = 'banner/add';
-      const res = await cms_http.post(URI, form , {
+      const URI = "banner/add";
+      const res = await cms_http.post(URI, form, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
       // dispatch();
       await swal_success.fire({
@@ -143,7 +139,7 @@ const edit_banner = (values: IMainBanner, id: number) => {
       });
       return res.data.body.data;
     } catch (error) {
-      dispatch(banner_fail); 
+      dispatch(banner_fail);
       await swal_error.fire({
         title: "Error en el proceso",
         html:
@@ -193,9 +189,10 @@ const delete_banner = (id: number) => {
 
 /*-----------------------------statistics---------------------*/
 
-const create_statistics = (values: IIndicator) => {
+const create_statistics = (_values: IIndicator) => {
   return async (dispatch: any) => {
     dispatch(statistics_default());
+    const values = JSON.parse(JSON.stringify(_values));
     const data = {
       action: "insert",
       info: {
@@ -207,9 +204,7 @@ const create_statistics = (values: IIndicator) => {
         est_persona_impacto: Number(values.est_persona_impacto),
         est_actores_conectados: Number(values.est_actores_conectados),
         est_solucion_implementada: Number(values.est_solucion_implementada),
-
       },
-
     };
     delete data.data.est_creacion;
     delete data.data.est_estado;
@@ -249,7 +244,7 @@ const get_statistics = () => {
       const URI = "statistics/last";
       const res = await cms_http.get(URI);
       dispatch(statistics_success(res.data.body.data[0]));
-       return res.data.body.data[0];
+      return res.data.body.data[0];
     } catch (error) {
       dispatch(statistics_fail());
       return Promise.reject("Error");
@@ -260,7 +255,7 @@ const get_statistics = () => {
 /*-----------------------------testimony-------------------------------------*/
 const create_testimony = (values: ITestimony) => {
   return async (dispatch: any) => {
-    dispatch(testimony_default());
+    dispatch(testimony_default());  
     const img = values.tes_imagen;
     const logo = values.tes_logo;
     const data = {
@@ -306,7 +301,7 @@ const create_testimony = (values: ITestimony) => {
       });
       return res.data;
     } catch (error) {
-      dispatch(testimony_fail);
+      dispatch(testimony_fail());
       await swal_error.fire({
         title: "Error en el proceso",
         html:
@@ -335,10 +330,24 @@ const get_list_testimonials = () => {
   };
 };
 
+const get__testimonial = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(testimony_default());
+    try {
+      const URI = `testimony/list/${id}`;
+      const res = await cms_http.get(URI);      
+      dispatch(testimony_success(res.data.body.data[0]));
+      return res.data.body.data[0];
+    } catch (error) {
+      dispatch(testimony_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
 const edit_testimonial = (values: ITestimony) => {
   return async (dispatch: any) => {
     dispatch(testimony_default());
-
     const data = {
       action: "update",
       info: {
@@ -352,17 +361,17 @@ const edit_testimonial = (values: ITestimony) => {
     };
 
     let form: any = new FormData();
-    
+
     if (!data.data.tes_imagen.id) {
       const img = values.tes_imagen;
       form.append("img", img);
-    }else {
+    } else {
       form.append("img", null);
     }
     if (!data.data.tes_logo.id) {
       const logo = values.tes_logo;
       form.append("logo", logo);
-    }else {
+    } else {
       form.append("logo", null);
     }
 
@@ -370,7 +379,6 @@ const edit_testimonial = (values: ITestimony) => {
     delete data.data.tes_logo;
     delete data.data.key;
     delete data.data.id;
-
 
     form.append("data", JSON.stringify(data));
 
@@ -405,6 +413,8 @@ const edit_testimonial = (values: ITestimony) => {
     }
   };
 };
+
+
 
 const delete_testimonial = (id: number) => {
   return async (dispatch: any) => {
@@ -441,8 +451,11 @@ const delete_testimonial = (id: number) => {
 const get_document_testimonial = (id: number, type: "img" | "logo") => {
   return async (dispatch: any) => {
     try {
-      const URI = `/testimony/${type}/${id}`;
-      const res: any = await cms_http.get(URI, { responseType: "arraybuffer" });
+      const URI = `/testimony/img`;
+      const res: any = await cms_http.post(URI, {
+        type,
+        id
+      }, { responseType: "arraybuffer" });
       return res.data;
     } catch (error) {
       return Promise.reject("Error");
@@ -472,6 +485,7 @@ const actions = {
   create_statistics,
   get_statistics,
   create_testimony,
+  get__testimonial,
   get_list_testimonials,
   edit_testimonial,
   delete_testimonial,

@@ -16,8 +16,8 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
 
-  const editImage = (value: IMainBanner) => {
-    onSubmit(value);
+  const editImage = async (value: IMainBanner) => {
+    await onSubmit(value);
     set_is_visible(false);
     
   };

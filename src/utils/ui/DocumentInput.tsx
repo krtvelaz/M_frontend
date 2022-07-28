@@ -20,7 +20,7 @@ const DocumentInput: FC<InputDocProps> = ({
   const on_change = (value: any) => {
     form.setFieldValue(field.name, value, false);
   };
-
+  
   return (
     <>
       <div className="input-group">
@@ -37,7 +37,7 @@ const DocumentInput: FC<InputDocProps> = ({
               className="mt-1"
               closable={true}
               onClose={async () => {
-                on_change("");
+                on_change({ name: ''});
               }}
               onClick={() => {}}
             >
