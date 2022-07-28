@@ -105,18 +105,19 @@ const edit_banner = (values: IMainBanner, id: number) => {
         ...values,
         car_codigo_usuario: "123456",
         car_nombre_imagen: values.car_imagen?.name || '',
-        car_ruta_imagen:'',
-        car_nombre_imagen_codificado:'',
+        car_ruta_imagen: values.car_ruta_imagen || '',
+        car_nombre_imagen_codificado: values.car_nombre_imagen_codificado ||'',
 
       },
     };
      
     let form: any = new FormData();
+
     if(!data.data.car_imagen.id){
       const img = values.car_imagen;
-    form.append("file", img); 
+      form.append("file", img); 
     }else{
-    form.append("file", null)
+      form.append("file", null)
     }
     delete data.data.car_imagen;
     delete data.data.id;
@@ -449,19 +450,15 @@ const get_document_testimonial = (id: number, type: "img" | "logo") => {
   };
 };
 
-const get_image = (id: number) => {
-   
+const get_image_banner = (id: number) => {
   return async (dispatch: any) => {
-    // dispatch(loading_document_challenge());
     try {
-      const URI = `banner/pdf/${id}`;
+      const URI = `banner/img/${id}`;
 
-      const res: any = await cms_http.get(URI);
+      const res: any = await cms_http.get(URI, { responseType: "arraybuffer" });
       
-      // dispatch(get_document_challenge(res.data.body.data));
       return res.data;
     } catch (error) {
-      // dispatch(fail_document_challenge());
       return Promise.reject("Error");
     }
   };
@@ -479,6 +476,6 @@ const actions = {
   edit_testimonial,
   delete_testimonial,
   get_document_testimonial,
-  get_image,
+  get_image_banner,
 };
 export default actions;

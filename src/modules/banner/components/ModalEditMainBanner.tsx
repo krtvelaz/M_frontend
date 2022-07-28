@@ -34,7 +34,10 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
       <Modal
         visible={is_visible}
         width={1000}
-        onCancel={close}
+        onCancel={() => {
+          form_ref.current?.resetForm();
+          close();
+        }}
         title={
           <span style={{ fontFamily: "Montserrat-SemiBold", fontSize: "16px" }}>
             Editar elemento galería
@@ -56,7 +59,7 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
           </button>,
         ]}
       >
-        <FormMainBanner innerRef={form_ref} onSubmit={editImage} data_image={data_image} />
+        <FormMainBanner innerRef={form_ref} onSubmit={editImage} data_image={data_image} type='edit' />
       </Modal>
     </>
   );

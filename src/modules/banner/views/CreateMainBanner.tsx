@@ -45,7 +45,6 @@ const CreateMainBanner = () => {
       setIsSuccess(false);
     }
   }, [isSuccess]);
-
   return (
     <div className="h-100 d-flex flex-column">
       <div className="flex-fill overflow-auto">
@@ -66,7 +65,7 @@ const CreateMainBanner = () => {
                       type="button"
                       className="btn btn-outline-primary"
                       onClick={() => {
-                        form_ref.current?.submitForm();
+                        form_ref.current?.submitForm()
                       }}
                     >
                       Agregar
@@ -74,7 +73,7 @@ const CreateMainBanner = () => {
                   </div>,
                 ]}
               >
-                <FormMainBanner innerRef={form_ref} onSubmit={addImage} />
+                <FormMainBanner innerRef={form_ref} onSubmit={addImage} type='create' />
               </Card>
               {list_banners.length > 0 && (
                 <Card>

@@ -6,6 +6,7 @@ import ModalDetailDocument from "../../../utils/ui/ModalDetailDocument";
 import { IMainBanner } from "../custom_types";
 import { actions } from "../redux";
 import ModalEditMainBanner from "./ModalEditMainBanner";
+import { Buffer } from 'buffer/'
 
 interface BannerFormPros {
   data: IMainBanner[];
@@ -43,7 +44,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
       responsive: ['md'],
       align: 'left' as 'left',
       render: (value: File) => {
-        return value.name;
+        return value;
       },
     },
     {
@@ -64,15 +65,11 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
                   alt=""
                   style={{ cursor: "pointer" }}
                   onClick={async () => {
-                    const res = await dispatch(actions.get_image(id));
+                    const res = await dispatch(actions.get_image_banner(id));
                     if (res) {
-                      const _url = URL.createObjectURL(
-                        new Blob([res], {
-                          type: "application/pdf",
-                        })
-                      );
+                      let _img = Buffer.from(res).toString("base64");
 
-                      setUrl(_url);
+                      setUrl(_img);
                       set_is_visible_doc(true);
                     }
                   }}
@@ -81,7 +78,8 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
                   open={is_visibleDoc}
                   setOpen={set_is_visible_doc}
                   url={url}
-                />;
+                  fileType='img'
+                />
               </>
             )
           },

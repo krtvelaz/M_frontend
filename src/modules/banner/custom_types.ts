@@ -8,6 +8,7 @@ export interface IMainBanner {
     car_imagen?: any;
     car_ruta_imagen?: string;
     car_nombre_imagen?: string;
+    car_nombre_imagen_codificado?: string;
     id?: number;
     key?: string;
     car_creado?: string;
