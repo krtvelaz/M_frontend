@@ -1,12 +1,13 @@
-FROM node:16.14.2 AS builder
+FROM node:16 AS builder
 WORKDIR /app
 COPY . .
-# install node packages
-RUN npm set progress=false && npm config set depth 0
-RUN npm install 
-RUN npm install socket.io-client
-RUN npm run build
+RUN npm install --ignore-engines && npm build
 
-# expose port and define CMD
-EXPOSE 8080
-CMD ["npm", "run", "dev"]
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=builder /app/build .
+RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
