@@ -50,7 +50,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
           dataIndex: "image",
           align: "center" as "center",
           render: (value: File) => {
-            return <ModalDetailDocument document={value}/>;
+            // return <ModalDetailDocument document={value}/>;
           },
         },
         {
