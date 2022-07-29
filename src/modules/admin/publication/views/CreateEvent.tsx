@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { Card } from "../../../utils/ui"
+import { Card } from "../../../../utils/ui"
 import FormEvent from "../components/FormEvent"
 import { IEvent } from "../custom_types"
 import { FormikProps, FormikValues } from "formik"

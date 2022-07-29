@@ -1,4 +1,4 @@
-import { IRoute } from "../../utils/components/router/custom_types";
+import { IRoute } from "../../../utils/components/router/custom_types";
 import EditPublication from "./EditPublication";
 import CreateEvent from "./views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";

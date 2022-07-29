@@ -2,7 +2,7 @@ import React, { FC, useRef } from "react";
 import { IPublicationInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { Select, ErrorMessage, DocumentInput } from "../../../utils/ui";
+import { Select, ErrorMessage, DocumentInput } from "../../../../utils/ui";
 
 
 interface PublicationPros {

@@ -1,6 +1,6 @@
 import { Popover, Radio } from "antd";
-import { pencil, trash } from "../../../utils/assets/img";
-import { Card, Link, swal_error, Table } from "../../../utils/ui";
+import { pencil, trash } from "../../../../utils/assets/img";
+import { Card, Link, swal_error, Table } from "../../../../utils/ui";
 
 const ListPublication = () => {
   const table_columns: any = [

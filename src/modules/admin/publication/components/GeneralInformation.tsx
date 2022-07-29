@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Card } from "../../../utils/ui";
+import { Card } from "../../../../utils/ui";
 import { IPublication } from "../custom_types";
 import FormPublication from "./FormPublication";
 

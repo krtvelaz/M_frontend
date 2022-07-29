@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { trash } from '../../../utils/assets/img';
-import { ModalDetailDocument, swal_error, Table } from '../../../utils/ui';
+import { trash } from '../../../../utils/assets/img';
+import { ModalDetailDocument, swal_error, Table } from '../../../../utils/ui';
 import { IPublicationInfo } from "../custom_types";
 import ModalEditGallery from "./ModalEditGallery";
 

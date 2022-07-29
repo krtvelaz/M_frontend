@@ -2,7 +2,7 @@ import { Tabs } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { swal_error } from "../../../utils/ui";
+import { swal_error } from "../../../../utils/ui";
 import { IPublication, IPublicationInfo } from "../custom_types";
 import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
