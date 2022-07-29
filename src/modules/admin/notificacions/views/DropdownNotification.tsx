@@ -1,7 +1,8 @@
 import Dropdown from "antd/lib/dropdown";
 import Menu from "antd/lib/menu";
-import bell from "../../../utils/assets/img/bell.svg";
+
 import { MailOutlined } from "@ant-design/icons";
+import { bell } from "../../../../utils/assets/img";
 
 const DropdownNotification = () => {
   const handleClick = (e: any) => {
