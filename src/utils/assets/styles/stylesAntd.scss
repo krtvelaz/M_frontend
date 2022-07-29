@@ -171,12 +171,12 @@ textarea.form-control {
 }
 
 .swal2-container.swal2-center > .swal2-popup {
-  grid-row: auto;
-  border-radius: 10px;
+  grid-row: auto !important;
+  border-radius: 10px !important;
 }
 
 .swal2-styled.swal2-confirm {
-  margin-left: 25px;
+  margin-left: 25px !important;
 }
 
 .swal2-close {

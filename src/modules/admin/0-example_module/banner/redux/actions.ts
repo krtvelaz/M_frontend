@@ -1,5 +1,7 @@
-import { cms_http } from "../../../config/axios_instances";
-import { swal_error, swal_success } from "../../../utils/ui/swalAlert";
+
+import { cms_http } from "../../../../../config/axios_instances";
+import { swal_error, swal_success } from "../../../../../utils/ui/swalAlert";
+
 import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
 import {
   banners_list_default,
