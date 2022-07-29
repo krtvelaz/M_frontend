@@ -160,7 +160,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
       <Menu
         style={{ fontSize: "12px" }}
         className={`${context.device === "sm" ? "menu-horizontal" : ""}`}
-        onSelect={goTo}
+        onClick={goTo}
         items={menu_config}
         mode={context.device === "sm" ? "inline" : "vertical"}
       />

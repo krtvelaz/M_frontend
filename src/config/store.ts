@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { bannerSlice } from '../modules/banner/redux/slice';
-import { challengeSlice } from '../modules/challenge/redux/slice';
+import { bannerSlice } from '../modules/admin/banner/redux/slice';
+import { challengeSlice } from '../modules/admin/challenge/redux/slice';
 
 
 export const store = configureStore({
