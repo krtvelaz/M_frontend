@@ -8,9 +8,10 @@ interface BannerFormPros {
   innerRef: any;
   onSubmit: (values: IMainBanner, form?: any) => any;
   data_image?: IMainBanner;
+  type: 'create' | 'edit';
 }
 
-const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) => {
+const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, type }) => {
   const initial_values = {
     car_titulo: '',
     car_descripcion: '',
@@ -27,15 +28,17 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image }) 
   const schema = Yup.object().shape({
     car_titulo: Yup.string().required('Campo obligatorio'),
     car_descripcion: Yup.string().required('Campo obligatorio'),
-    // car_imagen: Yup.object({
-    //   name: Yup.string().required('Campo obligatorio')
-    // })
+    car_imagen: Yup.object({
+      name: Yup.string().required('Campo obligatorio')
+    }).nullable(),
   });
 
   const submit = (values: any, form: any) => {
     onSubmit(values);
     form.setSubmitting(false);
-    form.resetForm();
+    if(type === 'create'){
+      form.resetForm();
+    }
   };
 
   return (

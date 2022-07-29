@@ -5,9 +5,10 @@ interface DocumetFormProps {
   url: string;
   open: boolean;
   setOpen: any;
+  fileType?: 'pdf' | 'img';
 }
 
-const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen }) => {
+const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen , fileType}) => {
   const close = () => setOpen(false);
   return (
     <Modal
@@ -36,14 +37,19 @@ const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen }) => {
       ]}
     >
       <div>
-        {url ? (
+        {fileType === 'pdf' ? (
           <embed src={`${url}#toolbar=0`} width="100%" height="375px" />
         ) : (
-          "No fue posible obtener el documento."
+          
+          <img src={`data:image/jpeg;charset=utf-8;base64,${url}`} alt="img" />
         )}
       </div>
     </Modal>
   );
 };
+
+ModalDetailDocument.defaultProps = {
+  fileType: 'pdf',
+}
 
 export default ModalDetailDocument;

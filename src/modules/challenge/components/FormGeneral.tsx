@@ -60,7 +60,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_barrio: Yup.string().nullable().required("Campo obligatorio"),
     ret_imagen_principal: Yup.object({
       name: Yup.string().required("Campo obligatorio")
-    }),
+    }).nullable(),
     ret_detalles: Yup.string().required("Campo obligatorio"),
     ret_dato_importante: Yup.string().required("Campo obligatorio"),
     ret_resultado_esperado: Yup.string().required("Campo obligatorio"),

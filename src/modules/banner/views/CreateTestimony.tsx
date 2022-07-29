@@ -13,17 +13,14 @@ const CreateTestimony = () => {
   );
 
   const [isChange, setIsChange] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const dispatch = useDispatch<any>();
 
-  const form_ref = useRef<FormikProps<FormikValues>>();  
+  const form_ref = useRef<FormikProps<FormikValues>>(); 
 
   const addTestimony = async (values: ITestimony) => {
-    setIsSubmitting(true);
     await dispatch(actions.create_testimony(values));
     setIsChange(true);
-    setIsSubmitting(false);
   };
 
   const editTetimony = async (values: ITestimony) => {    
@@ -71,12 +68,12 @@ const CreateTestimony = () => {
                       type="button"
                       className="btn btn-outline-primary"
                       onClick={() => {
-                        form_ref.current?.submitForm();
+                        // form_ref.current?.submitForm();
                       }}
-                      disabled={isSubmitting}
+                      disabled={form_ref.current?.isSubmitting}
                     >
                       Agregar
-                      {isSubmitting && (
+                      { form_ref.current?.isSubmitting && (
                         <i
                           className="fa fa-spinner fa-spin"
                           style={{ fontSize: 12, marginLeft: 4, color: "#603CE6" }}
@@ -86,7 +83,7 @@ const CreateTestimony = () => {
                   </div>,
                 ]}
               >
-                <FormTestimony innerRef={form_ref} onSubmit={addTestimony} />
+                <FormTestimony type="create" innerRef={form_ref} onSubmit={addTestimony} />
               </Card>
               {testimonials.length > 0 && (
                 <Card>
