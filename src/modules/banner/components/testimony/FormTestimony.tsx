@@ -1,5 +1,5 @@
-import { Formik, Form, FormikProps, FormikValues, Field } from "formik";
-import { FC, MutableRefObject } from "react";
+import { Formik, Form,  Field } from "formik";
+import { FC } from "react";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage } from "../../../../utils/ui";
 import { ITestimony } from "../../custom_types";
@@ -8,11 +8,13 @@ interface TestimonyFormPros {
   innerRef: any;
   onSubmit: (values: any, form?: any) => any;
   testimony?: ITestimony;
+  type: 'create' | 'edit'
 }
 const FormTestimony: FC<TestimonyFormPros> = ({
   innerRef,
   onSubmit,
   testimony,
+  type,
 }) => {
   const initial_values = {
     tes_titulo: "",
@@ -26,23 +28,29 @@ const FormTestimony: FC<TestimonyFormPros> = ({
       id: testimony?.id,
     },
     ...testimony,
+    
+
   };
+  
 
   const schema = Yup.object().shape({
     tes_titulo: Yup.string().required("Campo obligatorio"),
     tes_descripcion: Yup.string().required("Campo obligatorio"),
-    // tes_imagen: Yup.object({
-    //   name: Yup.string().required("Campo obligatorio"),
-    // }),
-    // tes_logo: Yup.object({
-    //   name: Yup.string().required("Campo obligatorio"),
-    // }),
+    tes_imagen: Yup.object({
+      name: Yup.string().required("Campo obligatorio"),
+    }).nullable(),
+    tes_logo: Yup.object({
+      name: Yup.string().required("Campo obligatorio"),
+    }).nullable(),
   });
+  
 
-  const submit = (values: any, form: any) => {
-    onSubmit(values);
-    form.setSubmitting(false);
-    form.resetForm();
+  const submit = async (values: any, form: any) => {
+    await onSubmit(values);
+    // form.setSubmitting(false);
+    if(type === 'create') {
+      form.resetForm();
+    }
   };
 
   return (
@@ -53,7 +61,8 @@ const FormTestimony: FC<TestimonyFormPros> = ({
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ handleChange }) => {
+      {({ values, handleChange, errors, touched, setFieldValue, isSubmitting }) => {  
+         
         return (
           <Form>
             <div className="row ">

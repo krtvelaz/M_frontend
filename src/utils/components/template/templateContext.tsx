@@ -42,6 +42,8 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const updateDimensions = () => {
         const _width = window.innerWidth;
         let _device: 'sm' | 'md' | 'lg';
+        console.log(_width);
+        
         switch (true) {
             case _width <= 425:
                 _device = 'sm';
@@ -62,9 +64,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     };
 
 
-    useEffect(() => {
-        
-        
+    useEffect(() => {        
         window.addEventListener('resize', updateDimensions.bind(this));
         window.addEventListener('load', updateDimensions.bind(this));
         return () => {
