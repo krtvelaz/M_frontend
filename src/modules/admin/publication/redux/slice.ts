@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Loadable, Pageable } from "../../../../custom_types"
+import { IPageable, Loadable, Pageable } from "../../../../custom_types"
 import { IEvent } from "../custom_types"
 
 interface State {
     event: Loadable<IEvent | null>;
     events: Pageable<IEvent>;
-    list_event: any;
+    list_event: IPageable<IEvent>;
 }
 
 const initialState: State = {
@@ -16,9 +16,20 @@ const initialState: State = {
     },
     list_event: {
         value: [],
+        pagination: {
+            current_page: 1,
+            first_page: 1,
+            first_page_url: "",
+            last_page: null,
+            last_page_url: "",
+            next_page_url: "",
+            per_page: 0,
+            previous_page_url: null,
+            total: 0,
+        },
         loading: false,
         loaded: false,
-      },
+    },
     events: {
         value: [],
         pagination: {
@@ -37,14 +48,14 @@ export const eventSlice = createSlice({
     name: "event",
     initialState,
     reducers: {
-        event_default: (state) => {
+        default_event: (state) => {
             state.event = {
                 value: state.event.value,
                 loading: false,
                 loaded: true,
             };
         },
-        get_event: (state, action) => {
+        success_event: (state, action) => {
             state.event = {
                 value: action.payload,
                 loading: false,
@@ -58,37 +69,50 @@ export const eventSlice = createSlice({
                 loaded: true,
             };
         },
-        get_list_event: (state) => {
+        default_list_event: (state) => {
             state.list_event = {
                 value: state.list_event.value,
+                pagination: state.list_event.pagination,
                 loading: true,
                 loaded: false,
-              };
+            };
         },
-        event_list_success: (state, action) => {
+        success_list_event: (state, action) => {
             state.list_event = {
-                value: action.payload,
-                loading: false,
-                loaded: true,
-              };
-        },
-        fail_list_event: (state) => {
-            state.list_event = {
-                value: state.list_event.value,
+                value: action.payload.results,
+                pagination: {
+                    current_page: action.payload.current_page || 1,
+                    first_page: action.payload.first_page || 1,
+                    first_page_url: action.payload.first_page_url || "",
+                    last_page: action.payload.last_page || null,
+                    last_page_url: action.payload.last_page_url || "",
+                    next_page_url: action.payload.next_page_url || "",
+                    per_page: action.payload.per_page || 0,
+                    previous_page_url: action.payload.previous_page_url || null,
+                    total: action.payload.total || 0,
+                },
                 loading: false,
                 loaded: true,
             };
         },
-     
+        fail_list_event: (state) => {
+            state.list_event = {
+                value: initialState.list_event.value,
+                pagination: initialState.list_event.pagination,
+                loading: false,
+                loaded: true,
+            };
+        },
+
 
     },
 });
 
 export const {
-    event_default,
-    get_event,
+    default_event,
+    success_event,
     fail_event,
-    event_list_success,
-    get_list_event,
+    success_list_event,
+    default_list_event,
     fail_list_event
 } = eventSlice.actions;

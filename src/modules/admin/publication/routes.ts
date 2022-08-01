@@ -1,5 +1,5 @@
 import { IRoute } from "../../../utils/components/router/custom_types";
-import ListEvent from "./components/ListEvent";
+import ListEvent from "./views/ListEvent";
 import EditPublication from "./EditPublication";
 import CreateEvent from "./views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";

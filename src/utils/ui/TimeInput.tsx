@@ -40,8 +40,8 @@ const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, mer
         setHour(moment(hora).format("hh"));
         setMinute(moment(hora).format("mm"));
         setMeridian(moment(hora).format("A"));
-        form.setFieldValue(field.name, moment(hora).format("HH:mm:A"), false);
-        extra_on_change && extra_on_change(moment(hora).format("HH:mm:A"), field.value);
+        form.setFieldValue(field.name, moment(hora).format("HH:mm"), false);
+        extra_on_change && extra_on_change(moment(hora).format("HH:mm"), field.value);
     };
     return (
         <>
