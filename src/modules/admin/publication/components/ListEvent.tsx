@@ -3,6 +3,7 @@ import { pencil, trash } from '../../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from "../../../../utils/ui";
 
 
+
 const ListEvent = () => {
     const table_columns: any = [
         {
@@ -12,8 +13,8 @@ const ListEvent = () => {
           align: "center" as "center",
         },
         {
-          title: "Nombre",
-          dataIndex: "challenge_name",
+          title: "Nombre del evento",
+          dataIndex: "eve_titulo",
           align: "left" as "left",
           render: (value: string) => {
             return (
@@ -32,12 +33,12 @@ const ListEvent = () => {
           },
         },
         {
-          title: "Tipo",
+          title: "Creado por",
           dataIndex: "audit_trail",
           align: "left" as "left",
         },
         {
-          title: "Publicada",
+          title: "Publicado",
           dataIndex: "is_published",
           align: "left" as "left",
           render: (value: string) => {
@@ -53,8 +54,8 @@ const ListEvent = () => {
           },
         },
         {
-          title: "Creado por",
-          dataIndex: "start_date",
+          title: "Fecha creación",
+          dataIndex: "eve_creacion",
           align: "left" as "left",
         },
         {

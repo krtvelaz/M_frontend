@@ -18,8 +18,8 @@ const RadioMedeinn: FC<IRadioPros> = ({
     return (
 
         <Radio.Group {...props} onChange={on_change} value={field.value} >
-            <Radio value={"si"}>Si</Radio>
-            <Radio value={"no"}>No</Radio>
+            <Radio value={true}>Si</Radio>
+            <Radio value={false}>No</Radio>
         </Radio.Group>
 
     )
