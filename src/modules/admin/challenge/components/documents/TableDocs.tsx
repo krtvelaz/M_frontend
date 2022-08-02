@@ -76,16 +76,16 @@ const TableDocs: FC<DocsFormPros> = ({
       fixed: "right",
       children: [
         {
-          title: <span style={{ fontSize: "9px" }}>Ver!!</span>,
+          title: <span style={{ fontSize: "9px" }}>Ver</span>,
           fixed: "right",
           align: "center" as "center",
           render: (values: IDocument) => {
             return (
               <>
                 <img
-                  src='/src/utils/assets/img/watch.svg'
-                  className="imagen-ojo"
-                  alt=""
+                  src={watch}
+                  className=""
+                  alt="imagen"
                   style={{ cursor: "pointer", color: 'red' }}
                   onClick={async () => {
                     if (!values.ret_nombre_plantilla) return;
