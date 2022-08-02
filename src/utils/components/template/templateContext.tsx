@@ -42,8 +42,6 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const updateDimensions = () => {
         const _width = window.innerWidth;
         let _device: 'sm' | 'md' | 'lg';
-        console.log(_width);
-        
         switch (true) {
             case _width <= 425:
                 _device = 'sm';

@@ -6,9 +6,7 @@
 
 .ant-tabs-tab-btn {
   font-size: 13px;
- 
 }
-
 
 .ant-tabs-tab.ant-tabs-tab-disabled {
   color: #bebebe !important;
@@ -90,7 +88,7 @@
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
-  padding: 11px 0px 11px 15px;
+  padding: 11px 5px 11px 15px;
 }
 
 .ant-table-wrapper {
@@ -119,7 +117,7 @@
 // select
 .ant-select-show-search.ant-select:not(.ant-select-customize-input)
   .ant-select-selector {
-  height: 38px auto;
+  min-height: 38px;
   border-radius: 6px;
 }
 
@@ -171,12 +169,12 @@ textarea.form-control {
 }
 
 .swal2-container.swal2-center > .swal2-popup {
-  grid-row: auto;
-  border-radius: 10px;
+  grid-row: auto !important;
+  border-radius: 10px !important;
 }
 
 .swal2-styled.swal2-confirm {
-  margin-left: 25px;
+  margin-left: 25px !important;
 }
 
 .swal2-close {
@@ -193,10 +191,10 @@ textarea.form-control {
 }
 
 // popover
-.ant-popover-inner {
-  border-radius: 10px;
-  width: 413px;
-}
+// .ant-popover-inner {
+//   border-radius: 10px;
+//   width: 800px;
+// }
 
 .ant-drawer-header-title {
   justify-content: end;
@@ -214,13 +212,12 @@ textarea.form-control {
   margin: 0px;
 }
 
-
 // carrusel
 
 .ant-carousel .slick-dots li button {
   width: 13px;
   height: 13px;
-  background: #DEDEDE;
+  background: #dedede;
   border-radius: 100%;
 }
 .ant-carousel .slick-dots li.slick-active {
@@ -228,55 +225,53 @@ textarea.form-control {
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-  background: #FF7415;
+  background: #ff7415;
 }
 
 .ant-carousel .slick-dots-bottom {
   margin-bottom: 25px;
 }
 
-
 // menu de sider vertical
 
 .ant-menu-vertical .ant-menu-item:not(:last-child) {
   margin-bottom: 0;
   padding-bottom: 8px;
-  
 }
 
 .ant-menu-vertical .ant-menu-item {
   margin-top: 0;
   margin-bottom: 0;
-  border-bottom: 0.2px solid  #e2e2e2;
+  border-bottom: 0.2px solid #e2e2e2;
 }
 
 .ant-menu-vertical .ant-menu-item:hover {
-  background-color: #603CE6 !important;
+  background-color: #603ce6 !important;
   color: #fff;
-  
 }
 
 .ant-menu-vertical .ant-menu-item:hover .ant-menu-submenu-arrow {
   color: #fff;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .ant-menu-submenu-arrow {
+.ant-menu:not(.ant-menu-horizontal)
+  .ant-menu-item-selected
+  .ant-menu-submenu-arrow {
   color: #fff;
 }
-
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background-color: #603CE6 !important;
+  background-color: #603ce6 !important;
   color: #fff;
 }
-
 
 // sider medeinn
 .container-modal {
   width: 100%;
   height: 100vh;
   position: fixed;
-  top: 88px; left: 278px;
+  top: 88px;
+  left: 278px;
   background-color: rgba(114, 114, 114, 0.92);
   display: flex;
   z-index: 100;
@@ -285,22 +280,31 @@ textarea.form-control {
 .content-modal {
   width: 100%;
   max-width: 280px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .cerrar-modal {
   width: 100%;
   height: 100vh;
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   z-index: -1;
 }
 
 // menu de sider horizontal
 .ant-menu-sub.ant-menu-inline {
   background: #fff;
-} 
+}
 
 .menu-horizontal {
   padding-left: 40px;
 }
+
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-more {
+  background: #ffffff;
+}
+
+
+
+

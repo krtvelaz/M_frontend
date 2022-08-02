@@ -18,7 +18,7 @@ export const swal_error = withReactContent(
       popup: "warning",
       confirmButton: "btn btn-primary",
       cancelButton: "btn btn-outline-primary",
-      denyButton: "btn btn-cancel-primary",
+      // denyButton: "btn btn-cancel-primary",
       title: 'title-myswal-alert'
     },
     showCloseButton: true,

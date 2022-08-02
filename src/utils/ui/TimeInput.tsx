@@ -35,13 +35,13 @@ const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, mer
         }
     }, [meridiano_am_pm]);
 
-    const guardarFecha = (fecha: any) => {
+    const guardarFecha = (hora: any) => {
         setOpenTimePicker(false);
-        setHour(moment(fecha).format("hh"));
-        setMinute(moment(fecha).format("mm"));
-        setMeridian(moment(fecha).format("A"));
-        form.setFieldValue(field.name, moment(fecha).format("hh-mm-A"), false);
-        extra_on_change && extra_on_change(moment(fecha).format("hh-mm-A"), field.value);
+        setHour(moment(hora).format("hh"));
+        setMinute(moment(hora).format("mm"));
+        setMeridian(moment(hora).format("A"));
+        form.setFieldValue(field.name, moment(hora).format("HH:mm"), false);
+        extra_on_change && extra_on_change(moment(hora).format("HH:mm"), field.value);
     };
     return (
         <>

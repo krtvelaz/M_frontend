@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
 import React, { FC, useRef, useState } from 'react'
-import { IAddress } from '../../../modules/landing/postulationChallenge/custom_types';
+import { IAddress } from '../../../modules/landing/postulation/custom_types';
 import FormLocation from './FormLocation';
 interface IAddressFormPros {
   address?: IAddress;
@@ -30,7 +30,7 @@ const LocationModal: FC<IAddressFormPros> = ({ address, onSubmit }) => {
         </span>
       }
       maskStyle={{
-        backgroundColor: "rgba(6, 100, 144 ,0.8)",
+        backgroundColor: "rgba(6, 100, 144 ,0.71)",
       }}
       footer={[
         <button
