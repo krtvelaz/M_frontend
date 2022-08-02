@@ -102,16 +102,6 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                   name="tes_descripcion"
                   autoComplete="off"
                   maxLength={300}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="tes_descripcion" withCount max={300} />
               </div>
@@ -124,6 +114,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                 </label>
                 <Field
                   file_type="img"
+                  type_image='PNG'
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"
@@ -140,6 +131,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                 </label>
                 <Field
                   file_type="img"
+                  type_image='PNG'
                   maximum_size={2}
                   component={DocumentInput}
                   className="form-control"

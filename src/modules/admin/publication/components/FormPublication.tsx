@@ -138,16 +138,6 @@ const FormPublication: FC<PublicationPros> = ({
                     autoComplete="off"
                     maxLength={100}
                     style={{ height: "38px" }}
-                    onChange={(e: any) => {
-                      e.preventDefault();
-                      const { value } = e.target;
-                      const regex = new RegExp(
-                        /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                      );
-                      if (regex.test(value.toString())) {
-                        handleChange(e);
-                      }
-                    }}
                   />
                   <ErrorMessage name="description" withCount max={100} />
                 </div>

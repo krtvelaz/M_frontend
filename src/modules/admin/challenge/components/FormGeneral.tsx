@@ -223,16 +223,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   autoComplete="off"
                   maxLength={250}
                   style={{ height: "38px" }}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="ret_descripcion" withCount max={250} />
               </div>
@@ -272,10 +262,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_comuna_id" className="form-label">
-                  Lugar
+                  Lugar del reto
                 </label>
                 <div className="row">
-                  <div className="col">
+                  <div className="col-6">
                     <Field
                       style={{ height: "38px" }}
                       component={Select}
@@ -290,7 +280,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     />
                     <ErrorMessage name="ret_comuna" />
                   </div>
-                  <div className="col">
+                  <div className="col-6">
                     <Field
                       component={Select}
                       id="ret_barrio_id"
@@ -337,9 +327,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 </label>
                 <Field
                   component={DocumentInput}
-                  tipos_doc="JPG, JPEG."
-                  maximum_size={2}
                   file_type="img"
+                  type_image='JPEG'
+                  maximum_size={2}
                   type="text"
                   id="ret_imagen_principal_id"
                   name="ret_imagen_principal"

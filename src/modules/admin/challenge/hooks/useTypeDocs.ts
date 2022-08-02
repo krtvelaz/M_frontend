@@ -16,10 +16,7 @@ const useDocument = (
   );  
 
   const onAddDocument = async (values: IDocument) => {
-    let repeated_document = '';
-    console.log(documents);
-    console.log(values);
-        
+    let repeated_document = '';        
     if(typeDoc === 'general') {
       repeated_document = documents.find((doc: any )=> doc.ret_tipo_documento === values.ret_tipo_documento);
     }else {

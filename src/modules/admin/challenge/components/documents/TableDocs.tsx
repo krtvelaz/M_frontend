@@ -45,6 +45,11 @@ const TableDocs: FC<DocsFormPros> = ({
             title: "Perfil asociado",
             dataIndex: "ret_perfiles",
             align: "left" as "left",
+            render: (perfil: any) => {
+              if(Number(perfil) === 1) return 'Grupo de investigación';
+              if(Number(perfil) === 2) return 'Persona jurídica';
+              if(Number(perfil) === 3) return 'Equipo de innovadores';
+            }
           },
         ]
       : []),
@@ -53,6 +58,10 @@ const TableDocs: FC<DocsFormPros> = ({
       title: "Tipo de documento",
       dataIndex: "ret_tipo_documento",
       align: "left" as "left",
+      render: (document: any) => { 
+        return document?.nombre;
+
+      }
     },
     {
       title: "Nombre",
