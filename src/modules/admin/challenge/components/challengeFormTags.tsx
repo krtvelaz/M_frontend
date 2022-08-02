@@ -45,14 +45,11 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   }, [active_key_docs]);
 
   const {
-    typesDocument,
     onAddDocument,
     onDelete,
     onEditDocument,
-    editListDocs,
     setIsChange,
     isChange,
-    getTypesDocuments,
   } = useDocument(typeDoc, setChallenge, challenge);
 
   const get_documents = async () => {
@@ -66,7 +63,6 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   };
 
   useEffect(() => {
-    getTypesDocuments();
     get_documents();
   }, [typeDoc]);
 
@@ -76,6 +72,15 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
       setIsChange(false);
     }
   }, [isChange]);
+
+  useEffect(()=> {   
+    if (active_key === '1') dispatch(actions.get_master_list(1))   
+  },[active_key])
+
+  useEffect(()=> {   
+    if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_master_list(2))
+    if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 
+  },[active_key, active_key_docs])
 
   return (
     <>
@@ -100,15 +105,14 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                     general_information={challenge?.general_information}
                     innerRef={ref}
                     onSubmit={steps[0].onSave}
+                    active_key={active_key}
                   />
                 </TabPane>
                 <TabPane tab="Documentos" key="2" disabled={max < 2}>
                   <DocumentFormTags
-                    typesDocument={typesDocument}
                     onAddDocument={onAddDocument}
                     onDelete={onDelete}
                     onEditDocument={onEditDocument}
-                    editListDocs={editListDocs}
                     typeDoc={typeDoc}
                     challenge={challenge}
                     active_key={active_key_docs}

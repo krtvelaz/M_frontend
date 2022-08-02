@@ -11,18 +11,18 @@ const CreateIndicator = () => {
   const dispatch = useDispatch<any>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-
-  const statistics: IIndicator = useSelector((store:any) => store.banner.statistics.value)
+  const statistics: IIndicator = useSelector(
+    (store: any) => store.banner.statistics.value
+  );
 
   const addIndicator = async (values: IIndicator) => {
     await dispatch(actions.create_statistics(values));
     setIsSuccess(true);
-
   };
 
   useEffect(() => {
-  dispatch(actions.get_statistics());
-  }, [])
+    dispatch(actions.get_statistics());
+  }, []);
 
   useEffect(() => {
     if (isSuccess) {
@@ -30,8 +30,6 @@ const CreateIndicator = () => {
       setIsSuccess(false);
     }
   }, [isSuccess]);
-
-  
 
   return (
     <div className="h-100 d-flex flex-column">
@@ -42,8 +40,23 @@ const CreateIndicator = () => {
               <h5 className="">Estadísticas</h5>
             </div>
             <div className="col-md-12">
-              <Card title="Editar estadísticas  - Página inicio" actions={[]}>
-                <FormIndicator indicator={statistics} innerRef={form_ref} onSubmit={addIndicator} />
+              <Card
+                title={
+                  <>
+                    Editar estadísticas
+                    <span style={{ color: "#AD0808", fontSize: "10px" }}>
+                      {" "}
+                      - Todos los campos son obligatorios
+                    </span>
+                  </>
+                }
+                actions={[]}
+              >
+                <FormIndicator
+                  indicator={statistics}
+                  innerRef={form_ref}
+                  onSubmit={addIndicator}
+                />
               </Card>
             </div>
           </div>
@@ -61,9 +74,13 @@ const CreateIndicator = () => {
           Atrás
         </button>
         <div className="flex-fill" />
-        <button type="button" className="btn btn-primary" onClick={() => {
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
             form_ref.current?.submitForm();
-        }}>
+          }}
+        >
           Guardar
         </button>
       </div>

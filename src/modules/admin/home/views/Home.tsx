@@ -20,21 +20,21 @@ const Home = () => {
       <div className="content-cards">
         <section id="cards">
           <div className="container">
-            <div className="row justify-content-center">
+            <div className="row ">
               <Card
                 name="Retos"
                 image={challenges}
                 links={[
                   {
-                    name: "Crear Nuevo Reto",
+                    name: "Crear nuevo reto",
                     to: "/",
                   },
                   {
-                    name: "Consultar y Gestionar Retos",
+                    name: "Consultar y gestionar retos",
                     to: "/",
                   },
                   {
-                    name: "Gestionar Postulaciones",
+                    name: "Gestionar postulaciones",
                     to: "/",
                   },
                 ]}
@@ -44,21 +44,21 @@ const Home = () => {
                 image={publications}
                 links={[
                   {
-                    name: "Crear Noticia",
+                    name: "Crear noticia",
                     to: "/",
                   },
                   {
-                    name: "Crear Evento",
+                    name: "Crear evento",
                     to: "/",
                   },
                   {
-                    name: "Gestionar Publicaciones",
+                    name: "Gestionar publicaciones",
                     to: "/",
                   },
                 ]}
               />
               <Card
-                name="Landing Page"
+                name="Landing page"
                 image={LandingPage}
                 links={[
                   {

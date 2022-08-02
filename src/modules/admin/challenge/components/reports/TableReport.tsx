@@ -27,7 +27,7 @@ const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete }) => {
       },
     },
     {
-      title: "Titulo del informe",
+      title: "Título del informe",
       dataIndex: "ret_titulo_reporte",
       align: "left" as "left",
     },

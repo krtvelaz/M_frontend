@@ -44,7 +44,7 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
           </span>
         }
         maskStyle={{
-          backgroundColor: "rgba(6, 100, 144 ,0.8)",
+          backgroundColor: "rgba(6, 100, 144 ,0.71)",
         }}
         footer={[
           <button

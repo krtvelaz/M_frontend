@@ -64,16 +64,6 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, ty
                   name="car_titulo"
                   autoComplete="off"
                   maxLength={47}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="car_titulo" withCount max={47} />
               </div>
@@ -108,7 +98,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, ty
               </div>
               <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="car_url_id" className="form-label">
-                  Url botón{" "}
+                  URL botón{" "}
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field

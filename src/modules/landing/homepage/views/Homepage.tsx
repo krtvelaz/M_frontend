@@ -5,11 +5,17 @@ import {
   rocket,
   trazado,
 } from "../../../../utils/assets/img";
+import HomeChallenge from "../../challenge/components/HomeChallenge";
 import CarouselMedeinn from "../components/CarouselMedeinn";
 
 const Homepage = () => {
   return (
     <>
+      <section>
+        <HomeChallenge />
+      </section>
+
+
       <div className="row">
         <div className="col-1">
           <img src={rocket} alt="imagen cohete"  style={{paddingTop: '120px', paddingLeft: '20px'}} />
@@ -51,7 +57,7 @@ const Homepage = () => {
           </div>
           <p>Data o cifra a destacar desde la estadísticas</p>
         </div>
-      </section>
+      </section>     
      
     </>
   );

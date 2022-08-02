@@ -1,3 +1,5 @@
+import { number } from "yup";
+
 export interface IChallenge {
   general_information: IGeneralInformation;
   documents: IDocuments;
@@ -37,7 +39,7 @@ export interface IDocument {
   id?: number;
   ret_tipo_documento: number;
   ret_nombre_documento: string;
-  ret_perfiles: string;
+  ret_perfiles: number;
   ret_plantilla?: any;
   ret_ruta_plantilla: string;
   ret_nombre_plantilla: string;
@@ -57,4 +59,20 @@ export interface Informe {
   ret_estado?: boolean;
   ret_reto_general?: number;
   key?: string;
+}
+
+export interface IMasters {
+  tbl_barrio: Master[];
+  tbl_comunas: Master[];
+  tbl_dependencia: Master[];
+  tbl_dimensiones: Master[];
+  tbl_perfil: Master[];
+  tbl_tipo_documento_general: Master[];
+  tbl_tipo_documento_tecnico: Master[];
+  tbl_tipo_documento_admin: Master[];
+}
+
+interface Master {
+  id: number;
+  nombre: string;
 }

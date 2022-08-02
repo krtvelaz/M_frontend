@@ -33,7 +33,7 @@ const LandingPage: FC<ILanding> = ({ children }) => {
       </Layout>
       <Drawer
         maskStyle={{
-          backgroundColor: "rgba(6, 100, 144 ,0.8)",
+          backgroundColor: "rgba(6, 100, 144 ,0.71)",
         }}
         placement="right"
         onClose={context?.drawer_close}

@@ -1,47 +1,41 @@
 import { Tabs } from "antd";
-import { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { IChallenge, IDocument } from "../../custom_types";
-import useDocument from "../../hooks/useTypeDocs";
-import { actions } from "../../redux";
+import { FC } from "react";
+import { useSelector } from "react-redux";
+import { IChallenge, IDocument, IMasters } from "../../custom_types";
+
 import AddDocument from "./AddDocument";
 
 interface DocumentsProps {
-  typesDocument: any
-  onAddDocument: any
+  onAddDocument: any;
   onDelete: (index: number) => void;
   onEditDocument: (values: IDocument) => any;
-  editListDocs: (value: number) => void;
   typeDoc: "general" | "admin" | "technicians";
   challenge: IChallenge;
   active_key: string;
 }
 
 const DocumentFormTags: FC<DocumentsProps> = ({
-  typesDocument,
   onAddDocument,
   onDelete,
   onEditDocument,
-  editListDocs,
   typeDoc,
   challenge,
   active_key,
 }) => {
-
   const { TabPane } = Tabs;
-  
-  return (
-    <Tabs
-      className="w-100 h-100 docs-challenge"
-      activeKey={active_key}
-    >
+
+  const list_master: IMasters = useSelector(
+    (store: any) => store.challenge.masters.value
+  );
+
+    return (
+    <Tabs className="w-100 h-100 docs-challenge" activeKey={active_key}>
       <TabPane tab="Doc. Generales" key="docs-1">
         <AddDocument
-          typesDocument={typesDocument}
+          typesDocument={list_master?.tbl_tipo_documento_general}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
-          editListDocs={editListDocs}
           typeDoc={typeDoc}
           title="Agregar documentos generales"
         />
@@ -52,11 +46,10 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={typesDocument}
+          typesDocument={list_master?.tbl_tipo_documento_tecnico}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
-          editListDocs={editListDocs}
           typeDoc={typeDoc}
           title="Agregar documentos técnicos"
         />
@@ -67,11 +60,10 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={typesDocument}
+          typesDocument={list_master?.tbl_tipo_documento_admin}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
-          editListDocs={editListDocs}
           typeDoc={typeDoc}
           title="Agregar documentos adminitrativos"
         />

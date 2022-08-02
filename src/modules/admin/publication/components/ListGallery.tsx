@@ -22,7 +22,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
       },
   },
   {
-      title: 'Titulo',
+      title: 'Título',
       dataIndex: 'title',
       align: 'left' as 'left',
   },

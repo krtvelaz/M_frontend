@@ -21,7 +21,7 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
       },
     },
     {
-      title: "Titulo",
+      title: "Título",
       dataIndex: "tes_titulo",
       align: "left" as "left",
     },
@@ -41,11 +41,11 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
       align: "left" as "left",
     },
     {
-      title: "Acciones",
+      title: 'Acciones',
       fixed: "right",
       children: [
         {
-          title: "Ver",
+          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px', paddingBottom: '0px'}}>ver</span>,
           fixed: "right",
           dataIndex: "id",
           align: "center" as "center",
@@ -54,7 +54,7 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
           },
         },
         {
-          title: "Editar",
+          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px'}}>Editar</span>,
           fixed: "right",
           dataIndex: 'id',
           align: "center" as "center",
@@ -63,7 +63,7 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
           },
         },
         {
-          title: "Eliminar",
+          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px'}}>Eliminar</span>,
           fixed: "right",
           dataIndex: "id",
           align: "center" as "center",

@@ -29,8 +29,12 @@
       margin-left: 4px;
   }
   &:hover {
-      color: #603CE6;
+      color: #00FFE0 !important;
   }
+}
+
+.component-link:hover .link-avatar {
+  background-color: #00ffe0 !important;
 }
 
 .bar {
@@ -186,4 +190,20 @@
 }
 .ant-pagination-jump-next {
   display: none;
+}
+
+
+// menu silder
+
+.principal-silder:hover {
+  color: #fff;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .principal-silder {
+  color: #245E8E;
+  font-family: "Montserrat-SemiBold" !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected:nth-child(1) {
+  background-color: #fff !important;
 }

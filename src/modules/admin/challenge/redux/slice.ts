@@ -7,6 +7,7 @@ interface State {
   challenges: Pageable<IChallenge>;
   document_challenge: Loadable<IDocument | null>;
   documents_challenge: Pageable<IDocument>;
+  masters: Loadable<IChallenge | null>;
 }
 
 const initialState: State = {
@@ -41,6 +42,11 @@ const initialState: State = {
       previous_page: null,
       total_results: 0,
     },
+    loading: false,
+    loaded: false,
+  },
+  masters: {
+    value: null,
     loading: false,
     loaded: false,
   },
@@ -93,6 +99,7 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
+
     loading_get_list_documents: (state) => {
       state.documents_challenge = {
         ...state.documents_challenge,
@@ -124,6 +131,30 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
+
+    loading_list_master: (state) => {
+      state.masters = {
+        value: state.challenge.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_master: (state, action) => {
+      state.masters = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_master: (state) => {
+      state.masters = {
+        value: initialState.challenge.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+
+
   },
 });
 
@@ -138,4 +169,7 @@ export const {
   loading_get_list_documents,
   success_get_list_documents,
   fail_get_list_documents,
+  loading_list_master,
+  success_list_master,
+  fail_list_master,
 } = challengeSlice.actions;

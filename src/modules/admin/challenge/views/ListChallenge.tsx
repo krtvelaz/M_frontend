@@ -139,7 +139,7 @@ const ListChallenge = () => {
           <Card>
             <Table
               columns={table_columns}
-              // title="Lista de retos"
+              title="Lista de retos"
               items={[
                 {
                   id: 1,
