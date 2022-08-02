@@ -2,8 +2,7 @@ import React, { FC, useContext } from "react";
 import { TemplateContext } from "./templateContext";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import bars from "../../assets/img/bars.svg";
-import DropdownNotification from "../../../modules/notificacions/views/DropdownNotification";
-// import DropdownNotification from "../../../modules/notificacions/views/DropdownNotification";
+import DropdownNotification from "../../../modules/admin/notificacions/views/DropdownNotification";
 
 const Header: FC<{ collapsible: boolean; name: string }> = ({
   collapsible,
@@ -22,7 +21,7 @@ const Header: FC<{ collapsible: boolean; name: string }> = ({
                   onClick: () => {context.menu_toggle(); context.sider_close()},
                 }
               )
-            : context.device === 'lg' ? "Secretaría de Innovación Digital, Medeiin laboratorio de innovación" : ""}
+            : context.device === 'lg' ? "Secretaría de innovación digital, Medeiin laboratorio de innovación" : ""}
         </span>
 
         <span className="d-flex align-items-center c-fill">

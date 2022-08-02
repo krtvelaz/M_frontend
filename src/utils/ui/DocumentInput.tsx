@@ -8,6 +8,7 @@ interface InputDocProps {
   maximum_size?: number;
   form: any;
   field: any;
+  type_image?: "PNG" | "JPG";
 }
 
 const DocumentInput: FC<InputDocProps> = ({
@@ -15,12 +16,13 @@ const DocumentInput: FC<InputDocProps> = ({
   field,
   file_type,
   maximum_size = 5,
+  type_image,
 }) => {
   const fileInputRef = useRef<any>();
   const on_change = (value: any) => {
     form.setFieldValue(field.name, value, false);
   };
-  
+
   return (
     <>
       <div className="input-group">
@@ -37,7 +39,7 @@ const DocumentInput: FC<InputDocProps> = ({
               className="mt-1"
               closable={true}
               onClose={async () => {
-                on_change({ name: ''});
+                on_change({ name: "" });
               }}
               onClick={() => {}}
             >
@@ -62,14 +64,16 @@ const DocumentInput: FC<InputDocProps> = ({
         </div>
       </div>
       <div style={{ fontSize: "10px", marginTop: "5px" }}>
-        Tipo de archivo: {file_type === 'img' ? 'PNG, JPG.' : file_type} Máx: {maximum_size}MB.
+        Tipo de archivo:{" "}
+        {file_type === "img" ? type_image || "PNG, JPG." : file_type} Máx:{" "}
+        {maximum_size}MB.
       </div>
       <input
         ref={fileInputRef}
         type="file"
         hidden
         onChange={async (e: any) => {
-          if (validate_file_type(e.target.files[0], file_type)) {
+          if (validate_file_type(e.target.files[0], file_type, type_image)) {
             const size = maximum_size * 1000000;
             if (e.target.files[0].size < size) {
               on_change(e.target.files[0]);
@@ -88,7 +92,9 @@ const DocumentInput: FC<InputDocProps> = ({
               title: "Tipo del documento",
               html:
                 '<div class="mysubtitle">El archivo no es del tipo requerido</div>' +
-                `<div class="mytext">Intente adjunta un archivo de tipo ${file_type === 'img' ? 'imagen' : 'PDF'}</div>`,
+                `<div class="mytext">Intente adjunta un archivo de tipo ${
+                  file_type === "img" ? "imagen" : "PDF"
+                }</div>`,
               showCancelButton: false,
               confirmButtonText: "Aceptar",
             });
@@ -103,12 +109,19 @@ DocumentInput.defaultProps = {
   file_type: "pdf",
 };
 
-const validate_file_type = (file: File, type: "pdf" | "img") => {
+const validate_file_type = (file: File, type: "pdf" | "img", type_image?: 'PNG' | 'JPG' ) => {
   const file_type = file.type.split("/").pop()?.toLowerCase();
   switch (type) {
     case "pdf":
       return file_type === "pdf";
-    case "img":
+    case "img": {
+      console.log(type_image?.toLowerCase());
+      console.log(file_type);
+      
+      if (type_image) {
+        return file_type === type_image.toLowerCase();
+      }
+
       return (
         file_type === "jpeg" ||
         file_type === "jpg" ||
@@ -116,6 +129,8 @@ const validate_file_type = (file: File, type: "pdf" | "img") => {
         file_type === "bmp" ||
         file_type === "gif"
       );
+    }
+
     default:
       return false;
   }

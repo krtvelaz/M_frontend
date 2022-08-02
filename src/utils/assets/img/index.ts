@@ -17,3 +17,5 @@ export { default as trazado } from './trazado.svg';
 export { default as family } from './family.svg';
 export { default as car } from './car.svg';
 export { default as bus } from './bus.svg';
+export { default as bell } from './bell.svg';
+export { default as lamp } from './lamp.svg';
