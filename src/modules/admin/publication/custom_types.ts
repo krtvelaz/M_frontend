@@ -12,11 +12,12 @@ export interface IPublicationInfo {
 }
 
 export interface IEvent {
-    title: string;
-    description: string;
-    start_date: string;
-    start_time: string;
-    radiogrou: string;
-    number_quotas: string;
+    eve_titulo: string;
+    eve_descripcion: string;
+    eve_lugar_evento:string;
+    eve_fecha: string;
+    eve_hora: string;
+    eve_cupos_limitado: boolean;
+    eve_numero_cupos: number;
     
 }

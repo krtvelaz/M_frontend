@@ -17,26 +17,28 @@ interface EventFormPros {
 }
 
 const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
-  
+
 
     const initial_values = {
-        title: "",
-        description: "",
-        start_date: "",
-        start_time: "",
-        radio: "",
-        number_quotas: "",
+        eve_titulo: "",
+        eve_descripcion: "",
+        eve_lugar_evento: "",
+        eve_fecha: "",
+        eve_hora: "",
+        eve_cupos_limitado: true,
+        eve_numero_cupos: "",
         ...event,
     };
 
     const schema = Yup.object().shape({
-        title: Yup.string().required("Campo obligatorio"),
-        description: Yup.string().required("Campo obligatorio"),
-        start_date: Yup.string().required("Campo obligatorio"),
-        start_time: Yup.string().required("Campo obligatorio"),
-        radio: Yup.string().required("Campo obligatorio"),
-        number_quotas: Yup.string().when("radio", {
-            is: "si",
+        eve_titulo: Yup.string().required("Campo obligatorio"),
+        eve_lugar_evento: Yup.string().required("Campo obligatorio"),
+        eve_descripcion: Yup.string().required("Campo obligatorio"),
+        eve_fecha: Yup.string().required("Campo obligatorio"),
+        eve_hora: Yup.string().required("Campo obligatorio"),
+        eve_cupos_limitado: Yup.boolean().required("Campo obligatorio"),
+        eve_numero_cupos: Yup.string().when("eve_cupos_limitado", {
+            is: true,
             then: Yup.string().required("Campo obligatorio")
         }),
 
@@ -53,6 +55,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
             validationSchema={schema}
             innerRef={innerRef}
         >
+
             {({ values, handleChange }) => {
                 return (
                     <Form>
@@ -65,8 +68,8 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     as="textarea"
                                     style={{ height: "38px" }}
                                     className="form-control"
-                                    id="title_id"
-                                    name="title"
+                                    id="eve_titulo_id"
+                                    name="eve_titulo"
                                     autoComplete="off"
                                     maxLength={90}
                                     onChange={(e: any) => {
@@ -80,19 +83,47 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="title" withCount max={90} />
+                                <ErrorMessage name="eve_titulo" withCount max={90} />
                             </div>
 
                             <div className="col-12 col-md-12  col-lg-6  ">
-                                <label htmlFor="description" className="form-label">
+                                <label htmlFor="eve_lugar_evento_id" className="form-label">
+                                    Lugar del evento
+                                </label>
+                                <Field
+                                    as="textarea"
+                                    style={{ height: "38px" }}
+                                    className="form-control"
+                                    id="eve_lugar_evento_id"
+                                    name="eve_lugar_evento"
+                                    autoComplete="off"
+                                    maxLength={90}
+                                    onChange={(e: any) => {
+                                        e.preventDefault();
+                                        const { value } = e.target;
+                                        const regex = new RegExp(
+                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
+                                        );
+                                        if (regex.test(value.toString())) {
+                                            handleChange(e);
+                                        }
+                                    }}
+                                />
+                                <ErrorMessage name="eve_lugar_evento" withCount max={90} />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12 col-md-12  col-lg-12  ">
+                                <label htmlFor="eve_descripcion" className="form-label">
                                     Descripción
                                 </label>
                                 <Field
                                     as="textarea"
                                     style={{ height: "38px" }}
                                     className="form-control"
-                                    id="description_id"
-                                    name="description"
+                                    id="eve_descripcion_id"
+                                    name="eve_descripcion"
                                     autoComplete="off"
                                     maxLength={100}
                                     onChange={(e: any) => {
@@ -106,74 +137,74 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="description" withCount max={100} />
+                                <ErrorMessage name="eve_descripcion" withCount max={100} />
                             </div>
                         </div>
+                        
                         <div className="row">
                             <div className="col-12 col-md-6  col-lg-3  ">
-                                <label htmlFor="start_date_id" className="form-label">
+                                <label htmlFor="eve_fecha_id" className="form-label">
                                     Fecha
                                 </label>
                                 <Field
                                     component={DateInput}
-                                    name="start_date"
-                                    id="start_date_id"
+                                    name="eve_fecha"
+                                    id="eve_fecha_id"
                                 />
 
-                                <ErrorMessage name="start_date" />
+                                <ErrorMessage name="eve_fecha" />
                             </div>
 
                             <div className="col-12 col-md-6  col-lg-3  ">
-                                <label htmlFor="start_time_id" className="form-label">
+                                <label htmlFor="eve_hora_id" className="form-label">
                                     Hora
                                 </label>
                                 <Field
                                     component={TimeInput}
-                                    name="start_time"
-                                    id="start_time_id"
+                                    name="eve_hora"
+                                    id="eve_hora_id"
                                     style={{ height: "38px" }}
-                                    format="h:mm A"
+                                    format="HH:mm A"
 
                                 />
 
-                                <ErrorMessage name="start_time" />
+                                <ErrorMessage name="eve_hora" />
                             </div>
 
                             <div className="col-6 col-md-6  col-lg-3  ">
-                                <label htmlFor="radio_id" className="form-label mb-4">
+                                <label htmlFor="eve_cupos_limitado_id" className="form-label mb-4">
                                     ¿Cupos limitados?
                                 </label>
                                 <Field
-                                        component={RadioMedeinn}
-                                        name="radio"
-                                        id="radio_id"
-                                        min={0}
-                                        max={10000}
-                                        maxLength={6}
-                                        placeholder="0"
-                                    />
-                                
+                                    component={RadioMedeinn}
+                                    name="eve_cupos_limitado"
+                                    id="eve_cupos_limitado_id"
+                                    min={0}
+                                    max={10000}
+                                    maxLength={6}
+                                    placeholder="0"
+                                />
 
-                                <ErrorMessage name="radio" />
+
+                                <ErrorMessage name="eve_cupos_limitado" />
                             </div>
-
-                            {values.radio === "si" ?
+                            {values.eve_cupos_limitado ?
 
                                 <div className="col-6 col-md-6  col-lg-3  " >
 
-                                    <label htmlFor="number_quotas" className="form-label">
+                                    <label htmlFor="eve_numero_cupos" className="form-label">
                                         Número de cupos
                                     </label>
                                     <Field
                                         component={Input}
-                                        name="number_quotas"
-                                        id="number_quotas_id"
+                                        name="eve_numero_cupos"
+                                        id="eve_numero_cupos_id"
                                         min={0}
                                         max={10000}
                                         maxLength={6}
                                         placeholder="0"
                                     />
-                                    <ErrorMessage name="number_quotas" />
+                                    <ErrorMessage name="eve_numero_cupos" />
                                 </div>
                                 :
                                 <div></div>

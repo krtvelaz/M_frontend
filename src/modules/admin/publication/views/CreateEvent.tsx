@@ -3,13 +3,17 @@ import { Card } from "../../../../utils/ui"
 import FormEvent from "../components/FormEvent"
 import { IEvent } from "../custom_types"
 import { FormikProps, FormikValues } from "formik"
+import { useDispatch } from "react-redux"
+import { actions } from "../redux"
 
 
 
 const CreateEvent = () => {
     const form_ref = useRef<FormikProps<FormikValues>>()
+    const dispatch = useDispatch<any>();
 
-    const addIndicator = (values: IEvent) => {
+    const addEvent = async (values: IEvent) => {
+        await dispatch(actions.create_event(values));
     }
 
     return (
@@ -24,7 +28,7 @@ const CreateEvent = () => {
                             <Card title='Detalles nuevo evento' actions={[
 
                             ]}>
-                                <FormEvent innerRef={form_ref} onSubmit={addIndicator} />
+                                <FormEvent innerRef={form_ref} onSubmit={addEvent} />
                             </Card >
 
                         </div>
