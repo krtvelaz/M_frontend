@@ -16,17 +16,18 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
   const initialValues = {
     ret_titulo_reporte: "",
     ret_documento: {
-      name: report?.ret_documento?.name || "",
+      name: report?.ret_nombre_documento || "",
       id: report?.id,
     },
     ...report,
   };
+  
 
   const schema = Yup.object().shape({
     ret_titulo_reporte: Yup.string().required("Campo obligatorio"),
     ret_documento: Yup.object({
       name: Yup.string().required("Campo obligatorio"),
-    }),
+    }).nullable(),
   });
 
   const submit = (values: any, actions: any) => {
@@ -49,7 +50,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_titulo_reporte_id" className="form-label">
-                  Titulo del informe
+                  Título del informe
                 </label>
                 <Field
                   type="text"

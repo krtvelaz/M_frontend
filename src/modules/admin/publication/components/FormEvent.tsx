@@ -61,8 +61,8 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                     <Form>
                         <div className="row ">
                             <div className="col-12 col-md-12  col-lg-6  ">
-                                <label htmlFor="eve_titulo_id" className="form-label">
-                                    Titulo
+                                <label htmlFor="title_id" className="form-label">
+                                    Título
                                 </label>
                                 <Field
                                     as="textarea"

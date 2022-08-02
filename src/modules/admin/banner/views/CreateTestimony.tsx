@@ -87,7 +87,7 @@ const CreateTestimony = () => {
               </Card>
               {testimonials.length > 0 && (
                 <Card>
-                  <h4>Elementos Agregados</h4>
+                  <h4>Elementos agregados</h4>
                   <ListTestimony
                     data={testimonials}
                     onEdit={editTetimony}

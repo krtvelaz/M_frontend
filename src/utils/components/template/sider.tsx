@@ -14,21 +14,21 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
   let retos = [
     {
       path: "/challenge/create",
-      label: "Crear Nuevo Reto",
+      label: "Crear nuevo reto",
     },
     {
       path: "/challenge/list",
-      label: "Consutar y Gestionar Retos",
+      label: "Consutar y gestionar retos",
     },
   ];
   const publicaciones = [
     {
       path: "/publication/create",
-      label: "Crear Noticia",
+      label: "Crear noticia",
     },
     {
       path: "/event/create",
-      label: "Crear Evento",
+      label: "Crear evento",
     },
     {
       path: "/publication/list",
@@ -39,15 +39,15 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
   const landingPage = [
     {
       path: "/banners/create",
-      label: "Carrusel Banners Principal",
+      label: "Carrusel banners principal",
     },
     {
       path: "/indicator/create",
-      label: "Editar Indicadores",
+      label: "Editar indicadores",
     },
     {
       path: "/testimony/create",
-      label: "Carrusel Testimonios",
+      label: "Carrusel testimonios",
     },
   ];
 
@@ -55,17 +55,16 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
     {
       label:
         context.device === "sm" ? (
-          "Pagina Principal"
+          "Página principal"
         ) : (
           <div>
             <div
               style={{
                 paddingLeft: "35px",
-                color: "#245E8E",
-                fontFamily: "Montserrat-SemiBold",
               }}
+              className='principal-silder'
             >
-              Pagina Principal
+              Página principal
             </div>
           </div>
         ),
@@ -103,7 +102,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
           "Landing Page"
         ) : (
           <div>
-            <div style={{ paddingLeft: "35px" }}>Landing Page</div>
+            <div style={{ paddingLeft: "35px" }}>Landing page</div>
             <i className="ant-menu-submenu-arrow" />
           </div>
         ),

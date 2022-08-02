@@ -10,13 +10,11 @@ interface ModalPros {
   doc: IDocument;
   typesDocument: any[];
   onEdit: (values: IDocument) => void;
-  editListDocs: (value: number) => void;
 }
 const ModalEditDocument: FC<ModalPros> = ({
   typeDoc,
   doc,
   typesDocument,
-  editListDocs,
   onEdit
 }) => {
   const [is_visible, set_is_visible] = useState<boolean>(false);
@@ -48,7 +46,7 @@ const ModalEditDocument: FC<ModalPros> = ({
           </span>
         }
         maskStyle={{
-          backgroundColor: "rgba(6, 100, 144 ,0.8)",
+          backgroundColor: "rgba(6, 100, 144 ,0.71)",
         }}
         footer={[
           <button
@@ -70,7 +68,6 @@ const ModalEditDocument: FC<ModalPros> = ({
           typeDoc={typeDoc}
           doc={doc}
           typesDocument={typesDocument}
-          editListDocs={editListDocs}
         />
       </Modal>
     </>

@@ -11,7 +11,6 @@ interface DocsFormPros {
   onAddDocument: (values: IDocument) => void
   onDelete: (index: number) => void;
   onEditDocument: (values: IDocument) => void;
-  editListDocs: (value: number) => void;
   typeDoc: "general" | "admin" | "technicians";
   title: string;
 }
@@ -20,7 +19,6 @@ const AddDocument: FC<DocsFormPros> = ({
   onAddDocument,
   onDelete,
   onEditDocument,
-  editListDocs,
   typeDoc,
   title,
 }) => {
@@ -65,7 +63,6 @@ const AddDocument: FC<DocsFormPros> = ({
               onSubmit={onAddDocument}
               typeDoc={typeDoc}
               type='create'
-              editListDocs={editListDocs}
               typesDocument={typesDocument}
             />
           </Card>
@@ -80,7 +77,6 @@ const AddDocument: FC<DocsFormPros> = ({
                 onEdit={onEditDocument}
                 typeDoc={typeDoc}
                 typesDocument={typesDocument}
-                editListDocs={editListDocs}
                 loading={loading}
               />
             </Card>

@@ -13,7 +13,6 @@ const Breadcrumbs: FC<{ breadcrumbs: Breadcrumb[] }> = ({breadcrumbs}) => {
             alt=""
             width="100%"
           />
-          {/* casa<i className="fa fa-home" style={{ fontSize: 16 }} /> */}
         </Link>
       </li>
       {breadcrumbs &&
@@ -32,11 +31,11 @@ const Breadcrumbs: FC<{ breadcrumbs: Breadcrumb[] }> = ({breadcrumbs}) => {
               style={{fontSize: '11px'}}
             >
               {breadcrumb.to && (
-                <Link to={breadcrumb.to} className="text-white">
+                <Link to={breadcrumb.to} className="text-white" style={{textDecoration: 'none'}}>
                   {content}
                 </Link>
               )}
-              {!breadcrumb.to && content}
+              <span style={{fontFamily: 'Montserrat-Bold'}}>{!breadcrumb.to && content}</span>
             </li>
           );
         })}

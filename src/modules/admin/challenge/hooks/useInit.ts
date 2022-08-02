@@ -1,5 +1,5 @@
 import { FormikProps, FormikValues } from "formik";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { swal_error } from "../../../../utils/ui";
@@ -37,6 +37,9 @@ export const useInit = (
   const active_key: any = state?.active_key || "1";
   const active_key_docs: any = state?.active_key_docs || "docs-1";
   const ls = state;  
+  
+  
+  
 
   const initial_values: IChallenge = {
     general_information: {
@@ -94,7 +97,7 @@ export const useInit = (
               ...data,
               general_information: {
                 ...res.data,
-                ret_perfil: res.data.ret_perfil.data,
+                ret_perfil: data.ret_perfil,
                 key: res.key,
               },
             }));
@@ -151,7 +154,7 @@ export const useInit = (
             showCancelButton: false,
             confirmButtonText: "Aceptar",
           });
-          navigate("challenge/list");
+          navigate("../challenge/list", { replace: true });
 
         }
       },
@@ -217,7 +220,7 @@ export const useInit = (
 
   const goBack = () => {
     if (active_key === "1") {
-      navigate("challenge/list");
+      navigate("../challenge/list", { replace: true });
     } else {
       prev_tab();
     }

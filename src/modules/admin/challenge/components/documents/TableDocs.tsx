@@ -1,10 +1,15 @@
 import { FC, useState } from "react";
-import { ModalDetailDocument, swal_error, Table } from "../../../../../utils/ui";
+import {
+  ModalDetailDocument,
+  swal_error,
+  Table,
+} from "../../../../../utils/ui";
 import { trash, watch } from "../../../../../utils/assets/img";
 import { IDocument } from "../../custom_types";
 import ModalEditDocument from "./ModalEditDocument";
 import { useDispatch } from "react-redux";
 import { actions } from "../../redux";
+
 
 interface DocsFormPros {
   documents: IDocument[];
@@ -12,7 +17,6 @@ interface DocsFormPros {
   onDelete: (index: number) => void;
   onEdit: (values: IDocument) => void;
   typesDocument: any[];
-  editListDocs: (value: number) => void;
   loading: boolean;
 }
 
@@ -22,7 +26,6 @@ const TableDocs: FC<DocsFormPros> = ({
   onDelete,
   onEdit,
   typesDocument,
-  editListDocs,
   loading,
 }) => {
   const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
@@ -64,17 +67,17 @@ const TableDocs: FC<DocsFormPros> = ({
       fixed: "right",
       children: [
         {
-          title: <span style={{ fontSize: "9px" }}>Ver</span>,
+          title: <span style={{ fontSize: "9px" }}>Ver!!</span>,
           fixed: "right",
           align: "center" as "center",
           render: (values: IDocument) => {
             return (
               <>
                 <img
-                  src={watch}
-                  className="img-fluid"
+                  src='/src/utils/assets/img/watch.svg'
+                  className="imagen-ojo"
                   alt=""
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: 'red' }}
                   onClick={async () => {
                     if (!values.ret_nombre_plantilla) return;
                     const res = await dispatch(
@@ -112,7 +115,6 @@ const TableDocs: FC<DocsFormPros> = ({
                 doc={values}
                 typesDocument={typesDocument}
                 onEdit={onEdit}
-                editListDocs={editListDocs}
               />
             );
           },

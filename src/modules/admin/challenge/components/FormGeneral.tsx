@@ -6,8 +6,9 @@ import DocumentInput from "../../../../utils/ui/DocumentInput";
 import ErrorMessage from "../../../../utils/ui/ErrorMessage";
 import Select from "../../../../utils/ui/Select";
 import * as Yup from "yup";
-import { IChallenge, IGeneralInformation } from "../custom_types";
+import { IGeneralInformation, IMasters } from "../custom_types";
 import moment from "moment";
+import { TimeRangePickerProps } from "antd";
 
 interface GeneralInformationFormPros {
   disabled?: boolean;
@@ -15,6 +16,7 @@ interface GeneralInformationFormPros {
   general_?: IGeneralInformation;
   innerRef: any;
   onSubmit: (values: any) => void;
+  masters: IMasters;
 }
 
 const FormGeneral: FC<GeneralInformationFormPros> = ({
@@ -22,6 +24,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
   general_,
   innerRef,
   onSubmit,
+  masters,
 }) => {
   const initialValues = {
     ret_nombre: "",
@@ -46,7 +49,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_descripcion: "",
     ret_tipo_impacto: "",
     ...general_,
-  };  
+  };
 
   const schema = Yup.object().shape({
     ret_nombre: Yup.string().required("Campo obligatorio"),
@@ -59,11 +62,13 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_comuna: Yup.string().nullable().required("Campo obligatorio"),
     ret_barrio: Yup.string().nullable().required("Campo obligatorio"),
     ret_imagen_principal: Yup.object({
-      name: Yup.string().required("Campo obligatorio")
+      name: Yup.string().required("Campo obligatorio"),
     }).nullable(),
     ret_detalles: Yup.string().required("Campo obligatorio"),
     ret_dato_importante: Yup.string().required("Campo obligatorio"),
     ret_resultado_esperado: Yup.string().required("Campo obligatorio"),
+    ret_detalle_postulacion: Yup.string().required("Campo obligatorio"),
+    ret_video: Yup.string().url("Por favor ingrese una url"),
   });
 
   const submit = (values: any, actions: any) => {
@@ -80,6 +85,13 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
       innerRef={innerRef}
     >
       {({ handleChange, values }) => {
+        const disabledDate: TimeRangePickerProps["disabledDate"] = (
+          current
+        ) => {
+          return (
+            current && current < moment(values?.ret_fecha_inicio).endOf("day")
+          );
+        };
         return (
           <Form>
             <div className="row">
@@ -114,23 +126,16 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 </label>
                 <Field
                   component={Select}
+                  maxTagCount="responsive"
+                  showArrow
+                  dropdownMatchSelectWidth={false}
                   id="ret_perfil_id"
                   name="ret_perfil"
                   className=""
-                  options={[
-                    {
-                      name: "Grupo de investigación",
-                      id: "Grupo de investigación",
-                    },
-                    {
-                      name: "Persona jurídica",
-                      id: "Persona jurídica",
-                    },
-                    {
-                      name: "Equipo de innovadores",
-                      id: "Equipo de innovadores",
-                    },
-                  ]}
+                  options={masters?.tbl_perfil?.map((d) => ({
+                    id: d?.id,
+                    name: d?.nombre,
+                  }))}
                   placeholder="Seleccione uno o más perfiles…"
                   mode="multiple"
                   showSearch
@@ -155,29 +160,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="ret_dimension_id"
                   name="ret_dimension"
                   className=""
-                  options={[
-                    {
-                      name: "Personas",
-                      id: 1,
-                    },
-                    { name: "Medioambiente", id: 2 },
-                    {
-                      name: "Gobernanza",
-                      id: 3,
-                    },
-                    {
-                      name: "Economía",
-                      id: 4,
-                    },
-                    {
-                      name: "Hábitat",
-                      id: 5,
-                    },
-                    {
-                      name: "Calidad de vida",
-                      id: 6,
-                    },
-                  ]}
+                  options={masters?.tbl_dimensiones?.map((d) => ({
+                    id: d?.id,
+                    name: d?.nombre,
+                  }))}
                   placeholder="Seleccionar…"
                 />
                 <ErrorMessage name="ret_dimension" />
@@ -191,12 +177,10 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="ret_dependencia_id"
                   name="ret_dependencia"
                   className=""
-                  options={[
-                    {
-                      name: "Secretaría",
-                      id: 1,
-                    },
-                  ]}
+                  options={masters?.tbl_dependencia?.map((d) => ({
+                    id: d?.id,
+                    name: d?.nombre,
+                  }))}
                   placeholder="Seleccionar…"
                 />
                 <ErrorMessage name="ret_dependencia" />
@@ -221,7 +205,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   component={DateInput}
                   name="ret_fecha_final"
                   id="ret_fecha_final_id"
-                  min={moment(values.ret_fecha_inicio).format("YYYY-MM-DD")}
+                  disabledDate={disabledDate}
                 />
                 <ErrorMessage name="ret_fecha_final" />
               </div>
@@ -265,7 +249,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="ret_detalle_postulacion_id"
                   name="ret_detalle_postulacion"
                   autoComplete="off"
-                  maxLength={1000}
+                  maxLength={100}
                   style={{ height: "38px" }}
                   onChange={(e: any) => {
                     e.preventDefault();
@@ -281,49 +265,46 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <ErrorMessage
                   name="ret_detalle_postulacion"
                   withCount
-                  max={1000}
+                  max={100}
                 />
               </div>
             </div>
             <div className="row">
-              <div className="col-12 col-md-3 col-lg-3">
+              <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_comuna_id" className="form-label">
-                  Comuna
+                  Lugar
                 </label>
-                <Field
-                  style={{ height: "38px" }}
-                  component={Select}
-                  id="ret_comuna_id"
-                  name="ret_comuna"
-                  className=""
-                  options={[
-                    {
-                      name: "comuna1",
-                      id: 1,
-                    },
-                  ]}
-                  placeholder="Seleccionar…"
-                />
-                <ErrorMessage name="ret_comuna" />
-              </div>
-              <div className="col-12 col-md-3 col-lg-3">
-                <label htmlFor="ret_barrio_id" className="form-label">
-                  Barrio
-                </label>
-                <Field
-                  component={Select}
-                  id="ret_barrio_id"
-                  name="ret_barrio"
-                  className=""
-                  options={[
-                    {
-                      name: "barrio1",
-                      id: 1,
-                    },
-                  ]}
-                  placeholder="Seleccionar…"
-                />
-                <ErrorMessage name="ret_barrio" />
+                <div className="row">
+                  <div className="col">
+                    <Field
+                      style={{ height: "38px" }}
+                      component={Select}
+                      id="ret_comuna_id"
+                      name="ret_comuna"
+                      className=""
+                      options={masters?.tbl_comunas?.map((d) => ({
+                        id: d?.id,
+                        name: d?.nombre,
+                      }))}
+                      placeholder="Seleccionar…"
+                    />
+                    <ErrorMessage name="ret_comuna" />
+                  </div>
+                  <div className="col">
+                    <Field
+                      component={Select}
+                      id="ret_barrio_id"
+                      name="ret_barrio"
+                      className=""
+                      options={masters?.tbl_barrio?.map((d) => ({
+                        id: d?.id,
+                        name: d?.nombre,
+                      }))}
+                      placeholder="Seleccionar…"
+                    />
+                    <ErrorMessage name="ret_barrio" />
+                  </div>
+                </div>
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_detalles_id" className="form-label">

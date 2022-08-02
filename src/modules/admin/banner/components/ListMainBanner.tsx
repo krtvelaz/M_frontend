@@ -29,7 +29,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
       },
     },
     {
-      title: 'Titulo',
+      title: 'Título',
       dataIndex: 'car_titulo',
       align: 'left' as 'left',
     },
@@ -63,7 +63,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
                   src={watch}
                   className="img-fluid"
                   alt=""
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: 'red' }}
                   onClick={async () => {
                     const res = await dispatch(actions.get_image_banner(id));
                     if (res) {

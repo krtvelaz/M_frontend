@@ -68,7 +68,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({
             <div className="row ">
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="tes_titulo_id" className="form-label">
-                  Titulo
+                  Título
                 </label>
                 <Field
                   type="text"
@@ -130,16 +130,6 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                   id="tes_imagen_id"
                   name="tes_imagen"
                   autoComplete="off"
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="tes_imagen.name" />
               </div>

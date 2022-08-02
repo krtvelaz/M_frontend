@@ -1,8 +1,10 @@
 import { Field, Form, Formik } from "formik";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage, Select } from "../../../../../utils/ui";
-import { IDocument } from "../../custom_types";
+import { IDocument, IMasters } from "../../custom_types";
+import { actions } from "../../redux";
 
 interface DocsFormPros {
   disabled?: boolean;
@@ -11,7 +13,6 @@ interface DocsFormPros {
   innerRef: any;
   doc?: IDocument;
   onSubmit: (values: IDocument) => void;
-  editListDocs: (value: number) => void;
   typesDocument: any[];
 }
 
@@ -22,33 +23,29 @@ const FormAddDocument: FC<DocsFormPros> = ({
   innerRef,
   doc,
   onSubmit,
-  editListDocs,
   typesDocument,
 }) => {
+  const dispatch = useDispatch<any>();
+
   const initialValues = {
     ret_tipo_documento: "",
     ret_nombre_documento: "",
     ret_perfiles: "",
     ret_plantilla: {
-      name:  doc?.ret_nombre_plantilla || "",
-      id: doc?.id || ""
+      name: doc?.ret_nombre_plantilla || "",
+      id: doc?.id || "",
     },
     ...doc,
-    
   };
 
   const schema = Yup.object().shape({
-    ret_tipo_documento: Yup.number()
-      .nullable()
-      .required("Campo Obligatorio"),
+    ret_tipo_documento: Yup.number().nullable().required("Campo obligatorio"),
     ret_nombre_documento: Yup.string().when("ret_tipo_documento", {
       is: 26,
       then: Yup.string().required("Campo obligatorio"),
     }),
     ...(typeDoc !== "general" && {
-      ret_perfiles: Yup.string()
-        .nullable()
-        .required("Campo obligatorio"),
+      ret_perfiles: Yup.string().nullable().required("Campo obligatorio"),
     }),
   });
 
@@ -58,6 +55,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
     actions.resetForm();
   };
 
+  
   return (
     <Formik
       enableReinitialize
@@ -92,7 +90,8 @@ const FormAddDocument: FC<DocsFormPros> = ({
                     ]}
                     placeholder="Seleccionar…"
                     extra_on_change={(value: number) => {
-                      editListDocs(value);
+                      if (typeDoc === "admin")
+                        dispatch(actions.get_master_list(4, value));
                     }}
                   />
                   <ErrorMessage name="ret_perfiles" />
@@ -109,7 +108,10 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   id="ret_tipo_documento_id"
                   name="ret_tipo_documento"
                   className=""
-                  options={typesDocument}
+                  options={typesDocument?.map((d) => ({
+                    id: d?.id,
+                    name: d?.nombre,
+                  }))}
                   placeholder="Seleccionar…"
                 />
                 <ErrorMessage name="ret_tipo_documento" />

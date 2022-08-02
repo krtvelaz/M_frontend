@@ -21,7 +21,7 @@ const Header: FC<{ collapsible: boolean; name: string }> = ({
                   onClick: () => {context.menu_toggle(); context.sider_close()},
                 }
               )
-            : context.device === 'lg' ? "Secretaría de Innovación Digital, Medeiin laboratorio de innovación" : ""}
+            : context.device === 'lg' ? "Secretaría de innovación digital, Medeiin laboratorio de innovación" : ""}
         </span>
 
         <span className="d-flex align-items-center c-fill">
