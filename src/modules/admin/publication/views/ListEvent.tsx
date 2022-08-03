@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { pencil, trash } from '../../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from "../../../../utils/ui";
-import ModalEditEvent from '../components/ModalEditEvent';
+import ModalEditEvent from '../components/event/ModalEditEvent';
 import { IEvent } from '../custom_types';
 import { actions } from '../redux';
 

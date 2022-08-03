@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { Card } from "../../../../utils/ui"
-import FormEvent from "../components/FormEvent"
+import FormEvent from "../components/event/FormEvent"
 import { IEvent } from "../custom_types"
 import { FormikProps, FormikValues } from "formik"
 import { useDispatch, useSelector } from "react-redux"

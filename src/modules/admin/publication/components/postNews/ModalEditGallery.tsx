@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
-import { pencil } from "../../../../utils/assets/img";
-import { IPublicationInfo } from "../custom_types";
+import { pencil } from "../../../../../utils/assets/img";
+import { IPublicationInfo } from "../../custom_types";
 import FormPublication from "./FormPublication";
 
 interface ModalEditFormPros {

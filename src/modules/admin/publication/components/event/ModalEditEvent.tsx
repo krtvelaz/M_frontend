@@ -2,9 +2,9 @@ import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
 import React, { FC, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil } from '../../../../utils/assets/img';
-import { IEvent } from '../custom_types';
-import { actions } from '../redux';
+import { pencil } from '../../../../../utils/assets/img';
+import { IEvent } from '../../custom_types';
+import { actions } from '../../redux';
 import FormEvent from './FormEvent';
 
 interface ModalFormPros {

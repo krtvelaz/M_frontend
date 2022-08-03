@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Card } from "../../../../utils/ui";
-import { IPublication } from "../custom_types";
+import { Card } from "../../../../../utils/ui";
+import { IPublication } from "../../custom_types";
 import FormPublication from "./FormPublication";
 
 interface IGeneralInformationProps {

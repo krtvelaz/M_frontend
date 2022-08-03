@@ -1,13 +1,13 @@
 // import {  TimePicker } from "antd";
 import { Formik, Form, Field } from "formik";
 import { FC, useState } from "react";
-import { ErrorMessage } from "../../../../utils/ui";
-import Input from "../../../../utils/ui/CurrencyInput";
-import DateInput from "../../../../utils/ui/DateInput";
-import { IEvent } from "../custom_types";
+import { ErrorMessage } from "../../../../../utils/ui";
+import Input from "../../../../../utils/ui/CurrencyInput";
+import DateInput from "../../../../../utils/ui/DateInput";
+import { IEvent } from "../../custom_types";
 import * as Yup from "yup";
-import RadioMedeinn from "../../../../utils/ui/Radio";
-import TimeInput from "../../../../utils/ui/TimeInput";
+import RadioMedeinn from "../../../../../utils/ui/Radio";
+import TimeInput from "../../../../../utils/ui/TimeInput";
 import moment from "moment";
 
 

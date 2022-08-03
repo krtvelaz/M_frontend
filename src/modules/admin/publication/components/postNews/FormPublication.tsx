@@ -1,8 +1,8 @@
 import React, { FC, useRef } from "react";
-import { IPublicationInfo } from "../custom_types";
+import { IPublicationInfo } from "../../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { Select, ErrorMessage, DocumentInput } from "../../../../utils/ui";
+import { Select, ErrorMessage, DocumentInput } from "../../../../../utils/ui";
 
 
 interface PublicationPros {
@@ -19,15 +19,15 @@ const FormPublication: FC<PublicationPros> = ({
   publication,
 }) => {
   const initial_values = {
-    title: "",
-    description: "",
+    hec_titulo: "",
+    hec_descripcion: "",
     image: "",
     publication_type: "",
     ...publication,
   };
 
   const schema = Yup.object().shape({
-    title: Yup.string().required("Campo obligatorio"),
+    hec_titulo: Yup.string().required("Campo obligatorio"),
 
     image: Yup.string().required("Campo obligatorio"),
     ...(type === "general"
@@ -35,7 +35,7 @@ const FormPublication: FC<PublicationPros> = ({
           publication_type: Yup.string().required("Campo Obligatorio"),
         }
       : {
-          description: Yup.string().required("Campo obligatorio"),
+          hec_descripcion: Yup.string().required("Campo obligatorio"),
         }),
   });
   const submit = (values: any, actions: any) => {
@@ -101,14 +101,14 @@ const FormPublication: FC<PublicationPros> = ({
                 <ErrorMessage name="image" />
               </div>
               <div className={`col-12 col-md-${type === "gallery" ? 6 : 12}`}>
-                <label htmlFor="title_id" className="form-label">
+                <label htmlFor="hec_titulo_id" className="form-label">
                   Título
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="title_id"
-                  name="title"
+                  id="hec_titulo_id"
+                  name="hec_titulo"
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
@@ -123,18 +123,18 @@ const FormPublication: FC<PublicationPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="title" withCount max={100} />
+                <ErrorMessage name="hec_titulo" withCount max={100} />
               </div>
               {type === "gallery" && (
                 <div className="col-12">
-                  <label htmlFor="description_id" className="form-label">
+                  <label htmlFor="hec_descripcion_id" className="form-label">
                     Descripción
                   </label>
                   <Field
                     as="textarea"
                     className="form-control"
-                    id="description_id"
-                    name="description"
+                    id="hec_descripcion_id"
+                    name="hec_descripcion"
                     autoComplete="off"
                     maxLength={100}
                     style={{ height: "38px" }}
@@ -149,7 +149,7 @@ const FormPublication: FC<PublicationPros> = ({
                       }
                     }}
                   />
-                  <ErrorMessage name="description" withCount max={100} />
+                  <ErrorMessage name="hec_descripcion" withCount max={100} />
                 </div>
               )}
             </div>
