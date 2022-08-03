@@ -7,6 +7,7 @@ import {
   banners_list_success,
   banner_default,
   banner_fail,
+  banner_success,
   statistics_default,
   statistics_fail,
   statistics_success,
@@ -51,7 +52,7 @@ const create_main_banner = (values: IMainBanner) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      // dispatch();
+    dispatch(banner_success(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -126,9 +127,13 @@ const edit_banner = (values: IMainBanner, id: number) => {
       const res = await cms_http.post(URI, form, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type'
+
         },
       });
-      // dispatch();
+    dispatch(banner_success(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -170,7 +175,7 @@ const delete_banner = (id: number) => {
         showCancelButton: false,
         confirmButtonText: "Aceptar",
       });
-      // dispatch();
+    dispatch(banner_success(res.data.body.data));
       return res.data;
     } catch (error) {
       dispatch(banner_fail);
@@ -212,7 +217,7 @@ const create_statistics = (_values: IIndicator) => {
     try {
       const URI = "statistics/add";
       const res = await cms_http.post(URI, data);
-      // dispatch();
+      // dispatch(statistics_success(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:

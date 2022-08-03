@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { pencil } from "../../../../utils/assets/img";
 import { IMainBanner } from "../custom_types";
 import FormMainBanner from "./FormMainBanner";
@@ -11,6 +12,9 @@ interface BannerFormPros {
 }
 
 const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
+
+  const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
+
   const [is_visible, set_is_visible] = useState<boolean>(false);
   const form_ref = useRef<FormikProps<FormikValues>>();
   const open = () => set_is_visible(true);
@@ -19,9 +23,9 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
   const editImage = async (value: IMainBanner) => {
     await onSubmit(value);
     set_is_visible(false);
-    
+
   };
- 
+
   return (
     <>
       <img
@@ -54,8 +58,15 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
             onClick={() => {
               form_ref.current?.submitForm();
             }}
+            disabled={loading}
           >
             Guardar Cambios
+            {loading && (
+              <i
+                className="fa fa-spinner fa-spin"
+                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+              />
+            )}
           </button>,
         ]}
       >

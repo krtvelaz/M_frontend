@@ -12,6 +12,7 @@ export interface IPublicationInfo {
 }
 
 export interface IEvent {
+    id?: number;
     eve_titulo: string;
     eve_descripcion: string;
     eve_lugar_evento:string;
@@ -19,5 +20,6 @@ export interface IEvent {
     eve_hora: string;
     eve_cupos_limitado: boolean;
     eve_numero_cupos: number;
+    eve_publicada?:boolean;
     
 }

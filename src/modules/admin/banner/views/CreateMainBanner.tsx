@@ -9,6 +9,7 @@ import { actions } from "../redux";
 
 const CreateMainBanner = () => {
   const list_banners: IMainBanner[] = useSelector((store: any) => store.banner.list_banners.value);
+  const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
 
   const form_ref = useRef<FormikProps<FormikValues>>();
   const [images, setImages] = useState<IMainBanner[]>([]);
@@ -67,8 +68,15 @@ const CreateMainBanner = () => {
                       onClick={() => {
                         form_ref.current?.submitForm()
                       }}
+                      disabled={loading}
                     >
                       Agregar
+                      {loading && (
+                        <i
+                        className="fa fa-spinner fa-spin"
+                        style={{fontSize: 12, marginLeft: 4, color: "#603CE6"}}
+                        />
+                      )}
                     </button>
                   </div>,
                 ]}
