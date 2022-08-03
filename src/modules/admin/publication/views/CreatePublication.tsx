@@ -1,4 +1,4 @@
-import PublicationFormTags from "../components/postNews/PublicationFormTags"
+import PublicationFormTags from "../components/PublicationFormTags"
 
 const CreatePublication = () => {
   return (
