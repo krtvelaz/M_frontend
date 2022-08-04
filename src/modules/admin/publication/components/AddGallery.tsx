@@ -1,12 +1,13 @@
 import React, { FC } from "react";
 import { Card } from "../../../../utils/ui";
-import { IPublication, IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import FormGallery from "./FormGallery";
 import FormPublication from "./FormPublication";
 import ListGallery from "./ListGallery";
 interface IGalleryProps {
   innerRef: any;
   onSubmit: (values: any) => void;
-  images: IPublicationInfo[];
+  images: IGalleryInfo[];
   setImages: any;
 }
 
@@ -16,7 +17,7 @@ const AddGallery: FC<IGalleryProps> = ({
   images,
   setImages,
 }) => {
-  const editImage = (values: IPublicationInfo, index: number) => {
+  const editImage = (values: IGalleryInfo, index: number) => {
     setImages((data: IPublication) => {
       data.gallery[index] = values;
       return {
@@ -56,11 +57,12 @@ const AddGallery: FC<IGalleryProps> = ({
               </div>,
             ]}
           >
-            <FormPublication
-              type="gallery"
-              innerRef={innerRef}
-              onSubmit={onSubmit}
+             <FormGallery
+            innerRef={innerRef}
+            onSubmit={onSubmit}
+            // publication={publication.general_information}
             />
+           
           </Card>
           {images.length > 0 && (
             <Card>

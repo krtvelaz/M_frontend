@@ -1,6 +1,6 @@
 import { cms_http } from "../../../../config/axios_instances";
 import { swal_error, swal_success } from "../../../../utils/ui/swalAlert";
-import { IEvent } from "../custom_types";
+import { IEvent, IGeneralInfo } from "../custom_types";
 import {
   default_event,
   success_event,
@@ -8,6 +8,12 @@ import {
   default_list_event,
   success_list_event,
   fail_list_event,
+  default_publication,
+  success_publication,
+  fail_publication,
+  default_list_publication,
+  success_list_publication,
+  fail_list_publication,
 } from "./slice"
 
 const create_event = (_values: IEvent) => {
@@ -226,6 +232,71 @@ const edit_publication_event = (_values:IEvent, is_public?: any ) => {
   };
 };
 
+const create_publication = (_values: IGeneralInfo) => { //
+  return async (dispatch: any) => {
+    dispatch(default_publication());
+    const values = JSON.parse(JSON.stringify(_values));
+    const data = {
+      action: "insert",
+      info: {
+        id: -1,
+        key: -1,
+      },
+      data: {
+        ...values,
+        
+      },
+    };
+    try {
+      const URI = "news/add";// COMPLETAR RUTA 
+      const res = await cms_http.post(URI, data, {
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+      dispatch(success_publication(res.data));
+      await swal_success.fire({
+        title: "Proceso exitoso",
+        html:
+          `<div class="mysubtitle">${res.data.message}</div>` +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return res.data;
+    } catch (error) {
+      dispatch(fail_publication());
+      await swal_error.fire({
+        title: "Error en el proceso",
+        html:
+          '<div class="mysubtitle">error</div>' +
+          '<div class="mytext">De click en aceptar para continuar</div>',
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+      });
+      return Promise.reject("Error");
+    }
+  };
+};
+const get_list_publications = ({ page = 1, limi = 10 }) => {
+  return async (dispatch: any) => {
+    dispatch(default_list_publication());
+    try {
+      const URI = `news/list/${page}/${limi}`;
+      const res = await cms_http.get(URI);
+      const events = {
+        results: res.data.body.data,
+        pagination: res.data.body.meta,
+      }
+      dispatch(success_list_publication(events));
+      return res.data.body.data;
+    } catch (error) {
+      dispatch(fail_list_publication());
+      return Promise.reject("Error");
+    }
+  };
+};
 
 
 const actions = {
@@ -235,6 +306,10 @@ const actions = {
   get_event_by_id,
   edit_event,
   edit_publication_event,
+  create_publication,
+  get_list_publications,
+
+  
   
 }
 

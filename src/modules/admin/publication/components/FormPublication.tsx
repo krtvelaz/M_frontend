@@ -21,18 +21,18 @@ const FormPublication: FC<PublicationPros> = ({
   const initial_values = {
     hec_titulo: "",
     hec_descripcion: "",
-    image: "",
-    publication_type: "",
+    img: "",
+    hec_id_tipo_publicacion: "",
     ...publication,
   };
 
   const schema = Yup.object().shape({
     hec_titulo: Yup.string().required("Campo obligatorio"),
 
-    image: Yup.string().required("Campo obligatorio"),
+    img: Yup.string().required("Campo obligatorio"),
     ...(type === "general"
       ? {
-          publication_type: Yup.string().required("Campo Obligatorio"),
+          hec_id_tipo_publicacion: Yup.string().required("Campo Obligatorio"),
         }
       : {
           hec_descripcion: Yup.string().required("Campo obligatorio"),
@@ -59,12 +59,12 @@ const FormPublication: FC<PublicationPros> = ({
             <div className="row">
               {type === "general" && (
                 <div className="col-12 col-md-6 col-lg-6">
-                  <label htmlFor="publication_type_id" className="form-label">
+                  <label htmlFor="hec_id_tipo_publicacion_id" className="form-label">
                     Tipo de publicación
                   </label>
                   <Field
-                    id="publication_type_id"
-                    name="publication_type"
+                    id="hec_id_tipo_publicacion_id"
+                    name="hec_id_tipo_publicacion"
                     component={Select}
                     options={[
                       {
@@ -79,13 +79,13 @@ const FormPublication: FC<PublicationPros> = ({
                     ]}
                     placeholder="Seleccionar…"
                   />
-                  <ErrorMessage name="publication_type" />
+                  <ErrorMessage name="hec_id_tipo_publicacion" />
                 </div>
               )}
 
               
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="image_id" className="form-label">
+                <label htmlFor="img_id" className="form-label">
                   Imagen {type === "general" && "principal"}
                 </label>
                 <Field
@@ -93,12 +93,12 @@ const FormPublication: FC<PublicationPros> = ({
                   maximum_size={2}
                   file_type="img"
                   type="text"
-                  id="image_id"
-                  name="image"
+                  id="img_id"
+                  name="img"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="image" />
+                <ErrorMessage name="img" />
               </div>
               <div className={`col-12 col-md-${type === "gallery" ? 6 : 12}`}>
                 <label htmlFor="hec_titulo_id" className="form-label">
