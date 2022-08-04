@@ -9,6 +9,7 @@ import { actions } from "../redux";
 
 const CreateMainBanner = () => {
   const list_banners: IMainBanner[] = useSelector((store: any) => store.banner.list_banners.value);
+  const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
 
   const form_ref = useRef<FormikProps<FormikValues>>();
   const [images, setImages] = useState<IMainBanner[]>([]);
@@ -20,8 +21,8 @@ const CreateMainBanner = () => {
     setIsSuccess(true);
   };
 
-  const editImage = async(value: IMainBanner, id: number) => {
-    await dispatch(actions.edit_banner(value, id ));
+  const editBanner = async(values: IMainBanner) => {
+    await dispatch(actions.edit_banner(values ));
     setIsSuccess(true);
   };
 
@@ -67,8 +68,15 @@ const CreateMainBanner = () => {
                       onClick={() => {
                         form_ref.current?.submitForm()
                       }}
+                      disabled={loading}
                     >
                       Agregar
+                      {loading && (
+                        <i
+                        className="fa fa-spinner fa-spin"
+                        style={{fontSize: 12, marginLeft: 4, color: "#603CE6"}}
+                        />
+                      )}
                     </button>
                   </div>,
                 ]}
@@ -80,7 +88,7 @@ const CreateMainBanner = () => {
                   <h4>Elementos agregados</h4>
                   <ListMainBanner
                     data={list_banners}
-                    onSubmit={editImage}
+                    onEdit={editBanner}
                     onDelete={deleteImage}
                   />
                 </Card>

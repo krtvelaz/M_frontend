@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import { trash } from '../../../../utils/assets/img';
 import { ModalDetailDocument, swal_error, Table } from '../../../../utils/ui';
-import { IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IGeneralInfo, IPublicationInfo } from "../custom_types";
 import ModalEditGallery from "./ModalEditGallery";
 
 
 interface IGalleryProps {
-  images: IPublicationInfo[];
-  onEdit: (values: IPublicationInfo, index: number) => any;
+  images: IGalleryInfo[];
+  onEdit: (values: IGalleryInfo, index: number) => any;
   onDelete: (index: number) => any;
 }
 
@@ -57,7 +57,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
           title: <span style={{ fontSize: "9px" }}>Editar</span>,
           fixed: "right",
           align: "center" as "center",
-          render: (values:  IPublicationInfo, data: any, index: number) => {
+          render: (values:  IGalleryInfo, data: any, index: number) => {
             return  <ModalEditGallery onSubmit={(publication) => onEdit(publication, index)}  gallery={values} />;
           },
         },

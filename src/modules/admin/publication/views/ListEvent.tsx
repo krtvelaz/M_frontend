@@ -1,16 +1,15 @@
 import { Popover, Radio } from 'antd';
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { pencil, trash } from '../../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from "../../../../utils/ui";
+import ModalEditEvent from '../components/event/ModalEditEvent';
 import { IEvent } from '../custom_types';
 import { actions } from '../redux';
 
-
-
-
 const ListEvent = () => {
+  
   const list_events: IEvent[] = useSelector(
     (store: any) => store.event.list_event.value
   );
@@ -20,9 +19,22 @@ const ListEvent = () => {
     const {total}: any = useSelector(
       (store: any) => store.event.list_event.pagination
       );
-  const dispatch = useDispatch<any>();
+      const dispatch = useDispatch<any>();
+      const [isChange, setIsChange] = useState<boolean>(false);
+
   const get_events = async () => {
     await dispatch(actions.get_list_events({}));
+  };
+
+  const editEvent = async (values: IEvent) => {    
+    await dispatch(actions.edit_event(values));
+    setIsChange(true);
+
+  };
+
+  const onDelete = async (id: number) => {
+    await dispatch(actions.delete_event(id));
+    setIsChange(true);
   };
 
   const change_page = (page: number, pageSize?: number) => {
@@ -33,12 +45,21 @@ const ListEvent = () => {
     get_events();
   }, []);
 
+  useEffect(() => {
+    if (isChange) {
+      get_events();
+      setIsChange(false);
+    }
+  }, [isChange]);
+
     const table_columns: any = [
         {
           title: "No.",
           fixed: "left",
-          dataIndex: "id",
           align: "center" as "center",
+          render: (data: IEvent, values: any, i: number) => {
+            return i + 1;
+          },
         },
         {
           title: "Nombre del evento",
@@ -67,16 +88,17 @@ const ListEvent = () => {
         },
         {
           title: "Publicado",
-          dataIndex: "is_published",
           align: "left" as "left",
-          render: (value: string) => {
-            const onChange = (e: any) => {
-              // llamar editar publicacion
+          render: ( data: IEvent ) => {
+            const onChange = async (e: any) => {
+            await dispatch(actions.edit_publication_event(data, e?.target?.value));
+            
             };
+            
             return (
-              <Radio.Group onChange={onChange} value={value}>
-                <Radio value="Si">Si</Radio>
-                <Radio value="No">No</Radio>
+              <Radio.Group onChange={onChange} defaultValue={data.eve_publicada}>
+                <Radio value= {true} >Si</Radio>
+                <Radio value= {false} >No</Radio>
               </Radio.Group>
             );
           },
@@ -91,6 +113,7 @@ const ListEvent = () => {
         },
         {
           title: "Acciones",
+          dataIndex: "id",
           fixed: "right",
           children: [
             {
@@ -98,29 +121,16 @@ const ListEvent = () => {
               dataIndex: "id",
               fixed: "right",
               align: "center" as "center",
-              render: (id: string) => {
-                return (
-                  <Link
-                    to={`/event/create/${id}/`}
-                    name=""
-                    avatar={false}
-                    icon={
-                      <img
-                        src={pencil}
-                        style={{ cursor: "pointer" }}
-                        className="img-pencil"
-                        alt=""
-                      />
-                    }
-                  />
-                );
+              render: (id: number) => {
+                return <ModalEditEvent   onSubmit={editEvent} id={id} />;
               },
             },
             {
               title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
               fixed: "right",
+              dataIndex: "id",
               align: "center" as "center",
-              render: (data: any, values: any, index: number) => {
+              render: ( id: number) => {
                 return (
                   <img
                     src={trash}
@@ -138,7 +148,8 @@ const ListEvent = () => {
                         confirmButtonText: "Aceptar",
                         denyButtonText: `Cancelar`,
                       });
-                      if(result.isConfirmed){
+                      if (result.isConfirmed) {
+                        onDelete(id);
                       }
                     }}
                   />
@@ -159,14 +170,14 @@ const ListEvent = () => {
           <h5 className="col d-flex justify-content-start">
             Gestionar eventos
           </h5>
-          {/* <div
+          <div
             style={{
               margin: "0 20px 10px 0",
             }}
             className="col d-flex justify-content-end"
           >
-            <Link to="/publication/create" name="Crear Publicación" iconText="+" />
-          </div> */}
+            <Link to="/event/create" name="Crear Evento" iconText="+" />
+          </div>
         </div>
 
         <Card>

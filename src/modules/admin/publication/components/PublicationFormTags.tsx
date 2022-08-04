@@ -3,7 +3,7 @@ import { FormikProps, FormikValues } from "formik";
 import { FC, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { swal_error } from "../../../../utils/ui";
-import { IPublication, IPublicationInfo } from "../custom_types";
+import { IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
 import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
 
@@ -122,9 +122,11 @@ const useInit = (): [
 
   const initial_values: IPublication = {
     general_information: {
-      title: "",
-      description: "",
-      image: "",
+      hec_id_tipo_publicacion: "",
+      hec_titulo: "",
+      hec_autor:"",
+      hec_descripcion: "",
+      img: "",
     },
     gallery: [],
   };
@@ -141,7 +143,7 @@ const useInit = (): [
         set_is_saving(true);
         await steps[0].ref.current?.submitForm();
       },
-      onSave: (values: IPublicationInfo) => {
+      onSave: (values: IGeneralInfo) => {
         setPublication((data: IPublication) => {
           return {
             ...data,
@@ -180,7 +182,7 @@ const useInit = (): [
         }
         setPublication({
           ...publication,
-          gallery: [...publication.gallery, values],
+          gallery: [...publication.gallery], //[...publication.gallery, values]
         });
       },
     },

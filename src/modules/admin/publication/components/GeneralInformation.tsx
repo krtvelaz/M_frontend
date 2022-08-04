@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Card } from "../../../../utils/ui";
 import { IPublication } from "../custom_types";
+import FormGeneral from "./FormGeneral";
 import FormPublication from "./FormPublication";
 
 interface IGeneralInformationProps {
@@ -25,12 +26,17 @@ const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, 
               </>
             }
           >
-           <FormPublication
+            <FormGeneral
+            innerRef={innerRef}
+            onSubmit={onSubmit}
+            // publication={publication.general_information}
+            />
+           {/* <FormPublication
               type="general"
               innerRef={innerRef}
               onSubmit={onSubmit}
               publication={publication.general_information}
-            />
+            /> */}
           </Card>
         </div>
       </div>

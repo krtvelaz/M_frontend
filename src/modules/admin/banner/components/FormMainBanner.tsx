@@ -7,22 +7,22 @@ import { IMainBanner } from "../custom_types";
 interface BannerFormPros {
   innerRef: any;
   onSubmit: (values: IMainBanner, form?: any) => any;
-  data_image?: IMainBanner;
+  banner?: IMainBanner;
   type: 'create' | 'edit';
 }
 
-const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, type }) => {
+const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }) => {
   const initial_values = {
     car_titulo: '',
     car_descripcion: '',
     car_url: '',
     car_url_video: '',
     car_imagen: {
-      name: data_image?.car_nombre_imagen || '',
-      id: data_image?.id || '',
+      name: banner?.car_nombre_imagen || '',
+      id: banner?.id || '',
     },
     
-    ...data_image,
+    ...banner,
   };
 
   const schema = Yup.object().shape({
