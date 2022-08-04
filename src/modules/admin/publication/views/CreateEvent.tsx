@@ -1,14 +1,16 @@
 import { useRef } from "react"
 import { Card } from "../../../../utils/ui"
-import FormEvent from "../components/FormEvent"
+import FormEvent from "../components/event/FormEvent"
 import { IEvent } from "../custom_types"
 import { FormikProps, FormikValues } from "formik"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { actions } from "../redux"
 
 
 
 const CreateEvent = () => {
+  const loading: boolean = useSelector((store: any) => store.event.event.loading);
+
     const form_ref = useRef<FormikProps<FormikValues>>()
     const dispatch = useDispatch<any>();
 
@@ -28,7 +30,7 @@ const CreateEvent = () => {
                             <Card title='Detalles nuevo evento' actions={[
 
                             ]}>
-                                <FormEvent innerRef={form_ref} onSubmit={addEvent} />
+                                <FormEvent innerRef={form_ref} onSubmit={addEvent} type='create' />
                             </Card >
 
                         </div>
@@ -54,8 +56,15 @@ const CreateEvent = () => {
                     onClick={() => {
                         form_ref.current?.submitForm();
                     }}
+                    disabled={loading}
                 >
                     Guardar
+                    {loading && (
+              <i
+                className="fa fa-spinner fa-spin"
+                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+              />
+            )}
                 </button>
             </div>
         </div>

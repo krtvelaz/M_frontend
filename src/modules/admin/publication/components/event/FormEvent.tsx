@@ -1,22 +1,26 @@
 // import {  TimePicker } from "antd";
 import { Formik, Form, Field } from "formik";
 import { FC, useState } from "react";
-import { ErrorMessage } from "../../../../utils/ui";
-import Input from "../../../../utils/ui/CurrencyInput";
-import DateInput from "../../../../utils/ui/DateInput";
-import { IEvent } from "../custom_types";
+import { ErrorMessage } from "../../../../../utils/ui";
+import Input from "../../../../../utils/ui/CurrencyInput";
+import DateInput from "../../../../../utils/ui/DateInput";
+import { IEvent } from "../../custom_types";
 import * as Yup from "yup";
-import RadioMedeinn from "../../../../utils/ui/Radio";
-import TimeInput from "../../../../utils/ui/TimeInput";
+import RadioMedeinn from "../../../../../utils/ui/Radio";
+import TimeInput from "../../../../../utils/ui/TimeInput";
+import moment from "moment";
+
 
 
 interface EventFormPros {
     innerRef?: any;
     onSubmit: (values: any, form?: any) => any;
     event?: IEvent;
+    type: 'create' | 'edit'
+
 }
 
-const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
+const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
 
 
     const initial_values = {
@@ -24,12 +28,14 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
         eve_descripcion: "",
         eve_lugar_evento: "",
         eve_fecha: "",
-        eve_hora: "",
+        eve_hora: '',
         eve_cupos_limitado: true,
         eve_numero_cupos: "",
         ...event,
+        ...(event && {
+            eve_hora: moment(event?.eve_hora,'hh:mm A' ).format('hh:mm A')
+        })
     };
-
     const schema = Yup.object().shape({
         eve_titulo: Yup.string().required("Campo obligatorio"),
         eve_lugar_evento: Yup.string().required("Campo obligatorio"),
@@ -46,6 +52,9 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
 
     const submit = (values: any, form: any) => {
         onSubmit(values);
+        if(type === 'create') {
+            form.resetForm();
+          }
     };
     return (
         <Formik
@@ -87,34 +96,6 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                             </div>
 
                             <div className="col-12 col-md-12  col-lg-6  ">
-                                <label htmlFor="eve_lugar_evento_id" className="form-label">
-                                    Lugar del evento
-                                </label>
-                                <Field
-                                    as="textarea"
-                                    style={{ height: "38px" }}
-                                    className="form-control"
-                                    id="eve_lugar_evento_id"
-                                    name="eve_lugar_evento"
-                                    autoComplete="off"
-                                    maxLength={90}
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
-                                />
-                                <ErrorMessage name="eve_lugar_evento" withCount max={90} />
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-12 col-md-12  col-lg-12  ">
                                 <label htmlFor="eve_descripcion" className="form-label">
                                     Descripción
                                 </label>
@@ -126,12 +107,40 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     name="eve_descripcion"
                                     autoComplete="off"
                                     maxLength={100}
+                                    onChange={(e: any) => {
+                                        e.preventDefault();
+                                        const { value } = e.target;
+                                        const regex = new RegExp(
+                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
+                                        );
+                                        if (regex.test(value.toString())) {
+                                            handleChange(e);
+                                        }
+                                    }}
                                 />
                                 <ErrorMessage name="eve_descripcion" withCount max={100} />
                             </div>
+
+
                         </div>
-                        
+
                         <div className="row">
+                            <div className="col-12 col-md-12  col-lg-6  ">
+                                <label htmlFor="eve_lugar_evento_id" className="form-label">
+                                    Lugar
+                                </label>
+                                <Field
+                                    as="textarea"
+                                    style={{ height: "38px" }}
+                                    className="form-control"
+                                    id="eve_lugar_evento_id"
+                                    name="eve_lugar_evento"
+                                    autoComplete="off"
+                                    maxLength={50}
+                                />
+                                <ErrorMessage name="eve_lugar_evento" withCount max={50} />
+                            </div>
+
                             <div className="col-12 col-md-6  col-lg-3  ">
                                 <label htmlFor="eve_fecha_id" className="form-label">
                                     Fecha
@@ -154,12 +163,16 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, event }) => {
                                     name="eve_hora"
                                     id="eve_hora_id"
                                     style={{ height: "38px" }}
-                                    format="HH:mm A"
+                                    
 
                                 />
 
                                 <ErrorMessage name="eve_hora" />
                             </div>
+                        </div>
+
+                        <div className="row">
+
 
                             <div className="col-6 col-md-6  col-lg-3  ">
                                 <label htmlFor="eve_cupos_limitado_id" className="form-label mb-4">

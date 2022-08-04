@@ -51,6 +51,11 @@ const FormAddDocument: FC<DocsFormPros> = ({
     ...(typeDoc !== "general" && {
       ret_perfiles: Yup.string().nullable().required("Campo obligatorio"),
     }),
+    ...(typeDoc === "general" && {
+      ret_plantilla: Yup.object({
+        name: Yup.string().required("Campo obligatorio"),
+      }).nullable(),
+    }),
   });
 
   const submit = (values: any, actions: any) => {
@@ -159,7 +164,8 @@ const FormAddDocument: FC<DocsFormPros> = ({
                 <label htmlFor="ret_plantilla_id" className="form-label">
                   <>
                     Adjuntar plantilla{" "}
-                    <span style={{ fontSize: "10px" }}> - Opcional </span>
+                    {typeDoc !== 'general' && <span style={{ fontSize: "10px" }}> - Opcional </span> }
+                    
                   </>
                 </label>
                 <Field
@@ -172,7 +178,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_plantilla" />
+                <ErrorMessage name="ret_plantilla.name" />
               </div>
             </div>
           </Form>

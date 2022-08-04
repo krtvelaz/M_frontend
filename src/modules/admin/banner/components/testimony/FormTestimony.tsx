@@ -77,16 +77,6 @@ const FormTestimony: FC<TestimonyFormPros> = ({
                   name="tes_titulo"
                   autoComplete="off"
                   maxLength={70}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="tes_titulo" withCount max={70} />
               </div>

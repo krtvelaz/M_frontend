@@ -11,6 +11,10 @@ const CreateTestimony = () => {
   const testimonials: ITestimony[] = useSelector(
     (store: any) => store.banner.testimonials.value
   );
+  const loading: boolean = useSelector(
+    (store: any) => store.banner.testimony.loading
+  );
+  
 
   const [isChange, setIsChange] = useState<boolean>(false);
 
@@ -70,10 +74,10 @@ const CreateTestimony = () => {
                       onClick={() => {
                         form_ref.current?.submitForm();
                       }}
-                      disabled={form_ref.current?.isSubmitting}
+                      disabled={loading}
                     >
                       Agregar
-                      { form_ref.current?.isSubmitting && (
+                      { loading && (
                         <i
                           className="fa fa-spinner fa-spin"
                           style={{ fontSize: 12, marginLeft: 4, color: "#603CE6" }}

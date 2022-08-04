@@ -14,6 +14,8 @@ const CreateIndicator = () => {
   const statistics: IIndicator = useSelector(
     (store: any) => store.banner.statistics.value
   );
+  const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
+
 
   const addIndicator = async (values: IIndicator) => {
     await dispatch(actions.create_statistics(values));
@@ -80,8 +82,15 @@ const CreateIndicator = () => {
           onClick={() => {
             form_ref.current?.submitForm();
           }}
+          disabled={loading}
         >
           Guardar
+          {loading && (
+              <i
+                className="fa fa-spinner fa-spin"
+                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+              />
+            )}
         </button>
       </div>
     </div>
