@@ -20,7 +20,6 @@ const ListEvent = () => {
     const {total}: any = useSelector(
       (store: any) => store.event.list_event.pagination
       );
-console.log(total)
   const dispatch = useDispatch<any>();
   const get_events = async () => {
     await dispatch(actions.get_list_events({}));

@@ -61,9 +61,18 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
               <>
                 <img
                   src={watch}
+                  id='watch-image'
                   className="img-fluid"
+                  onMouseOver={(e)=>{
+                    let element = document.getElementById('Trazado_23');
+                    // e.currentTarget = 'red'
+                    
+                    if(element !== null) {
+                      // element.style.color = 'red !important';
+                    }
+                  }}
                   alt=""
-                  style={{ cursor: "pointer", color: 'red' }}
+                  style={{ cursor: "pointer" }}
                   onClick={async () => {
                     const res = await dispatch(actions.get_image_banner(id));
                     if (res) {

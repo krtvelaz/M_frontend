@@ -1,5 +1,6 @@
 import { Tag } from "antd";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useContext, useRef, useState } from "react";
+import { TemplateContext } from "../components/template/templateContext";
 import { swal_error } from "./swalAlert";
 
 interface InputDocProps {
@@ -19,6 +20,7 @@ const DocumentInput: FC<InputDocProps> = ({
   type_image,
 }) => {
   const fileInputRef = useRef<any>();
+  const context = useContext(TemplateContext);
   const on_change = (value: any) => {
     form.setFieldValue(field.name, value, false);
   };
@@ -43,7 +45,13 @@ const DocumentInput: FC<InputDocProps> = ({
               }}
               onClick={() => {}}
             >
-              {field.value?.name?.length > 24
+              {context.device === "sm"
+                ? field.value?.name?.length > 15
+                  ? `${field.value.name.split(".")[0].substring(0, 11)}.${
+                      field.value.name.split(".")[1]
+                    }`
+                  : field.value?.name
+                : field.value?.name?.length > 24
                 ? `${field.value.name.split(".")[0].substring(0, 20)}.${
                     field.value.name.split(".")[1]
                   }`
@@ -65,7 +73,7 @@ const DocumentInput: FC<InputDocProps> = ({
       </div>
       <div style={{ fontSize: "10px", marginTop: "5px" }}>
         Tipo de archivo:{" "}
-        {file_type === "img" ? type_image || "PNG, JPG." : file_type} Máx:{" "}
+        {file_type === "img" ? type_image || "PNG, JPG." : file_type.toUpperCase()} Máx:{" "}
         {maximum_size}MB.
       </div>
       <input
@@ -109,15 +117,16 @@ DocumentInput.defaultProps = {
   file_type: "pdf",
 };
 
-const validate_file_type = (file: File, type: "pdf" | "img", type_image?: 'PNG' | 'JPG' ) => {
-  const file_type = file.type.split("/").pop()?.toLowerCase();
+const validate_file_type = (
+  file: File,
+  type: "pdf" | "img",
+  type_image?: "PNG" | "JPG"
+) => {
+  const file_type = file?.type?.split("/").pop()?.toLowerCase();
   switch (type) {
     case "pdf":
       return file_type === "pdf";
     case "img": {
-      console.log(type_image?.toLowerCase());
-      console.log(file_type);
-      
       if (type_image) {
         return file_type === type_image.toLowerCase();
       }
