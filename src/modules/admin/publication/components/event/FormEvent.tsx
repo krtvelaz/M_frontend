@@ -136,17 +136,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     id="eve_lugar_evento_id"
                                     name="eve_lugar_evento"
                                     autoComplete="off"
-                                    maxLength={50}
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
+                                    maxLength={100}
                                 />
                                 <ErrorMessage name="eve_lugar_evento" withCount max={50} />
                             </div>

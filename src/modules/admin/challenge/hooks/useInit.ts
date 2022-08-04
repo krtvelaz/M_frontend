@@ -91,13 +91,14 @@ export const useInit = (
         if (!challenge.general_information.key) {
           setIsSubmitting(true);
           const res = await dispatch(actions.create_challenge(values));
+          
           if (res) {
             set_is_saving(false);
             setChallenge((data: any) => ({
               ...data,
               general_information: {
                 ...res.data,
-                ret_perfil: data.ret_perfil,
+                ret_perfil: res.data.ret_perfil.map((doc: any) => doc.id),
                 key: res.key,
               },
             }));

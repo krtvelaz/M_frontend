@@ -1,3 +1,4 @@
+import { Popover } from "antd";
 import { FC } from "react";
 import { trash } from "../../../../../utils/assets/img";
 import { swal_error, Table } from "../../../../../utils/ui";
@@ -24,6 +25,21 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
       title: "Título",
       dataIndex: "tes_titulo",
       align: "left" as "left",
+      render: (value: string) => {
+        return (
+          value &&
+          (value.length > 24 ? (
+            <Popover style={{width: '200px'}} content={value} trigger="click">
+              <span
+                style={{ cursor: "pointer" }}
+                className="popover-span"
+              >{`${value.substring(0, 22)}...`}</span>
+            </Popover>
+          ) : (
+            value
+          ))
+        );
+      },
     },
     {
       title: "Descripción",

@@ -162,7 +162,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               className="btn btn-primary"
               onClick={execute_save}
             >
-              Publicar reto
+              Finalizar reto
             </button>
           )}
         </div>

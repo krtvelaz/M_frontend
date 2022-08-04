@@ -33,8 +33,8 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, ty
     }).nullable(),
   });
 
-  const submit = (values: any, form: any) => {
-    onSubmit(values);
+  const submit = async (values: any, form: any) => {
+    await onSubmit(values);
     form.setSubmitting(false);
     if(type === 'create'){
       form.resetForm();
@@ -79,16 +79,6 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, ty
                   autoComplete="off"
                   maxLength={220}
                   style={{ height: "38px" }}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage
                   name="car_descripcion"
@@ -136,6 +126,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, data_image, ty
                   component={DocumentInput}
                   maximum_size={2}
                   file_type="img"
+                  type_image='JPEG'
                   type="text"
                   id="car_imagen_id"
                   name="car_imagen"

@@ -36,6 +36,10 @@ const FormAddDocument: FC<DocsFormPros> = ({
       id: doc?.id || "",
     },
     ...doc,
+    ...(doc && {
+      ret_tipo_documento: doc?.ret_tipo_documento?.id,
+      ret_perfiles: Number(doc?.ret_perfiles) || "",
+    }),
   };
 
   const schema = Yup.object().shape({
@@ -55,7 +59,6 @@ const FormAddDocument: FC<DocsFormPros> = ({
     actions.resetForm();
   };
 
-  
   return (
     <Formik
       enableReinitialize

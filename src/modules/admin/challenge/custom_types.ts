@@ -37,9 +37,9 @@ export interface IDocuments {
 
 export interface IDocument {
   id?: number;
-  ret_tipo_documento: number;
+  ret_tipo_documento: number | any;
   ret_nombre_documento: string;
-  ret_perfiles: number;
+  ret_perfiles: number | any;
   ret_plantilla?: any;
   ret_ruta_plantilla: string;
   ret_nombre_plantilla: string;

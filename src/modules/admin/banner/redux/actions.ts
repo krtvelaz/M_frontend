@@ -62,12 +62,12 @@ const create_main_banner = (values: IMainBanner) => {
         confirmButtonText: "Aceptar",
       });
       return res.data.body.data;
-    } catch (error) {
+    } catch (error: any) {
       dispatch(banner_fail());
       await swal_error.fire({
         title: "Error en el proceso",
         html:
-          '<div class="mysubtitle">error</div>' +
+        `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
           '<div class="mytext">De click en aceptar para continuar</div>',
         showCancelButton: false,
         confirmButtonText: "Aceptar",
@@ -305,12 +305,12 @@ const create_testimony = (values: ITestimony) => {
         confirmButtonText: "Aceptar",
       });
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       dispatch(testimony_fail());
       await swal_error.fire({
         title: "Error en el proceso",
         html:
-          '<div class="mysubtitle">error</div>' +
+          `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
           '<div class="mytext">De click en aceptar para continuar</div>',
         showCancelButton: false,
         confirmButtonText: "Aceptar",
@@ -438,12 +438,12 @@ const delete_testimonial = (id: number) => {
       });
       // dispatch();
       return res.data;
-    } catch (error) {
+    } catch (error: any) {      
       dispatch(testimony_fail);
       await swal_error.fire({
         title: "Error en el proceso",
         html:
-          '<div class="mysubtitle">error</div>' +
+          `<div class="mysubtitle">error</div>` +
           '<div class="mytext">De click en aceptar para continuar</div>',
         showCancelButton: false,
         confirmButtonText: "Aceptar",
