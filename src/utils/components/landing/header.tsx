@@ -12,8 +12,8 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
         src={logoMedeinn}
         className="logo"
         alt=""
-        width="100%"
-        style={{ marginTop: "16px" }}
+        width="50px"
+        // style={{ marginTop: "16px" }}
       />
       <div className="d-flex justify-content-end">
         {context.device === "lg" ? (
@@ -70,7 +70,7 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
             <img
               src={logoAlcaldiaNegro}
               alt=""
-              width="100"
+              width="80px"
               style={{
                 marginTop: "16px",
                 marginRight: "70px",

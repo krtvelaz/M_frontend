@@ -10,11 +10,11 @@ import { Buffer } from 'buffer/'
 
 interface BannerFormPros {
   data: IMainBanner[];
-  onSubmit: (values: IMainBanner, index: number) => any;
+  onEdit: (values: IMainBanner) => any;
   onDelete: (id: number) => any;
 }
 
-const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
+const ListMainBanner: FC<BannerFormPros> = ({ data, onEdit, onDelete }) => {
   const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
   const dispatch = useDispatch<any>();
@@ -61,9 +61,18 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
               <>
                 <img
                   src={watch}
+                  id='watch-image'
                   className="img-fluid"
+                  onMouseOver={(e)=>{
+                    let element = document.getElementById('Trazado_23');
+                    // e.currentTarget = 'red'
+                    
+                    if(element !== null) {
+                      // element.style.color = 'red !important';
+                    }
+                  }}
                   alt=""
-                  style={{ cursor: "pointer", color: 'red' }}
+                  style={{ cursor: "pointer" }}
                   onClick={async () => {
                     const res = await dispatch(actions.get_image_banner(id));
                     if (res) {
@@ -87,9 +96,10 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onSubmit, onDelete }) => {
         {
           title: <span style={{ fontSize: "9px" }}>Editar</span>,
           fixed: "right",
+          dataIndex: 'id',
           align: "center" as "center",
-          render: (values: IMainBanner, data: any, id: number) => {
-            return <ModalEditMainBanner data_image={values} onSubmit={(value) => onSubmit(value, id)} />;
+          render: ( id: number) => {
+            return <ModalEditMainBanner onSubmit={onEdit} id={id} />;
           },
         },
         {

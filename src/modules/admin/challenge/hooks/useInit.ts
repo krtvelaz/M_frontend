@@ -1,6 +1,6 @@
 import { FormikProps, FormikValues } from "formik";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { swal_error } from "../../../../utils/ui";
 import { swal_success } from "../../../../utils/ui/swalAlert";
@@ -28,6 +28,9 @@ export const useInit = (
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch<any>();
+  const documents: any = useSelector(
+    (store: any) => store.challenge.documents_challenge.value
+  );
   const state = location.state as {
     active_key_docs: Location;
     active_key: Location;
@@ -36,10 +39,7 @@ export const useInit = (
   };
   const active_key: any = state?.active_key || "1";
   const active_key_docs: any = state?.active_key_docs || "docs-1";
-  const ls = state;  
-  
-  
-  
+  const ls = state;
 
   const initial_values: IChallenge = {
     general_information: {
@@ -70,7 +70,6 @@ export const useInit = (
     reports: [],
   };
 
- 
   const [challenge, setChallenge] = useState(
     ls?.challenge ? ls.challenge : initial_values
   );
@@ -87,11 +86,11 @@ export const useInit = (
         set_is_saving(true);
         await ref.current?.submitForm();
       },
-      onSave: async (values: IGeneralInformation) => {        
+      onSave: async (values: IGeneralInformation) => {
         if (!challenge.general_information.key) {
           setIsSubmitting(true);
           const res = await dispatch(actions.create_challenge(values));
-          
+
           if (res) {
             set_is_saving(false);
             setChallenge((data: any) => ({
@@ -117,16 +116,61 @@ export const useInit = (
       },
     },
     {
-      save: async () => {        
-        if (challenge.documents.general.length > 0 && active_key_docs === 'docs-1') {
+      save: async () => {
+        if (documents.length > 0 && active_key_docs === "docs-1") {
+          setChallenge((data: IChallenge) => ({
+            ...data,
+            documents: {
+              ...data.documents,
+              general: documents,
+            },
+          }));
+          await swal_success.fire({
+            title: "Proceso exitoso",
+            html:
+              `<div class="mysubtitle">Se han guardado los documentos generales</div>` +
+              '<div class="mytext">De click en aceptar para continuar</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
           set_is_saving(false);
           return;
         }
-        if (challenge.documents.technical.length > 0 && active_key_docs === 'docs-2') {
+        if (documents.length > 0 && active_key_docs === "docs-2") {
+          setChallenge((data: IChallenge) => ({
+            ...data,
+            documents: {
+              ...data.documents,
+              technical: documents,
+            },
+          }));
+          await swal_success.fire({
+            title: "Proceso exitoso",
+            html:
+              `<div class="mysubtitle">Se han guardado los documentos técnicos</div>` +
+              '<div class="mytext">De click en aceptar para continuar</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
           set_is_saving(false);
           return;
         }
-        if (challenge.documents.administrative.length > 0 && active_key_docs === 'docs-3') {
+        if (documents.length > 0 && active_key_docs === "docs-3") {
+          setChallenge((data: IChallenge) => ({
+            ...data,
+            documents: {
+              ...data.documents,
+              administrative: documents,
+            },
+          }));
+          await swal_success.fire({
+            title: "Proceso exitoso",
+            html:
+              `<div class="mysubtitle">Se han guardado los documentos administrativos</div>` +
+              '<div class="mytext">De click en aceptar para continuar</div>',
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+          });
           set_is_saving(false);
           return;
         }
@@ -156,7 +200,6 @@ export const useInit = (
             confirmButtonText: "Aceptar",
           });
           navigate("../challenge/list", { replace: true });
-
         }
       },
     },
@@ -175,13 +218,13 @@ export const useInit = (
         return;
       }
     }
-    
+
     const next = key + 1;
     if (next <= limit) {
       callback(`${next}`);
     }
   };
-  const prev_tab = () => {    
+  const prev_tab = () => {
     const key = parseInt(active_key);
     const prev = key - 1;
     if (prev > 0) {
@@ -199,24 +242,24 @@ export const useInit = (
           return;
         }
       }
-      callback(`${prev}`, '', true);
+      callback(`${prev}`, "", true);
     }
   };
 
   const callback = (key: string, next_docs = "docs-1", prev = false) => {
     const int_key = parseInt(active_key);
     const save = steps[int_key - 1]?.save;
-    if(prev) {
+    if (prev) {
       set_is_saving(false);
       set_go_next(key);
       set_go_next_doc(next_docs);
       return;
     }
-    save  &&
+    save &&
       save().then(() => {
         set_go_next(key);
         set_go_next_doc(next_docs);
-      })
+      });
   };
 
   const goBack = () => {
@@ -249,7 +292,7 @@ export const useInit = (
           max,
         },
       });
-      
+
       set_go_next("");
       set_go_next_doc("");
       console.groupEnd();

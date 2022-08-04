@@ -2,12 +2,13 @@ import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
 import { pencil } from "../../../../utils/assets/img";
-import { IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IPublicationInfo } from "../custom_types";
+import FormGallery from "./FormGallery";
 import FormPublication from "./FormPublication";
 
 interface ModalEditFormPros {
-  gallery: IPublicationInfo;
-  onSubmit: (values: IPublicationInfo) => any;
+  gallery: IGalleryInfo;
+  onSubmit: (values: IGalleryInfo) => any;
 }
 
 const ModalEditGallery: FC<ModalEditFormPros> = ({
@@ -56,7 +57,7 @@ const ModalEditGallery: FC<ModalEditFormPros> = ({
           </button>,
         ]}
       >
-        <FormPublication publication={gallery} innerRef={form_ref} onSubmit={edit} type="gallery" />
+        <FormGallery gallery={gallery} innerRef={form_ref} onSubmit={edit}  />
       </Modal>
     </>
   );

@@ -6,42 +6,29 @@ import { inputTime } from "../assets/img";
 
 
 interface IProps extends FieldProps {
-    hora?: string;
-    minuto?: string;
-    meridiano_am_pm?: string;
+    
     extra_on_change?: (value: any, prev_value?: any) => void;
 }
-const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, meridiano_am_pm }) => {
+const TimeInput: FC<IProps> = ({ field, form, extra_on_change }) => {
     const [openTimePicker, setOpenTimePicker] = useState(false);
     const [hour, setHour] = useState("");
     const [minute, setMinute] = useState("");
     const [meridian, setMeridian] = useState("");
 
     useEffect(() => {
-        if (hora || hora === "") {
-            setHour(hora);
+        if (field.value) {
+            setHour(moment(field.value, "hh:mm A").format("hh"));
+            setMinute(moment(field.value, "hh:mm A").format("mm"));
+            setMeridian(moment(field.value, "hh:mm A").format("A"));
         }
-    }, [hora]);
-
-    useEffect(() => {
-        if (minuto || minuto === "") {
-            setMinute(minuto);
-        }
-    }, [minuto]);
-
-    useEffect(() => {
-        if (meridiano_am_pm || meridiano_am_pm === "") {
-            setMeridian(meridiano_am_pm);
-        }
-    }, [meridiano_am_pm]);
-
+      }, [field.value]);
     const guardarFecha = (hora: any) => {
         setOpenTimePicker(false);
         setHour(moment(hora).format("hh"));
         setMinute(moment(hora).format("mm"));
         setMeridian(moment(hora).format("A"));
-        form.setFieldValue(field.name, moment(hora).format("HH:mm"), false);
-        extra_on_change && extra_on_change(moment(hora).format("HH:mm"), field.value);
+        form.setFieldValue(field.name, moment(hora, "hh:mm A").format("hh:mm A"), false);
+        extra_on_change && extra_on_change(moment(hora, "hh:mm A").format("hh:mm A"), field.value);
     };
     return (
         <>
@@ -88,6 +75,7 @@ const TimeInput: FC<IProps> = ({ field, form, extra_on_change, hora, minuto, mer
                         bordered={false}
                         open={openTimePicker}
                         onChange={guardarFecha}
+                        format="hh:mm A"
                     />
                 </div>
             </div>

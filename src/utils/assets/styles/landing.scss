@@ -9,18 +9,19 @@ img {
 
 .footer-landing {
   border-top: 1px solid #e8e8e8;
-  position: fixed;
+  // position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   background-color: #e4eff0;
   text-align: center;
   display: flex;
+  padding: 30px;
 }
 
 .landing-header {
-  padding: 0;
-  height: 100px;
+  padding: 0px;
+  height: 70px;
   background: #e4eff0 0 0 no-repeat padding-box;
 }
 
@@ -37,23 +38,22 @@ img {
   }
 }
 
-// estadisticas
+/***** estadisticas *****/
 
 .statistics {
   top: 789px;
   left: 93px;
-  height: 193px;
+  // height: 193px;
   margin: -15px 100px 0 100px;
   // margin-bottom: -60%;
   border-radius: 20px;
   padding: 20px 100px;
-  display: flex;
+  // display: flex;
   justify-content: space-between;
-  background: linear-gradient(to right, #FFFFFF, #00000029);
+  background: linear-gradient(to right, #ffffff, #00000029);
   opacity: 1;
   backdrop-filter: blur(43px);
   -webkit-backdrop-filter: blur(43px);
-
 }
 
 .img-number {
@@ -67,20 +67,18 @@ img {
 
 .img-number p {
   font-family: "Montserrat-Black";
-  font-size: 42px;
+  font-size: 20px;
   margin-bottom: 0px;
 }
 
 .img-number img {
   margin: 0 20px 10px 0;
-  width: 45px;
+  width: 30px;
 }
 
 .item-cifras {
   padding: 0 20px;
 }
-
-
 
 .item-challenge {
   height: 248px;
@@ -89,11 +87,42 @@ img {
   border-radius: 100%;
 }
 
+/****** carrusel *****/
 
-// carrusel
+.container-carrusel {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #e4eff0 40%, transparent 100%) !important;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  z-index: 100;
+}
+
+
+.content-carrousel {
+  padding-left: 50px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.content-carrousel h2 {
+    font-family: 'Montserrat-Black';
+    font-size: 24px;
+}
+
+.content-carrousel p {
+    font-size: 14px;
+}
+
+
+
 
 .sobre-nosotros {
-  background-image: linear-gradient(to right, #E4EFF0 40%, transparent 100%),
+  background-image: linear-gradient(to right, #e4eff0 40%, transparent 100%),
     url(../img/imagen.png);
   background-position: left;
   background-repeat: no-repeat;
@@ -108,7 +137,7 @@ img {
 }
 
 .texto-nosotros h2 {
-  font-family: 'Montserrat-Bold';
+  font-family: "Montserrat-Bold";
   font-size: 38px;
 }
 
@@ -116,37 +145,54 @@ img {
   font-size: 15px;
 }
 
+/***** inclusion participación *****/
 
+.container-stake {
+  margin: 0 0 20px 0;
+}
 
-// landing
+.container-text-stake {
+  margin: 20px 10px 20px 0px;
+}
+
+.img-stake {
+  padding-left: 50px;
+}
+.text-stake {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 22px !important;
+}
+
+.container-stake p {
+  color: #232d50;
+}
+
 .circle-text-wraps {
   position: relative;
-  width: 12rem;
-  height: 12rem;
+  width: 15rem;
+  height: 15rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 20px 60px #00000029;
 }
 
 .circle-text-wraps:hover {
-  border: 1px solid #00FFE0;
+  border: 1px solid #00ffe0;
 }
 
-.circle-text-wraps:hover .circle-number  {
+.circle-text-wraps:hover .circle-number {
   border: 10px solid var(--unnamed-color-00ffe0);
-  color: #00FFE0;
+  color: #00ffe0;
 }
 
-.circle-number-container{
+.circle-number-container {
   position: absolute;
   width: 100%;
   height: 100%;
   margin: 0;
 }
-
-// circulo popover
 
 .circle-number-container span {
   position: absolute;
@@ -163,7 +209,46 @@ img {
 }
 
 .circle-number {
-  color: #FF7415;
-  text-shadow: 0 0 10px #fff;
+  color: #ff7415;
+  // text-shadow: 0 0 10px #fff;
+  text-shadow: 2px 2px #fff, -2px 2px #fff, 2px -2px #fff, -2px -2px #fff,
+    1px 1px 5px #555;
   font-family: "Montserrat-Black";
+}
+
+/******* card retos ***********/
+.container-challenges {
+  background: #ffffff;
+  padding: 50px 100px;
+}
+
+@media (max-width: 768px) {
+  .container-challenges {
+    padding: 20px;
+  }
+}
+
+.card-challenge {
+  border-radius: 40px;
+  // width: 290px
+}
+
+.body-card-challenge h3 {
+  font-family: "Montserrat-SemiBold";
+  font-size: 14px;
+}
+
+.body-card-challenge p {
+  font-size: 13px;
+}
+
+.body-card-challenge button {
+  background-color: #ff7415;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.body-card-challenge div {
+  font-family: "Montserrat-Bold";
+  font-size: 12px;
 }
