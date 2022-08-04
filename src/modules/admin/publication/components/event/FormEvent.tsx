@@ -136,7 +136,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     id="eve_lugar_evento_id"
                                     name="eve_lugar_evento"
                                     autoComplete="off"
-                                    maxLength={100}
+                                    maxLength={50}
                                 />
                                 <ErrorMessage name="eve_lugar_evento" withCount max={50} />
                             </div>

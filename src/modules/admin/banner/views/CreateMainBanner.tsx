@@ -21,8 +21,8 @@ const CreateMainBanner = () => {
     setIsSuccess(true);
   };
 
-  const editImage = async(value: IMainBanner, id: number) => {
-    await dispatch(actions.edit_banner(value, id ));
+  const editBanner = async(values: IMainBanner) => {
+    await dispatch(actions.edit_banner(values ));
     setIsSuccess(true);
   };
 
@@ -88,7 +88,7 @@ const CreateMainBanner = () => {
                   <h4>Elementos agregados</h4>
                   <ListMainBanner
                     data={list_banners}
-                    onSubmit={editImage}
+                    onEdit={editBanner}
                     onDelete={deleteImage}
                   />
                 </Card>

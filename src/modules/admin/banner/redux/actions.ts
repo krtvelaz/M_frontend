@@ -92,7 +92,22 @@ const get_list_banners = () => {
   };
 };
 
-const edit_banner = (values: IMainBanner, id: number) => {
+const get_banner_by_id = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(banner_default());
+    try {
+      const URI = `banner/list/${id}`;
+      const res = await cms_http.get(URI);
+      dispatch(banner_success(res.data.body.data[0]));
+      return res.data.body.data[0];
+    } catch (error) {
+      dispatch(banner_fail());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+const edit_banner = (values: IMainBanner) => {
   return async (dispatch: any) => {
     dispatch(banner_default());
 
@@ -103,8 +118,8 @@ const edit_banner = (values: IMainBanner, id: number) => {
       },
       data: {
         ...values,
-        car_codigo_usuario: "123456",
-        car_nombre_imagen: values.car_imagen?.name || '',
+        // car_codigo_usuario: "123456",
+        car_nombre_imagen: values.car_imagen.name || '',
       },
     };
 
@@ -112,9 +127,9 @@ const edit_banner = (values: IMainBanner, id: number) => {
 
     if(!data.data.car_imagen.id){
       const img = values.car_imagen;
-      form.append("file", img); 
+      form.append("img", img); 
     }else{
-      form.append("file", null)
+      form.append("img", null)
     }
     delete data.data.car_imagen;
     delete data.data.id;
@@ -485,6 +500,7 @@ const get_image_banner = (id: number) => {
 const actions = {
   create_main_banner,
   get_list_banners,
+  get_banner_by_id,
   edit_banner,
   delete_banner,
   create_statistics,

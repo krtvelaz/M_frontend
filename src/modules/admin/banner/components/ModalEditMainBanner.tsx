@@ -1,26 +1,29 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { pencil } from "../../../../utils/assets/img";
 import { IMainBanner } from "../custom_types";
+import { actions } from "../redux";
 import FormMainBanner from "./FormMainBanner";
 
 interface BannerFormPros {
-  data_image?: IMainBanner;
-  onSubmit: (values: IMainBanner) => any;
+  onSubmit: (values: any, form?: any) => any;
+  id: number;
 }
 
-const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
+const ModalEditMainBanner: FC<BannerFormPros> = ({ onSubmit, id }) => {
 
-  const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
-
-  const [is_visible, set_is_visible] = useState<boolean>(false);
   const form_ref = useRef<FormikProps<FormikValues>>();
+  const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
+  const banner: IMainBanner = useSelector((store: any) => store.banner.banner.value);
+
+  const dispatch = useDispatch<any>();
+  const [is_visible, set_is_visible] = useState<boolean>(false);
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
 
-  const editImage = async (value: IMainBanner) => {
+  const editBanner = async (value: IMainBanner) => {
     await onSubmit(value);
     set_is_visible(false);
 
@@ -31,7 +34,10 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
       <img
         src={pencil}
         style={{ cursor: "pointer" }}
-        onClick={() => open()}
+        onClick={() => {
+          dispatch(actions.get_banner_by_id(id));
+          open();
+        }}
         className="img-pencil"
         alt=""
       />
@@ -70,7 +76,11 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ data_image, onSubmit }) => {
           </button>,
         ]}
       >
-        <FormMainBanner innerRef={form_ref} onSubmit={editImage} data_image={data_image} type='edit' />
+        <FormMainBanner
+          innerRef={form_ref}
+          onSubmit={editBanner}
+          banner={banner}
+          type='edit' />
       </Modal>
     </>
   );
