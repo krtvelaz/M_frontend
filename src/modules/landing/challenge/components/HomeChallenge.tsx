@@ -4,6 +4,9 @@ import { lamp } from "../../../../utils/assets/img";
 const HomeChallenge = () => {
   const contenido_postulamos = (
     <div className="row">
+      <div className="col-2">
+        <img src="src/utils/assets/img/postulamos.jpg" alt="imagen postulamos" />
+      </div>
       <div className="col container-text-stake">
         {" "}
         <div className="text-stake my-3">Postulamos</div>
@@ -89,6 +92,8 @@ const HomeChallenge = () => {
           content={contenido_postulamos}
           placement="bottom"
           trigger="click"
+          style={{width: 700}}
+          className="popover-postulamos"
         >
           <div className="circle-text-wraps mx-auto">
             <div className="circle-number-container">

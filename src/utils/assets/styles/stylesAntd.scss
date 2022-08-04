@@ -193,8 +193,13 @@ textarea.form-control {
 // popover
 .ant-popover-inner {
   border-radius: 40px;
-  // width: 800px;
+  width: 800px;
+  margin-top: 0 auto;
 }
+
+
+
+
 
 .ant-drawer-header-title {
   justify-content: end;
