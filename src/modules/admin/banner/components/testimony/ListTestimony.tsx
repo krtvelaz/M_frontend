@@ -1,5 +1,6 @@
 import { Popover } from "antd";
 import { FC } from "react";
+import { useSelector } from "react-redux";
 import { trash } from "../../../../../utils/assets/img";
 import { swal_error, Table } from "../../../../../utils/ui";
 import { ITestimony } from "../../custom_types";
@@ -12,7 +13,10 @@ interface IListTestimony {
   onDelete: (index: number) => void;
 }
 
-const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {  
+const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
+  const loading: boolean = useSelector(
+    (store: any) => store.banner.testimonials.loading
+  );
   const table_columns = [
     {
       title: "No.",
@@ -29,7 +33,7 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
         return (
           value &&
           (value.length > 24 ? (
-            <Popover style={{width: '200px'}} content={value} trigger="click">
+            <Popover style={{ width: "200px" }} content={value} trigger="click">
               <span
                 style={{ cursor: "pointer" }}
                 className="popover-span"
@@ -57,11 +61,21 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
       align: "left" as "left",
     },
     {
-      title: 'Acciones',
+      title: "Acciones",
       fixed: "right",
       children: [
         {
-          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px', paddingBottom: '0px'}}>ver</span>,
+          title: (
+            <span
+              style={{
+                fontFamily: "Montserrat-Regular",
+                fontSize: "9px",
+                paddingBottom: "0px",
+              }}
+            >
+              ver
+            </span>
+          ),
           fixed: "right",
           dataIndex: "id",
           align: "center" as "center",
@@ -70,16 +84,24 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
           },
         },
         {
-          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px'}}>Editar</span>,
+          title: (
+            <span style={{ fontFamily: "Montserrat-Regular", fontSize: "9px" }}>
+              Editar
+            </span>
+          ),
           fixed: "right",
-          dataIndex: 'id',
+          dataIndex: "id",
           align: "center" as "center",
           render: (id: number) => {
             return <ModalEditTestimony onSubmit={onEdit} id={id} />;
           },
         },
         {
-          title: <span style={{fontFamily: 'Montserrat-Regular', fontSize: '9px'}}>Eliminar</span>,
+          title: (
+            <span style={{ fontFamily: "Montserrat-Regular", fontSize: "9px" }}>
+              Eliminar
+            </span>
+          ),
           fixed: "right",
           dataIndex: "id",
           align: "center" as "center",
@@ -112,7 +134,14 @@ const ListTestimony: FC<IListTestimony> = ({ data, onEdit, onDelete }) => {
       ],
     },
   ];
-  return <Table columns={table_columns} items={data} with_pagination={false} />;
+  return (
+    <Table
+      loading={loading}
+      columns={table_columns}
+      items={data}
+      with_pagination={false}
+    />
+  );
 };
 
 export default ListTestimony;

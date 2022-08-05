@@ -310,7 +310,7 @@ const create_testimony = (values: ITestimony) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      // dispatch();
+      dispatch(testimony_success(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -408,8 +408,8 @@ const edit_testimonial = (values: ITestimony) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      });
-      // dispatch();
+      });      
+      dispatch(testimony_success(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -438,7 +438,7 @@ const edit_testimonial = (values: ITestimony) => {
 
 const delete_testimonial = (id: number) => {
   return async (dispatch: any) => {
-    dispatch(testimony_default());
+    // dispatch(testimony_default());
 
     try {
       const URI = `/testimony/delete/${id}`;

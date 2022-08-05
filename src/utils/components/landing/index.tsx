@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Divider, Layout, Menu } from "antd";
 import { FC, useContext } from "react";
 import AppHeader from "./header";
 import Drawer from "antd/lib/drawer";
@@ -15,21 +15,28 @@ const LandingPage: FC<ILanding> = ({ children }) => {
   return (
     <>
       <Layout className="w-100 h-100">
-        <Header className="landing-header p-0">
+        <Layout className="site-layout">
+          <Header className="landing-header">
           <AppHeader collapsible={false} />
-        </Header>
-        <Content>
-          <div className="d-flex flex-column w-100">
-            <div className="content overflow-auto">{children}</div>
-          </div>
-          
-        </Content>
-        <Footer className="footer-landing">
-          <div className="footer-logo" >
-          <img src={logoAlcaldiaNegro} style={{margin: '0 auto'}}/>
-          </div>
-          
-        </Footer>
+          </Header>
+          <Content>
+            <div
+              className={`deck ${
+                context.drawer_menu_collapsed ? "active" : ""
+              }`}
+            />
+            <div className="d-flex flex-column w-100">
+              <div className="content medeinn-main-content overflow-auto">
+                {children}
+                <div className="footer-landing" >
+                  <div className="">
+                    <img src={logoAlcaldiaNegro} style={{ margin: "0 auto" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Content>
+        </Layout>
       </Layout>
       <Drawer
         maskStyle={{

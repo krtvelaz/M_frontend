@@ -17,6 +17,9 @@ const ModalEditTestimony: FC<ModalFormPros> = ({ onSubmit, id }) => {
   const testimony: ITestimony = useSelector(
     (store: any) => store.banner.testimony.value
   );
+  const loading: boolean = useSelector(
+    (store: any) => store.banner.testimony.loading
+  );
 
   const dispatch = useDispatch<any>();
   const [is_visible, set_is_visible] = useState<boolean>(false);
@@ -65,10 +68,10 @@ const ModalEditTestimony: FC<ModalFormPros> = ({ onSubmit, id }) => {
               form_ref.current?.submitForm();
               
             }}
-            disabled={form_ref.current?.isSubmitting}
+            disabled={loading}
           >
             Guardar Cambios
-            {form_ref.current?.isSubmitting && (
+            {loading && (
               <i
                 className="fa fa-spinner fa-spin"
                 style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}

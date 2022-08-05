@@ -82,7 +82,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-          <h4 className="text-center mb-3" style={{fontFamily: 'Work-Sans-SemiBold'}}>Este formulario es opcional, si no hay información para asociar puede finalizar la creación del reto haciendo clic en el botón publicar.</h4>
+          <h4 className="text-center mb-3" style={{fontFamily: 'Work-Sans-SemiBold'}}>Este formulario es opcional, si no hay información para asociar puede finalizar la creación del reto haciendo clic en el botón finalizar reto.</h4>
           <Card
             title={
               <>

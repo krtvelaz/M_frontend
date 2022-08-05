@@ -1,87 +1,183 @@
-import { Card, Popover, Tooltip } from "antd";
+import { Popover } from "antd";
 import { lamp } from "../../../../utils/assets/img";
 
 const HomeChallenge = () => {
-  const contenido = (
-    <div>
-      <div className="row">
-        <div className="col-4">
-            <img  src="" alt='imagen'/>
-        </div>
-        <div className="col">
-          {" "}
-          <span>Explicación breve</span>
-          <p>
-            Contenido descriptivo. Para esta sección es importante resumir el
-            contenido o dar la idea principal sobre lo que se encontrará al dar
-            clic. Esto permitirá entender por parte del usuario si el contenido
-            es de su interés.
-          </p>
-          <p>
-            Contenido descriptivo. Para esta sección es importante resumir el
-            contenido o dar la idea principal sobre lo que se encontrará al dar
-            clic. Esto permitirá entender por parte del usuario si el contenido
-            es de su interés. Contenido descriptivo. Para esta sección es
-            importante resumir el contenido o dar la idea principal sobre lo que
-            se encontrará al dar clic. Esto permitirá entender por parte del
-            usuario si el contenido es de su interés.
-          </p>
-          <div className="bg-white d-flex flex-row justify-content-start">
-            <button
-              type="button"
-              className="btn btn-outline-primary"
-              onClick={() => {}}
-            >
-              Conoce más
-            </button>
-            <button
-              type="button"
-              className="ms-3 btn btn-primary"
-              onClick={() => {}}
-            >
-              Entiendo
-            </button>
-          </div>
-        </div>
+  const contenido_postulamos = (
+    <div className="row">
+      <div className="col-2">
+        <img src="src/utils/assets/img/postulamos.jpg" alt="imagen postulamos" />
+      </div>
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake my-3">Postulamos</div>
+        <p>
+          En este momento, podrás revisar toda la información respecto al reto
+          de tu interés, conocer los datos de la problemática, el impacto
+          esperado de la solución; y, muy importante, revisar de forma detallada
+          los términos de referencia para determinar si podrás aplicar a la
+          convocatoria. Una vez hayas revisado cada uno de los pasos asociados
+          al reto y a los requisitos para la postulación, podrás recolectar la
+          información necesaria para la postulación de la solución y cargarla en
+          la plataforma, dentro de los plazos definidos
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_selecionamos = (
+    <div className="row">
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake">Seleccionamos</div>
+        <p>
+          A partir de los criterios de selección expuestos en los términos de
+          referencia serán elegidos los participantes que harán parte de la fase
+          de acompañamiento. Esta fase no garantiza acceder a premiación alguna.
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_acompañamos = (
+    <div className="row">
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake my-3">Acompañamos</div>
+        <p>
+          En esta etapa se lleva a cabo el dialogo técnico para la adaptación e
+          innovación en la solución presentada. Lo anterior, permite documentar
+          la novedad o mejora en las propuestas seleccionadas, posterior a las
+          jornadas de trabajo con las partes interesadas. El resultado de esta
+          fase será el que se evalúe para determinar quiénes acceden a la
+          premiación o implementación de la solución.
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_premiamos = (
+    <div className="row">
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake">Premiamos</div>
+        <p>
+          Las propuestas seleccionadas, como resultado de la fase de
+          acompañamiento, tendrán la oportunidad de implementar su solución en
+          la ciudad y así generar mayor calidad de vida a los ciudadanos.
+        </p>
       </div>
     </div>
   );
 
   return (
-    <>
-      algo aqui
-      <div className="row">
-        <div className="col">
-          <h2>
-            Nuestro proceso de innovación abierta Participación por un
-            Territorio Inteligente.
-          </h2>
-          <p>
-            Metodología basada en compras públicas para la Innovación que,
-            conectando soluciones con retos del territorio, busca fortalecer el
-            ecosistema GovTech y generar valor público para Medellín.
-          </p>
-        </div>
-        <div className="col">
-          <Popover content={contenido} placement="bottom" trigger="click">
-            <div className="circle-text-wraps">
-              <div className="circle-number-container">
-                <span
-                  className="circle-number"
-                  style={{ font: "normal normal 900 40px/20px Montserrat" }}
-                >
-                  1
-                </span>
-              </div>
-              <div className="circle-children">
-                <img src={lamp} width="30%" alt="foto" />
-                <span className="my-3">Postúlate a los retos</span>
-              </div>
-            </div>
-          </Popover>
-        </div>
+    <div className="row container-stake">
+      <div className="col-12 col-md-12 col-lg-4 ">
+        <h2 className="text-stake">
+          Nuestro proceso de innovación abierta Participación por un Territorio
+          Inteligente.
+        </h2>
+        <br />
+        <p>
+          Metodología basada en compras públicas para la Innovación que,
+          conectando soluciones con retos del territorio, busca fortalecer el
+          ecosistema GovTech y generar valor público para Medellín.
+        </p>
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={() => {}}
+        >
+          Conoce más
+        </button>
       </div>
-    </>
+      <div className="col-12 my-3 col-md-3 col-lg p-0">
+        <Popover
+          content={contenido_postulamos}
+          placement="bottom"
+          trigger="click"
+          style={{width: 700}}
+          className="popover-postulamos"
+        >
+          <div className="circle-text-wraps mx-auto">
+            <div className="circle-number-container">
+              <span
+                className="circle-number"
+                style={{ font: "normal normal 900 40px/20px Montserrat" }}
+              >
+                1
+              </span>
+            </div>
+            <div className="circle-children">
+              <img src={lamp} width="30%" alt="foto" />
+              <span className="my-3">Postulamos</span>
+            </div>
+          </div>
+        </Popover>
+      </div>
+      <div className="col-12 my-3 col-md-3 col-lg p-0">
+        <Popover
+          content={contenido_selecionamos}
+          placement="bottom"
+          trigger="click"
+        >
+          <div className="circle-text-wraps  mx-auto">
+            <div className="circle-number-container">
+              <span
+                className="circle-number"
+                style={{ font: "normal normal 900 40px/20px Montserrat" }}
+              >
+                2
+              </span>
+            </div>
+            <div className="circle-children">
+              <img src={lamp} width="30%" alt="foto" />
+              <span className="my-3">Seleccionamos</span>
+            </div>
+          </div>
+        </Popover>
+      </div>
+      <div className="col-12 my-3 col-md-3 col-lg p-0">
+        <Popover
+          content={contenido_acompañamos}
+          placement="bottom"
+          trigger="click"
+        >
+          <div className="circle-text-wraps  mx-auto">
+            <div className="circle-number-container">
+              <span
+                className="circle-number"
+                style={{ font: "normal normal 900 40px/20px Montserrat" }}
+              >
+                3
+              </span>
+            </div>
+            <div className="circle-children">
+              <img src={lamp} width="30%" alt="foto" />
+              <span className="my-3">Acompañamos</span>
+            </div>
+          </div>
+        </Popover>
+      </div>
+      <div className="col-12 my-3 col-md-3 col-lg p-0">
+        <Popover
+          content={contenido_premiamos}
+          placement="bottom"
+          trigger="click"
+        >
+          <div className="circle-text-wraps  mx-auto">
+            <div className="circle-number-container">
+              <span
+                className="circle-number"
+                style={{ font: "normal normal 900 40px/20px Montserrat" }}
+              >
+                4
+              </span>
+            </div>
+            <div className="circle-children">
+              <img src={lamp} width="30%" alt="foto" />
+              <span className="my-3">Premiamos</span>
+            </div>
+          </div>
+        </Popover>
+      </div>
+    </div>
   );
 };
 
