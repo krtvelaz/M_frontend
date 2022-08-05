@@ -1,18 +1,47 @@
 import { Popover, Radio } from "antd";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { pencil, trash } from "../../../../utils/assets/img";
 import { Card, Link, swal_error, Table } from "../../../../utils/ui";
+import { IGeneralInfo } from "../custom_types";
+import { actions } from "../redux";
 
 const ListPublication = () => {
+  const list_publication: IGeneralInfo[] = useSelector(
+    (store: any) => store.event.list_publication.value
+  );
+  const [isChange, setIsChange] = useState<boolean>(false);
+
+  const dispatch = useDispatch<any>();
+  const onDelete = async (id: number) => {
+    await dispatch(actions.delete_publication(id));
+    setIsChange(true);
+  };
+  const get_publications = async () => {
+    await dispatch(actions.get_list_publications({}));
+  };
+  useEffect(() => {
+    get_publications();
+  }, []);
+
+  useEffect(() => {
+    if (isChange) {
+      get_publications();
+      setIsChange(false);
+    }
+  }, [isChange]);
   const table_columns: any = [
     {
       title: "No.",
       fixed: "left",
-      dataIndex: "id",
       align: "center" as "center",
+      render: (data: IGeneralInfo, values: any, i: number) => {
+        return i + 1;
+      },
     },
     {
       title: "Nombre",
-      dataIndex: "challenge_name",
+      dataIndex: "hec_titulo",
       align: "left" as "left",
       render: (value: string) => {
         return (
@@ -32,21 +61,23 @@ const ListPublication = () => {
     },
     {
       title: "Tipo",
-      dataIndex: "audit_trail",
+      dataIndex: "hec_id_tipo_publicacion",
       align: "left" as "left",
     },
     {
       title: "Publicada",
-      dataIndex: "is_published",
+      // dataIndex: "hec_publicada",
       align: "left" as "left",
-      render: (value: string) => {
-        const onChange = (e: any) => {
-          // llamar editar publicacion
-        };
+      render: (data: IGeneralInfo) => {
+        const onChange = async (e: any) => {
+           await dispatch(actions.edit_published_publication(data, e?.target?.value));
+          // console.log(data, e?.target?.value)
+          
+          };
         return (
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value="Si">Si</Radio>
-            <Radio value="No">No</Radio>
+          <Radio.Group onChange={onChange} value={data.hec_publicada}>
+            <Radio value={true}>Si</Radio>
+            <Radio value={false}>No</Radio>
           </Radio.Group>
         );
       },
@@ -86,8 +117,9 @@ const ListPublication = () => {
         {
           title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
           fixed: "right",
+          dataIndex: "id",
           align: "center" as "center",
-          render: (data: any, values: any, index: number) => {
+          render: (id: number) => {
             return (
               <img
                 src={trash}
@@ -95,7 +127,7 @@ const ListPublication = () => {
                 alt=""
                 style={{ cursor: "pointer" }}
                 onClick={async () => {
-                const result =  await swal_error.fire({
+                  const result = await swal_error.fire({
                     title: "Eliminar elemento",
                     html:
                       '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
@@ -105,7 +137,8 @@ const ListPublication = () => {
                     confirmButtonText: "Aceptar",
                     denyButtonText: `Cancelar`,
                   });
-                  if(result.isConfirmed){
+                  if (result.isConfirmed) {
+                    onDelete(id);
                   }
                 }}
               />
@@ -137,18 +170,19 @@ const ListPublication = () => {
             <h4>Lista de publicaciones</h4>
             <Table
               columns={table_columns}
-              // title="Lista de retos"
-              items={[
-                {
-                  id: 1,
-                  challenge_name:
-                    "¿Cómo mejorar la conectividad en los corregimientos de Medellín? WorkSans 12px _ Regular Título o contenido Título o contenido, xxxxxxxxx. Título o contenido Título o contenido, xxxxxxxxx. Título o texto 12 contenido Título o contenido, xx xxxx xx x. Título o contenido Título o ccc c contenido, xxxxxxxxx.",
-                  audit_trail: "karen Nova",
-                  is_published: "Si",
-                  start_date: "07 / 07 / 2022",
-                  closing_date: "08 / 07 / 2022",
-                },
-              ]}
+              items={list_publication}
+            // title="Lista de retos"
+            // items={[
+            //   {
+            //     id: 1,
+            //     challenge_name:
+            //       "¿Cómo mejorar la conectividad en los corregimientos de Medellín? WorkSans 12px _ Regular Título o contenido Título o contenido, xxxxxxxxx. Título o contenido Título o contenido, xxxxxxxxx. Título o texto 12 contenido Título o contenido, xx xxxx xx x. Título o contenido Título o ccc c contenido, xxxxxxxxx.",
+            //     audit_trail: "karen Nova",
+            //     is_published: "Si",
+            //     start_date: "07 / 07 / 2022",
+            //     closing_date: "08 / 07 / 2022",
+            //   },
+            // ]}
             />
           </Card>
         </div>

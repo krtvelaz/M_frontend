@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
 import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
 import FormGallery from "./FormGallery";
@@ -9,6 +10,7 @@ interface IGalleryProps {
   onSubmit: (values: any) => void;
   images: IGalleryInfo[];
   setImages: any;
+  gal_id_hechos_noticias: IPublication;
 }
 
 const AddGallery: FC<IGalleryProps> = ({
@@ -16,7 +18,11 @@ const AddGallery: FC<IGalleryProps> = ({
   innerRef,
   images,
   setImages,
+  gal_id_hechos_noticias,
 }) => {
+  // const publications: IGeneralInfo[] = useSelector(
+  //   (store: any) => store.event.publication.value
+  // );
   const editImage = (values: IGalleryInfo, index: number) => {
     setImages((data: IPublication) => {
       data.gallery[index] = values;
@@ -60,6 +66,7 @@ const AddGallery: FC<IGalleryProps> = ({
              <FormGallery
             innerRef={innerRef}
             onSubmit={onSubmit}
+            gal_id_hechos_noticias={gal_id_hechos_noticias}
             // publication={publication.general_information}
             />
            
