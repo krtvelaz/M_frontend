@@ -110,6 +110,8 @@ const get_banner_by_id = (id: number) => {
 const edit_banner = (values: IMainBanner) => {
   return async (dispatch: any) => {
     dispatch(banner_default());
+    console.log(values);
+    
 
     const data = {
       action: "update",

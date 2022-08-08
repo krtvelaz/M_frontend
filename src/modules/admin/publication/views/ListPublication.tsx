@@ -134,7 +134,7 @@ const ListPublication = () => {
                       '<div class="mytext">¿Está seguro que desea eliminarlo?</div>',
                     showCancelButton: false,
                     showDenyButton: true,
-                    confirmButtonText: "Aceptar",
+                    confirmButtonText: "Sí, eliminar",
                     denyButtonText: `Cancelar`,
                   });
                   if (result.isConfirmed) {

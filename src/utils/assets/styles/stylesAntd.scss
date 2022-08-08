@@ -84,11 +84,14 @@
   color: #4b4b4b;
 }
 
-.ant-table-thead > tr > th,
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
   padding: 11px 5px 11px 15px;
+}
+
+.ant-table-thead > tr > th {
+  padding: 10px 5px 0px 15px !important;
 }
 
 .ant-table-wrapper {
@@ -309,6 +312,13 @@ textarea.form-control {
 .ant-tabs > .ant-tabs-nav .ant-tabs-nav-more {
   background: #ffffff;
 }
+
+
+.ant-table-thead {
+  vertical-align: text-top;
+}
+
+
 
 
 

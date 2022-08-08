@@ -39,15 +39,36 @@
   border: 1px solid #FF9300 !important;
 }
 
+
+
+.swal2-styled:hover {
+  background: none !important;
+}
+
+.btn-success-primary {
+  background-color: #603ce6 !important;
+  border: 1px solid#603CE6 !important;
+
+  &:hover {
+    background-color: #00ffe0 !important;
+    border: 1px solid #00ffe0 !important;
+  }
+
+}
+
+
 .btn-cancel-primary {
   background-color: #fff !important;
   color: #505050 !important;
+  font-family: 'Montserrat-Medium';
+
   &:hover {
-    background-color: red !important;
-    border: 1px solid #fff !important;
+    background-color: #fff !important;
+    border: none !important;
     color: #00ffe0 !important;
   }
 }
+
 
 
 
