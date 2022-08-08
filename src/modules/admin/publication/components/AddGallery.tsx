@@ -10,7 +10,7 @@ interface IGalleryProps {
   onSubmit: (values: any) => void;
   images: IGalleryInfo[];
   setImages: any;
-  gal_id_hechos_noticias: IPublication;
+  publications: IPublication;
 }
 
 const AddGallery: FC<IGalleryProps> = ({
@@ -18,7 +18,7 @@ const AddGallery: FC<IGalleryProps> = ({
   innerRef,
   images,
   setImages,
-  gal_id_hechos_noticias,
+  publications,
 }) => {
   // const publications: IGeneralInfo[] = useSelector(
   //   (store: any) => store.event.publication.value
@@ -66,7 +66,7 @@ const AddGallery: FC<IGalleryProps> = ({
              <FormGallery
             innerRef={innerRef}
             onSubmit={onSubmit}
-            gal_id_hechos_noticias={gal_id_hechos_noticias}
+            publications={publications}
             // publication={publication.general_information}
             />
            
