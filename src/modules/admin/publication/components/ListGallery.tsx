@@ -38,9 +38,6 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
       dataIndex: 'gal_nombre_imagen',
       responsive: ['md'],
       align: 'left' as 'left',
-      render: (value: File) => {
-        return value.name;
-      },
   },
   {
       title: "Acciones",

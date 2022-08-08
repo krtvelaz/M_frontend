@@ -1,81 +1,85 @@
 import { Carousel } from "antd";
+import "bootstrap";
 
 const CarouselMedeinn = () => {
   const contentStyle: React.CSSProperties = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
+    height: "200px",
   };
   const onChange = (currentSlide: number) => {
     console.log(currentSlide);
   };
+
   return (
     <>
       <div
-        id="carouselExampleControlsNoTouching"
+        id="carouselExampleIndicators"
         className="carousel slide"
-        data-bs-touch="false"
-        data-bs-interval="false"
+        data-bs-ride="carousel"
       >
-        <div className="carousel-inner">
+        <div className="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            className="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+        </div>
+        <div className="carousel-inner" style={{height: '200px'}}>
           <div className="carousel-item active">
-            <div>
-              <div className="container-carrusel">
-                <div className="content-carrousel">
-                  <h2>Ideas y soluciones para una sociedad en evolución</h2>
-                  <p>
-                    Contenido descriptivo. Para esta sección es importante
-                    resumir el contenido o dar la idea principal sobre lo que se
-                    encontrará al dar clic. Esto permitirá entender por parte
-                    del usuario si el contenido es de su interés.
-                  </p>
-                </div>
+            <div className="container-carrusel">
+              <div className="content-carrousel">
+                <h2>Ideas y soluciones para una sociedad en evolución</h2>
+                <p>
+                  Contenido descriptivo. Para esta sección es importante resumir
+                  el contenido o dar la idea principal sobre lo que se
+                  encontrará al dar clic. Esto permitirá entender por parte del
+                  usuario si el contenido es de su interés.
+                </p>
               </div>
-              <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
+            </div>
+            <div className="row">
+              <div className="col-12 col-md-3"></div>
+              <div className="col-12 col-md-9">
+                <img
+                  src="src/utils/assets/img/imagen.png"
+                  className="d-block w-100"
+                  alt="..."
+                />
+              </div>
             </div>
           </div>
           <div className="carousel-item">
-          <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
-          </div>
-          <div className="carousel-item">
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
+            <div className="container-carrusel">
+              <div className="content-carrousel">
+                <h2>Ideas y soluciones para una sociedad en evolución</h2>
+                <p>
+                  Contenido descriptivo. Para esta sección es importante resumir
+                  el contenido o dar la idea principal sobre lo que se
+                  encontrará al dar clic. Esto permitirá entender por parte del
+                  usuario si el contenido es de su interés.
+                </p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 col-md-3"></div>
+              <div className="col-12 col-md-9">
+                <img
+                  src="src/utils/assets/img/imagen 52.png"
+                  className="d-block w-100"
+                  alt="..."
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
       </div>
     </>
   );

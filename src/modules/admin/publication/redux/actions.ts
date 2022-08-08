@@ -455,7 +455,7 @@ const edit_published_publication = (_values: IGeneralInfo, is_public?: any) => {
   };
 };
 
-const create_gallery = (values: IGalleryInfo) => { //
+const create_gallery = (id_publication: number, values: IGalleryInfo) => { //
   return async (dispatch: any) => {
     dispatch(default_gallery());
     const img = values.gal_nombre_imagen;
@@ -467,6 +467,7 @@ const create_gallery = (values: IGalleryInfo) => { //
       },
       data: {
         ...values,
+        gal_id_hechos_noticias: id_publication,
         gal_nombre_imagen: values.gal_nombre_imagen?.name || "",
         gal_nombre_codificado_imagen: "",
         gal_ruta_imagen: "",
@@ -527,13 +528,13 @@ const get_list_gallery = (key: number) => {
     dispatch(default_list_gallery());
    
     try {
-      const URI = "news/galery/list";
+      const URI = "news/gallery/list";
       const res = await cms_http.post(URI, {
         key
         
-      });
-      dispatch(success_list_gallery(res.data.body.data));
-      return res.data.body.data;
+      });      
+      dispatch(success_list_gallery(res.data.body));
+      return res.data.body;
     } catch (error) {
       dispatch(fail_list_gallery());
       return Promise.reject("Error");

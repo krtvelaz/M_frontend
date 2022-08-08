@@ -25,9 +25,9 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* <div className="col-auto ">
+      <div className="container-statistics">
         <StatisticsLanding />
-      </div> */}
+      </div>
     
       <section className="container-challenges">
         <HomeChallenge />
@@ -56,9 +56,7 @@ const Homepage = () => {
           </div>
           <div className="col-12 col-md-12 col-lg-7">
             <div className="row">
-              <div
-                className="col-12 col-md-6"
-                style={{ marginTop: "100px", marginBottom: "20px" }}
+              <div className="col-12 col-md-6" id='card-challenge-one'
               >
                 <Card
                   hoverable
@@ -140,7 +138,7 @@ const Homepage = () => {
                   </div>
                 </Card>
               </div>
-              <div className="col-12 col-md-6" style={{ marginTop: "-100px" }}>
+              <div className="col-12 col-md-6" id='card-challenge-four'>
                 <Card
                   hoverable
                   className="card-challenge"

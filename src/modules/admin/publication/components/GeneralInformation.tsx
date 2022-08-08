@@ -29,14 +29,8 @@ const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, 
             <FormGeneral
             innerRef={innerRef}
             onSubmit={onSubmit}
-            // publication={publication.general_information}
+            publication={publication.general_information}
             />
-           {/* <FormPublication
-              type="general"
-              innerRef={innerRef}
-              onSubmit={onSubmit}
-              publication={publication.general_information}
-            /> */}
           </Card>
         </div>
       </div>

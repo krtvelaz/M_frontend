@@ -25,15 +25,19 @@ const AddGallery: FC<IGalleryProps> = ({
 
   const dispatch = useDispatch<any>();
 
+  useEffect(() => {
+    get_list_gallery();
+  }, []);
+
   const list_gallery: IGalleryInfo[] = useSelector(
     (store: any) => store.event.list_gallery.value
   );
-  const get_gallery = async () => {
-    await dispatch(actions.get_list_gallery(Number(publication?.general_information?.id) || -1));
+  
+
+  const get_list_gallery = async () => {
+    await dispatch(actions.get_list_gallery(publication?.general_information?.id || -1));
   };
-  useEffect(() => {
-    get_gallery();
-  }, []);
+  
   const editImage = (values: IGalleryInfo, index: number) => {
     setImages((data: IPublication) => {
       data.gallery[index] = values;
@@ -42,6 +46,7 @@ const AddGallery: FC<IGalleryProps> = ({
       };
     });
   };
+  
   const deleteImage = (index: number) => {
     const newImages = images.filter((img, i) => i !== index);
     setImages((data: IPublication) => {
@@ -51,6 +56,7 @@ const AddGallery: FC<IGalleryProps> = ({
       };
     });
   };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -77,16 +83,14 @@ const AddGallery: FC<IGalleryProps> = ({
              <FormGallery
             innerRef={innerRef}
             onSubmit={onSubmit}
-            publications={publication}
-            // publication={publication.general_information}
             />
            
           </Card>
-          {images.length > 0 && (
+          {list_gallery.length > 0 && (
             <Card>
               <h4>Elementos agregados</h4>
               <ListGallery
-                images={images}
+                images={list_gallery}
                 onEdit={editImage}
                 onDelete={deleteImage}
               />

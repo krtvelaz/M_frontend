@@ -8,7 +8,7 @@ import {
 const StatisticsLanding = () => {
   return (
     <section className="row statistics">
-    <div className="col">
+    <div className="col-6 col-md-3">
       <div className="img-number">
         <img src={trazado} alt="imagen" />
         <p className="">800</p>
@@ -16,7 +16,7 @@ const StatisticsLanding = () => {
       <p>Data o cifra a destacar desde la estadísticas</p>
     </div>
 
-    <div className="col">
+    <div className="col-6 col-md-3">
       <div className="img-number">
         <img src={bus} alt="imagen" />
         <p className="">500</p>
@@ -24,7 +24,7 @@ const StatisticsLanding = () => {
       <p>Data o cifra a destacar desde la estadísticas</p>
     </div>
 
-    <div className="col">
+    <div className="col-6 col-md-3">
       <div className="img-number">
         <img src={family} alt="imagen" />
         <p className="">300</p>
@@ -32,7 +32,7 @@ const StatisticsLanding = () => {
       <p>Data o cifra a destacar desde la estadísticas</p>
     </div>
 
-    <div className="col">
+    <div className="col-6 col-md-3">
       <div className="img-number">
         <img src={car} alt="imagen" />
         <p className="">200</p>
