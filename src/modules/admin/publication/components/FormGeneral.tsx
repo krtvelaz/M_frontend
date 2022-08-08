@@ -17,14 +17,17 @@ const FormGeneral: FC<PublicationPros> = ({ innerRef, onSubmit, publication }) =
         hec_titulo: "",
         hec_autor:"",
         hec_descripcion: "",
-        img: "",
+        hec_nombre_imagen_principal: {
+            name: publication?.hec_nombre_imagen_principal || "",
+            id: publication?.id,
+          },
         ...publication,
     };
     const schema = Yup.object().shape({
         hec_id_tipo_publicacion: Yup.string().required("Campo Obligatorio"),
         hec_titulo: Yup.string().required("Campo obligatorio"),
         hec_autor: Yup.string().required("Campo obligatorio"),
-        img: Yup.string().required("Campo obligatorio"),
+        hec_nombre_imagen_principal: Yup.string().required("Campo obligatorio"),
         hec_descripcion: Yup.string().required("Campo obligatorio"),
 
     });
@@ -58,12 +61,12 @@ const FormGeneral: FC<PublicationPros> = ({ innerRef, onSubmit, publication }) =
                                     options={[
                                         {
                                             name: "Noticia",
-                                            id: "Noticia",
+                                            id: "1",
                                         },
-                                        { name: "Evento", id: "Evento" },
+                                        { name: "Evento", id: "2" },
                                         {
                                             name: "Resultado",
-                                            id: "Resultado",
+                                            id: "3",
                                         },
                                     ]}
                                     placeholder="Seleccionar…"
@@ -116,7 +119,7 @@ const FormGeneral: FC<PublicationPros> = ({ innerRef, onSubmit, publication }) =
                                 <ErrorMessage name="hec_autor" withCount max={100} />
                             </div>
                         <div className="col-12 col-md-6 col-lg-6">
-                            <label htmlFor="img_id" className="form-label">
+                            <label htmlFor="hec_nombre_imagen_principal_id" className="form-label">
                                 Imagen
                             </label>
                             <Field
@@ -124,12 +127,12 @@ const FormGeneral: FC<PublicationPros> = ({ innerRef, onSubmit, publication }) =
                                 maximum_size={2}
                                 file_type="img"
                                 type="text"
-                                id="img_id"
-                                name="img"
+                                id="hec_nombre_imagen_principal_id"
+                                name="hec_nombre_imagen_principal"
                                 className="form-control"
                                 placeholder="Seleccionar…"
                             />
-                            <ErrorMessage name="img" />
+                            <ErrorMessage name="hec_nombre_imagen_principal.name" />
                         </div>
                         </div>
 

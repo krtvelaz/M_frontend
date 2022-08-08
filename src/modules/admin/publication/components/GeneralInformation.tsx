@@ -7,7 +7,7 @@ import FormPublication from "./FormPublication";
 interface IGeneralInformationProps {
   innerRef: any;
   onSubmit: (values: any) => void;
-  publication: IPublication
+  publication: IPublication;
 }
 
 const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, publication}) => {

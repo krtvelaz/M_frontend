@@ -69,6 +69,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_resultado_esperado: Yup.string().required("Campo obligatorio"),
     ret_detalle_postulacion: Yup.string().required("Campo obligatorio"),
     ret_video: Yup.string().url("Por favor ingrese una url"),
+    ret_monto: Yup.number().max(10000000000, 'El máximo es $10.000.000.000')
   });
 
   const submit = (values: any, actions: any) => {
@@ -451,7 +452,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   name="ret_monto"
                   id="ret_monto_id"
                   min={0}
-                  max={10000000000}
+                  // max={10000000000}
                   maxLength={14}
                 />
                 <div style={{ fontSize: "10px", marginTop: "5px" }}>

@@ -1,17 +1,21 @@
 import { Tabs } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { swal_error } from "../../../../utils/ui";
-import { IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { actions } from "../redux";
 import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
 
 interface ITagsPublication {
+  publication_data?: IPublication;
   type: "create" | "edit";
 }
 
-const PublicationFormTags: FC<ITagsPublication> = ({ type }) => {
+const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) => {
+
   const { TabPane } = Tabs;
   let [
     active_key,
@@ -24,7 +28,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type }) => {
     execute_save,
     callback,
     setPublication,
-  ] = useInit();
+  ] = useInit();// agregar o no  el publication_data y type
 
   return (
     <>
@@ -57,6 +61,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type }) => {
                     onSubmit={steps[1].onSave}
                     images={publication.gallery}
                     setImages={setPublication}
+                    gal_id_hechos_noticias={publication}
                   />
                 </TabPane>
               </Tabs>
@@ -111,6 +116,8 @@ const useInit = (): [
   (key: string) => void,
   any
 ] => {
+  const dispatch = useDispatch<any>();
+
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as {
@@ -126,7 +133,10 @@ const useInit = (): [
       hec_titulo: "",
       hec_autor:"",
       hec_descripcion: "",
-      img: "",
+      hec_nombre_imagen_principal: "",
+      hec_ruta_imagen_principal: "",
+    hec_nombre_imagen: "",
+    id:'',
     },
     gallery: [],
   };
@@ -143,11 +153,13 @@ const useInit = (): [
         set_is_saving(true);
         await steps[0].ref.current?.submitForm();
       },
-      onSave: (values: IGeneralInfo) => {
+      onSave: async (values: IGeneralInfo) => {
+       const result = await dispatch(actions.create_publication(values));
+
         setPublication((data: IPublication) => {
           return {
             ...data,
-            general_information: values,
+            general_information: result,
           };
         });
         set_is_saving(false);
@@ -167,7 +179,9 @@ const useInit = (): [
         set_is_saving(true);
         await steps[1].ref.current?.submitForm();
       },
-      onSave: async (values: IPublicationInfo) => {
+      onSave: async (values: IGalleryInfo) => {
+       const result = await dispatch(actions.create_gallery(values));
+
         set_is_saving(false);
         if (publication.gallery.length >= 3) {
           await swal_error.fire({

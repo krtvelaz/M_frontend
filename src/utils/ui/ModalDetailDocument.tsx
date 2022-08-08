@@ -5,10 +5,15 @@ interface DocumetFormProps {
   url: string;
   open: boolean;
   setOpen: any;
-  fileType?: 'pdf' | 'img';
+  fileType?: "pdf" | "img";
 }
 
-const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen , fileType}) => {
+const ModalDetailDocument: FC<DocumetFormProps> = ({
+  url,
+  open,
+  setOpen,
+  fileType,
+}) => {
   const close = () => setOpen(false);
   return (
     <Modal
@@ -37,10 +42,11 @@ const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen , fileTy
       ]}
     >
       <div>
-        {fileType === 'pdf' ? (
+        <img src="" alt="" />
+
+        {fileType === "pdf" ? (
           <embed src={`${url}#toolbar=0`} width="100%" height="375px" />
         ) : (
-          
           <img src={`data:image/jpeg;charset=utf-8;base64,${url}`} alt="img" />
         )}
       </div>
@@ -49,7 +55,7 @@ const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen , fileTy
 };
 
 ModalDetailDocument.defaultProps = {
-  fileType: 'pdf',
-}
+  fileType: "pdf",
+};
 
 export default ModalDetailDocument;

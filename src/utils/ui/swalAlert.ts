@@ -4,7 +4,7 @@ import withReactContent from "sweetalert2-react-content";
 export const swal = withReactContent(
   Swal.mixin({
     customClass: {
-      confirmButton: "btn btn-primary",
+      confirmButton: "btn btn-success-primary",
       cancelButton: "btn btn-outline-primary",
       denyButton: "btn btn-outline-primary",
     },
@@ -16,10 +16,10 @@ export const swal_error = withReactContent(
   Swal.mixin({
     customClass: {
       popup: "warning",
-      confirmButton: "btn btn-primary",
+      confirmButton: "btn btn-success-primary",
       cancelButton: "btn btn-outline-primary",
-      // denyButton: "btn btn-cancel-primary",
-      title: 'title-myswal-alert'
+      denyButton: "btn btn-cancel-primary",
+      title: 'title-myswal-alert',
     },
     showCloseButton: true,
     reverseButtons: true,
@@ -32,7 +32,7 @@ export const swal_success = withReactContent(
   Swal.mixin({
     customClass: {
       popup: "success",
-      confirmButton: "btn btn-primary",
+      confirmButton: "btn btn-success-primary",
       cancelButton: "btn btn-outline-primary",
       denyButton: "btn btn-outline-primary",
       title: 'title-myswal-alert-success'
