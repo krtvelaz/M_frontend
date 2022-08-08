@@ -10,10 +10,10 @@ interface GalleryPros {
     innerRef: any;
     onSubmit: (values: any) => void;
     gallery?: IGalleryInfo;
-    gal_id_hechos_noticias: IPublication;
+    publications: IPublication;
 }
 
-const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,gal_id_hechos_noticias }) => {
+const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,publications }) => {
     const initial_values = {
         gal_titulo: "",
         gal_descripcion: "",
@@ -21,7 +21,8 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,gal_id_hecho
             name: gallery?.gal_nombre_imagen || "",
             id: gallery?.id,
           },
-        gal_id_hechos_noticias: gal_id_hechos_noticias.general_information?.id,
+        gal_id_hechos_noticias: publications.general_information?.id,
+        hec_id_tipo_publicacion: publications.general_information?.hec_id_tipo_publicacion,
         ...gallery,
     };
     const schema = Yup.object().shape({
