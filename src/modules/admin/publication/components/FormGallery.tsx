@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IGalleryInfo } from "../custom_types";
+import { IGalleryInfo, IGeneralInfo, IPublication } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 
 import * as Yup from "yup";
@@ -10,18 +10,23 @@ interface GalleryPros {
     innerRef: any;
     onSubmit: (values: any) => void;
     gallery?: IGalleryInfo;
+    gal_id_hechos_noticias: IPublication;
 }
 
-const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
+const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,gal_id_hechos_noticias }) => {
     const initial_values = {
         gal_titulo: "",
         gal_descripcion: "",
-        img: "",
+        gal_nombre_imagen: {
+            name: gallery?.gal_nombre_imagen || "",
+            id: gallery?.id,
+          },
+        gal_id_hechos_noticias: gal_id_hechos_noticias.general_information?.id,
         ...gallery,
     };
     const schema = Yup.object().shape({
         gal_titulo: Yup.string().required("Campo obligatorio"),
-        img: Yup.string().required("Campo obligatorio"),
+        gal_nombre_imagen: Yup.string().required("Campo obligatorio"),
         gal_descripcion: Yup.string().required("Campo obligatorio"),
 
     });
@@ -40,12 +45,11 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
             innerRef={innerRef}
         >
             {({ values, handleChange }) => {
-
                 return (
                     <Form>
                         <div className="row">
                         <div className="col-12 col-md-6 col-lg-6">
-                            <label htmlFor="img_id" className="form-label">
+                            <label htmlFor="gal_nombre_imagen_id" className="form-label">
                                 Imagen
                             </label>
                             <Field
@@ -53,12 +57,12 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 maximum_size={2}
                                 file_type="img"
                                 type="text"
-                                id="img_id"
-                                name="img"
+                                id="gal_nombre_imagen_id"
+                                name="gal_nombre_imagen"
                                 className="form-control"
                                 placeholder="Seleccionar…"
                             />
-                            <ErrorMessage name="img" />
+                            <ErrorMessage name="gal_nombre_imagen" />
                         </div>
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="gal_titulo_id" className="form-label">

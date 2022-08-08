@@ -195,7 +195,7 @@ export const useInit = (
             title: "Proceso exitoso",
             html:
               `<div class="mysubtitle">Se ha creado con éxito el nuevo reto</div>` +
-              '<div class="mytext">A continuación serás dirigido a gestor de retos</div>',
+              '<div class="mytext">A continuación será dirigido a gestor de retos</div>',
             showCancelButton: false,
             confirmButtonText: "Aceptar",
           });

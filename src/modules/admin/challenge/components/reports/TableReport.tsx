@@ -80,6 +80,7 @@ const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete }) => {
                   setOpen={set_is_visible_doc}
                   url={url}
                 />
+                
               </>
             );
           },

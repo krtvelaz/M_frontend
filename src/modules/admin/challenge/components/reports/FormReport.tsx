@@ -59,7 +59,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                   className="form-control"
                   aria-describedby="nombre del documento"
                   autoComplete="off"
-                  maxLength={80}
+                  maxLength={50}
                   onChange={(e: any) => {
                     e.preventDefault();
                     const { value } = e.target;
@@ -71,7 +71,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="ret_titulo_reporte" withCount max={80} />
+                <ErrorMessage name="ret_titulo_reporte" withCount max={50} />
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">

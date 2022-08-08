@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPageable, Loadable, Pageable } from "../../../../custom_types"
-import { IEvent } from "../custom_types"
+import { IEvent, IGalleryInfo, IGeneralInfo } from "../custom_types"
 
 interface State {
     event: Loadable<IEvent | null>;
     events: Pageable<IEvent>;
     list_event: IPageable<IEvent>;
 
-    publication: Loadable<IEvent | null>;
-    publications: Pageable<IEvent>;
-    list_publication: IPageable<IEvent>;
+    publication: Loadable<IGeneralInfo | null>;
+    publications: Pageable<IGeneralInfo>;
+    list_publication: IPageable<IGeneralInfo>;
+
+    gallery: Loadable<IGalleryInfo | null>;
+    gallerys: Pageable<IGalleryInfo>;
 }
 
 const initialState: State = {
@@ -68,6 +71,23 @@ const initialState: State = {
         loaded: false,
     },
     publications: {
+        value: [],
+        pagination: {
+            page: 1,
+            count: 0,
+            next_page: null,
+            previous_page: null,
+            total_results: 0,
+        },
+        loading: false,
+        loaded: false,
+    },
+    gallery: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    gallerys: {
         value: [],
         pagination: {
             page: 1,
@@ -196,6 +216,28 @@ export const eventSlice = createSlice({
             };
         },
 
+        default_gallery: (state) => {
+            state.gallery = {
+                value: state.gallery.value,
+                loading: false,
+                loaded: true,
+            };
+        },
+        success_gallery: (state, action) => {
+            state.gallery = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_gallery: (state) => {
+            state.gallery = {
+                value: state.gallery.value,
+                loading: false,
+                loaded: true,
+            };
+        },
+
 
     },
 });
@@ -213,4 +255,7 @@ export const {
     success_list_publication,
     default_list_publication,
     fail_list_publication,
+    default_gallery,
+    success_gallery,
+    fail_gallery,
 } = eventSlice.actions;
