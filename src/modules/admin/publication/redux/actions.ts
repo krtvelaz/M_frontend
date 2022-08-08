@@ -412,11 +412,9 @@ const create_gallery = (values: IGalleryInfo) => { //
         gal_nombre_imagen: values.gal_nombre_imagen?.name || "",
         gal_nombre_codificado_imagen: "",
         gal_ruta_imagen:"",
-        // gal_estado:false,
 
       },
     };
-    // delete data.data.gal_nombre_imagen;
     let form = new FormData();
     form.append("data", JSON.stringify(data));
     form.append("img", img);
@@ -428,7 +426,7 @@ const create_gallery = (values: IGalleryInfo) => { //
           'Access-Control-Allow-Origin': '*',
         },
       });
-      dispatch(success_gallery(res.data));
+      dispatch(success_gallery(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -437,7 +435,7 @@ const create_gallery = (values: IGalleryInfo) => { //
         showCancelButton: false,
         confirmButtonText: "Aceptar",
       });
-      return res.data;
+      return res.data.body.data;
     } catch (error) {
       dispatch(fail_gallery());
       await swal_error.fire({
