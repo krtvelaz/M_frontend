@@ -10,7 +10,7 @@ interface GalleryPros {
     innerRef: any;
     onSubmit: (values: any) => void;
     gallery?: IGalleryInfo;
-    publications: IPublication;
+    publications?: IPublication;
 }
 
 const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,publications }) => {
@@ -21,8 +21,8 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,publications
             name: gallery?.gal_nombre_imagen || "",
             id: gallery?.id,
           },
-        gal_id_hechos_noticias: publications.general_information?.id,
-        hec_id_tipo_publicacion: publications.general_information?.hec_id_tipo_publicacion,
+        gal_id_hechos_noticias: publications?.general_information?.id,
+        hec_id_tipo_publicacion: publications?.general_information?.hec_id_tipo_publicacion,
         ...gallery,
     };
     const schema = Yup.object().shape({
