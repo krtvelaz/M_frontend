@@ -22,7 +22,6 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery,publications
             id: gallery?.id,
           },
         gal_id_hechos_noticias: publications?.general_information?.id,
-        hec_id_tipo_publicacion: publications?.general_information?.hec_id_tipo_publicacion,
         ...gallery,
     };
     const schema = Yup.object().shape({

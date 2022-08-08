@@ -1,7 +1,8 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
 import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { actions } from "../redux";
 import FormGallery from "./FormGallery";
 import FormPublication from "./FormPublication";
 import ListGallery from "./ListGallery";
@@ -10,7 +11,7 @@ interface IGalleryProps {
   onSubmit: (values: any) => void;
   images: IGalleryInfo[];
   setImages: any;
-  publications: IPublication;
+  publication: IPublication;
 }
 
 const AddGallery: FC<IGalleryProps> = ({
@@ -18,11 +19,21 @@ const AddGallery: FC<IGalleryProps> = ({
   innerRef,
   images,
   setImages,
-  publications,
+  publication,
 }) => {
-  // const publications: IGeneralInfo[] = useSelector(
-  //   (store: any) => store.event.publication.value
-  // );
+  
+
+  const dispatch = useDispatch<any>();
+
+  const list_gallery: IGalleryInfo[] = useSelector(
+    (store: any) => store.event.list_gallery.value
+  );
+  const get_gallery = async () => {
+    await dispatch(actions.get_list_gallery(Number(publication?.general_information?.id) || -1));
+  };
+  useEffect(() => {
+    get_gallery();
+  }, []);
   const editImage = (values: IGalleryInfo, index: number) => {
     setImages((data: IPublication) => {
       data.gallery[index] = values;
@@ -66,7 +77,7 @@ const AddGallery: FC<IGalleryProps> = ({
              <FormGallery
             innerRef={innerRef}
             onSubmit={onSubmit}
-            publications={publications}
+            publications={publication}
             // publication={publication.general_information}
             />
            

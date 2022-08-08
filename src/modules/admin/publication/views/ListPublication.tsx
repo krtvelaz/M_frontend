@@ -17,16 +17,21 @@ const ListPublication = () => {
     await dispatch(actions.delete_publication(id));
     setIsChange(true);
   };
-  const get_publications = async () => {
+  const getPublications = async () => {
     await dispatch(actions.get_list_publications({}));
   };
+  const editPublication = async (values: IGeneralInfo) => {    
+    await dispatch(actions.edit_publication(values));
+    setIsChange(true);
+
+  };
   useEffect(() => {
-    get_publications();
+    getPublications();
   }, []);
 
   useEffect(() => {
     if (isChange) {
-      get_publications();
+      getPublications();
       setIsChange(false);
     }
   }, [isChange]);
@@ -89,6 +94,7 @@ const ListPublication = () => {
     },
     {
       title: "Acciones",
+      dataIndex: "id",
       fixed: "right",
       children: [
         {
@@ -96,9 +102,10 @@ const ListPublication = () => {
           dataIndex: "id",
           fixed: "right",
           align: "center" as "center",
-          render: (id: string) => {
+          render: (id: number) => {
             return (
               <Link
+              // onSubmit={editEvent} id={id}
                 to={`/publication/edit/${id}/`}
                 name=""
                 avatar={false}

@@ -13,6 +13,8 @@ interface State {
 
     gallery: Loadable<IGalleryInfo | null>;
     gallerys: Pageable<IGalleryInfo>;
+    list_gallery: any;
+
 }
 
 const initialState: State = {
@@ -99,6 +101,11 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
+    list_gallery:{
+        value: [],
+        loading: false,
+        loaded: false,
+    }
 };
 
 export const eventSlice = createSlice({
@@ -237,6 +244,27 @@ export const eventSlice = createSlice({
                 loaded: true,
             };
         },
+        default_list_gallery: (state) => {
+            state.list_gallery = {
+              value: state.list_gallery.value,
+              loading: true,
+              loaded: false,
+            };
+          },
+          success_list_gallery: (state, action) => {
+            state.list_gallery = {
+              value: action.payload,
+              loading: false,
+              loaded: true,
+            };
+          },
+          fail_list_gallery: (state) => {
+            state.list_gallery = {
+              value: initialState.list_gallery.value,
+              loading: false,
+              loaded: false,
+            };
+          },
 
 
     },
@@ -258,4 +286,7 @@ export const {
     default_gallery,
     success_gallery,
     fail_gallery,
+    default_list_gallery,
+    success_list_gallery,
+    fail_list_gallery,
 } = eventSlice.actions;

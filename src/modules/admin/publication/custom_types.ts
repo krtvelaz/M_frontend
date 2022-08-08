@@ -1,7 +1,7 @@
 export default {};
 
 export interface IPublication {
-    general_information: IGeneralInfo
+    general_information: IGeneralInfo,
     gallery: IGalleryInfo[],
 }
 
@@ -18,7 +18,6 @@ export interface IGalleryInfo {
     gal_nombre_codificado_imagen?: string;
     gal_ruta_imagen?: string;
     gal_id_hechos_noticias: number;
-    hec_id_tipo_publicacion:number;
     id?: number;
 }
 

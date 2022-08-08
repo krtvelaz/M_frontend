@@ -61,7 +61,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
                     onSubmit={steps[1].onSave}
                     images={publication.gallery}
                     setImages={setPublication}
-                    publications={publication}
+                    publication={publication}
                   />
                 </TabPane>
               </Tabs>
@@ -181,7 +181,6 @@ const useInit = (): [
       },
       onSave: async (values: IGalleryInfo) => {
        const result = await dispatch(actions.create_gallery(values));
-        console.log(values)
         set_is_saving(false);
         if (publication.gallery.length >= 3) {
           await swal_error.fire({

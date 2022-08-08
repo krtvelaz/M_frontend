@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux';
 import { trash } from '../../../../utils/assets/img';
 import { ModalDetailDocument, swal_error, Table } from '../../../../utils/ui';
 import { IGalleryInfo, IGeneralInfo, IPublicationInfo } from "../custom_types";
@@ -12,10 +13,11 @@ interface IGalleryProps {
 }
 
 const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
+  
+    
   const table_columns = [
     {
       title: 'No.',
-      dataIndex: 'id',
       align: 'center' as 'center',
       render: (data: any, values: any, i: number) => {
         return i + 1;
@@ -23,17 +25,17 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
   },
   {
       title: 'Título',
-      dataIndex: 'title',
+      dataIndex: 'gal_titulo',
       align: 'left' as 'left',
   },
   {
       title: 'Descripción',
-      dataIndex: 'description',
+      dataIndex: 'gal_descripcion',
       align: 'left' as 'left',
   },
   {
       title: 'Imagen',
-      dataIndex: 'image',
+      dataIndex: 'gal_nombre_imagen',
       responsive: ['md'],
       align: 'left' as 'left',
       render: (value: File) => {
