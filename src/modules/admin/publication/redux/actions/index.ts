@@ -38,6 +38,11 @@ const actions = {
     edit_publication,
     delete_publication,
     edit_published_publication,
+    create_gallery,
+    edit_gallery,
+    get_gallery_by_id,
+    get_list_gallery,
+    delete_gallery,
   }
   
   export default actions;

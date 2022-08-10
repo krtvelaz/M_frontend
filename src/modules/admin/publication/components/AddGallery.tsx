@@ -1,8 +1,8 @@
 import { FormikProps, FormikValues } from "formik";
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
-import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IPublication } from "../custom_types";
 import { actions } from "../redux";
 import FormGallery from "./FormGallery";
 import ListGallery from "./ListGallery";
@@ -13,9 +13,6 @@ interface IGalleryProps {
 }
 
 const AddGallery: FC<IGalleryProps> = ({
- 
-  images,
-  setImages,
   publication,
 }) => {
 

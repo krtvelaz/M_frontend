@@ -1,5 +1,5 @@
 import {
-  get_challenge_by_id,
+  get_detail_challenge,
   create_challenge,
   update_challenge,
 } from "./challenge";
@@ -22,7 +22,7 @@ import {
 import { get_master_list } from "./masters";
 
 const actions = {
-  get_challenge_by_id,
+  get_detail_challenge,
   create_challenge,
   update_challenge,
   create_challenge_report,

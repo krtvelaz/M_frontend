@@ -1,4 +1,5 @@
 import { IRoute } from "../../../utils/components/router/custom_types";
+import AboutUs from "./views/AboutUs";
 import Homepage from "./views/Homepage";
 
 
@@ -13,6 +14,18 @@ const get_routes = (): IRoute[] => {
             template_props: {
                 breadcrumbs: [
                     { name: 'Inicio' },
+                ],
+            },
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access: true,
+            path: '/about-us',
+            component: AboutUs,
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Nosotros' },
                 ],
             },
         },

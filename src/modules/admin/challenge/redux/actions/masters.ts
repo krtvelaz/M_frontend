@@ -9,10 +9,11 @@ export const get_master_list = (type: number, profile?: number) => {
   return async (dispatch: any) => {
     dispatch(loading_list_master());
     try {
-      const URI = `/list/form/`;
-      const { data }: any = await http.post(URI, {
-        type,
-        ...(profile && {profile} )
+      const URI = `/lists/form/${type}`;
+      const { data }: any = await http.get(URI, {
+        params:{
+          ...(profile && {profile} )
+        }
         
       });
       dispatch(success_list_master(data.data));
