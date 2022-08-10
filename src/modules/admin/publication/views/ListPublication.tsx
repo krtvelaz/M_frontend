@@ -1,4 +1,5 @@
 import { Popover, Radio } from "antd";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pencil, trash } from "../../../../utils/assets/img";
@@ -10,8 +11,10 @@ const ListPublication = () => {
   const list_publication: IGeneralInfo[] = useSelector(
     (store: any) => store.event.list_publication.value
   );
+  const {total}: any = useSelector(
+    (store: any) => store.event.list_publication.pagination
+    );
   const [isChange, setIsChange] = useState<boolean>(false);
-
   const dispatch = useDispatch<any>();
   const onDelete = async (id: number) => {
     await dispatch(actions.delete_publication(id));
@@ -20,8 +23,11 @@ const ListPublication = () => {
   const getPublications = async () => {
     await dispatch(actions.get_list_publications({}));
   };
-  const editPublication = async (values: IGeneralInfo) => {    
-    await dispatch(actions.edit_publication(values));
+  const change_page = (page: number, pageSize?: number) => {
+    dispatch(actions.get_list_publications({page, limi: pageSize}))
+  }
+  const editPublication = async (id: number ,values: IGeneralInfo) => {    
+    await dispatch(actions.edit_publication(id ,values));
     setIsChange(true);
 
   };
@@ -71,16 +77,13 @@ const ListPublication = () => {
     },
     {
       title: "Publicada",
-      // dataIndex: "hec_publicada",
       align: "left" as "left",
       render: (data: IGeneralInfo) => {
         const onChange = async (e: any) => {
            await dispatch(actions.edit_published_publication(data, e?.target?.value));
-          // console.log(data, e?.target?.value)
-          
           };
         return (
-          <Radio.Group onChange={onChange} value={data.hec_publicada}>
+          <Radio.Group onChange={onChange} defaultValue={data.hec_publicada}>
             <Radio value={true}>Si</Radio>
             <Radio value={false}>No</Radio>
           </Radio.Group>
@@ -89,8 +92,16 @@ const ListPublication = () => {
     },
     {
       title: "Creado por",
-      dataIndex: "start_date",
+      dataIndex: "hec_autor",
       align: "left" as "left",
+    },
+    {
+      title: "Fecha publicación",
+      dataIndex: "hec_creado",
+      align: "left" as "left",
+      render: (date: string) => {
+        return moment(date).format("DD / MM / YYYY")
+       },
     },
     {
       title: "Acciones",
@@ -102,10 +113,10 @@ const ListPublication = () => {
           dataIndex: "id",
           fixed: "right",
           align: "center" as "center",
-          render: (id: number) => {
+          render: (id: number, values: IGeneralInfo) => {
             return (
               <Link
-              // onSubmit={editEvent} id={id}
+              //  onSubmit={editPublication(id, values)} 
                 to={`/publication/edit/${id}/`}
                 name=""
                 avatar={false}
@@ -178,18 +189,9 @@ const ListPublication = () => {
             <Table
               columns={table_columns}
               items={list_publication}
-            // title="Lista de retos"
-            // items={[
-            //   {
-            //     id: 1,
-            //     challenge_name:
-            //       "¿Cómo mejorar la conectividad en los corregimientos de Medellín? WorkSans 12px _ Regular Título o contenido Título o contenido, xxxxxxxxx. Título o contenido Título o contenido, xxxxxxxxx. Título o texto 12 contenido Título o contenido, xx xxxx xx x. Título o contenido Título o ccc c contenido, xxxxxxxxx.",
-            //     audit_trail: "karen Nova",
-            //     is_published: "Si",
-            //     start_date: "07 / 07 / 2022",
-            //     closing_date: "08 / 07 / 2022",
-            //   },
-            // ]}
+              change_page={change_page}
+              with_pagination
+              count={total}
             />
           </Card>
         </div>

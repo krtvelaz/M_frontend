@@ -57,8 +57,6 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
                 </TabPane>
                 <TabPane tab="Agregar Galería" key="2" disabled={max < 1}>
                   <AddGallery
-                    innerRef={steps[1].ref}
-                    onSubmit={steps[1].onSave}
                     images={publication.gallery}
                     setImages={setPublication}
                     publication={publication}
@@ -185,7 +183,6 @@ const useInit = (): [
         await steps[1].ref.current?.submitForm();
       },
       onSave: async (values: IGalleryInfo) => {
-       const result = await dispatch(actions.create_gallery(publication.general_information.id || -1, values));       
         set_is_saving(false);
         if (publication.gallery.length >= 3) {
           await swal_error.fire({
@@ -246,7 +243,6 @@ const useInit = (): [
 
   useEffect(() => {
     if (!is_saving && go_next) {
-      console.log('guadar publicacion', publication);
       
       const key = parseInt(go_next);
       if (key > max) {

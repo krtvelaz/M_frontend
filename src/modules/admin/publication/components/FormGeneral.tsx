@@ -26,7 +26,6 @@ const FormGeneral: FC<PublicationPros> = ({
     },
     ...publication,
   };
-  console.log(publication);
 
   const schema = Yup.object().shape({
     hec_id_tipo_publicacion: Yup.string().required("Campo Obligatorio"),

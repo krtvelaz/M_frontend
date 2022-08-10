@@ -188,7 +188,6 @@ const ListEvent = () => {
             change_page={change_page}
             with_pagination
             count={total}
-            // title="Lista de retos"
             items={list_events}
           />
         </Card>
