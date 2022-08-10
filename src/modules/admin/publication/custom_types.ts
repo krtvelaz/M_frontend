@@ -17,8 +17,11 @@ export interface IGalleryInfo {
     gal_nombre_imagen_gallery?: string;
     gal_nombre_codificado_imagen?: string;
     gal_ruta_imagen?: string;
-    gal_id_hechos_noticias: number;
+    gal_id_hechos_noticias?: number;
     id?: number;
+    key?: string;
+    gal_creado?: string;
+    gal_estado?: boolean;
 }
 
 export interface IGeneralInfo {
@@ -28,7 +31,7 @@ export interface IGeneralInfo {
     hec_nombre_imagen_principal: any;
     hec_id_tipo_publicacion: string | number;
     hec_ruta_imagen_principal?: string;
-    hec_nombre_imagen: string;
+    hec_nombre_imagen?: string;
     hec_nombre_codificado_imagen_principal?: string;
     id?: number;
     hec_publicada?: boolean;

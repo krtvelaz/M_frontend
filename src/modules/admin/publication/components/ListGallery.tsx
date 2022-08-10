@@ -1,19 +1,24 @@
-import React, { FC } from 'react'
-import { useSelector } from 'react-redux';
-import { trash } from '../../../../utils/assets/img';
+import React, { FC, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { trash, watch } from '../../../../utils/assets/img';
 import { ModalDetailDocument, swal_error, Table } from '../../../../utils/ui';
-import { IGalleryInfo, IGeneralInfo, IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { actions } from '../redux';
 import ModalEditGallery from "./ModalEditGallery";
 
 
 interface IGalleryProps {
   images: IGalleryInfo[];
-  onEdit: (values: IGalleryInfo, index: number) => any;
-  onDelete: (index: number) => any;
+  onEdit: (values: IGalleryInfo) => any;
+  onDelete: (id: number) => any;
+  publication: IPublication;
+
 }
 
-const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
-  
+const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete,publication }) => {
+  const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
+  const dispatch = useDispatch<any>();
     
   const table_columns = [
     {
@@ -46,10 +51,44 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
         {
           title: <span style={{ fontSize: "9px" }}>Ver</span>,
           fixed: "right",
-          dataIndex: "image",
+          dataIndex: "id",
           align: "center" as "center",
-          render: (value: File) => {
+          render: (id: number) => {
             // return <ModalDetailDocument document={value}/>;
+            return (
+              <>
+                <img
+                  src={watch}
+                  id='watch-image'
+                  className="img-fluid"
+                  onMouseOver={(e)=>{
+                    let element = document.getElementById('Trazado_23');
+                    // e.currentTarget = 'red'
+                    
+                    if(element !== null) {
+                      // element.style.color = 'red !important';
+                    }
+                  }}
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={async () => {
+                    const res = await dispatch(actions.get_gallery_by_id(id || -1));
+                    if (res) {
+                      let _img = Buffer.from(res).toString("base64");
+                      
+                      setUrl(_img);
+                      set_is_visible_doc(true);
+                    }
+                  }}
+                  />
+                <ModalDetailDocument
+                  open={is_visibleDoc}
+                  setOpen={set_is_visible_doc}
+                  url={url}
+                  fileType='img'
+                />
+              </>
+            )
           },
         },
         {
@@ -57,14 +96,15 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
           fixed: "right",
           align: "center" as "center",
           render: (values:  IGalleryInfo, data: any, index: number) => {
-            return  <ModalEditGallery onSubmit={(publication) => onEdit(publication, index)}  gallery={values} />;
+            return  <ModalEditGallery onSubmit={(publication) => onEdit(publication)}  gallery={values} />;
           },
         },
         {
           title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
+          dataIndex: "id",
           fixed: "right",
           align: "center" as "center",
-          render: (data: any, values: any, index: number) => {
+          render: ( id: number) => {
             return (
               <img
                 src={trash}
@@ -83,7 +123,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete }) => {
                     denyButtonText: `Cancelar`,
                   });
                   if(result.isConfirmed){                          
-                    onDelete(index)
+                    onDelete(id)
                   }
                 }}
               />

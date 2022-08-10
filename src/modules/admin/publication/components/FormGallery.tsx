@@ -16,7 +16,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
     gal_titulo: "",
     gal_descripcion: "",
     gal_nombre_imagen: {
-      name: gallery?.gal_nombre_imagen || "",
+      name: gallery?.gal_nombre_imagen_gallery || "",
       id: gallery?.id,
     },
     ...gallery,

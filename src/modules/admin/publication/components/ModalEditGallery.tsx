@@ -4,7 +4,6 @@ import { FC, useRef, useState } from "react";
 import { pencil } from "../../../../utils/assets/img";
 import { IGalleryInfo, IPublicationInfo } from "../custom_types";
 import FormGallery from "./FormGallery";
-import FormPublication from "./FormPublication";
 
 interface ModalEditFormPros {
   gallery: IGalleryInfo;
