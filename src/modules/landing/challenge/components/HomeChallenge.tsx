@@ -108,7 +108,7 @@ const HomeChallenge = () => {
           Conoce más
         </button>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg p-0">
         <Popover
           content={contenido_postulamos}
           placement="bottom"
@@ -132,7 +132,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg p-0">
         <Popover
           content={contenido_selecionamos}
           placement="bottom"
@@ -154,7 +154,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg p-0">
         <Popover
           content={contenido_acompañamos}
           placement="bottom"
@@ -176,7 +176,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg p-0">
         <Popover
           content={contenido_premiamos}
           placement="bottom"

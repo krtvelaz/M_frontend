@@ -45,7 +45,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
   const schema = Yup.object().shape({
     ret_tipo_documento: Yup.number().nullable().required("Campo obligatorio"),
     ret_nombre_documento: Yup.string().when("ret_tipo_documento", {
-      is: 26,
+      is: 19,
       then: Yup.string().required("Campo obligatorio"),
     }),
     ...(typeDoc !== "general" && {
@@ -85,6 +85,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                     component={Select}
                     id="ret_perfiles_id"
                     name="ret_perfiles"
+                    dropdownMatchSelectWidth={false}
                     options={[
                       {
                         name: "Grupo de investigación",
@@ -115,6 +116,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   component={Select}
                   id="ret_tipo_documento_id"
                   name="ret_tipo_documento"
+                  dropdownMatchSelectWidth={false}
                   className=""
                   options={typesDocument?.map((d) => ({
                     id: d?.id,
@@ -125,7 +127,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                 <ErrorMessage name="ret_tipo_documento" />
               </div>
 
-              {values.ret_tipo_documento === 26 && (
+              {values.ret_tipo_documento === 19 && (
                 <div className="col-12 col-md-6 col-lg-6">
                   <label
                     htmlFor="ret_nombre_documento_id"

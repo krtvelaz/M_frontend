@@ -1,9 +1,10 @@
-import { Divider, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import { FC, useContext } from "react";
 import AppHeader from "./header";
+import AppFooter from "./footer";
 import Drawer from "antd/lib/drawer";
 import { TemplateContext } from "../template/templateContext";
-import { logoAlcaldiaNegro } from "../../assets/img";
+
 
 interface ILanding {
   children: any;
@@ -15,9 +16,9 @@ const LandingPage: FC<ILanding> = ({ children }) => {
   return (
     <>
       <Layout className="w-100 h-100">
-        <Layout className="site-layout">
+        <Layout className="site-layout-landing">
           <Header className="landing-header">
-          <AppHeader collapsible={false} />
+            <AppHeader collapsible={false} />
           </Header>
           <Content>
             <div
@@ -28,11 +29,8 @@ const LandingPage: FC<ILanding> = ({ children }) => {
             <div className="d-flex flex-column w-100">
               <div className="content medeinn-main-content overflow-auto">
                 {children}
-                <div className="footer-landing" >
-                  <div className="">
-                    <img src={logoAlcaldiaNegro} style={{ margin: "0 auto" }} />
-                  </div>
-                </div>
+                <AppFooter />
+               
               </div>
             </div>
           </Content>

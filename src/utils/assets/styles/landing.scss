@@ -2,26 +2,63 @@
 //   background-color: #E4EFF0;
 // }
 
+.site-layout-landing {
+  background-color: #e4eff0;
+}
+
 img {
   max-width: 100%;
   // display: block;
 }
 
 .footer-landing {
-  border-top: 1px solid #e8e8e8;
   // position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #e4eff0;
+  background-color: #909090;
   text-align: center;
-  display: flex;
-  padding: 30px;
+  // display: flex;
+  padding-bottom: 30px;
+}
+
+.footer-logo {
+  background-color: #fff;
+}
+
+.footer-information {
+  margin: 0px 100px;
+  background-color: #FFF;
+  
+}
+
+.scroll-information {
+  overflow-x: auto;
+  white-space: 'nowrap';
+  display: 'inline-block';
+  scroll-behavior: 'smooth',
+}
+
+
+.footer-list-information {
+  background-color: #fff;
+  padding-top: 50px;
+}
+
+.footer-list-information span {
+  color: #3366cc;
+  font-family: 10px;
+}
+
+.footer-list-information h5 {
+  margin-top: 10px !important;
+  font-family: 10px;
+  color: #3366cc;
 }
 
 .landing-header {
   padding: 0px;
-  height: 70px;
+  height: 80px;
   background: #e4eff0 0 0 no-repeat padding-box;
 }
 
@@ -41,8 +78,9 @@ img {
 /***** estadisticas *****/
 
 .container-statistics {
-  background: #E4EFF0
-
+  // background: #e4eff0;
+  position: relative;
+  z-index: 100;
 }
 
 .statistics {
@@ -55,6 +93,13 @@ img {
   background: linear-gradient(to right top, #ffffff, transparent);
   opacity: 1;
   backdrop-filter: blur(43px);
+  z-index: 200;
+}
+
+.statistics::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .img-number {
@@ -96,7 +141,9 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, #E4EFF0 35%, transparent 100%) !important;
+  background: linear-gradient(to right,#e4eff0 35%,
+    transparent 100%
+  ) !important;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -108,12 +155,12 @@ img {
 
 .carousel-indicators [data-bs-target] {
   width: 13px;
-  height: 13px;;
+  height: 13px;
   border-radius: 100%;
 }
 
 .carousel-indicators .active {
-  background-color: #FF7415;
+  background-color: #ff7415;
 }
 
 .content-carrousel {
@@ -123,40 +170,17 @@ img {
 }
 
 .content-carrousel h2 {
-    font-family: 'Montserrat-Black';
-    font-size: 25px;
+  font-family: "Montserrat-Black";
+  font-size: 25px;
 }
 
 .content-carrousel p {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-
-
-
-.sobre-nosotros {
-  background-image: linear-gradient(to right, #e4eff0 40%, transparent 100%),
-    url(../img/imagen.png);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 100%, 100%;
-  padding: 80px 0;
-}
-
-.sobre-nosotros-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 0 40px;
-}
-
-.texto-nosotros h2 {
-  font-family: "Montserrat-Bold";
-  font-size: 38px;
-}
-
-.texto-nosotros p {
-  font-size: 15px;
-}
+// .carousel-inner {
+//   height: 500px;
+// }
 
 /***** inclusion participación *****/
 
@@ -231,10 +255,43 @@ img {
 
 /******* card retos ***********/
 .container-challenges {
-  background: linear-gradient(to bottom, #E4EFF0 , white 10%);
-  // background: #ffffff;
-  padding: 100px 100px 50px 100px;
-  // margin-top: -70px;
+  background: linear-gradient(to bottom, #e4eff0, white 10%);
+  padding-top: 80px;
+}
+
+.contenedor-2 {
+  background-image: url("src/utils/assets/img/fondo_retos.svg");
+}
+.contenedor-1 {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+#contenedor-1::after {
+  content: "";
+  display: block;
+  clear: both;
+  overflow: hidden;
+}
+.imagen-fondo {
+  left: 520px;
+  top: -128px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 300%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.imagen-grupo-personas {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 600px;
+  left: -240px;
+  max-width: 64%;
+  z-index: 0;
 }
 
 #card-challenge-one {
@@ -251,21 +308,6 @@ img {
   margin-right: auto !important;
   margin-left: auto !important;
 }
-
-@media (max-width: 768px) {
-  .container-challenges {
-    padding: 20px;
-  }
-  #card-challenge-four {
-    margin-top: 0px;
-  }
-  .statistics {
-    margin: -60px 10px 0 10px;
-  }
-
-}
-
-
 
 .body-card-challenge h3 {
   font-family: "Montserrat-SemiBold";
@@ -291,4 +333,20 @@ img {
   margin-bottom: 20px;
 }
 
-
+@media (max-width: 768px) {
+  .container-challenges {
+    padding: 20px;
+  }
+  #card-challenge-four {
+    margin-top: 0px;
+  }
+  .statistics {
+    margin: 0px 10px 0 10px;
+  }
+  .carousel-indicators {
+    margin-bottom: 1rem;
+  }
+  .footer-information {
+    margin: 0px;  
+  }
+}

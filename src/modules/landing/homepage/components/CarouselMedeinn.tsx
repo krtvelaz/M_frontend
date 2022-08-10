@@ -1,13 +1,7 @@
-import { Carousel } from "antd";
 import "bootstrap";
 
 const CarouselMedeinn = () => {
-  const contentStyle: React.CSSProperties = {
-    height: "200px",
-  };
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
+  
 
   return (
     <>
@@ -32,7 +26,7 @@ const CarouselMedeinn = () => {
             aria-label="Slide 2"
           ></button>
         </div>
-        <div className="carousel-inner" style={{height: '200px'}}>
+        <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="container-carrusel">
               <div className="content-carrousel">
@@ -49,7 +43,7 @@ const CarouselMedeinn = () => {
               <div className="col-12 col-md-3"></div>
               <div className="col-12 col-md-9">
                 <img
-                  src="src/utils/assets/img/imagen.png"
+                  src="https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   className="d-block w-100"
                   alt="..."
                 />
@@ -72,7 +66,7 @@ const CarouselMedeinn = () => {
               <div className="col-12 col-md-3"></div>
               <div className="col-12 col-md-9">
                 <img
-                  src="src/utils/assets/img/imagen 52.png"
+                  src="https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   className="d-block w-100"
                   alt="..."
                 />

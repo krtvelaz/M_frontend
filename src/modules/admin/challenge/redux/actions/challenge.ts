@@ -109,11 +109,11 @@ export const update_challenge = (values: IGeneralInformation) => {
   };
 };
 
-export const get_challenge_by_id = (id: any) => {
+export const get_detail_challenge_by_id = (id: any) => {
   return async (dispatch: any) => {
     dispatch(loading_challenge());
     try {
-      const URI = "/pokemon?limit=10&offset=0";
+      const URI = "/information/detail/id";
       const res = await http.get(URI);
       dispatch(get_challenge(res.data));
       return res.data;
