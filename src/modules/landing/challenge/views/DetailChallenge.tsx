@@ -31,8 +31,13 @@ const DetailChallenge = () => {
           <div className="col-12">
             <div
               className="row"
-              style={{ background: "white", borderRadius: "18px", boxShadow: "0px 30px 80px #00000029",
-              opacity: 1, }}
+              style={{
+                background: "white",
+                borderRadius: "18px",
+                boxShadow: "0px 30px 80px #00000029",
+                opacity: 1,
+                paddingBottom: "200px",
+              }}
             >
               <div
                 className="col-12 col-md-4"
@@ -137,7 +142,6 @@ const DetailChallenge = () => {
                 className="col-12 col-md-8"
                 style={{
                   padding: 0,
-                  
                 }}
               >
                 <div
@@ -158,11 +162,11 @@ const DetailChallenge = () => {
             alt=""
             className="imagen-fondo"
           /> */}
-          <img
+          {/* <img
             src="src/utils/assets/img/Capa 73.png"
             alt=""
             className="imagen-fondo"
-          />
+          /> */}
         </div>
       </div>
     </>

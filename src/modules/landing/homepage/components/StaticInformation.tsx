@@ -1,7 +1,7 @@
 import { Popover } from "antd";
 import { lamp } from "../../../../utils/assets/img";
 
-const HomeChallenge = () => {
+const StaticInformation = () => {
   const contenido_postulamos = (
     <div className="row">
       <div className="col-2">
@@ -202,4 +202,4 @@ const HomeChallenge = () => {
   );
 };
 
-export default HomeChallenge;
+export default StaticInformation;

@@ -1,7 +1,9 @@
 import "bootstrap";
+import { useContext } from "react";
+import { TemplateContext } from "../../../../utils/components/template/templateContext";
 
 const CarouselMedeinn = () => {
-  
+  const context = useContext(TemplateContext);
 
   return (
     <>
@@ -28,8 +30,8 @@ const CarouselMedeinn = () => {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <div className="container-carrusel">
-              <div className="content-carrousel">
+            <div className="row container-carrousel">
+              <div className="col-12 col-md-4 content-carrousel">
                 <h2>Ideas y soluciones para una sociedad en evolución</h2>
                 <p>
                   Contenido descriptivo. Para esta sección es importante resumir
@@ -38,21 +40,19 @@ const CarouselMedeinn = () => {
                   usuario si el contenido es de su interés.
                 </p>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-12 col-md-3"></div>
-              <div className="col-12 col-md-9">
-                <img
-                  src="https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  className="d-block w-100"
-                  alt="..."
-                />
+              <div className="col-12  col-md-8 ">
+                <div className="contenedor-magen-carrusel">
+                  <img
+                    src="https://images.pexels.com/photos/1137511/pexels-photo-1137511.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="d-block w-100"
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div className="carousel-item">
-            <div className="container-carrusel">
-              <div className="content-carrousel">
+            <div className="row container-carrousel">
+              <div className="col-12 col-md-4 content-carrousel">
                 <h2>Ideas y soluciones para una sociedad en evolución</h2>
                 <p>
                   Contenido descriptivo. Para esta sección es importante resumir
@@ -61,15 +61,13 @@ const CarouselMedeinn = () => {
                   usuario si el contenido es de su interés.
                 </p>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-12 col-md-3"></div>
-              <div className="col-12 col-md-9">
-                <img
-                  src="https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  className="d-block w-100"
-                  alt="..."
-                />
+              <div className="col-12  col-md-8 ">
+                <div className="contenedor-magen-carrusel">
+                  <img
+                    src="https://images.pexels.com/photos/1137511/pexels-photo-1137511.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="d-block w-100"
+                  />
+                </div>
               </div>
             </div>
           </div>

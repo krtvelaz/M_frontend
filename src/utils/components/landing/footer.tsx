@@ -21,23 +21,22 @@ const footer = () => {
 
       <div className="footer-information">
         <div className={`${context.device !== 'lg' ? 'd-flex justify-content-space-around scroll-information' : 'row' }`} >
-          {/* <div className="btn-information"> */}
-          <div className="col" style={{marginRight: '30px', padding: '30px'}}>
+          <div className="col" style={{marginRight: '30px', padding: '30px', whiteSpace: 'nowrap',}}>
             <img src={chat} alt="" />
             <h5 >chat</h5>
             <span>Alcaldía de Medellín</span>
           </div>
-          <div className="col" style={{marginRight: '30px', padding: '30px'}}>
+          <div className="col" style={{marginRight: '30px', padding: '30px',  whiteSpace: 'nowrap',}}>
             <img src={linea_atencion} alt="" />
             <h5>Línea de atención</h5>
             <span>(574) 44 44 144</span>
           </div>
-          <div className="col" style={{marginRight: '30px', padding: '30px'}}>
+          <div className="col" style={{marginRight: '30px', padding: '30px',  whiteSpace: 'nowrap',}}>
             <img src={linea_gratuita} alt="" />
             <h5>Línea Gratuita Nacional</h5>
             <span>(574) 44 44 144</span>
           </div>
-          <div className="col" style={{marginRight: '30px', padding: '30px'}}>
+          <div className="col" style={{marginRight: '30px', padding: '30px',  whiteSpace: 'nowrap',}}>
             <img src={centro_revelos} alt="" />
             <h5>Centro de Relevos</h5>
             <span>Atención por lengua de señas</span>
@@ -48,7 +47,6 @@ const footer = () => {
             <span>Intranet</span>
           </div>
           </div>
-        {/* </div> */}
         <div className="row">
           <div className="col">
             <img

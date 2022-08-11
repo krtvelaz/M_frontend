@@ -11,6 +11,12 @@ img {
   // display: block;
 }
 
+// cohete
+.styles-rocket {
+  padding-left: 20px;
+}
+
+// pie de pagina
 .footer-landing {
   // position: fixed;
   left: 0;
@@ -28,29 +34,27 @@ img {
 
 .footer-information {
   margin: 0px 100px;
-  background-color: #FFF;
-
+  background-color: #fff;
 }
 
 .scroll-information {
   overflow-x: auto;
-  white-space: 'nowrap';
-  display: 'inline-block';
-  scroll-behavior: 'smooth',
+  white-space: "nowrap";
+  display: "inline-block";
+  scroll-behavior: "smooth";
 }
-
 
 .footer-list-information {
   background-color: #fff;
   padding-top: 50px;
 }
 
-.footer-list-information span {
+.footer-information span {
   color: #3366cc;
   font-family: 10px;
 }
 
-.footer-list-information h5 {
+.footer-information h5 {
   margin-top: 10px !important;
   font-family: 10px;
   color: #3366cc;
@@ -134,18 +138,24 @@ img {
 }
 
 /****** carrusel *****/
+.container-carrousel {
+  align-items: center;
+}
 
-.container-carrusel {
-  width: 100% !important;
-  height: 100% !important;
+.contenedor-magen-carrusel {
+  width: 100%;
+  position: relative;
+  margin: auto;
+  
+}
+.contenedor-magen-carrusel::before {
+  content: "";
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
-  left: 0;
-  background: linear-gradient(to right, #e4eff0 35%,
-      transparent 100%) !important;
-  display: flex;
-  justify-content: left;
-  align-items: center;
+  right: 0;
+  background: linear-gradient(to right, #e4eff0, transparent );
 }
 
 .carousel-indicators {
@@ -160,12 +170,6 @@ img {
 
 .carousel-indicators .active {
   background-color: #ff7415;
-}
-
-.content-carrousel {
-  padding-left: 50px;
-  width: 100%;
-  max-width: 450px;
 }
 
 .content-carrousel h2 {
@@ -257,22 +261,7 @@ img {
 .container-challenges {
   background: linear-gradient(to bottom, #e4eff0, white 10%);
   padding-top: 80px;
-}
-
-.contenedor-2 {
-  background-image: url("src/utils/assets/img/fondo_retos.svg");
-}
-
-.contenedor-1 {
-  height: 100%;
-  width: 100%;
   position: relative;
-}
-
-#contenedor-1::after {
-  content: "";
-  display: block;
-  clear: both;
   overflow: hidden;
 }
 
@@ -356,11 +345,25 @@ img {
   .footer-information {
     margin: 0px;
   }
+  .content-carrousel {
+    padding: 20px;
+  }
+  .container-carrousel {
+    flex-direction: column-reverse;
+  }
+  .contenedor-magen-carrusel::before {
+    background: none;
+  }
+  .circle-text-wraps {
+    width: 13rem;
+    height: 13rem;
+  }
 }
 
 // ****** About-Us *******
 .img-about {
-  background: linear-gradient(to right top, #ffffff, transparent), url("src/utils/assets/img/hombreConGafas.png");
+  background: linear-gradient(to right top, #ffffff, transparent),
+    url("src/utils/assets/img/hombreConGafas.png");
   height: 539px;
   background-repeat: no-repeat;
 }
