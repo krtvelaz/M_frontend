@@ -29,7 +29,7 @@ img {
 .footer-information {
   margin: 0px 100px;
   background-color: #FFF;
-  
+
 }
 
 .scroll-information {
@@ -141,9 +141,8 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(to right,#e4eff0 35%,
-    transparent 100%
-  ) !important;
+  background: linear-gradient(to right, #e4eff0 35%,
+      transparent 100%) !important;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -195,6 +194,7 @@ img {
 .img-stake {
   padding-left: 50px;
 }
+
 .text-stake {
   font-family: "Montserrat-Bold" !important;
   font-size: 22px !important;
@@ -262,17 +262,20 @@ img {
 .contenedor-2 {
   background-image: url("src/utils/assets/img/fondo_retos.svg");
 }
+
 .contenedor-1 {
   height: 100%;
   width: 100%;
   position: relative;
 }
+
 #contenedor-1::after {
   content: "";
   display: block;
   clear: both;
   overflow: hidden;
 }
+
 .imagen-fondo {
   left: 520px;
   top: -128px;
@@ -337,16 +340,42 @@ img {
   .container-challenges {
     padding: 20px;
   }
+
   #card-challenge-four {
     margin-top: 0px;
   }
+
   .statistics {
     margin: 0px 10px 0 10px;
   }
+
   .carousel-indicators {
     margin-bottom: 1rem;
   }
+
   .footer-information {
-    margin: 0px;  
+    margin: 0px;
   }
+}
+
+// ****** About-Us *******
+.img-about {
+  background: linear-gradient(to right top, #ffffff, transparent), url("src/utils/assets/img/hombreConGafas.png");
+  height: 539px;
+  background-repeat: no-repeat;
+}
+
+.h1-about {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 37px !important;
+}
+
+.span-about {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 12px !important;
+}
+
+.card-about {
+  margin: 100px 60px 0px 60px;
+  padding: 30px 90px;
 }
