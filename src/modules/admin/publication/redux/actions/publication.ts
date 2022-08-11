@@ -1,7 +1,7 @@
 import { cms_http } from "../../../../../config/axios_instances";
 import { swal_error, swal_success } from "../../../../../utils/ui/swalAlert";
 import { IGeneralInfo } from "../../custom_types";
-import { default_list_publication, default_publication, fail_list_publication, fail_publication, success_list_publication } from "../slice";
+import { default_list_publication, default_publication, fail_list_publication, fail_publication, success_list_publication, success_publication } from "../slice";
 
   export const create_publication = (values: IGeneralInfo) => { //
     return async (dispatch: any) => {
@@ -87,19 +87,15 @@ import { default_list_publication, default_publication, fail_list_publication, f
       try {
         const URI = `news/find/${id}`;
         const res = await cms_http.get(URI);
-        const publication = {
-          results: res.data.body.data,
-          pagination: res.data.body.meta,
-        }
-        // dispatch();
-        return res.data.body.data;
+        dispatch(success_publication(res.data.body.data[0]));
+        return res.data.body.data[0];
       } catch (error) {
         dispatch(fail_publication());
         return Promise.reject("Error");
       }
     };
   };
-  export const edit_publication = (id: number, values: IGeneralInfo) => { //
+  export const edit_publication = ( values: IGeneralInfo) => { //
     return async (dispatch: any) => {
       dispatch(default_publication());
       const img = values.hec_nombre_imagen_principal;
@@ -108,17 +104,21 @@ import { default_list_publication, default_publication, fail_list_publication, f
         action: "update",
         info: {
           id: values.id,
+          key: values.id,
         },
         data: {
           ...values,
           // hec_id_tipo_publicacion: Number(values.hec_id_tipo_publicacion),
           // hec_ruta_imagen_principal: "",
   
-          // hec_nombre_imagen_principal: values.hec_nombre_imagen_principal.name || "",
-          // hec_nombre_codificado_imagen_principal: "",
+          hec_nombre_imagen_principal: values.hec_nombre_imagen_principal.name || "",
         },
       };
       delete data.data.id;
+      delete data.data.hec_creado;
+      delete data.data.hec_estado;
+      delete data.data.hec_nombre_imagen;
+      delete data.data.hec_publicada;
       let form = new FormData();;
       delete data.data.id;
       form.append("data", JSON.stringify(data));

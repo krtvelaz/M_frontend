@@ -23,8 +23,8 @@ const AppRouter: React.FC<IAppRouter> = ({
           if (route.routes) route.exact = false;           
           const CompoentChildren: React.ComponentType<any> | undefined = route.component;             
           return (
-            <Route key={`route_global_${i}`} path={route.path} element={<LandingPage {...route.template_props} >{ CompoentChildren && <CompoentChildren {...route} />}</LandingPage>} />
-            //  <Route key={`route_global_${i}`} path={route.path} element={<Template {...route.template_props}>{ CompoentChildren && <CompoentChildren {...route} />}</Template>} />
+            // <Route key={`route_global_${i}`} path={route.path} element={<LandingPage {...route.template_props} >{ CompoentChildren && <CompoentChildren {...route} />}</LandingPage>} />
+             <Route key={`route_global_${i}`} path={route.path} element={<Template {...route.template_props}>{ CompoentChildren && <CompoentChildren {...route} />}</Template>} />
             // <Route
             //   key={`route_global_${i}`}
             //   path='/*'
