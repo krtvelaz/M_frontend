@@ -10,11 +10,11 @@ import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
 
 interface ITagsPublication {
-  publication_data?: IPublication;
   type: "create" | "edit";
+  publication_data?: IPublication;
 }
 
-const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) => {
+const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) => {
 
   const { TabPane } = Tabs;
   let [
@@ -28,7 +28,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
     execute_save,
     callback,
     setPublication,
-  ] = useInit();// agregar o no  el publication_data y type
+  ] = useInit(type, publication_data );// agregar o no  el publication_data y type
 
   return (
     <>
@@ -102,7 +102,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
   );
 };
 
-const useInit = (): [
+const useInit = (type: "create" | "edit", publication_data?: IPublication ): [
   string,
   any,
   any[],
@@ -136,6 +136,7 @@ const useInit = (): [
       hec_nombre_imagen_principal: "",
       hec_ruta_imagen_principal: "",
     hec_nombre_imagen: "",
+    ...publication_data
     },
     gallery: [],
   };
@@ -155,8 +156,16 @@ const useInit = (): [
         await steps[0].ref.current?.submitForm();
       },
       onSave: async (values: IGeneralInfo) => {
-        if(!publication.general_information.id) {
+        if(!publication.general_information.id && type === "create") {
           const result = await dispatch(actions.create_publication(values));
+          setPublication((data: IPublication) => {
+            return {
+              ...data,
+              general_information: result,
+            };
+          });
+        }else{
+          const result = await dispatch(actions.edit_publication(values));
           setPublication((data: IPublication) => {
             return {
               ...data,

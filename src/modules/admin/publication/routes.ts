@@ -1,9 +1,10 @@
 import { IRoute } from "../../../utils/components/router/custom_types";
 import ListEvent from "./views/ListEvent";
-import EditPublication from "./EditPublication";
+// import EditPublication from "./EditPublication";
 import CreateEvent from "./views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";
 import ListPublication from "./views/ListPublication";
+import EditPublication from "./views/EditPublication";
 
 // import store from '../../config/store';
 ;
