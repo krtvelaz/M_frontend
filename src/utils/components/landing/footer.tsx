@@ -20,7 +20,7 @@ const footer = () => {
       </div>
 
       <div className="footer-information">
-        <div className={`${context.device !== 'lg' ? 'd-flex justify-content-center scroll-information' : 'row' }`} >
+        <div className={`${context.device !== 'lg' ? 'd-flex justify-content-space-around scroll-information' : 'row' }`} >
           {/* <div className="btn-information"> */}
           <div className="col" style={{marginRight: '30px', padding: '30px'}}>
             <img src={chat} alt="" />

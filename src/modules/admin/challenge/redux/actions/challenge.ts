@@ -109,14 +109,14 @@ export const update_challenge = (values: IGeneralInformation) => {
   };
 };
 
-export const get_detail_challenge = (id: any) => {
+export const get_detail_challenge = () => {
   return async (dispatch: any) => {
     dispatch(loading_challenge());
     try {
-      const URI = "/information/detail/id";
+      const URI = "/information/detail/56";
       const res = await http.get(URI);
-      dispatch(get_challenge(res.data));
-      return res.data;
+      dispatch(get_challenge(res.data.body[0]));
+      return res.data.body[0];
     } catch (error) {
       dispatch(fail_challenge());
       return Promise.reject("Error");
