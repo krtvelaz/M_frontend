@@ -367,7 +367,16 @@ img {
   height: 539px;
   background-repeat: no-repeat;
 }
-
+.box-about{
+  background-image: linear-gradient(to top , #ffffff 60%, transparent),
+  url("src/utils/assets/img/hombreConGafas.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  // padding-bottom: 200px;
+}
 .h1-about {
   font-family: "Montserrat-Bold" !important;
   font-size: 37px !important;
@@ -379,6 +388,39 @@ img {
 }
 
 .card-about {
-  margin: 100px 60px 0px 60px;
+margin-top: 100px;
+margin-right: 60px;
+margin-bottom: 100px;
+margin-left: 60px;
   padding: 30px 90px;
 }
+// .collapse{
+//   background: #FFFFFF;
+//   border: 0.5px solid #707070;
+//   opacity: 1;
+// }
+.image-amarilla{
+  position: absolute;
+  bottom: 0;
+  left: -350px;
+  max-width: 250%;
+}
+@media only screen and (min-width: 575px )and (max-width: 991px){
+ .column-reverse{
+  flex-direction: column-reverse;
+ }
+ .card-about {
+  margin: 10px 70px 0px 70px;
+  padding: 0px 0px;
+}
+}
+@media only screen and (min-width: 200px )and (max-width: 574px){
+  .column-reverse{
+    flex-direction: column-reverse;
+   }
+  .card-about {
+   margin: 10px 10px 0px 10px;
+   padding: 0px 0px;
+ }
+ }
+

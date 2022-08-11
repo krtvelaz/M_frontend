@@ -1,4 +1,5 @@
 import { Collapse } from 'antd';
+import { trazado_amarillo } from '../../../../utils/assets/img';
 const { Panel } = Collapse;
 import { Card } from "../../../../utils/ui";
 
@@ -7,21 +8,19 @@ const AboutUs = () => {
     <div>
 
       <div
-        className="container-fluid   "
+        className="container-fluid  box-about "
         style={{
-          backgroundImage: 'linear-gradient(to top , #ffffff 60%, transparent), url("src/utils/assets/img/hombreConGafas.png")',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'top',
+          paddingBottom: '50px',
         }}
       >
+        <img src={trazado_amarillo} alt="trazado" className='image-amarilla' />
         <Card className="card-about">
           <div className="row mb-4">
             <div className="col-12 col-md-12  col-lg-6  mt-4">
               <h2 className="text-stake">¿Quienés somos?</h2>
               <p>
                 <span className="span-about">Somos el Laboratorio de Innovación con enfoque GovTech de la
-                Alcaldía de Medellín</span>, a través del cual buscamos generar conexiones
+                  Alcaldía de Medellín</span>, a través del cual buscamos generar conexiones
                 entre las necesidades del sector público y las capacidades del
                 ecosistema de Ciencia, Tecnología e Innovación de la ciudad para
                 buscar soluciones basadas en tecnologías 4.0 para mejorar la calidad
@@ -33,7 +32,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row  column-reverse">
             <div className="col-12 col-md-12  col-lg-6 ">
               <img src="https://img.freepik.com/foto-gratis/grupo-personas-trabajando-plan-negocios-oficina_1303-15861.jpg?w=996&t=st=1660155757~exp=1660156357~hmac=6d27ca3de2f7428a16331903fa6c096a1567a0ea67a57dd3f8622e37d148c1be" alt="imagen nosotros" />
             </div>
