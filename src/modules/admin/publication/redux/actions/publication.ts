@@ -7,7 +7,7 @@ import { default_list_publication, default_publication, fail_list_publication, f
     return async (dispatch: any) => {
       dispatch(default_publication());
       // const values = JSON.parse(JSON.stringify(_values));
-      const img = values.hec_nombre_imagen_principal;
+      const img = values.hec_nombre_imagen;
   
       const data = {
         action: "insert",
@@ -20,12 +20,11 @@ import { default_list_publication, default_publication, fail_list_publication, f
           hec_id_tipo_publicacion: Number(values.hec_id_tipo_publicacion),
           hec_ruta_imagen_principal: "",
   
-          hec_nombre_imagen_principal: values.hec_nombre_imagen_principal.name || "",
+          hec_nombre_imagen_principal: values.hec_nombre_imagen.name || "",
           hec_nombre_codificado_imagen_principal: "",
         },
       };
   
-      delete data.data.hec_nombre_imagen_principal;
       delete data.data.hec_nombre_imagen;
       let form = new FormData();;
       delete data.data.id;
@@ -98,7 +97,7 @@ import { default_list_publication, default_publication, fail_list_publication, f
   export const edit_publication = ( values: IGeneralInfo) => { //
     return async (dispatch: any) => {
       dispatch(default_publication());
-      const img = values.hec_nombre_imagen_principal;
+      const img = values.hec_nombre_imagen;
   
       const data = {
         action: "update",
@@ -111,7 +110,7 @@ import { default_list_publication, default_publication, fail_list_publication, f
           // hec_id_tipo_publicacion: Number(values.hec_id_tipo_publicacion),
           // hec_ruta_imagen_principal: "",
   
-          hec_nombre_imagen_principal: values.hec_nombre_imagen_principal.name || "",
+          hec_nombre_imagen_principal: values.hec_nombre_imagen.name || "",
         },
       };
       delete data.data.id;
