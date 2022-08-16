@@ -1,6 +1,7 @@
 import "bootstrap";
 import { useContext } from "react";
 import { TemplateContext } from "../../../../utils/components/template/templateContext";
+import ModalVideo from "./ModalVideo";
 
 const CarouselMedeinn = () => {
   const context = useContext(TemplateContext);
@@ -39,6 +40,8 @@ const CarouselMedeinn = () => {
                   encontrará al dar clic. Esto permitirá entender por parte del
                   usuario si el contenido es de su interés.
                 </p>
+                
+                <div><ModalVideo /></div>
               </div>
               <div className="col-12  col-md-12 col-lg-8 ">
                 <div className="contenedor-magen-carrusel">
@@ -60,6 +63,7 @@ const CarouselMedeinn = () => {
                   encontrará al dar clic. Esto permitirá entender por parte del
                   usuario si el contenido es de su interés.
                 </p>
+                <div><ModalVideo /></div>
               </div>
               <div className="col-12  col-md-12 col-lg-8 ">
                 <div className="contenedor-magen-carrusel">
