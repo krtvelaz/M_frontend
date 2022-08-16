@@ -89,7 +89,7 @@ const StaticInformation = () => {
 
   return (
     <div className="row container-stake">
-      <div className="col-12 col-md-12 col-lg-4 ">
+      <div className="col-12 col-md-12 col-lg-12 col-xl-4 " style={{ position: "relative", marginBottom: '65px'}}>
         <h2 className="text-stake">
           Nuestro proceso de innovación abierta Participación por un Territorio
           Inteligente.
@@ -108,7 +108,7 @@ const StaticInformation = () => {
           Conoce más
         </button>
       </div>
-      <div className="col-6 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_postulamos}
           placement="bottom"
@@ -132,7 +132,7 @@ const StaticInformation = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-6 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_selecionamos}
           placement="bottom"
@@ -154,7 +154,7 @@ const StaticInformation = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-6 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_acompañamos}
           placement="bottom"
@@ -176,7 +176,7 @@ const StaticInformation = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-6 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_premiamos}
           placement="bottom"

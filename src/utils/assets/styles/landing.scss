@@ -73,16 +73,9 @@ img {
   margin: 16px 24px 16px 100px;
 }
 
-@media (max-width: 768px) {
-  .logo {
-    margin: 16px 24px 16px 30px;
-  }
-}
-
 /***** estadisticas *****/
 
 .container-statistics {
-  // background: #e4eff0;
   position: relative;
   z-index: 100;
 }
@@ -138,6 +131,7 @@ img {
 }
 
 /****** carrusel *****/
+
 .container-carrousel {
   align-items: center;
 }
@@ -146,7 +140,6 @@ img {
   width: 100%;
   position: relative;
   margin: auto;
-  
 }
 .contenedor-magen-carrusel::before {
   content: "";
@@ -155,7 +148,7 @@ img {
   position: absolute;
   top: 0;
   right: 0;
-  background: linear-gradient(to right, #e4eff0, transparent );
+  background: linear-gradient(to right, #e4eff0, transparent);
 }
 
 .carousel-indicators {
@@ -172,6 +165,10 @@ img {
   background-color: #ff7415;
 }
 
+.content-carrousel {
+  padding: 20px;
+}
+
 .content-carrousel h2 {
   font-family: "Montserrat-Black";
   font-size: 25px;
@@ -180,10 +177,6 @@ img {
 .content-carrousel p {
   font-size: 14px;
 }
-
-// .carousel-inner {
-//   height: 500px;
-// }
 
 /***** inclusion participación *****/
 
@@ -280,9 +273,9 @@ img {
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
-  top: 600px;
-  left: -240px;
-  max-width: 64%;
+  bottom: 10%;
+  left: -6%;
+  max-width: 50%;
   z-index: 0;
 }
 
@@ -325,54 +318,19 @@ img {
   margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .container-challenges {
-    padding: 20px;
-  }
-
-  #card-challenge-four {
-    margin-top: 0px;
-  }
-
-  .statistics {
-    margin: 0px 10px 0 10px;
-  }
-
-  .carousel-indicators {
-    margin-bottom: 1rem;
-  }
-
-  .footer-information {
-    margin: 0px;
-  }
-  .content-carrousel {
-    padding: 20px;
-  }
-  .container-carrousel {
-    flex-direction: column-reverse;
-  }
-  .contenedor-magen-carrusel::before {
-    background: none;
-  }
-  .circle-text-wraps {
-    width: 13rem;
-    height: 13rem;
-  }
-}
-
-// ****** About-Us *******
+/****** About-Us *******/
 .img-about {
   background: linear-gradient(to right top, #ffffff, transparent),
     url("src/utils/assets/img/hombreConGafas.png");
   height: 539px;
   background-repeat: no-repeat;
 }
-.box-about{
-  background-image: linear-gradient(to top , #ffffff 60%, transparent),
-  url("src/utils/assets/img/hombreConGafas.png");
+.box-about {
+  background-image: linear-gradient(to top, #ffffff 60%, transparent),
+    url("src/utils/assets/img/hombreGafasInteligentes.png");
   background-repeat: no-repeat;
   background-position: top;
-  background-size: cover;
+  background-size: 100%;
   position: relative;
   overflow: hidden;
   // padding-bottom: 200px;
@@ -388,39 +346,213 @@ img {
 }
 
 .card-about {
-margin-top: 100px;
-margin-right: 60px;
-margin-bottom: 100px;
-margin-left: 60px;
   padding: 30px 90px;
 }
-// .collapse{
-//   background: #FFFFFF;
-//   border: 0.5px solid #707070;
-//   opacity: 1;
-// }
-.image-amarilla{
+
+.container-about {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.image-amarilla {
   position: absolute;
   bottom: 0;
   left: -350px;
   max-width: 250%;
 }
-@media only screen and (min-width: 575px )and (max-width: 991px){
- .column-reverse{
-  flex-direction: column-reverse;
- }
- .card-about {
-  margin: 10px 70px 0px 70px;
-  padding: 0px 0px;
-}
-}
-@media only screen and (min-width: 200px )and (max-width: 574px){
-  .column-reverse{
-    flex-direction: column-reverse;
-   }
-  .card-about {
-   margin: 10px 10px 0px 10px;
-   padding: 0px 0px;
- }
- }
 
+/********** detalle reto *******/
+.imagen-fondo-detalle {
+  left: -993px;
+  bottom: 0px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 230%;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.imagen-fondo-mujer {
+  left: 50px;
+  bottom: 350px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 25%;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/********** eventos ***********/
+.section-events {
+  background: #603ce6;
+  padding-top: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen-fondo-events {
+  position: relative;
+  background-image: url("src/utils/assets/img/business-man.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container-cards-events {
+  font-size: 16px !important;
+  font-family: "Montserrat-Bold" !important;
+  position: relative;
+}
+
+.date-event {
+  background: #ff7415;
+  border-radius: 8px;
+  padding: 5px;
+  font-family: "Montserrat-SemiBold" !important;
+  font-size: 16px !important;
+  margin-bottom: 10px;
+}
+
+.title-card-event {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 15px !important;
+  margin-bottom: 10px;
+}
+
+.figuras-fondo {
+  left: 340px;
+  top: -177px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 75%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tabs-events .ant-tabs-nav-wrap {
+  background-color: transparent !important;
+}
+
+.tabs-events .ant-tabs-tab-btn {
+  color: white;
+}
+.tabs-events .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+}
+
+.tabs-events .ant-tabs-ink-bar {
+  background: white !important;
+}
+
+.imagen-events {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  border-radius: 16px !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.imagen-events::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(
+    to right top,
+    rgba(0, 0, 0, 0.91) 20%,
+    transparent
+  );
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    margin: 16px 24px 16px 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-information {
+    margin: 0px;
+  }
+  .container-challenges {
+    padding: 20px;
+  }
+  #card-challenge-four {
+    margin-top: 0px;
+  }
+
+  .statistics {
+    margin: 0px 10px 0 10px;
+  }
+
+  .carousel-indicators {
+    margin-bottom: 1rem;
+  }
+  .container-carrousel {
+    flex-direction: column-reverse;
+  }
+  .contenedor-magen-carrusel::before {
+    background: none;
+  }
+  .circle-text-wraps {
+    width: 13rem;
+    height: 13rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer-information {
+    margin: 0px;
+  }
+  .container-carrousel {
+    flex-direction: column-reverse;
+  }
+  .content-carrousel {
+    padding: 40px;
+  }
+  .contenedor-magen-carrusel::before {
+    background: none;
+  }
+  .carousel-indicators {
+    margin-bottom: 1rem;
+  }
+  .statistics {
+    margin: 0px 10px 0 10px;
+  }
+  .circle-text-wraps {
+    width: 12rem;
+    height: 12rem;
+  }
+  #card-challenge-one {
+    margin-top: 0px;
+  }
+  #card-challenge-four {
+    margin-top: 0px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .card-challenge {
+    width: 270px;
+  }
+}
+
+@media (max-width: 991px) {
+  .column-reverse {
+    flex-direction: column-reverse;
+  }
+  .card-about {
+    padding: 0px 0px;
+  }
+  .container-about {
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
+}

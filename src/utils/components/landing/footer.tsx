@@ -60,7 +60,7 @@ const footer = () => {
 
       <div className="" style={{ backgroundColor: "#3366CC", padding: "10px" }} >
         <div
-          className="row"
+          className="row align-items-center"
           style={{margin: '0px 100px'}}
           
         >
@@ -77,7 +77,10 @@ const footer = () => {
           className="d-block"
         />
           </div>
-          <div className="col">Conoce GOV.CO aquí</div>
+          <div className="col">
+            <a href="#" className="text-white">Conoce GOV.CO aquí</a>
+           
+            </div>
         </div>
       </div>
     </div>

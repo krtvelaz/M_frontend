@@ -5,7 +5,7 @@ const PublishedChallenges = () => {
     <div className="row">
       <div
         className="col-12 col-md-12 col-lg-5"
-        style={{ marginTop: "120px", position: "relative" }}
+        style={{ marginTop: "55px", position: "relative" }}
       >
         <h2>
           Solucionar e ider

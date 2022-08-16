@@ -2,7 +2,7 @@ import moment from "moment";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { piezaRompecabezas } from "../../../../utils/assets/img";
-import { Card, Link } from "../../../../utils/ui";
+import { Link } from "../../../../utils/ui";
 import { actions } from "../../../admin/challenge/redux";
 import InfoDetailChallenge from "../components/InfoDetailChallenge";
 
@@ -25,8 +25,21 @@ const DetailChallenge = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "left center",
+          border: "1px solid red",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
+        <img
+          src="src/utils/assets/img/letras_medeinn.svg"
+          alt="letras medeinn"
+          className="imagen-fondo-detalle"
+        />
+        <img
+            src="src/utils/assets/img/Capa 73.png"
+            alt=""
+            className="imagen-fondo-mujer"
+          />
         <div className="row">
           <div className="col-12">
             <div
@@ -36,7 +49,7 @@ const DetailChallenge = () => {
                 borderRadius: "18px",
                 boxShadow: "0px 30px 80px #00000029",
                 opacity: 1,
-                paddingBottom: "200px",
+                paddingBottom: "300px",
               }}
             >
               <div
@@ -60,6 +73,8 @@ const DetailChallenge = () => {
                         // width: '300px',
                         opacity: 1,
                         backdropFilter: "blur(43px)",
+                        position: 'absolute',
+                        zIndex: 1,
                       }}
                     >
                       <h5>{challenge?.ret_nombre}</h5>
@@ -155,18 +170,6 @@ const DetailChallenge = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="contenedor-1">
-          {/* <img
-            src="src/utils/assets/img/fondo_retos.svg"
-            alt=""
-            className="imagen-fondo"
-          /> */}
-          {/* <img
-            src="src/utils/assets/img/Capa 73.png"
-            alt=""
-            className="imagen-fondo"
-          /> */}
         </div>
       </div>
     </>

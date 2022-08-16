@@ -16,6 +16,10 @@ const InfoDetailChallenge = () => {
       <div>Que se solucionará con la solución</div>
       <br />
       <p>{challenge?.ret_detalles}</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, veniam rem ex tenetur provident voluptates, nesciunt quidem magnam consequuntur modi minus dolorum neque in. Veniam sint fuga ut voluptatibus omnis.</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, veniam rem ex tenetur provident voluptates, nesciunt quidem magnam consequuntur modi minus dolorum neque in. Veniam sint fuga ut voluptatibus omnis.</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, veniam rem ex tenetur provident voluptates, nesciunt quidem magnam consequuntur modi minus dolorum neque in. Veniam sint fuga ut voluptatibus omnis.</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, veniam rem ex tenetur provident voluptates, nesciunt quidem magnam consequuntur modi minus dolorum neque in. Veniam sint fuga ut voluptatibus omnis.</p>
 
      
     
