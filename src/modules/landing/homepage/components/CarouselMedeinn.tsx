@@ -35,7 +35,7 @@ const CarouselMedeinn: FC<ICarouselMedeinnProps> = ({ data, images }) => {
 
                                     {item?.car_url_video && (
                                         <div>
-                                            <ModalVideo />
+                                            <ModalVideo urlVideo="https://www.youtube.com/watch?v=eqiQOpdVbZ0" />
                                         </div>
                                     )}
 

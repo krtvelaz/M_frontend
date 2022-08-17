@@ -363,20 +363,38 @@ img {
 }
 
 /********** detalle reto *******/
+
+.hr-color {
+  color: #1A9BDB;
+  width: 150px;
+  margin: auto;
+  height: 2px!important;
+  font-weight: bold;
+}
+
+.btn-detail-play { 
+  text-decoration: none;
+}
+
+.btn-detail-play:hover {
+  color: #1A9BDB!important;
+}
+
 .imagen-fondo-detalle {
-  left: -993px;
-  bottom: 0px;
+  left: -850px;
+  bottom: 110px;
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
-  max-width: 230%;
+  max-width: 202%;
+  max-height: 750px;
   z-index: 3;
   overflow: hidden;
 }
 
 .imagen-fondo-mujer {
-  left: 50px;
-  bottom: 350px;
+  left: -32px;
+  bottom: 520px;
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;

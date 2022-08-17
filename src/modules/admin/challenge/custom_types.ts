@@ -31,6 +31,7 @@ export interface IGeneralInformation {
   ret_descripcion: string;
   ret_tipo_impacto?: string;
 }
+
 export interface IDocuments {
   general: IDocument[];
   technical: IDocument[];
