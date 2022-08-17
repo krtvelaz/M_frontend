@@ -1,10 +1,14 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import ReactPlayer from 'react-player';
 
-const ModalVideo = () => {
+interface UrlVideo {
+    urlVideo: string;
+}
+
+const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
     // const [img, setImg] = useState("");
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const open = () => set_is_visible(true);
@@ -52,7 +56,7 @@ const ModalVideo = () => {
                 <div>
                     <div style={{ border: '0.5px solid #707070', padding: '15px', opacity: '1', margin: '0px 30px' }}>
                         <ReactPlayer
-                            url="https://www.youtube.com/watch?v=eqiQOpdVbZ0"
+                            url={urlVideo}
                             controls
                             width="100%"
                             height="350px"

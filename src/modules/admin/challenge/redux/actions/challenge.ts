@@ -109,10 +109,10 @@ export const get_detail_challenge = () => {
   return async (dispatch: any) => {
     dispatch(loading_challenge());
     try {
-      const URI = "/information/detail/56";
+      const URI = "/challenges/detail/2";
       const res = await http.get(URI);
-      dispatch(get_challenge(res.data.body[0]));
-      return res.data.body[0];
+      dispatch(get_challenge(res.data.data));
+      return res.data.data;
     } catch (error) {
       dispatch(fail_challenge());
       return Promise.reject("Error");

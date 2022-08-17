@@ -200,7 +200,7 @@ export const get_document = (id: number, type?: string) => {
     // dispatch(loading_document_challenge());
     try {
       const URI =
-        type === "report" ? `/informs/pdf/${id}` : `/documents/pdf/${id}`;
+        type === "report" ? `/informs/pdf/${id}` : `/documents/download/${id}`;
 
       const res: any = await http.get(URI, { responseType: "arraybuffer" });
 

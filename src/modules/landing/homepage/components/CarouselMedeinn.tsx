@@ -41,7 +41,7 @@ const CarouselMedeinn = () => {
                   usuario si el contenido es de su interés.
                 </p>
                 
-                <div><ModalVideo /></div>
+                <div><ModalVideo urlVideo="https://www.youtube.com/watch?v=eqiQOpdVbZ0" /></div>
               </div>
               <div className="col-12  col-md-12 col-lg-8" style={{height: '500px'}}>
                 <div className="contenedor-magen-carrusel">
@@ -65,7 +65,7 @@ const CarouselMedeinn = () => {
                   encontrará al dar clic. Esto permitirá entender por parte del
                   usuario si el contenido es de su interés.
                 </p>
-                <div><ModalVideo /></div>
+                <div><ModalVideo urlVideo="https://www.youtube.com/watch?v=eqiQOpdVbZ0" /></div>
               </div>
               <div className="col-12  col-md-12 col-lg-8"  style={{height: '500px'}}>
                 <div className="contenedor-magen-carrusel">
