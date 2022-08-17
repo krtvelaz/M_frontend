@@ -10,11 +10,11 @@ import AddGallery from "./AddGallery";
 import GeneralInformation from "./GeneralInformation";
 
 interface ITagsPublication {
-  publication_data?: IPublication;
   type: "create" | "edit";
+  publication_data?: IPublication;
 }
 
-const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) => {
+const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) => {
 
   const { TabPane } = Tabs;
   let [
@@ -28,7 +28,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
     execute_save,
     callback,
     setPublication,
-  ] = useInit();// agregar o no  el publication_data y type
+  ] = useInit(type, publication_data );// agregar o no  el publication_data y type
 
   return (
     <>
@@ -57,11 +57,9 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
                 </TabPane>
                 <TabPane tab="Agregar Galería" key="2" disabled={max < 1}>
                   <AddGallery
-                    innerRef={steps[1].ref}
-                    onSubmit={steps[1].onSave}
                     images={publication.gallery}
                     setImages={setPublication}
-                    publications={publication}
+                    publication={publication}
                   />
                 </TabPane>
               </Tabs>
@@ -104,7 +102,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({publication_data, type }) =>
   );
 };
 
-const useInit = (): [
+const useInit = (type: "create" | "edit", publication_data?: IPublication ): [
   string,
   any,
   any[],
@@ -123,9 +121,11 @@ const useInit = (): [
   const state = location.state as {
     active_key_docs: Location;
     active_key: Location;
+    publication: IPublication;
     max: number;
   };
   const active_key: any = state?.active_key || "1";
+  const ls = state;
 
   const initial_values: IPublication = {
     general_information: {
@@ -136,12 +136,14 @@ const useInit = (): [
       hec_nombre_imagen_principal: "",
       hec_ruta_imagen_principal: "",
     hec_nombre_imagen: "",
-    id:'',
+    ...publication_data
     },
     gallery: [],
   };
+  
+  
 
-  const [publication, setPublication] = useState<IPublication>(initial_values);
+  const [publication, setPublication] = useState<IPublication>(ls?.publication ? ls.publication : initial_values);
   const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
@@ -154,14 +156,24 @@ const useInit = (): [
         await steps[0].ref.current?.submitForm();
       },
       onSave: async (values: IGeneralInfo) => {
-       const result = await dispatch(actions.create_publication(values));
+        if(!publication.general_information.id && type === "create") {
+          const result = await dispatch(actions.create_publication(values));
+          setPublication((data: IPublication) => {
+            return {
+              ...data,
+              general_information: result,
+            };
+          });
+        }else{
+          const result = await dispatch(actions.edit_publication(values));
+          setPublication((data: IPublication) => {
+            return {
+              ...data,
+              general_information: result,
+            };
+          });
+        }
 
-        setPublication((data: IPublication) => {
-          return {
-            ...data,
-            general_information: result,
-          };
-        });
         set_is_saving(false);
       },
     },
@@ -180,8 +192,6 @@ const useInit = (): [
         await steps[1].ref.current?.submitForm();
       },
       onSave: async (values: IGalleryInfo) => {
-       const result = await dispatch(actions.create_gallery(values));
-        console.log(values)
         set_is_saving(false);
         if (publication.gallery.length >= 3) {
           await swal_error.fire({
@@ -242,6 +252,7 @@ const useInit = (): [
 
   useEffect(() => {
     if (!is_saving && go_next) {
+      
       const key = parseInt(go_next);
       if (key > max) {
         set_max(key);

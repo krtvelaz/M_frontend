@@ -184,13 +184,8 @@ export const get_list_document = (
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
-      const URI = `/documents/references`;
-      const { data }: any = await http.post(URI, {
-        page: page,
-        limit: pageSize,
-        key: key,
-        type: type === "general" ? 1 : type === "technicians" ? 2 : 3,
-      });
+      const URI = `/${type === 'general' ? 'general' : 'technical'}/list/1/4`;
+      const { data }: any = await http.get(URI);
       dispatch(success_get_list_documents(data.body.data.data));
       return data.body.data.data;
     } catch (error) {
@@ -205,7 +200,7 @@ export const get_document = (id: number, type?: string) => {
     // dispatch(loading_document_challenge());
     try {
       const URI =
-        type === "report" ? `/informs/pdf/${id}` : `/documents/pdf/${id}`;
+        type === "report" ? `/informs/pdf/${id}` : `/documents/download/${id}`;
 
       const res: any = await http.get(URI, { responseType: "arraybuffer" });
 

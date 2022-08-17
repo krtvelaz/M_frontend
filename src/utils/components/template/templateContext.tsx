@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import 'moment/locale/es';
 
 type KeyPath = [string, string?];
 interface TemplateProps {
@@ -43,10 +42,10 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
         const _width = window.innerWidth;
         let _device: 'sm' | 'md' | 'lg';
         switch (true) {
-            case _width <= 425:
+            case _width <= 767 :
                 _device = 'sm';
                 break;
-            case _width <= 768 && _width > 425:
+            case _width >= 768 && _width < 1024:
                 _device = 'md';
                 break;
             default:

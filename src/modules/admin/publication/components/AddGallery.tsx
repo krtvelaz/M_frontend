@@ -1,45 +1,60 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import { FormikProps, FormikValues } from "formik";
+import { FC, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../../utils/ui";
-import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from "../custom_types";
+import { IGalleryInfo, IPublication } from "../custom_types";
+import { actions } from "../redux";
 import FormGallery from "./FormGallery";
-import FormPublication from "./FormPublication";
 import ListGallery from "./ListGallery";
 interface IGalleryProps {
-  innerRef: any;
-  onSubmit: (values: any) => void;
   images: IGalleryInfo[];
   setImages: any;
-  publications: IPublication;
+  publication: IPublication;
 }
 
 const AddGallery: FC<IGalleryProps> = ({
-  onSubmit,
-  innerRef,
-  images,
-  setImages,
-  publications,
+  publication,
 }) => {
-  // const publications: IGeneralInfo[] = useSelector(
-  //   (store: any) => store.event.publication.value
-  // );
-  const editImage = (values: IGalleryInfo, index: number) => {
-    setImages((data: IPublication) => {
-      data.gallery[index] = values;
-      return {
-        ...data,
-      };
-    });
+
+  const form_ref = useRef<FormikProps<FormikValues>>();
+
+  const [isChange, setIsChange] = useState<boolean>(false);
+
+  const dispatch = useDispatch<any>();
+
+ 
+
+  const list_gallery: IGalleryInfo[] = useSelector(
+    (store: any) => store.event.list_gallery.value
+    );
+
+  const get_list_gallery = async () => {
+    await dispatch(actions.get_list_gallery(publication?.general_information?.id || -1));
   };
-  const deleteImage = (index: number) => {
-    const newImages = images.filter((img, i) => i !== index);
-    setImages((data: IPublication) => {
-      return {
-        ...data,
-        gallery: newImages,
-      };
-    });
+  const editImage =async (values: IGalleryInfo, ) => {
+    await dispatch(actions.edit_gallery(publication?.general_information?.id || -1, values));       
+    setIsChange(true);
   };
+
+  const addImage =async (values: IGalleryInfo) => {
+    const result = await dispatch(actions.create_gallery(publication.general_information.id || -1, values));       
+    setIsChange(true);
+  }
+
+  const deleteImage =async (id: number) => {
+    await dispatch(actions.delete_gallery(id));
+    setIsChange(true);
+  };
+  useEffect(() => {
+    get_list_gallery();
+  }, []);
+
+  useEffect(() => {
+    if (isChange) {
+    get_list_gallery();
+      setIsChange(false);
+    }
+  }, [isChange]);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -55,7 +70,7 @@ const AddGallery: FC<IGalleryProps> = ({
                   type="button"
                   className="btn btn-outline-primary"
                   onClick={() => {
-                    innerRef.current?.submitForm();
+                    form_ref.current?.submitForm();
                   }}
                 >
                   Agregar documento
@@ -63,21 +78,21 @@ const AddGallery: FC<IGalleryProps> = ({
               </div>,
             ]}
           >
-             <FormGallery
-            innerRef={innerRef}
-            onSubmit={onSubmit}
-            publications={publications}
-            // publication={publication.general_information}
+            <FormGallery
+              innerRef={form_ref}
+              onSubmit={addImage}
             />
-           
+
           </Card>
-          {images.length > 0 && (
+          {list_gallery.length > 0 && (
             <Card>
               <h4>Elementos agregados</h4>
               <ListGallery
-                images={images}
+                images={list_gallery}
+                // addImage={addImage}
                 onEdit={editImage}
                 onDelete={deleteImage}
+                publication={publication}
               />
             </Card>
           )}

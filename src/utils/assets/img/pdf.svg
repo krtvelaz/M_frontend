@@ -1,0 +1,12 @@
+<svg id="_001-pdf" data-name="001-pdf" xmlns="http://www.w3.org/2000/svg" width="27.396" height="31.309" viewBox="0 0 27.396 31.309">
+  <path id="Trazado_2406" data-name="Trazado 2406" d="M97.957,0A1.963,1.963,0,0,0,96,1.957v27.4a1.963,1.963,0,0,0,1.957,1.957h19.568a1.963,1.963,0,0,0,1.957-1.957V7.827L111.655,0Z" transform="translate(-92.086)" fill="#e2e5e7"/>
+  <path id="Trazado_2407" data-name="Trazado 2407" d="M353.957,7.827h5.871L352,0V5.871A1.963,1.963,0,0,0,353.957,7.827Z" transform="translate(-332.432)" fill="#b0b7bd"/>
+  <path id="Trazado_2408" data-name="Trazado 2408" d="M389.87,133.871,384,128h5.87Z" transform="translate(-362.475 -120.173)" fill="#cad1d8"/>
+  <path id="Trazado_2409" data-name="Trazado 2409" d="M55.482,250.763a.981.981,0,0,1-.978.978H32.978a.981.981,0,0,1-.978-.978v-9.784a.981.981,0,0,1,.978-.978H54.5a.981.981,0,0,1,.978.978Z" transform="translate(-32 -225.324)" fill="#f15642"/>
+  <g id="Grupo_1402" data-name="Grupo 1402" transform="translate(4.265 17.998)">
+    <path id="Trazado_2410" data-name="Trazado 2410" d="M101.744,294.86a.538.538,0,0,1,.531-.54h1.807a1.956,1.956,0,0,1,0,3.912h-1.306v1.033a.491.491,0,0,1-.5.539.527.527,0,0,1-.531-.539Zm1.032.445v1.949h1.306a.975.975,0,0,0,0-1.949Z" transform="translate(-101.744 -294.32)" fill="#fff"/>
+    <path id="Trazado_2411" data-name="Trazado 2411" d="M188.364,300.886a.49.49,0,0,1-.54-.484v-4.444a.532.532,0,0,1,.54-.485h1.791c3.575,0,3.5,5.414.07,5.414Zm.493-4.459v3.5h1.3c2.112,0,2.206-3.5,0-3.5Z" transform="translate(-182.56 -295.402)" fill="#fff"/>
+    <path id="Trazado_2412" data-name="Trazado 2412" d="M288.159,296.475v1.244h1.995a.6.6,0,0,1,.564.555.544.544,0,0,1-.564.47h-1.995v1.643a.463.463,0,0,1-.469.484.5.5,0,0,1-.555-.484v-4.444a.494.494,0,0,1,.555-.485h2.746a.488.488,0,0,1,.548.485.541.541,0,0,1-.548.532h-2.278Z" transform="translate(-275.799 -295.387)" fill="#fff"/>
+  </g>
+  <path id="Trazado_2413" data-name="Trazado 2413" d="M114.59,416.978H96v.978h18.59a.981.981,0,0,0,.978-.978V416A.981.981,0,0,1,114.59,416.978Z" transform="translate(-92.086 -390.561)" fill="#cad1d8"/>
+</svg>

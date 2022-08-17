@@ -15,13 +15,12 @@ const EditChallemge = () => {
     const dispatch = useDispatch<any>();
   //   const challenge: IChallenge = useSelector((states: any) => states.challenge.challenge.value  );    
     useEffect(() => {      
-      dispatch(actions.get_challenge_by_id(id))
+      dispatch(actions.get_detail_challenge())
   }, []);
   return (
     <ChallengeFormTags 
     type='edit'
     // challenge_data={challenge}
-    
     />
   )
 }

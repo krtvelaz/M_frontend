@@ -11,14 +11,16 @@ export interface IGeneralInformation {
   id?: number;
   ret_nombre: string;
   ret_perfil: any;
-  ret_dimension: number | string;
-  ret_dependencia: number | string;
+  ret_id_dimension: number | string;
+  ret_id_dependencia: number | string;
   ret_fecha_inicio: string;
   ret_fecha_final: string;
   ret_detalles: string;
-  ret_comuna: number | string;
-  ret_barrio: number | string;
-  ret_detalle_postulacion: string;
+  ret_id_comuna?: number | string;
+  ret_id_barrio: number | string;
+  ret_id_usuario?: number;
+  ret_convocatoria?: number;
+  ret_detalle_poblacion_impactar: string;
   ret_imagen_principal?: any;
   ret_ruta_imagen_principal: string;
   ret_nombre_imagen: string;
@@ -27,8 +29,9 @@ export interface IGeneralInformation {
   ret_resultado_esperado: string;
   ret_monto: number | string;
   ret_descripcion: string;
-  ret_tipo_impacto: string;
+  ret_tipo_impacto?: string;
 }
+
 export interface IDocuments {
   general: IDocument[];
   technical: IDocument[];

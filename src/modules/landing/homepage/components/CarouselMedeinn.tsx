@@ -1,84 +1,63 @@
-import { Carousel } from "antd";
+import 'bootstrap';
+import { FC, useContext } from 'react';
+import { TemplateContext } from '../../../../utils/components/template/templateContext';
+import ModalVideo from './ModalVideo';
 
-const CarouselMedeinn = () => {
-  const contentStyle: React.CSSProperties = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
-  return (
-    <>
-      <div
-        id="carouselExampleControlsNoTouching"
-        className="carousel slide"
-        data-bs-touch="false"
-        data-bs-interval="false"
-      >
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <div>
-              <div className="container-carrusel">
-                <div className="content-carrousel">
-                  <h2>Ideas y soluciones para una sociedad en evolución</h2>
-                  <p>
-                    Contenido descriptivo. Para esta sección es importante
-                    resumir el contenido o dar la idea principal sobre lo que se
-                    encontrará al dar clic. Esto permitirá entender por parte
-                    del usuario si el contenido es de su interés.
-                  </p>
+interface ICarouselMedeinnProps {
+    data: any;
+    images: any[];
+}
+
+const CarouselMedeinn: FC<ICarouselMedeinnProps> = ({ data, images }) => {
+    const context = useContext(TemplateContext);
+    return (
+        <>
+            <div id="carouselIndicators" className="carousel slide" data-bs-ride="carousel">
+                <div className="carousel-indicators">
+                    {data?.map((_: any, i: number) => (
+                        <button
+                            type="button"
+                            data-bs-target="#carouselIndicators"
+                            data-bs-slide-to={`${i}`}
+                            className={`${i === 0 ? 'active' : ''}`}
+                            aria-current={`${i === 0 ? 'true' : 'false'}`}
+                            aria-label={`Slide ${i + 1}`}
+                        ></button>
+                    ))}
                 </div>
-              </div>
-              <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
+                <div className="carousel-inner">
+                    {data?.map((item: any, i: number) => (
+                        <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
+                            <div className="row container-carrousel">
+                                <div className="col-12 col-md-12 col-lg-4 content-carrousel">
+                                    <h2>{item?.car_titulo}</h2>
+                                    <p>{item?.car_descripcion}</p>
+
+                                    {item?.car_url_video && (
+                                        <div>
+                                            <ModalVideo urlVideo="https://www.youtube.com/watch?v=eqiQOpdVbZ0" />
+                                        </div>
+                                    )}
+
+                                    {item?.car_url && <button className="btn btn-primary">Conoce más</button>}
+                                </div>
+                                <div className="col-12  col-md-12 col-lg-8" style={{ height: '500px' }}>
+                                    <div className="contenedor-magen-carrusel">
+                                        <img
+                                            src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}
+                                            className="w-100"
+                                            style={{ height: '100%' }}
+                                            alt="imagen"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-          </div>
-          <div className="carousel-item">
-          <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
-          </div>
-          <div className="carousel-item">
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
-          </div>
-        </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default CarouselMedeinn;

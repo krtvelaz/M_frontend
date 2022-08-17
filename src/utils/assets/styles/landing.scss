@@ -2,26 +2,67 @@
 //   background-color: #E4EFF0;
 // }
 
+.site-layout-landing {
+  background-color: #e4eff0;
+}
+
 img {
   max-width: 100%;
   // display: block;
 }
 
+// cohete
+.styles-rocket {
+  padding-left: 20px;
+}
+
+// pie de pagina
 .footer-landing {
-  border-top: 1px solid #e8e8e8;
   // position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #e4eff0;
+  background-color: #909090;
   text-align: center;
-  display: flex;
-  padding: 30px;
+  // display: flex;
+  padding-bottom: 30px;
+}
+
+.footer-logo {
+  background-color: #fff;
+}
+
+.footer-information {
+  margin: 0px 100px;
+  background-color: #fff;
+}
+
+.scroll-information {
+  overflow-x: auto;
+  white-space: "nowrap";
+  display: "inline-block";
+  scroll-behavior: "smooth";
+}
+
+.footer-list-information {
+  background-color: #fff;
+  padding-top: 50px;
+}
+
+.footer-information span {
+  color: #3366cc;
+  font-family: 10px;
+}
+
+.footer-information h5 {
+  margin-top: 10px !important;
+  font-family: 10px;
+  color: #3366cc;
 }
 
 .landing-header {
   padding: 0px;
-  height: 70px;
+  height: 80px;
   background: #e4eff0 0 0 no-repeat padding-box;
 }
 
@@ -32,28 +73,30 @@ img {
   margin: 16px 24px 16px 100px;
 }
 
-@media (max-width: 768px) {
-  .logo {
-    margin: 16px 24px 16px 30px;
-  }
-}
-
 /***** estadisticas *****/
+
+.container-statistics {
+  position: relative;
+  z-index: 100;
+}
 
 .statistics {
   top: 789px;
   left: 93px;
-  // height: 193px;
-  margin: -15px 100px 0 100px;
-  // margin-bottom: -60%;
+  margin: -50px 100px 0 100px;
   border-radius: 20px;
-  padding: 20px 100px;
-  // display: flex;
+  padding: 20px;
   justify-content: space-between;
-  background: linear-gradient(to right, #ffffff, #00000029);
+  background: linear-gradient(to right top, #ffffff, transparent);
   opacity: 1;
   backdrop-filter: blur(43px);
-  -webkit-backdrop-filter: blur(43px);
+  z-index: 200;
+}
+
+.statistics::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .img-number {
@@ -89,60 +132,51 @@ img {
 
 /****** carrusel *****/
 
-.container-carrusel {
-  width: 100% !important;
-  height: 100% !important;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(to right, #e4eff0 40%, transparent 100%) !important;
-  display: flex;
-  justify-content: left;
+.container-carrousel {
   align-items: center;
-  z-index: 100;
 }
 
+.contenedor-magen-carrusel {
+  width: 100%;
+  // height: 100%;
+  position: relative;
+  margin: auto;
+}
+.contenedor-magen-carrusel::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(to right, #e4eff0, transparent);
+}
+
+.carousel-indicators {
+  margin-bottom: 5rem;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+}
+
+.carousel-indicators .active {
+  background-color: #ff7415;
+}
 
 .content-carrousel {
-  padding-left: 50px;
-  width: 100%;
-  max-width: 400px;
+  padding: 20px;
 }
 
 .content-carrousel h2 {
-    font-family: 'Montserrat-Black';
-    font-size: 24px;
+  font-family: "Montserrat-Black";
+  font-size: 25px;
 }
 
 .content-carrousel p {
-    font-size: 14px;
-}
-
-
-
-
-.sobre-nosotros {
-  background-image: linear-gradient(to right, #e4eff0 40%, transparent 100%),
-    url(../img/imagen.png);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 100%, 100%;
-  padding: 80px 0;
-}
-
-.sobre-nosotros-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 0 40px;
-}
-
-.texto-nosotros h2 {
-  font-family: "Montserrat-Bold";
-  font-size: 38px;
-}
-
-.texto-nosotros p {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 /***** inclusion participación *****/
@@ -158,6 +192,7 @@ img {
 .img-stake {
   padding-left: 50px;
 }
+
 .text-stake {
   font-family: "Montserrat-Bold" !important;
   font-size: 22px !important;
@@ -218,19 +253,46 @@ img {
 
 /******* card retos ***********/
 .container-challenges {
-  background: #ffffff;
-  padding: 50px 100px;
+  background: linear-gradient(to bottom, #e4eff0, white 10%);
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
 }
 
-@media (max-width: 768px) {
-  .container-challenges {
-    padding: 20px;
-  }
+.imagen-fondo {
+  left: 520px;
+  top: -128px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 300%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.imagen-grupo-personas {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 10%;
+  left: -6%;
+  max-width: 50%;
+  z-index: 0;
+}
+
+#card-challenge-one {
+  margin-top: 100px;
+}
+
+#card-challenge-four {
+  margin-top: -100px;
 }
 
 .card-challenge {
   border-radius: 40px;
-  // width: 290px
+  width: 300px;
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 
 .body-card-challenge h3 {
@@ -251,4 +313,265 @@ img {
 .body-card-challenge div {
   font-family: "Montserrat-Bold";
   font-size: 12px;
+}
+
+.ant-card-bordered {
+  margin-bottom: 20px;
+}
+
+/****** About-Us *******/
+.img-about {
+  background: linear-gradient(to right top, #ffffff, transparent),
+    url("src/utils/assets/img/hombreConGafas.png");
+  height: 539px;
+  background-repeat: no-repeat;
+}
+.box-about {
+  background-image: linear-gradient(to top, #ffffff 60%, transparent),
+    url("src/utils/assets/img/hombreGafasInteligentes.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100%;
+  position: relative;
+  overflow: hidden;
+  // padding-bottom: 200px;
+}
+.h1-about {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 37px !important;
+}
+
+.span-about {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 12px !important;
+}
+
+.card-about {
+  padding: 30px 90px;
+}
+
+.container-about {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.image-amarilla {
+  position: absolute;
+  bottom: 0;
+  left: -350px;
+  max-width: 250%;
+}
+
+/********** detalle reto *******/
+
+.hr-color {
+  color: #1A9BDB;
+  width: 150px;
+  margin: auto;
+  height: 2px!important;
+  font-weight: bold;
+}
+
+.btn-detail-play { 
+  text-decoration: none;
+}
+
+.btn-detail-play:hover {
+  color: #1A9BDB!important;
+}
+
+.imagen-fondo-detalle {
+  left: -850px;
+  bottom: 110px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 202%;
+  max-height: 750px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.imagen-fondo-mujer {
+  left: -32px;
+  bottom: 520px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 25%;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/********** eventos ***********/
+.section-events {
+  background: #603ce6;
+  padding-top: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen-fondo-events {
+  position: relative;
+  background-image: url("src/utils/assets/img/business-man.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container-cards-events {
+  font-size: 16px !important;
+  font-family: "Montserrat-Bold" !important;
+  position: relative;
+}
+
+.date-event {
+  background: #ff7415;
+  border-radius: 8px;
+  padding: 5px;
+  font-family: "Montserrat-SemiBold" !important;
+  font-size: 16px !important;
+  margin-bottom: 10px;
+}
+
+.title-card-event {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 15px !important;
+  margin-bottom: 10px;
+}
+
+.figuras-fondo {
+  left: 340px;
+  top: -177px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 75%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tabs-events .ant-tabs-nav-wrap {
+  background-color: transparent !important;
+}
+
+.tabs-events .ant-tabs-tab-btn {
+  color: white;
+}
+.tabs-events .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+}
+
+.tabs-events .ant-tabs-ink-bar {
+  background: white !important;
+}
+
+.imagen-events {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  border-radius: 16px !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.imagen-events::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(
+    to right top,
+    rgba(0, 0, 0, 0.91) 20%,
+    transparent
+  );
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    margin: 16px 24px 16px 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-information {
+    margin: 0px;
+  }
+  .container-challenges {
+    padding: 20px;
+  }
+  #card-challenge-four {
+    margin-top: 0px;
+  }
+
+  .statistics {
+    margin: 0px 10px 0 10px;
+  }
+
+  .carousel-indicators {
+    margin-bottom: 1rem;
+  }
+  .container-carrousel {
+    flex-direction: column-reverse;
+  }
+  .contenedor-magen-carrusel::before {
+    background: none;
+  }
+  .circle-text-wraps {
+    width: 13rem;
+    height: 13rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer-information {
+    margin: 0px;
+  }
+  .container-carrousel {
+    flex-direction: column-reverse;
+  }
+  .content-carrousel {
+    padding: 40px;
+  }
+  .contenedor-magen-carrusel::before {
+    background: none;
+  }
+  .carousel-indicators {
+    margin-bottom: 1rem;
+  }
+  .statistics {
+    margin: 0px 10px 0 10px;
+  }
+  .circle-text-wraps {
+    width: 12rem;
+    height: 12rem;
+  }
+  #card-challenge-one {
+    margin-top: 0px;
+  }
+  #card-challenge-four {
+    margin-top: 0px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .card-challenge {
+    width: 270px;
+  }
+}
+
+@media (max-width: 991px) {
+  .column-reverse {
+    flex-direction: column-reverse;
+  }
+  .card-about {
+    padding: 0px 0px;
+  }
+  .container-about {
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
 }
