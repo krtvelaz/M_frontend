@@ -1,11 +1,14 @@
 import { Popover } from "antd";
 import { lamp } from "../../../../utils/assets/img";
 
-const HomeChallenge = () => {
+const StaticInformation = () => {
   const contenido_postulamos = (
     <div className="row">
       <div className="col-2">
-        <img src="src/utils/assets/img/postulamos.jpg" alt="imagen postulamos" />
+        <img
+          src="src/utils/assets/img/postulamos.jpg"
+          alt="imagen postulamos"
+        />
       </div>
       <div className="col container-text-stake">
         {" "}
@@ -25,6 +28,12 @@ const HomeChallenge = () => {
   );
   const contenido_selecionamos = (
     <div className="row">
+      <div className="col-2">
+        <img
+          src="src/utils/assets/img/postulamos.jpg"
+          alt="imagen postulamos"
+        />
+      </div>
       <div className="col container-text-stake">
         {" "}
         <div className="text-stake">Seleccionamos</div>
@@ -38,6 +47,12 @@ const HomeChallenge = () => {
   );
   const contenido_acompañamos = (
     <div className="row">
+      <div className="col-2">
+        <img
+          src="src/utils/assets/img/postulamos.jpg"
+          alt="imagen postulamos"
+        />
+      </div>
       <div className="col container-text-stake">
         {" "}
         <div className="text-stake my-3">Acompañamos</div>
@@ -54,6 +69,12 @@ const HomeChallenge = () => {
   );
   const contenido_premiamos = (
     <div className="row">
+      <div className="col-2">
+        <img
+          src="src/utils/assets/img/postulamos.jpg"
+          alt="imagen postulamos"
+        />
+      </div>
       <div className="col container-text-stake">
         {" "}
         <div className="text-stake">Premiamos</div>
@@ -68,7 +89,7 @@ const HomeChallenge = () => {
 
   return (
     <div className="row container-stake">
-      <div className="col-12 col-md-12 col-lg-4 ">
+      <div className="col-12 col-md-12 col-lg-12 col-xl-4 " style={{ position: "relative", marginBottom: '65px'}}>
         <h2 className="text-stake">
           Nuestro proceso de innovación abierta Participación por un Territorio
           Inteligente.
@@ -87,12 +108,12 @@ const HomeChallenge = () => {
           Conoce más
         </button>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_postulamos}
           placement="bottom"
           trigger="click"
-          style={{width: 700}}
+          style={{ width: 700 }}
           className="popover-postulamos"
         >
           <div className="circle-text-wraps mx-auto">
@@ -111,7 +132,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_selecionamos}
           placement="bottom"
@@ -133,7 +154,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_acompañamos}
           placement="bottom"
@@ -155,7 +176,7 @@ const HomeChallenge = () => {
           </div>
         </Popover>
       </div>
-      <div className="col-12 my-3 col-md-3 col-lg p-0">
+      <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
           content={contenido_premiamos}
           placement="bottom"
@@ -181,4 +202,4 @@ const HomeChallenge = () => {
   );
 };
 
-export default HomeChallenge;
+export default StaticInformation;

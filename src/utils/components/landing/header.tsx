@@ -19,7 +19,7 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
         {context.device === "lg" ? (
           <>
             <Link
-              to={"/"}
+              to={"/about-us"}
               className="link-card"
               style={{
                 color: "black",

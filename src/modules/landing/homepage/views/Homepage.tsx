@@ -1,20 +1,31 @@
-import { calendar, rocket, watch } from "../../../../utils/assets/img";
-import HomeChallenge from "../../challenge/components/HomeChallenge";
+import { useContext } from "react";
+import {
+  figurasFondo,
+  rocket,
+  trazado_amarillo,
+} from "../../../../utils/assets/img";
 import StatisticsLanding from "../../banner/components/StatisticsLanding";
 import CarouselMedeinn from "../components/CarouselMedeinn";
-import { Card } from "antd";
-import { useContext } from "react";
 import { TemplateContext } from "../../../../utils/components/template/templateContext";
+import StaticInformation from "../components/StaticInformation";
+import PublishedChallenges from "../../challenge/components/PublishedChallenges";
+import { Card } from "../../../../utils/ui";
+import { Tabs } from "antd";
 
 const Homepage = () => {
   const context = useContext(TemplateContext);
+  const { TabPane } = Tabs;
+
+  const onChange = (key: string) => {
+    console.log(key);
+  };
+
   return (
     <>
-    
-      <section style={{ background: "#e4eff0" }}>
-        <div className="row">
+      <section>
+        <div className="row align-items-center">
           {context.device === "lg" && (
-            <div className="col-1">
+            <div className="col-1 styles-rocket">
               <img src={rocket} alt="imagen cohete" />
             </div>
           )}
@@ -25,153 +36,292 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* <div className="col-auto ">
+      <div className="container-statistics">
         <StatisticsLanding />
-      </div> */}
-    
+      </div>
+
       <section className="container-challenges">
-        <HomeChallenge />
-        <div className="row">
-          <div
-            className="col-12 col-md-12 col-lg-5"
-            style={{ marginTop: "120px" }}
-          >
-            <h2>
-              Solucionar e ider
-              <br />
-              <span className="text-stake">Convocatoria abierta</span>
-            </h2>
-            <br />
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam
-              provident voluptatem ipsum odit modi ducimus reprehenderit illo,
-              adipisci neque tenetur iusto in quod quas sed ut aliquam
-              recusandae illum beatae!
-            </p>
-            <img
-              style={{ marginTop: "120px" }}
-              src="src/utils/assets/img/Trazado.png"
-              alt="amigos"
-            />
-          </div>
-          <div className="col-12 col-md-12 col-lg-7">
+        <img
+          src="src/utils/assets/img/fondo_retos.svg"
+          alt=""
+          className="imagen-fondo"
+        />
+        {context.device === "lg" && (
+          <img
+            src="src/utils/assets/img/grupo_personas.png"
+            alt=""
+            className="imagen-grupo-personas"
+          />
+        )}
+        <div className="container">
+          <StaticInformation />
+          <PublishedChallenges />
+        </div>
+      </section>
+
+      <section className="section-events">
+        <img
+          src={figurasFondo}
+          alt="fihuras de fondo"
+          className="figuras-fondo"
+        />
+        <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
+        <div className="imagen-fondo-events">
+          <div className="container">
+            <div
+              className="text-white text-center container-cards-events"
+              style={{ padding: "3rem 0 1rem 0" }}
+            >
+              Eventos más cercanos
+            </div>
             <div className="row">
-              <div
-                className="col-12 col-md-6"
-                style={{ marginTop: "100px", marginBottom: "20px" }}
-              >
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
-                  hoverable
-                  className="card-challenge"
-                  cover={
-                    <img
-                      alt="example"
-                      src="src/utils/assets/img/imagen 52.png"
-                    />
-                  }
+                  actions={[
+                    <div className="my-3 d-flex justify-content-end">
+                      <button className="btn-cupos-primary me-5">
+                        Cupos limitados
+                      </button>
+                      <button className="btn btn-primary me-3">Asistiré</button>
+                    </div>,
+                  ]}
                 >
-                  <div className="text-center body-card-challenge">
-                    <h3>
-                      ¿Cómo mejorar la conectividad en los corregimientos de
-                      Medellín?
-                    </h3>
-                    <p>Fecha de vigencia para postulaciones</p>
-                    <div className="date-card-challenge">
-                      INICIO DEL RETO: 1 de Abril de 2021
+                  <div className="row">
+                    <div className="col-12 col-md-12 col-lg-3">
+                      <div className="text-white text-center date-event">
+                        AGO 04
+                      </div>
                     </div>
-                    <div className="date-card-challenge">
-                      FIN DEL RETO: 28 de Abril de 2021
+                    <div className="col-12 col-md-12 col-lg-9">
+                      <div className="title-card-event">
+                        Título del evento próximo, no debe sobrepasar dos líneas
+                      </div>
+                      <p className="">
+                        Agregar contenido descriptivo para esta sección donde se
+                        pueda entender por parte del usuario si el contenido es
+                        de su interés.
+                      </p>
+                      <div className="my-4">Lugar del evevento</div>
+
+                      <span>3: 00 pm</span>
                     </div>
-                    <button className="btn">Postularse al reto</button>
                   </div>
                 </Card>
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
-                  hoverable
-                  className="card-challenge"
-                  cover={
-                    <img
-                      alt="example"
-                      src="src/utils/assets/img/imagen 52.png"
-                    />
-                  }
+                  actions={[
+                    <div className="my-3 d-flex justify-content-end">
+                      <button className="btn-cupos-primary me-5">
+                        Cupos limitados
+                      </button>
+                      <button className="btn btn-primary me-3">Asistiré</button>
+                    </div>,
+                  ]}
                 >
-                  <div className="text-center body-card-challenge">
-                    <h3>
-                      ¿Cómo mejorar la conectividad en los corregimientos de
-                      Medellín?
-                    </h3>
-                    <p>Fecha de vigencia para postulaciones</p>
-                    <div className="date-card-challenge">
-                      INICIO DEL RETO: 1 de Abril de 2021
+                  <div className="row">
+                    <div className="col-12 col-md-12 col-lg-3">
+                      <div className="text-white text-center date-event">
+                        AGO 04
+                      </div>
                     </div>
-                    <div className="date-card-challenge">
-                      FIN DEL RETO: 28 de Abril de 2021
+                    <div className="col-12 col-md-12 col-lg-9">
+                      <div className="title-card-event">
+                        Título del evento próximo, no debe sobrepasar dos líneas
+                      </div>
+                      <p className="">
+                        Agregar contenido descriptivo para esta sección donde se
+                        pueda entender por parte del usuario si el contenido es
+                        de su interés.
+                      </p>
+                      <div className="my-4">Lugar del evevento</div>
+
+                      <span>3: 00 pm</span>
                     </div>
-                    <button className="btn">Postularse al reto</button>
                   </div>
                 </Card>
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
-                  hoverable
-                  className="card-challenge"
-                  cover={
-                    <img
-                      alt="example"
-                      src="src/utils/assets/img/imagen 52.png"
-                    />
-                  }
+                  actions={[
+                    <div className="my-3 d-flex justify-content-end">
+                      <button className="btn-cupos-primary me-5">
+                        Cupos limitados
+                      </button>
+                      <button className="btn btn-primary me-3">Asistiré</button>
+                    </div>,
+                  ]}
                 >
-                  <div className="text-center body-card-challenge">
-                    <h3>
-                      ¿Cómo mejorar la conectividad en los corregimientos de
-                      Medellín?
-                    </h3>
-                    <p>Fecha de vigencia para postulaciones</p>
-                    <div className="date-card-challenge">
-                      INICIO DEL RETO: 1 de Abril de 2021
+                  <div className="row">
+                    <div className="col-12 col-md-12 col-lg-3">
+                      <div className="text-white text-center date-event">
+                        AGO 04
+                      </div>
                     </div>
-                    <div className="date-card-challenge">
-                      FIN DEL RETO: 28 de Abril de 2021
+                    <div className="col-12 col-md-12 col-lg-9">
+                      <div className="title-card-event">
+                        Título del evento próximo, no debe sobrepasar dos líneas
+                      </div>
+                      <p className="">
+                        Agregar contenido descriptivo para esta sección donde se
+                        pueda entender por parte del usuario si el contenido es
+                        de su interés.
+                      </p>
+                      <div className="my-4">Lugar del evevento</div>
+
+                      <span>3: 00 pm</span>
                     </div>
-                    <button className="btn">Postularse al reto</button>
-                  </div>
-                </Card>
-              </div>
-              <div className="col-12 col-md-6" style={{ marginTop: "-100px" }}>
-                <Card
-                  hoverable
-                  className="card-challenge"
-                  cover={
-                    <img
-                      alt="example"
-                      src="src/utils/assets/img/imagen 52.png"
-                    />
-                  }
-                >
-                  <div className="text-center body-card-challenge">
-                    <h3>
-                      ¿Cómo mejorar la conectividad en los corregimientos de
-                      Medellín?
-                    </h3>
-                    <p>Fecha de vigencia para postulaciones</p>
-                    <div className="date-card-challenge">
-                      INICIO DEL RETO: 1 de Abril de 2021
-                    </div>
-                    <div className="date-card-challenge">
-                      FIN DEL RETO: 28 de Abril de 2021
-                    </div>
-                    <button className="btn">Postularse al reto</button>
                   </div>
                 </Card>
               </div>
             </div>
+            <div className="text-center  py-5">
+              <a href="#" className="text-white">
+                Ver calendario de eventos
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="text-center py-5">
+            <div className="text-white" style={{ fontSize: "16px" }}>
+              {" "}
+              <span style={{ fontSize: "16px", fontFamily: "Montserrat-Bold" }}>
+                Suscríbete
+              </span>{" "}
+              a nuestros botines de noticias y eventos{" "}
+            </div>
+            <a href="" style={{ color: "#FFDC2F" }}>
+              Al dar click en suscribirme ahora, acepta los términos y
+              condiciones
+            </a>
+            <div className="my-5">
+              <div className="text-white" style={{ fontFamily: "14px" }}>
+                Conoce lo último
+              </div>
+              <h2
+                className="text-white"
+                style={{ fontFamily: "Montserrat-Bold", fontSize: "20px" }}
+              >
+                Entérarte de lo más actual
+              </h2>
+              <Tabs
+                defaultActiveKey="1"
+                className="tabs-events"
+                onChange={onChange}
+              >
+                <TabPane tab="Retos solucionados" key="1">
+                  <div className="row my-5 pe-5 ps-5">
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
+                      <div
+                        className="text-white text-start ps-5 pe-5"
+                        style={{ position: "absolute", bottom: "10%" }}
+                      >
+                        <div style={{ fontFamily: "Montserrat-Bold" }}>
+                          Nombre del reto
+                        </div>
+                        <p>
+                          Introducción a la noticia con texto descriptivo del
+                          contenido a consultar o leer por el visitante...
+                        </p>
+                      </div>
+                      <img
+                        style={{ borderRadius: "16px 16px 0 0" }}
+                        className="w-100"
+                        src="https://images.pexels.com/photos/6958766/pexels-photo-6958766.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="imagen 1"
+                      />
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
+                      <div
+                        className="text-white text-start ps-5 pe-5"
+                        style={{ position: "absolute", bottom: "10%" }}
+                      >
+                        <div style={{ fontFamily: "Montserrat-Bold" }}>
+                          Nombre del reto
+                        </div>
+                        <p>
+                          Introducción a la noticia con texto descriptivo del
+                          contenido a consultar o leer por el visitante...
+                        </p>
+                      </div>
+                      <img
+                        style={{ borderRadius: "16px 16px 0 0" }}
+                        className="w-100"
+                        src="https://images.pexels.com/photos/7567309/pexels-photo-7567309.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="imagen 2"
+                      />
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
+                      <div
+                        className="text-white text-start ps-5 pe-5"
+                        style={{ position: "absolute", bottom: "10%" }}
+                      >
+                        <div style={{ fontFamily: "Montserrat-Bold" }}>
+                          Nombre del reto
+                        </div>
+                        <p>
+                          Introducción a la noticia con texto descriptivo del
+                          contenido a consultar o leer por el visitante...
+                        </p>
+                      </div>
+                      <img
+                        style={{ borderRadius: "0 0 16px 16px" }}
+                        className="w-100"
+                        src="https://images.pexels.com/photos/7550532/pexels-photo-7550532.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="imagen 3"
+                      />
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
+                      <div
+                        className="text-white text-start ps-5 pe-5"
+                        style={{ position: "absolute", bottom: "10%" }}
+                      >
+                        <div style={{ fontFamily: "Montserrat-Bold" }}>
+                          Nombre del reto
+                        </div>
+                        <p>
+                          Introducción a la noticia con texto descriptivo del
+                          contenido a consultar o leer por el visitante...
+                        </p>
+                      </div>
+                      <img
+                        style={{ borderRadius: "0 0 16px 16px" }}
+                        className="w-100"
+                        src="https://images.pexels.com/photos/7610525/pexels-photo-7610525.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        alt="imagen 4"
+                      />
+                    </div>
+                  </div>
+                </TabPane>
+                <TabPane tab="Eventos" key="2">
+                  Content of Tab Pane 2
+                </TabPane>
+                <TabPane tab="Avances de los retos" key="3">
+                  Content of Tab Pane 3
+                </TabPane>
+              </Tabs>
+            </div>
           </div>
         </div>
       </section>
-      <section></section>
+
+      <section>
+        <div className="container">
+          <div className="row" style={{ background: "#E4EFF0" }}>
+            <div className="col">imagen</div>
+            <div className="col-9">
+              <div>Título del mensaje desde lo humano y motivacional</div>
+              <p>
+                Este módulo permitirá la divulgación de mensajes enfocados a lo
+                humano, a la inclusión y colaboración como base de la solución y
+                transformación digital, buscando así generar cercanía, empatía y
+                aceptabilidad de los nuevos medios de interacción
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

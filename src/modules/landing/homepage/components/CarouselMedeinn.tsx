@@ -1,81 +1,85 @@
-import { Carousel } from "antd";
+import "bootstrap";
+import { useContext } from "react";
+import { TemplateContext } from "../../../../utils/components/template/templateContext";
+import ModalVideo from "./ModalVideo";
 
 const CarouselMedeinn = () => {
-  const contentStyle: React.CSSProperties = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
+  const context = useContext(TemplateContext);
+
   return (
     <>
       <div
-        id="carouselExampleControlsNoTouching"
+        id="carouselExampleIndicators"
         className="carousel slide"
-        data-bs-touch="false"
-        data-bs-interval="false"
+        data-bs-ride="carousel"
       >
-        <div className="carousel-inner">
+        <div className="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            className="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+        </div>
+        <div className="carousel-inner" >
           <div className="carousel-item active">
-            <div>
-              <div className="container-carrusel">
-                <div className="content-carrousel">
-                  <h2>Ideas y soluciones para una sociedad en evolución</h2>
-                  <p>
-                    Contenido descriptivo. Para esta sección es importante
-                    resumir el contenido o dar la idea principal sobre lo que se
-                    encontrará al dar clic. Esto permitirá entender por parte
-                    del usuario si el contenido es de su interés.
-                  </p>
+            <div className="row container-carrousel">
+              <div className="col-12 col-md-12 col-lg-4 content-carrousel">
+                <h2>Ideas y soluciones para una sociedad en evolución</h2>
+                <p>
+                  Contenido descriptivo. Para esta sección es importante resumir
+                  el contenido o dar la idea principal sobre lo que se
+                  encontrará al dar clic. Esto permitirá entender por parte del
+                  usuario si el contenido es de su interés.
+                </p>
+                
+                <div><ModalVideo /></div>
+              </div>
+              <div className="col-12  col-md-12 col-lg-8" style={{height: '500px'}}>
+                <div className="contenedor-magen-carrusel">
+                  <img
+                    src="https://images.pexels.com/photos/904272/pexels-photo-904272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    className="w-100"
+                    style={{height: '100%'}}
+                    alt="imagen"
+                  />
                 </div>
               </div>
-              <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
             </div>
           </div>
           <div className="carousel-item">
-          <img
-                src="src/utils/assets/img/imagen.png"
-                className="d-block w-100"
-                alt="imagen"
-              />
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
-          </div>
-          <div className="carousel-item">
-            {/* <img src="..." className="d-block w-100" alt="..."> */}
+            <div className="row container-carrousel">
+              <div className="col-12 col-md-12 col-lg-4 content-carrousel" >
+                <h2>Ideas y soluciones para una sociedad en evolución</h2>
+                <p>
+                  Contenido descriptivo. Para esta sección es importante resumir
+                  el contenido o dar la idea principal sobre lo que se
+                  encontrará al dar clic. Esto permitirá entender por parte del
+                  usuario si el contenido es de su interés.
+                </p>
+                <div><ModalVideo /></div>
+              </div>
+              <div className="col-12  col-md-12 col-lg-8"  style={{height: '500px'}}>
+                <div className="contenedor-magen-carrusel">
+                  <img
+                    src="https://images.pexels.com/photos/6771740/pexels-photo-6771740.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    className="w-100"
+                    style={{height: '100%'}}
+                    alt="imagen"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControlsNoTouching"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
       </div>
     </>
   );

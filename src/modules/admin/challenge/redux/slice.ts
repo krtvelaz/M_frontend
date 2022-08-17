@@ -4,15 +4,24 @@ import { IChallenge, IDocument } from "../custom_types";
 
 interface State {
   challenge: Loadable<IChallenge | null>;
-  challenges: Pageable<IChallenge>;
+  challenges: Loadable<any>;
   document_challenge: Loadable<IDocument | null>;
   documents_challenge: Pageable<IDocument>;
-  masters: Loadable<IChallenge | null>;
+  communes: Loadable<any | null>;
+  dimensions: Loadable<any | null>;
+  dependencies: Loadable<any | null>;
+  profiles: Loadable<any | null>;
+  neighborhoods: Loadable<any | null>;
 }
 
 const initialState: State = {
   challenge: {
     value: null,
+    loading: false,
+    loaded: false,
+  },
+  challenges: {
+    value: [],
     loading: false,
     loaded: false,
   },
@@ -33,20 +42,29 @@ const initialState: State = {
     loading: false,
     loaded: false,
   },
-  challenges: {
+  
+  communes: {
     value: [],
-    pagination: {
-      page: 1,
-      count: 0,
-      next_page: null,
-      previous_page: null,
-      total_results: 0,
-    },
     loading: false,
     loaded: false,
   },
-  masters: {
-    value: null,
+  dimensions: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
+  dependencies: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
+  profiles: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
+  neighborhoods: {
+    value: [],
     loading: false,
     loaded: false,
   },
@@ -77,6 +95,29 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
+
+    loading_challenges: (state) => {
+      state.challenges = {
+        value: state.challenges.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_challenges: (state, action) => {
+      state.challenges = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_challenges: (state) => {
+      state.challenges = {
+        value: initialState.challenges.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+
     //documentos
     loading_document_challenge: (state) => {
       state.document_challenge = {
@@ -100,6 +141,7 @@ export const challengeSlice = createSlice({
       };
     },
 
+    // lista de documentos
     loading_get_list_documents: (state) => {
       state.documents_challenge = {
         ...state.documents_challenge,
@@ -132,23 +174,109 @@ export const challengeSlice = createSlice({
       };
     },
 
-    loading_list_master: (state) => {
-      state.masters = {
-        value: state.challenge.value,
+    //lista de maestras
+    loading_list_communes: (state) => {
+      state.communes = {
+        value: state.communes.value,
         loading: true,
         loaded: false,
       };
     },
-    success_list_master: (state, action) => {
-      state.masters = {
+    success_list_communes: (state, action) => {
+      state.communes = {
         value: action.payload,
         loading: false,
         loaded: true,
       };
     },
-    fail_list_master: (state) => {
-      state.masters = {
-        value: initialState.challenge.value,
+    fail_list_communes: (state) => {
+      state.communes = {
+        value: initialState.communes.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+    loading_list_dimensions: (state) => {
+      state.dimensions = {
+        value: state.dimensions.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_dimensions: (state, action) => {
+      state.dimensions = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_dimensions: (state) => {
+      state.communes = {
+        value: initialState.dimensions.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+
+    loading_list_dependencies: (state) => {
+      state.dependencies = {
+        value: state.dependencies.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_dependencies: (state, action) => {
+      state.dependencies = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_dependencies: (state) => {
+      state.dependencies = {
+        value: initialState.dependencies.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+    loading_list_profiles: (state) => {
+      state.profiles = {
+        value: state.profiles.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_profiles: (state, action) => {
+      state.profiles = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_profiles: (state) => {
+      state.profiles = {
+        value: initialState.profiles.value,
+        loading: false,
+        loaded: false,
+      };
+    },
+    loading_list_neighborhoods: (state) => {
+      state.neighborhoods = {
+        value: state.neighborhoods.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_neighborhoods: (state, action) => {
+      state.neighborhoods = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_neighborhoods: (state) => {
+      state.neighborhoods = {
+        value: initialState.neighborhoods.value,
         loading: false,
         loaded: false,
       };
@@ -169,7 +297,22 @@ export const {
   loading_get_list_documents,
   success_get_list_documents,
   fail_get_list_documents,
-  loading_list_master,
-  success_list_master,
-  fail_list_master,
+  loading_list_communes,
+  success_list_communes,
+  fail_list_communes,
+  loading_list_dimensions,
+  success_list_dimensions,
+  fail_list_dimensions,
+  loading_list_dependencies,
+  success_list_dependencies,
+  fail_list_dependencies,
+  loading_list_profiles,
+  success_list_profiles,
+  fail_list_profiles,
+  loading_list_neighborhoods,
+  success_list_neighborhoods,
+  fail_list_neighborhoods,
+  loading_challenges,
+  success_challenges,
+  fail_challenges,
 } = challengeSlice.actions;

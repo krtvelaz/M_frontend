@@ -11,7 +11,10 @@ interface GeneralInformationProps {
   onSubmit: (values: any) => void;
 }
 const CreateGeneral: FC<GeneralInformationProps> = ({ general_information, innerRef, onSubmit, active_key })=> {
-  const list_master: IMasters = useSelector((store: any) => store.challenge.masters.value);  
+  const list_communes: any = useSelector((store: any) => store.challenge.communes.value);  
+  const list_dimensions: any = useSelector((store: any) => store.challenge.dimensions.value);  
+  const list_dependencies: any = useSelector((store: any) => store.challenge.dependencies.value);  
+  const list_profiles: any = useSelector((store: any) => store.challenge.profiles.value);  
 
   return (
     <div className="container-fluid">
@@ -32,7 +35,10 @@ const CreateGeneral: FC<GeneralInformationProps> = ({ general_information, inner
             general_={general_information}
             innerRef={innerRef}
             onSubmit={onSubmit}
-            masters={list_master}
+            communes={list_communes}
+            dimensions={list_dimensions}
+            dependencies={list_dependencies}
+            profiles={list_profiles}
             />
           </Card>
         </div>
