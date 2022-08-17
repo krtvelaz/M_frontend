@@ -66,16 +66,16 @@ const Homepage = () => {
           className="figuras-fondo"
         />
         <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
-        <div className="imagen-fondo-events"
-        >
+        <div className="imagen-fondo-events">
           <div className="container">
             <div
-              className="text-white text-center py-3 container-cards-events"
+              className="text-white text-center container-cards-events"
+              style={{ padding: "3rem 0 1rem 0" }}
             >
               Eventos más cercanos
             </div>
             <div className="row">
-              <div className="col-12 col-md-12 col-lg-4">
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
                   actions={[
                     <div className="my-3 d-flex justify-content-end">
@@ -87,12 +87,12 @@ const Homepage = () => {
                   ]}
                 >
                   <div className="row">
-                    <div className="col-12 col-md-3">
+                    <div className="col-12 col-md-12 col-lg-3">
                       <div className="text-white text-center date-event">
                         AGO 04
                       </div>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-md-12 col-lg-9">
                       <div className="title-card-event">
                         Título del evento próximo, no debe sobrepasar dos líneas
                       </div>
@@ -108,7 +108,7 @@ const Homepage = () => {
                   </div>
                 </Card>
               </div>
-              <div className="col-12 col-md-12 col-lg-4">
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
                   actions={[
                     <div className="my-3 d-flex justify-content-end">
@@ -120,12 +120,12 @@ const Homepage = () => {
                   ]}
                 >
                   <div className="row">
-                    <div className="col-12 col-md-3">
+                    <div className="col-12 col-md-12 col-lg-3">
                       <div className="text-white text-center date-event">
                         AGO 04
                       </div>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-md-12 col-lg-9">
                       <div className="title-card-event">
                         Título del evento próximo, no debe sobrepasar dos líneas
                       </div>
@@ -141,7 +141,7 @@ const Homepage = () => {
                   </div>
                 </Card>
               </div>
-              <div className="col-12 col-md-12 col-lg-4">
+              <div className="col-12 col-md-4 col-lg-4">
                 <Card
                   actions={[
                     <div className="my-3 d-flex justify-content-end">
@@ -153,12 +153,12 @@ const Homepage = () => {
                   ]}
                 >
                   <div className="row">
-                    <div className="col-12 col-md-3">
+                    <div className="col-12 col-md-12 col-lg-3">
                       <div className="text-white text-center date-event">
                         AGO 04
                       </div>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-md-12 col-lg-9">
                       <div className="title-card-event">
                         Título del evento próximo, no debe sobrepasar dos líneas
                       </div>
@@ -212,9 +212,7 @@ const Homepage = () => {
               >
                 <TabPane tab="Retos solucionados" key="1">
                   <div className="row my-5 pe-5 ps-5">
-                    <div
-                      className="col-12 col-md-12 col-lg-6 imagen-events"
-                    >
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
                       <div
                         className="text-white text-start ps-5 pe-5"
                         style={{ position: "absolute", bottom: "10%" }}
@@ -234,9 +232,7 @@ const Homepage = () => {
                         alt="imagen 1"
                       />
                     </div>
-                    <div
-                      className="col-12 col-md-12 col-lg-6 imagen-events"
-                    >
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
                       <div
                         className="text-white text-start ps-5 pe-5"
                         style={{ position: "absolute", bottom: "10%" }}
@@ -256,9 +252,7 @@ const Homepage = () => {
                         alt="imagen 2"
                       />
                     </div>
-                    <div
-                      className="col-12 col-md-12 col-lg-6 imagen-events"
-                    >
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
                       <div
                         className="text-white text-start ps-5 pe-5"
                         style={{ position: "absolute", bottom: "10%" }}
@@ -278,9 +272,7 @@ const Homepage = () => {
                         alt="imagen 3"
                       />
                     </div>
-                    <div
-                      className="col-12 col-md-12 col-lg-6 imagen-events"
-                    >
+                    <div className="col-12 col-md-12 col-lg-6 imagen-events">
                       <div
                         className="text-white text-start ps-5 pe-5"
                         style={{ position: "absolute", bottom: "10%" }}
@@ -309,6 +301,23 @@ const Homepage = () => {
                   Content of Tab Pane 3
                 </TabPane>
               </Tabs>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container">
+          <div className="row" style={{ background: "#E4EFF0" }}>
+            <div className="col">imagen</div>
+            <div className="col-9">
+              <div>Título del mensaje desde lo humano y motivacional</div>
+              <p>
+                Este módulo permitirá la divulgación de mensajes enfocados a lo
+                humano, a la inclusión y colaboración como base de la solución y
+                transformación digital, buscando así generar cercanía, empatía y
+                aceptabilidad de los nuevos medios de interacción
+              </p>
             </div>
           </div>
         </div>

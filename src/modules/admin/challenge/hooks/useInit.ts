@@ -17,7 +17,6 @@ export const useInit = (
   any[],
   number,
   boolean,
-  boolean,
   () => void,
   () => void,
   () => void,
@@ -45,14 +44,14 @@ export const useInit = (
     general_information: {
       ret_nombre: "",
       ret_perfil: [],
-      ret_dimension: "",
-      ret_dependencia: "",
+      ret_id_dimension: "",
+      ret_id_dependencia: "",
       ret_fecha_inicio: "",
       ret_fecha_final: "",
       ret_detalles: "",
-      ret_comuna: "",
-      ret_barrio: "",
-      ret_detalle_postulacion: "",
+      ret_id_comuna: "",
+      ret_id_barrio: "",
+      ret_detalle_poblacion_impactar: "",
       ret_ruta_imagen_principal: "",
       ret_nombre_imagen: "",
       ret_video: "",
@@ -75,7 +74,6 @@ export const useInit = (
   );
   const [max, set_max] = useState<number>(state?.max || 1);
   const [is_saving, set_is_saving] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [go_next, set_go_next] = useState<string>("");
   const [go_next_doc, set_go_next_doc] = useState<string>("");
   const ref = useRef<FormikProps<FormikValues>>();
@@ -87,31 +85,35 @@ export const useInit = (
         await ref.current?.submitForm();
       },
       onSave: async (values: IGeneralInformation) => {
-        if (!challenge.general_information.key) {
-          setIsSubmitting(true);
-          const res = await dispatch(actions.create_challenge(values));
-          if (res) {
-            set_is_saving(false);
-            setChallenge((data: any) => ({
-              ...data,
-              general_information: {
-                ...res.data,
-                ret_perfil: res?.data?.ret_perfil?.map((doc: any) => doc.id),
-                key: res.key,
-              },
-            }));
-          }
-          setIsSubmitting(false);
-        } else {
-          // const res = await dispatch(actions.update_challenge(values));
-          set_is_saving(false);
-          // setChallenge((data: any) => ({
-          //   ...data,
-          //   general_information: {
-          //     ...values,
-          //   },
-          // }));
-        }
+        setChallenge((data) => ({
+          ...data,
+          general_information: {
+            ...values,
+          },
+        }));
+        console.log(1, "guardado");
+        set_is_saving(false);
+        // if (!challenge.general_information.key) {
+        //   const res = await dispatch(actions.create_challenge(values));
+        //   if (res) {
+        //     setChallenge((data: any) => ({
+        //       ...data,
+        //       general_information: {
+        //         ...res.data,
+        //         ret_perfil: res?.data?.ret_perfil?.map((doc: any) => doc.id),
+        //         key: res.key,
+        //       },
+        //     }));
+        //   }
+        // } else {
+        //   const res = await dispatch(actions.update_challenge(values));
+        //   setChallenge((data: any) => ({
+        //     ...data,
+        //     general_information: {
+        //       ...values,
+        //     },
+        //   }));
+        // }
       },
     },
     {
@@ -248,17 +250,21 @@ export const useInit = (
   const callback = (key: string, next_docs = "docs-1", prev = false) => {
     const int_key = parseInt(active_key);
     const save = steps[int_key - 1]?.save;
-    if (prev) {
-      set_is_saving(false);
-      set_go_next(key);
-      set_go_next_doc(next_docs);
-      return;
-    }
+
+    // if (prev) {
+    //   set_is_saving(false);
+    //   set_go_next(key);
+    //   set_go_next_doc(next_docs);
+    //   return;
+    // }
+
     save &&
-      save().then(() => {
-        set_go_next(key);
-        set_go_next_doc(next_docs);
-      });
+      save()
+        .then(() => {
+          console.log("aqui succes save");
+          set_go_next(key);
+          set_go_next_doc(next_docs);
+        });
   };
 
   const goBack = () => {
@@ -278,6 +284,7 @@ export const useInit = (
   }, [challenge_data]);
 
   useEffect(() => {
+
     if (!is_saving && go_next) {
       const key = parseInt(go_next);
       if (key > max) {
@@ -305,7 +312,6 @@ export const useInit = (
     steps,
     max,
     show_next,
-    isSubmitting,
     next_tab,
     goBack,
     execute_save,

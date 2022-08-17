@@ -9,6 +9,8 @@ import * as Yup from "yup";
 import { IGeneralInformation, IMasters } from "../custom_types";
 import moment from "moment";
 import { TimeRangePickerProps } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../redux";
 
 interface GeneralInformationFormPros {
   disabled?: boolean;
@@ -16,7 +18,10 @@ interface GeneralInformationFormPros {
   general_?: IGeneralInformation;
   innerRef: any;
   onSubmit: (values: any) => void;
-  masters: IMasters;
+  communes: any;
+  dimensions: any;
+  dependencies: any;
+  profiles: any;
 }
 
 const FormGeneral: FC<GeneralInformationFormPros> = ({
@@ -24,19 +29,22 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
   general_,
   innerRef,
   onSubmit,
-  masters,
+  communes,
+  dimensions,
+  dependencies,
+  profiles,
 }) => {
   const initialValues = {
     ret_nombre: "",
     ret_perfil: [],
-    ret_dimension: "",
-    ret_dependencia: "",
+    ret_id_dimension: "",
+    ret_id_dependencia: "",
     ret_fecha_inicio: "",
     ret_fecha_final: "",
+    ret_detalle_poblacion_impactar: "",
+    ret_id_comuna: "",
+    ret_id_barrio: "",
     ret_detalles: "",
-    ret_comuna: "",
-    ret_barrio: "",
-    ret_detalle_postulacion: "",
     ret_imagen_principal: {
       name: general_?.ret_nombre_imagen || "",
     },
@@ -50,26 +58,29 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     ret_tipo_impacto: "",
     ...general_,
   };
-
+  const neighborhoods: any = useSelector(
+    (store: any) => store.challenge.neighborhoods.value
+  );
+  const dispatch = useDispatch<any>();
   const schema = Yup.object().shape({
     ret_nombre: Yup.string().required("Campo obligatorio"),
     ret_perfil: Yup.array().min(1, "Campo obligatorio"),
-    ret_dimension: Yup.string().nullable().required("Campo obligatorio"),
-    ret_dependencia: Yup.string().nullable().required("Campo obligatorio"),
+    ret_id_dimension: Yup.string().nullable().required("Campo obligatorio"),
+    ret_id_dependencia: Yup.number().nullable().required("Campo obligatorio"),
     ret_fecha_inicio: Yup.string().required("Campo obligatorio"),
     ret_fecha_final: Yup.string().required("Campo obligatorio"),
     ret_descripcion: Yup.string().required("Campo obligatorio"),
-    ret_comuna: Yup.string().nullable().required("Campo obligatorio"),
-    ret_barrio: Yup.string().nullable().required("Campo obligatorio"),
+    ret_id_comuna: Yup.string().nullable().required("Campo obligatorio"),
+    ret_id_barrio: Yup.string().nullable().required("Campo obligatorio"),
     ret_imagen_principal: Yup.object({
       name: Yup.string().required("Campo obligatorio"),
     }).nullable(),
-    ret_detalles: Yup.string().required("Campo obligatorio"),
+    ret_detalle_poblacion_impactar: Yup.string().required("Campo obligatorio"),
     ret_dato_importante: Yup.string().required("Campo obligatorio"),
     ret_resultado_esperado: Yup.string().required("Campo obligatorio"),
-    ret_detalle_postulacion: Yup.string().required("Campo obligatorio"),
+    ret_detalles: Yup.string().required("Campo obligatorio"),
     ret_video: Yup.string().url("Por favor ingrese una url"),
-    ret_monto: Yup.number().max(10000000000, 'El máximo es $10.000.000.000')
+    ret_monto: Yup.number().max(10000000000, "El máximo es $10.000.000.000"),
   });
 
   const submit = (values: any, actions: any) => {
@@ -133,9 +144,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   id="ret_perfil_id"
                   name="ret_perfil"
                   className=""
-                  options={masters?.tbl_perfil?.map((d) => ({
-                    id: d?.id,
-                    name: d?.nombre,
+                  options={profiles?.map((profile: any) => ({
+                    id: profile?.id,
+                    name: profile?.name,
                   }))}
                   placeholder="Seleccione uno o más perfiles…"
                   mode="multiple"
@@ -159,15 +170,15 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <Field
                   component={Select}
                   id="ret_dimension_id"
-                  name="ret_dimension"
+                  name="ret_id_dimension"
                   className=""
-                  options={masters?.tbl_dimensiones?.map((d) => ({
-                    id: d?.id,
-                    name: d?.nombre,
+                  options={dimensions?.map((dimension: any) => ({
+                    id: dimension?.id,
+                    name: dimension?.maedim_nombre,
                   }))}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_dimension" />
+                <ErrorMessage name="ret_id_dimension" />
               </div>
               <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="ret_dependencia_id" className="form-label">
@@ -176,15 +187,15 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <Field
                   component={Select}
                   id="ret_dependencia_id"
-                  name="ret_dependencia"
+                  name="ret_id_dependencia"
                   className=""
-                  options={masters?.tbl_dependencia?.map((d) => ({
-                    id: d?.id,
-                    name: d?.nombre,
+                  options={dependencies.map((dependency: any) => ({
+                    id: dependency?.id,
+                    name: dependency?.maedep_nombre,
                   }))}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_dependencia" />
+                <ErrorMessage name="ret_id_dependencia" />
               </div>
               <div className="col-12 col-md-6 col-lg-3">
                 <label htmlFor="ret_fecha_inicio_id" className="form-label">
@@ -237,8 +248,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="ret_detalle_postulacion_id"
-                  name="ret_detalle_postulacion"
+                  id="ret_detalles_id"
+                  name="ret_detalles"
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
@@ -254,7 +265,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   }}
                 />
                 <ErrorMessage
-                  name="ret_detalle_postulacion"
+                  name="ret_detalles"
                   withCount
                   max={100}
                 />
@@ -271,41 +282,44 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                       style={{ height: "38px" }}
                       component={Select}
                       id="ret_comuna_id"
-                      name="ret_comuna"
+                      name="ret_id_comuna"
                       className=""
-                      options={masters?.tbl_comunas?.map((d) => ({
-                        id: d?.id,
-                        name: d?.nombre,
+                      options={communes?.map((commune: any) => ({
+                        id: commune?.id,
+                        name: commune?.commune,
                       }))}
+                      extra_on_change={(id_commune: number) => {
+                        dispatch(actions.get_neighborhoods(id_commune));
+                      }}
                       placeholder="Seleccionar…"
                     />
-                    <ErrorMessage name="ret_comuna" />
+                    <ErrorMessage name="ret_id_comuna" />
                   </div>
                   <div className="col-6">
                     <Field
                       component={Select}
                       id="ret_barrio_id"
-                      name="ret_barrio"
+                      name="ret_id_barrio"
                       className=""
-                      options={masters?.tbl_barrio?.map((d) => ({
-                        id: d?.id,
-                        name: d?.nombre,
+                      options={neighborhoods?.map((neighborhood: any) => ({
+                        id: neighborhood?.id,
+                        name: neighborhood?.neighborhood,
                       }))}
                       placeholder="Seleccionar…"
                     />
-                    <ErrorMessage name="ret_barrio" />
+                    <ErrorMessage name="ret_id_barrio" />
                   </div>
                 </div>
               </div>
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_detalles_id" className="form-label">
+                <label htmlFor="ret_detalles_poblacion_impactar_id" className="form-label">
                   Detalle población a impactar{" "}
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="ret_detalles_id"
-                  name="ret_detalles"
+                  id="ret_detalles_poblacion_impactar_id"
+                  name="ret_detalle_poblacion_impactar"
                   autoComplete="off"
                   style={{ height: "38px" }}
                   maxLength={200}
@@ -320,7 +334,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="ret_detalles" withCount max={200} />
+                <ErrorMessage name="ret_detalle_poblacion_impactar" withCount max={200} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_imagen_principal_id" className="form-label">
@@ -329,7 +343,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 <Field
                   component={DocumentInput}
                   file_type="img"
-                  type_image='JPEG'
+                  type_image="JPEG"
                   maximum_size={2}
                   type="text"
                   id="ret_imagen_principal_id"

@@ -24,15 +24,13 @@ const DocumentFormTags: FC<DocumentsProps> = ({
 }) => {
   const { TabPane } = Tabs;
 
-  const list_master: IMasters = useSelector(
-    (store: any) => store.challenge.masters.value
-  );
+  
 
     return (
     <Tabs className="w-100 h-100 docs-challenge" activeKey={active_key}>
       <TabPane tab="Doc. Generales" key="docs-1">
         <AddDocument
-          typesDocument={list_master?.tbl_tipo_documento_general}
+          typesDocument={[]}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
@@ -46,7 +44,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={list_master?.tbl_tipo_documento_tecnico}
+          typesDocument={[]}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
@@ -60,7 +58,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={list_master?.tbl_tipo_documento_admin}
+          typesDocument={[]}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}

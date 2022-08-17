@@ -29,7 +29,7 @@ const CarouselMedeinn = () => {
             aria-label="Slide 2"
           ></button>
         </div>
-        <div className="carousel-inner">
+        <div className="carousel-inner" >
           <div className="carousel-item active">
             <div className="row container-carrousel">
               <div className="col-12 col-md-12 col-lg-4 content-carrousel">
@@ -43,11 +43,13 @@ const CarouselMedeinn = () => {
                 
                 <div><ModalVideo /></div>
               </div>
-              <div className="col-12  col-md-12 col-lg-8 ">
+              <div className="col-12  col-md-12 col-lg-8" style={{height: '500px'}}>
                 <div className="contenedor-magen-carrusel">
                   <img
                     src="https://images.pexels.com/photos/904272/pexels-photo-904272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="w-100"
+                    className="w-100"
+                    style={{height: '100%'}}
+                    alt="imagen"
                   />
                 </div>
               </div>
@@ -55,7 +57,7 @@ const CarouselMedeinn = () => {
           </div>
           <div className="carousel-item">
             <div className="row container-carrousel">
-              <div className="col-12 col-md-12 col-lg-4 content-carrousel">
+              <div className="col-12 col-md-12 col-lg-4 content-carrousel" >
                 <h2>Ideas y soluciones para una sociedad en evolución</h2>
                 <p>
                   Contenido descriptivo. Para esta sección es importante resumir
@@ -65,11 +67,13 @@ const CarouselMedeinn = () => {
                 </p>
                 <div><ModalVideo /></div>
               </div>
-              <div className="col-12  col-md-12 col-lg-8 ">
+              <div className="col-12  col-md-12 col-lg-8"  style={{height: '500px'}}>
                 <div className="contenedor-magen-carrusel">
                   <img
-                    src="https://images.pexels.com/photos/904272/pexels-photo-904272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="d-block w-100"
+                    src="https://images.pexels.com/photos/6771740/pexels-photo-6771740.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    className="w-100"
+                    style={{height: '100%'}}
+                    alt="imagen"
                   />
                 </div>
               </div>

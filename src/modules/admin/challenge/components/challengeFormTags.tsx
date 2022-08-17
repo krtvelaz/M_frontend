@@ -1,6 +1,6 @@
 import { Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IChallenge } from "../custom_types";
 import { useInit } from "../hooks/useInit";
 import useDocument from "../hooks/useTypeDocs";
@@ -27,7 +27,6 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
     steps,
     max,
     show_next,
-    isSubmitting,
     next_tab,
     goBack,
     execute_save,
@@ -74,13 +73,20 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   }, [isChange]);
 
   useEffect(()=> {   
-    if (active_key === '1') dispatch(actions.get_master_list(1))   
+    if (active_key === '1') {
+      dispatch(actions.get_communes());
+      dispatch(actions.get_dimensions());
+      dispatch(actions.get_dependencies());
+      dispatch(actions.get_profiles());
+    }  
   },[active_key])
 
   useEffect(()=> {   
-    if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_master_list(2))
-    if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 
+    // if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_master_list(2))
+    // if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 
   },[active_key, active_key_docs])
+
+  const loading: boolean = useSelector((store: any) => store.challenge.challenge.loading);
 
   return (
     <>
@@ -145,10 +151,10 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               type="button"
               className="btn btn-primary"
               onClick={next_tab}
-              disabled={isSubmitting}
+              disabled={loading}
             >
               Siguiente
-              {isSubmitting && (
+              {loading && (
                 <i
                   className="fa fa-spinner fa-spin"
                   style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}

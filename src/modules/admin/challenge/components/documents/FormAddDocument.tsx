@@ -99,8 +99,8 @@ const FormAddDocument: FC<DocsFormPros> = ({
                     ]}
                     placeholder="Seleccionar…"
                     extra_on_change={(value: number) => {
-                      if (typeDoc === "admin")
-                        dispatch(actions.get_master_list(4, value));
+                      // if (typeDoc === "admin")
+                      //   dispatch(actions.get_master_list(4, value));
                     }}
                   />
                   <ErrorMessage name="ret_perfiles" />
