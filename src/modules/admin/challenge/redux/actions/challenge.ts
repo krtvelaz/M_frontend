@@ -120,7 +120,6 @@ export const get_detail_challenge = () => {
   };
 };
 
-
 export const get_four_challenge = () => {
   return async (dispatch: any) => {
     dispatch(loading_challenges());
@@ -135,6 +134,88 @@ export const get_four_challenge = () => {
     }
   };
 };
+
+export const get_image_principal = () => {
+  return async (dispatch: any) => {
+    try {
+      const URI = 'challenges/img/30';
+      const res = await http.get(URI);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+};
+
+export const get_list_challenges = (page = 1, pageSize = 10) => {
+  return async (dispatch: any) => {
+    dispatch(loading_challenges());
+    try {
+      const URI = 'lists/challenges';
+      const res = await http.get(URI, {
+        params: {
+          page,
+          per_page: pageSize
+        }
+      });
+      const challenges = { results: res.data.data, pagination: res.data.meta }
+      dispatch(success_challenges(challenges));
+      return challenges;
+    } catch (error) {
+      dispatch(fail_challenges());
+      return Promise.reject(error);
+    }
+  }
+}
+
+export const publish_challenge = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(loading_challenge());
+    try {
+      const URI = `challenges/publish`;
+      const res = await http.post(URI, { id });
+      dispatch(get_challenge(res.data.data));
+      return res.data.data;
+    } catch (error) {
+      dispatch(fail_challenge());
+      return Promise.reject(error);
+    }
+  }
+}
+
+export const unpublish_challenge = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(loading_challenge());
+    try {
+      const URI = `challenges/unpublish`;
+      const res = await http.post(URI, { id });
+      dispatch(get_challenge(res.data.data));
+      return res.data.data;
+    } catch (error) {
+      dispatch(fail_challenge());
+      return Promise.reject(error);
+    }
+  }
+}
+
+export const delete_challenge = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch(loading_challenge());
+    try {
+      const URI = `challenges/delete`;
+      const res = await http.delete(URI, {
+        params: {
+          id
+        }
+      });
+      dispatch(get_challenge(res.data.data));
+      return res.data.data;
+    } catch (error) {
+      dispatch(fail_challenge());
+      return Promise.reject(error);
+    }
+  }
+}
 
 
 

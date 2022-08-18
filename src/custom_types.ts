@@ -20,6 +20,7 @@ export interface Loadable<L> {
     loaded: boolean;
     message?: any;
 }
+
 export interface IPagination {
     current_page: number;
     first_page: number;

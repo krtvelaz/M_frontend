@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Loadable, Pageable } from "../../../../custom_types";
+import { IPageable, Loadable, Pageable } from "../../../../custom_types";
 import { IChallenge, IDocument } from "../custom_types";
 
 interface State {
   challenge: Loadable<IChallenge | null>;
-  challenges: Loadable<any>;
+  challenges: IPageable<any>;
   document_challenge: Loadable<IDocument | null>;
   documents_challenge: Pageable<IDocument>;
   communes: Loadable<any | null>;
@@ -22,8 +22,19 @@ const initialState: State = {
   },
   challenges: {
     value: [],
+    pagination: {
+      current_page: 1,
+      first_page: 1,
+      first_page_url: "",
+      last_page: null,
+      last_page_url: "",
+      next_page_url: "",
+      per_page: 0,
+      previous_page_url: null,
+      total: 0,
+    },
     loading: false,
-    loaded: false,
+    loaded: false
   },
   document_challenge: {
     value: null,
@@ -42,7 +53,7 @@ const initialState: State = {
     loading: false,
     loaded: false,
   },
-  
+
   communes: {
     value: [],
     loading: false,
@@ -99,13 +110,25 @@ export const challengeSlice = createSlice({
     loading_challenges: (state) => {
       state.challenges = {
         value: state.challenges.value,
+        pagination: state.challenges.pagination,
         loading: true,
         loaded: false,
       };
     },
     success_challenges: (state, action) => {
       state.challenges = {
-        value: action.payload,
+        value: action.payload.results,
+        pagination: {
+          current_page: action.payload.pagination.current_page || 1,
+          first_page: action.payload.pagination.first_page || 1,
+          first_page_url: action.payload.pagination.first_page_url || "",
+          last_page: action.payload.pagination.last_page || null,
+          last_page_url: action.payload.pagination.last_page_url || "",
+          next_page_url: action.payload.pagination.next_page_url || "",
+          per_page: action.payload.pagination.per_page || 0,
+          previous_page_url: action.payload.pagination.previous_page_url || null,
+          total: action.payload.pagination.total || 0,
+        },
         loading: false,
         loaded: true,
       };
@@ -113,6 +136,7 @@ export const challengeSlice = createSlice({
     fail_challenges: (state) => {
       state.challenges = {
         value: initialState.challenges.value,
+        pagination: initialState.challenges.pagination,
         loading: false,
         loaded: false,
       };
@@ -149,7 +173,7 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
-    success_get_list_documents: (state, action) => {      
+    success_get_list_documents: (state, action) => {
       state.documents_challenge = {
         ...state.documents_challenge,
         value: action.payload || [],

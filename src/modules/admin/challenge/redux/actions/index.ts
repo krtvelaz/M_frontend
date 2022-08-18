@@ -3,6 +3,11 @@ import {
   create_challenge,
   update_challenge,
   get_four_challenge,
+  get_image_principal,
+  get_list_challenges,
+  delete_challenge,
+  publish_challenge,
+  unpublish_challenge
 } from "./challenge";
 
 import {
@@ -29,6 +34,10 @@ import {
 } from "./masters";
 
 const actions = {
+  unpublish_challenge,
+  publish_challenge,
+  delete_challenge,
+  get_image_principal,
   get_detail_challenge,
   create_challenge,
   update_challenge,
@@ -47,6 +56,7 @@ const actions = {
   get_dependencies,
   get_profiles,
   get_neighborhoods,
+  get_list_challenges
 };
 
 export default actions;

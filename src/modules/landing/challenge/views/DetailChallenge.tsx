@@ -1,31 +1,42 @@
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { piezaRompecabezas } from "../../../../utils/assets/img";
 import { Link } from "../../../../utils/ui";
 import { actions } from "../../../admin/challenge/redux";
 import InfoDetailChallenge from "../components/InfoDetailChallenge";
 import ModalVideo from "../../homepage/components/ModalVideo";
+import { TemplateContext } from "../../../../utils/components/template/templateContext";
 
 const DetailChallenge = () => {
   const challenge: any = useSelector(
     (store: any) => store.challenge.challenge.value
   );
 
+  const [imgPrincipal, setImgPrincipal] = useState({});
   const dispatch = useDispatch<any>();
+  const context = useContext(TemplateContext);
+
+  const getChallenge = async () => {
+    const res = await dispatch(actions.get_detail_challenge());
+
+    if (res) {
+      const imgPrincipal = await dispatch(actions.get_image_principal());
+      setImgPrincipal(imgPrincipal);
+    }
+  }
 
   useEffect(() => {
-    dispatch(actions.get_detail_challenge());
+    getChallenge()
   }, []);
 
   return (
     <>
       <div
-        className="container-fluid"
+        className="container-fluid container-info-detail"
         style={{
           padding: "90px 50px",
-          background:
-            'linear-gradient(to top, #ffffff 65%, transparent), url("https://images.pexels.com/photos/12470916/pexels-photo-12470916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
+          background: 'linear-gradient(to top, #ffffff 65%, transparent), url("https://images.pexels.com/photos/12470916/pexels-photo-12470916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "left center",
@@ -47,7 +58,7 @@ const DetailChallenge = () => {
         <div className="row">
           <div className="col-12">
             <div
-              className="row "
+              className="row container-detail-challenge"
               style={{
                 background: "white",
                 borderRadius: "18px",
@@ -64,21 +75,11 @@ const DetailChallenge = () => {
                 }}
               >
                 <div
-                  style={{
-                    borderRadius: "20px",
-                    padding: "20px",
-                    maxWidth: "80%",
-                    marginLeft: "auto",
-                    // marginRight: "auto",
-                    background: "linear-gradient(to top, #ffffff, transparent)",
-                    opacity: 1,
-                    marginTop: '50px',
-                    backdropFilter: "blur(43px)",
-                  }}
+                  className="card-detail-challenge"
                 >
-                  <h5 className="my-4">{challenge?.retgen_nombre}</h5>
+                  <h5 className="my-4 card-title-challenge">{challenge?.retgen_nombre}</h5>
 
-                  <div className="d-flex">
+                  <div className="d-flex justify-content-center text-center align-items-center flex-column">
                     <i className="fa fa-calendar-o mx-3" aria-hidden="true" style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}></i>
                     <div>
                       <p
