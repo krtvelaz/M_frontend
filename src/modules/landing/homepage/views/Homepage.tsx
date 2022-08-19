@@ -17,7 +17,6 @@ const Homepage = () => {
   const { TabPane } = Tabs;
 
   const onChange = (key: string) => {
-    console.log(key);
   };
 
   return (

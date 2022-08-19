@@ -42,7 +42,7 @@ const ModalDetailDocument: FC<DocumetFormProps> = ({
       ]}
     >
       <div>
-        <img src="" alt="" />
+        
 
         {fileType === "pdf" ? (
           <embed src={`${url}#toolbar=0`} width="100%" height="375px" />

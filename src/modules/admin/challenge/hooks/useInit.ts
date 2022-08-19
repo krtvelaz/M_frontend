@@ -42,24 +42,22 @@ export const useInit = (
 
   const initial_values: IChallenge = {
     general_information: {
-      ret_nombre: "",
-      ret_perfil: [],
-      ret_id_dimension: "",
-      ret_id_dependencia: "",
-      ret_fecha_inicio: "",
-      ret_fecha_final: "",
-      ret_detalles: "",
-      ret_id_comuna: "",
-      ret_id_barrio: "",
-      ret_detalle_poblacion_impactar: "",
-      ret_ruta_imagen_principal: "",
-      ret_nombre_imagen: "",
-      ret_video: "",
-      ret_dato_importante: "",
-      ret_resultado_esperado: "",
-      ret_monto: "",
-      ret_descripcion: "",
-      ret_tipo_impacto: "",
+      cha_name: "",
+      cha_profiles: [],
+      cha_id_dimension: null,
+      cha_id_dependency: null,
+      cha_start_date: "",
+      cha_end_date: "",
+      cha_details_population_impact: "",
+      cha_id_commune: null,
+      cha_id_neighborhood: null,
+      cha_details: "",
+      cha_video_url: "",
+      cha_important_data: "",
+      cha_expected_results: "",
+      cha_amount: null,
+      cha_description: "",
+      cha_impact_type: "",
     },
     documents: {
       general: [],
@@ -91,99 +89,102 @@ export const useInit = (
             ...values,
           },
         }));
-        console.log(1, "guardado");
+
+        if (!challenge.general_information.key) {
+          const result = await dispatch(actions.create_challenge(values));
+
+          if (/*result*/ true) {
+            // setChallenge((data: any) => ({
+            //   ...data,
+            //   general_information: {
+            //     ...result,
+            //     ret_perfil: result?.ret_perfil?.map((doc: any) => doc.id),
+            //     key: result?.id,
+            //   },
+            // }));
+          }
+        } else {
+
+          // const res = await dispatch(actions.update_challenge(values));
+          // setChallenge((data: any) => ({
+          //   ...data,
+          //   general_information: {
+          //     ...values,
+          //   },
+          // }));
+        }
         set_is_saving(false);
-        // if (!challenge.general_information.key) {
-        //   const res = await dispatch(actions.create_challenge(values));
-        //   if (res) {
-        //     setChallenge((data: any) => ({
-        //       ...data,
-        //       general_information: {
-        //         ...res.data,
-        //         ret_perfil: res?.data?.ret_perfil?.map((doc: any) => doc.id),
-        //         key: res.key,
-        //       },
-        //     }));
-        //   }
-        // } else {
-        //   const res = await dispatch(actions.update_challenge(values));
-        //   setChallenge((data: any) => ({
-        //     ...data,
-        //     general_information: {
-        //       ...values,
-        //     },
-        //   }));
-        // }
       },
     },
     {
       save: async () => {
-        if (documents.length > 0 && active_key_docs === "docs-1") {
-          setChallenge((data: IChallenge) => ({
-            ...data,
-            documents: {
-              ...data.documents,
-              general: documents,
-            },
-          }));
-          await swal_success.fire({
-            title: "Proceso exitoso",
-            html:
-              `<div class="mysubtitle">Se han guardado los documentos generales</div>` +
-              '<div class="mytext">De click en aceptar para continuar</div>',
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-          });
-          set_is_saving(false);
-          return;
-        }
-        if (documents.length > 0 && active_key_docs === "docs-2") {
-          setChallenge((data: IChallenge) => ({
-            ...data,
-            documents: {
-              ...data.documents,
-              technical: documents,
-            },
-          }));
-          await swal_success.fire({
-            title: "Proceso exitoso",
-            html:
-              `<div class="mysubtitle">Se han guardado los documentos técnicos</div>` +
-              '<div class="mytext">De click en aceptar para continuar</div>',
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-          });
-          set_is_saving(false);
-          return;
-        }
-        if (documents.length > 0 && active_key_docs === "docs-3") {
-          setChallenge((data: IChallenge) => ({
-            ...data,
-            documents: {
-              ...data.documents,
-              administrative: documents,
-            },
-          }));
-          await swal_success.fire({
-            title: "Proceso exitoso",
-            html:
-              `<div class="mysubtitle">Se han guardado los documentos administrativos</div>` +
-              '<div class="mytext">De click en aceptar para continuar</div>',
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-          });
-          set_is_saving(false);
-          return;
-        }
-        await swal_error.fire({
-          title: "Error en el proceso",
-          html:
-            '<div class="mysubtitle">Debe agregar por lo menos un documento.</div>' +
-            '<div class="mytext">De click en aceptar para continuar.</div>',
-          showCancelButton: false,
-          confirmButtonText: "Aceptar",
-        });
-        set_is_saving(true);
+        // if (documents.length > 0 && active_key_docs === "docs-1") {
+        //   setChallenge((data: IChallenge) => ({
+        //     ...data,
+        //     documents: {
+        //       ...data.documents,
+        //       general: documents,
+        //     },
+        //   }));
+        //   await swal_success.fire({
+        //     title: "Proceso exitoso",
+        //     html:
+        //       `<div class="mysubtitle">Se han guardado los documentos generales</div>` +
+        //       '<div class="mytext">De click en aceptar para continuar</div>',
+        //     showCancelButton: false,
+        //     confirmButtonText: "Aceptar",
+        //   });
+        //   set_is_saving(false);
+        //   return;
+        // }
+        // if (documents.length > 0 && active_key_docs === "docs-2") {
+        //   setChallenge((data: IChallenge) => ({
+        //     ...data,
+        //     documents: {
+        //       ...data.documents,
+        //       technical: documents,
+        //     },
+        //   }));
+        //   await swal_success.fire({
+        //     title: "Proceso exitoso",
+        //     html:
+        //       `<div class="mysubtitle">Se han guardado los documentos técnicos</div>` +
+        //       '<div class="mytext">De click en aceptar para continuar</div>',
+        //     showCancelButton: false,
+        //     confirmButtonText: "Aceptar",
+        //   });
+        //   set_is_saving(false);
+        //   return;
+        // }
+        // if (documents.length > 0 && active_key_docs === "docs-3") {
+        //   setChallenge((data: IChallenge) => ({
+        //     ...data,
+        //     documents: {
+        //       ...data.documents,
+        //       administrative: documents,
+        //     },
+        //   }));
+        //   await swal_success.fire({
+        //     title: "Proceso exitoso",
+        //     html:
+        //       `<div class="mysubtitle">Se han guardado los documentos administrativos</div>` +
+        //       '<div class="mytext">De click en aceptar para continuar</div>',
+        //     showCancelButton: false,
+        //     confirmButtonText: "Aceptar",
+        //   });
+        //   set_is_saving(false);
+        //   return;
+        // }
+        // await swal_error.fire({
+        //   title: "Error en el proceso",
+        //   html:
+        //     '<div class="mysubtitle">Debe agregar por lo menos un documento.</div>' +
+        //     '<div class="mytext">De click en aceptar para continuar.</div>',
+        //   showCancelButton: false,
+        //   confirmButtonText: "Aceptar",
+        // });
+        // set_is_saving(true);
+        set_is_saving(false);
       },
     },
     {
@@ -251,20 +252,18 @@ export const useInit = (
     const int_key = parseInt(active_key);
     const save = steps[int_key - 1]?.save;
 
-    // if (prev) {
-    //   set_is_saving(false);
-    //   set_go_next(key);
-    //   set_go_next_doc(next_docs);
-    //   return;
-    // }
+    if (prev) {
+      set_is_saving(false);
+      set_go_next(key);
+      set_go_next_doc(next_docs);
+      return;
+    }
 
     save &&
-      save()
-        .then(() => {
-          console.log("aqui succes save");
-          set_go_next(key);
-          set_go_next_doc(next_docs);
-        });
+      save().then(() => {
+        set_go_next(key);
+        set_go_next_doc(next_docs);
+      });
   };
 
   const goBack = () => {
@@ -284,7 +283,6 @@ export const useInit = (
   }, [challenge_data]);
 
   useEffect(() => {
-
     if (!is_saving && go_next) {
       const key = parseInt(go_next);
       if (key > max) {

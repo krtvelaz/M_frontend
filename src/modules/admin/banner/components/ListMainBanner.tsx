@@ -79,16 +79,16 @@ const ListMainBanner: FC<BannerFormPros> = ({ data, onEdit, onDelete }) => {
                       let _img = Buffer.from(res).toString("base64");
 
                       setUrl(_img);
-                      set_is_visible_doc(true);
+                      // set_is_visible_doc(true);
                     }
                   }}
                 />
-                <ModalDetailDocument
+                {/* <ModalDetailDocument
                   open={is_visibleDoc}
                   setOpen={set_is_visible_doc}
                   url={url}
                   fileType='img'
-                />
+                /> */}
               </>
             )
           },

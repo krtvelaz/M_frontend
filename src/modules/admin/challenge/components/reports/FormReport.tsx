@@ -14,18 +14,18 @@ interface FormPros {
 
 const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
   const initialValues = {
-    ret_titulo_reporte: "",
-    ret_documento: {
-      name: report?.ret_nombre_documento || "",
+    retinf_nombre: "",
+    retinf_documento: {
+      name: report?.retinf_nombre_archivo || "",
       id: report?.id,
     },
     ...report,
   };
-  
+
 
   const schema = Yup.object().shape({
-    ret_titulo_reporte: Yup.string().required("Campo obligatorio"),
-    ret_documento: Yup.object({
+    retinf_nombre: Yup.string().required("Campo obligatorio"),
+    retinf_documento: Yup.object({
       name: Yup.string().required("Campo obligatorio"),
     }).nullable(),
   });
@@ -49,13 +49,13 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
           <Form>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_titulo_reporte_id" className="form-label">
+                <label htmlFor="retinf_nombre_id" className="form-label">
                   Título del informe
                 </label>
                 <Field
                   type="text"
-                  id="ret_titulo_reporte_id"
-                  name="ret_titulo_reporte"
+                  id="retinf_nombre_id"
+                  name="retinf_nombre"
                   className="form-control"
                   aria-describedby="nombre del documento"
                   autoComplete="off"
@@ -71,11 +71,11 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                     }
                   }}
                 />
-                <ErrorMessage name="ret_titulo_reporte" withCount max={50} />
+                <ErrorMessage name="retinf_nombre" withCount max={50} />
               </div>
 
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_documento_id" className="form-label">
+                <label htmlFor="retinf_documento_id" className="form-label">
                   Adjuntar documento
                 </label>
                 <Field
@@ -83,12 +83,12 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                   tipos_doc="PDF."
                   maximum_size={5}
                   type="text"
-                  id="ret_documento_id"
-                  name="ret_documento"
+                  id="retinf_documento_id"
+                  name="retinf_documento"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="ret_documento.name" />
+                <ErrorMessage name="retinf_documento.name" />
               </div>
             </div>
           </Form>

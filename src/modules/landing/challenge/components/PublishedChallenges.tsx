@@ -8,7 +8,6 @@ const PublishedChallenges = () => {
   const challenges: any[] = useSelector(
     (store: any) => store.challenge.challenges.value
   );
-  console.log(challenges);
   
   const dispatch = useDispatch<any>();
   useEffect(() => {

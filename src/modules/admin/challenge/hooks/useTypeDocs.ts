@@ -15,12 +15,14 @@ const useDocument = (
     (store: any) => store.challenge.documents_challenge.value
   );  
 
+
+  
   const validateDocuments = (values: IDocument) => {
     let repeated_document = '';        
     if(typeDoc === 'general') {
-      repeated_document = documents.find((doc: any )=> doc.ret_tipo_documento.id === values.ret_tipo_documento);
+      repeated_document = documents.find((doc: any )=> doc.document_type.id === values.ret_tipo_documento);
     }else {
-      repeated_document = documents.find((doc: any )=> (doc.ret_tipo_documento.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
+      repeated_document = documents.find((doc: any )=> (doc.document_type.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
     }
 
     if (repeated_document) {
@@ -38,11 +40,12 @@ const useDocument = (
   }
 
   const onAddDocument = async (values: IDocument) => {    
-    let repeated_document = '';        
+    let repeated_document = ''; 
+           
     if(typeDoc === 'general') {
-      repeated_document = documents.find((doc: any )=> doc.ret_tipo_documento.id === values.ret_tipo_documento);
+      repeated_document = documents.find((doc: any )=> doc.document_type.id === values.ret_tipo_documento);
     }else {
-      repeated_document = documents.find((doc: any )=> (doc.ret_tipo_documento.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
+      repeated_document = documents.find((doc: any )=> (doc.document_type.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
     }
 
     if (repeated_document) {

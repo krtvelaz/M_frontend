@@ -61,9 +61,9 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
     );
   };
 
-  useEffect(() => {
-    get_documents();
-  }, [typeDoc]);
+  // useEffect(() => {
+  //   get_documents();
+  // }, [typeDoc]);
 
   useEffect(() => {
     if (isChange) {
@@ -82,7 +82,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   },[active_key])
 
   useEffect(()=> {   
-    // if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_master_list(2))
+    if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_types_documents('general'))
     // if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 
   },[active_key, active_key_docs])
 
