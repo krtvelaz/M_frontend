@@ -1,17 +1,33 @@
 import { Card } from 'antd';
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { actions } from '../../../admin/challenge/redux';
 
 const PublishedChallenges = () => {
-    const challenges: any[] = useSelector((store: any) => store.challenge.challenges.value);
-    console.log(challenges);
-
+    const [challenges, setChallenges] = useState([]);
+    const [images, setImages] = useState({});
+    const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     useEffect(() => {
-        dispatch(actions.get_four_challenge());
+        getChallenges();
     }, []);
+
+    const getChallenges = async () => {
+        const results = await dispatch(actions.get_four_challenge());
+        if (results.length > 0) {
+            setChallenges(results);
+
+            // const images_principal = await Promise.all(
+            //     results.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
+            // );
+            // setImages(images_principal.map((image) => Buffer.from(image).toString('base64')));
+        }
+    };
+
+    console.log(images);
+
     return (
         <div className="row">
             <div className="col-12 col-md-12 col-lg-5" style={{ marginTop: '55px', position: 'relative' }}>
@@ -37,18 +53,21 @@ const PublishedChallenges = () => {
                                 key={`published-challenges-${challenge?.id}`}
                             >
                                 <Card
+                                    onClick={() => {
+                                        navigate(`../detail-challenge/${challenge?.id}`, { replace: true });
+                                    }}
                                     hoverable
                                     className="card-challenge"
                                     cover={<img alt="example" src="src/utils/assets/img/imagen 52.png" />}
                                 >
                                     <div className="text-center body-card-challenge">
-                                        <h3>{challenge?.ret_nombre}</h3>
+                                        <h3>{challenge?.cha_name}</h3>
                                         <p>Fecha de vigencia para postulaciones</p>
                                         <div className="date-card-challenge">
-                                            INICIO DEL RETO: {moment(challenge?.ret_fecha_inicio).format('LL')}
+                                            INICIO DEL RETO: {moment(challenge?.cha_start_date).format('LL')}
                                         </div>
                                         <div className="date-card-challenge">
-                                            FIN DEL RETO: {moment(challenge?.ret_fecha_final).format('LL')}
+                                            FIN DEL RETO: {moment(challenge?.cha_end_date).format('LL')}
                                         </div>
                                         <button className="btn">Postularse al reto</button>
                                     </div>
@@ -56,102 +75,6 @@ const PublishedChallenges = () => {
                             </div>
                         );
                     })}
-                    {/* <div className="col-12 col-md-6" id="card-challenge-one">
-            <Card
-              hoverable
-              className="card-challenge"
-              cover={
-                <img alt="example" src="src/utils/assets/img/imagen 52.png" />
-              }
-            >
-              <div className="text-center body-card-challenge">
-                <h3>
-                  ¿Cómo mejorar la conectividad en los corregimientos de
-                  Medellín?
-                </h3>
-                <p>Fecha de vigencia para postulaciones</p>
-                <div className="date-card-challenge">
-                  INICIO DEL RETO: 1 de Abril de 2021
-                </div>
-                <div className="date-card-challenge">
-                  FIN DEL RETO: 28 de Abril de 2021
-                </div>
-                <button className="btn">Postularse al reto</button>
-              </div>
-            </Card>
-          </div>
-          <div className="col-12 col-md-6">
-            <Card
-              hoverable
-              className="card-challenge"
-              cover={
-                <img alt="example" src="src/utils/assets/img/imagen 52.png" />
-              }
-            >
-              <div className="text-center body-card-challenge">
-                <h3>
-                  ¿Cómo mejorar la conectividad en los corregimientos de
-                  Medellín?
-                </h3>
-                <p>Fecha de vigencia para postulaciones</p>
-                <div className="date-card-challenge">
-                  INICIO DEL RETO: 1 de Abril de 2021
-                </div>
-                <div className="date-card-challenge">
-                  FIN DEL RETO: 28 de Abril de 2021
-                </div>
-                <button className="btn">Postularse al reto</button>
-              </div>
-            </Card>
-          </div>
-          <div className="col-12 col-md-6">
-            <Card
-              hoverable
-              className="card-challenge"
-              cover={
-                <img alt="example" src="src/utils/assets/img/imagen 52.png" />
-              }
-            >
-              <div className="text-center body-card-challenge">
-                <h3>
-                  ¿Cómo mejorar la conectividad en los corregimientos de
-                  Medellín?
-                </h3>
-                <p>Fecha de vigencia para postulaciones</p>
-                <div className="date-card-challenge">
-                  INICIO DEL RETO: 1 de Abril de 2021
-                </div>
-                <div className="date-card-challenge">
-                  FIN DEL RETO: 28 de Abril de 2021
-                </div>
-                <button className="btn">Postularse al reto</button>
-              </div>
-            </Card>
-          </div>
-          <div className="col-12 col-md-6" id="card-challenge-four">
-            <Card
-              hoverable
-              className="card-challenge"
-              cover={
-                <img alt="example" src="src/utils/assets/img/imagen 52.png" />
-              }
-            >
-              <div className="text-center body-card-challenge">
-                <h3>
-                  ¿Cómo mejorar la conectividad en los corregimientos de
-                  Medellín?
-                </h3>
-                <p>Fecha de vigencia para postulaciones</p>
-                <div className="date-card-challenge">
-                  INICIO DEL RETO: 1 de Abril de 2021
-                </div>
-                <div className="date-card-challenge">
-                  FIN DEL RETO: 28 de Abril de 2021
-                </div>
-                <button className="btn">Postularse al reto</button>
-              </div>
-            </Card>
-          </div> */}
                 </div>
             </div>
         </div>

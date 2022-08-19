@@ -8,7 +8,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: true,
             can_access: true,
-            path: '/detail-challenge',
+            path: '/detail-challenge/:id',
             component: DetailChallenge,
             template_props: {
                 breadcrumbs: [

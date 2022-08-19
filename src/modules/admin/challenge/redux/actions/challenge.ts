@@ -13,22 +13,20 @@ import {
 /*----------------Reto---------------------*/
 
 export const create_challenge = (values: IGeneralInformation) => {
-  const img = values.ret_imagen_principal;
+  const img = values.cha_imagen_principal;
   const data: IGeneralInformation = {
     ...values,
-      ret_id_usuario: 1,
-      ret_convocatoria: 1,
-      ret_ruta_imagen_principal: "",
-      ret_nombre_imagen: values.ret_imagen_principal?.name || "",
-      ret_monto: values.ret_monto || 0,
-  };  
-  delete data.ret_imagen_principal;
-  delete data.ret_perfil;
-  delete  data.ret_id_comuna;
-  delete data.ret_tipo_impacto;
+    cha_id_user: 1,
+    cha_announcement: 1,
+    cha_principal_image_path: "",
+    cha_amount: values.cha_amount || 0,
+  };
+  delete data.cha_imagen_principal;
+  delete data.cha_profiles;
+  delete data.cha_id_commune;
   let form = new FormData();
   form.append("data", JSON.stringify(data));
-  form.append("profile", values.ret_perfil.toString());
+  if (values.cha_profiles) form.append("profile", values.cha_profiles.toString());
   if (img) form.append("file", img);
 
   return async (dispatch: any) => {
@@ -40,7 +38,8 @@ export const create_challenge = (values: IGeneralInformation) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      dispatch(get_challenge(res.data.body.data));
+      dispatch(get_challenge(res.data.data.info));
+
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -49,7 +48,7 @@ export const create_challenge = (values: IGeneralInformation) => {
         showCancelButton: false,
         confirmButtonText: "Aceptar",
       });
-      return res.data.body;
+      return res.data.data.info;
     } catch (error) {
       dispatch(fail_challenge());
       return Promise.reject("Error");
@@ -58,7 +57,7 @@ export const create_challenge = (values: IGeneralInformation) => {
 };
 
 export const update_challenge = (values: IGeneralInformation) => {
-  const img = values.ret_ruta_imagen_principal;
+  const img = values.cha_principal_image_path;
   const data = {
     action: "update",
     info: {
@@ -69,15 +68,15 @@ export const update_challenge = (values: IGeneralInformation) => {
       ...values,
       ret_codigo_usuario: "123456",
       ret_perfil: {
-        data: values.ret_perfil,
+        data: values.cha_profiles,
       },
-      ret_monto: values.ret_monto || 0,
+      ret_monto: values.cha_amount || 0,
     },
   };
 
   let form = new FormData();
   form.append("data", JSON.stringify(data));
-  form.append("file", img);
+  // form.append("file", img);
 
   return async (dispatch: any) => {
     dispatch(loading_challenge());
@@ -105,12 +104,16 @@ export const update_challenge = (values: IGeneralInformation) => {
   };
 };
 
-export const get_detail_challenge = () => {
+export const get_detail_challenge = (id: number) => {
   return async (dispatch: any) => {
     dispatch(loading_challenge());
     try {
-      const URI = "/challenges/detail/2";
-      const res = await http.get(URI);
+      const URI = `/challenges/details`;
+      const res = await http.get(URI, {
+        params: {
+          id
+        }
+      });
       dispatch(get_challenge(res.data.data));
       return res.data.data;
     } catch (error) {
@@ -122,23 +125,20 @@ export const get_detail_challenge = () => {
 
 export const get_four_challenge = () => {
   return async (dispatch: any) => {
-    dispatch(loading_challenges());
     try {
-      const URI = "/challenges/lastFour";
+      const URI = "/challenges/last-four";
       const res = await http.get(URI);
-      dispatch(success_challenges(res.data.data));
       return res.data.data;
     } catch (error) {
-      dispatch(fail_challenges());
       return Promise.reject("Error");
     }
   };
 };
 
-export const get_image_principal = () => {
+export const get_image_principal = (id: number) => {  
   return async (dispatch: any) => {
     try {
-      const URI = 'challenges/img/30';
+      const URI = `challenges/img/${id}`;
       const res = await http.get(URI);
       return res;
     } catch (error) {

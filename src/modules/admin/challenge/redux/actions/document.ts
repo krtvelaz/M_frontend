@@ -8,6 +8,9 @@ import {
   loading_document_challenge,
   loading_get_list_documents,
   success_get_list_documents,
+  loading_get_types_documents,
+  success_get_types_documents,
+  fail_get_types_documents,
 } from "../slice";
 
 export const create_challenge_document = (
@@ -15,34 +18,24 @@ export const create_challenge_document = (
   key: number,
   type: "general" | "admin" | "technicians"
 ) => {
-  const pdf = values.ret_plantilla;
+
   let data = {
-    action: "insert",
-    info: {
-      id: -1,
-      key: key,
-    },
-    data: {
-      ...values,
-      ret_ruta_plantilla: "",
-      ret_nombre_plantilla: values.ret_plantilla?.name || "",
-      ret_tipo_formulario:
-        type === "general"
-          ? 1
-          : type === "technicians"
-          ? 2
-          : type === "admin" && 3,
-    },
+    file: values.ret_plantilla,
+    id_challenge: key,
+    id_document_type: values.ret_tipo_documento,
+    name_document_type: values?.ret_plantilla?.name || "",
   };
-  delete data.data.ret_plantilla;
-  let form = new FormData();
-  form.append("data", JSON.stringify(data));
-  if (pdf) form.append("file", pdf);
+
+  let form: any = new FormData();
+  form.append("file", !values?.ret_plantilla.name ? null : values?.ret_plantilla );
+  form.append("id_challenge", key);
+  form.append("id_document_type", values.ret_tipo_documento);
+  form.append("name_document_type", values?.ret_plantilla?.name);
 
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
     try {
-      const URI = "/documents/add";
+      const URI = "/documents";
 
       const res: any = await http.post(URI, form, {
         headers: {
@@ -152,7 +145,7 @@ export const delete_challenge_document = (
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
     try {
-      const URI = "/documents/delete";
+      const URI = "/documents";
       const res: any = await http.delete(URI, {
         params: {
           id,
@@ -184,10 +177,12 @@ export const get_list_document = (
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
-      const URI = `/${type === 'general' ? 'general' : 'technical'}/list/1/4`;
+      const URI = `documents/list/${
+        type === "general" ? "1" : type === "technicians" ? "2" : "3"
+      }/${key}`;
       const { data }: any = await http.get(URI);
-      dispatch(success_get_list_documents(data.body.data.data));
-      return data.body.data.data;
+      dispatch(success_get_list_documents(data.data));
+      return data.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");
@@ -208,6 +203,46 @@ export const get_document = (id: number, type?: string) => {
       return res.data;
     } catch (error) {
       // dispatch(fail_document_challenge());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+export const get_types_documents = (
+  type: "general" | "admin" | "technicians",
+  profile?: number
+) => {
+  return async (dispatch: any) => {
+    dispatch(loading_get_types_documents());
+    try {
+      const URI = "/lists/documents";
+
+      const res: any = await http.get(URI, {
+        params: {
+          ...(profile && {
+            profile,
+          }),
+          ...(type === "technicians"
+            ? {
+                type: "technical",
+              }
+            : { type }),
+
+          // ...(type === "technicians"
+          //   ? {
+          //       type: "technical ",
+          //     }
+          //   : { type }),
+          // ...(profile && {
+          //   profile: `${profile}`,
+          // }),
+        },
+      });
+
+      dispatch(success_get_types_documents(res.data.data));
+      return res.data.data;
+    } catch (error) {
+      dispatch(fail_get_types_documents());
       return Promise.reject("Error");
     }
   };

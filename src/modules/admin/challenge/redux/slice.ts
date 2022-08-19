@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IPageable, Loadable, Pageable } from "../../../../custom_types";
+import { Loadable, IPageable } from "../../../../custom_types";
 import { IChallenge, IDocument } from "../custom_types";
 
 interface State {
   challenge: Loadable<IChallenge | null>;
   challenges: IPageable<any>;
   document_challenge: Loadable<IDocument | null>;
-  documents_challenge: Pageable<IDocument>;
+  documents_challenge: IPageable<IDocument>;
   communes: Loadable<any | null>;
   dimensions: Loadable<any | null>;
   dependencies: Loadable<any | null>;
   profiles: Loadable<any | null>;
   neighborhoods: Loadable<any | null>;
+  type_documents: Loadable<any | null>;
 }
 
 const initialState: State = {
@@ -44,16 +45,24 @@ const initialState: State = {
   documents_challenge: {
     value: [],
     pagination: {
-      page: 1,
-      count: 0,
-      next_page: null,
-      previous_page: null,
-      total_results: 0,
+      current_page: 1,
+      first_page: 1,
+      first_page_url: "",
+      last_page: null,
+      last_page_url: "",
+      next_page_url: "",
+      per_page: 0,
+      previous_page_url: null,
+      total: 0,
     },
     loading: false,
     loaded: false,
   },
-
+  type_documents: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
   communes: {
     value: [],
     loading: false,
@@ -116,8 +125,8 @@ export const challengeSlice = createSlice({
       };
     },
     success_challenges: (state, action) => {
-      state.challenges = {
-        value: action.payload.results,
+        state.challenges = {
+        value:  action.payload.results,
         pagination: {
           current_page: action.payload.pagination.current_page || 1,
           first_page: action.payload.pagination.first_page || 1,
@@ -169,6 +178,7 @@ export const challengeSlice = createSlice({
     loading_get_list_documents: (state) => {
       state.documents_challenge = {
         ...state.documents_challenge,
+        pagination: state.documents_challenge.pagination,
         loading: true,
         loaded: false,
       };
@@ -176,13 +186,17 @@ export const challengeSlice = createSlice({
     success_get_list_documents: (state, action) => {
       state.documents_challenge = {
         ...state.documents_challenge,
-        value: action.payload || [],
+        value: action.payload.results,
         pagination: {
-          page: action.payload?.page || 1,
-          count: action.payload?.count || 0,
-          next_page: action.payload?.next_page,
-          previous_page: action.payload?.previous_page,
-          total_results: action.payload?.total_results || 0,
+          current_page: action.payload.pagination.current_page || 1,
+          first_page: action.payload.pagination.first_page || 1,
+          first_page_url: action.payload.pagination.first_page_url || "",
+          last_page: action.payload.pagination.last_page || null,
+          last_page_url: action.payload.pagination.last_page_url || "",
+          next_page_url: action.payload.pagination.next_page_url || "",
+          per_page: action.payload.pagination.per_page || 0,
+          previous_page_url: action.payload.pagination.previous_page_url || null,
+          total: action.payload.pagination.total || 0,
         },
         loading: false,
         loaded: true,
@@ -193,6 +207,28 @@ export const challengeSlice = createSlice({
         ...state.documents_challenge,
         value: initialState.documents_challenge.value,
         pagination: initialState.documents_challenge.pagination,
+        loading: false,
+        loaded: false,
+      };
+    },
+
+    loading_get_types_documents: (state) => {
+      state.type_documents = {
+        value: state.type_documents.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_get_types_documents: (state, action) => {
+      state.type_documents = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_get_types_documents: (state) => {
+      state.type_documents = {
+        value: initialState.type_documents.value,
         loading: false,
         loaded: false,
       };
@@ -241,7 +277,6 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
-
     loading_list_dependencies: (state) => {
       state.dependencies = {
         value: state.dependencies.value,
@@ -305,8 +340,6 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
-
-
   },
 });
 
@@ -321,6 +354,9 @@ export const {
   loading_get_list_documents,
   success_get_list_documents,
   fail_get_list_documents,
+  loading_get_types_documents,
+  success_get_types_documents,
+  fail_get_types_documents,
   loading_list_communes,
   success_list_communes,
   fail_list_communes,

@@ -7,40 +7,11 @@ import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
 import { Card } from '../../../../utils/ui';
 import { Tabs } from 'antd';
-import { useDispatch } from 'react-redux';
-import actions from './../../../admin/banner/redux/actions';
-import { useSelector } from 'react-redux';
-import { Buffer } from 'buffer';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
-    const [bannerImages, setBannerImages] = useState<any[]>([]);
-    const dispatch = useDispatch<any>();
-    const bannerPayload = useSelector((store: any) => store.banner.list_banners.value);
     const { TabPane } = Tabs;
-
-    const onChange = (key: string) => {
-        console.log(key);
-    };
-
-    useEffect(() => {
-        getBanner();
-    }, []);
-
-    const getBanner = async () => {
-        try {
-            const results = await dispatch(actions.get_list_banners());
-
-            if (results.length > 0) {
-                const images = await Promise.all(
-                    results.map((result: any) => dispatch(actions.get_image_banner(result?.id)))
-                );
-                setBannerImages(images.map(image => Buffer.from(image).toString('base64')));
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const onChange = (key: string) => {};
 
     return (
         <>
@@ -53,7 +24,7 @@ const Homepage = () => {
                     )}
 
                     <div className="col-12 col-md-12 col-lg-11">
-                        <CarouselMedeinn data={bannerPayload} images={bannerImages} />
+                        <CarouselMedeinn />
                     </div>
                 </div>
             </section>
@@ -91,7 +62,7 @@ const Homepage = () => {
                                         <div className="my-3 d-flex justify-content-end">
                                             <button className="btn-cupos-primary me-5">Cupos limitados</button>
                                             <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>
+                                        </div>,
                                     ]}
                                 >
                                     <div className="row">
@@ -119,7 +90,7 @@ const Homepage = () => {
                                         <div className="my-3 d-flex justify-content-end">
                                             <button className="btn-cupos-primary me-5">Cupos limitados</button>
                                             <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>
+                                        </div>,
                                     ]}
                                 >
                                     <div className="row">
@@ -147,7 +118,7 @@ const Homepage = () => {
                                         <div className="my-3 d-flex justify-content-end">
                                             <button className="btn-cupos-primary me-5">Cupos limitados</button>
                                             <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>
+                                        </div>,
                                     ]}
                                 >
                                     <div className="row">

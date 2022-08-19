@@ -16,6 +16,7 @@ import {
   get_list_document,
   delete_challenge_document,
   get_document,
+  get_types_documents,
 } from "./document";
 
 import {
@@ -47,6 +48,7 @@ const actions = {
   delete_challenge_report,
   get_four_challenge,
   get_document,
+  get_types_documents,
   create_challenge_document,
   edit_challenge_document,
   get_list_document,

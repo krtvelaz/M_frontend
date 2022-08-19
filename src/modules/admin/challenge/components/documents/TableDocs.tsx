@@ -56,16 +56,16 @@ const TableDocs: FC<DocsFormPros> = ({
 
     {
       title: "Tipo de documento",
-      dataIndex: "ret_tipo_documento",
+      dataIndex: "document_type",
       align: "left" as "left",
       render: (document: any) => { 
-        return document?.nombre;
+        return document?.rettipdoc_nombre;
 
       }
     },
     {
       title: "Nombre",
-      dataIndex: "ret_nombre_plantilla",
+      dataIndex: "retdoc_nombre_plantilla",
       align: "left" as "left",
       render: (name_document: string) => {
         return name_document ? name_document : "Sin plantilla";
@@ -88,7 +88,7 @@ const TableDocs: FC<DocsFormPros> = ({
                   alt="imagen"
                   style={{ cursor: "pointer", color: 'red' }}
                   onClick={async () => {
-                    if (!values.ret_nombre_plantilla) return;
+                    if (!values.retdoc_nombre_plantilla) return;
                     const res = await dispatch(
                       actions.get_document(values?.id || -1)
                     );
@@ -100,15 +100,15 @@ const TableDocs: FC<DocsFormPros> = ({
                       );
 
                       setUrl(_url);
-                      set_is_visible_doc(true);
+                      // set_is_visible_doc(true);
                     }
                   }}
                 />
-                <ModalDetailDocument
+                {/* <ModalDetailDocument
                   open={is_visibleDoc}
                   setOpen={set_is_visible_doc}
                   url={url}
-                />
+                /> */}
               </>
             );
           },

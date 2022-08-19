@@ -11,21 +11,14 @@ import {
 } from "../slice";
 
 export const create_challenge_report = (values: Informe, key: number) => {
-  const pdf = values?.ret_documento;
+  const pdf = values?.retinf_documento;
 
   let data = {
-    action: "insert",
-    info: {
-      id: -1,
-      key: key,
-    },
-    data: {
       ...values,
-      ret_ruta_documento: "",
-      ret_nombre_documento: values.ret_documento?.name || "",
-    },
+      retinf_estado: true,
+      retinf_id_reto: key, 
   };
-  delete data.data.ret_documento;
+  delete data.retinf_documento;
   let form = new FormData();
   form.append("data", JSON.stringify(data));
   if (pdf) form.append("file", pdf);
@@ -40,7 +33,7 @@ export const create_challenge_report = (values: Informe, key: number) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      dispatch(get_document_challenge(res.data.body.data));
+      dispatch(get_document_challenge(res.data.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -50,7 +43,7 @@ export const create_challenge_report = (values: Informe, key: number) => {
         confirmButtonText: "Aceptar",
       });
 
-      return res.data.body.data;
+      return res.data.data;
     } catch (error) {
       dispatch(fail_document_challenge());
       return Promise.reject("Error");
@@ -60,45 +53,40 @@ export const create_challenge_report = (values: Informe, key: number) => {
 
 export const edit_challenge_report = (values: Informe, key: number) => {
   let data = {
-    action: "update",
-    info: {
-      id: values.id,
-      key: key,
-    },
-    data: {
       ...values,
-      ret_nombre_documento: values.ret_documento?.name || "",
-    },
+      retinf_id_reto: key,
+      ret_nombre_documento: values.retinf_documento?.name || "",
   };
-  delete data.data.ret_creado;
-  delete data.data.ret_estado;
-  delete data.data.ret_reto_general;
-  delete data.data.id;
-  delete data.data.key;
+  
+  delete data.retinf_nombre_archivo;
+  delete data.retinf_ruta_archivo;
+  delete data.id;
 
   let form: any = new FormData();
 
-  if (!data.data.ret_documento?.id) {
-    const pdf = values.ret_documento;
+  if (!data.retinf_documento?.id) {
+    const pdf = values.retinf_documento;
     pdf && form.append("file", pdf);
-  } else {
-    form.append("file", null);
-  }
+  } 
 
-  delete data.data.ret_documento;
+  delete data.retinf_documento;
+  delete data.retinf_creado;
+  delete data.retinf_modificado;
+  delete data.key;
+  delete data.ret_nombre_documento;
   form.append("data", JSON.stringify(data));
 
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
     try {
-      const URI = "/informs/document";
+      const URI = `/informs/update/${values.id}`;
 
-      const res: any = await http.post(URI, form, {
+      const res: any = await http.put(URI, form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      dispatch(get_document_challenge(res.data.body.data));
+      dispatch(get_document_challenge(res.data.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -108,7 +96,7 @@ export const edit_challenge_report = (values: Informe, key: number) => {
         confirmButtonText: "Aceptar",
       });
 
-      return res.data.body.data;
+      return res.data.data;
     } catch (error) {
       dispatch(fail_document_challenge());
       return Promise.reject("Error");
@@ -123,14 +111,14 @@ export const get_list_challenge_report = (
   return async (dispatch: any) => {
     dispatch(loading_get_list_documents());
     try {
-      const URI = "/informs/references";
-      const { data }: any = await http.post(URI, {
-        page: page,
-        limit: pageSize,
-        key: key,
-      });
-      dispatch(success_get_list_documents(data.body.data.data));
-      return data.body.data.data;
+      const URI = `/informs/lists/${page}/${pageSize}/${key}`;
+      const res: any = await http.get(URI);      
+      const reports = {
+        results: res.data.data.data,
+        pagination: res.data.data.meta,
+      }
+      dispatch(success_get_list_documents(reports));
+      return res.data.data.data;
     } catch (error) {
       dispatch(fail_get_list_documents());
       return Promise.reject("Error");
@@ -142,12 +130,8 @@ export const delete_challenge_report = (id: number) => {
   return async (dispatch: any) => {
     dispatch(loading_document_challenge());
     try {
-      const URI = "/informs/delete";
-      const res: any = await http.delete(URI, {
-        params: {
-          id,
-        },
-      });
+      const URI = `/informs/delete/${id}`;
+      const res: any = await http.delete(URI);
       dispatch(get_document_challenge(res.data.body.data));
       await swal_success.fire({
         title: "Proceso exitoso",

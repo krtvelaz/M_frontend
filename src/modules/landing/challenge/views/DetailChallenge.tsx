@@ -1,14 +1,18 @@
 import moment from "moment";
 import { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { piezaRompecabezas } from "../../../../utils/assets/img";
+import { letras_medeinn, mujerOk, piezaRompecabezas } from "../../../../utils/assets/img";
 import { Link } from "../../../../utils/ui";
 import { actions } from "../../../admin/challenge/redux";
 import InfoDetailChallenge from "../components/InfoDetailChallenge";
 import ModalVideo from "../../homepage/components/ModalVideo";
 import { TemplateContext } from "../../../../utils/components/template/templateContext";
+import { useParams } from "react-router-dom";
+
+
 
 const DetailChallenge = () => {
+  const { id } = useParams<any>();
   const challenge: any = useSelector(
     (store: any) => store.challenge.challenge.value
   );
@@ -18,12 +22,12 @@ const DetailChallenge = () => {
   const context = useContext(TemplateContext);
 
   const getChallenge = async () => {
-    const res = await dispatch(actions.get_detail_challenge());
+    const res = await dispatch(actions.get_detail_challenge(Number(id)));
 
-    if (res) {
-      const imgPrincipal = await dispatch(actions.get_image_principal());
-      setImgPrincipal(imgPrincipal);
-    }
+    // if (res) {
+    //   const imgPrincipal = await dispatch(actions.get_image_principal(30));
+    //   setImgPrincipal(imgPrincipal);
+    // }
   }
 
   useEffect(() => {
@@ -45,12 +49,12 @@ const DetailChallenge = () => {
         }}
       >
         <img
-          src="src/utils/assets/img/letras_medeinn.svg"
+          src={letras_medeinn}
           alt="letras medeinn"
           className="imagen-fondo-detalle"
         />
         <img
-          src="src/utils/assets/img/Capa 73.png"
+          src={mujerOk}
           alt=""
           className="imagen-fondo-mujer"
         />

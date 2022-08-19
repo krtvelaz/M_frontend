@@ -32,7 +32,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
     ret_nombre_documento: "",
     ret_perfiles: "",
     ret_plantilla: {
-      name: doc?.ret_nombre_plantilla || "",
+      name: doc?.retdoc_nombre_plantilla || "",
       id: doc?.id || "",
     },
     ...doc,
@@ -99,8 +99,8 @@ const FormAddDocument: FC<DocsFormPros> = ({
                     ]}
                     placeholder="Seleccionar…"
                     extra_on_change={(value: number) => {
-                      // if (typeDoc === "admin")
-                      //   dispatch(actions.get_master_list(4, value));
+                      if (typeDoc && typeDoc !== "admin")
+                        dispatch(actions.get_types_documents(typeDoc, value));
                     }}
                   />
                   <ErrorMessage name="ret_perfiles" />
@@ -118,9 +118,10 @@ const FormAddDocument: FC<DocsFormPros> = ({
                   name="ret_tipo_documento"
                   dropdownMatchSelectWidth={false}
                   className=""
+                  disabled={!values.ret_perfiles && typeDoc !== 'general'}
                   options={typesDocument?.map((d) => ({
                     id: d?.id,
-                    name: d?.nombre,
+                    name: d?.rettipdoc_nombre,
                   }))}
                   placeholder="Seleccionar…"
                 />
