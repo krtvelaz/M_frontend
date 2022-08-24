@@ -141,12 +141,14 @@ const TableReport: FC<TablePros> = ({ onEdit, reports, onDelete, count, loading 
         url={url}
       />
       <Table
+
         columns={table_columns}
         items={reports}
         with_pagination
         change_page={change_page}
         count={count}
         loading={loading}
+        paginationTop
       />
     </>
   );

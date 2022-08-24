@@ -17,13 +17,13 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
   const dispatch = useDispatch<any>();
   const [isChange, setIsChange] = useState<boolean>(false);
   const reports = useSelector(
-    (store: any) => store?.challenge?.documents_challenge.value
+    (store: any) => store?.challenge?.reports.value
   );
   const { total } = useSelector(
-    (store: any) => store?.challenge?.documents_challenge.pagination
+    (store: any) => store?.challenge?.reports.pagination
   );
   const loading = useSelector(
-    (store: any) => store?.challenge?.documents_challenge.loading
+    (store: any) => store?.challenge?.reports.loading
   );
   
 

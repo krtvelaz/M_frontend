@@ -5,7 +5,7 @@ import { IChallenge, IDocument } from "../custom_types";
 import { actions } from "../redux";
 
 const useDocument = (
-  typeDoc: "general" | "admin" | "technicians",
+  typeDoc: "general" | "admin" | "technicians" | "" ,
   setChallenge: any,
   challenge: IChallenge
 ) => {
@@ -20,9 +20,9 @@ const useDocument = (
   const validateDocuments = (values: IDocument) => {
     let repeated_document = '';        
     if(typeDoc === 'general') {
-      repeated_document = documents.find((doc: any )=> doc.document_type.id === values.ret_tipo_documento);
+      repeated_document = documents.find((doc: any )=> doc.document_type.id === values.chafil_id_tipo_documento);
     }else {
-      repeated_document = documents.find((doc: any )=> (doc.document_type.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
+      repeated_document = documents.find((doc: any )=> (doc.document_type.id === values.chafil_id_tipo_documento && Number(doc.chafil_document_type?.profile?.id) === values.chafil_perfiles));
     }
 
     if (repeated_document) {
@@ -38,14 +38,15 @@ const useDocument = (
     }
 
   }
-
-  const onAddDocument = async (values: IDocument) => {    
+  
+  const onAddDocument = async (values: IDocument) => {        
     let repeated_document = ''; 
            
     if(typeDoc === 'general') {
-      repeated_document = documents.find((doc: any )=> doc.document_type.id === values.ret_tipo_documento);
+      repeated_document = documents.find((doc: any )=> doc.chafil_document_type.id === values.chafil_id_tipo_documento);
     }else {
-      repeated_document = documents.find((doc: any )=> (doc.document_type.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
+      repeated_document = documents.find((doc: any )=> (doc.chafil_document_type.id === values.chafil_id_tipo_documento && Number(doc.chafil_document_type?.profile?.id) === values.chafil_perfiles));
+      
     }
 
     if (repeated_document) {
@@ -74,22 +75,23 @@ const useDocument = (
   };
 
   const onDelete = async (id: number) => {
-    const res = await dispatch(actions.delete_challenge_document(typeDoc, id));
-    if (res) {
-      setIsChange(true);
-    }
+    const res = await dispatch(actions.delete_challenge_document(id));
+    setIsChange(true);
   };
 
-  const onEditDocument = async (values: IDocument) => {
-    let repeated_document = '';        
+  const onEditDocument = async (values: IDocument) => {   
+    console.log(values);
+    let repeated_document = documents.filter((doc: any) => doc.id !== values?.id)      
+    console.log(repeated_document)
     if(typeDoc === 'general') {
-      repeated_document = documents.find((doc: any )=> doc.ret_tipo_documento.id === values.ret_tipo_documento);
+      repeated_document = repeated_document.find((doc: any )=> doc.chafil_document_type.id === values.chafil_id_tipo_documento);
     }else {
-      repeated_document = documents.find((doc: any )=> (doc.ret_tipo_documento.id === values.ret_tipo_documento && Number(doc.ret_perfiles) === values.ret_perfiles));
+      repeated_document = repeated_document.find((doc: any )=> (doc.chafil_document_type.id === values.chafil_id_tipo_documento && Number(doc.chafil_document_type?.profile?.id) === values.chafil_perfiles));
+      
     }
 
     if (repeated_document) {
-      swal_error.fire({
+      await swal_error.fire({
         title: "Error en el proceso",
         html:
           '<div class="mysubtitle">Ya existe un documento del tipo seleccionado.</div>' +
@@ -103,7 +105,6 @@ const useDocument = (
       actions.edit_challenge_document(
         values,
         challenge.general_information.key || -1,
-        typeDoc
       )
     );
     if (res) setIsChange(true);

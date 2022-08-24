@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Loadable, IPageable } from "../../../../custom_types";
+import { Loadable, IPageable, Pageable } from "../../../../custom_types";
 import { IChallenge, IDocument } from "../custom_types";
 
 interface State {
@@ -7,6 +7,7 @@ interface State {
   challenges: IPageable<any>;
   document_challenge: Loadable<IDocument | null>;
   documents_challenge: IPageable<IDocument>;
+  reports: IPageable<any>;
   communes: Loadable<any | null>;
   dimensions: Loadable<any | null>;
   dependencies: Loadable<any | null>;
@@ -43,6 +44,22 @@ const initialState: State = {
     loaded: false,
   },
   documents_challenge: {
+    value: [],
+    pagination: {
+      current_page: 1,
+      first_page: 1,
+      first_page_url: "",
+      last_page: null,
+      last_page_url: "",
+      next_page_url: "",
+      per_page: 0,
+      previous_page_url: null,
+      total: 0,
+    },
+    loading: false,
+    loaded: false,
+  },
+  reports: {
     value: [],
     pagination: {
       current_page: 1,
@@ -211,6 +228,43 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
+    
+    loading_reports: (state) => {
+      state.reports = {
+        ...state.reports,
+        pagination: state.reports.pagination,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_reports: (state, action) => {
+      state.reports = {
+        ...state.reports,
+        value: action.payload.results,
+        pagination: {
+          current_page: action.payload.pagination.current_page || 1,
+          first_page: action.payload.pagination.first_page || 1,
+          first_page_url: action.payload.pagination.first_page_url || "",
+          last_page: action.payload.pagination.last_page || null,
+          last_page_url: action.payload.pagination.last_page_url || "",
+          next_page_url: action.payload.pagination.next_page_url || "",
+          per_page: action.payload.pagination.per_page || 0,
+          previous_page_url: action.payload.pagination.previous_page_url || null,
+          total: action.payload.pagination.total || 0,
+        },
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_reports: (state) => {
+      state.reports = {
+        ...state.reports,
+        value: initialState.reports.value,
+        pagination: initialState.reports.pagination,
+        loading: false,
+        loaded: false,
+      };
+    },
 
     loading_get_types_documents: (state) => {
       state.type_documents = {
@@ -357,6 +411,9 @@ export const {
   loading_get_types_documents,
   success_get_types_documents,
   fail_get_types_documents,
+  loading_reports,
+  success_reports,
+  fail_reports,
   loading_list_communes,
   success_list_communes,
   fail_list_communes,

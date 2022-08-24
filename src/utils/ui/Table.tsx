@@ -21,6 +21,7 @@ const getPaginator = (
   change_page?: (page: number, pageSize?: number) => void,
   title?: string
 ): TablePaginationConfig => {
+  
   return {
     responsive: true,
     pageSizeOptions: [10, 20, 50, 100],

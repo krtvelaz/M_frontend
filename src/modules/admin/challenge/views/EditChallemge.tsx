@@ -13,14 +13,15 @@ interface IParams {
 const EditChallemge = () => {
     const { id } = useParams();
     const dispatch = useDispatch<any>();
-  //   const challenge: IChallenge = useSelector((states: any) => states.challenge.challenge.value  );    
+    const challenge: IChallenge = useSelector((states: any) => states.challenge.challenge.value  );
+       
     useEffect(() => {      
-      dispatch(actions.get_detail_challenge())
+      dispatch(actions.get_detail_challenge(Number(id)))
   }, []);
   return (
     <ChallengeFormTags 
     type='edit'
-    // challenge_data={challenge}
+    challenge_data={challenge}
     />
   )
 }
