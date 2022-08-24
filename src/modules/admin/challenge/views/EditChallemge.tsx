@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ChallengeFormTags from "../components/challengeFormTags"
-import { IChallenge } from "../custom_types";
+import { IChallenge, IGeneralInformation } from "../custom_types";
 import actions from "../redux/actions";
 
 interface IParams {
@@ -13,7 +13,7 @@ interface IParams {
 const EditChallemge = () => {
     const { id } = useParams();
     const dispatch = useDispatch<any>();
-    const challenge: IChallenge = useSelector((states: any) => states.challenge.challenge.value  );
+    const challenge: IGeneralInformation = useSelector((states: any) => states.challenge.challenge.value  );
        
     useEffect(() => {      
       dispatch(actions.get_detail_challenge(Number(id)))
