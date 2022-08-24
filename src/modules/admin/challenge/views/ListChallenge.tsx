@@ -43,6 +43,9 @@ const ListChallenge = () => {
       title: "Creado por",
       dataIndex: "createdBy",
       align: "left" as "left",
+      render: (value: string) => {        
+        return moment(value).format("DD / MM / YYYY"); 
+      }
     },
     {
       title: "Publicado",
@@ -88,6 +91,9 @@ const ListChallenge = () => {
       title: "Fecha cierre",
       dataIndex: "closeDate",
       align: "left" as "left",
+      render: (value: string) => {        
+        return moment(value).format("DD / MM / YYYY"); 
+      }
     },
     {
       title: "Acciones",
@@ -184,6 +190,7 @@ const ListChallenge = () => {
             <Table
               columns={table_columns}
               title="Lista de retos"
+              paginationTop
               items={challenges}
               change_page={change_page}
               count={total}

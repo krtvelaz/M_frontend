@@ -27,6 +27,7 @@ export interface IGeneralInformation {
   cha_id_user?: number;
   cha_id_dimension?: number | null;
   cha_id_commune?: number | null;
+  cha_commune?: any;
   cha_id_dependency?: number | null;
   cha_id_neighborhood?: number | null;
   cha_status?: number;
@@ -34,6 +35,11 @@ export interface IGeneralInformation {
   cha_documents?: any[];
   cha_informs?: any[];
   cha_total_days?: number;
+  cha_neighborhood?: any;
+  status?: any;
+  cha_dependency?: any;
+  cha_dimension?: any;
+  informs?: any;
   cha_created_at?: null | any;
   cha_updated_at?: null | any;
 }
@@ -46,16 +52,16 @@ export interface IDocuments {
 
 export interface IDocument {
   id?: number;
-  ret_tipo_documento: number | any;
-  ret_nombre_documento: string;
-  ret_perfiles: number | any;
-  ret_plantilla?: any;
-  ret_ruta_plantilla: string;
-  retdoc_nombre_plantilla: string;
-  ret_tipo_formulario?: number;
-  ret_creado?: string;
-  ret_estado?: boolean;
   key?: string;
+  chafil_id_tipo_documento?: number;
+  chafil_document_type?: any;
+  chafil_plantilla: any;
+  chafil_perfiles: number;
+  chafil_nombre_plantilla?: string;
+  chafil_ruta_plantilla?: string;
+  chafil_nombre_tipo_documento: null | string;
+  chafil_creado?: string;
+  chafil_estado?: boolean;
 }
 export interface Informe {
   id?: number;

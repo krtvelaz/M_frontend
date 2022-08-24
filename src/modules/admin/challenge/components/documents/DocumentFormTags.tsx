@@ -9,7 +9,7 @@ interface DocumentsProps {
   onAddDocument: any;
   onDelete: (index: number) => void;
   onEditDocument: (values: IDocument) => any;
-  typeDoc: "general" | "admin" | "technicians";
+  typeDoc: "general" | "admin" | "technicians" | "";
   challenge: IChallenge;
   active_key: string;
 }

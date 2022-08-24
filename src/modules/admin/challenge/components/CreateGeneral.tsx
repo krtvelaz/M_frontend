@@ -16,6 +16,8 @@ const CreateGeneral: FC<GeneralInformationProps> = ({ general_information, inner
   const list_dependencies: any = useSelector((store: any) => store.challenge.dependencies.value);  
   const list_profiles: any = useSelector((store: any) => store.challenge.profiles.value);  
 
+ 
+
   return (
     <div className="container-fluid">
       <div className="row">

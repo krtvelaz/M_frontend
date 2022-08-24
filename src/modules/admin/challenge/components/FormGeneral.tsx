@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Input from "../../../../utils/ui/CurrencyInput";
 import DateInput from "../../../../utils/ui/DateInput";
 import DocumentInput from "../../../../utils/ui/DocumentInput";
@@ -46,6 +46,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     cha_id_neighborhood: "",
     cha_details: "",
     cha_imagen_principal: {
+      id: general_?.id || -1,
       name: general_?.cha_name_image || "",
     },
     cha_video_url: "",
@@ -59,6 +60,12 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
   const neighborhoods: any = useSelector(
     (store: any) => store.challenge.neighborhoods.value
   );
+
+  useEffect(() => {
+    if(general_?.cha_id_commune) {
+      dispatch(actions.get_neighborhoods(general_?.cha_id_commune));
+    }
+  }, [])
   const dispatch = useDispatch<any>();
   const schema = Yup.object().shape({
     cha_name: Yup.string().required("Campo obligatorio"),
@@ -78,11 +85,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     cha_expected_results: Yup.string().required("Campo obligatorio"),
     cha_details: Yup.string().required("Campo obligatorio"),
     cha_video_url: Yup.string().url("Por favor ingrese una url"),
-    cha_amount: Yup.number().max(10000000000, "El máximo es $10.000.000.000"),
+    cha_amount: Yup.number().nullable().max(10000000000, "El máximo es $10.000.000.000"),
   });
 
-  const submit = (values: any, actions: any) => {
-    onSubmit(values);
+  const submit = async (values: any, actions: any) => {
+    await onSubmit(values);
     actions.setSubmitting(false);
   };
 
@@ -94,7 +101,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ handleChange, values }) => {
+      {({ handleChange, values, setFieldValue }) => {
         const disabledDate: TimeRangePickerProps["disabledDate"] = (
           current
         ) => {
@@ -287,6 +294,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                         name: commune?.commune,
                       }))}
                       extra_on_change={(id_commune: number) => {
+                        setFieldValue('cha_id_neighborhood', null, false)
                         dispatch(actions.get_neighborhoods(id_commune));
                       }}
                       placeholder="Seleccionar…"
@@ -296,6 +304,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   <div className="col-6">
                     <Field
                       component={Select}
+                      disabled={neighborhoods.length === 0}
                       id="ret_barrio_id"
                       name="cha_id_neighborhood"
                       className=""
@@ -303,7 +312,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                         id: neighborhood?.id,
                         name: neighborhood?.neighborhood,
                       }))}
-                      placeholder="Seleccionar…"
+                      placeholder={`${neighborhoods.length > 0 ? "Seleccionar…" : "------"}`}
                     />
                     <ErrorMessage name="cha_id_neighborhood" />
                   </div>

@@ -26,8 +26,6 @@ const PublishedChallenges = () => {
         }
     };
 
-    console.log(images);
-
     return (
         <div className="row">
             <div className="col-12 col-md-12 col-lg-5" style={{ marginTop: '55px', position: 'relative' }}>

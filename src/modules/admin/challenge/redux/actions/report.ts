@@ -3,11 +3,11 @@ import { swal_success } from "../../../../../utils/ui/swalAlert";
 import { Informe } from "../../custom_types";
 import {
   fail_document_challenge,
-  fail_get_list_documents,
+  fail_reports,
   get_document_challenge,
   loading_document_challenge,
-  loading_get_list_documents,
-  success_get_list_documents,
+  loading_reports,
+  success_reports,
 } from "../slice";
 
 export const create_challenge_report = (values: Informe, key: number) => {
@@ -109,7 +109,7 @@ export const get_list_challenge_report = (
   { page = 1, pageSize = 10 }
 ) => {
   return async (dispatch: any) => {
-    dispatch(loading_get_list_documents());
+    dispatch(loading_reports());
     try {
       const URI = `/informs/lists/${page}/${pageSize}/${key}`;
       const res: any = await http.get(URI);      
@@ -117,10 +117,10 @@ export const get_list_challenge_report = (
         results: res.data.data.data,
         pagination: res.data.data.meta,
       }
-      dispatch(success_get_list_documents(reports));
+      dispatch(success_reports(reports));
       return res.data.data.data;
     } catch (error) {
-      dispatch(fail_get_list_documents());
+      dispatch(fail_reports());
       return Promise.reject("Error");
     }
   };
@@ -132,7 +132,7 @@ export const delete_challenge_report = (id: number) => {
     try {
       const URI = `/informs/delete/${id}`;
       const res: any = await http.delete(URI);
-      dispatch(get_document_challenge(res.data.body.data));
+      dispatch(get_document_challenge(res.data));
       await swal_success.fire({
         title: "Proceso exitoso",
         html:
@@ -142,7 +142,7 @@ export const delete_challenge_report = (id: number) => {
         confirmButtonText: "Aceptar",
       });
 
-      return res.data.body.data;
+      return res.data;
     } catch (error) {
       dispatch(fail_document_challenge());
       return Promise.reject("Error");
