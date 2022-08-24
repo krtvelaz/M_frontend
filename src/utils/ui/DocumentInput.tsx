@@ -19,6 +19,7 @@ const DocumentInput: FC<InputDocProps> = ({
   maximum_size = 5,
   type_image,
 }) => {
+  const [file, setFile] = useState();
   const fileInputRef = useRef<any>();
   const context = useContext(TemplateContext);
   const on_change = (value: any) => {
@@ -55,7 +56,7 @@ const DocumentInput: FC<InputDocProps> = ({
                 ? `${field.value.name.split(".")[0].substring(0, 20)}.${
                     field.value.name.split(".")[1]
                   }`
-                : field.value?.name}
+                : `${field.value?.name}.${file_type}`}
             </Tag>
           )}
         </div>
@@ -80,7 +81,8 @@ const DocumentInput: FC<InputDocProps> = ({
         ref={fileInputRef}
         type="file"
         hidden
-        onChange={async (e: any) => {
+        onChange={async (e: any) => {                    
+          
           if (validate_file_type(e.target.files[0], file_type, type_image)) {
             const size = maximum_size * 1000000;
             if (e.target.files[0].size < size) {

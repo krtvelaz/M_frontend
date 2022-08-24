@@ -9,7 +9,7 @@ import { actions } from "../redux";
 
 export const useInit = (
   type: "create" | "edit",
-  challenge_data?: IChallenge
+  challenge_data?: IGeneralInformation
 ): [
   string,
   string,
@@ -37,29 +37,27 @@ export const useInit = (
     challenge?: IChallenge;
   };
   const active_key: any = state?.active_key || "1";
-  const active_key_docs: any = state?.active_key_docs || "docs-1";
+  const active_key_docs: any = state?.active_key_docs || "";
   const ls = state;
 
   const initial_values: IChallenge = {
     general_information: {
-      ret_nombre: "",
-      ret_perfil: [],
-      ret_id_dimension: "",
-      ret_id_dependencia: "",
-      ret_fecha_inicio: "",
-      ret_fecha_final: "",
-      ret_detalles: "",
-      ret_id_comuna: "",
-      ret_id_barrio: "",
-      ret_detalle_poblacion_impactar: "",
-      ret_ruta_imagen_principal: "",
-      ret_nombre_imagen: "",
-      ret_video: "",
-      ret_dato_importante: "",
-      ret_resultado_esperado: "",
-      ret_monto: "",
-      ret_descripcion: "",
-      ret_tipo_impacto: "",
+      cha_name: "",
+      cha_profiles: [],
+      cha_id_dimension: null,
+      cha_id_dependency: null,
+      cha_start_date: "",
+      cha_end_date: "",
+      cha_details_population_impact: "",
+      cha_id_commune: null,
+      cha_id_neighborhood: null,
+      cha_details: "",
+      cha_video_url: "",
+      cha_important_data: "",
+      cha_expected_results: "",
+      cha_amount: null,
+      cha_description: "",
+      cha_impact_type: "",
     },
     documents: {
       general: [],
@@ -68,6 +66,8 @@ export const useInit = (
     },
     reports: [],
   };
+
+    
 
   const [challenge, setChallenge] = useState(
     ls?.challenge ? ls.challenge : initial_values
@@ -91,29 +91,37 @@ export const useInit = (
             ...values,
           },
         }));
-        console.log(1, "guardado");
+        
+
+        if (!challenge.general_information.key) {
+          const result = await dispatch(actions.create_challenge(values));    
+          console.log(result);
+                
+          if (result) {
+            setChallenge((data: any) => ({
+              ...data,
+              general_information: {
+                ...result,
+                // cha_id_commune: result?.cha_commune?.commune?.id,
+                key: result?.id,
+              },
+            }));
+          }
+        } else {
+
+          const res = await dispatch(actions.update_challenge(values));
+          console.log(res);
+          
+          setChallenge((data: any) => ({
+            ...data,
+            general_information: {
+              ...values,
+              key: challenge_data?.id || -1
+            },
+          }));
+          
+        }
         set_is_saving(false);
-        // if (!challenge.general_information.key) {
-        //   const res = await dispatch(actions.create_challenge(values));
-        //   if (res) {
-        //     setChallenge((data: any) => ({
-        //       ...data,
-        //       general_information: {
-        //         ...res.data,
-        //         ret_perfil: res?.data?.ret_perfil?.map((doc: any) => doc.id),
-        //         key: res.key,
-        //       },
-        //     }));
-        //   }
-        // } else {
-        //   const res = await dispatch(actions.update_challenge(values));
-        //   setChallenge((data: any) => ({
-        //     ...data,
-        //     general_information: {
-        //       ...values,
-        //     },
-        //   }));
-        // }
       },
     },
     {
@@ -249,22 +257,20 @@ export const useInit = (
 
   const callback = (key: string, next_docs = "docs-1", prev = false) => {
     const int_key = parseInt(active_key);
-    const save = steps[int_key - 1]?.save;
+    const save = steps[int_key - 1]?.save;   
 
-    // if (prev) {
-    //   set_is_saving(false);
-    //   set_go_next(key);
-    //   set_go_next_doc(next_docs);
-    //   return;
-    // }
+    if (prev) {
+      set_is_saving(false);
+      set_go_next(key);
+      set_go_next_doc(next_docs);
+      return;
+    }
 
     save &&
-      save()
-        .then(() => {
-          console.log("aqui succes save");
-          set_go_next(key);
-          set_go_next_doc(next_docs);
-        });
+      save().then(() => {
+        set_go_next(key);
+        set_go_next_doc(next_docs);
+      });
   };
 
   const goBack = () => {
@@ -280,11 +286,20 @@ export const useInit = (
   };
 
   useEffect(() => {
-    if (challenge_data) setChallenge(challenge_data);
+    if (challenge_data) setChallenge((data:any) => {
+      return {
+        ...data,
+        general_information: {
+          ...challenge_data,
+          key: challenge_data.id,
+          cha_profiles: challenge_data.cha_profiles?.map((profile: any) => profile?.id),
+          cha_id_commune: challenge_data?.cha_neighborhood?.commune?.id
+        }
+      }
+    });
   }, [challenge_data]);
 
   useEffect(() => {
-
     if (!is_saving && go_next) {
       const key = parseInt(go_next);
       if (key > max) {

@@ -9,7 +9,7 @@ interface DocumentsProps {
   onAddDocument: any;
   onDelete: (index: number) => void;
   onEditDocument: (values: IDocument) => any;
-  typeDoc: "general" | "admin" | "technicians";
+  typeDoc: "general" | "admin" | "technicians" | "";
   challenge: IChallenge;
   active_key: string;
 }
@@ -24,13 +24,13 @@ const DocumentFormTags: FC<DocumentsProps> = ({
 }) => {
   const { TabPane } = Tabs;
 
-  
+  const types_docuemnts = useSelector((store: any) => store?.challenge?.type_documents.value);    
 
     return (
     <Tabs className="w-100 h-100 docs-challenge" activeKey={active_key}>
       <TabPane tab="Doc. Generales" key="docs-1">
         <AddDocument
-          typesDocument={[]}
+          typesDocument={types_docuemnts}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
@@ -44,7 +44,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={[]}
+          typesDocument={types_docuemnts}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}
@@ -58,7 +58,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         disabled={challenge.documents.general.length === 0}
       >
         <AddDocument
-          typesDocument={[]}
+          typesDocument={types_docuemnts}
           onAddDocument={onAddDocument}
           onDelete={onDelete}
           onEditDocument={onEditDocument}

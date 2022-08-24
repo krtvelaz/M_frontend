@@ -56,7 +56,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
       <div style={{ marginTop: '16px' }}>Descripción del tipo de documentos que deben enviar para postularse al reto: </div>
 
       <ol className="my-4" style={{ position: "relative", zIndex: 4 }}>
-        {challenge?.documents.map((document: any, index: number) =>
+        {challenge?.documents?.map((document: any, index: number) =>
           <>
             <li onClick={async () => {
               const result = await dispatch(actions.get_document(document.id));
@@ -85,7 +85,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
       <div className="my-3" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#603CE6' }}>Visualizar información del reto</div>
 
       <ol style={{ position: "relative", zIndex: 4, listStyle: 'none' }} className="my-4">
-        {challenge?.informs.map((inform: any, index: number) =>
+        {challenge?.informs?.map((inform: any, index: number) =>
           <div className="d-flex my-2" onClick={async () => {
             const result = await dispatch(actions.get_document(inform.id, "report"));
 

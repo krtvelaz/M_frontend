@@ -1,15 +1,36 @@
 import 'bootstrap';
-import { FC, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TemplateContext } from '../../../../utils/components/template/templateContext';
+import { actions } from '../../../admin/banner/redux';
 import ModalVideo from './ModalVideo';
+import { Buffer } from 'buffer';
 
-interface ICarouselMedeinnProps {
-    data: any;
-    images: any[];
-}
 
-const CarouselMedeinn: FC<ICarouselMedeinnProps> = ({ data, images }) => {
+
+const CarouselMedeinn = () => {
     const context = useContext(TemplateContext);
+    const [images, setBannerImages] = useState<any[]>([]);
+    const dispatch = useDispatch<any>();
+    const data = useSelector((store: any) => store.banner.list_banners.value);
+    useEffect(() => {        
+        getBanner();
+    }, []);
+
+    const getBanner = async () => {
+        try {
+            const results = await dispatch(actions.get_list_banners());
+
+            if (results.length > 0) {
+                const images = await Promise.all(
+                    results.map((result: any) => dispatch(actions.get_image_banner(result?.id)))
+                );
+                setBannerImages(images.map(image => Buffer.from(image).toString('base64')));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <>
             <div id="carouselIndicators" className="carousel slide" data-bs-ride="carousel">
@@ -19,6 +40,7 @@ const CarouselMedeinn: FC<ICarouselMedeinnProps> = ({ data, images }) => {
                             type="button"
                             data-bs-target="#carouselIndicators"
                             data-bs-slide-to={`${i}`}
+                            key={`button-carousel-${i}`}
                             className={`${i === 0 ? 'active' : ''}`}
                             aria-current={`${i === 0 ? 'true' : 'false'}`}
                             aria-label={`Slide ${i + 1}`}

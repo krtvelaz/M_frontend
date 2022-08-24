@@ -1,8 +1,17 @@
 import { Popover, Radio } from "antd";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
 import { pencil, trash } from "../../../../utils/assets/img";
 import { Card, Link, swal_error, Table } from "../../../../utils/ui";
+import { actions } from "../redux";
+import moment from 'moment'
 
 const ListChallenge = () => {
+
+  const change_page = (page: number, pageSize?: number) => {
+    dispatch(actions.get_list_challenges(page, pageSize));
+  }
+
   const table_columns: any = [
     {
       title: "No.",
@@ -12,7 +21,7 @@ const ListChallenge = () => {
     },
     {
       title: "Nombre del reto",
-      dataIndex: "challenge_name",
+      dataIndex: "name",
       align: "left" as "left",
       render: (value: string) => {
         return (
@@ -32,32 +41,59 @@ const ListChallenge = () => {
     },
     {
       title: "Creado por",
-      dataIndex: "audit_trail",
+      dataIndex: "createdBy",
       align: "left" as "left",
+      render: (value: string) => {        
+        return moment(value).format("DD / MM / YYYY"); 
+      }
     },
     {
       title: "Publicado",
-      dataIndex: "is_published",
       align: "left" as "left",
-      render: (value: string) => {
-        const onChange = (e: any) => {};
+      render: (value: any) => {
+        const onChange = (e: any) => {
+          if (value.status !== "Pendiente" || value.status !== "Aceptado" || value.status !== "Postulado") {
+            swal_error.fire({
+              title: "Está función no se puede realizar por el momento",
+              html:
+                '<div class="mysubtitle">El reto no cumple con todos los parámetros necesarios</div>' +
+                '<div class="mytext">Por favor, termina de crear el reto</div>',
+              showCancelButton: false,
+              confirmButtonText: "Aceptar",
+            });
+            return 
+          }
+
+          if (e.target.value === 'Si') {
+            dispatch(actions.publish_challenge(value.id));
+          } else {
+            dispatch(actions.unpublish_challenge(value.id));
+          }
+        };
+
         return (
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value="Si">Si</Radio>
-            <Radio value="No">No</Radio>
+          <Radio.Group onChange={onChange} value={value.status === "Publicado" ? true : false}>
+            <Radio value={true}>Si</Radio>
+            <Radio value={false}>No</Radio>
           </Radio.Group>
         );
       },
     },
     {
       title: "Fecha inicio",
-      dataIndex: "start_date",
+      dataIndex: "startDate",
       align: "left" as "left",
+      render: (value: string) => {        
+        return moment(value).format("DD / MM / YYYY"); 
+      }
     },
     {
       title: "Fecha cierre",
-      dataIndex: "closing_date",
+      dataIndex: "closeDate",
       align: "left" as "left",
+      render: (value: string) => {        
+        return moment(value).format("DD / MM / YYYY"); 
+      }
     },
     {
       title: "Acciones",
@@ -89,8 +125,9 @@ const ListChallenge = () => {
         {
           title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
           fixed: "right",
+          dataIndex: 'id',
           align: "center" as "center",
-          render: (data: any, values: any, index: number) => {
+          render: (id: number) => {
             return (
               <img
                 src={trash}
@@ -109,6 +146,8 @@ const ListChallenge = () => {
                     denyButtonText: `Cancelar`,
                   });
                   if (result.isConfirmed) {
+                    await dispatch(actions.delete_challenge(id));
+                    await dispatch(actions.get_list_challenges());
                   }
                 }}
               />
@@ -118,6 +157,17 @@ const ListChallenge = () => {
       ],
     },
   ];
+
+  const dispatch = useDispatch<any>();
+  const challenges = useSelector((store: any) => store.challenge.challenges.value);
+  const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
+  const loading = useSelector((store: any) => store.challenge.challenges.loading);
+  
+
+  useEffect(() => {
+    dispatch(actions.get_list_challenges());
+  }, [])
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
@@ -140,17 +190,12 @@ const ListChallenge = () => {
             <Table
               columns={table_columns}
               title="Lista de retos"
-              items={[
-                {
-                  id: 1,
-                  challenge_name:
-                    "¿Cómo mejorar la conectividad en los corregimientos de Medellín? WorkSans 12px _ Regular Título o contenido Título o contenido, xxxxxxxxx. Título o contenido Título o contenido, xxxxxxxxx. Título o texto 12 contenido Título o contenido, xx xxxx xx x. Título o contenido Título o ccc c contenido, xxxxxxxxx.",
-                  audit_trail: "karen Nova",
-                  is_published: "Si",
-                  start_date: "07 / 07 / 2022",
-                  closing_date: "08 / 07 / 2022",
-                },
-              ]}
+              paginationTop
+              items={challenges}
+              change_page={change_page}
+              count={total}
+              with_pagination
+              loading={loading}
             />
           </Card>
         </div>

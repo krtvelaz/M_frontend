@@ -1,7 +1,7 @@
 import { Tabs } from "antd";
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IChallenge } from "../custom_types";
+import { IChallenge, IGeneralInformation } from "../custom_types";
 import { useInit } from "../hooks/useInit";
 import useDocument from "../hooks/useTypeDocs";
 import { actions } from "../redux";
@@ -10,14 +10,12 @@ import CreateGeneral from "./CreateGeneral";
 import DocumentFormTags from "./documents/DocumentFormTags";
 
 interface ChallengeFormPros {
-  challenge_data?: IChallenge;
+  challenge_data?: IGeneralInformation;
   type: "create" | "edit";
 }
 
 const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
-  const [typeDoc, setTypeDoc] = useState<"general" | "admin" | "technicians">(
-    "general"
-  );
+  const [typeDoc, setTypeDoc] = useState<"general" | "admin" | "technicians" | "">("");
   const dispatch = useDispatch<any>();
   const { TabPane } = Tabs;
   let [
@@ -36,11 +34,12 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   ] = useInit(type, challenge_data);
 
   useEffect(() => {
-    active_key_docs === "docs-1" && active_key !== "3"
-      ? setTypeDoc("general")
-      : active_key_docs === "docs-2"
-      ? setTypeDoc("technicians")
-      : setTypeDoc("admin");
+    active_key === "2" && (
+      active_key_docs === "docs-1"
+        ? setTypeDoc("general")
+        : active_key_docs === "docs-2"
+        ? setTypeDoc("technicians") : active_key_docs === "docs-3" && setTypeDoc("admin")
+    )
   }, [active_key_docs]);
 
   const {
@@ -51,17 +50,18 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
     isChange,
   } = useDocument(typeDoc, setChallenge, challenge);
 
-  const get_documents = async () => {
-    await dispatch(
-      actions.get_list_document(
-        typeDoc,
-        challenge.general_information.key || -1,
-        {}
-      )
-    );
+  const get_documents = async () => {     
+    typeDoc && 
+      await dispatch(
+        actions.get_list_document(
+          typeDoc,
+          challenge.general_information.key || -1,
+          {}
+        )
+      );
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     get_documents();
   }, [typeDoc]);
 
@@ -79,15 +79,19 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
       dispatch(actions.get_dependencies());
       dispatch(actions.get_profiles());
     }  
-  },[active_key])
-
+  },[active_key]);
+  
   useEffect(()=> {   
-    // if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_master_list(2))
+    console.log('aquiiiiii');
+    
+    if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_types_documents('general'))
     // if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 
   },[active_key, active_key_docs])
 
   const loading: boolean = useSelector((store: any) => store.challenge.challenge.loading);
 
+  
+  
   return (
     <>
       <div className="h-100 d-flex flex-column">

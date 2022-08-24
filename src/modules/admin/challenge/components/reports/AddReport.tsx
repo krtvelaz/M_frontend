@@ -1,6 +1,6 @@
 import { FormikProps, FormikValues } from "formik";
 import { FC, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../../../../../utils/ui";
 import { IChallenge, Informe } from "../../custom_types";
 import { actions } from "../../redux";
@@ -15,14 +15,24 @@ interface ReportPros {
 const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
   const dispatch = useDispatch<any>();
-  const [resports, setReports] = useState([]);
   const [isChange, setIsChange] = useState<boolean>(false);
+  const reports = useSelector(
+    (store: any) => store?.challenge?.reports.value
+  );
+  const { total } = useSelector(
+    (store: any) => store?.challenge?.reports.pagination
+  );
+  const loading = useSelector(
+    (store: any) => store?.challenge?.reports.loading
+  );
+  
 
-  const onAddReport = async (values: Informe) => {   
+  
+  const onAddReport = async (values: Informe) => {
     const res = await dispatch(
       actions.create_challenge_report(
         values,
-        challenge.general_information.key || -1
+        challenge.general_information.key || 2
       )
     );
     if (res) {
@@ -40,7 +50,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
     const res = await dispatch(
       actions.edit_challenge_report(
         values,
-        challenge.general_information.key || -1
+        challenge.general_information.key || 2
       )
     );
     if (res) {
@@ -51,20 +61,24 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
   const onDelete = async (id: number) => {
     const res = await dispatch(actions.delete_challenge_report(id));
     if (res) {
-      const newDocuments = challenge.reports.filter((doc) => doc.id !== id);      
+      const newDocuments = challenge.reports.filter((doc) => doc.id !== id);
       setChallenge((data: IChallenge) => {
         return {
           ...data,
-          resports: newDocuments
+          resports: newDocuments,
         };
       });
       setIsChange(true);
     }
-  }
+  };
 
   const listReports = async () => {
-    const data = await dispatch(actions.get_list_challenge_report(challenge.general_information.key || -1, {}));
-    setReports(data);
+    const data = await dispatch(
+      actions.get_list_challenge_report(
+        challenge.general_information.key || 2,
+        {}
+      )
+    );
   };
 
   useEffect(() => {
@@ -76,13 +90,20 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
       listReports();
       setIsChange(false);
     }
-  }, [isChange]); 
+  }, [isChange]);
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-          <h4 className="text-center mb-3" style={{fontFamily: 'Work-Sans-SemiBold'}}>Este formulario es opcional, si no hay información para asociar puede finalizar la creación del reto haciendo clic en el botón finalizar reto.</h4>
+          <h4
+            className="text-center mb-3"
+            style={{ fontFamily: "Work-Sans-SemiBold" }}
+          >
+            Este formulario es opcional, si no hay información para asociar
+            puede finalizar la creación del reto haciendo clic en el botón
+            finalizar reto.
+          </h4>
           <Card
             title={
               <>
@@ -112,15 +133,16 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
           >
             <FormReport innerRef={form_ref} onSubmit={onAddReport} />
           </Card>
-          {resports.length > 0 && (
+          {reports.length > 0 && (
             <Card>
               <span className="my-3" style={{ fontSize: "14px" }}>
                 Documentos agregados
                 <TableReport
-                  reports={resports}
-                  loading={false}
+                  reports={reports}
+                  loading={loading}
                   onEdit={onEditReport}
                   onDelete={onDelete}
+                  count={total}
                 />
               </span>
             </Card>

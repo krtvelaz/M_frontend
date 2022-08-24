@@ -2,6 +2,9 @@ import { Collapse } from "antd";
 import { trazado_amarillo } from "../../../../utils/assets/img";
 const { Panel } = Collapse;
 import { Card } from "../../../../utils/ui";
+import quienesSomos from "../../../../utils/assets/img/quienesSomos.png";
+import queBuscamos from "../../../../utils/assets/img/queBuscamos.png";
+import plusImage from "../../../../utils/assets/img/+.svg";
 
 const AboutUs = () => {
   return (
@@ -23,7 +26,7 @@ const AboutUs = () => {
           <div className="col-md-12">
             <Card className="card-about">
               <div className="row mb-4">
-                <div className="col-12 col-md-12  col-lg-6  mt-4">
+                <div className="col-12 col-md-12 col-lg-6 mt-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                   <h2 className="text-stake">¿Quienés somos?</h2>
                   <p>
                     <span className="span-about">
@@ -37,11 +40,11 @@ const AboutUs = () => {
                     mejorar la calidad de vida de la ciudadanía.
                   </p>
                 </div>
-                <div className="col-12 col-md-12  col-lg-6 ">
+                <div className="col-12 col-md-12 col-lg-6">
                   <img
                     className="img-fluid"
-                    src="https://img.freepik.com/foto-gratis/diversas-personas-que-trabajan-oficina_53876-104681.jpg?w=1060&t=st=1660155681~exp=1660156281~hmac=a7f9f06cf8d9817b3359145bb534c9202b513a7ff5018707360b1bb3e91ade4f"
-                    alt="imagen nosotros"
+                    src={quienesSomos}
+                    alt="Imagen quienes somos"
                   />
                 </div>
               </div>
@@ -49,11 +52,11 @@ const AboutUs = () => {
               <div className="row  column-reverse">
                 <div className="col-12 col-md-12  col-lg-6 ">
                   <img
-                    src="https://img.freepik.com/foto-gratis/grupo-personas-trabajando-plan-negocios-oficina_1303-15861.jpg?w=996&t=st=1660155757~exp=1660156357~hmac=6d27ca3de2f7428a16331903fa6c096a1567a0ea67a57dd3f8622e37d148c1be"
-                    alt="imagen nosotros"
+                    src={queBuscamos}
+                    alt="Imagen que buscamos"
                   />
                 </div>
-                <div className="col-12 col-md-12  col-lg-6  mt-4">
+                <div className="col-12 col-md-12  col-lg-6  mt-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                   <h2 className="text-stake">¿Qué buscamos?</h2>
                   <p>
                     Fortalecer la administración pública y el ecosistema de
@@ -67,10 +70,10 @@ const AboutUs = () => {
               </div>
               <div className="row">
                 <div className="col-12 col-md-12  col-lg-6  mt-4">
-                  <p className="mb-0">Conoce más acerca de las</p>
-                  <h2 className="text-stake mb-4">Preguntas Frecuentes</h2>
+                  <p className="mb-0 my-5">Conoce más acerca de las</p>
+                  <h2 className="text-stake my-2">Preguntas Frecuentes</h2>
                 </div>
-                <div>
+                <div className="my-3">
                   <Collapse
                     style={{
                       background: "#FFFFFF",
