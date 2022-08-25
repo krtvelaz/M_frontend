@@ -19,7 +19,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
 
   return (
     <div>
-      <p>{challenge?.retgen_descripcion}</p>
+      <p>{challenge?.cha_description}</p>
 
       <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '16px' }}>Sectores y población de impacto</span>
 
@@ -27,7 +27,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
 
       <br />
 
-      <p>{challenge?.retgen_detalles}</p>
+      <p>{challenge?.cha_details}</p>
 
       <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '16px' }}>Requisitos de participación</span>
 
@@ -37,11 +37,11 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
 
       <div style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px' }}>Conformación del equipo</div>
 
-      <p style={{ marginTop: '16px' }}>{challenge?.retgen_datos_importante}</p>
+      <p style={{ marginTop: '16px' }}>{challenge?.cha_important_data}</p>
 
       <br />
 
-      <p>{challenge?.ret_resultado_esperado}</p>
+      <p>{challenge?.cha_expected_results}</p>
 
       <button type="button" className="btn btn-outline-primary me-3">
         DESCARGAR Ficha Reto
@@ -56,7 +56,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
       <div style={{ marginTop: '16px' }}>Descripción del tipo de documentos que deben enviar para postularse al reto: </div>
 
       <ol className="my-4" style={{ position: "relative", zIndex: 4 }}>
-        {challenge?.documents?.map((document: any, index: number) =>
+        {challenge?.cha_documents?.map((document: any, index: number) =>
           <>
             <li onClick={async () => {
               const result = await dispatch(actions.get_document(document.id));
@@ -68,7 +68,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 set_is_visible_doc(true);
               }
 
-            }} key={index}>{document.retdoc_nombre_plantilla}</li>
+            }} key={index}>{document.chafil_nombre_plantilla}</li>
             <ModalDetailDocument
               open={is_visibleDoc}
               setOpen={set_is_visible_doc}

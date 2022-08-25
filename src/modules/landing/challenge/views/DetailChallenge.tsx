@@ -53,6 +53,7 @@ const DetailChallenge = () => {
           alt="letras medeinn"
           className="imagen-fondo-detalle"
         />
+
         <img
           src={mujerOk}
           alt=""
@@ -81,7 +82,7 @@ const DetailChallenge = () => {
                 <div
                   className="card-detail-challenge"
                 >
-                  <h5 className="my-4 card-title-challenge">{challenge?.retgen_nombre}</h5>
+                  <h5 className="my-4 card-title-challenge">{challenge?.cha_name}</h5>
 
                   <div className="d-flex justify-content-center text-center align-items-center flex-column">
                     <i className="fa fa-calendar-o mx-3" aria-hidden="true" style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}></i>
@@ -94,11 +95,11 @@ const DetailChallenge = () => {
                       </p>
                       <div className="my-4">
                         <span style={{ fontWeight: 'bold' }}>INICIO DEL RETO:{" "}</span>
-                        {moment(challenge?.retgen_fecha_inicio).locale('es').format("LL")}
+                        {moment(challenge?.cha_start_date).locale('es').format("LL")}
                       </div>
                       <div>
                         <span style={{ fontWeight: 'bold' }}>FIN DEL RETO:{" "}</span>
-                        {moment(challenge?.retgen_fecha_final).format("LL")}
+                        {moment(challenge?.cha_end_date).format("LL")}
                       </div>
                     </div>
                   </div>
@@ -136,7 +137,7 @@ const DetailChallenge = () => {
                   )}
 
                   <div className="my-4" style={{ textAlign: 'center' }}>
-                    <ModalVideo urlVideo={challenge?.retgen_video} />
+                    <ModalVideo urlVideo={challenge?.cha_video_url} />
                   </div>
 
                   <div
@@ -149,25 +150,32 @@ const DetailChallenge = () => {
                       width: "125px",
                     }}
                   >
-                    <div
-                      style={{
-                        fontFamily: "Montserrat-Bold",
-                        fontSize: "16px",
-                      }}
-                    >
-                      FALTAN
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Montserrat-Bold",
-                        fontSize: "30px",
-                      }}
-                    >
-                      {challenge?.total_days}
-                    </div>
-                    <div style={{ fontSize: "10px" }}>
-                      Días para el cierre del reto
-                    </div>
+                    {
+                      challenge?.cha_total_days !== 0 ?
+                        <div>
+                          <div
+                            style={{
+                              fontFamily: "Montserrat-Bold",
+                              fontSize: "16px",
+                            }}
+                          >
+                            FALTAN
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: "Montserrat-Bold",
+                              fontSize: "30px",
+                            }}
+                          >
+                            {challenge?.cha_total_days}
+                          </div>
+                          <div style={{ fontSize: "10px" }}>
+                            Días para el cierre del reto
+                          </div>
+                        </div>
+                        :
+                        <span style={{ color: 'red', fontWeight: 'bold', fontSize: '16px' }}> RETO CERRADO</span>
+                    }
                   </div>
                   <hr className="hr-color" />
                 </div>
