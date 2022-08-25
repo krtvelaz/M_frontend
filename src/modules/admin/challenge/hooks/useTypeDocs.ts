@@ -79,10 +79,8 @@ const useDocument = (
     setIsChange(true);
   };
 
-  const onEditDocument = async (values: IDocument) => {   
-    console.log(values);
-    let repeated_document = documents.filter((doc: any) => doc.id !== values?.id)      
-    console.log(repeated_document)
+  const onEditDocument = async (values: IDocument) => {  
+    let repeated_document = documents.filter((doc: any) => doc.id !== values?.id)
     if(typeDoc === 'general') {
       repeated_document = repeated_document.find((doc: any )=> doc.chafil_document_type.id === values.chafil_id_tipo_documento);
     }else {

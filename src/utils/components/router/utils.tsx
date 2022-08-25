@@ -12,7 +12,7 @@ export const redirect_fn = (can_access: boolean, location: any) => {
 
 export const get_can_access = (can_access: CanAccess, props: any): boolean => {
   let has_access = !!can_access;
-  if (has_access) {
+  if (has_access) {    
     if (typeof can_access === "function") {
       has_access = can_access(props);
     }
@@ -21,15 +21,10 @@ export const get_can_access = (can_access: CanAccess, props: any): boolean => {
 };
 
 export const compute_redirect = (to: string, location: any) => {
-  const prev_state = location.state;
+  const prev_state = location?.state;  
+  
   return (
     <Navigate to={to} state={{ ...prev_state, from: location }} />
-    // <Redirect
-    //     to={{
-    //         pathname: to,
-    //         state: { ...prev_state, from: location },
-    //     }}
-    // />
   );
 };
 

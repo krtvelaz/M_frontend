@@ -94,8 +94,7 @@ export const useInit = (
         
 
         if (!challenge.general_information.key) {
-          const result = await dispatch(actions.create_challenge(values));    
-          console.log(result);
+          const result = await dispatch(actions.create_challenge(values));  
                 
           if (result) {
             setChallenge((data: any) => ({
@@ -110,7 +109,6 @@ export const useInit = (
         } else {
 
           const res = await dispatch(actions.update_challenge(values));
-          console.log(res);
           
           setChallenge((data: any) => ({
             ...data,

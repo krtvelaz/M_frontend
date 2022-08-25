@@ -67,7 +67,6 @@ export const edit_challenge_document = (
   values: IDocument,
   key: number,
 ) => {
-  console.log(values);
   
   let form: any = new FormData();
   if(!values?.chafil_plantilla.id ) {

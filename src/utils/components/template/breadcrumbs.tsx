@@ -7,7 +7,7 @@ const Breadcrumbs: FC<{ breadcrumbs: Breadcrumb[] }> = ({breadcrumbs}) => {
   return (
     <ol className="breadcrumb m-0">
       <li className="breadcrumb-item">
-        <Link to="/" className="text-white">
+        <Link to="/home" className="text-white">
         <img
             src={inicio}
             alt=""

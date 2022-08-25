@@ -45,7 +45,6 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, onDelete, onEdit, typ
             title: 'Tipo de documento',
             align: 'left' as 'left',
             render: (document: any) => {
-                console.log(document);
                 
                 return document?.chafil_document_type.rettipdoc_nombre === 'Otro' ? document?.chafil_nombre_tipo_documento : document?.chafil_document_type.rettipdoc_nombre ;
             },

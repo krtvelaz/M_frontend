@@ -43,7 +43,7 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
               Nuestros retos
             </Link>
             <Link
-              to={"/"}
+              to={"/auth/login/"}
               className="link-card"
               style={{
                 color: "black",
