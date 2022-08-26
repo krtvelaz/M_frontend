@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { IPageable, Loadable, Pageable } from "../../../../custom_types"
-import { IEvent, IGalleryInfo, IGeneralInfo } from "../custom_types"
+import { createSlice } from '@reduxjs/toolkit';
+import { IPageable, Loadable, Pageable } from '../../../../custom_types';
+import { IEvent, IGalleryInfo, IGeneralInfo } from '../custom_types';
 
 interface State {
     event: Loadable<IEvent | null>;
@@ -14,7 +14,6 @@ interface State {
     gallery: Loadable<IGalleryInfo | null>;
     gallerys: Pageable<IGalleryInfo>;
     list_gallery: any;
-
 }
 
 const initialState: State = {
@@ -28,10 +27,10 @@ const initialState: State = {
         pagination: {
             current_page: 1,
             first_page: 1,
-            first_page_url: "",
+            first_page_url: '',
             last_page: null,
-            last_page_url: "",
-            next_page_url: "",
+            last_page_url: '',
+            next_page_url: '',
             per_page: 0,
             previous_page_url: null,
             total: 0,
@@ -61,10 +60,10 @@ const initialState: State = {
         pagination: {
             current_page: 1,
             first_page: 1,
-            first_page_url: "",
+            first_page_url: '',
             last_page: null,
-            last_page_url: "",
-            next_page_url: "",
+            last_page_url: '',
+            next_page_url: '',
             per_page: 0,
             previous_page_url: null,
             total: 0,
@@ -101,15 +100,15 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
-    list_gallery:{
+    list_gallery: {
         value: [],
         loading: false,
         loaded: false,
-    }
+    },
 };
 
 export const eventSlice = createSlice({
-    name: "event",
+    name: 'event',
     initialState,
     reducers: {
         default_event: (state) => {
@@ -147,10 +146,10 @@ export const eventSlice = createSlice({
                 pagination: {
                     current_page: action.payload.current_page || 1,
                     first_page: action.payload.first_page || 1,
-                    first_page_url: action.payload.first_page_url || "",
+                    first_page_url: action.payload.first_page_url || '',
                     last_page: action.payload.last_page || null,
-                    last_page_url: action.payload.last_page_url || "",
-                    next_page_url: action.payload.next_page_url || "",
+                    last_page_url: action.payload.last_page_url || '',
+                    next_page_url: action.payload.next_page_url || '',
                     per_page: action.payload.per_page || 0,
                     previous_page_url: action.payload.previous_page_url || null,
                     total: action.payload.total || 0,
@@ -202,10 +201,10 @@ export const eventSlice = createSlice({
                 pagination: {
                     current_page: action.payload.current_page || 1,
                     first_page: action.payload.first_page || 1,
-                    first_page_url: action.payload.first_page_url || "",
+                    first_page_url: action.payload.first_page_url || '',
                     last_page: action.payload.last_page || null,
-                    last_page_url: action.payload.last_page_url || "",
-                    next_page_url: action.payload.next_page_url || "",
+                    last_page_url: action.payload.last_page_url || '',
+                    next_page_url: action.payload.next_page_url || '',
                     per_page: action.payload.per_page || 0,
                     previous_page_url: action.payload.previous_page_url || null,
                     total: action.payload.total || 0,
@@ -246,27 +245,25 @@ export const eventSlice = createSlice({
         },
         default_list_gallery: (state) => {
             state.list_gallery = {
-              value: state.list_gallery.value,
-              loading: true,
-              loaded: false,
+                value: state.list_gallery.value,
+                loading: true,
+                loaded: false,
             };
-          },
-          success_list_gallery: (state, action) => {
+        },
+        success_list_gallery: (state, action) => {
             state.list_gallery = {
-              value: action.payload,
-              loading: false,
-              loaded: true,
+                value: action.payload,
+                loading: false,
+                loaded: true,
             };
-          },
-          fail_list_gallery: (state) => {
+        },
+        fail_list_gallery: (state) => {
             state.list_gallery = {
-              value: initialState.list_gallery.value,
-              loading: false,
-              loaded: false,
+                value: initialState.list_gallery.value,
+                loading: false,
+                loaded: false,
             };
-          },
-
-
+        },
     },
 });
 

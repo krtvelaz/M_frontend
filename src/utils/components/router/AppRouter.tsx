@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SubRoute from './SubRoute';
 import { IAppRouter, IRoute } from './custom_types';
 
-
 const AppRouter: React.FC<IAppRouter> = ({
     test,
     routes,
@@ -13,8 +12,7 @@ const AppRouter: React.FC<IAppRouter> = ({
     user, //TODO: agregar cuando este login
     show,
 }) => {
-    console.log(template);
-    
+
     return (
         <>
             <BrowserRouter>
@@ -34,10 +32,12 @@ const AppRouter: React.FC<IAppRouter> = ({
                             />
                         }
                     />
+
                 </Routes>
             </BrowserRouter>
         </>
     );
+
 };
 
 AppRouter.defaultProps = {

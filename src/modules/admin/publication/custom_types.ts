@@ -1,8 +1,8 @@
 export default {};
 
 export interface IPublication {
-    general_information: IGeneralInfo,
-    gallery: IGalleryInfo[],
+    general_information: IGeneralInfo;
+    gallery: IGalleryInfo[];
 }
 
 export interface IPublicationInfo {
@@ -14,6 +14,7 @@ export interface IGalleryInfo {
     gal_titulo: string;
     gal_descripcion: string;
     gal_nombre_imagen?: any;
+    gal_imagen?: any;
     gal_nombre_imagen_gallery?: string;
     gal_nombre_codificado_imagen?: string;
     gal_ruta_imagen?: string;
@@ -37,8 +38,6 @@ export interface IGeneralInfo {
     hec_publicada?: boolean;
     hec_creado?: string;
     hec_estado?: boolean;
-
-
 }
 
 export interface IEvent {
@@ -51,5 +50,4 @@ export interface IEvent {
     eve_cupos_limitado: boolean;
     eve_numero_cupos: number;
     eve_publicada?: boolean;
-
 }
