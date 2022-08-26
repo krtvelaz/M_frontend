@@ -1,6 +1,7 @@
 import { FormikProps, FormikValues } from "formik";
-import React, { useRef } from "react";
-import { Card } from "../../../../utils/ui";
+import  { useRef } from "react";
+import { Card } from "../../../utils/ui";
+
 import FormTeam from "../components/FormTeam";
 import { IPostulationTeam } from "../custom_types";
 
