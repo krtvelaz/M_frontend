@@ -154,9 +154,13 @@ export const get_four_challenge = () => {
 export const get_image_principal = (id: number) => {
     return async (dispatch: any) => {
         try {
-            const URI = `challenges/img/${id}`;
-            const res = await http.get(URI);
-            return res;
+            const URI = `challenges/img`;
+            const res = await http.get(URI, {
+                params: {
+                    id
+                }
+            });            
+            return res.data;
         } catch (error) {
             return Promise.reject(error);
         }
@@ -222,7 +226,7 @@ export const delete_challenge = (id: number) => {
     return async (dispatch: any) => {
         dispatch(loading_challenge());
         try {
-            const URI = `challenges/delete`;
+            const URI = `/challenges`;
             const res = await http.delete(URI, {
                 params: {
                     id,

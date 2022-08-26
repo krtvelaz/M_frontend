@@ -1,13 +1,14 @@
 import { Card } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { actions } from '../../../admin/challenge/redux';
+import { Buffer } from 'buffer';
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState([]);
-    const [images, setImages] = useState({});
+    const [images, setImages] = useState<any>({});
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     useEffect(() => {
@@ -18,13 +19,18 @@ const PublishedChallenges = () => {
         const results = await dispatch(actions.get_four_challenge());
         if (results.length > 0) {
             setChallenges(results);
+            const _images = await Promise.all(
+                results?.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
+                );
+                
+                setImages(_images?.map(image => Buffer.from(image).toString('base64')));
+                
 
-            // const images_principal = await Promise.all(
-            //     results.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
-            // );
-            // setImages(images_principal.map((image) => Buffer.from(image).toString('base64')));
+           
         }
     };
+    
+    
 
     return (
         <div className="row">
@@ -56,7 +62,7 @@ const PublishedChallenges = () => {
                                     }}
                                     hoverable
                                     className="card-challenge"
-                                    cover={<img alt="example" src="src/utils/assets/img/imagen 52.png" />}
+                                    cover={<img alt="example" src={images[i]} />}
                                 >
                                     <div className="text-center body-card-challenge">
                                         <h3>{challenge?.cha_name}</h3>

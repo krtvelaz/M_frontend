@@ -107,7 +107,7 @@ export const edit_publication = (values: IGeneralInfo) => {
     //
     return async (dispatch: any) => {
         dispatch(default_publication());
-        const img = values.hec_nombre_imagen;
+        
 
         const data = {
             action: 'update',
@@ -129,10 +129,17 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.data.hec_estado;
         delete data.data.hec_nombre_imagen;
         delete data.data.hec_publicada;
-        let form = new FormData();
+        let form: any = new FormData();
         delete data.data.id;
         form.append('data', JSON.stringify(data));
-        form.append('img', img);
+        console.log(values);
+        
+        if(!values.hec_nombre_imagen.id) {
+            const img = values.hec_nombre_imagen;
+            form.append('img', img);
+        }else {
+            form.append('img', null);
+        }
         try {
             const URI = 'news/add';
             const res = await cms_http.post(URI, form, {

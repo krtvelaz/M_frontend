@@ -30,7 +30,7 @@ const AddGallery: FC<IGalleryProps> = ({ publication }) => {
     };
 
     const addImage = async (values: IGalleryInfo) => {
-        const result = await dispatch(actions.create_gallery(publication.general_information.id || -1, values));
+        const result = await dispatch(actions.create_gallery(publication?.general_information?.id || -1, values));
         setIsChange(true);
     };
 

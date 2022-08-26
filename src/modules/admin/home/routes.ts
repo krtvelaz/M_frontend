@@ -3,9 +3,7 @@ import { IRoute } from '../../../utils/components/router/custom_types';
 import Home from './views/Home';
 
 export const guards = {
-    success_login: (props?: any) => {  
-        console.log(props);
-              
+    success_login: (props?: any) => {               
         return !!props?.user?.token;
     },
 };

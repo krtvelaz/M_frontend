@@ -55,12 +55,12 @@ export const create_gallery = (
                 confirmButtonText: 'Aceptar',
             });
             return res.data.body.data;
-        } catch (error) {
+        } catch (error: any) {
             dispatch(fail_gallery());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:
-                    '<div class="mysubtitle">error</div>' +
+                    `<div class="mysubtitle">${error.response?.data?.message}</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
@@ -70,7 +70,7 @@ export const create_gallery = (
     };
 };
 export const edit_gallery = (key: number, values: IGalleryInfo) => {
-    //
+   
     return async (dispatch: any) => {
         dispatch(default_gallery());
         const img = values.gal_imagen;
@@ -85,9 +85,11 @@ export const edit_gallery = (key: number, values: IGalleryInfo) => {
                 gal_nombre_imagen: values.gal_imagen?.name || '',
             },
         };
+        console.log(data);
+        
 
         delete data.data.id;
-        delete data.data.gal_creado;
+        
         delete data.data.key;
         delete data.data.gal_estado;
         delete data.data.gal_imagen;
@@ -95,13 +97,15 @@ export const edit_gallery = (key: number, values: IGalleryInfo) => {
 
         let form: any = new FormData();
 
-        if (!data.data.gal_nombre_imagen.id) {
+        
+        
+        if (!values.gal_imagen?.id) {
             const img = values.gal_nombre_imagen.id;
             form.append('img', img);
         } else {
             form.append('img', null);
         }
-
+        delete data.data.gal_creado;
         form.append('data', JSON.stringify(data));
         form.append('img', img);
         try {

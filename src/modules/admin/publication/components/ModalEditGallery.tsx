@@ -18,8 +18,8 @@ const ModalEditGallery: FC<ModalEditFormPros> = ({
   const form_ref = useRef<FormikProps<FormikValues>>();
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
-  const edit = (values: any) => {
-    onSubmit(values);
+  const edit = async (values: any) => {
+    await onSubmit(values);
     set_is_visible(false);
   };
   return (

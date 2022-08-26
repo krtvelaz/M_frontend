@@ -7,7 +7,7 @@ import { DocumentInput, ErrorMessage, Select } from '../../../../utils/ui';
 
 interface GalleryPros {
     innerRef: any;
-    onSubmit: (values: any) => void;
+    onSubmit: (values: any) => any;
     gallery?: IGalleryInfo;
 }
 
@@ -17,11 +17,10 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
         gal_descripcion: '',
         gal_imagen: {
             name: gallery?.gal_nombre_imagen || '',
-            id: gallery?.id,
+            id: gallery?.id || -1,
         },
         ...gallery,
     };
-    console.log(initial_values);
     // console.log(gallery);
 
     const schema = Yup.object().shape({
@@ -32,10 +31,11 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
         gal_descripcion: Yup.string().required('Campo obligatorio'),
     });
 
-    const submit = (values: any, actions: any) => {
-        onSubmit(values);
-        actions.setSubmitting(false);
-        actions.resetForm();
+    const submit = async (values: any, actions: any) => {
+        onSubmit(values).then((res: any)=> {
+            actions.setSubmitting(false);
+            actions.resetForm();
+        });
     };
     return (
         <Formik
@@ -55,8 +55,9 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 </label>
                                 <Field
                                     component={DocumentInput}
-                                    maximum_size={2}
                                     file_type="img"
+                                    type_image="JPEG"
+                                    maximum_size={2}
                                     type="text"
                                     id="gal_imagen_id"
                                     name="gal_imagen"
@@ -92,10 +93,10 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 id="gal_descripcion_id"
                                 name="gal_descripcion"
                                 autoComplete="off"
-                                maxLength={200}
+                                maxLength={100}
                                 style={{ height: '38px' }}
                             />
-                            <ErrorMessage name="gal_descripcion" withCount max={200} />
+                            <ErrorMessage name="gal_descripcion" withCount max={100} />
                         </div>
                     </Form>
                 );
