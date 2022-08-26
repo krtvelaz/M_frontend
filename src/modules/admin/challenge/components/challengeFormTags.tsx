@@ -82,7 +82,6 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
   },[active_key]);
   
   useEffect(()=> {   
-    console.log('aquiiiiii');
     
     if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_types_documents('general'))
     // if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3)) 

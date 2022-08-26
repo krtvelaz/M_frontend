@@ -24,7 +24,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
   const publicaciones = [
     {
       path: "/publication/create",
-      label: "Crear noticia",
+      label: "Crear publicación",
     },
     {
       path: "/event/create",

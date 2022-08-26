@@ -127,9 +127,9 @@ const edit_banner = (values: IMainBanner) => {
 
         if (!data.data.car_imagen.id) {
             const img = values.car_imagen;
-            form.append('img', img);
+            form.append('file', img);
         } else {
-            form.append('img', null);
+            form.append('file', null);
         }
         delete data.data.car_imagen;
         delete data.data.id;

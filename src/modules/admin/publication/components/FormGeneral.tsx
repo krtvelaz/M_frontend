@@ -7,7 +7,7 @@ import { DocumentInput, ErrorMessage, Select } from "../../../../utils/ui";
 
 interface PublicationPros {
   innerRef: any;
-  onSubmit: (values: any) => void;
+  onSubmit: (values: any) => any;
   publication?: IGeneralInfo;
 }
 const FormGeneral: FC<PublicationPros> = ({
@@ -37,10 +37,11 @@ const FormGeneral: FC<PublicationPros> = ({
     hec_descripcion: Yup.string().required("Campo obligatorio"),
   });
 
-  const submit = (values: any, actions: any) => {
-    onSubmit(values);
-    actions.setSubmitting(false);
-    actions.resetForm();
+  const submit = async (values: any, actions: any) => {
+    onSubmit(values).then((res: any) => {
+      actions.setSubmitting(false);
+      actions.resetForm();
+    });
   };
   return (
     <Formik
@@ -110,16 +111,6 @@ const FormGeneral: FC<PublicationPros> = ({
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
-                  onChange={(e: any) => {
-                    e.preventDefault();
-                    const { value } = e.target;
-                    const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                    );
-                    if (regex.test(value.toString())) {
-                      handleChange(e);
-                    }
-                  }}
                 />
                 <ErrorMessage name="hec_autor" withCount max={100} />
               </div>

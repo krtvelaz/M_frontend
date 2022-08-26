@@ -19,6 +19,8 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
     let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
         useInit(type, publication_data); // agregar o no  el publication_data y type
 
+    console.log(publication);
+
     return (
         <>
             <div className="h-100 d-flex flex-column">
@@ -90,6 +92,7 @@ const useInit = (
 
     const active_key: any = state?.active_key || '1';
     const ls = state;
+    console.log(ls);
 
     const initial_values: IPublication = {
         general_information: {
@@ -118,7 +121,7 @@ const useInit = (
                 await steps[0].ref.current?.submitForm();
             },
             onSave: async (values: IGeneralInfo) => {
-                if (!publication.general_information.id && type === 'create') {
+                if (!publication.general_information?.id && type === 'create') {
                     const result = await dispatch(actions.create_publication(values));
                     setPublication((data: IPublication) => {
                         return {
@@ -235,12 +238,14 @@ const useInit = (
     }, [is_saving, go_next]);
 
     useEffect(() => {
-        setPublication((data: any) => {
-            return {
-                ...data,
-                general_information: publication_data,
-            };
-        });
+        if (publication_data) {
+            setPublication((data: any) => {
+                return {
+                    ...data,
+                    general_information: publication_data,
+                };
+            });
+        }
     }, [publication_data]);
 
     return [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication];

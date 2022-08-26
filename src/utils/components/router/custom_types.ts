@@ -35,7 +35,7 @@ export interface IAppRouter {
     privateRedirect?: string;
     lazy?: boolean;
     template?: any;
-    // user: any; //TODO: agregar cuando este login
+    user: any; //TODO: agregar cuando este login
     test?: boolean;
     show?: boolean;
 }

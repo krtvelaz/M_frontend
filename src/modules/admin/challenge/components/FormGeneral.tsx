@@ -438,15 +438,15 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
             </div>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="ret_tipo_impacto_id" className="form-label">
+                <label htmlFor="cha_impact_type_id" className="form-label">
                   Tipo de impacto
                   <span style={{ fontSize: "10px" }}> - Opcional </span>
                 </label>
                 <Field
                   as="textarea"
                   className="form-control"
-                  id="ret_tipo_impacto_id"
-                  name="ret_tipo_impacto"
+                  id="cha_impact_type_id"
+                  name="cha_impact_type"
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
@@ -461,7 +461,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                     }
                   }}
                 />
-                <ErrorMessage name="ret_tipo_impacto" withCount max={100} />
+                <ErrorMessage name="cha_impact_type" withCount max={100} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="ret_monto_id" className="form-label">
