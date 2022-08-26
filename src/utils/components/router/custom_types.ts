@@ -13,6 +13,7 @@ export interface IRoute extends RouteProps {
     can_access?: CanAccess;
     defaultRedirect?: string;
     privateRedirect?: string;
+    format?: boolean;
 
     // Preloader for lazy loading
     fallback?: NonNullable<ReactNode> | null;

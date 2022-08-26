@@ -8,7 +8,7 @@ import Menu from "antd/lib/menu";
 import Breadcrumbs from "./breadcrumbs";
 import { Breadcrumb } from "../router/custom_types";
 import { useNavigate } from "react-router-dom";
-import { actions as auth_actions } from '../../../modules/admin/auth/redux';
+import { actions as auth_actions } from '../../../modules/auth/redux';
 import { useDispatch } from "react-redux";
 
 interface ITemplate {
@@ -192,7 +192,7 @@ const Template: FC<ITemplate> = ({
           style={{ fontSize: "12px" }}
           onClick={async () => {
             await dispatch(auth_actions.logout());
-            navigate('../', { replace: true });
+            navigate('../auth/login/', { replace: true });
             context.drawer_close();
           }}
         >

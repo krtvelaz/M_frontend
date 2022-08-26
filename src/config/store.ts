@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userSlice } from '../modules/admin/auth/redux/slice';
-import { bannerSlice } from '../modules/admin/banner/redux/slice';
-import { challengeSlice } from '../modules/admin/challenge/redux/slice';
-import { eventSlice } from '../modules/admin/publication/redux/slice';
+import { userSlice } from '../modules/auth/redux/slice';
+import { bannerSlice } from '../modules/banner/redux/slice';
+import { challengeSlice } from '../modules/challenge/redux/slice';
+import { eventSlice } from '../modules/publication/redux/slice';
 
 
 export const store = configureStore({

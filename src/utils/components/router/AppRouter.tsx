@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SubRoute from './SubRoute';
-import { IAppRouter, IRoute } from './custom_types';
+import { IAppRouter } from './custom_types';
 
 const AppRouter: React.FC<IAppRouter> = ({
     test,
@@ -12,12 +12,11 @@ const AppRouter: React.FC<IAppRouter> = ({
     user, //TODO: agregar cuando este login
     show,
 }) => {
-
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                <Route
+                    <Route
                         path="/*"
                         element={
                             <SubRoute
@@ -36,15 +35,14 @@ const AppRouter: React.FC<IAppRouter> = ({
             </BrowserRouter>
         </>
     );
-
 };
 
 AppRouter.defaultProps = {
-  defaultRedirect: '/',
-  privateRedirect: '/auth/login/',
-  lazy: false,
-  test: false,
-  show: true,
+    defaultRedirect: '/',
+    privateRedirect: '/home',
+    lazy: false,
+    test: false,
+    show: true,
 };
 
 export default AppRouter;

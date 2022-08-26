@@ -68,7 +68,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
             </div>
           </div>
         ),
-      path: "/",
+      path: "/home",
     },
     {
       label:
