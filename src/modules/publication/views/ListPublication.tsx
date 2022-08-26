@@ -10,6 +10,7 @@ import { actions } from '../redux';
 const ListPublication = () => {
     const list_publication: IGeneralInfo[] = useSelector((store: any) => store.event.list_publication.value);
     const { total }: any = useSelector((store: any) => store.event.list_publication.pagination);
+    
     const [isChange, setIsChange] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const onDelete = async (id: number) => {
@@ -67,18 +68,19 @@ const ListPublication = () => {
         },
         {
             title: 'Tipo',
-            dataIndex: 'hec_id_tipo_publicacion',
+            dataIndex: 'tipo_publicacion',
             align: 'left' as 'left',
         },
         {
             title: 'Publicada',
             align: 'left' as 'left',
             render: (data: IGeneralInfo) => {
-                const onChange = async (e: any) => {
+                
+                const onChange = async (e: any) => {                    
                     await dispatch(actions.edit_published_publication(data, e?.target?.value));
                 };
                 return (
-                    <Radio.Group onChange={onChange} defaultValue={data.hec_publicada}>
+                    <Radio.Group onChange={onChange} value={data?.hec_estado}>
                         <Radio value={true}>Si</Radio>
                         <Radio value={false}>No</Radio>
                     </Radio.Group>
@@ -171,8 +173,9 @@ const ListPublication = () => {
                     </div>
 
                     <Card>
-                        <h4>Lista de publicaciones</h4>
                         <Table
+                            title="Lista de publicaciones"
+                            paginationTop
                             columns={table_columns}
                             items={list_publication}
                             change_page={change_page}

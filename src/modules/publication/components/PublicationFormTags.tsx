@@ -19,8 +19,6 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
     let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
         useInit(type, publication_data); // agregar o no  el publication_data y type
 
-    console.log(publication);
-
     return (
         <>
             <div className="h-100 d-flex flex-column">
@@ -92,7 +90,6 @@ const useInit = (
 
     const active_key: any = state?.active_key || '1';
     const ls = state;
-    console.log(ls);
 
     const initial_values: IPublication = {
         general_information: {
@@ -134,8 +131,7 @@ const useInit = (
 
                     // Descomentar una vez el editar regrese la info.
                     // const result = await dispatch(actions.edit_publication(values));
-                    // console.log(result);
-
+                  
                     // setPublication((data: IPublication) => {
                     //     return {
                     //         ...data,

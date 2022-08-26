@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { IGeneralInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
-
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage, Select } from "../../../utils/ui";
+
 
 interface PublicationPros {
   innerRef: any;
@@ -20,7 +20,7 @@ const FormGeneral: FC<PublicationPros> = ({
     hec_titulo: "",
     hec_autor: "",
     hec_descripcion: "",
-    hec_nombre_imagen: {
+    hec_imagen: {
       name: publication?.hec_nombre_imagen_principal || "",
       id: publication?.id,
     },
@@ -31,7 +31,7 @@ const FormGeneral: FC<PublicationPros> = ({
     hec_id_tipo_publicacion: Yup.string().required("Campo Obligatorio"),
     hec_titulo: Yup.string().required("Campo obligatorio"),
     hec_autor: Yup.string().required("Campo obligatorio"),
-    hec_nombre_imagen: Yup.object({
+    hec_imagen: Yup.object({
       name: Yup.string().required("Campo obligatorio"),
     }).nullable(),
     hec_descripcion: Yup.string().required("Campo obligatorio"),
@@ -116,7 +116,7 @@ const FormGeneral: FC<PublicationPros> = ({
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label
-                  htmlFor="hec_nombre_imagen_id"
+                  htmlFor="hec_imagen_id"
                   className="form-label"
                 >
                   Imagen
@@ -126,12 +126,12 @@ const FormGeneral: FC<PublicationPros> = ({
                   maximum_size={2}
                   file_type="img"
                   type="text"
-                  id="hec_nombre_imagen_id"
-                  name="hec_nombre_imagen"
+                  id="hec_imagen_id"
+                  name="hec_imagen"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="hec_nombre_imagen.name" />
+                <ErrorMessage name="hec_imagen.name" />
               </div>
             </div>
 

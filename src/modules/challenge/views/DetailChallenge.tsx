@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
+import { mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
 import { Link } from '../../../utils/ui';
 import { actions } from '../redux';
 import InfoDetailChallenge from '../components/InfoDetailChallenge';
@@ -23,8 +23,6 @@ const DetailChallenge = () => {
 
         if (res) {
             const _imgPrincipal = await dispatch(actions.get_image_principal(res?.id));
-            console.log(_imgPrincipal);
-
             setImgPrincipal(Buffer.from(_imgPrincipal).toString('base64'));
         }
     };

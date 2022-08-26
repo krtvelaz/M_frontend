@@ -15,7 +15,7 @@ export const create_publication = (values: IGeneralInfo) => {
     return async (dispatch: any) => {
         dispatch(default_publication());
         // const values = JSON.parse(JSON.stringify(_values));
-        const img = values.hec_nombre_imagen;
+        const img = values.hec_imagen;
 
         const data = {
             action: 'insert',
@@ -29,14 +29,15 @@ export const create_publication = (values: IGeneralInfo) => {
                 hec_ruta_imagen_principal: '',
 
                 hec_nombre_imagen_principal:
-                    values.hec_nombre_imagen.name || '',
+                    values.hec_imagen.name || '',
                 hec_nombre_codificado_imagen_principal: '',
             },
         };
 
+        delete data.data.hec_imagen;
         delete data.data.hec_nombre_imagen;
-        let form = new FormData();
         delete data.data.id;
+        let form = new FormData();
         form.append('data', JSON.stringify(data));
         form.append('img', img);
         try {
@@ -121,7 +122,7 @@ export const edit_publication = (values: IGeneralInfo) => {
                 // hec_ruta_imagen_principal: "",
 
                 hec_nombre_imagen_principal:
-                    values.hec_nombre_imagen.name || '',
+                    values.hec_imagen.name || '',
             },
         };
         delete data.data.id;
@@ -129,12 +130,11 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.data.hec_estado;
         delete data.data.hec_nombre_imagen;
         delete data.data.hec_publicada;
+        delete data.data.hec_imagen;
         let form: any = new FormData();
         delete data.data.id;
-        form.append('data', JSON.stringify(data));
-        console.log(values);
-        
-        if(!values.hec_nombre_imagen.id) {
+        form.append('data', JSON.stringify(data));        
+        if(!values.hec_imagen.id) {
             const img = values.hec_nombre_imagen;
             form.append('img', img);
         }else {

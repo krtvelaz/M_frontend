@@ -5,13 +5,10 @@ import Home from './views/Home';
 import Homepage from './views/Homepage';
 
 export const guards = {
-    success_login: (props?: any) => {    
-        console.log(props);
-                
+    success_login: (props?: any) => {                
         return !!props?.user?.token;
     },
-    logOut: (props?: any) => {   
-        console.log(props);            
+    logOut: (props?: any) => {              
         return props?.user?.token ? false : true;
     },
 };

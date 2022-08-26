@@ -99,7 +99,6 @@ export const useInit = (
           }
         } else {
           const res = await dispatch(actions.update_challenge(values));
-          console.log(res);
           setChallenge((data: any) => ({
             ...data,
             general_information: {

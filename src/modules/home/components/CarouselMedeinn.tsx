@@ -55,9 +55,7 @@ const CarouselMedeinn = () => {
 
                                     {item?.car_url_video && <ModalVideo urlVideo={item?.car_url_video} />}
 
-                                    {item?.car_url && <button className="btn btn-outline-primary ms-5" onClick={()=>{
-                                        console.log(item?.car_url);
-                                        
+                                    {item?.car_url && <button className="btn btn-outline-primary ms-5" onClick={()=>{                                        
                                         navigate(`..${item?.car_url}`);
                                     }}>Conoce más</button>}
                                 </div>

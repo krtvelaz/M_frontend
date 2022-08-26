@@ -39,9 +39,7 @@ const login = (email: string, password: string) => {
     };
 };
 const logout = () => {
-    return async (dispatch: any) => {
-        console.log('cerar sesion');
-        
+    return async (dispatch: any) => {        
         dispatch(logOut());        
     };
 };

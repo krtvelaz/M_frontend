@@ -32,7 +32,8 @@ export interface IGeneralInfo {
     hec_nombre_imagen_principal: string;
     hec_id_tipo_publicacion: string | number;
     hec_ruta_imagen_principal?: string;
-    hec_nombre_imagen?: any;
+    hec_nombre_imagen?: string;
+    hec_imagen?: any;
     hec_nombre_codificado_imagen_principal?: string;
     id?: number;
     hec_publicada?: boolean;

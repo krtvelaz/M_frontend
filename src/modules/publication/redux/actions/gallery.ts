@@ -84,9 +84,7 @@ export const edit_gallery = (key: number, values: IGalleryInfo) => {
                 ...values,
                 gal_nombre_imagen: values.gal_imagen?.name || '',
             },
-        };
-        console.log(data);
-        
+        };        
 
         delete data.data.id;
         

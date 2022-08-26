@@ -21,7 +21,6 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
         },
         ...gallery,
     };
-    // console.log(gallery);
 
     const schema = Yup.object().shape({
         gal_titulo: Yup.string().required('Campo obligatorio'),

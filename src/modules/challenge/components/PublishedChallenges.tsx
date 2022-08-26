@@ -21,14 +21,14 @@ const PublishedChallenges = () => {
             setChallenges(results);
             const _images = await Promise.all(
                 results?.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
-                );
-                
+                );                
                 setImages(_images?.map(image => Buffer.from(image).toString('base64')));
                 
 
            
         }
     };
+    
     
     
 
@@ -62,7 +62,7 @@ const PublishedChallenges = () => {
                                     }}
                                     hoverable
                                     className="card-challenge"
-                                    cover={<img alt="example" src={images[i]} />}
+                                    cover={<img alt="example" style={{borderRadius:' 40px 40px 0 0'}} src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}/>}
                                 >
                                     <div className="text-center body-card-challenge">
                                         <h3>{challenge?.cha_name}</h3>

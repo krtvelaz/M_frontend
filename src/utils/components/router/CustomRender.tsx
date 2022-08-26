@@ -30,9 +30,7 @@ const CustomRender: FC<RouteWithSubRoutesProps> = ({
     const dr = compute_redirect(defaultRedirect, location);
     if (redirect) {
         return compute_redirect(redirect, location);
-    }
-    console.log(_props);
-    
+    }    
     const ops = {
         ..._props,
         ...(routes ? { routes } : {}),

@@ -13,8 +13,6 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const open = () => set_is_visible(true);
     const close = () => set_is_visible(false);
-    console.log(is_visible);
-
     return (
         <>
             <span
