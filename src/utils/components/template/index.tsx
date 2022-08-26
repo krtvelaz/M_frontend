@@ -8,13 +8,15 @@ import Menu from "antd/lib/menu";
 import Breadcrumbs from "./breadcrumbs";
 import { Breadcrumb } from "../router/custom_types";
 import { useNavigate } from "react-router-dom";
+import { actions as auth_actions } from '../../../modules/auth/redux';
+import { useDispatch } from "react-redux";
 
 interface ITemplate {
   breadcrumbs?: Breadcrumb[];
   show_breadcrumbs?: boolean;
   // user: any;
   roles_user?: any;
-  children: any;
+  children?: any;
 }
 
 const Template: FC<ITemplate> = ({
@@ -25,6 +27,7 @@ const Template: FC<ITemplate> = ({
   const { Header, Sider, Content } = Layout;
   const context = useContext(TemplateContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch<any>();
   const [menuSider, setMenuSider] = useState([]);
   const collapsible = context.device === "md" ? true : false;
   const sider_ops = {
@@ -188,6 +191,8 @@ const Template: FC<ITemplate> = ({
           className="p-4 session-close"
           style={{ fontSize: "12px" }}
           onClick={async () => {
+            await dispatch(auth_actions.logout());
+            navigate('../auth/login/', { replace: true });
             context.drawer_close();
           }}
         >

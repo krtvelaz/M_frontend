@@ -31,3 +31,4 @@ export { default as trazado_amarillo } from './Trazado_amarillo.svg';
 export { default as figurasFondo } from './figurasFondo.svg';
 export { default as letras_medeinn } from './letras_medeinn.svg';
 export { default as mujerOk } from './mujerOk.png';
+export { default as LogoPDF } from './pdf.svg';

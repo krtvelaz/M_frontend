@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
-import React, { FC, useRef, useState } from 'react'
-import { IAddress } from '../../../modules/landing/postulation/custom_types';
+import { FC, useRef, useState } from 'react'
+import { IAddress } from '../../../modules/postulation/custom_types';
 import FormLocation from './FormLocation';
 interface IAddressFormPros {
   address?: IAddress;

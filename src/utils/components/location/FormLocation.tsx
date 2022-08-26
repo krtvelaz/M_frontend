@@ -1,14 +1,8 @@
 import { Field, Form, Formik } from 'formik'
-
-
 import * as Yup from "yup";
-import { Link } from 'react-router-dom';
-// import { IPostulationTeam } from '../../../modules/landing/postulationChallenge/custom_types';
-
 import { FC } from "react";
-import { IAddress, IPostulationTeam } from "../../../modules/landing/postulation/custom_types";
+import { IAddress } from "../../../modules/postulation/custom_types";
 import { ErrorMessage, Select } from '../../ui';
-import { Radio } from 'antd';
 
 
 interface IAddressFormPros {
