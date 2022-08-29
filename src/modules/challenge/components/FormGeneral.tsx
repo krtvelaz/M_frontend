@@ -475,6 +475,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                   min={0}
                   // max={10000000000}
                   maxLength={14}
+                  type="number"
                 />
                 <div style={{ fontSize: "10px", marginTop: "5px" }}>
                   Máx: $10.000.000.000
