@@ -8,7 +8,7 @@ interface State {
     list_event: IPageable<IEvent>;
 
     publication: Loadable<IGeneralInfo | null>;
-    publications: Pageable<IGeneralInfo>;
+    publications: Loadable<IGeneralInfo | null>;
     list_publication: IPageable<IGeneralInfo>;
 
     gallery: Loadable<IGalleryInfo | null>;
@@ -72,14 +72,7 @@ const initialState: State = {
         loaded: false,
     },
     publications: {
-        value: [],
-        pagination: {
-            page: 1,
-            count: 0,
-            next_page: null,
-            previous_page: null,
-            total_results: 0,
-        },
+        value: null,
         loading: false,
         loaded: false,
     },
