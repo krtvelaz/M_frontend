@@ -59,8 +59,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     };
     const neighborhoods: any = useSelector((store: any) => store.challenge.neighborhoods.value);
 
-    console.log(general_);
-
+  
     useEffect(() => {
         if (general_?.cha_id_commune) {
             dispatch(actions.get_neighborhoods(general_?.cha_id_commune));
