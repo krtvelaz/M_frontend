@@ -28,8 +28,7 @@ export const create_publication = (values: IGeneralInfo) => {
                 hec_id_tipo_publicacion: Number(values.hec_id_tipo_publicacion),
                 hec_ruta_imagen_principal: '',
 
-                hec_nombre_imagen_principal:
-                    values.hec_imagen.name || '',
+                hec_nombre_imagen_principal: values.hec_imagen.name || '',
                 hec_nombre_codificado_imagen_principal: '',
             },
         };
@@ -108,7 +107,6 @@ export const edit_publication = (values: IGeneralInfo) => {
     //
     return async (dispatch: any) => {
         dispatch(default_publication());
-        
 
         const data = {
             action: 'update',
@@ -121,8 +119,7 @@ export const edit_publication = (values: IGeneralInfo) => {
                 // hec_id_tipo_publicacion: Number(values.hec_id_tipo_publicacion),
                 // hec_ruta_imagen_principal: "",
 
-                hec_nombre_imagen_principal:
-                    values.hec_imagen.name || '',
+                hec_nombre_imagen_principal: values.hec_imagen.name || '',
             },
         };
         delete data.data.id;
@@ -133,11 +130,11 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.data.hec_imagen;
         let form: any = new FormData();
         delete data.data.id;
-        form.append('data', JSON.stringify(data));        
-        if(!values.hec_imagen.id) {
+        form.append('data', JSON.stringify(data));
+        if (!values.hec_imagen.id) {
             const img = values.hec_nombre_imagen;
             form.append('img', img);
-        }else {
+        } else {
             form.append('img', null);
         }
         try {
@@ -205,21 +202,21 @@ export const delete_publication = (id: number) => {
     };
 };
 
-export const get_history_publications = async (
+export const get_history_publications = (
     form?: number,
-    page_number?: 1
+    page_number=1,
 ) => {
-    console.log(form);
-    
-    // return async (dispatch: any) => {
+    return async (dispatch: any) => {
         // dispatch(default_list_publication());
         try {
             const URI = 'news/history';
             const res = await cms_http.get(URI, {
                 params: {
-                    form,
-                    page_number
-                }
+                    ...(form && {
+                        form
+                    }),
+                    page_number,
+                },
             });
             // dispatch(success_list_publication(res.data));
             return res.data.data;
@@ -227,8 +224,8 @@ export const get_history_publications = async (
             // dispatch(fail_list_publication());
             return Promise.reject(error);
         }
-    // }
-}
+    };
+};
 
 export const edit_published_publication = (
     _values: IGeneralInfo,

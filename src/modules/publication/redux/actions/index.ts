@@ -39,12 +39,12 @@ const actions = {
     edit_publication,
     delete_publication,
     edit_published_publication,
+    get_history_publications,
     create_gallery,
     edit_gallery,
     get_gallery_by_id,
     get_list_gallery,
     delete_gallery,
-    get_history_publications,
   }
   
   export default actions;

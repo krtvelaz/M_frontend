@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { figurasFondo, rocket, trazado_amarillo } from '../../../utils/assets/img';
 import StatisticsLanding from '../../banner/components/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
@@ -8,11 +8,14 @@ import PublishedChallenges from '../../challenge/components/PublishedChallenges'
 import { Card } from '../../../utils/ui';
 import { Tabs } from 'antd';
 import TabPulications from '../../publication/views/TabPulications';
+import { actions } from '../../challenge/redux';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
     const { TabPane } = Tabs;
     const onChange = (key: string) => { };
+
+    
 
     return (
         <>
@@ -41,7 +44,7 @@ const Homepage = () => {
                 )}
                 <div className="container">
                     <StaticInformation />
-                    <PublishedChallenges />
+                    <PublishedChallenges /> 
                 </div>
             </section>
 

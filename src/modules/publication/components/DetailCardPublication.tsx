@@ -1,26 +1,12 @@
 import { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { actions } from "../redux";
 
 interface IDetailCardPublication {
-    keyActually: string;
+    
 };
 
-export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyActually }) => {
-    const [publications, setPublications] = useState({});
-
-    const get_history = async () => {
-        if (keyActually === "alls") await setPublications(actions.get_history_publications());
-        if (keyActually === "news") await setPublications(actions.get_history_publications(1));
-        if (keyActually === "events") await setPublications(actions.get_history_publications(2));
-        if (keyActually === "results") await setPublications(actions.get_history_publications(3));
-    }
-
-    useEffect(() => {
-        get_history();
-    }, [keyActually])
-
-    console.log(publications);
-
+export const DetailCardPublication: FC<IDetailCardPublication> = () => {  
     return (
         <div className="row my-5 pe-5 ps-5">
             <div className="col-12 col-md-12 col-lg-6 imagen-events">
