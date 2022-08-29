@@ -59,7 +59,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     };
     const neighborhoods: any = useSelector((store: any) => store.challenge.neighborhoods.value);
 
-  
     useEffect(() => {
         if (general_?.cha_id_commune) {
             dispatch(actions.get_neighborhoods(general_?.cha_id_commune));
@@ -437,6 +436,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     <span style={{ fontSize: '10px' }}> - Opcional </span>
                                 </label>
                                 <Field
+                                    // type="number"
                                     component={Input}
                                     name="cha_amount"
                                     id="ret_monto_id"

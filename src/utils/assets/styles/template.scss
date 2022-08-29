@@ -207,3 +207,11 @@
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected:nth-child(1) {
   background-color: #fff !important;
 }
+
+// Responsive class
+
+@media (max-width: 450px) {
+  .btn-responsive {
+    margin-bottom: 280px!important;
+  }
+}

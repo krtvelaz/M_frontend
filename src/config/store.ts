@@ -10,7 +10,7 @@ export const store = configureStore({
     challenge: challengeSlice.reducer,
     banner: bannerSlice.reducer,
     event: eventSlice.reducer,
-    auth: userSlice.reducer
+    auth: userSlice.reducer,
   },
 })
 
