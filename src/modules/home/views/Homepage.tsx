@@ -7,11 +7,12 @@ import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
 import { Card } from '../../../utils/ui';
 import { Tabs } from 'antd';
+import TabPulications from '../../publication/views/TabPulications';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
     const { TabPane } = Tabs;
-    const onChange = (key: string) => {};
+    const onChange = (key: string) => { };
 
     return (
         <>
@@ -158,98 +159,7 @@ const Homepage = () => {
                         <a href="" style={{ color: '#FFDC2F' }}>
                             Al dar click en suscribirme ahora, acepta los términos y condiciones
                         </a>
-                        <div className="my-5">
-                            <div className="text-white" style={{ fontFamily: '14px' }}>
-                                Conoce lo último
-                            </div>
-                            <h2 className="text-white" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
-                                Entérarte de lo más actual
-                            </h2>
-                            <Tabs defaultActiveKey="1" className="tabs-events" onChange={onChange}>
-                                <TabPane tab="Retos solucionados" key="1">
-                                    <div className="row my-5 pe-5 ps-5">
-                                        <div className="col-12 col-md-12 col-lg-6 imagen-events">
-                                            <div
-                                                className="text-white text-start ps-5 pe-5"
-                                                style={{ position: 'absolute', bottom: '10%' }}
-                                            >
-                                                <div style={{ fontFamily: 'Montserrat-Bold' }}>Nombre del reto</div>
-                                                <p>
-                                                    Introducción a la noticia con texto descriptivo del contenido a
-                                                    consultar o leer por el visitante...
-                                                </p>
-                                            </div>
-                                            <img
-                                                style={{ borderRadius: '16px 16px 0 0' }}
-                                                className="w-100"
-                                                src="https://images.pexels.com/photos/6958766/pexels-photo-6958766.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt="imagen 1"
-                                            />
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-6 imagen-events">
-                                            <div
-                                                className="text-white text-start ps-5 pe-5"
-                                                style={{ position: 'absolute', bottom: '10%' }}
-                                            >
-                                                <div style={{ fontFamily: 'Montserrat-Bold' }}>Nombre del reto</div>
-                                                <p>
-                                                    Introducción a la noticia con texto descriptivo del contenido a
-                                                    consultar o leer por el visitante...
-                                                </p>
-                                            </div>
-                                            <img
-                                                style={{ borderRadius: '16px 16px 0 0' }}
-                                                className="w-100"
-                                                src="https://images.pexels.com/photos/7567309/pexels-photo-7567309.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt="imagen 2"
-                                            />
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-6 imagen-events">
-                                            <div
-                                                className="text-white text-start ps-5 pe-5"
-                                                style={{ position: 'absolute', bottom: '10%' }}
-                                            >
-                                                <div style={{ fontFamily: 'Montserrat-Bold' }}>Nombre del reto</div>
-                                                <p>
-                                                    Introducción a la noticia con texto descriptivo del contenido a
-                                                    consultar o leer por el visitante...
-                                                </p>
-                                            </div>
-                                            <img
-                                                style={{ borderRadius: '0 0 16px 16px' }}
-                                                className="w-100"
-                                                src="https://images.pexels.com/photos/7550532/pexels-photo-7550532.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt="imagen 3"
-                                            />
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-6 imagen-events">
-                                            <div
-                                                className="text-white text-start ps-5 pe-5"
-                                                style={{ position: 'absolute', bottom: '10%' }}
-                                            >
-                                                <div style={{ fontFamily: 'Montserrat-Bold' }}>Nombre del reto</div>
-                                                <p>
-                                                    Introducción a la noticia con texto descriptivo del contenido a
-                                                    consultar o leer por el visitante...
-                                                </p>
-                                            </div>
-                                            <img
-                                                style={{ borderRadius: '0 0 16px 16px' }}
-                                                className="w-100"
-                                                src="https://images.pexels.com/photos/7610525/pexels-photo-7610525.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt="imagen 4"
-                                            />
-                                        </div>
-                                    </div>
-                                </TabPane>
-                                <TabPane tab="Eventos" key="2">
-                                    Content of Tab Pane 2
-                                </TabPane>
-                                <TabPane tab="Avances de los retos" key="3">
-                                    Content of Tab Pane 3
-                                </TabPane>
-                            </Tabs>
-                        </div>
+                        <TabPulications />
                     </div>
                 </div>
             </section>

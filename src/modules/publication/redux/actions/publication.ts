@@ -204,6 +204,32 @@ export const delete_publication = (id: number) => {
         }
     };
 };
+
+export const get_history_publications = async (
+    form?: number,
+    page_number?: 1
+) => {
+    console.log(form);
+    
+    // return async (dispatch: any) => {
+        // dispatch(default_list_publication());
+        try {
+            const URI = 'news/history';
+            const res = await cms_http.get(URI, {
+                params: {
+                    form,
+                    page_number
+                }
+            });
+            // dispatch(success_list_publication(res.data));
+            return res.data.data;
+        } catch (error) {
+            // dispatch(fail_list_publication());
+            return Promise.reject(error);
+        }
+    // }
+}
+
 export const edit_published_publication = (
     _values: IGeneralInfo,
     is_public?: any
