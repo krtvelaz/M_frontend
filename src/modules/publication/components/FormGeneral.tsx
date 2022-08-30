@@ -125,6 +125,7 @@ const FormGeneral: FC<PublicationPros> = ({
                   component={DocumentInput}
                   maximum_size={2}
                   file_type="img"
+                  type_image="JPG"
                   type="text"
                   id="hec_imagen_id"
                   name="hec_imagen"

@@ -10,7 +10,8 @@ import { actions } from '../redux';
 const ListPublication = () => {
     const list_publication: IGeneralInfo[] = useSelector((store: any) => store.event.list_publication.value);
     const { total }: any = useSelector((store: any) => store.event.list_publication.pagination);
-    
+    const loading: any = useSelector((store: any) => store.event.list_publication.loading);
+        
     const [isChange, setIsChange] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const onDelete = async (id: number) => {
@@ -180,6 +181,7 @@ const ListPublication = () => {
                             items={list_publication}
                             change_page={change_page}
                             with_pagination
+                            loading={loading}
                             count={total}
                         />
                     </Card>

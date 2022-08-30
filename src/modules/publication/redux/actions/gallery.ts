@@ -70,7 +70,6 @@ export const create_gallery = (
     };
 };
 export const edit_gallery = (key: number, values: IGalleryInfo) => {
-   
     return async (dispatch: any) => {
         dispatch(default_gallery());
         const img = values.gal_imagen;
@@ -84,19 +83,15 @@ export const edit_gallery = (key: number, values: IGalleryInfo) => {
                 ...values,
                 gal_nombre_imagen: values.gal_imagen?.name || '',
             },
-        };        
+        };
 
         delete data.data.id;
-        
         delete data.data.key;
         delete data.data.gal_estado;
         delete data.data.gal_imagen;
         delete data.data.gal_id_hechos_noticias;
 
         let form: any = new FormData();
-
-        
-        
         if (!values.gal_imagen?.id) {
             const img = values.gal_nombre_imagen.id;
             form.append('img', img);
@@ -179,8 +174,6 @@ export const get_list_gallery = (key: number) => {
 
 export const delete_gallery = (id: number) => {
     return async (dispatch: any) => {
-        dispatch(default_gallery());
-
         try {
             const URI = `news/gallery/delete/${id}`;
             const res = await cms_http.delete(URI);
@@ -192,10 +185,8 @@ export const delete_gallery = (id: number) => {
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            // dispatch();
             return res.data;
         } catch (error) {
-            dispatch(fail_gallery());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:

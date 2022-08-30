@@ -14,9 +14,8 @@ interface IGalleryProps {
 
 const AddGallery: FC<IGalleryProps> = ({ publication }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
-
     const [isChange, setIsChange] = useState<boolean>(false);
-
+    const loading = useSelector((store: any) => store.event.gallery.loading);
     const dispatch = useDispatch<any>();
 
     const list_gallery: IGalleryInfo[] = useSelector((store: any) => store.event.list_gallery.value);
@@ -59,11 +58,18 @@ const AddGallery: FC<IGalleryProps> = ({ publication }) => {
                                 <button
                                     type="button"
                                     className="btn btn-outline-primary"
+                                    disabled={loading}
                                     onClick={() => {
                                         form_ref.current?.submitForm();
                                     }}
                                 >
                                     Agregar documento
+                                    {loading && (
+                                        <i
+                                            className="fa fa-spinner fa-spin"
+                                            style={{ fontSize: 12, marginLeft: 4, color: '#603CE6' }}
+                                        />
+                                    )}
                                 </button>
                             </div>,
                         ]}

@@ -47,7 +47,7 @@ export const create_publication = (values: IGeneralInfo) => {
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-            // dispatch(success_publication(res.data.body.data));
+            dispatch(success_publication(res.data.body.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:

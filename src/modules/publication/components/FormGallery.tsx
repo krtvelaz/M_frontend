@@ -55,7 +55,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 <Field
                                     component={DocumentInput}
                                     file_type="img"
-                                    type_image="JPEG"
+                                    type_image="JPG"
                                     maximum_size={2}
                                     type="text"
                                     id="gal_imagen_id"
