@@ -5,11 +5,11 @@ import { swal_error } from './swalAlert';
 
 interface InputDocProps {
     file_type: 'pdf' | 'img';
+    type_image?: 'PNG' | 'JPG';
     ancho_btn?: number;
     maximum_size?: number;
     form: any;
     field: any;
-    type_image?: 'PNG' | 'JPG';
 }
 
 const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size = 5, type_image }) => {
@@ -42,12 +42,10 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                         >
                             {context.device === 'sm'
                                 ? field.value?.name?.length > 15
-                                    ? `${field.value.name.split('.')[0].substring(0, 11)}.${
-                                          field.value.name.split('.')[1]
-                                      }`
+                                    ? `${field.value.name.split('.')[0].substring(0, 11)}.${field?.value?.name?.split('.')[1] || type_image ? type_image : 'pdf'}`
                                     : field.value?.name
                                 : field.value?.name?.length > 24
-                                ? `${field.value.name.split('.')[0].substring(0, 20)}.${field.value.name.split('.')[1]}`
+                                ? `${field.value.name.split('.')[0].substring(0, 20)}.${field.value.name.split('.')[1] || type_image ? type_image : 'pdf' }`
                                 : field.value?.name}
                         </Tag>
                     )}
@@ -111,12 +109,14 @@ DocumentInput.defaultProps = {
 
 const validate_file_type = (file: File, type: 'pdf' | 'img', type_image?: 'PNG' | 'JPG') => {
     const file_type = file?.type?.split('/').pop()?.toLowerCase();
+    const file_type_name = file?.name?.split('.').pop()?.toLowerCase();
+    
     switch (type) {
         case 'pdf':
             return file_type === 'pdf';
         case 'img': {
-            if (type_image) {
-                return file_type === type_image.toLowerCase();
+            if (type_image) {                
+                return file_type_name === type_image.toLowerCase();
             }
 
             return (

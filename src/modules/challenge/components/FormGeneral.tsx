@@ -332,7 +332,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <Field
                                     component={DocumentInput}
                                     file_type="img"
-                                    type_image="JPEG"
+                                    type_image="JPG"
                                     maximum_size={2}
                                     type="text"
                                     id="ret_imagen_principal_id"

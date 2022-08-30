@@ -200,6 +200,14 @@ export const publish_challenge = (id: number) => {
             const URI = `challenges/publish`;
             const res = await http.post(URI, { id });
             dispatch(get_challenge(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">Reto publicado</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
             return res.data.data;
         } catch (error) {
             dispatch(fail_challenge());
@@ -215,6 +223,14 @@ export const unpublish_challenge = (id: number) => {
             const URI = `challenges/unpublish`;
             const res = await http.post(URI, { id });
             dispatch(get_challenge(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
             return res.data.data;
         } catch (error) {
             dispatch(fail_challenge());

@@ -4,6 +4,7 @@ import AppHeader from "./header";
 import AppFooter from "./footer";
 import Drawer from "antd/lib/drawer";
 import { TemplateContext } from "../template/templateContext";
+import { useNavigate } from "react-router-dom";
 
 
 interface ILanding {
@@ -13,6 +14,7 @@ interface ILanding {
 const LandingPage: FC<ILanding> = ({ children }) => {
   const { Header, Content, Footer } = Layout;
   const context = useContext(TemplateContext);
+  const navigate = useNavigate();
   return (
     <>
       <Layout className="w-100 h-100">
@@ -72,6 +74,16 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                 onClick={() => {}}
               >
                 Nuestros retos
+              </Menu.Item>
+              <Menu.Item
+                style={{
+                  borderBottom: "0.5px solid #00000029",
+                  fontSize: "12px",
+                }}
+                key="Drawer-2"
+                onClick={ () => navigate('../auth/login/')}
+              >
+                Ingresar
               </Menu.Item>
             </Menu>
           </div>

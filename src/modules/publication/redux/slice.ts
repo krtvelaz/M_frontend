@@ -162,8 +162,8 @@ export const eventSlice = createSlice({
         default_publication: (state) => {
             state.publication = {
                 value: state.publication.value,
-                loading: false,
-                loaded: true,
+                loading: true,
+                loaded: false,
             };
         },
         success_publication: (state, action) => {
@@ -192,15 +192,15 @@ export const eventSlice = createSlice({
             state.list_publication = {
                 value: action.payload.results,
                 pagination: {
-                    current_page: action.payload.current_page || 1,
-                    first_page: action.payload.first_page || 1,
-                    first_page_url: action.payload.first_page_url || '',
-                    last_page: action.payload.last_page || null,
-                    last_page_url: action.payload.last_page_url || '',
-                    next_page_url: action.payload.next_page_url || '',
-                    per_page: action.payload.per_page || 0,
-                    previous_page_url: action.payload.previous_page_url || null,
-                    total: action.payload.total || 0,
+                    current_page: action.payload.pagination.current_page || 1,
+                    first_page: action.payload.pagination.first_page || 1,
+                    first_page_url: action.payload.pagination.first_page_url || '',
+                    last_page: action.payload.pagination.last_page || null,
+                    last_page_url: action.payload.pagination.last_page_url || '',
+                    next_page_url: action.payload.pagination.next_page_url || '',
+                    per_page: action.payload.pagination.per_page || 0,
+                    previous_page_url: action.payload.pagination.previous_page_url || null,
+                    total: action.payload.pagination.total || 0,
                 },
                 loading: false,
                 loaded: true,
@@ -218,8 +218,8 @@ export const eventSlice = createSlice({
         default_gallery: (state) => {
             state.gallery = {
                 value: state.gallery.value,
-                loading: false,
-                loaded: true,
+                loading: true,
+                loaded: false,
             };
         },
         success_gallery: (state, action) => {

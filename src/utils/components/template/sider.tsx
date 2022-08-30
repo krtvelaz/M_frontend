@@ -134,6 +134,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
     }
     context.sider_close();
     context.drawer_close();
+    
     navigate(to.item.props.path, { state: to.keyPath });
   };
 

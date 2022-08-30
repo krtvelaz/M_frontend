@@ -27,11 +27,11 @@ const Home = () => {
                 links={[
                   {
                     name: "Crear nuevo reto",
-                    to: "/",
+                    to: "/challenge/create",
                   },
                   {
                     name: "Consultar y gestionar retos",
-                    to: "/",
+                    to: "/challenge/list",
                   },
                   {
                     name: "Gestionar postulaciones",
@@ -45,15 +45,15 @@ const Home = () => {
                 links={[
                   {
                     name: "Crear noticia",
-                    to: "/",
+                    to: "/publication/create",
                   },
                   {
                     name: "Crear evento",
-                    to: "/",
+                    to: "/event/create",
                   },
                   {
                     name: "Gestionar publicaciones",
-                    to: "/",
+                    to: "/publication/list",
                   },
                 ]}
               />
@@ -63,15 +63,15 @@ const Home = () => {
                 links={[
                   {
                     name: "Carrusel de banners principal",
-                    to: "/",
+                    to: "/banners/create",
                   },
                   {
                     name: "Editar indicadores",
-                    to: "/",
+                    to: "/indicator/create",
                   },
                   {
                     name: "Carrusel testimonios",
-                    to: "/",
+                    to: "/testimony/create",
                   },
                 ]}
               />

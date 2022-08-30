@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { trash } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
 import { ModalDetailDocument, swal_error, Table } from '../../../utils/ui';
@@ -19,6 +19,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const [url, setUrl] = useState<string>('');
     const dispatch = useDispatch<any>();
+    const loading = useSelector((store: any) => store.event.list_gallery.loading)
 
     const table_columns = [
         {
@@ -116,7 +117,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
     ];
     return (
         <>
-            <Table columns={table_columns} items={images} with_pagination={false} />
+            <Table columns={table_columns} items={images} with_pagination={false} loading={loading} />
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} fileType="img" />
         </>
     );
