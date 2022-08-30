@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
 import { FC, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { swal_error } from '../../../utils/ui';
 import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from '../custom_types';
@@ -18,6 +18,10 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
     const { TabPane } = Tabs;
     let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
         useInit(type, publication_data); // agregar o no  el publication_data y type
+
+    const loading = useSelector((store: any) => store.event.publication.loading);
+    console.log(loading);
+    
 
     return (
         <>
@@ -50,7 +54,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                     </div>
                 </div>
                 <div
-                    className="bg-white d-flex flex-row justify-content-between"
+                    className="bg-white d-flex flex-row justify-content-between  btn-responsive"
                     style={{ padding: 16, marginBottom: 60, borderTop: '1px solid #ccc' }}
                 >
                     <button type="button" className="btn btn-outline-primary" onClick={goBack}>
@@ -58,8 +62,19 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                     </button>
                     <div className="flex-fill" />
                     {show_next && (
-                        <button type="button" className="btn btn-outline-primary me-3" onClick={next_tab}>
+                        <button
+                            type="button"
+                            className="btn btn-outline-primary me-3"
+                            onClick={next_tab}
+                            disabled={loading}
+                        >
                             Agregar Galería
+                            {loading && (
+                                <i
+                                    className="fa fa-spinner fa-spin"
+                                    style={{ fontSize: 12, marginLeft: 4, color: '#603CE6' }}
+                                />
+                            )}
                         </button>
                     )}
                     {!show_next && (
@@ -131,7 +146,7 @@ const useInit = (
 
                     // Descomentar una vez el editar regrese la info.
                     // const result = await dispatch(actions.edit_publication(values));
-                  
+
                     // setPublication((data: IPublication) => {
                     //     return {
                     //         ...data,

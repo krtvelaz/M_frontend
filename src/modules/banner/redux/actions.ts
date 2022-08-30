@@ -237,7 +237,7 @@ const create_statistics = (_values: IIndicator) => {
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
-                    `<div class="mysubtitle">Actualización de la estadística</div>` +
+                    `<div class="mysubtitle">Actualización exitosa</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'

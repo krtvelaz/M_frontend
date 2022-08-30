@@ -23,6 +23,7 @@ export const create_challenge_document = (
   if(!values?.chafil_plantilla.id) {
     form.append("file", values?.chafil_plantilla );
   }
+  
   form.append("id_challenge", key);
   form.append("id_document_type", values.chafil_id_tipo_documento);
   form.append("name_document_type", values?.chafil_nombre_tipo_documento);

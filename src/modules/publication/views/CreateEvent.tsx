@@ -38,7 +38,7 @@ const CreateEvent = () => {
                 </div>
             </div>
             <div
-                className="bg-white d-flex flex-row justify-content-between"
+                className="bg-white d-flex flex-row justify-content-between  btn-responsive"
                 style={{ padding: 16, marginBottom: 60, borderTop: "1px solid #ccc" }}
             >
                 <button
