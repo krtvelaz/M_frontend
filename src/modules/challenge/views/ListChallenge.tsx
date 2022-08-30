@@ -56,9 +56,7 @@ const ListChallenge = () => {
             title: 'Publicado',
             align: 'left' as 'left',
             render: (value: any) => {
-                const onChange = async (e: any) => {
-                    console.log(value.status);
-                    
+                const onChange = async (e: any) => {                    
                     if (
                         value.status !== 'Pendiente' &&
                         value.status !== 'Aceptado' &&
@@ -76,7 +74,6 @@ const ListChallenge = () => {
                         return;
                     }
 
-                    console.log(e.target.value);
                     if (e.target.value === true) {
                         await dispatch(actions.publish_challenge(value.id));
                     } else {

@@ -110,8 +110,6 @@ DocumentInput.defaultProps = {
 const validate_file_type = (file: File, type: 'pdf' | 'img', type_image?: 'PNG' | 'JPG') => {
     const file_type = file?.type?.split('/').pop()?.toLowerCase();
     const file_type_name = file?.name?.split('.').pop()?.toLowerCase();
-    // console.log(file);
-    console.log(file_type_name);
     
     switch (type) {
         case 'pdf':

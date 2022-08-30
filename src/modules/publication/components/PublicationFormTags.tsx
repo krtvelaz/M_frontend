@@ -19,9 +19,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
     let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
         useInit(type, publication_data); // agregar o no  el publication_data y type
 
-    const loading = useSelector((store: any) => store.event.publication.loading);
-    console.log(loading);
-    
+    const loading = useSelector((store: any) => store.event.publication.loading);    
 
     return (
         <>
