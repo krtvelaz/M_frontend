@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { store } from "../../../config/store";
-import { actions } from "../redux";
+import { FC } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 interface IDetailCardPublication {
 
@@ -9,12 +9,12 @@ interface IDetailCardPublication {
 
 export const DetailCardPublication: FC<IDetailCardPublication> = () => {
     const publications = useSelector((store: any) => store.event.list_publication.value);
-
+    const navigate = useNavigate();
     return (
         <div className="row my-5 pe-5 ps-5">
             {
                 publications.map((publication: any, index: any) => (
-                    <div className="col-12 col-md-12 col-lg-6 imagen-events" key={`detailPublication${index}`}>
+                    <div style={{cursor: 'pointer'}} onClick={()=> {  navigate(`../detail-publication/${publication?.id}`)}} className="col-12 col-md-12 col-lg-6 imagen-events" key={`detailPublication${index}`}>
                         <div
                             className="text-white text-start ps-5 pe-5"
                             style={{ position: 'absolute', bottom: '10%' }}

@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { DetailCardPublication } from '../components/DetailCardPublication';
+import { DetailCardPublication } from '../components/CardPublication';
 import { actions } from '../redux';
 
 const TabPulications = () => {
@@ -23,16 +23,16 @@ const TabPulications = () => {
                 Entérarte de lo más actual
             </h2>
             <Tabs defaultActiveKey="1" className="tabs-events" onChange={on_change}>
-                <TabPane tab="Retos solucionados" key="0">
+                <TabPane tab="Todos" key="0">
                     <DetailCardPublication  />
                 </TabPane>
-                <TabPane tab="Eventos" key="1">
+                <TabPane tab="Noticias" key="1">
                     <DetailCardPublication  />
                 </TabPane>
-                <TabPane tab="Avances de los retos" key="2">
+                <TabPane tab="Eventos" key="2">
                     <DetailCardPublication  />
                 </TabPane>
-                <TabPane tab="Avances de los retos" key="3">
+                <TabPane tab="Resultados" key="3">
                     <DetailCardPublication  />
                 </TabPane>
             </Tabs>
