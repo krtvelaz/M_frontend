@@ -13,6 +13,7 @@ const TabPulications = () => {
     useEffect(()=> {
         dispatch(actions.get_history_publications())
     },[])
+    
     return (
         <div className="my-5">
             <div className="text-white" style={{ fontFamily: '14px' }}>
