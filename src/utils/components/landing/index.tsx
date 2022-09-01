@@ -71,7 +71,7 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                   fontSize: "12px",
                 }}
                 key="Drawer-2"
-                onClick={() => {}}
+                onClick={() => navigate('../our-challenges')}
               >
                 Nuestros retos
               </Menu.Item>

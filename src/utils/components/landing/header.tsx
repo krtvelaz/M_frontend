@@ -31,7 +31,7 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
               Nosotros
             </Link>
             <Link
-              to={"/"}
+              to={"/our-challenges"}
               className="link-card"
               style={{
                 color: "black",
