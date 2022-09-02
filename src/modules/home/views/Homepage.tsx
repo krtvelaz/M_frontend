@@ -9,6 +9,7 @@ import { Card } from '../../../utils/ui';
 import { Tabs } from 'antd';
 import TabPulications from '../../publication/views/TabPulications';
 import { actions } from '../../challenge/redux';
+import CarouselTestimony from '../../banner/components/testimony/CarouselTestimony';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
@@ -168,7 +169,9 @@ const Homepage = () => {
             </section>
 
             <section>
+            <CarouselTestimony />
                 <div className="container">
+                    
                     <div className="row" style={{ background: '#E4EFF0' }}>
                         <div className="col">imagen</div>
                         <div className="col-9">
