@@ -8,9 +8,11 @@ import PublishedChallenges from '../../challenge/components/PublishedChallenges'
 import { Card } from '../../../utils/ui';
 import { Tabs } from 'antd';
 import TabPulications from '../../publication/views/TabPulications';
+import FormContact from '../components/FormContact';
+import FormSuscribe from '../components/FormSuscribe';
 
 const Homepage = () => {
-    const context = useContext(TemplateContext); 
+    const context = useContext(TemplateContext);
 
     return (
         <>
@@ -34,12 +36,12 @@ const Homepage = () => {
 
             <section className="container-challenges">
                 <img src="src/utils/assets/img/fondo_retos.svg" alt="" className="imagen-fondo" />
-                {context.device === 'lg' &&  (
+                {context.device === 'lg' && (
                     <img src="src/utils/assets/img/grupo_personas.png" alt="" className="imagen-grupo-personas" />
                 )}
                 <div className="container">
                     <StaticInformation />
-                    <PublishedChallenges /> 
+                    <PublishedChallenges />
                 </div>
             </section>
 
@@ -157,6 +159,16 @@ const Homepage = () => {
                         <a href="" style={{ color: '#FFDC2F' }}>
                             Al dar click en suscribirme ahora, acepta los términos y condiciones
                         </a>
+                        <div className="row  mt-5">
+                   
+                            <div className="col-2">
+                                    {/* <p>imagenes</p> */}
+                                   
+                            </div>
+                            <div className="col-10">
+                        <FormSuscribe/>
+                            </div>
+                        </div>
                         <TabPulications />
                     </div>
                 </div>
@@ -174,6 +186,25 @@ const Homepage = () => {
                                 cercanía, empatía y aceptabilidad de los nuevos medios de interacción
                             </p>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style={{ background: '#FFFFFF' }}>
+                <div className="container pt-4 " >
+                    <div className="row justify-content-center " >
+                        <div className='text-center mb-3'>
+                            <span className='text-stake-mediun'>Dudas o preguntas</span>
+                            <h1 className='text-stake'>Contáctanos</h1>
+                        </div>
+                        <p className='mb-4'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate tempora rerum saepe
+                            a adipisci quasi quas nam porro odio modi
+                            deleniti laboriosam molestiae ad architecto,
+                            sit ratione asperiores? Alias, debitis.</p>
+                        <div className="container mb-3  col-10 ">
+                            <FormContact />
+                        </div>
+
                     </div>
                 </div>
             </section>
