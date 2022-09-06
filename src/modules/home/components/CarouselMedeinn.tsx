@@ -5,6 +5,7 @@ import { actions } from '../../banner/redux';
 import ModalVideo from './ModalVideo';
 import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
+import { arrowLeft, arrowRight } from '../../../utils/assets/img';
 
 const CarouselMedeinn = () => {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ const CarouselMedeinn = () => {
     useEffect(() => {
         getBanner();
     }, []);
+
+    // const data = [2];
 
     const getBanner = async () => {
         try {
@@ -53,11 +56,26 @@ const CarouselMedeinn = () => {
                                     <h2>{item?.car_titulo}</h2>
                                     <p>{item?.car_descripcion}</p>
 
-                                    {item?.car_url_video && <ModalVideo urlVideo={item?.car_url_video} />}
+                                    {item?.car_url_video ? <ModalVideo urlVideo={item?.car_url_video} /> : null}
 
-                                    {item?.car_url && <button className="btn btn-outline-primary ms-5" onClick={()=>{                                        
-                                        navigate(`..${item?.car_url}`);
-                                    }}>Conoce más</button>}
+                                    {item?.car_url && (
+                                        <button
+                                            className="btn btn-outline-primary ms-5"
+                                            onClick={() => {
+                                                navigate(`..${item?.car_url}`);
+                                            }}
+                                        >
+                                            Conoce más
+                                        </button>
+                                    )}
+                                    {/* <div className="" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                                        <img src={arrowLeft} alt="flecha izquierda" />
+                                        <span className="visually-hidden">Anterior</span>
+                                    </div>
+                                    <div data-bs-target="#carouselIndicators" data-bs-slide="next">
+                                        <img src={arrowRight} alt="flecha derecha" />
+                                        <span className="visually-hidden">Siguiente</span>
+                                    </div> */}
                                 </div>
                                 <div className="col-12  col-md-12 col-lg-8 height-carousel">
                                     <div className="contenedor-magen-carrusel">
@@ -73,6 +91,26 @@ const CarouselMedeinn = () => {
                         </div>
                     ))}
                 </div>
+                <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselIndicators"
+                    data-bs-slide="prev"
+                >
+                    <img src={arrowLeft} alt="flecha izquierda" />
+                    {/* <span className="carousel-control-prev-icon" aria-hidden="true"></span> */}
+                    <span className="visually-hidden">Anterior</span>
+                </button>
+                <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselIndicators"
+                    data-bs-slide="next"
+                >
+                    <img src={arrowRight} alt="flecha izquierda" className='w-100' />
+                    {/* <span className="carousel-control-next-icon" aria-hidden="true"></span> */}
+                    <span className="visually-hidden">Siguiente</span>
+                </button>
             </div>
         </>
     );

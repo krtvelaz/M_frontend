@@ -55,6 +55,10 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                     style={{ fontSize: '12px', height: '38px' }}
                     onClick={() => {
                         if (fileInputRef.current !== null) {
+                            let elementDoc: any = document.getElementById('id-document-file');
+                            if(elementDoc) {
+                                elementDoc.value = null;
+                            }
                             fileInputRef.current.click();
                         }
                     }}
@@ -67,6 +71,7 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                 {maximum_size}MB.
             </div>
             <input
+                id='id-document-file'
                 ref={fileInputRef}
                 type="file"
                 hidden

@@ -73,7 +73,7 @@ const CreateMainBanner = () => {
                       Agregar
                       {loading && (
                         <i
-                        className="fa fa-spinner fa-spin"
+                        className="fa fa-circle-o-notch fa-spin"
                         style={{fontSize: 12, marginLeft: 4, color: "#603CE6"}}
                         />
                       )}

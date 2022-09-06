@@ -192,7 +192,7 @@ const Template: FC<ITemplate> = ({
           style={{ fontSize: "12px" }}
           onClick={async () => {
             await dispatch(auth_actions.logout());
-            navigate('../auth/login/', { replace: true });
+            navigate('../', { replace: true });
             context.drawer_close();
           }}
         >

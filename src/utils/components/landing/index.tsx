@@ -60,7 +60,7 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                   borderBottom: "0.5px solid #00000029",
                   fontSize: "12px",
                 }}
-                key="Drawer-1"
+                key="Drawer-landing-1"
                 onClick={() => {}}
               >
                 Nosotros
@@ -70,8 +70,8 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                   borderBottom: "0.5px solid #00000029",
                   fontSize: "12px",
                 }}
-                key="Drawer-2"
-                onClick={() => {}}
+                key="Drawer-landing-2"
+                onClick={() => navigate('../our-challenges')}
               >
                 Nuestros retos
               </Menu.Item>
@@ -80,7 +80,7 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                   borderBottom: "0.5px solid #00000029",
                   fontSize: "12px",
                 }}
-                key="Drawer-2"
+                key="Drawer-landing-3"
                 onClick={ () => navigate('../auth/login/')}
               >
                 Ingresar
