@@ -6,6 +6,7 @@ import CreatePublication from "./views/CreatePublication";
 import ListPublication from "./views/ListPublication";
 import EditPublication from "./views/EditPublication";
 import { guards } from "../home/routes";
+import DetailPublication from "./views/DetailPublication";
 
 // import store from '../../config/store';
 ;
@@ -88,6 +89,23 @@ const get_routes = (): IRoute[] => {
                 ],
             },
             component: EditPublication,
+        },
+        {
+            exact: true,
+            is_private: false,
+            can_access: guards.logOut,
+            format: true,
+            path: '/detail-publication/:id',
+            template_props: {
+                breadcrumbs: [
+                    {
+                        name: 'Gestionar publicaciones',
+                        to: '/publication/list',
+                    },
+                    { name: 'Editar publicación' },
+                ],
+            },
+            component: DetailPublication,
         },
     ];
 };

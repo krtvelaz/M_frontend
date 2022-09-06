@@ -43,9 +43,9 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
         eve_fecha: Yup.string().required("Campo obligatorio"),
         eve_hora: Yup.string().required("Campo obligatorio"),
         eve_cupos_limitado: Yup.boolean().required("Campo obligatorio"),
-        eve_numero_cupos: Yup.string().when("eve_cupos_limitado", {
+        eve_numero_cupos: Yup.number().when("eve_cupos_limitado", {
             is: true,
-            then: Yup.string().required("Campo obligatorio")
+            then: Yup.number().nullable().required("Campo obligatorio").max(10000, 'Máximo 10.000')
         }),
 
     });
@@ -81,16 +81,6 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     name="eve_titulo"
                                     autoComplete="off"
                                     maxLength={90}
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
                                 />
                                 <ErrorMessage name="eve_titulo" withCount max={90} />
                             </div>
@@ -107,16 +97,6 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     name="eve_descripcion"
                                     autoComplete="off"
                                     maxLength={100}
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
                                 />
                                 <ErrorMessage name="eve_descripcion" withCount max={100} />
                             </div>
@@ -203,8 +183,8 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                         name="eve_numero_cupos"
                                         id="eve_numero_cupos_id"
                                         min={0}
-                                        max={10000}
-                                        maxLength={6}
+                                        // max={10000}
+                                        maxLength={7}
                                         placeholder="0"
                                     />
                                     <ErrorMessage name="eve_numero_cupos" />

@@ -207,21 +207,27 @@ export const get_history_publications = (
     page_number=1,
 ) => {
     return async (dispatch: any) => {
-        // dispatch(default_list_publication());
+        dispatch(default_list_publication());
         try {
             const URI = 'news/history';
             const res = await cms_http.get(URI, {
                 params: {
-                    ...(form && {
+                    ...(form && form !== 0 && {
                         form
                     }),
                     page_number,
                 },
             });
-            // dispatch(success_list_publication(res.data));
-            return res.data.data;
+            
+            const finalResults = {
+                results: res.data.data.data, 
+                pagination: res.data.data.meta
+            };
+            
+            dispatch(success_list_publication(finalResults));
+            return res.data.data.data;
         } catch (error) {
-            // dispatch(fail_list_publication());
+            dispatch(fail_list_publication());
             return Promise.reject(error);
         }
     };

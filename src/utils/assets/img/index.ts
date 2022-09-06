@@ -32,3 +32,7 @@ export { default as figurasFondo } from './figurasFondo.svg';
 export { default as letras_medeinn } from './letras_medeinn.svg';
 export { default as mujerOk } from './mujerOk.png';
 export { default as LogoPDF } from './pdf.svg';
+export { default as figuraRetos } from './figuraRetos.svg';
+export { default as arrowLeft } from './arrowLeft.svg';
+export { default as arrowRight } from './arrowRight.svg';
+export { default as postulamos } from './postulamos.jpg';

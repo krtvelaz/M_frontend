@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
+import { letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
 import { Link } from '../../../utils/ui';
 import { actions } from '../redux';
 import InfoDetailChallenge from '../components/InfoDetailChallenge';
@@ -9,6 +9,7 @@ import ModalVideo from '../../home/components/ModalVideo';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { useParams } from 'react-router-dom';
 import { Buffer } from 'buffer';
+import { formatDate } from '../../../utils';
 
 const DetailChallenge = () => {
     const { id } = useParams<any>();
@@ -27,6 +28,11 @@ const DetailChallenge = () => {
         }
     };
 
+   
+
+   
+    
+
     useEffect(() => {
         getChallenge();
     }, []);
@@ -34,7 +40,7 @@ const DetailChallenge = () => {
     return (
         <>
             <div
-                className="container-fluid container-info-detail"
+                className="container-info-detail"
                 style={{
                     padding: '90px 50px',
                     // background: 'linear-gradient(to top, #ffffff 65%, transparent), url("https://images.pexels.com/photos/12470916/pexels-photo-12470916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
@@ -45,22 +51,22 @@ const DetailChallenge = () => {
                     overflow: 'hidden',
                 }}
             >
+                <div className="container">
                 <div className="container-img-principal">
-                    <img
-                        src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
-                        alt="imagen"
-                        className="w-100"
-                    />
+                    <img src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`} alt="imagen" className="w-100" />
                 </div>
 
-                {/* <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" /> */}
+                <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" />
 
-                <img src={mujerOk} alt="" className="imagen-fondo-mujer" />
+                
 
-                <div className="row" style={{
-                  position: 'relative',
-                  zIndex: 1
-                }}>
+                <div
+                    className="row"
+                    style={{
+                        position: 'relative',
+                        // zIndex: 1,
+                    }}
+                >
                     <div className="col-12">
                         <div
                             className="row container-detail-challenge"
@@ -79,7 +85,8 @@ const DetailChallenge = () => {
                                     marginTop: '-120px',
                                 }}
                             >
-                                <div className="card-detail-challenge">
+                                <div className="card-detail-challenge" style={{ position: 'relative', zIndex: 100}}>
+                                <img src={mujerOk} alt="" className="imagen-fondo-mujer" />
                                     <h5 className="my-4 card-title-challenge">{challenge?.cha_name}</h5>
 
                                     <div className="d-flex justify-content-center text-center align-items-center flex-column">
@@ -94,11 +101,11 @@ const DetailChallenge = () => {
                                             </p>
                                             <div className="my-4">
                                                 <span style={{ fontWeight: 'bold' }}>INICIO DEL RETO: </span>
-                                                {moment(challenge?.cha_start_date).locale('es').format('LL')}
+                                                {formatDate(challenge?.cha_start_date)}
                                             </div>
                                             <div>
                                                 <span style={{ fontWeight: 'bold' }}>FIN DEL RETO: </span>
-                                                {moment(challenge?.cha_end_date).format('LL')}
+                                                {formatDate(challenge?.cha_end_date)}
                                             </div>
                                         </div>
                                     </div>
@@ -182,7 +189,7 @@ const DetailChallenge = () => {
                             <div
                                 className="col-12 col-md-12 col-lg-7"
                                 style={{
-                                    padding: 0,   
+                                    padding: 0,
                                 }}
                             >
                                 <div
@@ -197,6 +204,9 @@ const DetailChallenge = () => {
                         </div>
                     </div>
                 </div>
+
+                </div>
+                
             </div>
         </>
     );

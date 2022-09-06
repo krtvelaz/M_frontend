@@ -7,7 +7,8 @@ import {
   get_list_challenges,
   delete_challenge,
   publish_challenge,
-  unpublish_challenge
+  unpublish_challenge,
+  get_history_challenges
 } from "./challenge";
 
 import {
@@ -47,6 +48,7 @@ const actions = {
   get_list_challenge_report,
   delete_challenge_report,
   get_four_challenge,
+  get_history_challenges,
   get_document,
   get_types_documents,
   create_challenge_document,

@@ -257,3 +257,33 @@ export const delete_challenge = (id: number) => {
         }
     };
 };
+
+
+export const get_history_challenges = (form: number, dimension?: number, limit = 9) => {
+    return async (dispatch: any) => {
+        dispatch(loading_challenges());
+        try {
+            const URI = '/challenges/history';
+            const res = await http.get(URI, {
+                params: {
+                    form,
+                    ...(dimension && {
+                        dimension
+                    }),
+                    limit
+                },
+            });
+            const challenges = {
+                results: res.data.data,
+                pagination: {}
+            }
+            
+            dispatch(success_challenges(challenges));
+            return res.data;
+        } catch (error) {
+            dispatch(fail_challenges());
+            return Promise.reject(error);
+        }
+    };
+};
+

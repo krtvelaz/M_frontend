@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
+import { formatDate } from '../../../utils';
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState([]);
@@ -58,7 +59,7 @@ const PublishedChallenges = () => {
                             >
                                 <Card
                                     onClick={() => {
-                                        navigate(`../detail-challenge/${challenge?.id}`, { replace: true });
+                                        navigate(`../detail-challenge/${challenge?.id}`);
                                     }}
                                     hoverable
                                     className="card-challenge"
@@ -68,10 +69,10 @@ const PublishedChallenges = () => {
                                         <h3>{challenge?.cha_name}</h3>
                                         <p>Fecha de vigencia para postulaciones</p>
                                         <div className="date-card-challenge">
-                                            INICIO DEL RETO: {moment(challenge?.cha_start_date).format('LL')}
+                                            INICIO DEL RETO: {formatDate(challenge?.cha_start_date)}
                                         </div>
                                         <div className="date-card-challenge">
-                                            FIN DEL RETO: {moment(challenge?.cha_end_date).format('LL')}
+                                            FIN DEL RETO: {formatDate(challenge?.cha_end_date) }
                                         </div>
                                         <button className="btn">Postularse al reto</button>
                                     </div>
