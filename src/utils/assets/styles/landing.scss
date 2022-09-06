@@ -403,12 +403,12 @@ img {
 }
 
 .imagen-fondo-mujer {
-    left: -32px;
-    bottom: 520px;
+    left: -55%;
+    bottom: -10%;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 25%;
+    max-width: 90%;
     z-index: 2;
     overflow: hidden;
 }
@@ -417,7 +417,7 @@ img {
     border-radius: 20px;
     padding: 20px;
     max-width: 80%;
-    margin-left: 'auto';
+    margin-left: auto;
     background: linear-gradient(to top, #ffffff, transparent);
     opacity: 1;
     margin-top: 50px;

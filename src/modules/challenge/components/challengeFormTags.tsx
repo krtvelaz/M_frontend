@@ -159,7 +159,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               Siguiente
               {loading && (
                 <i
-                  className="fa fa-spinner fa-spin"
+                  className="fa fa-circle-o-notch fa-spin"
                   style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
                 />
               )}
@@ -175,7 +175,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               Guardar cambios
               {loading && (
                 <i
-                  className="fa fa-spinner fa-spin"
+                  className="fa fa-circle-o-notch fa-spin"
                   style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
                 />
               )}

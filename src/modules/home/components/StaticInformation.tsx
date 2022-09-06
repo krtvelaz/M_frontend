@@ -1,12 +1,12 @@
 import { Popover } from "antd";
-import { lamp } from "../../../utils/assets/img";
+import { lamp, postulamos } from "../../../utils/assets/img";
 
 const StaticInformation = () => {
   const contenido_postulamos = (
     <div className="row">
       <div className="col-2">
         <img
-          src="src/utils/assets/img/postulamos.jpg"
+          src={postulamos}
           alt="imagen postulamos"
         />
       </div>
@@ -30,7 +30,7 @@ const StaticInformation = () => {
     <div className="row">
       <div className="col-2">
         <img
-          src="src/utils/assets/img/postulamos.jpg"
+          src={postulamos}
           alt="imagen postulamos"
         />
       </div>
@@ -49,7 +49,7 @@ const StaticInformation = () => {
     <div className="row">
       <div className="col-2">
         <img
-          src="src/utils/assets/img/postulamos.jpg"
+          src={postulamos}
           alt="imagen postulamos"
         />
       </div>
@@ -71,7 +71,7 @@ const StaticInformation = () => {
     <div className="row">
       <div className="col-2">
         <img
-          src="src/utils/assets/img/postulamos.jpg"
+          src={postulamos}
           alt="imagen postulamos"
         />
       </div>
@@ -112,7 +112,7 @@ const StaticInformation = () => {
         <Popover
           content={contenido_postulamos}
           placement="bottom"
-          trigger="click"
+          trigger="hover"
           style={{ width: 700 }}
           className="popover-postulamos"
         >
@@ -136,7 +136,7 @@ const StaticInformation = () => {
         <Popover
           content={contenido_selecionamos}
           placement="bottom"
-          trigger="click"
+          trigger="hover"
         >
           <div className="circle-text-wraps  mx-auto">
             <div className="circle-number-container">
@@ -158,7 +158,7 @@ const StaticInformation = () => {
         <Popover
           content={contenido_acompañamos}
           placement="bottom"
-          trigger="click"
+          trigger="hover"
         >
           <div className="circle-text-wraps  mx-auto">
             <div className="circle-number-container">
@@ -180,7 +180,7 @@ const StaticInformation = () => {
         <Popover
           content={contenido_premiamos}
           placement="bottom"
-          trigger="click"
+          trigger="hover"
         >
           <div className="circle-text-wraps  mx-auto">
             <div className="circle-number-container">

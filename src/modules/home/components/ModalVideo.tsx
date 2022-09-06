@@ -1,7 +1,7 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Avatar, Menu } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 interface UrlVideo {
@@ -11,8 +11,20 @@ interface UrlVideo {
 const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
     // const [img, setImg] = useState("");
     const [is_visible, set_is_visible] = useState<boolean>(false);
-    const open = () => set_is_visible(true);
-    const close = () => set_is_visible(false);
+    const [play, set_play] = useState<boolean>(false);
+    const open = () => {
+        set_is_visible(true)
+        set_play(true)
+    };
+    const close = () => {
+        set_play(false)
+        const video: any = document.getElementById('widget2');
+        if(video) {
+           video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        }
+        set_is_visible(false);
+    }
+
     return (
         <>
             <span
@@ -30,6 +42,16 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                 visible={is_visible}
                 width={751}
                 onCancel={close}
+                // closable={false}
+                // closeIcon={<div
+                //     key="saveDoc"
+                //     className="danger-text"
+                //     onClick={() => {
+                //         close();
+                //     }}
+                // >
+                //     x
+                // </div>}
                 title={
                     <p style={{ fontFamily: 'Roboto, Bold', fontSize: '15px' }}>
                         <span style={{ fontFamily: 'Roboto, Black', fontSize: '23px', color: '#5AC1DD' }}>
@@ -58,11 +80,12 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                 <div>
                     <div style={{ border: '0.5px solid #707070', padding: '15px', opacity: '1', margin: '0px 30px' }}>
                         <ReactPlayer
+                        id='play-video'
                             url={urlVideo}
                             controls
                             width="100%"
                             height="350px"
-                            playing={is_visible}
+                            playing={play}
                             // Agregar función para que el video se detenga cuando cierres el modal
                         />
                     </div>

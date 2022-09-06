@@ -23,7 +23,7 @@ const ModalImgTestimony: FC<IModalImage> = ({ id }) => {
           const res = await dispatch(
             actions.get_document_testimonial(id, "img")
           );
-          if (res) {
+          if (res) {            
             let _img = Buffer.from(res).toString("base64");
             setImg(_img);
             open();
