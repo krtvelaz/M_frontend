@@ -20,7 +20,7 @@ const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...pro
                 borderRadius: '6px',
             }}
             defaultValue={0}
-            onKeyPress={(e: any) => {
+            onKeyUp={(e: any) => {
                 
                 // e.preventDefault();
                 // if (e.target.value !== '') {
