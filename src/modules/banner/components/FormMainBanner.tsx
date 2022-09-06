@@ -29,7 +29,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
     car_titulo: Yup.string().required('Campo obligatorio'),
     car_descripcion: Yup.string().required('Campo obligatorio'),
     car_url_video: Yup.string().url("Por favor ingrese una url").max(200, 'Máximo 200 caracteres'),
-    car_url: Yup.string().url("Por favor ingrese una url").max(200, 'Máximo 200 caracteres'),
+    car_url: Yup.string().max(200, 'Máximo 200 caracteres'),
     car_imagen: Yup.object({
       name: Yup.string().required('Campo obligatorio')
     }).nullable(),
@@ -128,7 +128,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
                   component={DocumentInput}
                   maximum_size={2}
                   file_type="img"
-                  type_image='JPEG'
+                  type_image='JPG'
                   type="text"
                   id="car_imagen_id"
                   name="car_imagen"

@@ -162,8 +162,8 @@ export const eventSlice = createSlice({
         default_publication: (state) => {
             state.publication = {
                 value: state.publication.value,
-                loading: false,
-                loaded: true,
+                loading: true,
+                loaded: false,
             };
         },
         success_publication: (state, action) => {
@@ -218,8 +218,8 @@ export const eventSlice = createSlice({
         default_gallery: (state) => {
             state.gallery = {
                 value: state.gallery.value,
-                loading: false,
-                loaded: true,
+                loading: true,
+                loaded: false,
             };
         },
         success_gallery: (state, action) => {

@@ -1,6 +1,6 @@
-import { InputNumber } from 'antd'
+import { InputNumber } from 'antd';
 import { FieldProps } from 'formik';
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 
 interface InputProps extends FieldProps {
     className?: string;
@@ -8,7 +8,6 @@ interface InputProps extends FieldProps {
 }
 
 const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...props }) => {
-
     const on_change = (value: any) => {
         form.setFieldValue(field.name, value, false);
         extra_on_change && extra_on_change(value, field.value);
@@ -21,15 +20,40 @@ const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...pro
                 borderRadius: '6px',
             }}
             defaultValue={0}
-            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(/\.(?=\d{0,2}$)/g, ",")}
-            parser={value => Number.parseFloat(value!.replace(/\$\s?|(\.*)/g, "").replace(/(,{1})/g, ".")).toFixed(2)}
+            onKeyUp={(e: any) => {
+                
+                // e.preventDefault();
+                // if (e.target.value !== '') {
+                //     console.log('primer if');
+                //     if (e.target.value.toString().length === 1) {
+                //         console.log('segundo if');
+                //         const permisos = /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g;
+                //         if (permisos.test(e.target.value)) {
+                //             console.log('tercer if');
+                //             form.setFieldValue(field.name, '', false);
+                //             e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+                //             return;
+                //         }
+                //     }
+                // }
+                const { value } = e.target;
+                const regex = /^[0-9.,]{0,30}$/;
+                if (regex.test(value.toString())) {
+                    return e;
+                } else {
+                    return e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+                }
+            }}
+            formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace(/\.(?=\d{0,2}$)/g, ',')}
+            parser={(number_value: any) => {
+                return Number.parseFloat(number_value!.replace(/\$\s?|(\.*)/g, '').replace(/(,{1})/g, '.')).toFixed(2);
+            }}
             onChange={on_change}
-            className={[className, "w-100"].join(" ")}
+            className={[className, 'w-100'].join(' ')}
             value={field.value}
             {...props}
-
         />
-    )
-}
+    );
+};
 
-export default Input
+export default Input;

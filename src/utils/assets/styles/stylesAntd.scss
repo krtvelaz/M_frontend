@@ -238,6 +238,7 @@ textarea.form-control {
 
 .ant-drawer-header {
     padding: 16px 12px;
+    border-bottom: none;
 }
 
 .ant-card-actions > li {
@@ -340,3 +341,38 @@ textarea.form-control {
 .ant-table-thead {
     vertical-align: text-top;
 }
+
+
+.carousel-control-next {
+    right: none;
+    right: none !important;
+    left: 0;
+    // bottom: -50%;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.carousel-control-prev {
+    left: 20px;
+    bottom: 100px;
+}
+
+.carousel-control-next {
+    bottom: 80px;
+    left: 55px;
+    
+}
+
+
+.ant-popover-placement-top .ant-popover-arrow {
+    display: none;
+}
+
+
+

@@ -159,12 +159,28 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
               Siguiente
               {loading && (
                 <i
-                  className="fa fa-spinner fa-spin"
+                  className="fa fa-circle-o-notch fa-spin"
                   style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
                 />
               )}
             </button>
           )}
+          {/* {(type === 'edit' && active_key === '1') && (
+            <button
+              type="button"
+              className="btn btn-primary"
+              // onClick={steps[0].save()}
+              disabled={loading}
+            >
+              Guardar cambios
+              {loading && (
+                <i
+                  className="fa fa-circle-o-notch fa-spin"
+                  style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+                />
+              )}
+            </button>
+          )} */}
           {!show_next && (
             <button
               type="button"

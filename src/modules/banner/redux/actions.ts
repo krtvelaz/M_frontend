@@ -68,7 +68,7 @@ const create_main_banner = (values: IMainBanner) => {
                 title: 'Error en el proceso',
                 html:
                     `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
-                    '<div class="mytext">De click en aceptar para continuar</div>',
+                    '<div class="mytext">Edite o elimine algún elemento existente para ingresar este nuevo registro.</div>',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'
             });
@@ -237,7 +237,7 @@ const create_statistics = (_values: IIndicator) => {
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
-                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    `<div class="mysubtitle">Actualización exitosa</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'
@@ -414,7 +414,7 @@ const edit_testimonial = (values: ITestimony) => {
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
-                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    `<div class="mysubtitle">Actualización completada con exito.</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'

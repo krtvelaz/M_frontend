@@ -38,7 +38,7 @@ const CreateEvent = () => {
                 </div>
             </div>
             <div
-                className="bg-white d-flex flex-row justify-content-between"
+                className="bg-white d-flex flex-row justify-content-between  btn-responsive"
                 style={{ padding: 16, marginBottom: 60, borderTop: "1px solid #ccc" }}
             >
                 <button
@@ -61,7 +61,7 @@ const CreateEvent = () => {
                     Guardar
                     {loading && (
               <i
-                className="fa fa-spinner fa-spin"
+                className="fa fa-circle-o-notch fa-spin"
                 style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
               />
             )}

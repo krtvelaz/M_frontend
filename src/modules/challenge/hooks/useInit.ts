@@ -190,8 +190,8 @@ export const useInit = (
           await swal_success.fire({
             title: "Proceso exitoso",
             html:
-              `<div class="mysubtitle">Se ha creado con éxito el nuevo reto</div>` +
-              '<div class="mytext">A continuación será dirigido a gestor de retos</div>',
+              `<div class="mysubtitle">Se ha ${type === 'create' ? 'creado' : 'editado'} con éxito el ${type === 'create' ? 'nuevo' : ''}  reto</div>` +
+              '<div class="mytext">A continuación será dirigido al tablero gestor de retos</div>',
             showCancelButton: false,
             confirmButtonText: "Aceptar",
           });

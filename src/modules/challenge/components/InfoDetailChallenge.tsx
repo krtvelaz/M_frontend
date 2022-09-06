@@ -42,13 +42,6 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
 
             <p>{challenge?.cha_expected_results}</p>
 
-            <button type="button" className="btn btn-outline-primary me-3">
-                DESCARGAR Ficha Reto
-            </button>
-
-            <button type="button" className="btn btn-outline-primary">
-                Descargar los términos de Referencia
-            </button>
 
             <div className="my-5" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px' }}>
                 Experiencia y documentación
@@ -58,7 +51,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 Descripción del tipo de documentos que deben enviar para postularse al reto:{' '}
             </div>
 
-            <ol className="my-4" style={{ position: 'relative', zIndex: 4 }}>
+            <ol className="my-4" style={{ position: 'relative', zIndex: 100 }}>
                 {challenge?.cha_documents?.map(
                     (document: any, index: number) =>
                         document.chafil_nombre_plantilla && (
@@ -90,34 +83,39 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             </button>
 
             <div className="my-3" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#603CE6' }}>
-                Visualizar información del reto
+                Visualizar informes del reto
             </div>
-
+            {challenge?.informs.length > 0 ? 
             <ol style={{ position: 'relative', zIndex: 4, listStyle: 'none' }} className="my-4">
-                {challenge?.informs?.map((inform: any, index: number) => (
-                    <div
-                        key={`informs-detail-${index}`}
-                        className="d-flex my-2"
-                        onClick={async () => {
-                            const result = await dispatch(actions.get_document(inform.id, 'report'));
+            {challenge?.informs?.map((inform: any, index: number) => (
+                <div
+                    key={`informs-detail-${index}`}
+                    className="d-flex my-2"
+                    onClick={async () => {
+                        const result = await dispatch(actions.get_document(inform.id, 'report'));
 
-                            if (result) {
-                                const pdfDocument = URL.createObjectURL(
-                                    new Blob([result], { type: 'application/pdf' })
-                                );
+                        if (result) {
+                            const pdfDocument = URL.createObjectURL(
+                                new Blob([result], { type: 'application/pdf' })
+                            );
 
-                                setUrl(pdfDocument);
-                                set_is_visible_doc(true);
-                            }
-                        }}
-                    >
-                        <img src={LogoPDF} alt="Logo PDF" style={{ width: '20px', marginRight: '10px' }} />
-                        <li>
-                            <a href="#">{inform.retinf_nombre}</a>
-                        </li>
-                    </div>
-                ))}
-            </ol>
+                            setUrl(pdfDocument);
+                            set_is_visible_doc(true);
+                        }
+                    }}
+                >
+                    <img src={LogoPDF} alt="Logo PDF" style={{ width: '20px', marginRight: '10px' }} />
+                    <li>
+                        <a href="#">{inform.retinf_nombre}</a>
+                    </li>
+                </div>
+            ))}
+        </ol>
+           :
+           <span>Este reto no tiene informes</span> 
+        }
+
+            
 
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} />
         </div>

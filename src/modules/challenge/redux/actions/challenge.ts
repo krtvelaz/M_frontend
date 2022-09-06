@@ -200,6 +200,14 @@ export const publish_challenge = (id: number) => {
             const URI = `challenges/publish`;
             const res = await http.post(URI, { id });
             dispatch(get_challenge(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">Reto publicado</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
             return res.data.data;
         } catch (error) {
             dispatch(fail_challenge());
@@ -215,6 +223,14 @@ export const unpublish_challenge = (id: number) => {
             const URI = `challenges/unpublish`;
             const res = await http.post(URI, { id });
             dispatch(get_challenge(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
             return res.data.data;
         } catch (error) {
             dispatch(fail_challenge());
@@ -241,3 +257,33 @@ export const delete_challenge = (id: number) => {
         }
     };
 };
+
+
+export const get_history_challenges = (form: number, dimension?: number, limit = 9) => {
+    return async (dispatch: any) => {
+        dispatch(loading_challenges());
+        try {
+            const URI = '/challenges/history';
+            const res = await http.get(URI, {
+                params: {
+                    form,
+                    ...(dimension && {
+                        dimension
+                    }),
+                    limit
+                },
+            });
+            const challenges = {
+                results: res.data.data,
+                pagination: {}
+            }
+            
+            dispatch(success_challenges(challenges));
+            return res.data;
+        } catch (error) {
+            dispatch(fail_challenges());
+            return Promise.reject(error);
+        }
+    };
+};
+

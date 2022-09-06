@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import 'moment/locale/es-mx'
 
 type KeyPath = [string, string?];
 interface TemplateProps {

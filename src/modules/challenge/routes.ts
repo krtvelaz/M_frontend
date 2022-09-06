@@ -5,6 +5,7 @@ import CreateChallenge from './views/CreateChallenge';
 import DetailChallenge from './views/DetailChallenge';
 import EditChallemge from './views/EditChallemge';
 import ListChallenge from './views/ListChallenge';
+import OurChallenges from './views/ourChallenges';
 
 const get_routes = (): IRoute[] => {
     return [
@@ -65,6 +66,19 @@ const get_routes = (): IRoute[] => {
             template_props: {
                 breadcrumbs: [
                     { name: 'Inicio' },
+                ],
+            },
+        },
+        {
+            exact: true,
+            is_private: false,
+            can_access: guards.logOut,
+            format: true,
+            path: '/our-challenges',
+            component: OurChallenges,
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Retos actuales' },
                 ],
             },
         },
