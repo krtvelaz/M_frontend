@@ -5,7 +5,7 @@ import CreateChallenge from './views/CreateChallenge';
 import DetailChallenge from './views/DetailChallenge';
 import EditChallemge from './views/EditChallemge';
 import ListChallenge from './views/ListChallenge';
-import OurChallenges from './views/ourChallenges';
+import OurChallenges from './views/OurChallenges';
 
 const get_routes = (): IRoute[] => {
     return [
