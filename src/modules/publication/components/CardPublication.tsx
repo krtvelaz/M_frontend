@@ -13,7 +13,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = () => {
     return (
         <div className="row my-5 pe-5 ps-5">
             {
-                publications.map((publication: any, index: any) => (
+                publications?.map((publication: any, index: any) => (
                     <div style={{cursor: 'pointer'}} onClick={()=> {  navigate(`../detail-publication/${publication?.id}`)}} className="col-12 col-md-12 col-lg-6 imagen-events" key={`detailPublication${index}`}>
                         <div
                             className="text-white text-start ps-5 pe-5"
