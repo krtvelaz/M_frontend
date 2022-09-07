@@ -295,14 +295,14 @@ img {
 
 .card-challenge {
     border-radius: 40px;
-    width: 330px;
+    width: 340px;
     margin-right: auto !important;
     margin-left: auto !important;
 }
 
 .body-card-challenge h3 {
     font-family: 'Montserrat-SemiBold';
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .body-card-challenge p {
@@ -391,12 +391,12 @@ img {
 }
 
 .imagen-fondo-detalle {
-    left: -850px;
+    left: -810px;
     bottom: 110px;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 202%;
+    max-width: 200%;
     max-height: 750px;
     z-index: 3;
     overflow: hidden;
@@ -404,12 +404,12 @@ img {
 
 .imagen-fondo-mujer {
     left: -55%;
-    bottom: -10%;
+    bottom: -20%;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 90%;
-    z-index: 2;
+    max-width: 85%;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -418,7 +418,7 @@ img {
     padding: 20px;
     max-width: 80%;
     margin-left: auto;
-    background: linear-gradient(to top, #ffffff, transparent);
+    background: linear-gradient(to top, #ffffff 80%, transparent 100%);
     opacity: 1;
     margin-top: 50px;
     backdrop-filter: blur(43px);
@@ -444,7 +444,13 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background: linear-gradient(to top, #ffffff, #ffffff, transparent);
+    background: linear-gradient(
+        to top,
+        #ffffff 70%,
+        transparent 90%,
+        transparent 100%
+    );
+    z-index: 2;
 }
 
 /********** responsive detalle reto *******/
@@ -459,6 +465,22 @@ img {
 
     .imagen-fondo-mujer {
         display: none;
+    }
+
+    .container-img-principal img {
+        top: 0 !important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-detail-challenge {
+        padding-bottom: 0px !important;
+    }
+
+    .imagen-fondo-detalle {
+        left: 0px;
+        bottom: 0px;
+        z-index: 0;
     }
 }
 
@@ -483,7 +505,7 @@ img {
 
 .imagen-fondo-events {
     position: relative;
-    background-image: url('src/utils/assets/img/business-man.png');
+    background-image: url('src/utils/assets/img/businessMan.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -582,9 +604,9 @@ img {
     .height-carousel {
         height: 200px;
     }
-    
+
     .history-challenges {
-      padding: 5px;
+        padding: 5px;
     }
 }
 
@@ -688,6 +710,6 @@ img {
         margin-bottom: 100px;
     }
     .card-challenge {
-      width: 300px;
-  }
+        width: 300px;
+    }
 }

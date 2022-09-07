@@ -33,7 +33,7 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                     open();
                 }}
             >
-                <span style={{ cursor: 'pointer' }}>Presentación</span>
+                <span style={{ cursor: 'pointer', position: 'relative', zIndex: 100 }}>Presentación</span>
                 <Avatar className="ms-2 text-white link-avatar" size={28} style={{ backgroundColor: '#603CE6' }}>
                     <i className="fa fa-play" aria-hidden="true"></i>
                 </Avatar>
@@ -46,6 +46,7 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                 // closeIcon={<div
                 //     key="saveDoc"
                 //     className="danger-text"
+                //     style={{border: '1px solid black', borderRadius: '50%'}}
                 //     onClick={() => {
                 //         close();
                 //     }}
@@ -53,28 +54,28 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                 //     x
                 // </div>}
                 title={
-                    <p style={{ fontFamily: 'Roboto, Bold', fontSize: '15px' }}>
-                        <span style={{ fontFamily: 'Roboto, Black', fontSize: '23px', color: '#5AC1DD' }}>
+                    <p style={{ fontSize: '18px' }}>
+                        <span style={{ fontFamily: 'Montserrat-Black', fontSize: '18px', color: '#5AC1DD' }}>
                             Medellín,
                         </span>{' '}
-                        una ciudad que inspira, florece y se transforma todos los días
+                        una ciudad que <span style={{fontFamily: 'Montserrat-Bold', fontSize: '18px'}}>inspira, florece y se transforma</span>  todos los días
                     </p>
                 }
-                maskStyle={{
-                    backgroundColor: '#707070',
-                    opacity: '1',
-                }}
+                // maskStyle={{
+                //     backgroundColor: '#707070',
+                //     opacity: '1',
+                // }}
                 footer={[
-                    <button
-                        key="saveDoc"
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => {
-                            close();
-                        }}
-                    >
-                        Aceptar
-                    </button>,
+                    // <button
+                    //     key="saveDoc"
+                    //     type="button"
+                    //     className="btn btn-primary"
+                    //     onClick={() => {
+                    //         close();
+                    //     }}
+                    // >
+                    //     Aceptar
+                    // </button>,
                 ]}
             >
                 <div>

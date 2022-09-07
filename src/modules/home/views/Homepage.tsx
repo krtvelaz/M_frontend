@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { figurasFondo, rocket, trazado_amarillo } from '../../../utils/assets/img';
+import { figurasFondo, fondo_retos, grupo_personas, rocket, trazado_amarillo } from '../../../utils/assets/img';
 import StatisticsLanding from '../../banner/components/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
@@ -33,9 +33,9 @@ const Homepage = () => {
             </div>
 
             <section className="container-challenges">
-                <img src="src/utils/assets/img/fondo_retos.svg" alt="" className="imagen-fondo" />
+                <img src={fondo_retos} alt="letras medeinn" className="imagen-fondo" />
                 {context.device === 'lg' &&  (
-                    <img src="src/utils/assets/img/grupo_personas.png" alt="" className="imagen-grupo-personas" />
+                    <img src={grupo_personas} alt="grupo personas" className="imagen-grupo-personas" />
                 )}
                 <div className="container">
                     <StaticInformation />

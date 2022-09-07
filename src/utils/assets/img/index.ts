@@ -36,3 +36,8 @@ export { default as figuraRetos } from './figuraRetos.svg';
 export { default as arrowLeft } from './arrowLeft.svg';
 export { default as arrowRight } from './arrowRight.svg';
 export { default as postulamos } from './postulamos.jpg';
+export { default as medalla } from './medalla.svg';
+export { default as apoyo } from './apoyo.svg';
+export { default as hacerClic } from './hacerClic.svg';
+export { default as grupo_personas } from './grupo_personas.png';
+export { default as businessMan } from './businessMan.png';

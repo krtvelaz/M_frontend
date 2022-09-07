@@ -1,22 +1,22 @@
-import { useRef } from "react"
-import { Card } from "../../../utils/ui"
-import FormEvent from "../components/event/FormEvent"
-import { IEvent } from "../custom_types"
-import { FormikProps, FormikValues } from "formik"
-import { useDispatch, useSelector } from "react-redux"
-import { actions } from "../redux"
-
-
+import { useRef } from 'react';
+import { Card } from '../../../utils/ui';
+import FormEvent from '../components/event/FormEvent';
+import { IEvent } from '../custom_types';
+import { FormikProps, FormikValues } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux';
+import { useNavigate } from 'react-router-dom';
 
 const CreateEvent = () => {
-  const loading: boolean = useSelector((store: any) => store.event.event.loading);
-
-    const form_ref = useRef<FormikProps<FormikValues>>()
+    const loading: boolean = useSelector((store: any) => store.event.event.loading);
+    const navigate = useNavigate();
+    const form_ref = useRef<FormikProps<FormikValues>>();
     const dispatch = useDispatch<any>();
 
     const addEvent = async (values: IEvent) => {
         await dispatch(actions.create_event(values));
-    }
+        navigate("../event/list", { replace: true });
+    };
 
     return (
         <div className="h-100 d-flex flex-column">
@@ -27,26 +27,18 @@ const CreateEvent = () => {
                             <h5 className="">Crear evento</h5>
                         </div>
                         <div className="col-md-12">
-                            <Card title='Detalles nuevo evento' actions={[
-
-                            ]}>
-                                <FormEvent innerRef={form_ref} onSubmit={addEvent} type='create' />
-                            </Card >
-
+                            <Card title="Detalles nuevo evento" actions={[]}>
+                                <FormEvent innerRef={form_ref} onSubmit={addEvent} type="create" />
+                            </Card>
                         </div>
                     </div>
                 </div>
             </div>
             <div
                 className="bg-white d-flex flex-row justify-content-between  btn-responsive"
-                style={{ padding: 16, marginBottom: 60, borderTop: "1px solid #ccc" }}
+                style={{ padding: 16, marginBottom: 60, borderTop: '1px solid #ccc' }}
             >
-                <button
-                    type="button"
-                    className="btn btn-outline-primary"
-                    onClick={() => {
-                    }}
-                >
+                <button type="button" className="btn btn-outline-primary" onClick={() => {}}>
                     Atrás
                 </button>
                 <div className="flex-fill" />
@@ -60,15 +52,15 @@ const CreateEvent = () => {
                 >
                     Guardar
                     {loading && (
-              <i
-                className="fa fa-circle-o-notch fa-spin"
-                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
-              />
-            )}
+                        <i
+                            className="fa fa-circle-o-notch fa-spin"
+                            style={{ fontSize: 12, marginLeft: 4, color: '#fff' }}
+                        />
+                    )}
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CreateEvent
+export default CreateEvent;

@@ -22,16 +22,10 @@ const PublishedChallenges = () => {
             setChallenges(results);
             const _images = await Promise.all(
                 results?.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
-                );                
-                setImages(_images?.map(image => Buffer.from(image).toString('base64')));
-                
-
-           
+            );
+            setImages(_images?.map((image) => Buffer.from(image).toString('base64')));
         }
     };
-    
-    
-    
 
     return (
         <div className="row">
@@ -63,18 +57,36 @@ const PublishedChallenges = () => {
                                     }}
                                     hoverable
                                     className="card-challenge"
-                                    cover={<img alt="example" style={{borderRadius:' 40px 40px 0 0'}} src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}/>}
+                                    cover={
+                                        <img
+                                            alt="example"
+                                            style={{ borderRadius: ' 40px 40px 0 0' }}
+                                            src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}
+                                        />
+                                    }
                                 >
-                                    <div className="text-center body-card-challenge">
-                                        <h3>{challenge?.cha_name}</h3>
-                                        <p>Fecha de vigencia para postulaciones</p>
-                                        <div className="date-card-challenge">
-                                            INICIO DEL RETO: {formatDate(challenge?.cha_start_date)}
+                                    <div className=" body-card-challenge">
+                                        <h3 className='text-center'>{challenge?.cha_name}</h3>
+                                        <div className="row mb-4">
+                                            <div className="col-2">
+                                                <i
+                                                    className="fa fa-calendar-o"
+                                                    aria-hidden="true"
+                                                    style={{ fontSize: '30px', color: '#DE096B' }}
+                                                ></i>
+                                            </div>
+                                            <div className="col-10 p-0">
+                                                <p>Fecha de vigencia para postulaciones</p>
+                                                <div className="date-card-challenge " style={{fontSize: '10px'}}>
+                                                INICIO DEL RETO: <span> {formatDate(challenge?.cha_start_date)}</span> 
+                                                </div>
+                                                <div className="date-card-challenge" style={{fontSize: '10px'}}>
+                                                    FIN DEL RETO: <span > {formatDate(challenge?.cha_end_date)}</span> 
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="date-card-challenge">
-                                            FIN DEL RETO: {formatDate(challenge?.cha_end_date) }
-                                        </div>
-                                        <button className="btn">Postularse al reto</button>
+                                        
+                                        <button className="btn" style={{position: 'absolute', bottom: '-20px', left: '30%', margin: 0}}>Postularse al reto</button>
                                     </div>
                                 </Card>
                             </div>

@@ -1,5 +1,5 @@
 import { Popover } from "antd";
-import { lamp, postulamos } from "../../../utils/assets/img";
+import { apoyo, hacerClic, lamp, medalla, postulamos } from "../../../utils/assets/img";
 
 const StaticInformation = () => {
   const contenido_postulamos = (
@@ -100,13 +100,6 @@ const StaticInformation = () => {
           conectando soluciones con retos del territorio, busca fortalecer el
           ecosistema GovTech y generar valor público para Medellín.
         </p>
-        <button
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={() => {}}
-        >
-          Conoce más
-        </button>
       </div>
       <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
         <Popover
@@ -126,7 +119,7 @@ const StaticInformation = () => {
               </span>
             </div>
             <div className="circle-children">
-              <img src={lamp} width="30%" alt="foto" />
+              <img src={lamp} width="50%" alt="foto" />
               <span className="my-3">Postulamos</span>
             </div>
           </div>
@@ -148,7 +141,7 @@ const StaticInformation = () => {
               </span>
             </div>
             <div className="circle-children">
-              <img src={lamp} width="30%" alt="foto" />
+              <img src={hacerClic} width="30%" alt="foto" />
               <span className="my-3">Seleccionamos</span>
             </div>
           </div>
@@ -170,7 +163,7 @@ const StaticInformation = () => {
               </span>
             </div>
             <div className="circle-children">
-              <img src={lamp} width="30%" alt="foto" />
+              <img src={apoyo} width="40%" alt="foto" />
               <span className="my-3">Acompañamos</span>
             </div>
           </div>
@@ -192,7 +185,7 @@ const StaticInformation = () => {
               </span>
             </div>
             <div className="circle-children">
-              <img src={lamp} width="30%" alt="foto" />
+              <img src={medalla} width="40%" alt="foto" />
               <span className="my-3">Premiamos</span>
             </div>
           </div>
