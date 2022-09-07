@@ -1,9 +1,9 @@
-import { Collapse } from "antd";
+
 import { trazado_amarillo } from "../../../utils/assets/img";
-const { Panel } = Collapse;
 import { Card } from "../../../utils/ui";
 import quienesSomos from "../../../utils/assets/img/quienesSomos.png";
 import queBuscamos from "../../../utils/assets/img/queBuscamos.png";
+import FrequentlyQuestions from "../components/FrequentlyQuestions";
 
 
 const AboutUs = () => {
@@ -68,62 +68,8 @@ const AboutUs = () => {
                   </p>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-12 col-md-12  col-lg-6  mt-4">
-                  <p className="mb-0 my-5">Conoce más acerca de las</p>
-                  <h2 className="text-stake my-2">Preguntas Frecuentes</h2>
-                </div>
-                <div className="my-3">
-                  <Collapse
-                    style={{
-                      background: "#FFFFFF",
-                      border: "0.5px solid #707070",
-                      opacity: "1",
-                    }}
-                  >
-                    <Panel header="Pregunta número 1 " key="1">
-                      <p>
-                        {" "}
-                        Conoce más acerca de las Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Quis blanditiis sit earum
-                        illum quam ipsum, veniam numquam optio rem.
-                        Necessitatibus magni, voluptates dolore et provident
-                        quam cupiditate repudiandae corrupti unde.
-                      </p>
-                    </Panel>
-                    <Panel header="Pregunta número 2" key="2">
-                      <p>
-                        {" "}
-                        Conoce más acerca de las Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Quis blanditiis sit earum
-                        illum quam ipsum, veniam numquam optio rem.
-                        Necessitatibus magni, voluptates dolore et provident
-                        quam cupiditate repudiandae corrupti unde.
-                      </p>
-                    </Panel>
-                    <Panel header="Pregunta número 3" key="3">
-                      <p>
-                        {" "}
-                        Conoce más acerca de las Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Quis blanditiis sit earum
-                        illum quam ipsum, veniam numquam optio rem.
-                        Necessitatibus magni, voluptates dolore et provident
-                        quam cupiditate repudiandae corrupti unde.
-                      </p>
-                    </Panel>
-                    <Panel header="Pregunta número 4" key="4">
-                      <p>
-                        {" "}
-                        Conoce más acerca de las Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Quis blanditiis sit earum
-                        illum quam ipsum, veniam numquam optio rem.
-                        Necessitatibus magni, voluptates dolore et provident
-                        quam cupiditate repudiandae corrupti unde.
-                      </p>
-                    </Panel>
-                  </Collapse>
-                </div>
-              </div>
+              <FrequentlyQuestions />
+             
             </Card>
           </div>
         </div>

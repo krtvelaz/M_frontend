@@ -6,10 +6,11 @@ import { TemplateContext } from '../../../utils/components/template/templateCont
 import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
 import { Card } from '../../../utils/ui';
-import { Tabs } from 'antd';
 import TabPulications from '../../publication/views/TabPulications';
 import FormContact from '../components/FormContact';
 import FormSuscribe from '../components/FormSuscribe';
+import CarouselTestimony from '../components/CarouselTestimony';
+import FrequentlyQuestions from '../components/FrequentlyQuestions';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
@@ -143,7 +144,7 @@ const Homepage = () => {
                             </div>
                         </div>
                         <div className="text-center  py-5">
-                            <a href="#" className="text-white">
+                            <a href="/calendar-events" className="text-white">
                                 Ver calendario de eventos
                             </a>
                         </div>
@@ -160,13 +161,13 @@ const Homepage = () => {
                             Al dar click en suscribirme ahora, acepta los términos y condiciones
                         </a>
                         <div className="row  mt-5">
-                   
+
                             <div className="col-2">
-                                    {/* <p>imagenes</p> */}
-                                   
+                                {/* <p>imagenes</p> */}
+
                             </div>
                             <div className="col-10">
-                        <FormSuscribe/>
+                                <FormSuscribe />
                             </div>
                         </div>
                         <TabPulications />
@@ -177,15 +178,7 @@ const Homepage = () => {
             <section>
                 <div className="container">
                     <div className="row" style={{ background: '#E4EFF0' }}>
-                        <div className="col">imagen</div>
-                        <div className="col-9">
-                            <div>Título del mensaje desde lo humano y motivacional</div>
-                            <p>
-                                Este módulo permitirá la divulgación de mensajes enfocados a lo humano, a la inclusión y
-                                colaboración como base de la solución y transformación digital, buscando así generar
-                                cercanía, empatía y aceptabilidad de los nuevos medios de interacción
-                            </p>
-                        </div>
+                        < CarouselTestimony />
                     </div>
                 </div>
             </section>
@@ -197,15 +190,21 @@ const Homepage = () => {
                             <span className='text-stake-mediun'>Dudas o preguntas</span>
                             <h1 className='text-stake'>Contáctanos</h1>
                         </div>
-                        <p className='mb-4'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate tempora rerum saepe
-                            a adipisci quasi quas nam porro odio modi
-                            deleniti laboriosam molestiae ad architecto,
-                            sit ratione asperiores? Alias, debitis.</p>
+                        <p className='mb-4'>Dudas o inquietudes con respecto a nuestras convocatorias,
+                            eventos o publicaciones que realicemos, estamos atentos para darte una respuesta.
+                            Si tienes alguna duda o pregunta,
+                            completa el siguiente formulario. Todos los campos son requeridos.</p>
                         <div className="container mb-3  col-10 ">
                             <FormContact />
                         </div>
 
                     </div>
+                </div>
+            </section>
+            <section style={{ background: '#FFFFFF' }}>
+                <div className="container">
+                    <FrequentlyQuestions />
+
                 </div>
             </section>
         </>

@@ -349,6 +349,7 @@ img {
   // padding-bottom: 200px;
 }
 
+
 .h1-about {
   font-family: "Montserrat-Bold" !important;
   font-size: 37px !important;
@@ -563,6 +564,65 @@ img {
       transparent);
   border-radius: 16px;
 }
+
+// ************ calendar event ***********
+.box-calendar {
+  background-image: linear-gradient(to top, #ffffff 65%, transparent),
+    url("src/utils/assets/img/headway.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.ant-picker-calendar {
+  margin: 0 60px 0 60px !important;
+}
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none !important;
+ 
+}
+.ant-picker-calendar-date-value{
+  font-family: "Montserrat-Bold" !important;
+  opacity: 1;
+  
+}
+ .ant-picker-calendar-date-content ul {
+  margin: 0 !important;
+  padding: 0 !important;
+ }
+
+ .ant-picker-content thead{
+  background: #603CE6;
+  text-align: center;
+ }
+
+ .ant-picker-content thead tr th{
+  color: #fff;
+ }
+ .ant-picker-content tbody tr td {
+  border:#E9E9E9  solid 1px !important;
+ }
+.events .ant-badge-status {
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+.notes-month section {
+  font-size: 28px;
+  margin: 0;
+  padding: 0;
+}
+
 
 @media (max-width: 425px) {
   .height-carousel {
