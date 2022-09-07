@@ -7,10 +7,13 @@ import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
 import { Card } from '../../../utils/ui';
 import TabPulications from '../../publication/views/TabPulications';
-import CarouselTestimony from '../../banner/components/testimony/CarouselTestimony';
+import FormContact from '../components/FormContact';
+import FormSuscribe from '../components/FormSuscribe';
+import FrequentlyQuestions from '../components/FrequentlyQuestions';
+import CarouselTestimony from '../components/CarouselTestimony';
 
 const Homepage = () => {
-    const context = useContext(TemplateContext); 
+    const context = useContext(TemplateContext);
 
     return (
         <>
@@ -39,7 +42,7 @@ const Homepage = () => {
                 )}
                 <div className="container">
                     <StaticInformation />
-                    <PublishedChallenges /> 
+                    <PublishedChallenges />
                 </div>
             </section>
 
@@ -141,7 +144,7 @@ const Homepage = () => {
                             </div>
                         </div>
                         <div className="text-center  py-5">
-                            <a href="#" className="text-white">
+                            <a href="/calendar-events" className="text-white">
                                 Ver calendario de eventos
                             </a>
                         </div>
@@ -157,26 +160,53 @@ const Homepage = () => {
                         <a href="" style={{ color: '#FFDC2F' }}>
                             Al dar click en suscribirme ahora, acepta los términos y condiciones
                         </a>
+                        <div className="row  mt-5">
+
+                            <div className="col-2">
+                                {/* <p>imagenes</p> */}
+
+                            </div>
+                            <div className="col-10">
+                                <FormSuscribe />
+                            </div>
+                        </div>
                         <TabPulications />
                     </div>
                 </div>
             </section>
 
             <section>
-            <CarouselTestimony />
+    
                 <div className="container">
                     
                     <div className="row" style={{ background: '#E4EFF0' }}>
-                        <div className="col">imagen</div>
-                        <div className="col-9">
-                            <div>Título del mensaje desde lo humano y motivacional</div>
-                            <p>
-                                Este módulo permitirá la divulgación de mensajes enfocados a lo humano, a la inclusión y
-                                colaboración como base de la solución y transformación digital, buscando así generar
-                                cercanía, empatía y aceptabilidad de los nuevos medios de interacción
-                            </p>
-                        </div>
+                        < CarouselTestimony />
                     </div>
+                </div>
+            </section>
+
+            <section style={{ background: '#FFFFFF' }}>
+                <div className="container pt-4 " >
+                    <div className="row justify-content-center " >
+                        <div className='text-center mb-3'>
+                            <span className='text-stake-mediun'>Dudas o preguntas</span>
+                            <h1 className='text-stake'>Contáctanos</h1>
+                        </div>
+                        <p className='mb-4'>Dudas o inquietudes con respecto a nuestras convocatorias,
+                            eventos o publicaciones que realicemos, estamos atentos para darte una respuesta.
+                            Si tienes alguna duda o pregunta,
+                            completa el siguiente formulario. Todos los campos son requeridos.</p>
+                        <div className="container mb-3  col-10 ">
+                            <FormContact />
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section style={{ background: '#FFFFFF' }}>
+                <div className="container">
+                    <FrequentlyQuestions />
+
                 </div>
             </section>
         </>
