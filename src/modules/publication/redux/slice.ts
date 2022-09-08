@@ -4,9 +4,9 @@ import { IEvent, IGalleryInfo, IGeneralInfo } from '../custom_types';
 
 interface State {
     event: Loadable<IEvent | null>;
-    events: Pageable<IEvent>;
+    events: Loadable<IEvent | any[]>;
     list_event: IPageable<IEvent>;
-    list_event_history: any;
+    
 
     publication: Loadable<IGeneralInfo | null>;
     publications: Loadable<IGeneralInfo | null>;
@@ -41,13 +41,6 @@ const initialState: State = {
     },
     events: {
         value: [],
-        pagination: {
-            page: 1,
-            count: 0,
-            next_page: null,
-            previous_page: null,
-            total_results: 0,
-        },
         loading: false,
         loaded: false,
     },
@@ -99,11 +92,7 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
-    list_event_history: {
-        value: [],
-        loading: false,
-        loaded: false,
-    },
+   
 };
 
 export const eventSlice = createSlice({
@@ -242,23 +231,23 @@ export const eventSlice = createSlice({
                 loaded: true,
             };
         },
-        default_list_event_history: (state) => {
-            state.list_event_history = {
-                value: state.list_event_history.value,
+        default_events: (state) => {
+            state.events = {
+                value: state.events.value,
                 loading: true,
                 loaded: false,
             };
         },
-        success_list_event_history: (state, action) => {
-            state.list_event_history = {
+        success_events: (state, action) => {
+            state.events = {
                 value: action.payload,
                 loading: false,
                 loaded: true,
             };
         },
-        fail_list_event_history: (state) => {
-            state.list_event_history = {
-                value: initialState.list_event_history.value,
+        fail_events: (state) => {
+            state.events = {
+                value: initialState.events.value,
                 loading: false,
                 loaded: false,
             };
@@ -295,9 +284,9 @@ export const {
     success_list_event,
     default_list_event,
     fail_list_event,
-    default_list_event_history,
-    success_list_event_history,
-    fail_list_event_history,
+    default_events,
+    success_events,
+    fail_events,
     default_publication,
     success_publication,
     fail_publication,

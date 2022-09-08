@@ -1,10 +1,9 @@
-import { BadgeProps, Card } from 'antd';
+import { BadgeProps, Card, Popover } from 'antd';
 import { Badge, Calendar } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IEvent } from '../../publication/custom_types';
 import { actions } from '../../publication/redux';
 
 const getMonthData = (value: Moment) => {
@@ -19,7 +18,7 @@ const CalendarEvents = () => {
     }, []);
 
     const dispatch = useDispatch<any>();
-    const list_event_history:any = useSelector((store: any) => store.event.list_event_history.value);
+    const events: any = useSelector((store: any) => store.event.events.value);
 
     const get_events = async () => {
         try {
@@ -30,23 +29,27 @@ const CalendarEvents = () => {
     };
     const getListData = (value: Moment) => {
         let listData: any;
-
-        list_event_history?.map((item:any) => {
+        events?.map((item: any) => {
             let year = +moment(item?.eve_fecha).format('YYYY');
             let month = +moment(item?.eve_fecha).format('M');
             let day = +moment(item?.eve_fecha).format('D');
-
             switch (value.year()) {
                 case year:
                     switch (value.month()) {
                         case --month:
                             switch (value.date()) {
-                                case ++day :
+                                case ++day:
                                     listData = [
                                         {
                                             type: 'undefined', content: {
                                                 titulo: item?.eve_titulo,
-                                                evento: item?.eve_descripcion,
+                                                evento: [ 
+                                                    'Descripcion: ', item?.eve_descripcion, <br />,
+                                                    'Lugar del evento: ', item?.eve_lugar_evento, <br />,
+                                                    'Hora: ', item?.eve_hora, <br />,
+                                                    'Numero de cupos: ', item?.eve_numero_cupos, <br />,
+                                                    'Fecha: ', moment(item?.eve_fecha).format('YYYY-MMM-DD')
+                                                ],
                                             }
                                         },
                                     ];
@@ -79,10 +82,12 @@ const CalendarEvents = () => {
         return (
             <ul  >
                 {listData.map((item: any) => (
-                    <li className="card events " style={{ background: '#FF8403' }} >
-                        <Badge style={{ color: '#FFFFFF' }} status={item.type as BadgeProps['status']} text={item.content.titulo} />
-                        <Badge style={{ color: '#FFFFFF' }} status={item.type as BadgeProps['status']} text={item.content.evento} />
-                    </li>
+                    <Popover content={item.content.evento} title={item.content.titulo}>
+                        <li className="card events " style={{ background: '#FF8403' }} >
+                            <Badge style={{ color: '#FFFFFF' }} status={item.type as BadgeProps['status']} text={item.content.titulo} />
+                            <Badge style={{ color: '#FFFFFF' }} status={item.type as BadgeProps['status']} text={item.content.titulo} />
+                        </li>
+                    </Popover>
                 ))}
             </ul>
         );
