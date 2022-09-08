@@ -6,6 +6,7 @@ interface State {
     event: Loadable<IEvent | null>;
     events: Pageable<IEvent>;
     list_event: IPageable<IEvent>;
+    list_event_history: any;
 
     publication: Loadable<IGeneralInfo | null>;
     publications: Loadable<IGeneralInfo | null>;
@@ -94,6 +95,11 @@ const initialState: State = {
         loaded: false,
     },
     list_gallery: {
+        value: [],
+        loading: false,
+        loaded: false,
+    },
+    list_event_history: {
         value: [],
         loading: false,
         loaded: false,
@@ -236,6 +242,28 @@ export const eventSlice = createSlice({
                 loaded: true,
             };
         },
+        default_list_event_history: (state) => {
+            state.list_event_history = {
+                value: state.list_event_history.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_list_event_history: (state, action) => {
+            state.list_event_history = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_list_event_history: (state) => {
+            state.list_event_history = {
+                value: initialState.list_event_history.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+
         default_list_gallery: (state) => {
             state.list_gallery = {
                 value: state.list_gallery.value,
@@ -267,6 +295,9 @@ export const {
     success_list_event,
     default_list_event,
     fail_list_event,
+    default_list_event_history,
+    success_list_event_history,
+    fail_list_event_history,
     default_publication,
     success_publication,
     fail_publication,
