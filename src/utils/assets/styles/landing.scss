@@ -186,6 +186,16 @@ img {
 
 /***** inclusion participación *****/
 
+.container-static-information {
+    width: 1000px;
+}
+
+@media (max-width: 1024px) {
+    .container-static-information  {
+        width: auto;
+    }
+}
+
 .container-stake {
     margin: 0 0 20px 0;
 }
@@ -215,8 +225,8 @@ img {
 
 .circle-text-wraps {
     position: relative;
-    width: 15rem;
-    height: 15rem;
+    width: 13rem;
+    height: 13rem;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -301,7 +311,7 @@ img {
 
 .card-challenge {
     border-radius: 40px;
-    width: 340px;
+    width: 320px;
     margin-right: auto !important;
     margin-left: auto !important;
 }
@@ -326,8 +336,12 @@ img {
     font-size: 12px;
 }
 
+.card-challenge .ant-card-body {
+    padding: 20px;
+}
+
 .ant-card-bordered {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .ant-card-body {
@@ -526,14 +540,19 @@ img {
 .date-event {
     background: #ff7415;
     border-radius: 8px;
-    padding: 5px;
+    padding: 10px;
     font-family: 'Montserrat-SemiBold' !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     margin-bottom: 10px;
+}
+
+.card-event .ant-card-actions {
+ border-top: none;
 }
 
 .title-card-event {
     font-family: 'Montserrat-Bold' !important;
+    line-Height: normal;
     font-size: 15px !important;
     margin-bottom: 10px;
 }

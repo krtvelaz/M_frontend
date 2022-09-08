@@ -218,15 +218,23 @@ textarea.form-control {
 
 // popover
 .ant-popover-inner {
-    border-radius: 40px;
-    width: 1000px;
+    border-radius: 16px;
+    // width: 1000px;
 }
 
-@media (max-width: 768px) {
-    .ant-popover-inner {
-        width: auto;
-    }
-}
+// .ant-popover-arrow {
+//     display: none;
+// }
+
+// @media (max-width: 768px) {
+//     .ant-popover-inner {
+//         width: auto;
+//     }
+// }
+
+// .popover-span:hover {
+//     color: #F28C02;
+//   }
 
 .ant-drawer-header-title {
     justify-content: end;
@@ -371,9 +379,6 @@ textarea.form-control {
 }
 
 
-.ant-popover-arrow {
-    display: none;
-}
 
 
 

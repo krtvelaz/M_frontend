@@ -1,5 +1,13 @@
 import { useContext } from 'react';
-import { figurasFondo, fondo_retos, grupo_personas, rocket, trazado_amarillo } from '../../../utils/assets/img';
+import {
+    arrowLeft,
+    arrowRight,
+    figurasFondo,
+    fondo_retos,
+    grupo_personas,
+    rocket,
+    trazado_amarillo,
+} from '../../../utils/assets/img';
 import StatisticsLanding from '../../banner/components/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
@@ -11,6 +19,7 @@ import FormContact from '../components/FormContact';
 import FormSuscribe from '../components/FormSuscribe';
 import FrequentlyQuestions from '../components/FrequentlyQuestions';
 import CarouselTestimony from '../components/CarouselTestimony';
+import CarouselEvent from '../../publication/components/event/CarouselEvent';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
@@ -37,7 +46,7 @@ const Homepage = () => {
 
             <section className="container-challenges">
                 <img src={fondo_retos} alt="letras medeinn" className="imagen-fondo" />
-                {context.device === 'lg' &&  (
+                {context.device === 'lg' && (
                     <img src={grupo_personas} alt="grupo personas" className="imagen-grupo-personas" />
                 )}
                 <div className="container">
@@ -50,104 +59,14 @@ const Homepage = () => {
                 <img src={figurasFondo} alt="fihuras de fondo" className="figuras-fondo" />
                 <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
                 <div className="imagen-fondo-events">
-                    <div className="container">
-                        <div
-                            className="text-white text-center container-cards-events"
-                            style={{ padding: '3rem 0 1rem 0' }}
-                        >
-                            Eventos más cercanos
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-4 col-lg-4">
-                                <Card
-                                    actions={[
-                                        <div className="my-3 d-flex justify-content-end">
-                                            <button className="btn-cupos-primary me-5">Cupos limitados</button>
-                                            <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>,
-                                    ]}
-                                >
-                                    <div className="row">
-                                        <div className="col-12 col-md-12 col-lg-3">
-                                            <div className="text-white text-center date-event">AGO 04</div>
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-9">
-                                            <div className="title-card-event">
-                                                Título del evento próximo, no debe sobrepasar dos líneas
-                                            </div>
-                                            <p className="">
-                                                Agregar contenido descriptivo para esta sección donde se pueda entender
-                                                por parte del usuario si el contenido es de su interés.
-                                            </p>
-                                            <div className="my-4">Lugar del evevento</div>
-
-                                            <span>3: 00 pm</span>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </div>
-                            <div className="col-12 col-md-4 col-lg-4">
-                                <Card
-                                    actions={[
-                                        <div className="my-3 d-flex justify-content-end">
-                                            <button className="btn-cupos-primary me-5">Cupos limitados</button>
-                                            <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>,
-                                    ]}
-                                >
-                                    <div className="row">
-                                        <div className="col-12 col-md-12 col-lg-3">
-                                            <div className="text-white text-center date-event">AGO 04</div>
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-9">
-                                            <div className="title-card-event">
-                                                Título del evento próximo, no debe sobrepasar dos líneas
-                                            </div>
-                                            <p className="">
-                                                Agregar contenido descriptivo para esta sección donde se pueda entender
-                                                por parte del usuario si el contenido es de su interés.
-                                            </p>
-                                            <div className="my-4">Lugar del evevento</div>
-
-                                            <span>3: 00 pm</span>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </div>
-                            <div className="col-12 col-md-4 col-lg-4">
-                                <Card
-                                    actions={[
-                                        <div className="my-3 d-flex justify-content-end">
-                                            <button className="btn-cupos-primary me-5">Cupos limitados</button>
-                                            <button className="btn btn-primary me-3">Asistiré</button>
-                                        </div>,
-                                    ]}
-                                >
-                                    <div className="row">
-                                        <div className="col-12 col-md-12 col-lg-3">
-                                            <div className="text-white text-center date-event">AGO 04</div>
-                                        </div>
-                                        <div className="col-12 col-md-12 col-lg-9">
-                                            <div className="title-card-event">
-                                                Título del evento próximo, no debe sobrepasar dos líneas
-                                            </div>
-                                            <p className="">
-                                                Agregar contenido descriptivo para esta sección donde se pueda entender
-                                                por parte del usuario si el contenido es de su interés.
-                                            </p>
-                                            <div className="my-4">Lugar del evevento</div>
-
-                                            <span>3: 00 pm</span>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </div>
-                        </div>
-                        <div className="text-center  py-5">
-                            <a href="/calendar-events" className="text-white">
-                                Ver calendario de eventos
-                            </a>
-                        </div>
+                    <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
+                        Eventos más cercanos
+                    </div>
+                    <CarouselEvent />
+                    <div className="text-center  pb-5">
+                        <a style={{ position: 'relative', zIndex: 1, bottom: '20px' }} href="/calendar-events" className="text-white">
+                            Ver calendario de eventos
+                        </a>
                     </div>
                 </div>
                 <div className="container">
@@ -160,15 +79,8 @@ const Homepage = () => {
                         <a href="" style={{ color: '#FFDC2F' }}>
                             Al dar click en suscribirme ahora, acepta los términos y condiciones
                         </a>
-                        <div className="row  mt-5">
-
-                            <div className="col-2">
-                                {/* <p>imagenes</p> */}
-
-                            </div>
-                            <div className="col-10">
-                                <FormSuscribe />
-                            </div>
+                        <div className=" mt-5">
+                            <FormSuscribe />
                         </div>
                         <TabPulications />
                     </div>
@@ -176,37 +88,34 @@ const Homepage = () => {
             </section>
 
             <section>
-    
                 <div className="container">
-                    
                     <div className="row" style={{ background: '#E4EFF0' }}>
-                        < CarouselTestimony />
+                        <CarouselTestimony />
                     </div>
                 </div>
             </section>
 
             <section style={{ background: '#FFFFFF' }}>
-                <div className="container pt-4 " >
-                    <div className="row justify-content-center " >
-                        <div className='text-center mb-3'>
-                            <span className='text-stake-mediun'>Dudas o preguntas</span>
-                            <h1 className='text-stake'>Contáctanos</h1>
+                <div className="container pt-4 ">
+                    <div className="row justify-content-center ">
+                        <div className="text-center mb-3">
+                            <span className="text-stake-mediun">Dudas o preguntas</span>
+                            <h1 className="text-stake">Contáctanos</h1>
                         </div>
-                        <p className='mb-4'>Dudas o inquietudes con respecto a nuestras convocatorias,
-                            eventos o publicaciones que realicemos, estamos atentos para darte una respuesta.
-                            Si tienes alguna duda o pregunta,
-                            completa el siguiente formulario. Todos los campos son requeridos.</p>
+                        <p className="mb-4">
+                            Dudas o inquietudes con respecto a nuestras convocatorias, eventos o publicaciones que
+                            realicemos, estamos atentos para darte una respuesta. Si tienes alguna duda o pregunta,
+                            completa el siguiente formulario. Todos los campos son requeridos.
+                        </p>
                         <div className="container mb-3  col-10 ">
                             <FormContact />
                         </div>
-
                     </div>
                 </div>
             </section>
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container">
                     <FrequentlyQuestions />
-
                 </div>
             </section>
         </>
