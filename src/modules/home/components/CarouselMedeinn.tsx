@@ -59,14 +59,13 @@ const CarouselMedeinn = () => {
                                     {item?.car_url_video ? <ModalVideo urlVideo={item?.car_url_video} /> : null}
 
                                     {item?.car_url && (
-                                        <button
+                                        <a
+                                        href={`${item?.car_url}`}
                                             className="btn btn-outline-primary ms-5"
-                                            onClick={() => {
-                                                navigate(`..${item?.car_url}`);
-                                            }}
+                                           
                                         >
                                             Conoce más
-                                        </button>
+                                        </a>
                                     )}
                                     {/* <div className="" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                                         <img src={arrowLeft} alt="flecha izquierda" />

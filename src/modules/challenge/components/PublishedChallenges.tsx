@@ -53,7 +53,10 @@ const PublishedChallenges = () => {
                             >
                                 <Card
                                     onClick={() => {
+                                        console.log('devolver');
+                                        
                                         navigate(`../detail-challenge/${challenge?.id}`);
+                                        
                                     }}
                                     hoverable
                                     className="card-challenge"
