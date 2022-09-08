@@ -27,12 +27,16 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
       label: "Crear publicación",
     },
     {
+      path: "/publication/list",
+      label: "Gestionar publicaciones",
+    },
+    {
       path: "/event/create",
       label: "Crear evento",
     },
     {
-      path: "/publication/list",
-      label: "Gestionar publicaciones",
+      path: "/event/list",
+      label: "Gestionar eventos",
     },
   ];
 

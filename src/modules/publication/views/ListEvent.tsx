@@ -9,6 +9,12 @@ import { IEvent } from '../custom_types';
 import { actions } from '../redux';
 
 const ListEvent = () => {
+
+  const [filters, setFilters] = useState({
+    page: 1,
+    pageSize: 10,
+
+  })
   
   const list_events: IEvent[] = useSelector(
     (store: any) => store.event.list_event.value
@@ -23,7 +29,7 @@ const ListEvent = () => {
       const [isChange, setIsChange] = useState<boolean>(false);
 
   const get_events = async () => {
-    await dispatch(actions.get_list_events({}));
+    await dispatch(actions.get_list_events(filters));
   };
 
   const editEvent = async (values: IEvent) => {    
@@ -38,6 +44,10 @@ const ListEvent = () => {
   };
 
   const change_page = (page: number, pageSize?: number) => {
+    setFilters({
+      page,
+      pageSize: pageSize || 10
+    })
     dispatch(actions.get_list_events({page, limi: pageSize}))
   }
 
@@ -47,6 +57,7 @@ const ListEvent = () => {
 
   useEffect(() => {
     if (isChange) {
+      console.log('entra aqui???');
       get_events();
       setIsChange(false);
     }
@@ -181,14 +192,15 @@ const ListEvent = () => {
         </div>
 
         <Card>
-          <h4>Lista de eventos</h4>
           <Table
+          title='Lista de eventos'
             columns={table_columns}
             loading={loading}
             change_page={change_page}
             with_pagination
             count={total}
             items={list_events}
+            paginationTop
           />
         </Card>
       </div>

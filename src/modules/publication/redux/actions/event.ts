@@ -54,7 +54,7 @@ export const create_event = (_values: IEvent) => {
 
 export const delete_event = (id: number) => {
     return async (dispatch: any) => {
-        dispatch(default_event());
+        // dispatch(default_event());
 
         try {
             const URI = `/event/event/${id}`;
@@ -68,9 +68,9 @@ export const delete_event = (id: number) => {
                 confirmButtonText: "Aceptar",
             });
             // dispatch(res.data.body.data);
-            return res.data.body.data;
+            return res.data;
         } catch (error) {
-            dispatch(fail_event());
+            // dispatch(fail_event());
             await swal_error.fire({
                 title: "Error en el proceso",
                 html:
@@ -79,7 +79,7 @@ export const delete_event = (id: number) => {
                 showCancelButton: false,
                 confirmButtonText: "Aceptar",
             });
-            return Promise.reject("Error");
+            return Promise.reject(Error);
         }
     };
 };
@@ -90,12 +90,14 @@ export const get_list_events = ({ page = 1, limi = 10 }) => {
         try {
             const URI = `event/list/${page}/${limi}`;
             const res = await cms_http.get(URI);
+            console.log(res.data);
+            
             const events = {
-                results: res.data.body.data,
-                pagination: res.data.body.meta,
+                results: res.data.data.data,
+                pagination: res.data.data.meta,
             }
             dispatch(success_list_event(events));
-            return res.data.body.data;
+            return res.data.data;
         } catch (error) {
             dispatch(fail_list_event());
             return Promise.reject("Error");
@@ -156,6 +158,7 @@ export const edit_event = (_values: IEvent) => {
             });
             return res.data;
         } catch (error) {
+                        
             dispatch(fail_event());
             await swal_error.fire({
                 title: "Error en el proceso",

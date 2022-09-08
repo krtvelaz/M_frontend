@@ -203,14 +203,20 @@ img {
     font-size: 22px !important;
 }
 
+.text-stake-mediun {
+  font-family: "Montserrat-Bold" !important;
+  font-size: 14px !important;
+}
+
+
 .container-stake p {
     color: #232d50;
 }
 
 .circle-text-wraps {
     position: relative;
-    width: 15rem;
-    height: 15rem;
+    width: 13rem;
+    height: 13rem;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -295,14 +301,14 @@ img {
 
 .card-challenge {
     border-radius: 40px;
-    width: 330px;
+    width: 320px;
     margin-right: auto !important;
     margin-left: auto !important;
 }
 
 .body-card-challenge h3 {
     font-family: 'Montserrat-SemiBold';
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .body-card-challenge p {
@@ -320,8 +326,12 @@ img {
     font-size: 12px;
 }
 
+.card-challenge .ant-card-body {
+    padding: 20px;
+}
+
 .ant-card-bordered {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .ant-card-body {
@@ -345,6 +355,7 @@ img {
     overflow: hidden;
     // padding-bottom: 200px;
 }
+
 
 .h1-about {
     font-family: 'Montserrat-Bold' !important;
@@ -391,12 +402,12 @@ img {
 }
 
 .imagen-fondo-detalle {
-    left: -850px;
+    left: -810px;
     bottom: 110px;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 202%;
+    max-width: 200%;
     max-height: 750px;
     z-index: 3;
     overflow: hidden;
@@ -404,12 +415,12 @@ img {
 
 .imagen-fondo-mujer {
     left: -55%;
-    bottom: -10%;
+    bottom: -20%;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 90%;
-    z-index: 2;
+    max-width: 85%;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -418,7 +429,7 @@ img {
     padding: 20px;
     max-width: 80%;
     margin-left: auto;
-    background: linear-gradient(to top, #ffffff, transparent);
+    background: linear-gradient(to top, #ffffff 80%, transparent 100%);
     opacity: 1;
     margin-top: 50px;
     backdrop-filter: blur(43px);
@@ -444,7 +455,13 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background: linear-gradient(to top, #ffffff, #ffffff, transparent);
+    background: linear-gradient(
+        to top,
+        #ffffff 70%,
+        transparent 90%,
+        transparent 100%
+    );
+    z-index: 2;
 }
 
 /********** responsive detalle reto *******/
@@ -459,6 +476,22 @@ img {
 
     .imagen-fondo-mujer {
         display: none;
+    }
+
+    .container-img-principal img {
+        top: 0 !important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-detail-challenge {
+        padding-bottom: 0px !important;
+    }
+
+    .imagen-fondo-detalle {
+        left: 0px;
+        bottom: 0px;
+        z-index: 0;
     }
 }
 
@@ -483,7 +516,7 @@ img {
 
 .imagen-fondo-events {
     position: relative;
-    background-image: url('src/utils/assets/img/business-man.png');
+    background-image: url('src/utils/assets/img/businessMan.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -497,14 +530,19 @@ img {
 .date-event {
     background: #ff7415;
     border-radius: 8px;
-    padding: 5px;
+    padding: 10px;
     font-family: 'Montserrat-SemiBold' !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     margin-bottom: 10px;
+}
+
+.card-event .ant-card-actions {
+ border-top: none;
 }
 
 .title-card-event {
     font-family: 'Montserrat-Bold' !important;
+    line-Height: normal;
     font-size: 15px !important;
     margin-bottom: 10px;
 }
@@ -578,13 +616,72 @@ img {
     padding: 50px;
 }
 
+// ************ calendar event ***********
+.box-calendar {
+  background-image: linear-gradient(to top, #ffffff 65%, transparent),
+    url("src/utils/assets/img/headway.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.ant-picker-calendar {
+  margin: 0 60px 0 60px !important;
+}
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none !important;
+ 
+}
+.ant-picker-calendar-date-value{
+  font-family: "Montserrat-Bold" !important;
+  opacity: 1;
+  
+}
+ .ant-picker-calendar-date-content ul {
+  margin: 0 !important;
+  padding: 0 !important;
+ }
+
+ .ant-picker-content thead{
+  background: #603CE6;
+  text-align: center;
+ }
+
+ .ant-picker-content thead tr th{
+  color: #fff;
+ }
+ .ant-picker-content tbody tr td {
+  border:#E9E9E9  solid 1px !important;
+ }
+.events .ant-badge-status {
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+.notes-month section {
+  font-size: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+
 @media (max-width: 425px) {
     .height-carousel {
         height: 200px;
     }
-    
+
     .history-challenges {
-      padding: 5px;
+        padding: 5px;
     }
 }
 
@@ -688,6 +785,6 @@ img {
         margin-bottom: 100px;
     }
     .card-challenge {
-      width: 300px;
-  }
+        width: 300px;
+    }
 }

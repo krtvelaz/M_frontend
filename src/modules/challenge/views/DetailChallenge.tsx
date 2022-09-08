@@ -28,11 +28,6 @@ const DetailChallenge = () => {
         }
     };
 
-   
-
-   
-    
-
     useEffect(() => {
         getChallenge();
     }, []);
@@ -52,161 +47,188 @@ const DetailChallenge = () => {
                 }}
             >
                 <div className="container">
-                <div className="container-img-principal">
-                    <img src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`} alt="imagen" className="w-100" />
-                </div>
+                    <div className="container-img-principal">
+                        <img
+                            src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
+                            alt="imagen"
+                            className="w-100"
+                            style={{position: 'relative', top: '-13%'}}
+                        />
+                    </div>
 
-                <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" />
+                    <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" />
 
-                
-
-                <div
-                    className="row"
-                    style={{
-                        position: 'relative',
-                        // zIndex: 1,
-                    }}
-                >
-                    <div className="col-12">
-                        <div
-                            className="row container-detail-challenge"
-                            style={{
-                                background: 'white',
-                                borderRadius: '18px',
-                                boxShadow: '0px 30px 80px #00000029',
-                                opacity: 1,
-                                paddingBottom: '300px',
-                            }}
-                        >
+                    <div
+                        className="row"
+                        style={{
+                            position: 'relative',
+                            marginTop: '180px',
+                            // zIndex: 1,
+                        }}
+                    >
+                        <div className="col-12">
                             <div
-                                className="col-12 col-md-12 col-lg-4"
+                                className="row container-detail-challenge"
                                 style={{
-                                    padding: 0,
-                                    marginTop: '-120px',
-                                }}
-                            >
-                                <div className="card-detail-challenge" style={{ position: 'relative', zIndex: 100}}>
-                                <img src={mujerOk} alt="" className="imagen-fondo-mujer" />
-                                    <h5 className="my-4 card-title-challenge">{challenge?.cha_name}</h5>
-
-                                    <div className="d-flex justify-content-center text-center align-items-center flex-column">
-                                        <i
-                                            className="fa fa-calendar-o mx-3"
-                                            aria-hidden="true"
-                                            style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}
-                                        ></i>
-                                        <div>
-                                            <p className="my-3" style={{ fontFamily: 'Montserrat-SemiBold' }}>
-                                                Fecha de vigencia para postulaciones
-                                            </p>
-                                            <div className="my-4">
-                                                <span style={{ fontWeight: 'bold' }}>INICIO DEL RETO: </span>
-                                                {formatDate(challenge?.cha_start_date)}
-                                            </div>
-                                            <div>
-                                                <span style={{ fontWeight: 'bold' }}>FIN DEL RETO: </span>
-                                                {formatDate(challenge?.cha_end_date)}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="mx-auto my-5"
-                                        style={{
-                                            background: 'white',
-                                            borderRadius: '50%',
-                                            textAlign: 'center',
-                                            height: '10rem',
-                                            width: '10rem',
-                                            boxShadow: '0px 3px 6px #00000029',
-                                            opacity: 1,
-                                        }}
-                                    >
-                                        <img
-                                            src={piezaRompecabezas}
-                                            alt="pieza rompecabezas"
-                                            className="mx-auto"
-                                            width={70}
-                                            style={{
-                                                paddingTop: '20px',
-                                            }}
-                                        />
-                                    </div>
-
-                                    <h5 style={{ textAlign: 'center' }}>El problema y el reto</h5>
-                                    <div style={{ textAlign: 'center' }} className="my-3">
-                                        Conoce la problemática actual
-                                    </div>
-
-                                    <hr className="hr-color" />
-
-                                    {challenge?.ret_video && <Link to="/" name="Presentación" iconText=">" />}
-
-                                    <div className="my-4" style={{ textAlign: 'center' }}>
-                                        <ModalVideo urlVideo={challenge?.cha_video_url} />
-                                    </div>
-
-                                    <div
-                                        className="my-5 mx-auto"
-                                        style={{
-                                            boxShadow: '0px 3px 6px #00000029',
-                                            borderRadius: '12px',
-                                            textAlign: 'center',
-                                            padding: '10px',
-                                            width: '125px',
-                                        }}
-                                    >
-                                        {challenge?.cha_total_days !== 0 ? (
-                                            <div>
-                                                <div
-                                                    style={{
-                                                        fontFamily: 'Montserrat-Bold',
-                                                        fontSize: '16px',
-                                                    }}
-                                                >
-                                                    FALTAN
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        fontFamily: 'Montserrat-Bold',
-                                                        fontSize: '30px',
-                                                    }}
-                                                >
-                                                    {challenge?.cha_total_days}
-                                                </div>
-                                                <div style={{ fontSize: '10px' }}>Días para el cierre del reto</div>
-                                            </div>
-                                        ) : (
-                                            <span style={{ color: 'red', fontWeight: 'bold', fontSize: '16px' }}>
-                                                {' '}
-                                                RETO CERRADO
-                                            </span>
-                                        )}
-                                    </div>
-                                    <hr className="hr-color" />
-                                </div>
-                            </div>
-                            <div
-                                className="col-12 col-md-12 col-lg-7"
-                                style={{
-                                    padding: 0,
+                                    background: 'white',
+                                    borderRadius: '18px',
+                                    boxShadow: '0px 30px 80px #00000029',
+                                    opacity: 1,
+                                    paddingBottom: '300px',
                                 }}
                             >
                                 <div
+                                    className="col-12 col-md-12 col-lg-5"
                                     style={{
-                                        borderRadius: '20px',
-                                        padding: '20px',
+                                        padding: 0,
+                                        marginTop: '-240px',
                                     }}
                                 >
-                                    <InfoDetailChallenge challenge={challenge} />
+                                    <div
+                                        className="card-detail-challenge"
+                                        // style={{ position: 'relative', zIndex: 100 }}
+                                    >
+                                        <img src={mujerOk} alt="" className="imagen-fondo-mujer" />
+                                        <h5 className="my-4 card-title-challenge text-center">{challenge?.cha_name}</h5>
+                                        <div className="row mb-3">
+                                            <div className="col-2">
+                                                <i
+                                                    className="fa fa-calendar-o mx-3"
+                                                    aria-hidden="true"
+                                                    style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}
+                                                ></i>
+                                            </div>
+                                            <div className="col-10">
+                                                <p className="mt-3" style={{ fontFamily: 'Montserrat-SemiBold' }}>
+                                                    Fecha de vigencia para postulaciones
+                                                </p>
+                                                <div className="mb-2">
+                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>INICIO DEL RETO: </span>
+                                                    {formatDate(challenge?.cha_start_date)}
+                                                </div>
+                                                <div>
+                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>FIN DEL RETO: </span>
+                                                    {formatDate(challenge?.cha_end_date)}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* <div className="d-flex justify-content-center text-center align-items-center flex-column">
+                                            <i
+                                                className="fa fa-calendar-o mx-3"
+                                                aria-hidden="true"
+                                                style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}
+                                            ></i>
+                                            <div>
+                                                <p className="my-3" style={{ fontFamily: 'Montserrat-SemiBold' }}>
+                                                    Fecha de vigencia para postulaciones
+                                                </p>
+                                                <div className="my-4">
+                                                    <span style={{ fontWeight: 'bold' }}>INICIO DEL RETO: </span>
+                                                    {formatDate(challenge?.cha_start_date)}
+                                                </div>
+                                                <div>
+                                                    <span style={{ fontWeight: 'bold' }}>FIN DEL RETO: </span>
+                                                    {formatDate(challenge?.cha_end_date)}
+                                                </div>
+                                            </div>
+                                        </div> */}
+
+                                        <div
+                                            className="mx-auto my-5"
+                                            style={{
+                                                background: 'white',
+                                                borderRadius: '50%',
+                                                textAlign: 'center',
+                                                height: '10rem',
+                                                width: '10rem',
+                                                boxShadow: '0px 3px 6px #00000029',
+                                                opacity: 1,
+                                            }}
+                                        >
+                                            <img
+                                                src={piezaRompecabezas}
+                                                alt="pieza rompecabezas"
+                                                className="mx-auto"
+                                                width={70}
+                                                style={{
+                                                    paddingTop: '20px',
+                                                }}
+                                            />
+                                        </div>
+
+                                        <h5 style={{ textAlign: 'center' }}>El problema y el reto</h5>
+                                        <div style={{ textAlign: 'center' }} className="my-3">
+                                            Conoce la problemática actual
+                                        </div>
+
+                                        <hr className="hr-color" />
+
+                                        {challenge?.ret_video && <Link to="/" name="Presentación" iconText=">" />}
+
+                                        <div className="my-4" style={{ textAlign: 'center' }}>
+                                            <ModalVideo urlVideo={challenge?.cha_video_url} />
+                                        </div>
+
+                                        <div
+                                            className="my-5 mx-auto"
+                                            style={{
+                                                boxShadow: '0px 3px 6px #00000029',
+                                                borderRadius: '12px',
+                                                textAlign: 'center',
+                                                padding: '10px',
+                                                width: '125px',
+                                            }}
+                                        >
+                                            {challenge?.cha_total_days !== 0 ? (
+                                                <div>
+                                                    <div
+                                                        style={{
+                                                            fontFamily: 'Montserrat-Bold',
+                                                            fontSize: '16px',
+                                                        }}
+                                                    >
+                                                        FALTAN
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            fontFamily: 'Montserrat-Bold',
+                                                            fontSize: '30px',
+                                                        }}
+                                                    >
+                                                        {challenge?.cha_total_days}
+                                                    </div>
+                                                    <div style={{ fontSize: '10px' }}>Días para el cierre del reto</div>
+                                                </div>
+                                            ) : (
+                                                <span style={{ color: 'red', fontWeight: 'bold', fontSize: '16px' }}>
+                                                    {' '}
+                                                    RETO CERRADO
+                                                </span>
+                                            )}
+                                        </div>
+                                        <hr className="hr-color" />
+                                    </div>
+                                </div>
+                                <div
+                                    className="col-12 col-md-12 col-lg-6"
+                                    style={{
+                                        padding: 0,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            borderRadius: '20px',
+                                            padding: '20px',
+                                        }}
+                                    >
+                                        <InfoDetailChallenge challenge={challenge} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                </div>
-                
             </div>
         </>
     );
