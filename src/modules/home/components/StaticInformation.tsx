@@ -3,7 +3,7 @@ import { apoyo, hacerClic, lamp, medalla, postulamos } from "../../../utils/asse
 
 const StaticInformation = () => {
   const contenido_postulamos = (
-    <div className="row">
+    <div className="row container-static-information">
       <div className="col-2">
         <img
           src={postulamos}
@@ -27,7 +27,7 @@ const StaticInformation = () => {
     </div>
   );
   const contenido_selecionamos = (
-    <div className="row">
+    <div className="row container-static-information">
       <div className="col-2">
         <img
           src={postulamos}
@@ -46,7 +46,7 @@ const StaticInformation = () => {
     </div>
   );
   const contenido_acompañamos = (
-    <div className="row">
+    <div className="row container-static-information">
       <div className="col-2">
         <img
           src={postulamos}
@@ -68,7 +68,7 @@ const StaticInformation = () => {
     </div>
   );
   const contenido_premiamos = (
-    <div className="row">
+    <div className="row container-static-information">
       <div className="col-2">
         <img
           src={postulamos}

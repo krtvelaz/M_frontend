@@ -186,6 +186,16 @@ img {
 
 /***** inclusion participación *****/
 
+.container-static-information {
+    width: 1000px;
+}
+
+@media (max-width: 1024px) {
+    .container-static-information  {
+        width: auto;
+    }
+}
+
 .container-stake {
     margin: 0 0 20px 0;
 }
