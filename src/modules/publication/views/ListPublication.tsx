@@ -75,15 +75,15 @@ const ListPublication = () => {
         {
             title: 'Publicada',
             align: 'left' as 'left',
-            render: (data: IGeneralInfo) => {
+            render: (data: IGeneralInfo) => {              
                 
                 const onChange = async (e: any) => {                    
                     await dispatch(actions.edit_published_publication(data, e?.target?.value));
                 };
                 return (
-                    <Radio.Group onChange={onChange} value={data?.hec_estado}>
+                    <Radio.Group onChange={onChange} value={data?.hec_publicada}>
                         <Radio value={true}>Si</Radio>
-                        <Radio value={false}>No</Radio>
+                        <Radio value={false || null}>No</Radio>
                     </Radio.Group>
                 );
             },

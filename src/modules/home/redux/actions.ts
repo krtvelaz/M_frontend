@@ -33,7 +33,36 @@ const send_email = (values: IContact) =>{
     };
 };
 
+const create_bulletin = (values: any) => {
+    return async (dispatch: any) => {
+        try {
+            const URI = '/contact-us/newsletter-subscribe';
+            const res = await cms_http.post(URI, values,);
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            });
+            return res.data.data;
+        } catch (error: any) {
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` ,
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            });
+            return Promise.reject('Error');
+        }
+    };
+
+}
+
 const actions = {
    send_email,
+   create_bulletin,
 };
 export default actions;

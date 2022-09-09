@@ -19,8 +19,7 @@ const FormSuscribe = () => {
     });
 
     const submit = async (values: any, form: any) => {
-        // await dispatch(actions.send_email(values));
-        console.log(values)
+        await dispatch(actions.create_bulletin(values));
         form.setSubmitting(false);
         form.resetForm();
     };

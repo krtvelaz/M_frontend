@@ -7,6 +7,12 @@ import MedeinnApp from "./MedeinnApp";
 import "./utils/assets/styles/index.scss";
 import TemplateProvider from './utils/components/template/templateContext';
 import { store } from "./config/store";
+import _config from '@arcgis/core/config';
+
+
+if (import.meta.env.VITE_APP_ARGIS_KEY) {
+  _config.apiKey = import.meta.env.VITE_APP_ARGIS_KEY;
+}
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

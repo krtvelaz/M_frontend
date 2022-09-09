@@ -4,6 +4,12 @@ import { swal_success } from "../../../../utils/ui/swalAlert";
 import { IEvent } from "../../custom_types";
 import { default_event, default_list_event, fail_event, fail_list_event, success_event, success_list_event } from "../slice";
 
+interface filter {
+    page: number,
+    page_size?: number,
+    only?: string,
+}
+
 export const create_event = (_values: IEvent) => {
     return async (dispatch: any) => {
         dispatch(default_event());
@@ -20,7 +26,7 @@ export const create_event = (_values: IEvent) => {
             },
         };
         try {
-            const URI = "event/add";
+            const URI = "/event";
             const res = await cms_http.post(URI, data, {
                 headers: {
                     "Content-Type": "application/json",
@@ -84,17 +90,22 @@ export const delete_event = (id: number) => {
     };
 };
 
-export const get_list_events = ({ page = 1, limi = 10 }) => {
+export const get_list_events = (filter?: filter) => {
     return async (dispatch: any) => {
         dispatch(default_list_event());
         try {
-            const URI = `event/list/${page}/${limi}`;
-            const res = await cms_http.get(URI);
-            console.log(res.data);
+            const URI = `event/list/`;
+            const res = await cms_http.get(URI, {
+                params: {
+                    ...filter
+
+                }
+            });
+            
             
             const events = {
-                results: res.data.data.data,
-                pagination: res.data.data.meta,
+                results: res.data.data,
+                pagination: res.data.meta,
             }
             dispatch(success_list_event(events));
             return res.data.data;
@@ -110,9 +121,7 @@ export const get_event_by_id = (id: number) => {
         dispatch(default_event);
         try {
             const URI = `event/list/${id}`;
-            const res = await cms_http.get(URI);
-            console.log(res.data);
-            
+            const res = await cms_http.get(URI);            
             dispatch(success_event(res.data.data[0]));
             return res.data.data[0];
         } catch (error) {
@@ -142,7 +151,7 @@ export const edit_event = (_values: IEvent) => {
         delete data.data.eve_creacion;
 
         try {
-            const URI = "event/add";
+            const URI = "/event";
             const res = await cms_http.post(URI, data, {
                 headers: {
                     "Content-Type": "application/json",
@@ -158,6 +167,7 @@ export const edit_event = (_values: IEvent) => {
                 showCancelButton: false,
                 confirmButtonText: "Aceptar",
             });
+            dispatch(success_event(res.data.data))
             return res.data;
         } catch (error) {
                         
@@ -193,7 +203,7 @@ export const edit_publication_event = (_values: IEvent, is_public?: any) => {
 
 
         try {
-            const URI = "event/add";
+            const URI = "/event";
             const res = await cms_http.post(URI, data, {
                 headers: {
                     "Content-Type": "application/json",
@@ -209,6 +219,7 @@ export const edit_publication_event = (_values: IEvent, is_public?: any) => {
                 showCancelButton: false,
                 confirmButtonText: "Aceptar",
             });
+            dispatch(success_event(res.data.data));
             return res.data;
         } catch (error) {
             dispatch(fail_event());

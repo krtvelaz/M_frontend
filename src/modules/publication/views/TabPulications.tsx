@@ -8,12 +8,14 @@ const TabPulications = () => {
     const { TabPane } = Tabs;
     const dispatch = useDispatch<any>();
     const on_change = (key: string) => {
-        dispatch(actions.get_history_publications(Number(key)))
-    }
-    useEffect(()=> {
-        dispatch(actions.get_history_publications())
-    },[])
-    
+        dispatch(
+            actions.get_history_publications({ page: 1, page_size: 4, only: 'published',  ...(key !== '0' && { form: Number(key) }) })
+        );
+    };
+    useEffect(() => {
+        dispatch(actions.get_history_publications({ page: 1, page_size: 4, only: 'published' }));
+    }, []);
+
     return (
         <div className="my-5">
             <div className="text-white" style={{ fontFamily: '14px' }}>
@@ -24,16 +26,16 @@ const TabPulications = () => {
             </h2>
             <Tabs defaultActiveKey="1" className="tabs-events" onChange={on_change}>
                 <TabPane tab="Todos" key="0">
-                    <DetailCardPublication  />
+                    <DetailCardPublication />
                 </TabPane>
                 <TabPane tab="Noticias" key="1">
-                    <DetailCardPublication  />
+                    <DetailCardPublication />
                 </TabPane>
                 <TabPane tab="Eventos" key="2">
-                    <DetailCardPublication  />
+                    <DetailCardPublication />
                 </TabPane>
                 <TabPane tab="Resultados" key="3">
-                    <DetailCardPublication  />
+                    <DetailCardPublication />
                 </TabPane>
             </Tabs>
         </div>

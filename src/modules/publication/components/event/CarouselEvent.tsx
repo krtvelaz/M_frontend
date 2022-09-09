@@ -12,13 +12,10 @@ const CarouselEvent = () => {
     const events = useSelector((store: any) => store.event.list_event.value);
     const {total} = useSelector((store: any) => store.event.list_event.pagination);
     const number_pages = Number(total)/3;
-    console.log(Math.ceil(number_pages));
     
 
     useEffect(() => {
-        console.log('aqui???');
-
-        dispatch(actions.get_list_events({ page: 1, limi: 3 }));
+        dispatch(actions.get_list_events({ page: 1, page_size: 3, only: 'published' }));
     }, []);
     return (
         <>

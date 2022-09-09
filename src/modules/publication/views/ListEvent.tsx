@@ -12,7 +12,7 @@ const ListEvent = () => {
 
   const [filters, setFilters] = useState({
     page: 1,
-    pageSize: 10,
+    page_size: 10,
 
   })
   
@@ -46,9 +46,9 @@ const ListEvent = () => {
   const change_page = (page: number, pageSize?: number) => {
     setFilters({
       page,
-      pageSize: pageSize || 10
+      page_size: pageSize || 10
     })
-    dispatch(actions.get_list_events({page, limi: pageSize}))
+    dispatch(actions.get_list_events({page, page_size: pageSize}))
   }
 
   useEffect(() => {
@@ -57,7 +57,6 @@ const ListEvent = () => {
 
   useEffect(() => {
     if (isChange) {
-      console.log('entra aqui???');
       get_events();
       setIsChange(false);
     }
@@ -96,6 +95,9 @@ const ListEvent = () => {
           title: "Creado por",
           dataIndex: "audit_trail",
           align: "left" as "left",
+          render: () => {
+            return 'Luisa Sánchez'
+          }
         },
         {
           title: "Publicado",

@@ -14,6 +14,7 @@ const OurChallenges = () => {
     };
 
     const challenges = useSelector((store: any) => store.challenge.challenges.value);
+    const loading = useSelector((store: any) => store.challenge.challenges.loading);
     const dimensions = useSelector((store: any) => store.challenge.dimensions.value);
 
     const onDimiension = (dimension: any) => {
@@ -22,7 +23,7 @@ const OurChallenges = () => {
 
     useEffect(() => {
         dispath(actions.get_history_challenges(activeKey));
-    }, [activeKey]);
+    }, []);
 
     useEffect(() => {
         dispath(actions.get_dimensions());
@@ -34,16 +35,19 @@ const OurChallenges = () => {
                 className="tab-our-challenges"
                 style={{ background: '#fff', position: 'relative', paddingBottom: '120px' }}
             >
-                <img
-                    src="src/utils/assets/img/fondo_retos.svg"
-                    alt=""
-                    style={{
-                        position: 'absolute',
-                        bottom: '-8%',
-                        left: '-50%',
-                        maxWidth: '300%',
-                    }}
-                />
+                {!loading && challenges?.length > 0 && (
+                    <img
+                        src="src/utils/assets/img/fondo_retos.svg"
+                        alt=""
+                        style={{
+                            position: 'absolute',
+                            bottom: '-8%',
+                            left: '-50%',
+                            maxWidth: '300%',
+                        }}
+                    />
+                )}
+
                 <img
                     src={figuraRetos}
                     alt="figuras de fondo"
@@ -58,7 +62,12 @@ const OurChallenges = () => {
                 <Tabs defaultActiveKey="1" onChange={onChange}>
                     <TabPane tab="Retos actuales" key="1">
                         <div className="container mt-5" style={{ position: 'relative' }}>
-                            <button className="btn btn-outline-primary me-3">Todos</button>
+                            <button
+                                className="btn btn-outline-primary me-3 btn-dimension-active"
+                                onClick={() => dispath(actions.get_history_challenges(activeKey))}
+                            >
+                                Todos
+                            </button>
                             {dimensions.map((dimension: any, index: number) => (
                                 <button
                                     className="btn btn-outline-primary me-3"
@@ -68,7 +77,7 @@ const OurChallenges = () => {
                                         var matches = document.querySelectorAll(`.btn-dimension-active`);
                                         for (let i = 0; i < matches.length; i++) {
                                             matches[i].classList.remove('btn-dimension-active');
-                                        }                                        
+                                        }
                                         const element: any = document.querySelector(`#btn-dimension-${dimension.id}`);
                                         element.classList.add('btn-dimension-active');
 
@@ -79,17 +88,35 @@ const OurChallenges = () => {
                                 </button>
                             ))}
 
-                            <div className="row my-5 history-challenges">
-                                {challenges.map((challenge: any) => (
-                                    <div className="col-12 col-md-6 col-lg-4 pt-3">
-                                        {' '}
-                                        <CardImgChallenge data={challenge} />
-                                    </div>
-                                ))}
-                                <div className="col-12 text-right">
-                                    <button className="btn btn-outline-primary">Cargar más retos</button>
+                            {loading ? (
+                                <div className="mx-auto text-center mt-5" style={{ width: '200px' }}>
+                                    Cargando...{' '}
+                                    <i
+                                        className="fa fa-circle-o-notch fa-spin"
+                                        style={{ fontSize: 12, marginLeft: 4, color: '#000' }}
+                                    />
                                 </div>
-                            </div>
+                            ) : (
+                                challenges?.length > 0 ? (
+                                    <div className="row my-5 history-challenges">
+                                        {challenges.map((challenge: any, i: number) => (
+                                            <div className="col-12 col-md-6 col-lg-4 pt-3" key={`card-img-${i}`}>
+                                                {' '}
+                                                <CardImgChallenge data={challenge} />
+                                            </div>
+                                        ))}
+                                        <div className="col-12 text-right">
+                                            <button className="btn btn-outline-primary">Cargar más retos</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="mx-auto text-center mt-5" style={{ width: '200px' }}>
+                                        No hay resultados
+                                    </div>
+                                    
+                                )
+                                
+                            )}
                         </div>
                     </TabPane>
 
@@ -102,8 +129,8 @@ const OurChallenges = () => {
                                 </button>
                             ))}
                             <div className="row my-5 history-challenges">
-                                {challenges.map((challenge: any) => (
-                                    <div className="col-12 col-md-6 col-lg-4 pt-3">
+                                {challenges.map((challenge: any, i: number) => (
+                                    <div className="col-12 col-md-6 col-lg-4 pt-3 " key={`card-img-history-${i}`}>
                                         <CardImgChallenge data={challenge} />
                                     </div>
                                 ))}

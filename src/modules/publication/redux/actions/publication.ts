@@ -201,8 +201,7 @@ export const delete_publication = (id: number) => {
 };
 
 export const get_history_publications = (
-    form?: number,
-    page_number=1,
+    filters?: any
 ) => {
     return async (dispatch: any) => {
         dispatch(default_list_publication());
@@ -210,16 +209,13 @@ export const get_history_publications = (
             const URI = 'news/history';
             const res = await cms_http.get(URI, {
                 params: {
-                    ...(form && form !== 0 && {
-                        form
-                    }),
-                    page_number,
+                    ...filters
                 },
             });
             
             const finalResults = {
-                results: res.data.data.data, 
-                pagination: res.data.data.meta
+                results: res.data.data, 
+                pagination: res.data.meta
             };
             
             dispatch(success_list_publication(finalResults));
@@ -235,7 +231,6 @@ export const edit_published_publication = (
     _values: IGeneralInfo,
     is_public?: any
 ) => {
-    console.log(_values);
     
     return async (dispatch: any) => {
         dispatch(default_publication());

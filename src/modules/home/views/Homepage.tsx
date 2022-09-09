@@ -20,6 +20,7 @@ import FormSuscribe from '../components/FormSuscribe';
 import FrequentlyQuestions from '../components/FrequentlyQuestions';
 import CarouselTestimony from '../components/CarouselTestimony';
 import CarouselEvent from '../../publication/components/event/CarouselEvent';
+import Map from '../../../utils/components/arcgis/Map';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
@@ -113,11 +114,15 @@ const Homepage = () => {
                     </div>
                 </div>
             </section>
+            {/* <section>
+                <Map />
+            </section> */}
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container">
                     <FrequentlyQuestions />
                 </div>
             </section>
+            
         </>
     );
 };
