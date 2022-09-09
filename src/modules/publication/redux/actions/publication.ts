@@ -172,7 +172,6 @@ export const edit_publication = (values: IGeneralInfo) => {
 
 export const delete_publication = (id: number) => {
     return async (dispatch: any) => {
-        dispatch(default_publication());
 
         try {
             const URI = `news/delete/${id}`;
@@ -188,7 +187,6 @@ export const delete_publication = (id: number) => {
             // dispatch();
             return res.data;
         } catch (error) {
-            dispatch(fail_publication());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:
@@ -237,6 +235,8 @@ export const edit_published_publication = (
     _values: IGeneralInfo,
     is_public?: any
 ) => {
+    console.log(_values);
+    
     return async (dispatch: any) => {
         dispatch(default_publication());
         const values = JSON.parse(JSON.stringify(_values));
@@ -246,14 +246,17 @@ export const edit_published_publication = (
                 id: values.id,
             },
             data: {
-                // eve_numero_cupos: Number(values.eve_numero_cupos) || null,
+                // eve_numero_cupos: Number(values.eve_numero_cupos) || 10,
                 hec_publicada: is_public || false,
             },
         };
 
+        let form: any = new FormData();
+        form.append('data', JSON.stringify(data));
+
         try {
             const URI = 'news/add';
-            const res = await cms_http.post(URI, data, {
+            const res = await cms_http.post(URI, form, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',

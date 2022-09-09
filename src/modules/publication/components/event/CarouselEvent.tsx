@@ -1,3 +1,4 @@
+import { Pagination } from 'antd';
 import 'bootstrap';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,10 +7,13 @@ import { actions } from '../../redux';
 import CardEvent from './CardEvent';
 import PopoverEvent from './PopoverEvent';
 const CarouselEvent = () => {
-    const data = [1, 2];
+    const data = [1];
     const dispatch = useDispatch<any>();
     const events = useSelector((store: any) => store.event.list_event.value);
-    console.log(events);
+    const {total} = useSelector((store: any) => store.event.list_event.pagination);
+    const number_pages = Number(total)/3;
+    console.log(Math.ceil(number_pages));
+    
 
     useEffect(() => {
         console.log('aqui???');
@@ -32,7 +36,6 @@ const CarouselEvent = () => {
                                 <div className="row">
                                     {events.map((event: any) => (
                                         <div className="col-12 col-md-4 col-lg-4">
-                                            <PopoverEvent />
                                             <CardEvent event={event} />
                                         </div>
                                     ))}
