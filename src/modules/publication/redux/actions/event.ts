@@ -111,8 +111,10 @@ export const get_event_by_id = (id: number) => {
         try {
             const URI = `event/list/${id}`;
             const res = await cms_http.get(URI);
-            dispatch(success_event(res.data.body[0]));
-            return res.data.body[0];
+            console.log(res.data);
+            
+            dispatch(success_event(res.data.data[0]));
+            return res.data.data[0];
         } catch (error) {
             dispatch(fail_event());
             return Promise.reject("Error");

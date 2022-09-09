@@ -31,8 +31,8 @@ const ModalEditEvent: FC<ModalFormPros> = ({ onSubmit, id }) => {
         <img
           src={pencil}
           style={{ cursor: "pointer" }}
-          onClick={() => {
-            dispatch(actions.get_event_by_id(id));
+          onClick={async() => {            
+            await dispatch(actions.get_event_by_id(id));
             open();
           }}
           className="img-fluid"

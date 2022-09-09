@@ -186,6 +186,16 @@ img {
 
 /***** inclusion participación *****/
 
+.container-static-information {
+    width: 1000px;
+}
+
+@media (max-width: 1024px) {
+    .container-static-information  {
+        width: auto;
+    }
+}
+
 .container-stake {
     margin: 0 0 20px 0;
 }
@@ -340,14 +350,16 @@ img {
 /****** About-Us *******/
 .img-about {
     background: linear-gradient(to right top, #ffffff, transparent),
-        url('src/utils/assets/img/hombreConGafas.png');
+        // url('src/utils/assets/img/hombreConGafas.png');
+        url('/assets/businessMan.ee9b2e12.png');
     height: 539px;
     background-repeat: no-repeat;
 }
 
 .box-about {
     background-image: linear-gradient(to top, #ffffff 60%, transparent),
-        url('src/utils/assets/img/hombreGafasInteligentes.png');
+        // url('src/utils/assets/img/hombreGafasInteligentes.png');
+        url('assets/hombreGafasInteligentes.1a3cdf5c.png');
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100%;

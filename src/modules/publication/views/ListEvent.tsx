@@ -103,6 +103,7 @@ const ListEvent = () => {
           render: ( data: IEvent ) => {
             const onChange = async (e: any) => {
             await dispatch(actions.edit_publication_event(data, e?.target?.value));
+            await get_events()
             
             };
             

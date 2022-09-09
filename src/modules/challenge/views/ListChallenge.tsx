@@ -49,7 +49,8 @@ const ListChallenge = () => {
             dataIndex: 'createdBy',
             align: 'left' as 'left',
             render: (value: string) => {
-                return moment(value).format('DD / MM / YYYY');
+                return 'Luisa Sánchez'
+                // return moment(value).format('DD / MM / YYYY');
             },
         },
         {
