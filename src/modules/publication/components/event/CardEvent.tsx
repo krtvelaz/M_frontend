@@ -1,3 +1,4 @@
+import moment from "moment";
 import { FC } from "react";
 import { Card } from "../../../../utils/ui";
 import { IEvent } from "../../custom_types";
@@ -20,18 +21,17 @@ const CardEvent: FC<ICardProps> = ({ event }) => {
             <div className="row">
                 <div className="col-12 col-md-12 col-lg-3">
                     <div className="text-white text-center date-event" style={{ lineHeight: 1 }}>
-                        AGO <span style={{ fontSize: '25px', fontFamily: 'Montserrat-Bold' }}>05</span>
+                        {moment(event?.eve_fecha).format('MMM').toUpperCase()} <span style={{ fontSize: '25px', fontFamily: 'Montserrat-Bold' }}>{moment(event?.eve_fecha).format('DD')}</span>
                     </div>
                 </div>
                 <div className="col-12 col-md-12 col-lg-9">
-                    <div className="title-card-event">Título del evento próximo, no debe sobrepasar dos líneas</div>
+                    <div className="title-card-event">{event?.eve_titulo}</div>
                     <p>
-                        Agregar contenido descriptivo para esta sección donde se pueda entender por parte del usuario si
-                        el contenido es de su interés.
+                        {event?.eve_descripcion}
                     </p>
-                    <div className="my-4">Lugar del evento</div>
+                    <div className="my-4">{event?.eve_lugar_evento}</div>
 
-                    <span>3: 00 pm</span>
+                    <span>{moment().format('LT')}</span>
                 </div>
             </div>
         </Card>
