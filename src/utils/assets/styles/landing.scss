@@ -608,6 +608,29 @@ img {
     );
     border-radius: 16px;
 }
+// ***** Registro****
+
+.box-register {
+    background-image: linear-gradient(to top, #ffffff 50%, transparent),
+        url('src/utils/assets/img/personas-trabajando.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
+    // padding-bottom: 200px;
+}
+
+.box-resetPaswword {
+    background-image: linear-gradient(to top, #ffffff 50%, transparent),
+        url('src/utils/assets/img/reset-password.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
+    // padding-bottom: 200px;
+}
 
 /****** nuestros retos *****/
 .tab-our-challenges .ant-tabs-nav-wrap {
