@@ -7,12 +7,40 @@ import ListPublication from "./views/ListPublication";
 import EditPublication from "./views/EditPublication";
 import { guards } from "../home/routes";
 import DetailPublication from "./views/DetailPublication";
+import ListNotifications from "./views/ListNotifications";
+import ListNewsletters from "./views/ListNewsletters";
 
 // import store from '../../config/store';
 ;
 
 const get_routes = (): IRoute[] => {
     return [
+        {
+            exact: true,
+            is_private: true,
+            can_access:  guards.success_login,
+            format: true,
+            path: '/newsletters/list',
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Notificaciones' },
+                ],
+            },
+            component: ListNewsletters,
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access:  guards.success_login,
+            format: true,
+            path: '/notifications/list',
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Notificaciones' },
+                ],
+            },
+            component: ListNotifications,
+        },
         {
             exact: true,
             is_private: true,
