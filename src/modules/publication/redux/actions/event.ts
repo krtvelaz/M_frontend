@@ -2,7 +2,7 @@ import { cms_http } from "../../../../config/axios_instances";
 import { swal_error } from "../../../../utils/ui";
 import { swal_success } from "../../../../utils/ui/swalAlert";
 import { IEvent } from "../../custom_types";
-import { default_event, default_list_event, fail_event, fail_list_event, success_event, success_list_event } from "../slice";
+import { default_event, default_events, default_list_event, fail_event, fail_events, fail_list_event, success_event, success_events, success_list_event } from "../slice";
 
 interface filter {
     page: number,
@@ -111,6 +111,22 @@ export const get_list_events = (filter?: filter) => {
             return res.data.data;
         } catch (error) {
             dispatch(fail_list_event());
+            return Promise.reject("Error");
+        }
+    };
+};
+
+export const get_event_history = () => {
+    return async (dispatch: any) => {
+        dispatch(default_events());
+        try {
+            const URI = 'event/history';
+            const res = await cms_http.get(URI);
+            
+            dispatch(success_events(res.data.data));
+            return res.data.data;
+        } catch (error) {
+            dispatch(fail_events());
             return Promise.reject("Error");
         }
     };

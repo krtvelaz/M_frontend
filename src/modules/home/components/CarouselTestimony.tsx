@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../banner/redux';
 import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
+import { arrowLeft, arrowRight } from '../../../utils/assets/img';
 
 const CarouselTestimony = () => {
     const navigate = useNavigate();
@@ -37,11 +38,17 @@ const CarouselTestimony = () => {
     return (
         <>
             <div >
-                <div className=" carousel slide autoplay" data-bs-ride="carousel">
+                <div
+                    id="carouselTestimony"
+                    className=" carousel slide "
+                    data-bs-interval="false"
+                    data-ride="carousel"
+                    data-pause="hover"
+                >
                     {data?.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
                             <div className="row">
-                                <div className="col-lg-4">
+                                <div className="col-8 col-md-6 col-lg-4">
                                     <img
                                         src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}
                                         className="w-100 h-100"
@@ -49,7 +56,7 @@ const CarouselTestimony = () => {
                                         alt="img"
                                     />
                                 </div>
-                                <div className="col-12 col-md-12 col-lg-6 pt-5">
+                                <div className="col-12 col-md-6 col-lg-6 pt-5">
                                     <div className="row  col-6 mb-5">
                                         <img
                                             src={`data:image/jpeg;charset=utf-8;base64,${logos[i]}`}
@@ -64,14 +71,35 @@ const CarouselTestimony = () => {
                                     </div>
 
                                     <div>
-                                        <button className="btn btn-primary-orange mb-5" onClick={() => {
-                                            navigate(`../challenge`, { replace: true });
+                                        <button style={{position:'relative', zIndex:'1'}} className="btn btn-primary-orange mb-5" onClick={() => {
+                                            navigate(`../our-challenges`, { replace: true });
                                         }}>Conoce los retos</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     ))}
+                </div>
+                <div style={{ position: 'relative', bottom: '-360px', right: '100px', textAlign: 'end' }}>
+                    <div
+                        data-bs-target="#carouselTestimony"
+                        data-bs-slide="prev"
+                        style={{ marginRight: '50px', cursor: 'pointer' }}
+                    >
+                        <img src={arrowLeft} alt="flecha izquierda" />
+                        <span className="visually-hidden">Anterior</span>
+                    </div>
+
+                    <div
+                        data-bs-target="#carouselTestimony"
+                        data-bs-slide="next"
+                        className="ms-5"
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <img src={arrowRight} alt="flecha izquierda" />
+                        <span className="visually-hidden">Siguiente</span>
+                    </div>
                 </div>
             </div>
         </>

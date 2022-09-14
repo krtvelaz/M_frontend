@@ -4,8 +4,9 @@ import { IEvent, IGalleryInfo, IGeneralInfo } from '../custom_types';
 
 interface State {
     event: Loadable<IEvent | null>;
-    events: Pageable<IEvent>;
+    events: Loadable<IEvent | any[]>;
     list_event: IPageable<IEvent>;
+    
 
     publication: Loadable<IGeneralInfo | null>;
     publications: Loadable<IGeneralInfo | null>;
@@ -40,13 +41,6 @@ const initialState: State = {
     },
     events: {
         value: [],
-        pagination: {
-            page: 1,
-            count: 0,
-            next_page: null,
-            previous_page: null,
-            total_results: 0,
-        },
         loading: false,
         loaded: false,
     },
@@ -98,6 +92,7 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
+   
 };
 
 export const eventSlice = createSlice({
@@ -236,6 +231,28 @@ export const eventSlice = createSlice({
                 loaded: true,
             };
         },
+        default_events: (state) => {
+            state.events = {
+                value: state.events.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_events: (state, action) => {
+            state.events = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_events: (state) => {
+            state.events = {
+                value: initialState.events.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+
         default_list_gallery: (state) => {
             state.list_gallery = {
                 value: state.list_gallery.value,
@@ -267,6 +284,9 @@ export const {
     success_list_event,
     default_list_event,
     fail_list_event,
+    default_events,
+    success_events,
+    fail_events,
     default_publication,
     success_publication,
     fail_publication,
