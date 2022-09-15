@@ -35,7 +35,7 @@ const Home = () => {
                   },
                   {
                     name: "Gestionar postulaciones",
-                    to: "/",
+                    to: "/challenge/postulations",
                   },
                 ]}
               />

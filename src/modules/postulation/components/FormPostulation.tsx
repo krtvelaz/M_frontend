@@ -1,8 +1,10 @@
-import { Field, Form, Formik } from 'formik'
-import { FC } from 'react';
+import { Field, Form, Formik,FormikProps,FormikValues } from 'formik'
+import { FC,useRef } from 'react';
 import * as Yup from "yup";
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
+import ComponetCard from "../../../utils/ui/Card";
+
 
 interface PostulationFormPros {
     innerRef: any;
@@ -10,6 +12,8 @@ interface PostulationFormPros {
     postulation?: IPostulation
 }
 const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulation }) => {
+    const form_ref = useRef<FormikProps<FormikValues>>();
+
     const initial_values = {
         name: "",
         document_type: null,
@@ -38,6 +42,8 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
     };
 
     return (
+        <div>
+            <ComponetCard>
         <Formik
             enableReinitialize
             onSubmit={submit}
@@ -286,13 +292,27 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                 {/* <ErrorMessage name="direction" withCount max={100} /> */}
                             </div>
                         </div>
- 
                     </Form>
                 );
             }}
 
         </Formik>
-
+        <button
+              key="saveDoc"
+              type="button"
+              className="btn btn-primary"
+              
+            >
+              Guardar Cambios
+              {form_ref.current?.isSubmitting && (
+                <i
+                  className="fa fa-circle-o-notch fa-spin"
+                  style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+                />
+              )}
+          </button>
+        </ComponetCard>
+        </div>
     );
 }
 
