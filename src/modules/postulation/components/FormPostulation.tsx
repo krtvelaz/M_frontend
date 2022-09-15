@@ -297,13 +297,34 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
             }}
 
         </Formik>
-        <button
+        <div
+        style={{display: "flex",
+            flexDirection: "row-reverse",}}
+        >
+        {/* <button
               key="saveDoc"
               type="button"
               className="btn btn-primary"
+              style={{width:"17%"}}
               
             >
-              Guardar Cambios
+              Atrás
+              {form_ref.current?.isSubmitting && (
+                <i
+                  className="fa fa-circle-o-notch fa-spin"
+                  style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+                />
+              )}
+          </button> */}
+          <button
+              key="saveDoc"
+              type="button"
+              className="btn btn-primary"
+              style={{width:"17%"}}
+              
+            >
+                
+              Registrarme
               {form_ref.current?.isSubmitting && (
                 <i
                   className="fa fa-circle-o-notch fa-spin"
@@ -311,6 +332,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                 />
               )}
           </button>
+        </div>
         </ComponetCard>
         </div>
     );

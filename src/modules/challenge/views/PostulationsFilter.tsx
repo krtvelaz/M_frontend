@@ -24,7 +24,7 @@ const PostulationsFilter = () =>{
           <h5 className="col d-flex justify-content-start" style={{padding: "2% 0% 0% 2%",}} >Gestionar Postulaciones a Retos</h5>                
         </div>
       <Card
-      title="Buscar Reto"
+      title={"Buscar Reto"}
       >
     
     <Formik
