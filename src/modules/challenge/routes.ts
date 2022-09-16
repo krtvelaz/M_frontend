@@ -8,6 +8,7 @@ import ListChallenge from './views/ListChallenge';
 import OurChallenges from './views/OurChallenges';
 import managePostulations from './views/managePostulations';
 import FormPostulation from '../postulation/components/FormPostulation';
+import PostulationView from '../postulation/views/PostulationView';
 
 const get_routes = (): IRoute[] => {
     return [
@@ -116,7 +117,7 @@ const get_routes = (): IRoute[] => {
                     
                 ],
             },
-            component: FormPostulation,
+            component: PostulationView,
         },
         
     ];
