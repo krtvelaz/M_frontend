@@ -1,10 +1,15 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { pencil } from "../../../../utils/assets/img";
+import { IIndicator } from "../../custom_types";
 import FormIndicator from "./FormIndicator";
 
-const ModalEditStatistics = () => {
+interface statistics {
+  data: IIndicator
+}
+
+const ModalEditStatistics: FC<statistics> = ({ data }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [visible, setvisible] = useState<boolean>(false);
   const open = () => setvisible(true);
@@ -60,7 +65,7 @@ const ModalEditStatistics = () => {
           </button>,
         ]}
       >
-       <FormIndicator innerRef={form_ref} onSubmit={editStatistics} />
+       <FormIndicator innerRef={form_ref} onSubmit={editStatistics} indicator={data} />
       </Modal>
     </>
   )

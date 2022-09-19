@@ -12,7 +12,7 @@ const CreateIndicator = () => {
     const dispatch = useDispatch<any>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-    const statistics: IIndicator = useSelector((store: any) => store.banner.statistics.value);
+    const statistics: IIndicator[] = useSelector((store: any) => store.banner.statistics.value);
     const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
 
     const table_columns: any = [
@@ -23,13 +23,18 @@ const CreateIndicator = () => {
             align: 'center' as 'center',
         },
         {
+            title: 'Nombre',
+            dataIndex: 'sta_name',
+            align: 'left' as 'left',
+        },
+        {
             title: 'Valor',
-            dataIndex: 'value',
+            dataIndex: 'sta_value',
             align: 'left' as 'left',
         },
         {
             title: 'Descripción',
-            dataIndex: 'description',
+            dataIndex: 'sta_description',
             align: 'left' as 'left',
         },
         {
@@ -41,8 +46,8 @@ const CreateIndicator = () => {
                     dataIndex: 'id',
                     fixed: 'right',
                     align: 'center' as 'center',
-                    render: () => {
-                      return <ModalEditStatistics />;
+                    render: (value: IIndicator) => {
+                      return <ModalEditStatistics data={value}/>;
                     }
                 },
             ],
@@ -84,14 +89,8 @@ const CreateIndicator = () => {
                     <Card>
                         <Table
                             columns={table_columns}
-                            title="Lista de retos"
-                            paginationTop
-                            items={[
-                                {
-                                    value: 78546,
-                                    description: 'kghkhkjhjk jhgjhgj',
-                                },
-                            ]}
+                            
+                            items={statistics}
                             // change_page={change_page}
                             // count={total}
                             with_pagination

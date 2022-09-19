@@ -58,14 +58,23 @@ export const create_statistics = (_values: IIndicator) => {
     };
 };
 
-export const get_statistics = () => {
+export const get_statistics = (filters? : {
+    page: number,
+    page_size?: number,
+    order_by_key?: string,
+    order_by_value?: string,
+}) => {
     return async (dispatch: any) => {
         dispatch(statistics_default());
         try {
-            const URI = 'statistics/last';
-            const res = await cms_http.get(URI);
-            dispatch(statistics_success(res.data.body.data[0]));
-            return res.data.body.data[0];
+            const URI = '/statistics/list';
+            const res = await cms_http.get(URI, {
+                params: {
+                    ...filters
+                }
+            });
+            dispatch(statistics_success(res.data.data));
+            return res.data.data;
         } catch (error) {
             dispatch(statistics_fail());
             return Promise.reject('Error');
