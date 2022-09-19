@@ -11,7 +11,7 @@ const ListPublication = () => {
     const list_publication: IGeneralInfo[] = useSelector((store: any) => store.event.list_publication.value);
     const { total }: any = useSelector((store: any) => store.event.list_publication.pagination);
     const loading: any = useSelector((store: any) => store.event.list_publication.loading);
-        
+
     const [isChange, setIsChange] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const onDelete = async (id: number) => {
@@ -75,15 +75,19 @@ const ListPublication = () => {
         {
             title: 'Publicada',
             align: 'left' as 'left',
-            render: (data: IGeneralInfo) => {              
-                
-                const onChange = async (e: any) => {                    
+            render: (data: IGeneralInfo) => {
+                const onChange = async (e: any) => {
                     await dispatch(actions.edit_published_publication(data, e?.target?.value));
+                    setIsChange(true);
                 };
                 return (
                     <Radio.Group onChange={onChange} value={data?.hec_publicada}>
                         <Radio value={true}>Si</Radio>
-                        <Radio value={false || null}>No</Radio>
+                        {data?.hec_publicada === false ? (
+                            <Radio value={false}>No</Radio>
+                        ) : (
+                            <Radio value={null}>No</Radio>
+                        )}
                     </Radio.Group>
                 );
             },
