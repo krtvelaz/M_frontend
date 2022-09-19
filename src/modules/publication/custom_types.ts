@@ -35,6 +35,8 @@ export interface IGeneralInfo {
     hec_nombre_imagen?: string;
     hec_imagen?: any;
     hec_nombre_codificado_imagen_principal?: string;
+    hec_galerias?: any;
+    hec_imagen_principal_buffer?: any
     id?: number;
     hec_publicada?: boolean;
     hec_creado?: string;

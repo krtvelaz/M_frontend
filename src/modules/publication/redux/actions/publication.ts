@@ -93,10 +93,14 @@ export const get_publication_by_id = (id: number) => {
     return async (dispatch: any) => {
         dispatch(default_publication());
         try {
-            const URI = `news/find/${id}`;
-            const res = await cms_http.get(URI);
-            dispatch(success_publication(res.data.body.data[0]));
-            return res.data.body.data[0];
+            const URI = `/news/details`;
+            const res = await cms_http.get(URI, {
+                params: {
+                    id
+                }
+            });
+            dispatch(success_publication(res.data.data));
+            return res.data.data;
         } catch (error) {
             dispatch(fail_publication());
             return Promise.reject('Error');
@@ -128,6 +132,8 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.data.hec_nombre_imagen;
         delete data.data.hec_publicada;
         delete data.data.hec_imagen;
+        delete data.data.hec_galerias;
+        delete data.data.hec_imagen_principal_buffer;
         let form: any = new FormData();
         delete data.data.id;
         form.append('data', JSON.stringify(data));
