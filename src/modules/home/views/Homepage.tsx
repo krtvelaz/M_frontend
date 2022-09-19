@@ -1,19 +1,16 @@
 import { useContext } from 'react';
 import {
-    arrowLeft,
-    arrowRight,
     figurasFondo,
     fondo_retos,
     grupo_personas,
     rocket,
     trazado_amarillo,
 } from '../../../utils/assets/img';
-import StatisticsLanding from '../../banner/components/StatisticsLanding';
+import StatisticsLanding from '../../banner/components/statistics/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
-import { Card } from '../../../utils/ui';
 import TabPulications from '../../publication/views/TabPulications';
 import FormContact from '../components/FormContact';
 import FormSuscribe from '../components/FormSuscribe';
@@ -21,10 +18,11 @@ import FrequentlyQuestions from '../components/FrequentlyQuestions';
 import CarouselTestimony from '../components/CarouselTestimony';
 import CarouselEvent from '../../publication/components/event/CarouselEvent';
 import Map from '../../../utils/components/arcgis/Map';
+import { useSelector } from 'react-redux';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
-
+    const publications = useSelector((store: any) => store.event.list_publication.value);
     return (
         <>
             <section>
@@ -58,7 +56,10 @@ const Homepage = () => {
 
             <section className="section-events">
                 <img src={figurasFondo} alt="fihuras de fondo" className="figuras-fondo" />
+                {publications?.length >=3 && 
                 <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
+                
+                }
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
                         Eventos más cercanos
@@ -114,9 +115,9 @@ const Homepage = () => {
                     </div>
                 </div>
             </section>
-            {/* <section>
+            <section>
                 <Map />
-            </section> */}
+            </section>
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container">
                     <FrequentlyQuestions />

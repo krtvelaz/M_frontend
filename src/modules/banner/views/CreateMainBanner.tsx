@@ -1,23 +1,24 @@
 import { FormikProps, FormikValues } from "formik";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, swal_error } from "../../../utils/ui";
-import FormMainBanner from "../components/FormMainBanner";
-import ListMainBanner from "../components/ListMainBanner";
+import { Card } from "../../../utils/ui";
+import FormMainBanner from "../components/banner/FormMainBanner";
+import ListMainBanner from "../components/banner/ListMainBanner";
 import { IMainBanner } from "../custom_types";
 import { actions } from "../redux";
 
+
 const CreateMainBanner = () => {
   const list_banners: IMainBanner[] = useSelector((store: any) => store.banner.list_banners.value);
+  const loading_banners: boolean = useSelector((store: any) => store.banner.list_banners.loading);
   const loading: boolean = useSelector((store: any) => store.banner.banner.loading);
 
   const form_ref = useRef<FormikProps<FormikValues>>();
-  const [images, setImages] = useState<IMainBanner[]>([]);
   const dispatch = useDispatch<any>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const addImage = async (value: IMainBanner) => {
-    await dispatch(actions.create_main_banner(value));
+    await dispatch(actions.create_main_banner({...value, ban_order: list_banners.length+1}));
     setIsSuccess(true);
   };
 
@@ -33,7 +34,7 @@ const CreateMainBanner = () => {
   };
 
   const get_banners = async () => {
-    await dispatch(actions.get_list_banners());
+    await dispatch(actions.get_list_banners({page: 1, page_size: 4, order_by_key: 'ban_order', order_by_value: 'asc'}));
   };
 
   useEffect(() => {
@@ -83,11 +84,12 @@ const CreateMainBanner = () => {
               >
                 <FormMainBanner innerRef={form_ref} onSubmit={addImage} type='create' />
               </Card>
-              {list_banners.length > 0 && (
+              {list_banners?.length > 0 && (
                 <Card>
                   <h4>Elementos agregados</h4>
                   <ListMainBanner
-                    data={list_banners}
+                  loading={loading_banners}
+                    banners={list_banners}
                     onEdit={editBanner}
                     onDelete={deleteImage}
                   />

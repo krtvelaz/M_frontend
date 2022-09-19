@@ -1,27 +1,23 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { pencil } from "../../../../utils/assets/img";
 import { ITestimony } from "../../custom_types";
-import { actions } from "../../redux";
 import FormTestimony from "./FormTestimony";
 
 interface ModalFormPros {
   onSubmit: (values: any, form?: any) => any;
-  id: number;
+  testimony: ITestimony
 }
 
-const ModalEditTestimony: FC<ModalFormPros> = ({ onSubmit, id }) => {
+const ModalEditTestimony: FC<ModalFormPros> = ({ onSubmit, testimony }) => {
   const form_ref = useRef<FormikProps<FormikValues>>();
-  const testimony: ITestimony = useSelector(
-    (store: any) => store.banner.testimony.value
-  );
+  
   const loading: boolean = useSelector(
     (store: any) => store.banner.testimony.loading
   );
 
-  const dispatch = useDispatch<any>();
   const [is_visible, set_is_visible] = useState<boolean>(false);
   const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
@@ -37,8 +33,8 @@ const ModalEditTestimony: FC<ModalFormPros> = ({ onSubmit, id }) => {
         src={pencil}
         style={{ cursor: "pointer" }}
         onClick={() => {
-          dispatch(actions.get__testimonial(id));
           open();
+          
         }}
         className="img-fluid"
         alt=""

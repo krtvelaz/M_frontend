@@ -21,7 +21,7 @@ const ModalImgTestimony: FC<IModalImage> = ({ id }) => {
       onClick={async (e) => {
         if (e.key === "image_0") {
           const res = await dispatch(
-            actions.get_document_testimonial(id, "img")
+            actions.get_document_testimonial(id, "image")
           );
           if (res) {            
             let _img = Buffer.from(res).toString("base64");

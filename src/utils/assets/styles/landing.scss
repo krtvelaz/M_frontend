@@ -551,6 +551,10 @@ img {
 .card-event .ant-card-actions {
  border-top: none;
 }
+.card-event .ant-card-body {
+//  min-height: 285px !important;
+ min-height: 260px !important;
+}
 
 .title-card-event {
     font-family: 'Montserrat-Bold' !important;
@@ -590,10 +594,10 @@ img {
     position: relative;
     margin: auto;
     padding: 0;
-    border-radius: 16px !important;
+    // border-radius: 16px !important;
     position: relative;
     overflow: hidden;
-    border-radius: 16px;
+    // border-radius: 16px;
 }
 
 .imagen-events::before {
@@ -608,7 +612,14 @@ img {
         rgba(0, 0, 0, 0.91) 20%,
         transparent
     );
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
+}
+.imagen-events button {
+    display: none;
+
+}
+.imagen-events:hover button {
+    display: block;
 }
 
 /****** nuestros retos *****/

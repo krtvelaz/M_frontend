@@ -1,100 +1,107 @@
-import { FormikProps, FormikValues } from "formik";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Card } from "../../../utils/ui";
-import FormIndicator from "../components/FormIndicator";
-import { IIndicator } from "../custom_types";
-import { actions } from "../redux";
+import { FormikProps, FormikValues } from 'formik';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Table } from '../../../utils/ui';
+import FormIndicator from '../components/statistics/FormIndicator';
+import ModalEditStatistics from '../components/statistics/ModalEditStatistics';
+import { IIndicator } from '../custom_types';
+import { actions } from '../redux';
 
 const CreateIndicator = () => {
-  const form_ref = useRef<FormikProps<FormikValues>>();
-  const dispatch = useDispatch<any>();
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const form_ref = useRef<FormikProps<FormikValues>>();
+    const dispatch = useDispatch<any>();
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  const statistics: IIndicator = useSelector(
-    (store: any) => store.banner.statistics.value
-  );
-  const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
+    const statistics: IIndicator = useSelector((store: any) => store.banner.statistics.value);
+    const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
 
+    const table_columns: any = [
+        {
+            title: 'No.',
+            fixed: 'left',
+            dataIndex: 'id',
+            align: 'center' as 'center',
+        },
+        {
+            title: 'Valor',
+            dataIndex: 'value',
+            align: 'left' as 'left',
+        },
+        {
+            title: 'Descripción',
+            dataIndex: 'description',
+            align: 'left' as 'left',
+        },
+        {
+            title: 'Acciones',
+            fixed: 'value',
+            children: [
+                {
+                    title: <span style={{ fontSize: '9px' }}>Editar</span>,
+                    dataIndex: 'id',
+                    fixed: 'right',
+                    align: 'center' as 'center',
+                    render: () => {
+                      return <ModalEditStatistics />;
+                    }
+                },
+            ],
+        },
+    ];
 
-  const addIndicator = async (values: IIndicator) => {
-    await dispatch(actions.create_statistics(values));
-    setIsSuccess(true);
-  };
+    const addIndicator = async (values: IIndicator) => {
+        await dispatch(actions.create_statistics(values));
+        setIsSuccess(true);
+    };
 
-  useEffect(() => {
-    dispatch(actions.get_statistics());
-  }, []);
+    useEffect(() => {
+        dispatch(actions.get_statistics());
+    }, []);
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(actions.get_statistics());
-      setIsSuccess(false);
-    }
-  }, [isSuccess]);
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(actions.get_statistics());
+            setIsSuccess(false);
+        }
+    }, [isSuccess]);
 
-  return (
-    <div className="h-100 d-flex flex-column">
-      <div className="flex-fill overflow-auto">
+    return (
         <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="d-flex flex-row mb-3">
-              <h5 className="">Estadísticas</h5>
+            <div className="row justify-content-center">
+                <div className="col-md-12">
+                    <div className="row">
+                        <h5 className="col d-flex justify-content-start">Gestionar Retos</h5>
+                        <div
+                            style={{
+                                margin: '0 20px 10px 0',
+                            }}
+                            className="col d-flex justify-content-end"
+                        >
+                            {/* <Link to="/challenge/create" name="Crear Reto" iconText="+" /> */}
+                        </div>
+                    </div>
+
+                    <Card>
+                        <Table
+                            columns={table_columns}
+                            title="Lista de retos"
+                            paginationTop
+                            items={[
+                                {
+                                    value: 78546,
+                                    description: 'kghkhkjhjk jhgjhgj',
+                                },
+                            ]}
+                            // change_page={change_page}
+                            // count={total}
+                            with_pagination
+                            loading={loading}
+                        />
+                    </Card>
+                </div>
             </div>
-            <div className="col-md-12">
-              <Card
-                title={
-                  <>
-                    Editar estadísticas
-                    <span style={{ color: "#AD0808", fontSize: "10px" }}>
-                      {" "}
-                      - Todos los campos son obligatorios
-                    </span>
-                  </>
-                }
-                actions={[]}
-              >
-                <FormIndicator
-                  indicator={statistics}
-                  innerRef={form_ref}
-                  onSubmit={addIndicator}
-                />
-              </Card>
-            </div>
-          </div>
         </div>
-      </div>
-      <div
-        className="bg-white d-flex flex-row justify-content-between  btn-responsive"
-        style={{ padding: 16, marginBottom: 60, borderTop: "1px solid #ccc" }}
-      >
-        <button
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={() => {}}
-        >
-          Atrás
-        </button>
-        <div className="flex-fill" />
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            form_ref.current?.submitForm();
-          }}
-          disabled={loading}
-        >
-          Guardar
-          {loading && (
-              <i
-                className="fa fa-circle-o-notch fa-spin"
-                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
-              />
-            )}
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default CreateIndicator;

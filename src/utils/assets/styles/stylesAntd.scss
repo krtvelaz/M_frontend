@@ -117,6 +117,10 @@
     }
 }
 
+.ant-spin-dot {
+    font-size: 17px !important;
+}
+
 .ant-pagination .ant-table-pagination .ant-table-pagination-right {
     position: relative;
 }
@@ -169,6 +173,10 @@ input[type='password'] {
 }
 
 input[type='email'] {
+    height: 38px;
+    border-radius: 6px;
+}
+input[type='number'] {
     height: 38px;
     border-radius: 6px;
 }
@@ -383,6 +391,63 @@ textarea.form-control {
     font-size: 20px !important;
     font-family: 'Montserrat-Bold' !important;
 }
+
+// arcgis
+// .esri-popup__header {
+//     display: none !important;
+// }
+
+.esri-popup__footer {
+    display: none !important;
+}
+
+.esri-ui .esri-component {
+    border-radius: 16px 16px 0 0;
+}
+
+.esri-popup__main-container {
+    border-radius: 16px 16px 0 0;
+}
+
+.esri-feature {
+    border-radius: 16px 16px 0 0;
+}
+
+.esri-popup__content {
+    margin: 0 !important;
+    overflow: initial !important;
+}
+
+.esri-popup__content img {
+    border-radius: 16px 16px 0 0;
+}
+
+.esri-view-width-large .esri-popup__main-container {
+    width: 200px !important;
+}
+
+.esri-feature-content h4 {
+    text-align: center;
+    color: #212121;
+}
+
+.esri-feature-content p {
+    margin: 20px !important;
+}
+
+.esri-view-width-xlarge .esri-popup__main-container {
+    width: 330px !important;
+}
+
+.esri-feature__content-element {
+    padding: 0;
+}
+
+.ant-skeleton-header .ant-skeleton-avatar.ant-skeleton-avatar-circle {
+    border-radius: 0;
+}
+
+
 
 
 
