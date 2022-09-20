@@ -23,7 +23,7 @@ const CalendarEvents = () => {
 
     const get_events = async () => {
         try {
-            await dispatch(actions.get_event_history());
+            await dispatch(actions.get_list_events({page: 1}));
         } catch (error) {
             console.error(error)
         }

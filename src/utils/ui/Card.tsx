@@ -8,11 +8,13 @@ interface SabiCardProps {
     className?: string;
     bodyStyle?: CSSProperties;
     style?: CSSProperties;
+    loading?: boolean;
     children: any;
 }
-const ComponetCard: FC<SabiCardProps> = ({ title, extra, actions, children, className, bodyStyle, style }) => {
+const ComponetCard: FC<SabiCardProps> = ({loading, title, extra, actions, children, className, bodyStyle, style }) => {
     const ops = {
         title,
+        loading,
         bordered: false,
         className: [className, 'medeinn-content'].join(' '),
         bodyStyle,
@@ -21,6 +23,10 @@ const ComponetCard: FC<SabiCardProps> = ({ title, extra, actions, children, clas
         ...(actions ? { actions } : {}),
     };
     return <Card {...ops}>{children}</Card>;
+};
+
+ComponetCard.defaultProps = {
+    loading: false,
 };
 
 export default ComponetCard;

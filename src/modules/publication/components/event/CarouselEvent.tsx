@@ -1,17 +1,31 @@
-import { Pagination } from 'antd';
 import 'bootstrap';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { arrowLeft, arrowRight } from '../../../../utils/assets/img';
+import ArrowLeft from '../../../../utils/assets/img/ArrowLeft';
+import ArrowRight from '../../../../utils/assets/img/ArrowRight';
 import { actions } from '../../redux';
 import CardEvent from './CardEvent';
-import PopoverEvent from './PopoverEvent';
+
+
 const CarouselEvent = () => {
-    const data = [1];
     const dispatch = useDispatch<any>();
     const events = useSelector((store: any) => store.event.list_event.value);
     const {total} = useSelector((store: any) => store.event.list_event.pagination);
+    const {current_page} = useSelector((store: any) => store.event.list_event.pagination);
+    const {last_page} = useSelector((store: any) => store.event.list_event.pagination);
+    const {first_page} = useSelector((store: any) => store.event.list_event.pagination);
     const number_pages = Number(total)/3;
+    let paginationCarousel: any[] = [1]
+    let inicio: any[] = [null, null, null]
+
+
+    for(let i=1; i<= Math.ceil(number_pages); i++) {
+        paginationCarousel = [...paginationCarousel, i]
+    }
+        
+    const get_events = async (page: number) => {
+            await dispatch(actions.get_list_events({ page, page_size: 3, only: 'published' }));  
+    }
     
 
     useEffect(() => {
@@ -27,13 +41,18 @@ const CarouselEvent = () => {
                 data-pause="hover"
             >
                 <div className="carousel-inner">
-                    {data.map((item: any, i: number) => (
-                        <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${item?.id}`}>
+                    {paginationCarousel.map((item: any, i: number) => (
+                        <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
                             <div className="container">
                                 <div className="row">
-                                    {events.map((event: any) => (
-                                        <div className="col-12 col-md-4 col-lg-4">
-                                            <CardEvent event={event} />
+                                    {events.length > 0 ? events.map((event: any, index: number) => (
+                                        <div className="col-12 col-md-4 col-lg-4" key={`card-event-${index}`}>
+                                            <CardEvent  event={event} />
+                                        </div>
+                                    )) :
+                                    inicio.map((event: any, index: number) => (
+                                        <div className="col-12 col-md-4 col-lg-4"  key={`card-inicio-${index}`}>
+                                            <CardEvent  event={null} />
                                         </div>
                                     ))}
                                 </div>
@@ -46,8 +65,14 @@ const CarouselEvent = () => {
                         data-bs-target="#carouselEvents"
                         data-bs-slide="prev"
                         style={{ marginRight: '50px', cursor: 'pointer' }}
+                        onClick={() => {
+                            setTimeout(function(){
+                                get_events(current_page-1 >= first_page ? current_page-1 : last_page  )
+                            }, 200); 
+                            
+                        }}
                     >
-                        <img src={arrowLeft} alt="flecha izquierda" />
+                        <ArrowLeft color_fill={'#FFFFFF'} />
                         <span className="visually-hidden">Anterior</span>
                     </div>
 
@@ -56,8 +81,13 @@ const CarouselEvent = () => {
                         data-bs-slide="next"
                         className="ms-5"
                         style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                           setTimeout(function(){
+                                get_events(current_page+1 <= last_page ? current_page+1 : first_page  )
+                            }, 200);                            
+                        }}
                     >
-                        <img src={arrowRight} alt="flecha izquierda" />
+                        <ArrowRight color_fill='#ffffff' />
                         <span className="visually-hidden">Siguiente</span>
                     </div>
                 </div>
