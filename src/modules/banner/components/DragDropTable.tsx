@@ -23,10 +23,9 @@ const DragDropTable: FC<ITable> = ({ _columns, data, setData, loading, edit }) =
     const [updateData, setUpdateData] = useState<boolean>(false);
 
     const updateOrder = async () => {
-        const res = await edit();
+        await edit();
         setUpdateData(false);
-        setData(res);
-    };
+    };    
 
     useEffect(() => {
         if (updateData) {

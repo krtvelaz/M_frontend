@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from '../../../../utils/ui';
 import { IEvent } from '../../custom_types';
+import ModalEvent from './ModalEvent';
 
 interface ICardProps {
     event: IEvent | null;
@@ -19,7 +20,7 @@ const CardEvent: FC<ICardProps> = ({ event }) => {
             className="card-event"
             actions={[
                 <div className="mb-3 d-flex justify-content-end">
-                    {loading || event === null ? (
+                    {false ? (
                         <>
                             <Skeleton.Input className="mt-1 me-5" active size="small" />
                             <Skeleton.Button className="me-3" active size="large" shape="round" />
@@ -27,7 +28,8 @@ const CardEvent: FC<ICardProps> = ({ event }) => {
                     ) : (
                         <>
                             <button className="btn-cupos-primary me-5">Cupos Ilimitados</button>
-                            <button className="btn btn-primary me-3">Asistiré</button>
+                            <ModalEvent  />
+                            
                         </>
                     )}
                 </div>,

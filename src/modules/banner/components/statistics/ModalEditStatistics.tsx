@@ -1,23 +1,28 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { pencil } from "../../../../utils/assets/img";
 import { IIndicator } from "../../custom_types";
 import FormIndicator from "./FormIndicator";
 
 interface statistics {
-  data: IIndicator
+  data: IIndicator;
+  on_submit: (values: IIndicator) => any
 }
 
-const ModalEditStatistics: FC<statistics> = ({ data }) => {
+const ModalEditStatistics: FC<statistics> = ({ data, on_submit }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [visible, setvisible] = useState<boolean>(false);
+    const loading = useSelector((store: any) => store.banner.testimony.loading)
   const open = () => setvisible(true);
   const close = () => setvisible(false);
 
-  const editStatistics = () => {
-    
-  }
+  
+
+  const editStatistics = async (values: IIndicator) => {
+    await on_submit(values)
+  } 
   
   return (
     <>
@@ -53,15 +58,15 @@ const ModalEditStatistics: FC<statistics> = ({ data }) => {
             onClick={() => {
              form_ref.current?.submitForm();
             }}
-            // disabled={loading}
+            disabled={loading}
           >
             Guardar Cambios
-            {/* {loading && (
+            {loading && (
               <i
                 className="fa fa-circle-o-notch fa-spin"
                 style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
               />
-            )} */}
+            )}
           </button>,
         ]}
       >

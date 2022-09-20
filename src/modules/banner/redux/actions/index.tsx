@@ -16,7 +16,8 @@ import {
     get_document_testimonial,
 } from './testimony';
 import {
-    create_statistics,
+    edit_statistics,
+    edit_order_statistics,
     get_statistics
 } from './statistic';
 
@@ -33,7 +34,8 @@ const actions = {
     get_list_testimonials,
     delete_testimonial,
     get_document_testimonial,
-    create_statistics,
+    edit_statistics,
+    edit_order_statistics,
     get_statistics
 };
 

@@ -32,7 +32,11 @@ export interface ITestimony {
     tes_image_buffer?: string
 }
 export interface IIndicator {
-    est_numero_reto: string | number;
-    est_persona_impacto: string | number;
+    sta_name?: string;
+    sta_description: string;
+    sta_value: number
+    sta_order?: number
     id?: number;
+    est_created_at?: string;
+    est_updated_ad?: string;
 }
