@@ -102,23 +102,7 @@ const get_routes = (): IRoute[] => {
                 ],
             },
         },
-        {
-            exact: true,
-            is_private: true,
-            can_access: guards.success_login,
-            format: true,
-            path: '/postulation/challenge',
-            template_props: {
-                breadcrumbs: [
-                    {
-                        name: 'Retos y Postulaciones',
-                        to: '/postulation/challenge',
-                    },
-                    
-                ],
-            },
-            component: PostulationView,
-        },
+       
         
     ];
 };

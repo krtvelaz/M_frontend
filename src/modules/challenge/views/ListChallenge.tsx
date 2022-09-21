@@ -49,7 +49,7 @@ const ListChallenge = () => {
             dataIndex: 'createdBy',
             align: 'left' as 'left',
             render: (value: string) => {
-                return 'Luisa Sánchez'
+                return 'Luisa Sánchez';
                 // return moment(value).format('DD / MM / YYYY');
             },
         },
@@ -57,7 +57,7 @@ const ListChallenge = () => {
             title: 'Publicado',
             align: 'left' as 'left',
             render: (value: any) => {
-                const onChange = async (e: any) => {                    
+                const onChange = async (e: any) => {
                     if (
                         value.status !== 'Pendiente' &&
                         value.status !== 'Aceptado' &&
@@ -167,9 +167,6 @@ const ListChallenge = () => {
     const challenges = useSelector((store: any) => store.challenge.challenges.value);
     const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
-    console.log("rrr",challenges)
-    console.log("sdfsgag",total)
-    console.log("werwqr",loading)
 
     useEffect(() => {
         dispatch(actions.get_list_challenges());

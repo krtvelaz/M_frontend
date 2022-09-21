@@ -1,5 +1,5 @@
 import { Field, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
@@ -9,6 +9,7 @@ import FormPostulation from '../components/FormPostulation';
 import FormTeam from '../components/FormTeam';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import { DocsPostulation } from '../components/DocsPostulation';
+import { circuloTabs } from '../../../utils/assets/img';
 
 interface PostulationView {
     innerRef: any;
@@ -17,10 +18,7 @@ interface PostulationView {
 }
 const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation }) => {
     const { TabPane } = Tabs;
-    const OpenForm = () => {
-        console.log('click');
-    };
-    const form_ref = useRef<FormikProps<FormikValues>>();
+    const OpenForm = () => {};
     const DataPostulante = [
         {
             id: 1,
@@ -41,34 +39,56 @@ const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation 
     ];
 
     return (
-        <div>
+        <div className="container">
             <ComponetCard>
                 <div>
-                    <h5 style={{ fontSize: '18px', margin: '0' }}>¡Genial! Estas a punto de postularte al reto</h5>
+                    <h5 style={{ fontSize: '18px', margin: '0' }}>
+                        ¡Ya casi terminamos! Carga los siguientes formatos
+                    </h5>
                     <span style={{ fontWeight: 'bold' }}>
-                        Por favor completa los siguientes datos -{' '}
+                        Debes descargar los formatos, completarlos y posteriormente cargar para su envío.-{' '}
                         <span style={{ color: '#FF8403' }}>Todos los campos son obligatorios</span>
                     </span>
                 </div>
-                {/* <div
-                    style={{
-                        backgroundColor: '#FF8403',
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '50%',
-                        position: 'absolute',
-                        zIndex: '1',
-                        top: '14.5%',
-                        left: '3%',
-                    }}
-                >
-                    <span>1</span>
-                </div> */}
                 <Tabs>
-                    <TabPane tab="1.Datos Postulante" key="item-1.1">
-                        <FormPostulation onSubmit={OpenForm} />
+                    <TabPane
+                        tab={
+                            <>
+                                <span style={{ paddingRight: '6%' }}>
+                                    <img
+                                        src={circuloTabs}
+                                        style={{ width: '6.5%', backgroundColor: '#FF8403', borderRadius: '50%' }}
+                                    />
+                                </span>
+
+                                <span style={{ position: 'absolute', left: '1.6%', top: '29%', color: 'white' }}>
+                                    1
+                                </span>
+
+                                <span>Datos Postulante</span>
+                            </>
+                        }
+                        key="item-1.1"
+                    >
+                        <FormPostulation />
                     </TabPane>
-                    <TabPane tab="2.Integrantes del equipo" key="item-1.2">
+                    <TabPane
+                        tab={
+                            <>
+                                <span style={{ paddingRight: '6%' }}>
+                                    <img
+                                        src={circuloTabs}
+                                        style={{ width: '5.8%', backgroundColor: '#FF8403', borderRadius: '50%' }}
+                                    />
+                                </span>
+                                <span style={{ position: 'absolute', left: '1.6%', top: '29%', color: 'white' }}>
+                                    2
+                                </span>
+                                <span>Integrantes del equipo</span>
+                            </>
+                        }
+                        key="item-1.2"
+                    >
                         <ComponetCard>
                             {DataPostulante.map((item, i) => (
                                 <FormTeam onSubmit={OpenForm} />
@@ -93,7 +113,24 @@ const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation 
                             </div>
                         </ComponetCard>
                     </TabPane>
-                    <TabPane tab="3.Formatos que debes cargar" key="item-1.3">
+                    <TabPane
+                        tab={
+                            <>
+                                <span style={{ paddingRight: '6%' }}>
+                                    <img
+                                        src={circuloTabs}
+                                        style={{ width: '5.8%', backgroundColor: '#FF8403', borderRadius: '50%' }}
+                                    />
+                                </span>
+
+                                <span style={{ position: 'absolute', left: '1.6%', top: '29%', color: 'white' }}>
+                                    3
+                                </span>
+                                <span>Formatos que debes cargar</span>
+                            </>
+                        }
+                        key="item-1.3"
+                    >
                         <DocsPostulation />
                     </TabPane>
                 </Tabs>

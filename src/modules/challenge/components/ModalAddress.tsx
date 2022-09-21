@@ -1,6 +1,6 @@
 import { Card, Select, Link } from '../../../utils/ui';
 import { Field, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { CSSProperties, FC, useRef, useState } from 'react';
+import { CSSProperties, FC, useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'antd';
 import { SERVFAIL } from 'dns';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
@@ -21,14 +21,56 @@ interface ModalAddress {
     onSubmit: (values: any, form?: any) => any;
     id: number;
     is_visible?: boolean;
+    setInfoInput?: any;
 }
 
-const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
+const ModalAddress: FC<ModalAddress> = ({ is_visible, setInfoInput }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [visibleModal, setVisibleModal] = useState(false);
-    const dispatch = useDispatch<any>();
+    let valueInputs = document.getElementById('tipo_via');
+    const [valueInput, setValueInput] = useState({
+        tipo_via: '',
+        numero_dir: '',
+        letra_dir: '',
+        zona_dir: '',
+        numero2_dir: '',
+        letra2_dir: '',
+        zona2_dir: '',
+        numero3_dir: '',
+        obser_dir: '',
+    });
+    setInfoInput(valueInput);
+    const onChangeInputs = (e: any) => {};
+
     const close = () => setVisibleModal(!visibleModal);
-    const event: IEvent = useSelector((store: any) => store.event.event.value);
+    const optionsV = [
+        {
+            name: 'Norte',
+            id: 'Norte',
+        },
+        {
+            name: 'Sur',
+            id: 'Sur',
+        },
+        {
+            name: 'Este',
+            id: 'Este',
+        },
+        {
+            name: 'Oeste',
+            id: 'Oeste',
+        },
+    ];
+    const options = [
+        {
+            name: 'Calle',
+            id: 'Calle',
+        },
+        {
+            name: 'Carrera',
+            id: 'Carrera',
+        },
+    ];
     return (
         <div className="container-fluid">
             <Modal
@@ -76,19 +118,9 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 id="tipo_via"
                                                 name="tipo_via"
                                                 dropdownMatchSelectWidth={false}
-                                                options={[
-                                                    {
-                                                        name: 'Calle',
-                                                        id: 1,
-                                                    },
-                                                    {
-                                                        name: 'Carrera',
-                                                        id: 2,
-                                                    },
-                                                ]}
-                                                placeholder="Calle"
+                                                options={options}
                                                 style={{ margin: '10px 0' }}
-                                                extra_on_change={(value: number) => {}}
+                                                onChange={(e: any) => setValueInput({ ...valueInput, tipo_via: e })}
                                             />
                                             <ErrorMessage name="tipo_via" />
                                         </div>
@@ -108,9 +140,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="numero_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="15"
                                                 maxLength={3}
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, numero_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="numero_dir" withCount max={3} />
                                         </div>
@@ -130,9 +164,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="letra_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="B"
                                                 maxLength={1}
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, letra_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="letra_dir" withCount max={1} />
                                         </div>
@@ -152,27 +188,9 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 id="zona_dir"
                                                 name="zona_dir"
                                                 dropdownMatchSelectWidth={false}
-                                                options={[
-                                                    {
-                                                        name: 'Norte',
-                                                        id: '1',
-                                                    },
-                                                    {
-                                                        name: 'Sur',
-                                                        id: '2',
-                                                    },
-                                                    {
-                                                        name: 'Este',
-                                                        id: '3',
-                                                    },
-                                                    {
-                                                        name: 'Oeste',
-                                                        id: '4',
-                                                    },
-                                                ]}
-                                                placeholder="Sur"
+                                                options={optionsV}
                                                 style={{ margin: '10px 0' }}
-                                                extra_on_change={(value: number) => {}}
+                                                onChange={(e: any) => setValueInput({ ...valueInput, zona_dir: e })}
                                             />
                                             <ErrorMessage name="zona_dir" />
                                         </div>
@@ -195,9 +213,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="numero2_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="26"
                                                 maxLength={3}
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, numero2_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="numero2_dir" withCount max={3} />
                                         </div>
@@ -222,9 +242,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="letra2_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="D"
                                                 maxLength={1}
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, letra2_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="letra2_dir" withCount max={1} />
                                         </div>
@@ -250,24 +272,24 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 options={[
                                                     {
                                                         name: 'Norte',
-                                                        id: '1',
+                                                        id: 'Norte',
                                                     },
                                                     {
                                                         name: 'Sur',
-                                                        id: '2',
+                                                        id: 'Sur',
                                                     },
                                                     {
                                                         name: 'Este',
-                                                        id: '3',
+                                                        id: 'Este',
                                                     },
                                                     {
                                                         name: 'Oeste',
-                                                        id: '4',
+                                                        id: 'Oeste',
                                                     },
                                                 ]}
-                                                placeholder="Norte"
                                                 style={{ marginTop: '10px' }}
                                                 extra_on_change={(value: number) => {}}
+                                                onChange={(e: any) => setValueInput({ ...valueInput, zona2_dir: e })}
                                             />
                                             <ErrorMessage name="zona2_dir" />
                                         </div>
@@ -287,9 +309,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="numero3_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="342"
                                                 maxLength="3"
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, numero3_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="numero3_dir" withCount max={3} />
                                         </div>
@@ -312,9 +336,11 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                                 name="obser_dir"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="Apto 1508"
                                                 maxLength={100}
                                                 style={{ marginTop: '10px' }}
+                                                onChange={(e: any) =>
+                                                    setValueInput({ ...valueInput, obser_dir: e.target.value })
+                                                }
                                             />
                                             <ErrorMessage name="obser_dir" withCount max={100} />
                                         </div>
@@ -334,10 +360,10 @@ const ModalAddress: FC<ModalAddress> = ({ is_visible }) => {
                                             <Field
                                                 type="text"
                                                 id="dir_ing"
+                                                value={`${valueInput.tipo_via}  ${valueInput.numero_dir} ${valueInput.letra_dir} ${valueInput.zona_dir} ${valueInput.numero2_dir} ${valueInput.letra2_dir} ${valueInput.zona2_dir} ${valueInput.numero3_dir} ${valueInput.obser_dir}`}
                                                 name="dir_ing"
                                                 className="form-control"
                                                 dropdownMatchSelectWidth={false}
-                                                placeholder="Calle 39B sur # 26D Sur 342 - Apto 1509"
                                                 maxLength={100}
                                                 style={{ marginTop: '10px' }}
                                             />

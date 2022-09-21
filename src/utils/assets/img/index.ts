@@ -42,3 +42,9 @@ export { default as hacerClic } from './hacerClic.svg';
 export { default as grupo_personas } from './grupo_personas.png';
 export { default as businessMan } from './businessMan.png';
 export { default as hombreGafasInteligentes  } from './hombreGafasInteligentes.png';
+export { default as iconoCheck  } from './iconoCheck.svg';
+export { default as circuloTabs  } from './circuloTabs.png';
+
+
+
+
