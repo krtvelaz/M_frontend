@@ -13,21 +13,21 @@ interface GalleryPros {
 
 const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
     const initial_values = {
-        gal_titulo: '',
-        gal_descripcion: '',
-        gal_imagen: {
-            name: gallery?.gal_nombre_imagen || '',
+        title: '',
+        description: '',
+        image: {
+            name:  '',
             id: gallery?.id || -1,
         },
         ...gallery,
     };
 
     const schema = Yup.object().shape({
-        gal_titulo: Yup.string().required('Campo obligatorio'),
-        gal_imagen: Yup.object({
+        title: Yup.string().required('Campo obligatorio'),
+        image: Yup.object({
             name: Yup.string().required('Campo obligatorio'),
         }).nullable(),
-        gal_descripcion: Yup.string().required('Campo obligatorio'),
+        description: Yup.string().required('Campo obligatorio'),
     });
 
     const submit = async (values: any, actions: any) => {
@@ -59,11 +59,11 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                     maximum_size={2}
                                     type="text"
                                     id="gal_imagen_id"
-                                    name="gal_imagen"
+                                    name="image"
                                     className="form-control"
                                     placeholder="Seleccionar…"
                                 />
-                                <ErrorMessage name="gal_imagen.name" />
+                                <ErrorMessage name="image.name" />
                             </div>
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="gal_titulo_id" className="form-label">
@@ -73,12 +73,12 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                     as="textarea"
                                     className="form-control"
                                     id="gal_titulo_id"
-                                    name="gal_titulo"
+                                    name="title"
                                     autoComplete="off"
                                     maxLength={100}
                                     style={{ height: '38px' }}
                                 />
-                                <ErrorMessage name="gal_titulo" withCount max={100} />
+                                <ErrorMessage name="title" withCount max={100} />
                             </div>
                         </div>
 
@@ -90,12 +90,12 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 as="textarea"
                                 className="form-control"
                                 id="gal_descripcion_id"
-                                name="gal_descripcion"
+                                name="description"
                                 autoComplete="off"
                                 maxLength={100}
                                 style={{ height: '38px' }}
                             />
-                            <ErrorMessage name="gal_descripcion" withCount max={100} />
+                            <ErrorMessage name="description" withCount max={100} />
                         </div>
                     </Form>
                 );

@@ -1,10 +1,9 @@
 import { Modal } from "antd";
 import { FormikProps, FormikValues } from "formik";
 import { FC, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { pencil } from "../../../../utils/assets/img";
+import {  useSelector } from "react-redux";
+import PencilComponent from "../../../../utils/assets/img/PencilComponent";
 import { IMainBanner } from "../../custom_types";
-import { actions } from "../../redux";
 import FormMainBanner from "./FormMainBanner";
 
 interface BannerFormPros {
@@ -28,15 +27,9 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ onSubmit, value }) => {
 
   return (
     <>
-      <img
-        src={pencil}
-        style={{ cursor: "pointer" }}
-        onClick={() => {
+      <PencilComponent on_click={() => {
           open();
-        }}
-        className="img-pencil"
-        alt="imagen editar"
-      />
+        }} />
       <Modal
         visible={visible}
         width={1000}
@@ -66,7 +59,7 @@ const ModalEditMainBanner: FC<BannerFormPros> = ({ onSubmit, value }) => {
             {loading && (
               <i
                 className="fa fa-circle-o-notch fa-spin"
-                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
+                style={{ fontSize: 12, marginLeft: 10, color: "#fff" }}
               />
             )}
           </button>,

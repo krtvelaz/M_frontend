@@ -19,7 +19,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
     let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
         useInit(type, publication_data); // agregar o no  el publication_data y type
 
-    const loading = useSelector((store: any) => store.event.publication.loading);    
+    const loading = useSelector((store: any) => store.event.publication.loading);
 
     return (
         <>
@@ -32,7 +32,17 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                             </span>
                         </div>
                         <div className="">
-                            <Tabs activeKey={active_key} className="w-100 h-100" onChange={callback}>
+                            <Tabs
+                                activeKey={active_key}
+                                className="w-100 h-100"
+                                onChange={callback}
+                                tabBarStyle={{
+                                    background: '#fff',
+                                    paddingLeft: '20px',
+                                    fontSize: '13px',
+                                    marginBottom: 0,
+                                }}
+                            >
                                 <TabPane tab="Información general" key="1">
                                     <GeneralInformation
                                         innerRef={steps[0].ref}
@@ -70,7 +80,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                             {loading && (
                                 <i
                                     className="fa fa-circle-o-notch fa-spin"
-                                    style={{ fontSize: 12, marginLeft: 4, color: '#603CE6' }}
+                                    style={{ fontSize: 12, marginLeft: 10, color: '#1D98D1' }}
                                 />
                             )}
                         </button>
@@ -106,13 +116,9 @@ const useInit = (
 
     const initial_values: IPublication = {
         general_information: {
-            hec_id_tipo_publicacion: '',
-            hec_titulo: '',
-            hec_autor: '',
-            hec_descripcion: '',
-            hec_nombre_imagen_principal: '',
-            hec_ruta_imagen_principal: '',
-            hec_nombre_imagen: '',
+            pub_title: '',
+            pub_description: '',
+            pub_author: '',
             ...publication_data,
         },
         gallery: [],

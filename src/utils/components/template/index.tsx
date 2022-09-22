@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { actions as auth_actions } from '../../../modules/auth/redux';
 import { useDispatch } from "react-redux";
 
+
 interface ITemplate {
   breadcrumbs?: Breadcrumb[];
   show_breadcrumbs?: boolean;
@@ -23,7 +24,7 @@ const Template: FC<ITemplate> = ({
   children,
   breadcrumbs,
   show_breadcrumbs,
-}) => {
+}) => {  
   const { Header, Sider, Content } = Layout;
   const context = useContext(TemplateContext);
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const Template: FC<ITemplate> = ({
                 <div
                   className="d-flex justify-content-between align-items-center bar"
                   style={{
-                    backgroundColor: "#92BEE4",
+                    backgroundColor: "#1D98D1",
                     padding: "4px 24px",
                     color: "white",
                     boxShadow: "inset 0px 5px 3px #00000015",
@@ -123,7 +124,7 @@ const Template: FC<ITemplate> = ({
         <div
           className="d-flex justify-content-center align-items-center text-white"
           style={{
-            backgroundColor: "#92BEE4",
+            backgroundColor: "#1D98D1",
             borderRight: "1px solid #2ea1fe",
             height: 180,
             letterSpacing: "-0.4px",

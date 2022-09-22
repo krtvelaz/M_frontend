@@ -1,10 +1,11 @@
 import { Popover, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil, trash } from '../../../utils/assets/img';
+import { trash } from '../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from '../../../utils/ui';
 import { actions } from '../redux';
 import moment from 'moment';
+import PencilComponent from '../../../utils/assets/img/PencilComponent';
 
 const ListChallenge = () => {
     const [filters, setFilters] = useState({
@@ -122,7 +123,7 @@ const ListChallenge = () => {
                                 to={`/challenge/edit/${id}/`}
                                 name=""
                                 avatar={false}
-                                icon={<img src={pencil} style={{ cursor: 'pointer' }} className="img-pencil" alt="" />}
+                                icon={<PencilComponent />}
                             />
                         );
                     },

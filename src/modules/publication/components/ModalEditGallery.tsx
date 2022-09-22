@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
 import { FC, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { pencil } from '../../../utils/assets/img';
+import PencilComponent from '../../../utils/assets/img/PencilComponent';
 import { IGalleryInfo } from '../custom_types';
 import FormGallery from './FormGallery';
 
@@ -23,7 +23,11 @@ const ModalEditGallery: FC<ModalEditFormPros> = ({ gallery, onSubmit }) => {
     };
     return (
         <>
-            <img src={pencil} style={{ cursor: 'pointer' }} onClick={() => open()} className="img-pencil" alt="" />
+            <PencilComponent
+                on_click={() => {
+                    open();
+                }}
+            />
             <Modal
                 visible={is_visible}
                 width={1000}
@@ -48,7 +52,7 @@ const ModalEditGallery: FC<ModalEditFormPros> = ({ gallery, onSubmit }) => {
                         {loading && (
                             <i
                                 className="fa fa-circle-o-notch fa-spin"
-                                style={{ fontSize: 12, marginLeft: 4, color: '#fff' }}
+                                style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
                             />
                         )}
                     </button>,

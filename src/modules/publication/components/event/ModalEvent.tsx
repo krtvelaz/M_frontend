@@ -17,7 +17,7 @@ const ModalEvent = () => {
                 form_ref.current?.resetForm();
                 close();
             }}
-            title={<span style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '16px' }}>Editar elemento galería</span>}
+            title={<span style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '16px' }}>Formulario de asisitencia</span>}
 
             footer={[
 

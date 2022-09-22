@@ -1,7 +1,7 @@
 
 import { IRoute } from '../../utils/components/router/custom_types';
 import AboutUs from './views/AboutUs';
-import CalendarEvents from './views/CalendarEvents';
+import CalendarEvents from '../publication/components/event/CalendarEvents';
 import Home from './views/Home';
 import Homepage from './views/Homepage';
 

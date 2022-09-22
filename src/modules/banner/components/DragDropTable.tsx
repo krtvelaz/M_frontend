@@ -103,6 +103,7 @@ const DragDropTable: FC<ITable> = ({ _columns, data, setData, loading, edit }) =
                 columns={columns}
                 dataSource={data}
                 components={components}
+                pagination={false}
                 onRow={(_, index) => {
                     const attr = {
                         index,

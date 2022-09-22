@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { trash, watch } from '../../../../utils/assets/img';
+import { trash } from '../../../../utils/assets/img';
 import { swal_error, Table } from '../../../../utils/ui';
 import ModalDetailDocument from '../../../../utils/ui/ModalDetailDocument';
 import { IMainBanner } from '../../custom_types';
@@ -64,8 +64,6 @@ const ListMainBanner: FC<BannerFormPros> = ({ banners, onEdit, onDelete, loading
                     render: (id: number) => {
                         return (
                             <WatchComponent
-                                color_fill="#1D98D1"
-                                styles={{ cursor: 'pointer' }}
                                 on_click={async () => {
                                     const res = await dispatch(actions.get_image_banner(id));
                                     if (res) {

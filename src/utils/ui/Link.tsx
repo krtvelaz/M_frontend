@@ -32,7 +32,7 @@ export const LinkButton: FC<LinkButtonProps> = ({ name, icon, iconText, avatar, 
         <span className={axu_class} onClick={onClick}>
             <span style={{ cursor: 'pointer' }}>{name}</span>
             {has_icon && avatar && (
-                <Avatar className="ms-2 text-white link-avatar" size={28} icon={icon} style={{ backgroundColor: '#603CE6' }}>
+                <Avatar className="ms-2 text-white link-avatar" size={28} icon={icon} style={{ backgroundColor: '#1D98D1' }}>
                     {iconText}
                 </Avatar>
             )}

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { ModalDetailDocument, swal_error, Table } from '../../../../utils/ui';
-import { trash, watch } from '../../../../utils/assets/img';
+import { trash } from '../../../../utils/assets/img';
 import { IDocument } from '../../custom_types';
 import ModalEditDocument from './ModalEditDocument';
 import { useDispatch } from 'react-redux';
@@ -69,8 +69,7 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, onDelete, onEdit, typ
                         return (
                             <>
                                 <WatchComponent
-                                    styles={ values.chafil_nombre_plantilla ? { cursor: 'pointer' } : {} }
-                                    color_fill={!values.chafil_nombre_plantilla ? '#CFCFCF' : '#603CE6'}
+                                    styles={ !values.chafil_nombre_plantilla ? { fill: '#CFCFCF' } : {} }
                                     on_click={async () => {
                                         if (!values.chafil_nombre_plantilla) return;
                                         const res = await dispatch(actions.get_document(values?.id || -1));

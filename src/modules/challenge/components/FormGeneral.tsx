@@ -35,6 +35,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     profiles,
 }) => {
     const initialValues = {
+        cha_announcement: '',
         cha_name: '',
         cha_profiles: [],
         cha_id_dimension: '',
@@ -67,6 +68,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
 
     const dispatch = useDispatch<any>();
     const schema = Yup.object().shape({
+        cha_announcement: Yup.number().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
         cha_name: Yup.string().required('Campo obligatorio'),
         cha_profiles: Yup.array().min(1, 'Campo obligatorio'),
         cha_id_dimension: Yup.string().nullable().required('Campo obligatorio'),
@@ -110,7 +112,21 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 return (
                     <Form>
                         <div className="row">
-                            <div className="col-12 col-md-6 col-lg-6">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="cha_announcement_id" className="form-label">
+                                    No. Convocatoría
+                                </label>
+                                <Field
+                                    type="number"
+                                    id="cha_announcement_id"
+                                    name="cha_announcement"
+                                    className="form-control"
+                                    aria-describedby="nombre del reto"
+                                    autoComplete="off"
+                                />
+                                <ErrorMessage name="cha_announcement"  />
+                            </div>
+                            <div className="col-12 col-md-6 col-lg-9">
                                 <label htmlFor="ret_nombre_id" className="form-label">
                                     Nombre
                                 </label>
@@ -133,6 +149,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_name" withCount max={80} />
                             </div>
+                        </div>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_perfil_id" className="form-label">
                                     Perfiles
@@ -158,8 +176,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_profiles" />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-3">
                                 <label htmlFor="ret_dimension_id" className="form-label">
                                     Dimensión
@@ -177,7 +193,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_id_dimension" />
                             </div>
-                            <div className="col-12 col-md-6 col-lg-3">
+                            <div className="col-12 col-md-12 col-lg-3">
                                 <label htmlFor="ret_dependencia_id" className="form-label">
                                     Dependencia
                                 </label>
@@ -194,6 +210,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_id_dependency" />
                             </div>
+                        </div>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-3">
                                 <label htmlFor="ret_fecha_inicio_id" className="form-label">
                                     Fecha de inicio
@@ -219,9 +237,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_end_date" />
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-6 col-lg-6">
+                            <div className="col-12 col-md-12 col-lg-6">
                                 <label htmlFor="ret_descripcion_id" className="form-label">
                                     Descripción
                                 </label>
@@ -236,6 +252,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_description" withCount max={250} />
                             </div>
+                        </div>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_detalle_postulacion_id" className="form-label">
                                     Detalles del reto
@@ -259,8 +277,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_details" withCount max={100} />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_comuna_id" className="form-label">
                                     Lugar del reto
@@ -342,6 +358,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_imagen_principal.name" />
                             </div>
+                        </div>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_video_id" className="form-label">
                                     Video <span style={{ fontSize: '10px' }}> - Opcional </span>
@@ -356,8 +374,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <div style={{ fontSize: '10px', marginTop: '5px' }}>URL embebida (YouTube, Vimeo)</div>
                                 <ErrorMessage name="cha_video_url" />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_dato_importante_id" className="form-label">
                                     Datos importantes{' '}
@@ -381,6 +397,8 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_important_data" withCount max={500} />
                             </div>
+                        </div>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_resultado_esperado_id" className="form-label">
                                     Resultados esperados{' '}
@@ -404,8 +422,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 />
                                 <ErrorMessage name="cha_expected_results" withCount max={500} />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="cha_impact_type_id" className="form-label">
                                     Tipo de impacto

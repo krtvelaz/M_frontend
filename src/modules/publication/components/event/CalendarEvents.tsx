@@ -4,8 +4,8 @@ import type { Moment } from 'moment';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PopoverEvent from '../../publication/components/event/PopoverEvent';
-import { actions } from '../../publication/redux';
+import PopoverEvent from './PopoverEvent';
+import { actions } from '../../redux';
 
 const getMonthData = (value: Moment) => {
     if (value.month() === 8) {
@@ -88,17 +88,19 @@ const CalendarEvents = () => {
         );
     };
     return (
-        <div className="container col-10 box-calendar ">
-            <div className="container text-white text-center pt-5">
+        <div className="box-calendar">
+        <div className="container-fluid ">
+            <div className="text-white text-center pt-5">
                 <div><p>Medellin {moment().format('D')} de {moment().format('MMM YYYY')} </p></div>
                 <div><h1 className=" text-white text-stake">Calendario de eventos</h1></div>
                 <div><h3 className=" text-white text-stake-mediun">Conoce y participa en los eventos de innovación</h3></div>
             </div>
             <Card className='m-5 ' style={{ borderRadius: '40px', boxShadow: '0px 30px 80px #00000029' }}>
-                <Calendar dateCellRender={dateCellRender}
+                <Calendar  dateCellRender={dateCellRender}
                     monthCellRender={monthCellRender}
                 />
             </Card>
+        </div>
         </div>
     )
 };

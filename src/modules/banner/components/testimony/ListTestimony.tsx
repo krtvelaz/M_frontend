@@ -15,15 +15,14 @@ interface IListTestimony {
     onDelete: (index: number) => void;
 }
 
-const ListTestimony: FC<IListTestimony> = ({ testimonials, onEdit, onDelete }) => {  
+const ListTestimony: FC<IListTestimony> = ({ testimonials, onEdit, onDelete }) => {
     const [data, setData] = useState([...testimonials]);
     const loading: boolean = useSelector((store: any) => store.banner.testimonials.loading);
     const dispatch = useDispatch<any>();
 
     useEffect(() => {
-        setData(testimonials)
+        setData(testimonials);
     }, [testimonials]);
-
 
     const table_columns = [
         {

@@ -3,6 +3,7 @@ import { TemplateContext } from "./templateContext";
 import Menu from "antd/lib/menu";
 import logoAlcaldia from "../../../utils/assets/img/logoAlcaldia.svg";
 import { useNavigate } from "react-router-dom";
+import { logoMedeinnWhite } from "../../assets/img";
 
 const sider: FC<{ width: number; setMenuSider: any }> = ({
   width,
@@ -73,6 +74,24 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
           </div>
         ),
       path: "/home",
+    },
+    {
+      label:
+        context.device === "sm" ? (
+          "Roles y permisos"
+        ) : (
+          <div>
+            <div
+              style={{
+                paddingLeft: "35px",
+              }}
+              className='principal-silder'
+            >
+              Roles y permisos
+            </div>
+          </div>
+        ),
+      path: "/list/users",
     },
     {
       label:
@@ -148,8 +167,9 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
         <div
           className="text-center"
           style={{
-            backgroundColor: "#92BEE4",
+            backgroundColor: "#1D98D1",
             borderRight: "1px solid #2ea1fe",
+            marginBottom: '3px'
           }}
         >
           <img
@@ -157,7 +177,14 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
             className="img-fluid"
             alt=""
             width="60%"
-            style={{ padding: "20px 0 20px 0" }}
+            style={{ padding: "20px 0 10px 0" }}
+          />
+          <img
+            src={logoMedeinnWhite}
+            className="img-fluid"
+            alt=""
+            width="75%"
+            style={{ padding: "0 0 30px 0" }}
           />
         </div>
       )}

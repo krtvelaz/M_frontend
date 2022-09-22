@@ -9,9 +9,14 @@ const TabPulications = () => {
     const [keyTab, setKeryTab] = useState<string>('');
     const dispatch = useDispatch<any>();
     const on_change = (key: string) => {
-        setKeryTab(key)
+        setKeryTab(key);
         dispatch(
-            actions.get_history_publications({ page: 1, page_size: 4, only: 'published',  ...(key !== '0' && { form: Number(key) }) })
+            actions.get_history_publications({
+                page: 1,
+                page_size: 4,
+                only: 'published',
+                ...(key !== '0' && { form: Number(key) }),
+            })
         );
     };
     useEffect(() => {
@@ -26,7 +31,15 @@ const TabPulications = () => {
             <h2 className="text-white" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                 Entérate de lo más actual
             </h2>
-            <Tabs defaultActiveKey="0" className="tabs-events" onChange={on_change}>
+            <Tabs
+                defaultActiveKey="0"
+                className="tabs-events"
+                onChange={on_change}
+                tabBarStyle={{
+                    fontSize: '13px',
+                    color: '#fff'
+                }}
+            >
                 <TabPane tab="Todos" key="0">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>

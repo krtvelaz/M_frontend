@@ -17,35 +17,20 @@ export const create_gallery = (
     //
     return async (dispatch: any) => {
         dispatch(default_gallery());
-        const img = values.gal_imagen;
-        const data = {
-            action: 'insert',
-            info: {
-                id: -1,
-                key: id_publication,
-            },
-            data: {
-                ...values,
-                gal_id_hechos_noticias: id_publication,
-                gal_nombre_imagen: values.gal_imagen?.name || '',
-                gal_nombre_codificado_imagen: '',
-                gal_ruta_imagen: '',
-            },
-        };
-        delete data.data.gal_imagen;
-
         let form = new FormData();
-        form.append('data', JSON.stringify(data));
-        form.append('img', img);
+        form.append('title', values.title );
+        form.append('description', values.description);
+        form.append('image', values.image );
+        form.append('publication_id', `${id_publication}`  );
         try {
-            const URI = 'news/imgGallery';
+            const URI = '/publications/gallery';
             const res = await cms_http.post(URI, form, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-            dispatch(success_gallery(res.data.body.data));
+            dispatch(success_gallery(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -54,7 +39,7 @@ export const create_gallery = (
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            return res.data.body.data;
+            return res.data.data;
         } catch (error: any) {
             dispatch(fail_gallery());
             await swal_error.fire({
@@ -138,7 +123,7 @@ export const get_gallery_by_id = (id: number) => {
     return async (dispatch: any) => {
         // dispatch(default_gallery());
         try {
-            const URI = 'news/gallery/img';
+            const URI = 'publications/details';
             const res = await cms_http.post(
                 URI,
                 {
@@ -154,17 +139,26 @@ export const get_gallery_by_id = (id: number) => {
         }
     };
 };
-export const get_list_gallery = (key: number) => {
+export const get_list_gallery = (filters?: {
+    publication_id: number;
+    page?: number;
+    page_size?: number;
+    order_by_key?: string;
+    order_by_value?: string;
+    from?: string;
+}) => {
     return async (dispatch: any) => {
         dispatch(default_list_gallery());
 
         try {
-            const URI = 'news/gallery/list';
-            const res = await cms_http.post(URI, {
-                key,
+            const URI = '/publications/gallery/list';
+            const res = await cms_http.get(URI, {
+                params: {
+                    ...filters
+                }
             });
-            dispatch(success_list_gallery(res.data.body));
-            return res.data.body;
+            dispatch(success_list_gallery(res.data.data));
+            return res.data.data;
         } catch (error) {
             dispatch(fail_list_gallery());
             return Promise.reject('Error');

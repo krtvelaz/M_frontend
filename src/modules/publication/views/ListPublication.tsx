@@ -2,7 +2,8 @@ import { Popover, Radio } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil, trash } from '../../../utils/assets/img';
+import { trash } from '../../../utils/assets/img';
+import PencilComponent from '../../../utils/assets/img/PencilComponent';
 import { Card, Link, swal_error, Table } from '../../../utils/ui';
 import { IGeneralInfo } from '../custom_types';
 import { actions } from '../redux';
@@ -118,7 +119,7 @@ const ListPublication = () => {
                                 to={`/publication/edit/${id}/`}
                                 name=""
                                 avatar={false}
-                                icon={<img src={pencil} style={{ cursor: 'pointer' }} className="img-pencil" alt="" />}
+                                icon={ <PencilComponent />}
                             />
                         );
                     },

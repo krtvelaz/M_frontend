@@ -31,19 +31,22 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
         },
         {
             title: 'Título',
-            dataIndex: 'gal_titulo',
+            dataIndex: 'pubfil_title',
             align: 'left' as 'left',
         },
         {
             title: 'Descripción',
-            dataIndex: 'gal_descripcion',
+            dataIndex: 'pubfil_description',
             align: 'left' as 'left',
         },
         {
             title: 'Imagen',
-            dataIndex: 'gal_nombre_imagen',
+            dataIndex: 'pubfil_name',
             responsive: ['md'],
             align: 'left' as 'left',
+            render: (name: string) => {
+                return `${name}.jpg`
+            }
         },
         {
             title: 'Acciones',
@@ -67,7 +70,6 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
                                             set_is_visible_doc(true);
                                         }
                                     }}
-                                    color_fill="#603CE6"
                                 />
                             </>
                         );

@@ -1,0 +1,8 @@
+.modal-roles .ant-modal-content {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.modal-roles .ant-modal-footer {
+    border-top: none !important;
+}

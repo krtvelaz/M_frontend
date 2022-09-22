@@ -54,7 +54,7 @@ const CreateEvent = () => {
                     {loading && (
                         <i
                             className="fa fa-circle-o-notch fa-spin"
-                            style={{ fontSize: 12, marginLeft: 4, color: '#fff' }}
+                            style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
                         />
                     )}
                 </button>
