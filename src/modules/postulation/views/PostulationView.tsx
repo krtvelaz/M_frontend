@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
 import ComponetCard from '../../../utils/ui/Card';
-import { Card, Modal, Switch, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import FormPostulation from '../components/FormPostulation';
 import FormTeam from '../components/FormTeam';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
@@ -17,26 +17,14 @@ interface PostulationView {
     postulation?: IPostulation;
 }
 const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation }) => {
+    const [formList, setFormList] = useState<Array<JSX.Element>>([]);
     const { TabPane } = Tabs;
     const OpenForm = () => {};
-    const DataPostulante = [
-        {
-            id: 1,
-            title: 'hola',
-        },
-        {
-            id: 2,
-            title: 'hola',
-        },
-        {
-            id: 3,
-            title: 'hola',
-        },
-        {
-            id: 4,
-            title: 'hola',
-        },
-    ];
+    const addComponents = () => {
+        let ArrayComponents = [...formList];
+        ArrayComponents.push(<FormTeam onSubmit={OpenForm} />);
+        setFormList(ArrayComponents);
+    };
 
     return (
         <div className="container">
@@ -90,12 +78,13 @@ const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation 
                         key="item-1.2"
                     >
                         <ComponetCard>
-                            {DataPostulante.map((item, i) => (
-                                <FormTeam onSubmit={OpenForm} />
+                            {formList.map((component, i) => (
+                                <div key={i}>{component}</div>
                             ))}
                             <div style={{ display: 'flex', justifyContent: 'end' }}>
                                 <span style={{ padding: '2%', color: '#FF8403' }}>Agegar otro participante</span>
                                 <button
+                                    onClick={() => addComponents()}
                                     style={{
                                         borderRadius: '50%',
                                         color: 'white',

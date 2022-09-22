@@ -8,50 +8,35 @@ import {
     postulations_default,
     postulations_fail,
     postulations_success,
+    members_default,
+    members_success,
+    members_fail,
     success_typeDocuments,
     loading_typeNumberContact,
     fail_typeNumberContact,
     success_typeNumberContact,
     loading_profiles,
     fail_profiles,
-    success_profiles
+    success_profiles,
+    listSex_default,
+    listSex_success,
+    listSex_fail
    
 } from './slice';
 
 
-const create_main_postulation = (values: IPostulation) => {
+const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(postulations_default());
-
-        const img = values.car_imagen;
-        const data = {
-            action: 'insert',
-            info: {
-                id: -1,
-                key: -1
-            },
-            data: {
-                ...values,
-                car_codigo_usuario: '123456',
-                car_nombre_imagen: values.car_imagen?.name || '',
-                car_ruta_imagen: '',
-                car_nombre_imagen_codificado: ''
-            }
-        };
-        delete data.data.car_imagen;
-
-        let form = new FormData();
-        form.append('data', JSON.stringify(data));
-        form.append('file', img);
-
         try {
             const URI = 'postulations/';
-            const res = await http.post(URI, form, {
+            const res = await http.post(URI, values, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            dispatch(postulations_success(res.data.body.data));
+      
+            dispatch(postulations_success(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -60,9 +45,44 @@ const create_main_postulation = (values: IPostulation) => {
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'
             });
-            return res.data.body.data;
+            return res.data.data;
         } catch (error: any) {
             dispatch(postulations_fail());
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    '<div class="mytext">Edite o elimine algún elemento existente para ingresar este nuevo registro.</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            });
+            return Promise.reject('Error');
+        }
+    };
+};
+const create_memberPostulation = (values: any) => {
+    return async (dispatch: any) => {
+        dispatch(members_default());
+        try {
+            const URI = 'postulations/member/:id';
+            const res = await http.post(URI, values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+      
+            dispatch(members_success(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            });
+            return res.data.data;
+        } catch (error: any) {
+            dispatch(members_fail());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:
@@ -109,6 +129,23 @@ dispatch(success_typeNumberContact(res.data.data))
     };
 
 };
+const get__listSexs = () => {
+    
+    return async (dispatch: any) => {
+        dispatch(listSex_default)
+        try {
+            const URI = `lists/sex`;
+
+            const res: any = await http.get(URI)
+dispatch(listSex_success(res.data.data))
+            return res.data;
+        } catch (error) {
+            dispatch(listSex_fail)
+            return Promise.reject('Error');
+        }
+    };
+
+};
 const get__profiles = () => {
     
     return async (dispatch: any) => {
@@ -130,6 +167,8 @@ const actions = {
     create_main_postulation,
     get__document,
     get__typeNumberContact,
-    get__profiles
+    get__profiles,
+    create_memberPostulation,
+    get__listSexs
 };
 export default actions;

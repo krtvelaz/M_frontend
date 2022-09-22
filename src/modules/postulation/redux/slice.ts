@@ -15,6 +15,8 @@ interface State {
     documentType: Loadable<any | null>;
     numberContact:Loadable<any | null>;
     profile:Loadable<any | null>;
+    memberPostulation:Loadable<any | null>;
+    listSexs:Loadable<any | null>;
 
 }
 
@@ -29,12 +31,22 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
+    listSexs: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
     testimonials: {
         value: [],
         loading: false,
         loaded: false,
     },
     postulation: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    memberPostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -82,6 +94,27 @@ export const postulationSlice = createSlice({
         postulations_fail: (state) => {
             state.postulation = {
                 value: initialState.postulation.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+        members_default: (state) => {
+            state.memberPostulation = {
+                value: state.memberPostulation.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        members_success: (state, action) => {
+            state.memberPostulation = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        members_fail: (state) => {
+            state.memberPostulation = {
+                value: initialState.memberPostulation.value,
                 loading: false,
                 loaded: false,
             };
@@ -170,6 +203,27 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    listSex_default: (state) => {
+        state.listSexs = {
+            value: state.listSexs.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    listSex_success: (state, action) => {
+        state.listSexs = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    listSex_fail: (state) => {
+        state.listSexs = {
+            value: initialState.listSexs.value,
+            loading: false,
+            loaded: false,
+        };
+    },
     },
 });
 
@@ -180,6 +234,9 @@ export const {
     postulations_list_default,
     postulations_list_success,
     postulations_list_fail,
+    members_default,
+    members_success,
+    members_fail,
     loading_typeDocuments,
     success_typeDocuments,
     fail_typeDocuments,
@@ -189,4 +246,7 @@ export const {
     loading_profiles,
     success_profiles,
     fail_profiles,
+    listSex_default,
+    listSex_success,
+    listSex_fail
 } = postulationSlice.actions;

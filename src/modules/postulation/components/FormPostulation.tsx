@@ -42,8 +42,20 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
     });
 
     const submit = async (values: any, form: any) => {
-        console.log('values', values);
-        await dispatch(actions.create_main_postulation(values));
+        await dispatch(
+            actions.create_main_postulation({
+                pos_id_challenge: 1,
+                pos_business_name: values.name,
+                pos_contact: values.type_contact,
+                pos_number_contact: values.number_contact,
+                pos_id_type_competitor: values.type_profiles,
+                pos_email: values.email,
+                pos_type_document_id: values.document_type,
+                pos_documentid: values.number_document,
+                pos_address: values.direction,
+                pos_id_user: 1,
+            })
+        );
     };
 
     const typeDocument = async () => {
@@ -63,7 +75,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
 
     return (
         <Formik enableReinitialize onSubmit={submit} initialValues={initial_values} validationSchema={schema}>
-            {({ handleChange, values }) => {                
+            {({ handleChange, values }) => {
                 return (
                     <Form>
                         <div className="row">
@@ -71,7 +83,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                 <label htmlFor="name_id" className="form-label">
                                     Nombre o razón social
                                 </label>
-                                
+
                                 <Field
                                     type="text"
                                     id="name_id"
