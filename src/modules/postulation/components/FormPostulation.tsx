@@ -16,14 +16,8 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
     const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
-    const [is_visible, set_is_visible] = useState<boolean>(false);
-    const [infoInput, setInfoInput] = useState<any>(false);
     const dispatch = useDispatch<any>();
 
-    const form_ref = useRef<FormikProps<FormikValues>>();
-    const validationDirection = () => {
-        set_is_visible(!is_visible);
-    };
     const initial_values = {
         name: '',
         document_type: null,
@@ -32,22 +26,23 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
         email: '',
         type_contact: null,
         number_contact: '',
-        direction: infoInput,
+        direction: '',
         ...postulation,
     };
+
     const schema = Yup.object().shape({
-        // name: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-        // document_type: Yup.string().nullable().required('Campo obligatorio'),
-        // number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
-        // type_profiles: Yup.string().nullable().required('Campo obligatorio'),
-        // email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
-        // type_contact: Yup.string().nullable().required('Campo obligatorio'),
-        // number_contact: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
-        // direction: Yup.string().required('Campo obligatorio'),
+        name: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+        document_type: Yup.string().nullable().required('Campo obligatorio'),
+        number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        type_profiles: Yup.string().nullable().required('Campo obligatorio'),
+        email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
+        type_contact: Yup.string().nullable().required('Campo obligatorio'),
+        number_contact: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        direction: Yup.string().required('Campo obligatorio'),
     });
+
     const submit = async (values: any, form: any) => {
         console.log('values', values);
-
         await dispatch(actions.create_main_postulation(values));
     };
 
@@ -68,7 +63,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
 
     return (
         <Formik enableReinitialize onSubmit={submit} initialValues={initial_values} validationSchema={schema}>
-            {({ handleChange, values }) => {
+            {({ handleChange, values }) => {                
                 return (
                     <Form>
                         <div className="row">
@@ -76,6 +71,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                 <label htmlFor="name_id" className="form-label">
                                     Nombre o razón social
                                 </label>
+                                
                                 <Field
                                     type="text"
                                     id="name_id"
@@ -235,29 +231,21 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                 <label htmlFor="direction_id" className="form-label">
                                     Dirección de contacto o sede del postulante
                                 </label>
-                                <a onClick={validationDirection}>
-                                    <Field
-                                        type="text"
-                                        id="direction_id"
-                                        value={`${infoInput.tipo_via} ${infoInput.numero_dir} ${infoInput.letra_dir} ${infoInput.zona_dir} ${infoInput.numero2_dir} ${infoInput.letra2_dir} ${infoInput.zona2_dir} ${infoInput.numero3_dir} ${infoInput.obser_dir}`}
-                                        name="direction"
-                                        className="form-control"
-                                        autoComplete="off"
-                                        minLength={3}
-                                        maxLength={100}
-                                        placeholder="Ingrese una dirección..."
-                                    />
-                                </a>
+                                <Field
+                                    component={ModalAddress}
+                                    type="text"
+                                    id="direction_id"
+                                    name="direction"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    minLength={3}
+                                    maxLength={100}
+                                    placeholder="Ingrese una dirección..."
+                                />
 
-                                {/* <ErrorMessage name="direction" withCount max={100} /> */}
+                                <ErrorMessage name="direction" withCount max={100} />
                             </div>
                         </div>
-                        <ModalAddress
-                            setInfoInput={setInfoInput}
-                            is_visible={is_visible}
-                            id={10}
-                            onSubmit={validationDirection}
-                        />
 
                         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
                             <button key="saveDoc" type="submit" className="btn btn-primary" style={{ width: '17%' }}>
