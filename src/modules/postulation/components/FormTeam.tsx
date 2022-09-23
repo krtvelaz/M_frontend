@@ -258,16 +258,15 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                             id="si"
                             label="Si"
                         />
+
                         <Field
                             component={RadioButton}
                             name={`membersPostulations.${i}.gruint_victim`}
                             id="no"
                             label="No"
                         />
-                        <ErrorMessage name={`membersPostulations.${i}.gruint_victim`} />
                     </div>
-
-                    <ErrorMessage name="radiogrou_victim_id" />
+                    <ErrorMessage name={`membersPostulations.${i}.gruint_victim`} />
                 </div>
 
                 <div className="col-3 ">
