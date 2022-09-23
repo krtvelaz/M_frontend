@@ -10,8 +10,9 @@ interface DocsTecPostulations {
 
 export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data, documentPos }) => {
     const [valueInputFile, setValueInputFile] = useState(false);
-
     let valueImputFileView = document.getElementById('fileFormat-docsTec');
+    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
+    console.log('ff', challenge);
     const CargaFormat = () => {
         if (valueImputFileView === null) {
             setValueInputFile(true);
@@ -67,16 +68,16 @@ export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data, documentPos
                     </div>
                 </div>
             )}
-            {documentPos.cha_documents?.map(
-                (item: any) =>
-                    item.id === 2 && (
-                        <ComponetCard>
-                            <div>
+            {challenge?.map(
+                (item: any, i: any) =>
+                    item.retdoc_tipo_formulario === 2 && (
+                        <ComponetCard key={i}>
+                            <div style={{ display: 'contents' }}>
                                 <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>
-                                    {item.title}
+                                    {item.retdoc_nombre_plantilla}
                                 </span>
                                 <div>
-                                    <p>{item.text}</p>
+                                    <p>{item.retdoc_descripcion_documento}</p>
                                 </div>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -2,7 +2,7 @@ import Item from 'antd/lib/list/Item';
 import { FC, useState } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
 import { iconoCheck } from '../../../utils/assets/img';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 interface DocsTecPostulations {
     dataDoc?: any;
@@ -11,6 +11,7 @@ interface DocsTecPostulations {
 export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, documentPos }) => {
     const [valueInputFileAdmin, setValueInputFileAdmin] = useState(false);
     const dispatch = useDispatch<any>();
+    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
     let valueImputFileViewAdmin = document.getElementById('fileFormat-docsAdmin');
     const CargaFormatAdmin = () => {
         if (valueImputFileViewAdmin == null) {
@@ -21,7 +22,7 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, docume
         await dispatch(actions.addDocumentPostulation(values));
     };
     return (
-        <div>
+        <div style={{ display: 'contents' }}>
             {valueInputFileAdmin && (
                 <div
                     style={{
@@ -65,22 +66,36 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, docume
                     </div>
                 </div>
             )}
-            {documentPos.cha_documents?.map(
-                (item2: any) =>
-                    item2.id === 1 && (
-                        <ComponetCard>
-                            <div>
+            {challenge?.map(
+                (item2: any, i: any) =>
+                    item2.retdoc_tipo_formulario === 3 && (
+                        <ComponetCard key={i}>
+                            <div style={{ display: 'contents' }}>
                                 <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>
-                                    {item2.title}
+                                    {item2.retdoc_nombre_plantilla}
                                 </span>
                                 <div>
-                                    <p>{item2.text}</p>
+                                    <p>{item2.retdoc_descripcion_documento}</p>
                                 </div>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <a>
-                                    <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
-                                </a>
+                                {item2.retdoc_ruta_plantilla !== '' && (
+                                    <label
+                                        style={{
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        <input
+                                            id="fileFormat-docsAdmin"
+                                            onClick={() => CargaFormatAdmin()}
+                                            style={{ display: 'none' }}
+                                            type="file"
+                                        />
+
+                                        <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
+                                    </label>
+                                )}
+
                                 <label
                                     style={{
                                         cursor: 'pointer',

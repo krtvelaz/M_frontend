@@ -15,21 +15,21 @@ export const DocsPostulation = () => {
     const getChallenge = async () => {
         await dispatch(actions.get_detail_challenge(Number(1)));
     };
-    const inforCardPostulation = () => {
-        challenge.cha_documents?.map((item: any) => {
-            return {
-                title: item.chafil_nombre_plantilla,
-                text: item.chafil_nombre_tipo_documento,
-                id: item.chafil_id_tipo_documento,
-            };
-        });
-    };
 
+    // const inforCardPostulation = challenge.cha_documents?.map((item: any) => {
+    //     return {
+    //         title: item.chafil_nombre_plantilla,
+    //         text: item.chafil_nombre_tipo_documento,
+    //         id: item.chafil_id_tipo_documento,
+    //     };
+    // });
+    // const setData = () => {
+    //     if (challenge && challenge.cha_documents) {
+    //     }
+    // };
     useEffect(() => {
         getChallenge();
-        // setDocumentPos(inforCardPostulation);
     }, []);
-
     const dataTecnica = [
         {
             id: 1,
@@ -48,14 +48,12 @@ export const DocsPostulation = () => {
         },
     ];
     return (
-        <div>
+        <div style={{ display: 'contents' }}>
             <ComponetCard>
                 <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos técnicos</span>
                 <hr />
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '20px' }}>
-                    {dataTecnica.map((item, i) => (
-                        <DocsTecPostulations documentPos={documentPos} data={item} key={i} />
-                    ))}
+                    <DocsTecPostulations documentPos={documentPos} />
                 </div>
 
                 <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>
@@ -63,9 +61,7 @@ export const DocsPostulation = () => {
                 </span>
                 <hr />
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '20px' }}>
-                    {dataTecnica.map((item, i) => (
-                        <DocsAdminPostulations documentPos={documentPos} dataDoc={item} key={i} />
-                    ))}
+                    <DocsAdminPostulations documentPos={documentPos} />
                 </div>
             </ComponetCard>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>

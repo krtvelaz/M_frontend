@@ -29,6 +29,9 @@ import {
     loading_challenge,
     get_challenge,
     fail_challenge,
+    sexualOrientation_default,
+    sexualOrientation_success,
+    sexualOrientation_fail
 } from './slice';
 
 const create_main_postulation = (values: any) => {
@@ -160,6 +163,21 @@ const get__listSexs = () => {
         }
     };
 };
+const get__sexual_orientation = () => {
+    return async (dispatch: any) => {
+        dispatch(sexualOrientation_default);
+        try {
+            const URI = `lists/sexual_orientation`;
+
+            const res: any = await http.get(URI);
+            dispatch(sexualOrientation_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(sexualOrientation_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
 const get__profiles = () => {
     return async (dispatch: any) => {
         dispatch(loading_profiles);
@@ -213,7 +231,7 @@ const get_detail_challenge = (id: number) => {
     return async (dispatch: any) => {
         dispatch(loading_challenge());
         try {
-            const URI = `/challenges/details`;
+            const URI = `/postulations/documents/37/3`;
             const res = await http.get(URI, {
                 params: {
                     id,
@@ -237,6 +255,7 @@ const actions = {
     get__listSexs,
     addDocumentPostulation,
     get__documentMembers,
-    get_detail_challenge
+    get_detail_challenge,
+    get__sexual_orientation
 };
 export default actions;
