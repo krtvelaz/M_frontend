@@ -62,7 +62,6 @@ const CalendarEvents = () => {
         return listData || [];
     };
     const monthCellRender = (value: Moment) => {
-        console.log(value)
         const num = getMonthData(value);
         return num ? (
             <div className="notes-month">

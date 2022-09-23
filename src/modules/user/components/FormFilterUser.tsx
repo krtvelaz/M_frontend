@@ -5,12 +5,12 @@ import { FC } from 'react';
 
 interface IPros {
     disabled?: boolean;
-    type?: 'view' | 'create' | 'edit';
+    type?: 'assign' | 'change';
     innerRef: any;
     onSubmit: (values: any) => any;
 }
 
-const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit }) => {
+const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
     const initialValues = {
         cha_announcement: '',
         cha_name: '',
@@ -36,9 +36,9 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit }) => {
                 return (
                     <Form>
                         <div className="row">
-                            <div className="col-12 col-md-6 col-lg-6">
+                            <div className={`col-12 col-md-${type === 'assign' ? 10 : 6} `}>
                                 <label htmlFor="ret_nombre_id" className="form-label">
-                                    Usuario
+                                    {type === 'assign' ? 'Buscar usuario' : type === 'change' ? 'Datos del usuario' : 'Usuario'}
                                 </label>
                                 <Field
                                     type="text"
@@ -48,6 +48,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit }) => {
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                     maxLength={80}
+                                    disabled={type=== 'change'}
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
@@ -59,41 +60,48 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit }) => {
                                 />
                                 <ErrorMessage name="cha_name" withCount max={80} />
                             </div>
-                            <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="ret_perfil_id" className="form-label">
-                                    Rol
-                                </label>
-                                <Field
-                                    component={Select}
-                                    maxTagCount="responsive"
-                                    showArrow
-                                    dropdownMatchSelectWidth={false}
-                                    id="ret_perfil_id"
-                                    name="cha_profiles"
-                                    className=""
-                                    options={[
-                                        {
-                                            id: 1,
-                                            name: 'Super administrador',
-                                        },
-                                        {
-                                            id: 1,
-                                            name: 'Administrador',
-                                        },
-                                        {
-                                            id: 1,
-                                            name: 'Invitado',
-                                        },
-                                    ]}
-                                    placeholder="Seleccione uno o más perfiles…"
-                                    mode="multiple"
-                                    showSearch
-                                    filterOption={(input: any, option: any) => {
-                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-                                    }}
-                                />
-                                <ErrorMessage name="cha_profiles" />
-                            </div>
+
+                            {type !== 'assign' ? (
+                                <div className="col-12 col-md-6 col-lg-6">
+                                    <label htmlFor="ret_perfil_id" className="form-label">
+                                        {type === 'change' ? 'Seleccionar rol' : 'Rol'}
+                                    </label>
+                                    <Field
+                                        component={Select}
+                                        maxTagCount="responsive"
+                                        showArrow
+                                        dropdownMatchSelectWidth={false}
+                                        id="ret_perfil_id"
+                                        name="cha_profiles"
+                                        className=""
+                                        options={[
+                                            {
+                                                id: 1,
+                                                name: 'Super administrador',
+                                            },
+                                            {
+                                                id: 1,
+                                                name: 'Administrador',
+                                            },
+                                            {
+                                                id: 1,
+                                                name: 'Invitado',
+                                            },
+                                        ]}
+                                        placeholder="Seleccione uno o más perfiles…"
+                                        mode="multiple"
+                                        showSearch
+                                        filterOption={(input: any, option: any) => {
+                                            return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                        }}
+                                    />
+                                    <ErrorMessage name="cha_profiles" />
+                                </div>
+                            ) : (
+                                <div className="col-12 col-md-2" style={{marginTop: '25px'}}>
+                                    <button className="btn btn-primary">Buscar</button>
+                                </div>
+                            )}
                         </div>
                     </Form>
                 );

@@ -46,7 +46,7 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
     });
     const submit = (values: any, form: any) => {
         // onSubmit(values);
-        console.log(values)
+       
 
     };
     return (

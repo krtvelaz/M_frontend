@@ -24,7 +24,7 @@ const AddGallery: FC<IGalleryProps> = ({ publication }) => {
         await dispatch(actions.get_list_gallery({ publication_id: publication?.general_information?.id || -1}));
     };
     const editImage = async (values: IGalleryInfo) => {
-        await dispatch(actions.edit_gallery(publication?.general_information?.id || -1, values));
+        await dispatch(actions.edit_gallery(values));
         setIsChange(true);
     };
 

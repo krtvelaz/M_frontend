@@ -28,16 +28,18 @@ const TableUser = () => {
             align: 'center' as 'center',
             // fixed: 'right',
             render: () => {
-                return <ModalAssignRole />;
+                return <ModalAssignRole type='change' />;
             },
         },
     ];
     return (
         <>
             <Table
+                title="Usuarios con roles asignados"
+                paginationTop
                 columns={table_columns}
                 items={[{ id: 1, name: 'Luisa María Sánchez Cadavid', user: '101719606', role: 'Super administrador' }]}
-                with_pagination={false}
+                with_pagination
                 loading={false}
             />
         </>

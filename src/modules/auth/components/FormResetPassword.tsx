@@ -31,7 +31,6 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
         ...resetPassword
     };
     const submit = (values: any) => {
-        console.log(values)
     };
 
     const schema = Yup.object().shape({

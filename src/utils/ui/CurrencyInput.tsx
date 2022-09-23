@@ -21,21 +21,6 @@ const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...pro
             }}
             defaultValue={0}
             onKeyUp={(e: any) => {
-                
-                // e.preventDefault();
-                // if (e.target.value !== '') {
-                //     console.log('primer if');
-                //     if (e.target.value.toString().length === 1) {
-                //         console.log('segundo if');
-                //         const permisos = /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g;
-                //         if (permisos.test(e.target.value)) {
-                //             console.log('tercer if');
-                //             form.setFieldValue(field.name, '', false);
-                //             e.target.value = e.target.value.substring(0, e.target.value.length - 1);
-                //             return;
-                //         }
-                //     }
-                // }
                 const { value } = e.target;
                 const regex = /^[0-9.,]{0,30}$/;
                 if (regex.test(value.toString())) {

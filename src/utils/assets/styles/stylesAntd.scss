@@ -465,6 +465,21 @@ textarea.form-control {
     border-radius: 0;
 }
 
+.ant-table-cell-fix-left, .ant-table-cell-fix-right {
+width: auto;
+}
+
+
+
+
+// texto enriquecido
+.ql-container.ql-snow {
+    border-radius: 0 0 6px 6px;
+    min-height: 175px;
+}
+.ql-toolbar.ql-snow {
+    border-radius: 6px 6px  0 0;
+}
 
 
 

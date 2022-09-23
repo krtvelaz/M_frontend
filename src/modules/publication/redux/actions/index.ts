@@ -22,7 +22,7 @@ import {
 import {
     create_gallery,
     edit_gallery,
-    get_gallery_by_id,
+    get_image_gallery,
     get_list_gallery,
     delete_gallery,
 } from "./gallery";
@@ -44,7 +44,7 @@ const actions = {
     get_history_publications,
     create_gallery,
     edit_gallery,
-    get_gallery_by_id,
+    get_image_gallery,
     get_list_gallery,
     delete_gallery,
   }

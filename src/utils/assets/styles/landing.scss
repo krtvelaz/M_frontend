@@ -612,7 +612,7 @@ img {
         rgba(0, 0, 0, 0.91) 20%,
         transparent
     );
-    border-radius: 16px 16px 0 0;
+    
 }
 .imagen-events button {
     display: none;
@@ -621,6 +621,7 @@ img {
 .imagen-events:hover button {
     display: block;
 }
+
 // ***** Registro****
 
 .box-register {

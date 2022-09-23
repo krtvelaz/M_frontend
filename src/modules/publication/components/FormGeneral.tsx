@@ -3,6 +3,7 @@ import { IGeneralInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage, Select } from "../../../utils/ui";
+import RichText from "./RichText";
 
 
 interface PublicationPros {
@@ -21,13 +22,12 @@ const FormGeneral: FC<PublicationPros> = ({
     pub_author: "",
     pub_description: "",
     pub_imagen: {
-      name: "",
+      name: publication?.pub_image?.pubfil_title ? `${publication?.pub_image?.pubfil_title }.${publication?.pub_image?.pubfil_type }` : "",
       id: publication?.id,
     },
     ...publication,
   };
 
-  
 
   const schema = Yup.object().shape({
     pub_type: Yup.string().required("Campo Obligatorio"),
@@ -57,6 +57,7 @@ const FormGeneral: FC<PublicationPros> = ({
         return (
           <Form>
             <div className="row">
+              
               <div className="col-12 col-md-6 col-lg-6">
                 <label
                   htmlFor="hec_id_tipo_publicacion_id"
@@ -71,9 +72,9 @@ const FormGeneral: FC<PublicationPros> = ({
                   options={[
                     {
                       name: "Noticia",
-                      id: 1,
+                      id: 2,
                     },
-                    { name: "Evento", id: 2 },
+                    { name: "Evento", id: 1 },
                     {
                       name: "Resultado",
                       id: 3,
@@ -143,8 +144,7 @@ const FormGeneral: FC<PublicationPros> = ({
                 Contenido
               </label>
               <Field
-                as="textarea"
-                className="form-control"
+                component={RichText}
                 id="hec_descripcion_id"
                 name="pub_description"
                 autoComplete="off"

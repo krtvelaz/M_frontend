@@ -40,7 +40,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
     });
     const submit = (values: any, form: any) => {
         // onSubmit(values);
-        console.log(values)
+       
 
     };
   return (

@@ -21,6 +21,7 @@ const ModalEditGallery: FC<ModalEditFormPros> = ({ gallery, onSubmit }) => {
         await onSubmit(values);
         set_is_visible(false);
     };
+    
     return (
         <>
             <PencilComponent

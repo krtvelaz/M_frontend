@@ -6,21 +6,21 @@ import { actions } from '../redux';
 
 const TabPulications = () => {
     const { TabPane } = Tabs;
-    const [keyTab, setKeryTab] = useState<string>('');
+    const [keyTab, setKeryTab] = useState<'EVENTO' | 'NOTICIA' | 'RESULTADO' | '0'>('0');
     const dispatch = useDispatch<any>();
-    const on_change = (key: string) => {
+    const on_change = (key: any) => {
         setKeryTab(key);
         dispatch(
-            actions.get_history_publications({
+            actions.get_list_publications({
                 page: 1,
                 page_size: 4,
-                only: 'published',
-                ...(key !== '0' && { form: Number(key) }),
+                from: 'landing',
+                ...(key !== '0' && { type: key }),
             })
         );
     };
     useEffect(() => {
-        dispatch(actions.get_history_publications({ page: 1, page_size: 4, only: 'published' }));
+        dispatch(actions.get_list_publications({ page: 1, page_size: 4, from: 'landing' }));
     }, []);
 
     return (
@@ -37,19 +37,19 @@ const TabPulications = () => {
                 onChange={on_change}
                 tabBarStyle={{
                     fontSize: '13px',
-                    color: '#fff'
+                    color: '#fff',
                 }}
             >
                 <TabPane tab="Todos" key="0">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
-                <TabPane tab="Noticias" key="1">
+                <TabPane tab="Noticias" key="NOTICIA">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
-                <TabPane tab="Eventos" key="2">
+                <TabPane tab="Eventos" key="EVENTO">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
-                <TabPane tab="Resultados" key="3">
+                <TabPane tab="Resultados" key="RESULTADO">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
             </Tabs>

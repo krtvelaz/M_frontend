@@ -29,7 +29,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
         eve_lugar_evento: "",
         eve_fecha: "",
         eve_hora: '',
-        eve_cupos_limitado: true,
+        eve_cupos_limitado: "",
         eve_numero_cupos: "",
         ...event,
         ...(event && {

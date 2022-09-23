@@ -1,6 +1,7 @@
 import { useRef } from 'react';
-import { Card } from '../../../utils/ui';
+import { Card, } from '../../../utils/ui';
 import FormFilterUser from '../components/formFilterUser';
+import ModalAssignRole from '../components/ModalAssignRole';
 import TableUser from '../components/TableUser';
 
 const ListUser = () => {
@@ -9,11 +10,20 @@ const ListUser = () => {
         <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-md-12">
+                    
                     <div className="row">
                         <h5 className="col d-flex justify-content-start">Roles y permisos</h5>
+                        <div
+                            style={{
+                                margin: '0 20px 10px 0',
+                            }}
+                            className="col d-flex justify-content-end"
+                        >
+                            <ModalAssignRole type='assign'/>
+                        </div>
                     </div>
                     <Card
-                        title="Buscar usuario"
+                        title="Buscar usuario con rol asignado"
                         actions={[
                             <div className="d-flex justify-content-end" style={{ padding: '20px' }}>
                                 <button

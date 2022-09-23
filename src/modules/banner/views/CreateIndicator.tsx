@@ -15,7 +15,6 @@ const CreateIndicator = () => {
     const [data, setData] = useState<any>([]);
     const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
 
-
     const table_columns: any = [
         {
             title: 'No.',
@@ -60,19 +59,20 @@ const CreateIndicator = () => {
     };
 
     useEffect(() => {
-        dispatch(actions.get_statistics({page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' }));
+        dispatch(actions.get_statistics({ page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' }));
     }, []);
 
     useEffect(() => {
-        if(Array.isArray(statistics)){
-            setData(statistics)
+        if (Array.isArray(statistics)) {
+            setData(statistics);
         }
     }, [statistics]);
 
-
     useEffect(() => {
         if (isSuccess) {
-            dispatch(actions.get_statistics({page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' }));
+            dispatch(
+                actions.get_statistics({ page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' })
+            );
             setIsSuccess(false);
         }
     }, [isSuccess]);
@@ -81,11 +81,10 @@ const CreateIndicator = () => {
         <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-md-12">
-                    <div className="row">
-                        <h5 className="col d-flex justify-content-start">Estadísticas</h5>
-                    </div>
-
                     <Card>
+                        <div className="row">
+                            <h5 className="col d-flex justify-content-start">Estadísticas</h5>
+                        </div>
                         <DragDropTable
                             _columns={table_columns}
                             data={data}
@@ -98,12 +97,17 @@ const CreateIndicator = () => {
                                         sta_order: i + 1,
                                     });
                                 });
-                                await dispatch(actions.edit_order_statistics(newdata))
-                                await  dispatch(actions.get_statistics({page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' }));
-                               
+                                await dispatch(actions.edit_order_statistics(newdata));
+                                await dispatch(
+                                    actions.get_statistics({
+                                        page: 1,
+                                        page_size: 4,
+                                        order_by_key: 'sta_order',
+                                        order_by_value: 'asc',
+                                    })
+                                );
                             }}
                         />
-                        
                     </Card>
                 </div>
             </div>

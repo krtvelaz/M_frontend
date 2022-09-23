@@ -26,7 +26,14 @@ const ListChallenge = () => {
             align: 'center' as 'center',
         },
         {
+            title: 'Conv.',
+            fixed: 'left',
+            dataIndex: 'announcement_id',
+            align: 'center' as 'center',
+        },
+        {
             title: 'Nombre del reto',
+            fixed: 'left',
             dataIndex: 'name',
             align: 'left' as 'left',
             render: (value: string) => {
@@ -178,14 +185,14 @@ const ListChallenge = () => {
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="row">
-                        <h5 className="col d-flex justify-content-start">Gestionar Retos</h5>
+                        <h5 className="col d-flex justify-content-start">Gestionar retos</h5>
                         <div
                             style={{
                                 margin: '0 20px 10px 0',
                             }}
                             className="col d-flex justify-content-end"
                         >
-                            <Link to="/challenge/create" name="Crear Reto" iconText="+" />
+                            <Link to="/challenge/create" name="Crear reto" iconText="+" />
                         </div>
                     </div>
 

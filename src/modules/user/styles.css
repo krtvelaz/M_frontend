@@ -6,3 +6,17 @@
 .modal-roles .ant-modal-footer {
     border-top: none !important;
 }
+
+.button-assign-rol {
+    color: #1D98D1;
+    cursor: context-menu;
+
+}
+.button-assign-rol:hover {
+    color: #00FFE0;
+
+}
+
+.modal-header-roles .ant-modal-header {
+    display: none !important;
+}

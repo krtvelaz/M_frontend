@@ -16,7 +16,6 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
         ...indicator,
     };
 
-    console.log(indicator);
     
 
     const schema = Yup.object().shape({

@@ -18,7 +18,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef }) 
         ...lostPassword
     };
     const submit = (values: any, form: any) => {
-        console.log(values)
+        
     };
 
     const schema = Yup.object().shape({

@@ -18,7 +18,6 @@ export const edit_statistics = (_values: IIndicator) => {
         const data = {
             ...values  
         };
-        console.log(data);
         
         try {
             const URI = '/statistics';

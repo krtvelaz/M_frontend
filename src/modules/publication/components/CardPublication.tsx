@@ -1,33 +1,51 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ArrowLeft from '../../../utils/assets/img/ArrowLeft';
 import ArrowRight from '../../../utils/assets/img/ArrowRight';
 import { actions } from '../redux';
+import { Buffer } from 'buffer';
+import { Skeleton } from 'antd';
 
 interface IDetailCardPublication {
-    keyTab: string;
+    keyTab: 'EVENTO' | 'NOTICIA' | 'RESULTADO' | '0';
 }
 
 export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
+    const [data, setData] = useState([1, 2, 3, 4]);
     const publications = useSelector((store: any) => store.event.list_publication.value);
-    const {total} = useSelector((store: any) => store.event.list_publication.pagination);
-    const {current_page} = useSelector((store: any) => store.event.list_publication.pagination);
-    const {last_page} = useSelector((store: any) => store.event.list_publication.pagination);
-    const {first_page} = useSelector((store: any) => store.event.list_publication.pagination);
-    const number_pages = Number(total)/4;
-    let paginationPublications: any[] = []
+    const loading = useSelector((store: any) => store.event.list_publication.loading);
+    const { total } = useSelector((store: any) => store.event.list_publication.pagination);
+    const { current_page } = useSelector((store: any) => store.event.list_publication.pagination);
+    const { last_page } = useSelector((store: any) => store.event.list_publication.pagination);
+    const { first_page } = useSelector((store: any) => store.event.list_publication.pagination);
+    const number_pages = Number(total) / 4;
+    let paginationPublications: any[] = [1];
 
-
-    for(let i=1; i<= Math.ceil(number_pages); i++) {
-        paginationPublications = [...paginationPublications, i]
+    for (let i = 1; i <= Math.ceil(number_pages); i++) {
+        paginationPublications = [...paginationPublications, i];
     }
+
+    useEffect(() => {
+        if (publications?.length > 0) {
+            setData(publications);
+        } else {
+            setData([1, 2, 3, 4]);
+        }
+    }, [publications]);
 
     const get_publications = async (page: number) => {
-        await dispatch(actions.get_history_publications({ page, page_size: 4, only: 'published',...(keyTab !== '0' && { form: Number(keyTab) })}))
-    }
+        await dispatch(
+            actions.get_list_publications({
+                page,
+                page_size: 4,
+                from: 'landing',
+                ...(keyTab !== '0' && { type: keyTab }),
+            })
+        );
+    };
 
     return (
         <>
@@ -43,30 +61,76 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
                             <div className="container">
                                 <div className="row my-5 pe-5 ps-5">
-                                    {publications?.map((publication: any, index: any) => (
+                                    {data?.map((publication: any, index: any) => (
                                         <div
-                                            className="col-12 col-md-12 col-lg-6 imagen-events"
+                                            className={`col-12 col-md-12 col-lg-6 p-0 ${
+                                                publications.length > 0 && 'imagen-events'
+                                            } `}
                                             key={`detailPublication${index}`}
+                                            style={{
+                                                borderRadius: `${
+                                                    index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
+                                                } `,
+                                            }}
                                         >
-                                            <div
-                                                className="text-white text-start ps-5 pe-5"
-                                                style={{ position: 'absolute', bottom: '10%' }}
-                                            >
-                                                <div style={{ fontFamily: 'Montserrat-Bold' }}>
-                                                    {publication.hec_titulo}
-                                                </div>
-                                                <p>{publication.hec_descripcion}</p>
-                                                <button className='btn btn-primary'onClick={() => {
-                                                navigate(`../detail-publication/${publication?.id}`);
-                                            }}>Conoce más</button>
-                                            </div>
-                                            
-                                            <img
-                                                style={{ borderRadius: '16px 16px 0 0' }}
-                                                className="w-100"
-                                                src="https://images.pexels.com/photos/6958766/pexels-photo-6958766.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt={publication.hec_titulo}
-                                            />
+                                            {publication?.pub_image?.pubfil_image_buffer?.data ? (
+                                                <>
+                                                    <div
+                                                        className="text-white text-start ps-5 pe-5"
+                                                        style={{ position: 'absolute', bottom: '10%' }}
+                                                    >
+                                                        <div style={{ fontFamily: 'Montserrat-Bold' }}>
+                                                            {publication.pub_title}
+                                                        </div>
+
+                                                        <p>
+                                                            {publication.pub_description.length > 60
+                                                                ? `${publication.pub_description
+                                                                      .split('.')[0]
+                                                                      .substring(0, 57)}...`
+                                                                : publication.pub_description}
+                                                        </p>
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            onClick={() => {
+                                                                const hola =
+                                                                
+                                                                navigate(`../detail-publication/${publication?.id}`);
+                                                            }}
+                                                        >
+                                                            Conoce más
+                                                        </button>
+                                                    </div>
+
+                                                    <img
+                                                        style={{
+                                                            borderRadius: `${
+                                                                index === 0 || index === 1
+                                                                    ? '16px 16px 0 0'
+                                                                    : '0 0 16px 16px'
+                                                            } `,
+                                                        }}
+                                                        className="w-100"
+                                                        src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
+                                                            publication?.pub_image?.pubfil_image_buffer?.data
+                                                        ).toString('base64')}`}
+                                                        alt={publication.hec_titulo}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <Skeleton.Image
+                                                    active={loading}
+                                                    className="w-100 "
+                                                    style={{
+                                                        minHeight: '300px',
+                                                        borderRadius: `${
+                                                            index === 0 || index === 1
+                                                                ? '16px 16px 0 0'
+                                                                : '0 0 16px 16px'
+                                                        } `,
+                                                    }}
+                                                />
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -81,7 +145,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                         style={{ marginRight: '50px', cursor: 'pointer' }}
                         onClick={() => {
                             setTimeout(function () {
-                                get_publications(current_page-1 >= first_page ? current_page-1 : last_page  )
+                                get_publications(current_page - 1 >= first_page ? current_page - 1 : last_page);
                             }, 200);
                         }}
                     >
@@ -96,7 +160,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                         style={{ cursor: 'pointer' }}
                         onClick={() => {
                             setTimeout(function () {
-                                get_publications(current_page+1 <= last_page ? current_page+1 : first_page  )
+                                get_publications(current_page + 1 <= last_page ? current_page + 1 : first_page);
                             }, 200);
                         }}
                     >

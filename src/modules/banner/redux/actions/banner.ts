@@ -57,7 +57,6 @@ export const edit_banner = (values: IMainBanner, type?: boolean) => {
         const data = {
             ...values,
         };
-        console.log(data);
         
         let form: any = new FormData();
         if(!type) {

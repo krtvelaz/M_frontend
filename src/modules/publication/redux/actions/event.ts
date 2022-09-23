@@ -1,59 +1,66 @@
-import { cms_http } from "../../../../config/axios_instances";
-import { swal_error } from "../../../../utils/ui";
-import { swal_success } from "../../../../utils/ui/swalAlert";
-import { IEvent } from "../../custom_types";
-import { default_event, default_events, default_list_event, fail_event, fail_events, fail_list_event, success_event, success_events, success_list_event } from "../slice";
+import { cms_http } from '../../../../config/axios_instances';
+import { swal_error } from '../../../../utils/ui';
+import { swal_success } from '../../../../utils/ui/swalAlert';
+import { IEvent } from '../../custom_types';
+import {
+    default_event,
+    default_events,
+    default_list_event,
+    fail_event,
+    fail_events,
+    fail_list_event,
+    success_event,
+    success_events,
+    success_list_event,
+} from '../slice';
 
 interface filter {
-    page: number,
-    page_size?: number,
-    only?: string,
+    page: number;
+    page_size?: number;
+    only?: string;
 }
 
 export const create_event = (_values: IEvent) => {
     return async (dispatch: any) => {
         dispatch(default_event());
+        
         const values = JSON.parse(JSON.stringify(_values));
         const data = {
-            action: "insert",
-            info: {
-                id: -1,
-                key: -1,
-            },
-            data: {
-                ...values,
-                eve_numero_cupos: Number(values.eve_numero_cupos) || null,
-            },
+            ...values,
+            eve_numero_cupos: Number(values.eve_numero_cupos) || null,
         };
+        let form = new FormData();
+        form.append('data', data);
+        form.append('action ', 'insert');
         try {
-            const URI = "/event";
+            const URI = '/events';
             const res = await cms_http.post(URI, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-            dispatch(success_event(res.data.body.dat));
+            dispatch(success_event(res.data.data));
             await swal_success.fire({
-                title: "Proceso exitoso",
+                title: 'Proceso exitoso',
                 html:
                     `<div class="mysubtitle">${res.data.message}</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
             return res.data;
         } catch (error) {
             dispatch(fail_event());
             await swal_error.fire({
-                title: "Error en el proceso",
+                title: 'Error en el proceso',
                 html:
                     '<div class="mysubtitle">error</div>' +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
@@ -66,24 +73,24 @@ export const delete_event = (id: number) => {
             const URI = `/event/event/${id}`;
             const res = await cms_http.delete(URI);
             await swal_success.fire({
-                title: "Proceso exitoso",
+                title: 'Proceso exitoso',
                 html:
                     `<div class="mysubtitle">${res.data.message}</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
             // dispatch(res.data.body.data);
             return res.data;
         } catch (error) {
             // dispatch(fail_event());
             await swal_error.fire({
-                title: "Error en el proceso",
+                title: 'Error en el proceso',
                 html:
                     '<div class="mysubtitle">error</div>' +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
             return Promise.reject(Error);
         }
@@ -94,24 +101,22 @@ export const get_list_events = (filter?: filter) => {
     return async (dispatch: any) => {
         dispatch(default_list_event());
         try {
-            const URI = `event/list/`;
+            const URI = `/events/list`;
             const res = await cms_http.get(URI, {
                 params: {
-                    ...filter
-
-                }
+                    ...filter,
+                },
             });
-            
-            
+
             const events = {
                 results: res.data.data,
                 pagination: res.data.meta,
-            }
+            };
             dispatch(success_list_event(events));
             return res.data.data;
         } catch (error) {
             dispatch(fail_list_event());
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
@@ -122,12 +127,12 @@ export const get_event_history = () => {
         try {
             const URI = 'event/history';
             const res = await cms_http.get(URI);
-            
+
             dispatch(success_events(res.data.data));
             return res.data.data;
         } catch (error) {
             dispatch(fail_events());
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
@@ -137,26 +142,24 @@ export const get_event_by_id = (id: number) => {
         dispatch(default_event);
         try {
             const URI = `event/list/${id}`;
-            const res = await cms_http.get(URI);            
+            const res = await cms_http.get(URI);
             dispatch(success_event(res.data.data[0]));
             return res.data.data[0];
         } catch (error) {
             dispatch(fail_event());
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
-
 
 export const edit_event = (_values: IEvent) => {
     return async (dispatch: any) => {
         dispatch(default_event());
         const values = JSON.parse(JSON.stringify(_values));
         const data = {
-            action: "update",
+            action: 'update',
             info: {
                 id: values.id,
-
             },
             data: {
                 ...values,
@@ -167,36 +170,35 @@ export const edit_event = (_values: IEvent) => {
         delete data.data.eve_creacion;
 
         try {
-            const URI = "/event";
+            const URI = '/event';
             const res = await cms_http.post(URI, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
             // dispatch();
             await swal_success.fire({
-                title: "Proceso exitoso",
+                title: 'Proceso exitoso',
                 html:
                     `<div class="mysubtitle">${res.data.message}</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
-            dispatch(success_event(res.data.data))
+            dispatch(success_event(res.data.data));
             return res.data;
         } catch (error) {
-                        
             dispatch(fail_event());
             await swal_error.fire({
-                title: "Error en el proceso",
+                title: 'Error en el proceso',
                 html:
                     '<div class="mysubtitle">error</div>' +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
@@ -206,10 +208,9 @@ export const edit_publication_event = (_values: IEvent, is_public?: any) => {
         dispatch(default_event());
         const values = JSON.parse(JSON.stringify(_values));
         const data = {
-            action: "update",
+            action: 'update',
             info: {
                 id: values.id,
-
             },
             data: {
                 eve_numero_cupos: Number(values.eve_numero_cupos) || null,
@@ -217,38 +218,36 @@ export const edit_publication_event = (_values: IEvent, is_public?: any) => {
             },
         };
 
-
         try {
-            const URI = "/event";
+            const URI = '/event';
             const res = await cms_http.post(URI, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
             // dispatch();
             await swal_success.fire({
-                title: "Proceso exitoso",
+                title: 'Proceso exitoso',
                 html:
                     `<div class="mysubtitle">${res.data.message}</div>` +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
             dispatch(success_event(res.data.data));
             return res.data;
         } catch (error) {
             dispatch(fail_event());
             await swal_error.fire({
-                title: "Error en el proceso",
+                title: 'Error en el proceso',
                 html:
                     '<div class="mysubtitle">error</div>' +
                     '<div class="mytext">De click en aceptar para continuar</div>',
                 showCancelButton: false,
-                confirmButtonText: "Aceptar",
+                confirmButtonText: 'Aceptar',
             });
-            return Promise.reject("Error");
+            return Promise.reject('Error');
         }
     };
 };
-

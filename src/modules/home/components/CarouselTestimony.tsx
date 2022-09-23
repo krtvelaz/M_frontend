@@ -1,5 +1,5 @@
 import 'bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../banner/redux';
 import { Buffer } from 'buffer';

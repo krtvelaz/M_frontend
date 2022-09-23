@@ -62,7 +62,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
                             <>
                                 <WatchComponent
                                     on_click={async () => {
-                                        const res = await dispatch(actions.get_gallery_by_id(id || -1));
+                                        const res = await dispatch(actions.get_image_gallery(id || -1));
                                         if (res) {
                                             let _img = Buffer.from(res).toString('base64');
 

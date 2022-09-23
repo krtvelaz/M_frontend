@@ -116,7 +116,7 @@ const Homepage = () => {
                 </div>
             </section>
             <section>
-                <Map />
+                {/* <Map /> */}
             </section>
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container">

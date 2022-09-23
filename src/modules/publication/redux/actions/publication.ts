@@ -21,7 +21,7 @@ export const create_publication = (values: IGeneralInfo) => {
         delete data.pub_imagen;
         let form = new FormData();
         form.append('data', JSON.stringify(data));
-        form.append('img', img);
+        form.append('image', img);
         try {
             const URI = '/publications';
             const res = await cms_http.post(URI, form, {
@@ -54,23 +54,30 @@ export const create_publication = (values: IGeneralInfo) => {
         }
     };
 };
-export const get_list_publications = ({ page = 1, limi = 10 }) => {
+export const get_list_publications = (filters?: {
+    page?: number;
+    page_size?: number;
+    order_by_key?: string;
+    order_by_value?: string;
+    type?: 'EVENTO' | 'NOTICIA' | 'RESULTADO';
+    from?: string;
+}) => {
     return async (dispatch: any) => {
         dispatch(default_list_publication());
         try {
             const URI = `/publications/list/`;
-            const res = await cms_http.get(URI,{
-                params:{
-                    page,
-                    limit: limi
-                }
+            const res = await cms_http.get(URI, {
+                params: {
+                    ...filters,
+                },
             });
             const publication = {
-                results: res.data.body.data,
-                pagination: res.data.body.meta,
+                results: res.data.data,
+                pagination: res.data.meta,
             };
+
             dispatch(success_list_publication(publication));
-            return res.data.body.data;
+            return res.data.data;
         } catch (error) {
             dispatch(fail_list_publication());
             return Promise.reject('Error');
@@ -81,11 +88,11 @@ export const get_publication_by_id = (id: number) => {
     return async (dispatch: any) => {
         dispatch(default_publication());
         try {
-            const URI = `/news/details`;
-            const res = await cms_http.get(URI,{
+            const URI = `/publications/details`;
+            const res = await cms_http.get(URI, {
                 params: {
-                    id
-                }
+                    id,
+                },
             });
             dispatch(success_publication(res.data.data));
             return res.data.data;
@@ -96,41 +103,36 @@ export const get_publication_by_id = (id: number) => {
     };
 };
 export const edit_publication = (values: IGeneralInfo) => {
-    //
     return async (dispatch: any) => {
         dispatch(default_publication());
-        console.log(values);
-        
-        const data = {
-            action: 'update',
-            info: {
-                id: values.id,
-                key: values.id,
-            },
-            data: {
-                ...values,
-                
-            },
-        };
-       
+        const data = JSON.parse(JSON.stringify(values));
         let form: any = new FormData();
-        delete data.data.id;
+
+        delete data.pub_status;
+        delete data.pub_created_at;
+        delete data.pub_updated_at;
+        delete data.pub_gallery;
+        delete data.pub_image;
+        delete data.pub_attendance_quota;
+        delete data.pub_attendance_limit;
+        delete data.pub_place;
+        delete data.pub_subtitle;
+        form.append('id', JSON.stringify(data.id));
+        delete data.id;
+        
+        if (!values?.pub_imagen?.id) {
+            form.append('image', values?.pub_imagen);
+        }
+        delete data.pub_imagen;
         form.append('data', JSON.stringify(data));
-        // if (!values.hec_imagen.id) {
-        //     const img = values.hec_imagen;
-        //     form.append('img', img);
-        // } else {
-        //     form.append('img', null);
-        // }
         try {
-            const URI = '/news';
-            const res = await cms_http.post(URI, form, {
+            const URI = '/publications';
+            const res = await cms_http.patch(URI, form, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-            // dispatch();
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -139,7 +141,8 @@ export const edit_publication = (values: IGeneralInfo) => {
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            return res.data.body.data;
+            dispatch(success_publication(res.data.data));
+            return res.data.data;
         } catch (error) {
             dispatch(fail_publication());
             await swal_error.fire({
@@ -157,10 +160,13 @@ export const edit_publication = (values: IGeneralInfo) => {
 
 export const delete_publication = (id: number) => {
     return async (dispatch: any) => {
-
         try {
-            const URI = `news/delete/${id}`;
-            const res = await cms_http.delete(URI);
+            const URI = `publications/`;
+            const res = await cms_http.delete(URI, {
+                params: {
+                    id,
+                },
+            });
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -185,24 +191,22 @@ export const delete_publication = (id: number) => {
     };
 };
 
-export const get_history_publications = (
-    filters?: any
-) => {
+export const get_history_publications = (filters?: any) => {
     return async (dispatch: any) => {
         dispatch(default_list_publication());
         try {
             const URI = 'news/history';
             const res = await cms_http.get(URI, {
                 params: {
-                    ...filters
+                    ...filters,
                 },
             });
-            
+
             const finalResults = {
-                results: res.data.data, 
-                pagination: res.data.meta
+                results: res.data.data,
+                pagination: res.data.meta,
             };
-            
+
             dispatch(success_list_publication(finalResults));
             return res.data.data.data;
         } catch (error) {
@@ -213,36 +217,23 @@ export const get_history_publications = (
 };
 
 export const edit_published_publication = (
-    _values: IGeneralInfo,
-    is_public?: any
+    id: number,
+    status?: 'publish' | 'unpublish'
 ) => {
-    
     return async (dispatch: any) => {
         dispatch(default_publication());
-        const values = JSON.parse(JSON.stringify(_values));
-        const data = {
-            action: 'update',
-            info: {
-                id: values.id,
-            },
-            data: {
-                // eve_numero_cupos: Number(values.eve_numero_cupos) || 10,
-                hec_publicada: is_public || false,
-            },
-        };
-
         let form: any = new FormData();
-        form.append('data', JSON.stringify(data));
-
+        form.append('id', id);
+        form.append('status', status );
         try {
-            const URI = '/news';
-            const res = await cms_http.post(URI, form, {
+            const URI = '/publications/change-status';
+            const res = await cms_http.patch(URI, form, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-            // dispatch();
+            dispatch(success_publication(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -251,7 +242,7 @@ export const edit_published_publication = (
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            return res.data.body.data;
+            return res.data.data;
         } catch (error) {
             dispatch(fail_publication());
             await swal_error.fire({
