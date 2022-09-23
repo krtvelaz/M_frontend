@@ -17,14 +17,20 @@ interface PostulationTeamFormPros {
 const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeListSexForm = useSelector((store: any) => store.postulation.listSexs.value);
+    const TypeDocMember = useSelector((store: any) => store.postulation.loading_typeDocumentsMembers.value);
+
     const dispatch = useDispatch<any>();
 
     const ListSextype = async () => {
         await dispatch(actions.get__listSexs());
     };
+    const DocumentTypeMemberPos = async () => {
+        await dispatch(actions.get__documentMembers());
+    };
 
     useEffect(() => {
         ListSextype();
+        DocumentTypeMemberPos();
     }, []);
 
     return (
@@ -70,16 +76,13 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                     overflow: 'auto',
                                     minWidth: 300,
                                 }}
-                                options={typeDocumentsForm?.map((item: any) => ({
-                                    name: item.name,
-                                    id: item.id,
-                                }))}
+                                options={TypeDocMember}
                                 placeholder="C.C."
                                 filterOption={(input: any, option: any) => {
                                     return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                 }}
                             />
-                            <ErrorMessage name={`membersPostulations.${i}.gruint_type_document`} withCount max={50} />
+                            <ErrorMessage name={`membersPostulations.${i}.gruint_type_document`} />
                         </div>
                         <div className="col">
                             <Field

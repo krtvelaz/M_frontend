@@ -16,7 +16,10 @@ interface State {
     numberContact:Loadable<any | null>;
     profile:Loadable<any | null>;
     memberPostulation:Loadable<any | null>;
+    addDocument:Loadable<any | null>;
     listSexs:Loadable<any | null>;
+    loading_typeDocumentsMembers:Loadable<any | null>;
+    challenge:Loadable<any | null>;
 
 }
 
@@ -27,6 +30,21 @@ const initialState: State = {
         loaded: false,
     },
     testimony: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    challenge: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    loading_typeDocumentsMembers: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    addDocument: {
         value: null,
         loading: false,
         loaded: false,
@@ -140,6 +158,27 @@ export const postulationSlice = createSlice({
                 loaded: false,
             };
         },
+        loading_typeDocumentsMembers: (state) => {
+            state.loading_typeDocumentsMembers = {
+                value: state.loading_typeDocumentsMembers.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_typeDocumentsMembers: (state,action) => {
+            state.loading_typeDocumentsMembers = {
+                value: action.payload,
+                loading: true,
+                loaded: false,
+            };
+        },
+        fail_typeDocumentsMembers: (state, action) => {
+            state.loading_typeDocumentsMembers = {
+                value: state.loading_typeDocumentsMembers.value,
+                loading: true,
+                loaded: false,
+            };
+        },
         loading_typeDocuments: (state) => {
             state.documentType = {
                 value: state.documentType.value,
@@ -147,6 +186,7 @@ export const postulationSlice = createSlice({
                 loaded: false,
             };
         },
+     
         success_typeDocuments: (state, action) => {
             state.documentType = {
                 value: action.payload,
@@ -224,6 +264,49 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    addDoc_default: (state) => {
+        state.memberPostulation = {
+            value: state.memberPostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    addDoc_success: (state, action) => {
+        state.memberPostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    addDoc_fail: (state) => {
+        state.memberPostulation = {
+            value: initialState.memberPostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
+    loading_challenge: (state) => {
+        state.challenge = {
+          value: state.challenge.value,
+          loading: true,
+          loaded: false,
+        };
+      },
+      get_challenge: (state, action) => {
+        state.challenge = {
+          value: action.payload,
+          loading: false,
+          loaded: true,
+        };
+      },
+      fail_challenge: (state) => {
+        state.challenge = {
+          value: initialState.challenge.value,
+          loading: false,
+          loaded: false,
+        };
+      },
+   
     },
 });
 
@@ -237,8 +320,11 @@ export const {
     members_default,
     members_success,
     members_fail,
-    loading_typeDocuments,
+    loading_typeDocuments,  
     success_typeDocuments,
+    loading_typeDocumentsMembers,
+    success_typeDocumentsMembers,
+    fail_typeDocumentsMembers,
     fail_typeDocuments,
     loading_typeNumberContact,
     success_typeNumberContact,
@@ -248,5 +334,11 @@ export const {
     fail_profiles,
     listSex_default,
     listSex_success,
-    listSex_fail
+    listSex_fail,
+    addDoc_default,
+    addDoc_success,
+    addDoc_fail,
+    loading_challenge,
+    get_challenge,
+    fail_challenge,
 } = postulationSlice.actions;

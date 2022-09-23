@@ -2,16 +2,23 @@ import Item from 'antd/lib/list/Item';
 import { FC, useState } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
 import { iconoCheck } from '../../../utils/assets/img';
+import { useDispatch } from 'react-redux';
+import { actions } from '../redux';
 interface DocsTecPostulations {
     dataDoc?: any;
+    documentPos?: any;
 }
-export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc }) => {
+export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, documentPos }) => {
     const [valueInputFileAdmin, setValueInputFileAdmin] = useState(false);
+    const dispatch = useDispatch<any>();
     let valueImputFileViewAdmin = document.getElementById('fileFormat-docsAdmin');
     const CargaFormatAdmin = () => {
         if (valueImputFileViewAdmin == null) {
             setValueInputFileAdmin(true);
         }
+    };
+    const AddDocumentPostulationAdmin = async (values: any) => {
+        await dispatch(actions.addDocumentPostulation(values));
     };
     return (
         <div>
@@ -58,33 +65,39 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc }) => {
                     </div>
                 </div>
             )}
-
-            <ComponetCard>
-                <div>
-                    <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>{dataDoc.title}</span>
-                    <div>
-                        <p>{dataDoc.text}</p>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <a>
-                        <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
-                    </a>
-                    <label
-                        style={{
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <input
-                            id="fileFormat-docsAdmin"
-                            onClick={() => CargaFormatAdmin()}
-                            style={{ display: 'none' }}
-                            type="file"
-                        />
-                        <span style={{ fontSize: '10px' }}>CARGAR FORMATO</span>
-                    </label>
-                </div>
-            </ComponetCard>
+            {documentPos.cha_documents?.map(
+                (item2: any) =>
+                    item2.id === 1 && (
+                        <ComponetCard>
+                            <div>
+                                <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>
+                                    {item2.title}
+                                </span>
+                                <div>
+                                    <p>{item2.text}</p>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <a>
+                                    <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
+                                </a>
+                                <label
+                                    style={{
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    <input
+                                        id="fileFormat-docsAdmin"
+                                        onClick={() => CargaFormatAdmin()}
+                                        style={{ display: 'none' }}
+                                        type="file"
+                                    />
+                                    <span style={{ fontSize: '10px' }}>CARGAR FORMATO</span>
+                                </label>
+                            </div>
+                        </ComponetCard>
+                    )
+            )}
         </div>
     );
 };

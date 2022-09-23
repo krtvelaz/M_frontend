@@ -1,13 +1,16 @@
 import { FC, useState } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
 import { iconoCheck } from '../../../utils/assets/img';
+import { useSelector } from 'react-redux';
 
 interface DocsTecPostulations {
     data?: any;
+    documentPos?: any;
 }
 
-export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data }) => {
+export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data, documentPos }) => {
     const [valueInputFile, setValueInputFile] = useState(false);
+
     let valueImputFileView = document.getElementById('fileFormat-docsTec');
     const CargaFormat = () => {
         if (valueImputFileView === null) {
@@ -64,33 +67,39 @@ export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data }) => {
                     </div>
                 </div>
             )}
-
-            <ComponetCard>
-                <div>
-                    <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>{data.title}</span>
-                    <div>
-                        <p>{data.text}</p>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <a>
-                        <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
-                    </a>
-                    <label
-                        style={{
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <input
-                            id="fileFormat-docsTec"
-                            onClick={() => CargaFormat()}
-                            style={{ display: 'none' }}
-                            type="file"
-                        />
-                        <span style={{ fontSize: '10px' }}>CARGAR FORMATO</span>
-                    </label>
-                </div>
-            </ComponetCard>
+            {documentPos.cha_documents?.map(
+                (item: any) =>
+                    item.id === 2 && (
+                        <ComponetCard>
+                            <div>
+                                <span style={{ fontWeight: 'bold', fontSize: '13px', color: '#000000' }}>
+                                    {item.title}
+                                </span>
+                                <div>
+                                    <p>{item.text}</p>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <a>
+                                    <span style={{ fontSize: '10px', color: '#FF8403' }}>DESCARGAR FORMATO</span>
+                                </a>
+                                <label
+                                    style={{
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    <input
+                                        id="fileFormat-docsTec"
+                                        onClick={() => CargaFormat()}
+                                        style={{ display: 'none' }}
+                                        type="file"
+                                    />
+                                    <span style={{ fontSize: '10px' }}>CARGAR FORMATO</span>
+                                </label>
+                            </div>
+                        </ComponetCard>
+                    )
+            )}
         </div>
     );
 };
