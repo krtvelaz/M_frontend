@@ -6,6 +6,9 @@ import DetailChallenge from './views/DetailChallenge';
 import EditChallemge from './views/EditChallemge';
 import ListChallenge from './views/ListChallenge';
 import OurChallenges from './views/OurChallenges';
+import managePostulations from './views/managePostulations';
+import FormPostulation from '../postulation/components/FormPostulation';
+import PostulationView from '../postulation/views/PostulationView';
 
 const get_routes = (): IRoute[] => {
     return [
@@ -25,6 +28,23 @@ const get_routes = (): IRoute[] => {
                 ],
             },
             component: CreateChallenge,
+        },
+        {
+            exact: true,
+            is_private: true,
+            can_access: guards.success_login,
+            format: true,
+            path: '/challenge/postulations',
+            template_props: {
+                breadcrumbs: [
+                    {
+                        name: 'Retos y Postulaciones',
+                        to: '/challenge/postulations',
+                    },
+                    
+                ],
+            },
+            component: managePostulations,
         },
         {
             exact: true,
@@ -82,6 +102,8 @@ const get_routes = (): IRoute[] => {
                 ],
             },
         },
+       
+        
     ];
 };
 

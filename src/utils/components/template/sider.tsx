@@ -21,15 +21,12 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({
       path: "/challenge/list",
       label: "Consutar y gestionar retos",
     },
+ 
   ];
   const publicaciones = [
     {
       path: "/publication/create",
       label: "Crear publicación",
-    },
-    {
-      path: "/publication/list",
-      label: "Gestionar publicaciones",
     },
     {
       path: "/event/create",

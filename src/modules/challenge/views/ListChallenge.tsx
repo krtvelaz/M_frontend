@@ -57,7 +57,7 @@ const ListChallenge = () => {
             dataIndex: 'createdBy',
             align: 'left' as 'left',
             render: (value: string) => {
-                return 'Luisa Sánchez'
+                return 'Luisa Sánchez';
                 // return moment(value).format('DD / MM / YYYY');
             },
         },
@@ -65,7 +65,7 @@ const ListChallenge = () => {
             title: 'Publicado',
             align: 'left' as 'left',
             render: (value: any) => {
-                const onChange = async (e: any) => {                    
+                const onChange = async (e: any) => {
                     if (
                         value.status !== 'Pendiente' &&
                         value.status !== 'Aceptado' &&

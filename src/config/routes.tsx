@@ -4,6 +4,7 @@ import { routes as bannerRoutes } from '../modules/banner';
 import { routes as publicationRoutes } from '../modules/publication';
 import { routes as authRoutes } from '../modules/auth';
 import { routes as userRoutes } from '../modules/user';
+import { routes as postulationRoutes } from '../modules/postulation/';
 
 import { combineRoutes } from '../utils/components/router';
 import { IRoute } from '../utils/components/router/custom_types';
@@ -16,6 +17,7 @@ const useRoutes = (props = null): IRoute[] => {
         publicationRoutes,
         authRoutes,
         userRoutes,
+        postulationRoutes,
     ]);
 };
 
