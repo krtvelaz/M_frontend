@@ -64,13 +64,12 @@ const create_memberPostulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
-            const URI = 'postulations/member/:id';
+            const URI = `postulations/member/1`;
             const res = await http.post(URI, values, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-      
             dispatch(members_success(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',

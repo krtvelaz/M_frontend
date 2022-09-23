@@ -1,8 +1,7 @@
-import { Field, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FieldArray, Form, Formik, FormikProps, FormikValues } from 'formik';
+import { FC, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
-import { ErrorMessage, Select } from '../../../utils/ui';
 import ComponetCard from '../../../utils/ui/Card';
 import { Tabs } from 'antd';
 import FormPostulation from '../components/FormPostulation';
@@ -10,21 +9,75 @@ import FormTeam from '../components/FormTeam';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import { DocsPostulation } from '../components/DocsPostulation';
 import { circuloTabs } from '../../../utils/assets/img';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux';
 
-interface PostulationView {
-    innerRef: any;
-    onSubmit: (values: any, form?: any) => any;
-    postulation?: IPostulation;
-}
-const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation }) => {
-    const [formList, setFormList] = useState<Array<JSX.Element>>([]);
+const PostulationView = () => {
+    const [buttonVisible, setButtonVisible] = useState(true);
+    const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;
-    const OpenForm = () => {};
-    const addComponents = () => {
-        let ArrayComponents = [...formList];
-        ArrayComponents.push(<FormTeam onSubmit={OpenForm} />);
-        setFormList(ArrayComponents);
+
+    const ListSextype = async () => {
+        await dispatch(actions.get__listSexs());
     };
+
+    const submit = async (values: any) => {
+        const membersSend = values.membersPostulations.map((member: any) => {
+            return {
+                ...member,
+                gruint_victim: member.gruint_victim === 'si' ? true : false,
+                gruint_disability: member.gruint_disability === 'si' ? true : false,
+            };
+        });
+        await dispatch(
+            actions.create_memberPostulation({
+                members: membersSend,
+            })
+        );
+    };
+
+    const initial_values = {
+        membersPostulations: [],
+    };
+
+    function onChangeTickets(values: any, setValues: any) {
+        if (values.membersPostulations.length <= 4) {
+            const membersPostulations = [...values.membersPostulations];
+            membersPostulations.push({
+                gruint_names: '',
+                gruint_type_document: '',
+                gruint_document: '',
+                gruint_sex: '',
+                gruint_identity: '',
+                // sexual_orientation: '',
+                gruint_ethnicity: '',
+                gruint_victim: '',
+                gruint_disability: '',
+            });
+            setValues({ ...values, membersPostulations });
+            values.membersPostulations.length === 4 && setButtonVisible(false);
+        }
+    }
+
+    useEffect(() => {
+        ListSextype();
+    }, []);
+
+    const schema = Yup.object().shape({
+        membersPostulations: Yup.array().of(
+            Yup.object().shape({
+                gruint_names: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+                gruint_type_document: Yup.string().nullable().required('Campo obligatorio'),
+                gruint_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+                gruint_sex: Yup.string().nullable().required('Campo obligatorio'),
+                gruint_identity: Yup.string().nullable().required('Campo obligatorio'),
+                // sexual_orientation: Yup.string().nullable().required('Campo obligatorio'),
+                gruint_ethnicity: Yup.string().nullable().required('Campo obligatorio'),
+                gruint_victim: Yup.string().required('Campo obligatorio'),
+                gruint_disability: Yup.string().required('Campo obligatorio'),
+            })
+        ),
+    });
 
     return (
         <div className="container">
@@ -78,28 +131,60 @@ const PostulationView: FC<PostulationView> = ({ innerRef, onSubmit, postulation 
                         key="item-1.2"
                     >
                         <ComponetCard>
-                            {formList.map((component, i) => (
-                                <div key={i}>{component}</div>
-                            ))}
-                            <div style={{ display: 'flex', justifyContent: 'end' }}>
-                                <span style={{ padding: '2%', color: '#FF8403' }}>Agegar otro participante</span>
-                                <button
-                                    onClick={() => addComponents()}
-                                    style={{
-                                        borderRadius: '50%',
-                                        color: 'white',
-                                        backgroundColor: '#FF8403',
-                                        border: 'aliceblue',
-                                        width: '3%',
-                                        height: '0%',
-                                        marginTop: '1%',
-                                        fontFamily: 'Monserrat',
-                                        fontSize: '19px',
-                                    }}
-                                >
-                                    +
-                                </button>
-                            </div>
+                            <Formik
+                                enableReinitialize
+                                onSubmit={submit}
+                                validationSchema={schema}
+                                initialValues={initial_values}
+                            >
+                                {({ handleChange, values, setValues }) => {
+                                    return (
+                                        <Form>
+                                            <FieldArray name="membersPostulations">
+                                                {() =>
+                                                    values.membersPostulations.map((_, i) => (
+                                                        <FormTeam key={i} handleChange={handleChange} i={i} />
+                                                    ))
+                                                }
+                                            </FieldArray>
+                                            {buttonVisible && (
+                                                <div style={{ display: 'flex', justifyContent: 'end' }}>
+                                                    <span style={{ padding: '2%', color: '#FF8403' }}>
+                                                        Agegar otro participante
+                                                    </span>
+                                                    <button
+                                                        onClick={() => onChangeTickets(values, setValues)}
+                                                        style={{
+                                                            borderRadius: '50%',
+                                                            color: 'white',
+                                                            backgroundColor: '#FF8403',
+                                                            border: 'aliceblue',
+                                                            width: '3%',
+                                                            height: '0%',
+                                                            marginTop: '1%',
+                                                            fontFamily: 'Monserrat',
+                                                            fontSize: '19px',
+                                                        }}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            )}
+
+                                            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                                                <button
+                                                    key="saveDoc"
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                    style={{ width: '17%' }}
+                                                >
+                                                    Continuar
+                                                </button>
+                                            </div>
+                                        </Form>
+                                    );
+                                }}
+                            </Formik>
                         </ComponetCard>
                     </TabPane>
                     <TabPane
