@@ -13,8 +13,6 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
         _img = Buffer.from(data?.cha_image_stream?.data).toString('base64');
     }
 
-  
-
     return (
         <Card
             onClick={() => {}}

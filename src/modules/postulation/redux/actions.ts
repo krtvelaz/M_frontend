@@ -31,7 +31,10 @@ import {
     fail_challenge,
     sexualOrientation_default,
     sexualOrientation_success,
-    sexualOrientation_fail
+    sexualOrientation_fail,
+    GeneratePostulations_default,
+    GeneratePostulations_success,
+    GeneratePostulations_fail
 } from './slice';
 
 const create_main_postulation = (values: any) => {
@@ -193,14 +196,21 @@ const get__profiles = () => {
         }
     };
 };
-const addDocumentPostulation = (values: any) => {
+const addDocumentPostulation = (file: any, data: any) => {
     return async (dispatch: any) => {
         dispatch(addDoc_default());
+
+        let form: any = new FormData();
+        form.append("file",file)
+        form.append("data", JSON.stringify(data))
         try {
             const URI = `postulations/document`;
-            const res = await http.post(URI, values, {
+            const res = await http.post(URI, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+                    'Access-Control-Allow-Headers': 'Content-Type',
                 },
             });
             dispatch(addDoc_success(res.data.data));
@@ -245,6 +255,41 @@ const get_detail_challenge = (id: number) => {
         }
     };
 };
+const generate_settled = (values: any) => {
+    return async (dispatch: any) => {
+        dispatch(GeneratePostulations_default());
+        try {
+            const URI = `postulations/generate_settled`;
+            const res = await http.post(URI, values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            dispatch(GeneratePostulations_success(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    `<div class="mytext">${res.data.data.settled}</div>` + 
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return res.data.data;
+        } catch (error: any) {
+            dispatch(GeneratePostulations_fail());
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    '<div class="mytext">Edite o elimine algún elemento existente para ingresar este nuevo registro.</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return Promise.reject('Error');
+        }
+    };
+};
 
 const actions = {
     create_main_postulation,
@@ -256,6 +301,7 @@ const actions = {
     addDocumentPostulation,
     get__documentMembers,
     get_detail_challenge,
-    get__sexual_orientation
+    get__sexual_orientation,
+    generate_settled
 };
 export default actions;

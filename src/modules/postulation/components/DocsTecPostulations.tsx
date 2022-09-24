@@ -3,12 +3,7 @@ import ComponetCard from '../../../utils/ui/Card';
 import { iconoCheck } from '../../../utils/assets/img';
 import { useSelector } from 'react-redux';
 
-interface DocsTecPostulations {
-    data?: any;
-    documentPos?: any;
-}
-
-export const DocsTecPostulations: FC<DocsTecPostulations> = ({ data, documentPos }) => {
+export const DocsTecPostulations = () => {
     const [valueInputFile, setValueInputFile] = useState(false);
     let valueImputFileView = document.getElementById('fileFormat-docsTec');
     const challenge: any = useSelector((store: any) => store.postulation.challenge.value);

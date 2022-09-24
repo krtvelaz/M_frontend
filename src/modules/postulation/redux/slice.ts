@@ -21,6 +21,7 @@ interface State {
     loading_typeDocumentsMembers:Loadable<any | null>;
     challenge:Loadable<any | null>;
     sexual_orientation:Loadable<any | null>;
+    generatePostulation:Loadable<any | null>;
 
 }
 
@@ -31,6 +32,11 @@ const initialState: State = {
         loaded: false,
     },
     testimony: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    generatePostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -333,6 +339,27 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    GeneratePostulations_default: (state) => {
+        state.generatePostulation = {
+            value: state.generatePostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    GeneratePostulations_success: (state, action) => {
+        state.generatePostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    GeneratePostulations_fail: (state) => {
+        state.generatePostulation = {
+            value: initialState.generatePostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
    
     },
 });
@@ -370,5 +397,8 @@ export const {
     fail_challenge,
     sexualOrientation_default,
     sexualOrientation_success,
-    sexualOrientation_fail
+    sexualOrientation_fail,
+    GeneratePostulations_default,
+    GeneratePostulations_success,
+    GeneratePostulations_fail
 } = postulationSlice.actions;

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';
 import { LogoPDF } from '../../../utils/assets/img';
+import { useNavigate } from 'react-router-dom';
 
 interface DetailChallenge {
     challenge: any;
@@ -11,11 +12,17 @@ interface DetailChallenge {
 
 const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const dispatch = useDispatch<any>();
-
+    const [challengesUltimete, setChallengesUltimete] = useState();
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
-
+    const navigate = useNavigate();
     const [url, setUrl] = useState<string>('');
-
+    const getChallenges = async () => {
+        const results = await dispatch(actions.get_four_challenge());
+        console.log('gg', results);
+    };
+    useEffect(() => {
+        getChallenges();
+    }, []);
     return (
         <div>
             <p>{challenge?.cha_description}</p>
@@ -42,7 +49,6 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
 
             <p>{challenge?.cha_expected_results}</p>
 
-
             <div className="my-5" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px' }}>
                 Experiencia y documentación
             </div>
@@ -56,8 +62,8 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                     (document: any, index: number) =>
                         document.chafil_nombre_plantilla && (
                             <li
-                                style={{cursor: 'pointer'}}
-                                className='list-documents-general-detail'
+                                style={{ cursor: 'pointer' }}
+                                className="list-documents-general-detail"
                                 onClick={async () => {
                                     const result = await dispatch(actions.get_document(document.id));
 
@@ -78,44 +84,49 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 )}
             </ol>
 
-            <button type="button" className="btn btn-primary my-4" style={{ position: 'relative', zIndex: 4 }}>
+            <button
+                // onClick={() => {
+                //     navigate(`../postulation/challenge${challenge?.id}`);
+                // }}
+                type="button"
+                className="btn btn-primary my-4"
+                style={{ position: 'relative', zIndex: 4 }}
+            >
                 POSTULAR AL RETO
             </button>
 
             <div className="my-3" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#603CE6' }}>
                 Visualizar informes del reto
             </div>
-            {challenge?.informs?.length > 0 ? 
-            <ol style={{ position: 'relative', zIndex: 4, listStyle: 'none' }} className="my-4">
-            {challenge?.informs?.map((inform: any, index: number) => (
-                <div
-                    key={`informs-detail-${index}`}
-                    className="d-flex my-2"
-                    onClick={async () => {
-                        const result = await dispatch(actions.get_document(inform.id, 'report'));
+            {challenge?.informs?.length > 0 ? (
+                <ol style={{ position: 'relative', zIndex: 4, listStyle: 'none' }} className="my-4">
+                    {challenge?.informs?.map((inform: any, index: number) => (
+                        <div
+                            key={`informs-detail-${index}`}
+                            className="d-flex my-2"
+                            onClick={async () => {
+                                const result = await dispatch(actions.get_document(inform.id, 'report'));
 
-                        if (result) {
-                            const pdfDocument = URL.createObjectURL(
-                                new Blob([result], { type: 'application/pdf' })
-                            );
+                                if (result) {
+                                    const pdfDocument = URL.createObjectURL(
+                                        new Blob([result], { type: 'application/pdf' })
+                                    );
 
-                            setUrl(pdfDocument);
-                            set_is_visible_doc(true);
-                        }
-                    }}
-                >
-                    <img src={LogoPDF} alt="Logo PDF" style={{ width: '20px', marginRight: '10px' }} />
-                    <li>
-                        <a href="#">{inform?.retinf_nombre}</a>
-                    </li>
-                </div>
-            ))}
-        </ol>
-           :
-           <span>Este reto no tiene informes</span> 
-        }
-
-            
+                                    setUrl(pdfDocument);
+                                    set_is_visible_doc(true);
+                                }
+                            }}
+                        >
+                            <img src={LogoPDF} alt="Logo PDF" style={{ width: '20px', marginRight: '10px' }} />
+                            <li>
+                                <a href="#">{inform?.retinf_nombre}</a>
+                            </li>
+                        </div>
+                    ))}
+                </ol>
+            ) : (
+                <span>Este reto no tiene informes</span>
+            )}
 
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} />
         </div>

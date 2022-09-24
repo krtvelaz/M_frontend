@@ -30,7 +30,6 @@ const PublishedChallenges = () => {
         } else {
             setChallenges([null, null, null, null]);
         }
-        
     };
 
     return (

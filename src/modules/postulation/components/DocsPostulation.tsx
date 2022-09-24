@@ -6,66 +6,57 @@ import { DocsAdminPostulations } from './DocsAdminPostulations';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { useParams } from 'react-router-dom';
+import { swal_error } from '../../../utils/ui';
 
 export const DocsPostulation = () => {
     const dispatch = useDispatch<any>();
-    const [documentPos, setDocumentPos] = useState<any>([]);
+    const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
     const { id } = useParams<any>();
-    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
+
+    console.log(SaveForP);
+
     const getChallenge = async () => {
         await dispatch(actions.get_detail_challenge(Number(1)));
     };
-
-    // const inforCardPostulation = challenge.cha_documents?.map((item: any) => {
-    //     return {
-    //         title: item.chafil_nombre_plantilla,
-    //         text: item.chafil_nombre_tipo_documento,
-    //         id: item.chafil_id_tipo_documento,
-    //     };
-    // });
-    // const setData = () => {
-    //     if (challenge && challenge.cha_documents) {
-    //     }
-    // };
     useEffect(() => {
         getChallenge();
     }, []);
-    const dataTecnica = [
-        {
-            id: 1,
-            title: 'Nombre Documento',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus, at condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis.',
-        },
-        {
-            id: 2,
-            title: 'Nombre Documento',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus, at condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis.',
-        },
-        {
-            id: 3,
-            title: 'Nombre Documento',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus, at condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis.',
-        },
-    ];
+
+    const CreatePostulation = async () => {
+        const data = {
+            id_postulacion: SaveForP.id,
+            to: SaveForP.pos_email,
+            subject: SaveForP.pos_business_name,
+            attachment: [],
+        };
+        await dispatch(actions.generate_settled(data));
+    };
+
     return (
         <div style={{ display: 'contents' }}>
             <ComponetCard>
                 <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos técnicos</span>
                 <hr />
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '20px' }}>
-                    <DocsTecPostulations documentPos={documentPos} />
+                    <DocsTecPostulations />
                 </div>
 
                 <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>
                     Documentos administrativos
                 </span>
                 <hr />
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '20px' }}>
-                    <DocsAdminPostulations documentPos={documentPos} />
+                <div>
+                    <DocsAdminPostulations />
                 </div>
             </ComponetCard>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <button key="saveDoc" type="submit" className="btn btn-primary" style={{ width: '17%' }}>
+                <button
+                    onClick={() => CreatePostulation()}
+                    key="saveDoc"
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ width: '17%' }}
+                >
                     Continuar
                 </button>
             </div>

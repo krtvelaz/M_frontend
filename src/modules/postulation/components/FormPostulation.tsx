@@ -15,7 +15,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
-    const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
+
     const dispatch = useDispatch<any>();
 
     const initial_values = {
@@ -83,7 +83,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                 <label htmlFor="name_id" className="form-label">
                                     Nombre o razón social
                                 </label>
-
                                 <Field
                                     type="text"
                                     id="name_id"
