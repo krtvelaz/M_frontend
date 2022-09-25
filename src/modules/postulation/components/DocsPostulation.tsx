@@ -8,12 +8,14 @@ import { actions } from '../redux';
 import { useParams } from 'react-router-dom';
 import { swal_error } from '../../../utils/ui';
 
-export const DocsPostulation = () => {
+type Props = {
+    setTabSelect: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const DocsPostulation = ({ setTabSelect }: Props) => {
     const dispatch = useDispatch<any>();
     const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
     const { id } = useParams<any>();
-
-    console.log(SaveForP);
 
     const getChallenge = async () => {
         await dispatch(actions.get_detail_challenge(Number(47)));
@@ -49,7 +51,12 @@ export const DocsPostulation = () => {
                     <DocsAdminPostulations />
                 </div>
             </ComponetCard>
-            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                    <button onClick={() => setTabSelect('2')} className="btn btn-outline-primary" type="button">
+                        Ir atrás
+                    </button>
+                </div>
                 <button
                     onClick={() => CreatePostulation()}
                     key="saveDoc"

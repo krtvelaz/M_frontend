@@ -17,7 +17,7 @@ const PostulationView = () => {
     const [buttonVisible, setButtonVisible] = useState<boolean>(true);
     const [disblaTabsPos, setDisblaTabsPos] = useState<boolean>(true);
     const [disblaTabsPosDocument, setDisblaTabsPosDocument] = useState<boolean>(true);
-    const [eventButonDisable, setEventButonDisable] = useState<boolean>(false);
+    const [tabSelect, setTabSelect] = useState('1');
 
     const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;
@@ -34,19 +34,18 @@ const PostulationView = () => {
                 gruint_disability: member.gruint_disability === 'si' ? true : false,
             };
         });
-        await dispatch(
-            actions.create_memberPostulation({
-                members: membersSend,
-            })
-        );
-        setDisblaTabsPosDocument(false);
+        try {
+            await dispatch(
+                actions.create_memberPostulation({
+                    members: membersSend,
+                })
+            );
+            setDisblaTabsPosDocument(false);
+            setTabSelect('3');
+        } catch (_) {}
     };
     const buttonBack = (e: any) => {
-        if (e === 'item-1.2' || e === 'item-1.3') {
-            setEventButonDisable(true);
-        } else {
-            setEventButonDisable(false);
-        }
+        setTabSelect(e);
     };
 
     const initial_values = {
@@ -104,7 +103,7 @@ const PostulationView = () => {
                         <span style={{ color: '#FF8403' }}>Todos los campos son obligatorios</span>
                     </span>
                 </div>
-                <Tabs onChange={buttonBack}>
+                <Tabs activeKey={tabSelect} onChange={buttonBack}>
                     <TabPane
                         tab={
                             <>
@@ -122,12 +121,12 @@ const PostulationView = () => {
                                 <span>Datos Postulante</span>
                             </>
                         }
-                        key="item-1.1"
+                        key="1"
                     >
-                        <FormPostulation setDisblaTabsPos={setDisblaTabsPos} />
+                        <FormPostulation setDisblaTabsPos={setDisblaTabsPos} setTabSelect={setTabSelect} />
                     </TabPane>
                     <TabPane
-                        // disabled={disblaTabsPos ? true : false}
+                        disabled={disblaTabsPos ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -142,7 +141,7 @@ const PostulationView = () => {
                                 <span>Integrantes del equipo</span>
                             </>
                         }
-                        key="item-1.2"
+                        key="2"
                     >
                         <ComponetCard>
                             <Formik
@@ -186,7 +185,16 @@ const PostulationView = () => {
                                                 </div>
                                             )}
 
-                                            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <div>
+                                                    <button
+                                                        onClick={() => setTabSelect('1')}
+                                                        className="btn btn-outline-primary"
+                                                        type="button"
+                                                    >
+                                                        Ir atrás
+                                                    </button>
+                                                </div>
                                                 <button
                                                     key="saveDoc"
                                                     type="submit"
@@ -203,7 +211,7 @@ const PostulationView = () => {
                         </ComponetCard>
                     </TabPane>
                     <TabPane
-                        // disabled={disblaTabsPosDocument ? true : false}
+                        disabled={disblaTabsPosDocument ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -219,23 +227,11 @@ const PostulationView = () => {
                                 <span>Formatos que debes cargar</span>
                             </>
                         }
-                        key="item-1.3"
+                        key="3"
                     >
-                        <DocsPostulation />
+                        <DocsPostulation setTabSelect={setTabSelect} />
                     </TabPane>
                 </Tabs>
-                {eventButonDisable && (
-                    <div>
-                        <button
-                            key="saveDocss"
-                            type="submit"
-                            className="btn btn-outline-primary"
-                            style={{ width: '17%' }}
-                        >
-                            Ir atrás
-                        </button>
-                    </div>
-                )}
             </ComponetCard>
         </div>
     );
