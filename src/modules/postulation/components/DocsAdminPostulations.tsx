@@ -39,7 +39,7 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, docume
 const DocumentPostulation = ({ item2 }: any) => {
     const [visibleCheckPostulation, setVisibleCheckPostulation] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
-
+    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
     const onUploadFileChange = async (e: any) => {
         const target = e.target.files[0];
         if (target.type !== 'application/pdf') {
@@ -70,7 +70,6 @@ const DocumentPostulation = ({ item2 }: any) => {
     return (
         <div>
             {visibleCheckPostulation && <ContainerCheckDocument />}
-
             <div>
                 <span
                     style={{
@@ -81,7 +80,7 @@ const DocumentPostulation = ({ item2 }: any) => {
                         marginBottom: '10px',
                     }}
                 >
-                    Nombre documento
+                    {item2.retdoc_nombre_plantilla}
                 </span>
                 <p
                     style={{
@@ -90,8 +89,7 @@ const DocumentPostulation = ({ item2 }: any) => {
                         marginTop: '6px',
                     }}
                 >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus, at
-                    condimentum enim pulvinar.
+                    {item2.retdoc_descripcion_documento}
                 </p>
                 <div
                     style={{
@@ -159,7 +157,7 @@ const ContainerCheckDocument = () => {
                 style={{
                     display: 'flex',
                     justifyContent: 'space-evenly',
-                    marginTop: '25%',
+                    marginTop: '13%',
                 }}
             >
                 <span

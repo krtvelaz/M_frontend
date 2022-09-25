@@ -10,8 +10,9 @@ import { actions } from '../redux';
 
 interface PostulationFormPros {
     postulation?: IPostulation;
+    setDisblaTabsPos?: any;
 }
-const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
+const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPos }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
@@ -56,6 +57,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                 pos_id_user: 1,
             })
         );
+        setDisblaTabsPos(false);
     };
 
     const typeDocument = async () => {

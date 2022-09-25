@@ -16,7 +16,7 @@ export const DocsPostulation = () => {
     console.log(SaveForP);
 
     const getChallenge = async () => {
-        await dispatch(actions.get_detail_challenge(Number(1)));
+        await dispatch(actions.get_detail_challenge(Number(47)));
     };
     useEffect(() => {
         getChallenge();
@@ -37,7 +37,7 @@ export const DocsPostulation = () => {
             <ComponetCard>
                 <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos técnicos</span>
                 <hr />
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '20px' }}>
+                <div>
                     <DocsTecPostulations />
                 </div>
 

@@ -13,7 +13,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 
 const PostulationView = () => {
-    const [buttonVisible, setButtonVisible] = useState(true);
+    const [buttonVisible, setButtonVisible] = useState<boolean>(true);
+    const [disblaTabsPos, setDisblaTabsPos] = useState<boolean>(true);
+    const [disblaTabsPosDocument, setDisblaTabsPosDocument] = useState<boolean>(true);
+
     const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;
 
@@ -34,6 +37,7 @@ const PostulationView = () => {
                 members: membersSend,
             })
         );
+        setDisblaTabsPosDocument(false);
     };
 
     const initial_values = {
@@ -111,9 +115,10 @@ const PostulationView = () => {
                         }
                         key="item-1.1"
                     >
-                        <FormPostulation />
+                        <FormPostulation setDisblaTabsPos={setDisblaTabsPos} />
                     </TabPane>
                     <TabPane
+                        disabled={disblaTabsPos ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -153,6 +158,7 @@ const PostulationView = () => {
                                                         Agegar otro participante
                                                     </span>
                                                     <button
+                                                        type="button"
                                                         onClick={() => onChangeTickets(values, setValues)}
                                                         style={{
                                                             borderRadius: '50%',
@@ -188,6 +194,7 @@ const PostulationView = () => {
                         </ComponetCard>
                     </TabPane>
                     <TabPane
+                        disabled={disblaTabsPosDocument ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
