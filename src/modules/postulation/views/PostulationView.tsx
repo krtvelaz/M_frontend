@@ -11,11 +11,13 @@ import { DocsPostulation } from '../components/DocsPostulation';
 import { circuloTabs } from '../../../utils/assets/img';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
+import { useInit } from '../../challenge/hooks/useInit';
 
 const PostulationView = () => {
     const [buttonVisible, setButtonVisible] = useState<boolean>(true);
     const [disblaTabsPos, setDisblaTabsPos] = useState<boolean>(true);
     const [disblaTabsPosDocument, setDisblaTabsPosDocument] = useState<boolean>(true);
+    const [eventButonDisable, setEventButonDisable] = useState<boolean>(false);
 
     const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;
@@ -38,6 +40,13 @@ const PostulationView = () => {
             })
         );
         setDisblaTabsPosDocument(false);
+    };
+    const buttonBack = (e: any) => {
+        if (e === 'item-1.2' || e === 'item-1.3') {
+            setEventButonDisable(true);
+        } else {
+            setEventButonDisable(false);
+        }
     };
 
     const initial_values = {
@@ -95,7 +104,7 @@ const PostulationView = () => {
                         <span style={{ color: '#FF8403' }}>Todos los campos son obligatorios</span>
                     </span>
                 </div>
-                <Tabs>
+                <Tabs onChange={buttonBack}>
                     <TabPane
                         tab={
                             <>
@@ -118,7 +127,7 @@ const PostulationView = () => {
                         <FormPostulation setDisblaTabsPos={setDisblaTabsPos} />
                     </TabPane>
                     <TabPane
-                        disabled={disblaTabsPos ? true : false}
+                        // disabled={disblaTabsPos ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -194,7 +203,7 @@ const PostulationView = () => {
                         </ComponetCard>
                     </TabPane>
                     <TabPane
-                        disabled={disblaTabsPosDocument ? true : false}
+                        // disabled={disblaTabsPosDocument ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -215,6 +224,18 @@ const PostulationView = () => {
                         <DocsPostulation />
                     </TabPane>
                 </Tabs>
+                {eventButonDisable && (
+                    <div>
+                        <button
+                            key="saveDocss"
+                            type="submit"
+                            className="btn btn-outline-primary"
+                            style={{ width: '17%' }}
+                        >
+                            Ir atrás
+                        </button>
+                    </div>
+                )}
             </ComponetCard>
         </div>
     );
