@@ -2,6 +2,7 @@ import { routes as homeRoutes } from '../modules/home';
 import { routes as challengeRoutes } from '../modules/challenge';
 import { routes as bannerRoutes } from '../modules/banner';
 import { routes as publicationRoutes } from '../modules/publication';
+import { routes as eventRoutes } from '../modules/event';
 import { routes as authRoutes } from '../modules/auth';
 import { routes as userRoutes } from '../modules/user';
 import { routes as postulationRoutes } from '../modules/postulation/';
@@ -18,6 +19,7 @@ const useRoutes = (props = null): IRoute[] => {
         authRoutes,
         userRoutes,
         postulationRoutes,
+        eventRoutes,
     ]);
 };
 

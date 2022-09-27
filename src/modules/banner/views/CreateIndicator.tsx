@@ -1,6 +1,7 @@
 import { FormikProps, FormikValues } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { arrowsFromLine } from '../../../utils/assets/img';
 import { Card, Table } from '../../../utils/ui';
 import DragDropTable from '../components/DragDropTable';
 import FormIndicator from '../components/statistics/FormIndicator';
@@ -18,24 +19,27 @@ const CreateIndicator = () => {
     const table_columns: any = [
         {
             title: 'No.',
-            fixed: 'left',
             dataIndex: 'sta_order',
             align: 'center' as 'center',
+            render: () => {
+                return (
+                    <div className="">
+                        <img src={arrowsFromLine} alt="drag and drop image" />
+                    </div>
+                );
+            },
         },
         {
             title: 'Nombre',
-            dataIndex: 'sta_name',
             align: 'left' as 'left',
-        },
-        {
-            title: 'Valor',
-            dataIndex: 'sta_value',
-            align: 'left' as 'left',
-        },
-        {
-            title: 'Descripción',
-            dataIndex: 'sta_description',
-            align: 'left' as 'left',
+            render: (data: any) => {
+                return (
+                    <div style={{ fontFamily: 'Montserrat-SemiBold' }}>
+                        {data?.sta_name}: <span>{data?.sta_value}</span> - Descripción:{' '}
+                        <span> {data?.sta_description}</span>
+                    </div>
+                );
+            },
         },
         {
             title: 'Acciones',
@@ -43,7 +47,6 @@ const CreateIndicator = () => {
             children: [
                 {
                     title: <span style={{ fontSize: '9px' }}>Editar</span>,
-                    fixed: 'right',
                     align: 'center' as 'center',
                     render: (value: IIndicator) => {
                         return <ModalEditStatistics data={value} on_submit={editIndicator} />;
@@ -80,12 +83,22 @@ const CreateIndicator = () => {
     return (
         <div className="container-fluid">
             <div className="row justify-content-center">
+                <div style={{ fontSize: '14px', fontFamily: 'Montserrat-SemiBold' }} className="mb-3 ms-5">
+                    Estadísticas
+                </div>
                 <div className="col-md-12">
-                    <Card>
-                        <div className="row">
-                            <h5 className="col d-flex justify-content-start">Estadísticas</h5>
-                        </div>
+                    <Card
+                        title={
+                            <>
+                                <div style={{ fontSize: '14px' }}>
+                                    Lista de Estadísticas{' '}
+                                    <span>- Arrastre la estadística para cambiar el orden de visualización</span>
+                                </div>
+                            </>
+                        }
+                    >
                         <DragDropTable
+                            className="table-drag-drop"
                             _columns={table_columns}
                             data={data}
                             setData={setData}

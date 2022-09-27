@@ -1,14 +1,10 @@
 
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {Card,Table} from '../../../utils/ui'
-import { Popover, Radio } from 'antd';
-import { IEvent } from "../../publication/custom_types";
+import { Popover } from 'antd';
 import { useDispatch, useSelector, } from 'react-redux';
-import { actions } from '../redux';
+import { actions } from '../../challenge/redux';
 import { useParams } from 'react-router-dom';
-import { Modal } from "antd";
-import { Formik, Form, Field } from "formik";
-import ModalInfoPostulations from "../views/ModalInfoPostulations"
 
 
 const TableInfoPostulation = () => {
@@ -44,7 +40,7 @@ const TableInfoPostulation = () => {
             title: "No.",
             fixed: "left",
             align: "center" as "center",
-            render: (data: IEvent, values: any, i: number) => {
+            render: (data: any, values: any, i: number) => {
               return i + 1;
             },
           },

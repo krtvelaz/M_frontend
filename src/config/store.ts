@@ -2,14 +2,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { userSlice } from '../modules/auth/redux/slice';
 import { bannerSlice } from '../modules/banner/redux/slice';
 import { challengeSlice } from '../modules/challenge/redux/slice';
-import { eventSlice } from '../modules/publication/redux/slice';
+import { publicationSlice } from '../modules/publication/redux/slice';
 import {postulationSlice} from '../modules/postulation/redux/slice'
+import {eventSlice} from '../modules/event/redux/slice'
 
 
 export const store = configureStore({
   reducer: {
     challenge: challengeSlice.reducer,
     banner: bannerSlice.reducer,
+    publication: publicationSlice.reducer,
     event: eventSlice.reducer,
     auth: userSlice.reducer,
     postulation: postulationSlice.reducer

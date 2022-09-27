@@ -16,13 +16,13 @@ import FormContact from '../components/FormContact';
 import FormSuscribe from '../components/FormSuscribe';
 import FrequentlyQuestions from '../components/FrequentlyQuestions';
 import CarouselTestimony from '../components/CarouselTestimony';
-import CarouselEvent from '../../publication/components/event/CarouselEvent';
 import Map from '../../../utils/components/arcgis/Map';
 import { useSelector } from 'react-redux';
+import CarouselEvent from '../../event/compenents/CarouselEvent';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
-    const publications = useSelector((store: any) => store.event.list_publication.value);
+    const publications = useSelector((store: any) => store.publication.list_publication.value);
     return (
         <>
             <section>

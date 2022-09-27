@@ -2,10 +2,10 @@ import { BadgeProps, Card, Popover } from 'antd';
 import { Badge, Calendar } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PopoverEvent from './PopoverEvent';
-import { actions } from '../../redux';
+import { actions } from '../redux';
 
 const getMonthData = (value: Moment) => {
     if (value.month() === 8) {
@@ -19,11 +19,12 @@ const CalendarEvents = () => {
     }, []);
 
     const dispatch = useDispatch<any>();
-    const events: any = useSelector((store: any) => store.event.events.value);
+    const events: any = useSelector((store: any) => store.event.list_event.value);
+    
 
     const get_events = async () => {
         try {
-            await dispatch(actions.get_list_events({page: 1}));
+            await dispatch(actions.get_list_events({page: 1, is_published: true}));
         } catch (error) {
             console.error(error)
         }
@@ -32,19 +33,21 @@ const CalendarEvents = () => {
     const getListData = (value: Moment) => {
         let listData: any;
         events?.map((item: any) => {
-            let year = +moment(item?.eve_fecha).format('YYYY');
-            let month = +moment(item?.eve_fecha).format('M');
-            let day = +moment(item?.eve_fecha).format('D');
+            let year = +moment(item?.eve_date).format('YYYY');
+            let month = +moment(item?.eve_date).format('M');
+            let day = +moment(item?.eve_date).format('D');
+            console.log(year, month, day);
+            
             switch (value.year()) {
                 case year:
                     switch (value.month()) {
                         case --month:
                             switch (value.date()) {
-                                case ++day:
+                                case +day:
                                     listData = [
                                         {
                                             type: 'undefined', content: {
-                                                titulo: item?.eve_titulo,
+                                                titulo: item?.eve_title,
                                                 evento: item,
                                             }
                                         },

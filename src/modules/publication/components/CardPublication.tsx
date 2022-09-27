@@ -6,6 +6,7 @@ import ArrowRight from '../../../utils/assets/img/ArrowRight';
 import { actions } from '../redux';
 import { Buffer } from 'buffer';
 import { Skeleton } from 'antd';
+import ComponetLoading from '../../event/compenents/ComponetLoading';
 
 interface IDetailCardPublication {
     keyTab: 'EVENTO' | 'NOTICIA' | 'RESULTADO' | '0';
@@ -14,13 +15,12 @@ interface IDetailCardPublication {
 export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [data, setData] = useState([1, 2, 3, 4]);
-    const publications = useSelector((store: any) => store.event.list_publication.value);
-    const loading = useSelector((store: any) => store.event.list_publication.loading);
-    const { total } = useSelector((store: any) => store.event.list_publication.pagination);
-    const { current_page } = useSelector((store: any) => store.event.list_publication.pagination);
-    const { last_page } = useSelector((store: any) => store.event.list_publication.pagination);
-    const { first_page } = useSelector((store: any) => store.event.list_publication.pagination);
+    const publications = useSelector((store: any) => store.publication.list_publication.value);
+    const loading = useSelector((store: any) => store.publication.list_publication.loading);
+    const { total } = useSelector((store: any) => store.publication.list_publication.pagination);
+    const { current_page } = useSelector((store: any) => store.publication.list_publication.pagination);
+    const { last_page } = useSelector((store: any) => store.publication.list_publication.pagination);
+    const { first_page } = useSelector((store: any) => store.publication.list_publication.pagination);
     const number_pages = Number(total) / 4;
     let paginationPublications: any[] = [1];
 
@@ -28,20 +28,13 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
         paginationPublications = [...paginationPublications, i];
     }
 
-    useEffect(() => {
-        if (publications?.length > 0) {
-            setData(publications);
-        } else {
-            setData([1, 2, 3, 4]);
-        }
-    }, [publications]);
-
     const get_publications = async (page: number) => {
         await dispatch(
             actions.get_list_publications({
                 page,
                 page_size: 4,
                 from: 'landing',
+                is_published: true,
                 ...(keyTab !== '0' && { type: keyTab }),
             })
         );
@@ -59,32 +52,35 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                 <div className="carousel-inner">
                     {paginationPublications.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
-                            <div className="container">
-                                <div className="row my-5 pe-5 ps-5">
-                                    {data?.map((publication: any, index: any) => (
-                                        <div
-                                            className={`col-12 col-md-12 col-lg-6 p-0 ${
-                                                publications.length > 0 && 'imagen-events'
-                                            } `}
-                                            key={`detailPublication${index}`}
-                                            style={{
-                                                borderRadius: `${
-                                                    index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
-                                                } `,
-                                            }}
-                                        >
-                                            {publication?.pub_image?.pubfil_image_buffer?.data ? (
+                            {loading ? (
+                                <ComponetLoading height='450px' />
+                            ) : publications.length > 0 ? (
+                                <div className="container">
+                                    <div className="row my-5 pe-5 ps-5">
+                                        {publications?.map((publication: any, index: any) => (
+                                            <div
+                                                // className={`col-12 col-md-12 col-lg-6 p-0 ${
+                                                //     publication?.pub_image?.pubfil_image_buffer?.data && 'imagen-events'
+                                                // } `}
+                                                className={`col-12 col-md-12 col-lg-6 p-0 imagen-events `}
+                                                key={`detailPublication${index}`}
+                                                style={{
+                                                    borderRadius: `${
+                                                        index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
+                                                    } `,
+                                                }}
+                                            >
                                                 <>
                                                     <div
                                                         className="text-white text-start ps-5 pe-5"
                                                         style={{ position: 'absolute', bottom: '10%' }}
                                                     >
                                                         <div style={{ fontFamily: 'Montserrat-Bold' }}>
-                                                            {publication.pub_title}
+                                                            {publication?.pub_title}
                                                         </div>
 
                                                         <p>
-                                                            {publication.pub_description.length > 60
+                                                            {publication?.pub_description?.length > 60
                                                                 ? `${publication.pub_description
                                                                       .split('.')[0]
                                                                       .substring(0, 57)}...`
@@ -93,48 +89,54 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                         <button
                                                             className="btn btn-primary"
                                                             onClick={() => {
-                                                                const hola =
-                                                                
-                                                                navigate(`../detail-publication/${publication?.id}`);
+                                                                const hola = navigate(
+                                                                    `../detail-publication/${publication?.id}`
+                                                                );
                                                             }}
                                                         >
                                                             Conoce más
                                                         </button>
                                                     </div>
 
-                                                    <img
-                                                        style={{
-                                                            borderRadius: `${
-                                                                index === 0 || index === 1
-                                                                    ? '16px 16px 0 0'
-                                                                    : '0 0 16px 16px'
-                                                            } `,
-                                                        }}
-                                                        className="w-100"
-                                                        src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
-                                                            publication?.pub_image?.pubfil_image_buffer?.data
-                                                        ).toString('base64')}`}
-                                                        alt={publication.hec_titulo}
-                                                    />
+                                                    {publication?.pub_image?.pubfil_image_buffer?.data ? (
+                                                        <img
+                                                            style={{
+                                                                minHeight: '350px',
+                                                                borderRadius: `${
+                                                                    index === 0 || index === 1
+                                                                        ? '16px 16px 0 0'
+                                                                        : '0 0 16px 16px'
+                                                                } `,
+                                                            }}
+                                                            className="w-100"
+                                                            src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
+                                                                publication?.pub_image?.pubfil_image_buffer?.data
+                                                            ).toString('base64')}`}
+                                                            alt={publication.hec_titulo}
+                                                        />
+                                                    ) : (
+                                                        <Skeleton.Image
+                                                            active={loading}
+                                                            className="w-100 "
+                                                            style={{
+                                                                minHeight: '350px',
+                                                                paddingBottom: '20px',
+                                                                borderRadius: `${
+                                                                    index === 0 || index === 1
+                                                                        ? '16px 16px 0 0'
+                                                                        : '0 0 16px 16px'
+                                                                } `,
+                                                            }}
+                                                        />
+                                                    )}
                                                 </>
-                                            ) : (
-                                                <Skeleton.Image
-                                                    active={loading}
-                                                    className="w-100 "
-                                                    style={{
-                                                        minHeight: '300px',
-                                                        borderRadius: `${
-                                                            index === 0 || index === 1
-                                                                ? '16px 16px 0 0'
-                                                                : '0 0 16px 16px'
-                                                        } `,
-                                                    }}
-                                                />
-                                            )}
-                                        </div>
-                                    ))}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <ComponetLoading height='450px' title={`No hay publicaciones de ${keyTab.toLocaleLowerCase()}`} loading={false} />
+                            )}
                         </div>
                     ))}
                 </div>

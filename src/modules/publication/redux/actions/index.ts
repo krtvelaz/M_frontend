@@ -1,13 +1,5 @@
 
-import {
-    create_event,
-    delete_event,
-    get_list_events,
-    get_event_history,
-    get_event_by_id,
-    edit_event,
-    edit_publication_event,
-} from "./event";
+
 
 import {
     create_publication,
@@ -28,13 +20,7 @@ import {
 } from "./gallery";
 
 const actions = {
-    create_event,
-    delete_event,
-    get_list_events,
-    get_event_history,
-    get_event_by_id,
-    edit_event,
-    edit_publication_event,
+    
     create_publication,
     get_list_publications,
     get_publication_by_id,

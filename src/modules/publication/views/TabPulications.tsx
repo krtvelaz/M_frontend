@@ -15,12 +15,13 @@ const TabPulications = () => {
                 page: 1,
                 page_size: 4,
                 from: 'landing',
+                is_published: true,
                 ...(key !== '0' && { type: key }),
             })
         );
     };
     useEffect(() => {
-        dispatch(actions.get_list_publications({ page: 1, page_size: 4, from: 'landing' }));
+        dispatch(actions.get_list_publications({ page: 1, page_size: 4, from: 'landing', is_published: true }));
     }, []);
 
     return (

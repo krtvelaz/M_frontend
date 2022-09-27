@@ -1,19 +1,15 @@
-import { Card, Modal, Switch, Tabs } from 'antd';
+import { Modal, Switch, Tabs } from 'antd';
 import 'bootstrap';
-import { Form, FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FormikProps, FormikValues } from 'formik';
+import { FC, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil } from '../../../utils/assets/img';
-import { IEvent } from '../../publication/custom_types';
-import { actions } from '../../publication/redux';
-import DetailPostulationEvent from '../../publication/components/event/DetailPostulationEvent';
 import TableInfoPostulation from './TableInfoPostulation';
 import TableDocsPostulation from './TableDocsPostulation';
-import DetailDataPostulation from '../../publication/components/event/DetailDataPostulation';
-import tabs from '../../../utils/assets/styles/tabs.scss';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
-
 import ComponetCard from '../../../utils/ui/Card';
+import { IEvent } from '../../event/custom_types';
+import DetailGeneralPostulation from './DetailGeneralPostulation';
+import DetailGroupPostulation from './DetailGroupPostulation';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
@@ -41,19 +37,15 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
 
     return (
         <>
-            <a
-                style={{ cursor: 'pointer', fontSize: '10px' }}
-                onClick={async () => {
-                    open();
-                }}
-                className="img-fluid"
-            >
-                ver más
-            </a>
+            <div onClick={open} className="button-assign-rol">
+                ver detalles
+            </div>
+
             <div>
                 <Modal
+                    className="modal-roles"
                     visible={is_visible}
-                    width={1000}
+                    width="1069px"
                     onCancel={() => {
                         close();
                     }}
@@ -67,32 +59,46 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                         backgroundColor: 'rgba(6, 100, 144 ,0.71)',
                     }}
                     footer={null}
-                    closable={false}
                 >
-                    <Tabs tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold' }}>
+                    <Tabs tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}>
                         <TabPane tab="Información postulación" key="item-1">
-                            <ComponetCard>
-                                <DetailPostulationEvent onSubmit={edit} innerRef={form_ref} event={event} type="edit" />
-                                <hr style={{ color: 'rgba(6, 100, 144 ,0.71)' }} />
-                            </ComponetCard>
-
-                            <ComponetCard>
-                                <DetailDataPostulation onSubmit={edit} innerRef={form_ref} event={event} type="edit" />
+                            <div
+                                style={{
+                                    background: '#fff',
+                                    padding: '20px',
+                                    marginBottom: '10px',
+                                    borderRadius: '0 0 10px 10px',
+                                }}
+                            >
+                                <DetailGroupPostulation data={event} />
+                            </div>
+                            <ComponetCard title="Datos generales del equipo">
+                                <DetailGeneralPostulation data={event} />
                             </ComponetCard>
                         </TabPane>
                         <TabPane tab="Miembros del equipo" key="item-2">
                             <TableInfoPostulation />
                         </TabPane>
                         <TabPane tab="Documentos asociados" key="item-3">
-                            <TableDocsPostulation />
+                            <div
+                                style={{
+                                    background: '#fff',
+                                    padding: '20px',
+                                    marginBottom: '10px',
+                                    borderRadius: '0 0 10px 10px',
+                                }}
+                            >
+                                <TableDocsPostulation title="Documentos técnicos" type='tecnic' />
+                                <TableDocsPostulation title="Documentos administrativos" type='admin' />
+                            </div>
                         </TabPane>
                     </Tabs>
 
                     <ComponetCard>
                         <div style={{ flexDirection: 'column', textAlign: 'end' }}>
-                            <span className="State-postulation-info">Estado de la postulación:</span>
+                            <span className="State-postulation-info me-3">Estado de la postulación:</span>
                             <Switch onClick={revisatePostulations} />
-                            <span className="state-revisate-postulations-info">
+                            <span className="state-revisate-postulations-info me-3 ms-3">
                                 {revisate ? 'sin revisar' : 'Revisado'}
                             </span>
                             <button
@@ -109,7 +115,6 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                                     />
                                 )}
                             </button>
-                            ,
                         </div>
                     </ComponetCard>
                 </Modal>

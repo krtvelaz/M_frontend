@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { trash } from '../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from "../../../utils/ui";
-import ModalEditEvent from '../components/event/ModalEditEvent';
 import { IEvent } from '../custom_types';
 import { actions } from '../redux';
+import ModalEditEvent from '../compenents/ModalEditEvent';
 
 const ListEvent = () => {
 
@@ -74,7 +74,7 @@ const ListEvent = () => {
         },
         {
           title: "Nombre del evento",
-          dataIndex: "eve_titulo",
+          dataIndex: "eve_title",
           align: "left" as "left",
           render: (value: string) => {
             return (
@@ -105,13 +105,13 @@ const ListEvent = () => {
           align: "left" as "left",
           render: ( data: IEvent ) => {
             const onChange = async (e: any) => {
-            await dispatch(actions.edit_publication_event(data, e?.target?.value));
+            await dispatch(actions.edit_publication_event(Number(data?.id), e?.target?.value === true ? 'publish' : 'unpublish'));
             await get_events()
             
             };
             
             return (
-              <Radio.Group onChange={onChange} defaultValue={data.eve_publicada}>
+              <Radio.Group onChange={onChange} value={data.eve_status === 'Publicado' ? true : false}>
                 <Radio value= {true} >Si</Radio>
                 <Radio value= {false} >No</Radio>
               </Radio.Group>
@@ -120,7 +120,7 @@ const ListEvent = () => {
         },
         {
           title: "Fecha evento",
-          dataIndex: "eve_fecha",
+          dataIndex: "eve_date",
           align: "left" as "left",
           render: (date: string) => {
             return moment(date).format("DD / MM / YYYY")

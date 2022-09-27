@@ -61,6 +61,7 @@ export const get_list_publications = (filters?: {
     order_by_value?: string;
     type?: 'EVENTO' | 'NOTICIA' | 'RESULTADO';
     from?: string;
+    is_published?: boolean;
 }) => {
     return async (dispatch: any) => {
         dispatch(default_list_publication());
@@ -84,7 +85,7 @@ export const get_list_publications = (filters?: {
         }
     };
 };
-export const get_publication_by_id = (id: number) => {
+export const get_publication_by_id = (id: number, from?: 'landing') => {
     return async (dispatch: any) => {
         dispatch(default_publication());
         try {
@@ -92,6 +93,9 @@ export const get_publication_by_id = (id: number) => {
             const res = await cms_http.get(URI, {
                 params: {
                     id,
+                    ...(from && {
+                        from,
+                    }),
                 },
             });
             dispatch(success_publication(res.data.data));
@@ -119,7 +123,7 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.pub_subtitle;
         form.append('id', JSON.stringify(data.id));
         delete data.id;
-        
+
         if (!values?.pub_imagen?.id) {
             form.append('image', values?.pub_imagen);
         }
@@ -224,7 +228,7 @@ export const edit_published_publication = (
         dispatch(default_publication());
         let form: any = new FormData();
         form.append('id', id);
-        form.append('status', status );
+        form.append('status', status);
         try {
             const URI = '/publications/change-status';
             const res = await cms_http.patch(URI, form, {

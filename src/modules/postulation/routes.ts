@@ -1,5 +1,6 @@
 
 import { IRoute } from "../../utils/components/router/custom_types";
+import managePostulations from "./views/managePostulations";
 import { guards } from "../home/routes";
 import FormPostulation from "./components/FormPostulation";
 import CreatePostulation from "./views/CreatePostulation";
@@ -9,6 +10,23 @@ import PostulationView from "./views/PostulationView";
 
 const get_routes = (): IRoute[] => {
     return [
+        {
+            exact: true,
+            is_private: true,
+            can_access: guards.success_login,
+            format: true,
+            path: '/list/postulations',
+            template_props: {
+                breadcrumbs: [
+                    {
+                        name: 'Retos y Postulaciones',
+                        to: '/list/postulations',
+                    },
+                    
+                ],
+            },
+            component: managePostulations,
+        },
         {
             exact: true,
             is_private: true,

@@ -22,7 +22,7 @@ const FormGeneral: FC<PublicationPros> = ({
     pub_author: "",
     pub_description: "",
     pub_imagen: {
-      name: publication?.pub_image?.pubfil_title ? `${publication?.pub_image?.pubfil_title }.${publication?.pub_image?.pubfil_type }` : "",
+      name: publication?.pub_image?.pubfil_name ? `${publication?.pub_image?.pubfil_name }.${publication?.pub_image?.pubfil_type }` : "",
       id: publication?.id,
     },
     ...publication,

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { trash } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
@@ -18,8 +18,14 @@ interface IGalleryProps {
 const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication }) => {
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const [url, setUrl] = useState<string>('');
+    const [list_gallery, set_list_gallery] = useState<any[]>([]);
     const dispatch = useDispatch<any>();
-    const loading = useSelector((store: any) => store.event.list_gallery.loading)
+    const loading = useSelector((store: any) => store.publication.list_gallery.loading);
+
+    useEffect(() => {
+        const gallery = images.filter((publication) => publication !== null && publication !== undefined );
+        set_list_gallery(gallery);
+    }, [images]);
 
     const table_columns = [
         {
@@ -45,8 +51,8 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
             responsive: ['md'],
             align: 'left' as 'left',
             render: (name: string) => {
-                return `${name}.jpg`
-            }
+                return `${name}.jpg`;
+            },
         },
         {
             title: 'Acciones',
@@ -119,7 +125,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
     ];
     return (
         <>
-            <Table columns={table_columns} items={images} with_pagination={false} loading={loading} />
+            <Table columns={table_columns} items={list_gallery} with_pagination={false} loading={loading} />
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} fileType="img" />
         </>
     );
