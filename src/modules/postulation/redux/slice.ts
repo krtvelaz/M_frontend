@@ -23,6 +23,7 @@ interface State {
     sexual_orientation:Loadable<any | null>;
     generatePostulation:Loadable<any | null>;
     deleteDocument:Loadable<any | null>;
+    inforPostulation:Loadable<any | null>;
 
 }
 
@@ -37,7 +38,13 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
+ 
     deleteDocument: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    inforPostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -394,6 +401,28 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+
+    infoPostulations_default: (state) => {
+        state.inforPostulation = {
+            value: state.inforPostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    infoPostulations_success: (state, action) => {
+        state.inforPostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    infoPostulations_fail: (state) => {
+        state.inforPostulation = {
+            value: initialState.inforPostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
    
     },
 });
@@ -439,4 +468,7 @@ export const {
     deleteDoc_default,
     deleteDoc_success,
     deleteDoc_fail,
+    infoPostulations_default,
+    infoPostulations_success,
+    infoPostulations_fail
 } = postulationSlice.actions;

@@ -232,7 +232,7 @@ const PostulationView = () => {
                         </ComponetCard>
                     </TabPane>
                     <TabPane
-                        disabled={disblaTabsPosDocument ? true : false}
+                        // disabled={disblaTabsPosDocument ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>

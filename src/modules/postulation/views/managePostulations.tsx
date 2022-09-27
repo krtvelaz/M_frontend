@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, Table } from '../../../utils/ui';
 import { Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../challenge/redux';
+import { actions } from '../redux';
 import { useParams } from 'react-router-dom';
 import ModalInfoPostulations from '../components/ModalInfoPostulations';
 import PostulationsFilter from '../components/PostulationsFilter';
@@ -13,26 +13,28 @@ const managePostulations = () => {
         set_is_visible(true);
     };
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const { id } = useParams<any>();
+
     const dispatch = useDispatch<any>();
-    const challenges = useSelector((store: any) => store.challenge.challenges.value);
-    const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
-    const loading = useSelector((store: any) => store.challenge.challenges.loading);
+    const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
+
+    console.log('chal', infoPosutlations);
+
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
     });
     useEffect(() => {
-        dispatch(actions.get_list_challenges());
+        dispatch(actions.get__postulationInfo());
         getChallenge();
     }, []);
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({ page, pageSize: pageSize || 10 });
-        dispatch(actions.get_list_challenges(page, pageSize));
+        dispatch(actions.get__postulationInfo());
     };
     const getChallenge = async () => {
-        const res = await dispatch(actions.get_detail_challenge(Number(3)));
+        const res = await dispatch(actions.get_detail_challenge(Number(34)));
+        console.log('res', res);
     };
     const OpenModal = () => {
         setModalOpen(true);
@@ -58,8 +60,27 @@ const managePostulations = () => {
         },
         {
             title: 'Nombre del reto',
-            dataIndex: 'name',
+            dataIndex: 'cha_name',
             fixed: 'left',
+            align: 'left' as 'left',
+            render: (value: string) => {
+                return (
+                    value &&
+                    (value.length > 65 ? (
+                        <Popover content={value}>
+                            <span style={{ cursor: 'pointer' }} className="popover-span">
+                                {`${value.substring(0, 64)}...`}
+                            </span>
+                        </Popover>
+                    ) : (
+                        value
+                    ))
+                );
+            },
+        },
+        {
+            title: 'Estado',
+            dataIndex: 'pos_status',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -79,7 +100,7 @@ const managePostulations = () => {
         },
         {
             title: 'Nombre del postulante',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_business_name',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -97,29 +118,10 @@ const managePostulations = () => {
                 );
             },
         },
-        {
-            title: 'Estado',
-            dataIndex: 'eve_titulo',
-            align: 'left' as 'left',
-            render: (value: string) => {
-                return (
-                    value &&
-                    (value.length > 65 ? (
-                        <Popover content={value}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
-                                0,
-                                64
-                            )}...`}</span>
-                        </Popover>
-                    ) : (
-                        value
-                    ))
-                );
-            },
-        },
+
         {
             title: 'Código del postulante',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_documentid',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -139,7 +141,7 @@ const managePostulations = () => {
         },
         {
             title: 'Tipo de participante',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_id_type_competitor',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -159,7 +161,7 @@ const managePostulations = () => {
         },
         {
             title: 'Cód. postulación',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_settled',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -179,7 +181,7 @@ const managePostulations = () => {
         },
         {
             title: 'Fecha. postulación',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -199,7 +201,7 @@ const managePostulations = () => {
         },
         {
             title: 'Hora postulación',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -219,7 +221,7 @@ const managePostulations = () => {
         },
         {
             title: 'Dimensión',
-            dataIndex: 'eve_titulo',
+            dataIndex: 'id_postulation',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -239,16 +241,16 @@ const managePostulations = () => {
         },
         {
             title: 'Acciones',
-            dataIndex: 'id',
+            dataIndex: 'id_postulation',
             fixed: 'right',
             children: [
                 {
                     title: <span style={{ fontSize: '9px' }}>Editar</span>,
-                    dataIndex: 'id',
+                    dataIndex: 'id_postulation',
                     fixed: 'right',
                     align: 'center' as 'center',
-                    render: (id: number) => {
-                        return <ModalInfoPostulations onSubmit={OpenModal} id={id} />;
+                    render: (id_postulation: number) => {
+                        return <ModalInfoPostulations onSubmit={OpenModal} id={id_postulation} />;
                     },
                 },
             ],
@@ -281,7 +283,7 @@ const managePostulations = () => {
                             title="Listado de postulaciones"
                             columns={table_columns}
                             paginationTop
-                            items={challenges}
+                            items={infoPosutlations}
                             change_page={change_page}
                             with_pagination
                         />

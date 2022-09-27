@@ -19,15 +19,19 @@ interface ModalInfoPostulations {
 const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     const { TabPane } = Tabs;
     const form_ref = useRef<FormikProps<FormikValues>>();
-
     const [revisate, setRevisate] = useState<boolean>(true);
+    const [infoPost, setInfoPost] = useState<any>(null);
     const revisatePostulations = () => {
         setRevisate(!revisate);
     };
+
     const event: IEvent = useSelector((store: any) => store.event.event.value);
     const dispatch = useDispatch<any>();
     const [is_visible, set_is_visible] = useState<boolean>(false);
-    const open = () => set_is_visible(true);
+    const open = () => {
+        set_is_visible(true);
+        setInfoPost(id);
+    };
     const close = () => set_is_visible(false);
 
     const edit = async (values: IEvent) => {
@@ -70,7 +74,7 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
-                                <DetailGroupPostulation data={event} />
+                                <DetailGroupPostulation infoPost={infoPost} data={event} />
                             </div>
                             <ComponetCard title="Datos generales del equipo">
                                 <DetailGeneralPostulation data={event} />
@@ -88,8 +92,8 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
-                                <TableDocsPostulation title="Documentos técnicos" type='tecnic' />
-                                <TableDocsPostulation title="Documentos administrativos" type='admin' />
+                                <TableDocsPostulation title="Documentos técnicos" type="tecnic" />
+                                <TableDocsPostulation title="Documentos administrativos" type="admin" />
                             </div>
                         </TabPane>
                     </Tabs>

@@ -38,6 +38,10 @@ import {
     deleteDoc_success,
     deleteDoc_fail,
     deleteDocPost_success,
+    infoPostulations_default,
+    infoPostulations_success,
+    infoPostulations_fail
+
 } from './slice';
 import { jsPDF } from 'jspdf';
 const create_main_postulation = (values: any) => {
@@ -120,6 +124,21 @@ const get__document = () => {
             return res.data;
         } catch (error) {
             dispatch(fail_typeDocuments);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__postulationInfo = () => {
+    return async (dispatch: any) => {
+        dispatch(infoPostulations_default);
+        try {
+            const URI = `postulations`;
+
+            const res: any = await http.get(URI);
+            dispatch(infoPostulations_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(infoPostulations_fail);
             return Promise.reject('Error');
         }
     };
@@ -258,6 +277,7 @@ const get_detail_challenge = (id: number) => {
         }
     };
 };
+
 const generate_settled = (values: any, SaveForP: any) => {
     return async (dispatch: any) => {
         dispatch(GeneratePostulations_default());
@@ -311,6 +331,8 @@ const generate_settled = (values: any, SaveForP: any) => {
         }
     };
 };
+
+
 
 const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
     return `<table  class="table_postulation">
@@ -386,5 +408,6 @@ const actions = {
     get__sexual_orientation,
     generate_settled,
     deleteDocumentPostulation,
+    get__postulationInfo
 };
 export default actions;
