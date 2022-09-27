@@ -18,7 +18,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeListSexForm = useSelector((store: any) => store.postulation.listSexs.value);
     const TypeDocMember = useSelector((store: any) => store.postulation.loading_typeDocumentsMembers.value);
-
+    const SexualOrientations = useSelector((store: any) => store.postulation.sexual_orientation.value);
     const dispatch = useDispatch<any>();
 
     const ListSextype = async () => {
@@ -27,10 +27,13 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
     const DocumentTypeMemberPos = async () => {
         await dispatch(actions.get__documentMembers());
     };
-
+    const listSex_orientation = async () => {
+        await dispatch(actions.get__sexual_orientation());
+    };
     useEffect(() => {
         ListSextype();
         DocumentTypeMemberPos();
+        listSex_orientation();
     }, []);
 
     return (
@@ -169,44 +172,23 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_identity`} />
                 </div>
 
-                {/* <div className="col-3 ">
-                <label
-                    htmlFor="sexual_orientation_id"
-                    className="form-label"
-                >
-                    Orientación sexual
-                </label>
-                <Field
-                    component={Select}
-                    id="sexual_orientation_id"
-                    name={`membersPostulations.${i}.sexual_orientation`}
-                    style={{ height: '38px' }}
-                    options={[
-                        { name: 'Lesbiana', id: 'Lesbiana' },
-                        { name: 'Bisexual', id: 'Bisexual' },
-                        { name: 'Gay', id: 'Gay' },
-                        { name: 'Asexual', id: 'Asexual' },
-                        { name: 'Pansexual', id: 'Pansexual' },
-                        { name: 'Sin dato', id: 'Sin dato' },
-                        {
-                            name: 'No sabe no responde',
-                            id: 'No sabe no responde',
-                        },
-                    ]}
-                    placeholder="Seleccione…"
-                    filterOption={(input: any, option: any) => {
-                        return (
-                            option?.children
-                                ?.toLowerCase()
-                                .indexOf(input.toLowerCase()) >=
-                            0
-                        );
-                    }}
-                />
-                <ErrorMessage
-                    name={`membersPostulations.${i}.sexual_orientation`}
-                />
-            </div> */}
+                <div className="col-3 ">
+                    <label htmlFor="gruint_orientation_sexual_id" className="form-label">
+                        Orientación sexual
+                    </label>
+                    <Field
+                        component={Select}
+                        id="gruint_orientation_sexual_id"
+                        name={`membersPostulations.${i}.gruint_orientation_sexual`}
+                        style={{ height: '38px' }}
+                        options={SexualOrientations}
+                        placeholder="Seleccione…"
+                        filterOption={(input: any, option: any) => {
+                            return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                        }}
+                    />
+                    <ErrorMessage name={`membersPostulations.${i}.gruint_orientation_sexual`} />
+                </div>
 
                 <div className="col-3 ">
                     <label htmlFor="gruint_ethnicity_id" className="form-label">

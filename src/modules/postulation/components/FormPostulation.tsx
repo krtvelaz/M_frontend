@@ -7,15 +7,17 @@ import ComponetCard from '../../../utils/ui/Card';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
+import { profileEnd } from 'console';
 
 interface PostulationFormPros {
     postulation?: IPostulation;
+    setDisblaTabsPos?: any;
+    setTabSelect: React.Dispatch<React.SetStateAction<string>>;
 }
-const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
+const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPos, setTabSelect }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
-    const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
     const dispatch = useDispatch<any>();
 
     const initial_values = {
@@ -32,7 +34,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
 
     const schema = Yup.object().shape({
         name: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-        document_type: Yup.string().nullable().required('Campo obligatorio'),
+        document_type: Yup.string().nullable().min(1, 'Mínimo 7 caracteres').required('Campo obligatorio'),
         number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         type_profiles: Yup.string().nullable().required('Campo obligatorio'),
         email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
@@ -42,20 +44,24 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
     });
 
     const submit = async (values: any, form: any) => {
-        await dispatch(
-            actions.create_main_postulation({
-                pos_id_challenge: 1,
-                pos_business_name: values.name,
-                pos_contact: values.type_contact,
-                pos_number_contact: values.number_contact,
-                pos_id_type_competitor: values.type_profiles,
-                pos_email: values.email,
-                pos_type_document_id: values.document_type,
-                pos_documentid: values.number_document,
-                pos_address: values.direction,
-                pos_id_user: 1,
-            })
-        );
+        try {
+            await dispatch(
+                actions.create_main_postulation({
+                    pos_id_challenge: 1,
+                    pos_business_name: values.name,
+                    pos_contact: values.type_contact,
+                    pos_number_contact: values.number_contact,
+                    pos_id_type_competitor: values.type_profiles,
+                    pos_email: values.email,
+                    pos_type_document_id: values.document_type,
+                    pos_documentid: values.number_document,
+                    pos_address: values.direction,
+                    pos_id_user: 1,
+                })
+            );
+            setDisblaTabsPos(false);
+            setTabSelect('2');
+        } catch (_) {}
     };
 
     const typeDocument = async () => {
@@ -83,7 +89,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                 <label htmlFor="name_id" className="form-label">
                                     Nombre o razón social
                                 </label>
-
                                 <Field
                                     type="text"
                                     id="name_id"
@@ -127,9 +132,9 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                             id="document_type_id"
                                             name="document_type"
                                             className=""
-                                            options={typeDocumentsForm?.map((item: any) => ({
-                                                name: item.name,
-                                                id: item.id,
+                                            options={typeDocumentsForm.map((docuemnt: any) => ({
+                                                id: docuemnt.id,
+                                                name: docuemnt.name,
                                             }))}
                                             placeholder="C.C."
                                         />
@@ -169,10 +174,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                     id="type_profiles_id"
                                     name="type_profiles"
                                     className=""
-                                    options={typeProfile?.map((item: any) => ({
-                                        name: item.name,
-                                        id: item.id,
-                                    }))}
+                                    options={typeProfile}
                                     placeholder="Seleccione…"
                                 />
                                 <ErrorMessage name="type_profiles" />
@@ -208,9 +210,9 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation }) => {
                                             name="type_contact"
                                             className=""
                                             dropdownMatchSelectWidth={false}
-                                            options={typeNumberContact?.map((item: any) => ({
-                                                name: item.name,
-                                                id: item.id,
+                                            options={typeNumberContact.map((typeNumber: any) => ({
+                                                id: typeNumber.name,
+                                                name: typeNumber.name,
                                             }))}
                                         />
                                         <ErrorMessage name="type_contact" />

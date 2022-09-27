@@ -11,6 +11,25 @@ interface ModalAddress extends FieldProps {
     extra_on_change?: (value: any, prev_value?: any) => void;
 }
 
+const optionsV = [
+    {
+        name: 'Norte',
+        id: 'Norte',
+    },
+    {
+        name: 'Sur',
+        id: 'Sur',
+    },
+    {
+        name: 'Este',
+        id: 'Este',
+    },
+    {
+        name: 'Oeste',
+        id: 'Oeste',
+    },
+];
+
 const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const close = () => set_is_visible(false);
@@ -22,7 +41,6 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
             `${values.tipo_via} ${values.numero_dir} ${values.letra_dir}  ${values.zona_dir} ${values.numero2_dir} ${values.letra2_dir} ${values.zona2_dir} ${values.numero3_dir} ${values.obser_dir},`,
             false
         );
-        // actions.resetForm();
         close();
     };
 
@@ -47,30 +65,9 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
         letra_dir: Yup.string().required('Campo obligatorio'),
         zona_dir: Yup.string().required('Campo obligatorio'),
         numero2_dir: Yup.string().required('Campo obligatorio'),
-        // letra2_dir: Yup.string().required('Campo obligatorio'),
-        // zona2_dir: Yup.string().required('Campo obligatorio'),
         numero3_dir: Yup.string().required('Campo obligatorio'),
         obser_dir: Yup.string().required('Campo obligatorio'),
     });
-
-    const optionsV = [
-        {
-            name: 'Norte',
-            id: 'Norte',
-        },
-        {
-            name: 'Sur',
-            id: 'Sur',
-        },
-        {
-            name: 'Este',
-            id: 'Este',
-        },
-        {
-            name: 'Oeste',
-            id: 'Oeste',
-        },
-    ];
 
     return (
         <>
@@ -110,7 +107,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 closable={false}
             >
                 <Formik onSubmit={submit} initialValues={initial_values} validationSchema={schema} innerRef={form_ref}>
-                    {({ handleChange, values, errors, touched, setFieldValue }) => {
+                    {({ handleChange, values }) => {
                         return (
                             <Form>
                                 <div className="row">

@@ -1,7 +1,6 @@
-import { FieldArray, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useState } from 'react';
+import { FieldArray, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { IPostulation } from '../custom_types';
 import ComponetCard from '../../../utils/ui/Card';
 import { Tabs } from 'antd';
 import FormPostulation from '../components/FormPostulation';
@@ -9,11 +8,15 @@ import FormTeam from '../components/FormTeam';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import { DocsPostulation } from '../components/DocsPostulation';
 import { circuloTabs } from '../../../utils/assets/img';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 
 const PostulationView = () => {
-    const [buttonVisible, setButtonVisible] = useState(true);
+    const [buttonVisible, setButtonVisible] = useState<boolean>(true);
+    const [disblaTabsPos, setDisblaTabsPos] = useState<boolean>(true);
+    const [disblaTabsPosDocument, setDisblaTabsPosDocument] = useState<boolean>(true);
+    const [tabSelect, setTabSelect] = useState('1');
+
     const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;
 
@@ -29,15 +32,45 @@ const PostulationView = () => {
                 gruint_disability: member.gruint_disability === 'si' ? true : false,
             };
         });
-        await dispatch(
-            actions.create_memberPostulation({
-                members: membersSend,
-            })
-        );
+        try {
+            await dispatch(
+                actions.create_memberPostulation({
+                    members: membersSend,
+                })
+            );
+            setDisblaTabsPosDocument(false);
+            setTabSelect('3');
+        } catch (_) {}
+    };
+    const buttonBack = (e: any) => {
+        setTabSelect(e);
     };
 
     const initial_values = {
-        membersPostulations: [],
+        membersPostulations: [
+            {
+                gruint_names: '',
+                gruint_type_document: '',
+                gruint_document: '',
+                gruint_sex: '',
+                gruint_identity: '',
+                gruint_orientation_sexual: '',
+                gruint_ethnicity: '',
+                gruint_victim: '',
+                gruint_disability: '',
+            },
+            {
+                gruint_names: '',
+                gruint_type_document: '',
+                gruint_document: '',
+                gruint_sex: '',
+                gruint_identity: '',
+                gruint_orientation_sexual: '',
+                gruint_ethnicity: '',
+                gruint_victim: '',
+                gruint_disability: '',
+            },
+        ],
     };
 
     function onChangeTickets(values: any, setValues: any) {
@@ -49,7 +82,7 @@ const PostulationView = () => {
                 gruint_document: '',
                 gruint_sex: '',
                 gruint_identity: '',
-                // sexual_orientation: '',
+                gruint_orientation_sexual: '',
                 gruint_ethnicity: '',
                 gruint_victim: '',
                 gruint_disability: '',
@@ -71,7 +104,7 @@ const PostulationView = () => {
                 gruint_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
                 gruint_sex: Yup.string().nullable().required('Campo obligatorio'),
                 gruint_identity: Yup.string().nullable().required('Campo obligatorio'),
-                // sexual_orientation: Yup.string().nullable().required('Campo obligatorio'),
+                gruint_orientation_sexual: Yup.string().nullable().required('Campo obligatorio'),
                 gruint_ethnicity: Yup.string().nullable().required('Campo obligatorio'),
                 gruint_victim: Yup.string().required('Campo obligatorio'),
                 gruint_disability: Yup.string().required('Campo obligatorio'),
@@ -91,7 +124,7 @@ const PostulationView = () => {
                         <span style={{ color: '#FF8403' }}>Todos los campos son obligatorios</span>
                     </span>
                 </div>
-                <Tabs>
+                <Tabs activeKey={tabSelect} onChange={buttonBack}>
                     <TabPane
                         tab={
                             <>
@@ -109,11 +142,12 @@ const PostulationView = () => {
                                 <span>Datos Postulante</span>
                             </>
                         }
-                        key="item-1.1"
+                        key="1"
                     >
-                        <FormPostulation />
+                        <FormPostulation setDisblaTabsPos={setDisblaTabsPos} setTabSelect={setTabSelect} />
                     </TabPane>
                     <TabPane
+                        disabled={disblaTabsPos ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -128,7 +162,7 @@ const PostulationView = () => {
                                 <span>Integrantes del equipo</span>
                             </>
                         }
-                        key="item-1.2"
+                        key="2"
                     >
                         <ComponetCard>
                             <Formik
@@ -153,6 +187,7 @@ const PostulationView = () => {
                                                         Agegar otro participante
                                                     </span>
                                                     <button
+                                                        type="button"
                                                         onClick={() => onChangeTickets(values, setValues)}
                                                         style={{
                                                             borderRadius: '50%',
@@ -171,7 +206,16 @@ const PostulationView = () => {
                                                 </div>
                                             )}
 
-                                            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <div>
+                                                    <button
+                                                        onClick={() => setTabSelect('1')}
+                                                        className="btn btn-outline-primary"
+                                                        type="button"
+                                                    >
+                                                        Ir atrás
+                                                    </button>
+                                                </div>
                                                 <button
                                                     key="saveDoc"
                                                     type="submit"
@@ -188,6 +232,7 @@ const PostulationView = () => {
                         </ComponetCard>
                     </TabPane>
                     <TabPane
+                        disabled={disblaTabsPosDocument ? true : false}
                         tab={
                             <>
                                 <span style={{ paddingRight: '6%' }}>
@@ -203,9 +248,9 @@ const PostulationView = () => {
                                 <span>Formatos que debes cargar</span>
                             </>
                         }
-                        key="item-1.3"
+                        key="3"
                     >
-                        <DocsPostulation />
+                        <DocsPostulation setTabSelect={setTabSelect} />
                     </TabPane>
                 </Tabs>
             </ComponetCard>
