@@ -22,6 +22,7 @@ interface State {
     challenge:Loadable<any | null>;
     sexual_orientation:Loadable<any | null>;
     generatePostulation:Loadable<any | null>;
+    deleteDocument:Loadable<any | null>;
 
 }
 
@@ -32,6 +33,11 @@ const initialState: State = {
         loaded: false,
     },
     testimony: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    deleteDocument: {
         value: null,
         loading: false,
         loaded: false,
@@ -57,7 +63,7 @@ const initialState: State = {
         loaded: false,
     },
     addDocument: {
-        value: null,
+        value: [],
         loading: false,
         loaded: false,
     },
@@ -277,22 +283,50 @@ export const postulationSlice = createSlice({
         };
     },
     addDoc_default: (state) => {
-        state.memberPostulation = {
-            value: state.memberPostulation.value,
+        state.addDocument = {
+            value: state.addDocument.value,
             loading: true,
             loaded: false,
         };
     },
     addDoc_success: (state, action) => {
-        state.memberPostulation = {
+        state.addDocument = {
+            value: [...state.addDocument.value, action.payload],
+            loading: false,
+            loaded: true,
+        };
+    },
+    deleteDocPost_success: (state, action) => {
+        state.addDocument = {
+            value: state.addDocument.value.filter((item: any)=> item.id !== action.payload),
+            loading: false,
+            loaded: true,
+        };
+    },
+    deleteDoc_success: (state, action) => {
+        state.deleteDocument = {
             value: action.payload,
             loading: false,
             loaded: true,
         };
     },
     addDoc_fail: (state) => {
-        state.memberPostulation = {
-            value: initialState.memberPostulation.value,
+        state.addDocument = {
+            value: initialState.addDocument.value,
+            loading: false,
+            loaded: false,
+        };
+    },
+    deleteDoc_default: (state) => {
+        state.deleteDocument = {
+            value: state.deleteDocument.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    deleteDoc_fail: (state) => {
+        state.deleteDocument = {
+            value: initialState.deleteDocument.value,
             loading: false,
             loaded: false,
         };
@@ -391,6 +425,7 @@ export const {
     listSex_fail,
     addDoc_default,
     addDoc_success,
+    deleteDocPost_success,
     addDoc_fail,
     loading_challenge,
     get_challenge,
@@ -400,5 +435,8 @@ export const {
     sexualOrientation_fail,
     GeneratePostulations_default,
     GeneratePostulations_success,
-    GeneratePostulations_fail
+    GeneratePostulations_fail,
+    deleteDoc_default,
+    deleteDoc_success,
+    deleteDoc_fail,
 } = postulationSlice.actions;

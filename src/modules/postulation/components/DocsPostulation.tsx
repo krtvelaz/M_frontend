@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
-import { Input } from 'antd';
 import { DocsTecPostulations } from './DocsTecPostulations';
 import { DocsAdminPostulations } from './DocsAdminPostulations';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { useParams } from 'react-router-dom';
-import { swal_error } from '../../../utils/ui';
 
 type Props = {
     setTabSelect: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +12,6 @@ type Props = {
 export const DocsPostulation = ({ setTabSelect }: Props) => {
     const dispatch = useDispatch<any>();
     const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
-    const { id } = useParams<any>();
 
     const getChallenge = async () => {
         await dispatch(actions.get_detail_challenge(Number(47)));
@@ -31,7 +27,7 @@ export const DocsPostulation = ({ setTabSelect }: Props) => {
             subject: SaveForP.pos_business_name,
             attachment: [],
         };
-        await dispatch(actions.generate_settled(data));
+        await dispatch(actions.generate_settled(data, SaveForP));
     };
 
     return (

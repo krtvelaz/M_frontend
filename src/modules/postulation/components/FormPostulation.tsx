@@ -7,6 +7,7 @@ import ComponetCard from '../../../utils/ui/Card';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
+import { profileEnd } from 'console';
 
 interface PostulationFormPros {
     postulation?: IPostulation;
@@ -17,7 +18,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
-
     const dispatch = useDispatch<any>();
 
     const initial_values = {
@@ -132,7 +132,10 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                                             id="document_type_id"
                                             name="document_type"
                                             className=""
-                                            options={typeDocumentsForm}
+                                            options={typeDocumentsForm.map((docuemnt: any) => ({
+                                                id: docuemnt.id,
+                                                name: docuemnt.name,
+                                            }))}
                                             placeholder="C.C."
                                         />
                                         <ErrorMessage name="document_type" />
@@ -207,7 +210,10 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                                             name="type_contact"
                                             className=""
                                             dropdownMatchSelectWidth={false}
-                                            options={typeNumberContact}
+                                            options={typeNumberContact.map((typeNumber: any) => ({
+                                                id: typeNumber.name,
+                                                name: typeNumber.name,
+                                            }))}
                                         />
                                         <ErrorMessage name="type_contact" />
                                     </div>

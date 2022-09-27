@@ -1,6 +1,5 @@
-import { cms_http, http } from '../../../config/axios_instances';
+import {  http } from '../../../config/axios_instances';
 import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
-import { IPostulation } from '../../postulation/custom_types';
 import {
     fail_typeDocuments,
     loading_typeDocuments,
@@ -34,9 +33,13 @@ import {
     sexualOrientation_fail,
     GeneratePostulations_default,
     GeneratePostulations_success,
-    GeneratePostulations_fail
+    GeneratePostulations_fail,
+    deleteDoc_default,
+    deleteDoc_success,
+    deleteDoc_fail,
+    deleteDocPost_success,
 } from './slice';
-
+import { jsPDF } from 'jspdf';
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(postulations_default());
@@ -76,7 +79,7 @@ const create_memberPostulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
-            const URI = `postulations/member/1`;
+            const URI = `postulations/member/15`;
             const res = await http.post(URI, values, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -196,13 +199,13 @@ const get__profiles = () => {
         }
     };
 };
-const addDocumentPostulation = (file: any, data: any) => {
+const addDocumentPostulation = (file: any, data: any,i: number) => {
     return async (dispatch: any) => {
         dispatch(addDoc_default());
 
         let form: any = new FormData();
-        form.append("file",file)
-        form.append("data", JSON.stringify(data))
+        form.append('file', file);
+        form.append('data', JSON.stringify(data));
         try {
             const URI = `postulations/document`;
             const res = await http.post(URI, form, {
@@ -213,7 +216,7 @@ const addDocumentPostulation = (file: any, data: any) => {
                     'Access-Control-Allow-Headers': 'Content-Type',
                 },
             });
-            dispatch(addDoc_success(res.data.data));
+            dispatch(addDoc_success({...res.data.data, i}));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -255,7 +258,7 @@ const get_detail_challenge = (id: number) => {
         }
     };
 };
-const generate_settled = (values: any) => {
+const generate_settled = (values: any, SaveForP: any) => {
     return async (dispatch: any) => {
         dispatch(GeneratePostulations_default());
         try {
@@ -270,10 +273,28 @@ const generate_settled = (values: any) => {
                 title: 'Proceso exitoso',
                 html:
                     `<div class="mysubtitle">${res.data.message}</div>` +
-                    `<div class="mytext">${res.data.data.settled}</div>` + 
-                    '<div class="mytext">De click en aceptar para continuar</div>',
+                    `<div class="mytext">${res.data.data.infoSettled.pos_settled}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>' +
+                    `<div><button id="pdfDownald" class="btn btn-outline-primary">Descargar comprobante</button></div>`,
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
+                didOpen: () => {
+                    const validatePdf = document.getElementById('pdfDownald');
+                    const DownloadHTML = () => {
+                        const stringHtml = HtmlStringPdf(SaveForP, res.data.data);
+                        const doc = new jsPDF('p', 'pt', 'a4');
+                        doc.html(stringHtml, {
+                            callback: (pdf) => {
+                                pdf.save('postulacion.pdf');
+                            },
+                        });
+                    };
+                    if (validatePdf) {
+                        validatePdf.onclick = () => {
+                            DownloadHTML();
+                        };
+                    }
+                },
             });
             return res.data.data;
         } catch (error: any) {
@@ -291,6 +312,67 @@ const generate_settled = (values: any) => {
     };
 };
 
+const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
+    return `<table  class="table_postulation">
+    <tr>
+        <td >Número del Radicado</td>
+        <td>${generatePost?.infoSettled?.pos_settled}</td>
+    </tr>
+    <tr>
+        <td >Convocatoria</td>
+        <td >${SaveForP.pos_business_name}</td>
+    </tr>
+    <tr>
+        <td >Tipo de documento</td>
+        <td >${SaveForP.pos_type_document_id}</td>
+    </tr>
+    <tr>
+        <td >Número de documento</td>
+        <td >${SaveForP.pos_documentid}</td>
+    </tr>
+    <tr>
+        <td >Tipo de perfil</td>
+        <td >${SaveForP.pos_id_type_competitor}</td>
+    </tr>
+    <tr>
+        <td >Fecha</td>
+        <td>${SaveForP.pos_created_at}</td>
+    </tr>
+</table>`;
+};
+
+const deleteDocumentPostulation = (data: any) => {
+    return async (dispatch: any) => {
+        dispatch(deleteDoc_default());
+
+        try {
+            const URI = `postulations/document/${data.filename}/${data.id}`;
+            const res = await http.delete(URI);
+            dispatch(deleteDocPost_success(data.id));
+            dispatch(deleteDoc_success(res.data.data));
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return res.data.data;
+        } catch (error: any) {
+            dispatch(deleteDoc_fail());
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    '<div class="mytext">Edite o elimine algún elemento existente para ingresar este nuevo registro.</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return Promise.reject('Error');
+        }
+    };
+};
 const actions = {
     create_main_postulation,
     get__document,
@@ -302,6 +384,7 @@ const actions = {
     get__documentMembers,
     get_detail_challenge,
     get__sexual_orientation,
-    generate_settled
+    generate_settled,
+    deleteDocumentPostulation,
 };
 export default actions;

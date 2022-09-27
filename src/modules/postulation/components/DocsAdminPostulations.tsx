@@ -1,17 +1,14 @@
-import Item from 'antd/lib/list/Item';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
 import { iconoCheck } from '../../../utils/assets/img';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { Buffer } from 'buffer';
 import { swal_error } from '../../../utils/ui';
 interface DocsTecPostulations {
     dataDoc?: any;
     documentPos?: any;
 }
 export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, documentPos }) => {
-    const dispatch = useDispatch<any>();
     const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
 
     return (
@@ -23,10 +20,15 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, docume
                     item2.retdoc_tipo_formulario === 3 && (
                         <div key={i}>
                             <ComponetCard
-                                style={{ border: '1px solid #AD0808', borderRadius: '13px', position: 'relative' }}
+                                style={{
+                                    border: '1px solid #AD0808',
+                                    borderRadius: '13px',
+                                    position: 'relative',
+                                    minHeight: '130px',
+                                }}
                                 key={i}
                             >
-                                <DocumentPostulation item2={item2} />
+                                <DocumentPostulation item2={item2} i={i} />
                             </ComponetCard>
                         </div>
                     )
@@ -36,10 +38,12 @@ export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, docume
     );
 };
 
-const DocumentPostulation = ({ item2 }: any) => {
+const DocumentPostulation = ({ item2, i }: any) => {
     const [visibleCheckPostulation, setVisibleCheckPostulation] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
-    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
+    const inputRef = useRef<any>(null);
+
+    const addDocument: any = useSelector((store: any) => store.postulation.addDocument.value);
     const onUploadFileChange = async (e: any) => {
         const target = e.target.files[0];
         if (target.type !== 'application/pdf') {
@@ -61,27 +65,44 @@ const DocumentPostulation = ({ item2 }: any) => {
                 posarc_id_document: item2.retdoc_id_documento,
                 posarc_id_postulation: 15,
             };
-            await dispatch(actions.addDocumentPostulation(target, data));
+            await dispatch(actions.addDocumentPostulation(target, data, i));
             setVisibleCheckPostulation(true);
         } catch (error) {
             console.log(error);
         }
     };
+
+    const deleteDocumentPostulations = async (e: any) => {
+        const dataaddDocument = addDocument.find((item: any) => item.i === i);
+        const data = {
+            filename: dataaddDocument.posarc_path_file,
+            id: dataaddDocument.id,
+        };
+        await dispatch(actions.deleteDocumentPostulation(data));
+        inputRef.current.value = '';
+        inputRef.current.files = null;
+        setVisibleCheckPostulation(false);
+    };
+
     return (
         <div>
-            {visibleCheckPostulation && <ContainerCheckDocument />}
+            {visibleCheckPostulation && (
+                <ContainerCheckDocument deleteDocumentPostulations={deleteDocumentPostulations} />
+            )}
             <div>
-                <span
-                    style={{
-                        width: '100%',
-                        color: '#AD0808',
-                        fontSize: '12px',
-                        fontFamily: 'Montserrat-Bold',
-                        marginBottom: '10px',
-                    }}
-                >
-                    {item2.retdoc_nombre_plantilla}
-                </span>
+                <div style={{ minHeight: '20px' }}>
+                    <span
+                        style={{
+                            width: '100%',
+                            color: '#AD0808',
+                            fontSize: '12px',
+                            fontFamily: 'Montserrat-Bold',
+                            marginBottom: '10px',
+                        }}
+                    >
+                        {item2.retdoc_nombre_plantilla}
+                    </span>
+                </div>
                 <p
                     style={{
                         fontSize: '11px',
@@ -112,7 +133,12 @@ const DocumentPostulation = ({ item2 }: any) => {
                             cursor: 'pointer',
                         }}
                     >
-                        <input onChange={(e) => onUploadFileChange(e)} style={{ display: 'none' }} type="file" />
+                        <input
+                            ref={inputRef}
+                            onChange={(e) => onUploadFileChange(e)}
+                            style={{ display: 'none' }}
+                            type="file"
+                        />
                         <span
                             style={{
                                 fontSize: '10px',
@@ -129,14 +155,14 @@ const DocumentPostulation = ({ item2 }: any) => {
     );
 };
 
-const ContainerCheckDocument = () => {
+const ContainerCheckDocument = ({ deleteDocumentPostulations }: any) => {
     return (
         <div
             style={{
                 position: 'absolute',
                 backgroundColor: 'rgba(0, 144, 76, 0.9)',
                 width: '100%',
-                height: '100%',
+                height: '102%',
                 top: '0px',
                 left: '0px',
                 borderRadius: '13px',
@@ -165,7 +191,9 @@ const ContainerCheckDocument = () => {
                         fontFamily: 'Montserrat-Regular',
                         color: '#FFFFFF',
                         fontSize: '10px',
+                        cursor: 'pointer',
                     }}
+                    onClick={deleteDocumentPostulations}
                 >
                     Eliminar
                 </span>

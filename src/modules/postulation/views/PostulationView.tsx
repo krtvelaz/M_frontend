@@ -1,7 +1,6 @@
-import { FieldArray, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useState } from 'react';
+import { FieldArray, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { IPostulation } from '../custom_types';
 import ComponetCard from '../../../utils/ui/Card';
 import { Tabs } from 'antd';
 import FormPostulation from '../components/FormPostulation';
@@ -9,9 +8,8 @@ import FormTeam from '../components/FormTeam';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import { DocsPostulation } from '../components/DocsPostulation';
 import { circuloTabs } from '../../../utils/assets/img';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
-import { useInit } from '../../challenge/hooks/useInit';
 
 const PostulationView = () => {
     const [buttonVisible, setButtonVisible] = useState<boolean>(true);
@@ -49,7 +47,30 @@ const PostulationView = () => {
     };
 
     const initial_values = {
-        membersPostulations: [],
+        membersPostulations: [
+            {
+                gruint_names: '',
+                gruint_type_document: '',
+                gruint_document: '',
+                gruint_sex: '',
+                gruint_identity: '',
+                gruint_orientation_sexual: '',
+                gruint_ethnicity: '',
+                gruint_victim: '',
+                gruint_disability: '',
+            },
+            {
+                gruint_names: '',
+                gruint_type_document: '',
+                gruint_document: '',
+                gruint_sex: '',
+                gruint_identity: '',
+                gruint_orientation_sexual: '',
+                gruint_ethnicity: '',
+                gruint_victim: '',
+                gruint_disability: '',
+            },
+        ],
     };
 
     function onChangeTickets(values: any, setValues: any) {
