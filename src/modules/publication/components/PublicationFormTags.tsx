@@ -29,7 +29,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
         setPublication,
     ] = useInit(type, publication_data, ); // agregar o no  el publication_data y type
 
-    const loading = useSelector((store: any) => store.event.publication.loading);
+    const loading = useSelector((store: any) => store.publication.publication.loading);
 
 
     return (
@@ -165,12 +165,17 @@ const useInit = (
                     setPublication((data: IPublication) => {
                         return {
                             ...data,
-                            general_information: result,
+                            general_information: {
+                                ... result,
+                                pub_imagen: values.pub_imagen,
+                                pub_type: values.pub_type,
+
+                            }
                         };
                     });
                 } else {
                     
-                    const result = await dispatch(actions.edit_publication(values));
+                    const result = await dispatch(actions.edit_publication(values));                    
                     setPublication((data: IPublication) => {
                         return {
                             ...data,

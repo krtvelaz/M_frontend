@@ -87,11 +87,11 @@
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
-    padding: 11px 5px 11px 15px;
+    padding: 11px;
 }
 
 .ant-table-thead > tr > th {
-    padding: 10px 5px 0px 15px !important;
+    padding: 5px 5px 0px 15px !important;
 }
 
 .ant-table-wrapper {
@@ -126,16 +126,16 @@
 }
 
 .ant-pagination-item-active a {
-    background: #1D98D1;
+    background: #1d98d1;
     color: #fff !important;
 }
 
 .ant-pagination-item-active {
-  border-color: #1D98D1 !important;
+    border-color: #1d98d1 !important;
 }
 
 .ant-pagination-prev {
-    margin-right: 0;   
+    margin-right: 0;
 }
 
 .ant-pagination-prev .ant-pagination-item-link {
@@ -170,13 +170,13 @@
 }
 
 .ant-select-item-option:hover {
-    background-color: #1D98D1 !important;
+    background-color: #1d98d1 !important;
     color: white !important;
     transition: all 300ms;
 }
 
 .ant-select-arrow {
-    color: #1D98D1;
+    color: #1d98d1;
 }
 
 // inputs
@@ -235,11 +235,11 @@ textarea.form-control {
 }
 
 .ant-radio-inner::after {
-    background-color: #1D98D1;
+    background-color: #1d98d1;
 }
 
 .ant-radio-checked .ant-radio-inner {
-    border-color: #1D98D1;
+    border-color: #1d98d1;
 }
 
 // popover
@@ -313,7 +313,7 @@ textarea.form-control {
 }
 
 .ant-menu-vertical .ant-menu-item:hover {
-    background-color: #1D98D1 !important;
+    background-color: #1d98d1 !important;
     color: #fff;
 }
 
@@ -328,7 +328,7 @@ textarea.form-control {
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: #1D98D1 !important;
+    background-color: #1d98d1 !important;
     color: #fff;
 }
 
@@ -376,7 +376,6 @@ textarea.form-control {
     vertical-align: text-top;
 }
 
-
 .carousel-control-next {
     right: none;
     right: none !important;
@@ -384,7 +383,8 @@ textarea.form-control {
     // bottom: -50%;
 }
 
-.carousel-control-prev, .carousel-control-next {
+.carousel-control-prev,
+.carousel-control-next {
     width: 5%;
     text-align: center;
     flex-direction: column;
@@ -395,17 +395,15 @@ textarea.form-control {
 .carousel-control-prev {
     left: 20px;
     bottom: 100px;
-    
 }
 
 .carousel-control-next {
     bottom: 80px;
     left: 55px;
-    
 }
 
 .ant-collapse-extra {
-    color: #9A458F !important;
+    color: #9a458f !important;
     font-size: 20px !important;
     font-family: 'Montserrat-Bold' !important;
 }
@@ -465,12 +463,10 @@ textarea.form-control {
     border-radius: 0;
 }
 
-.ant-table-cell-fix-left, .ant-table-cell-fix-right {
-width: auto;
+.ant-table-cell-fix-left,
+.ant-table-cell-fix-right {
+    width: auto;
 }
-
-
-
 
 // texto enriquecido
 .ql-container.ql-snow {
@@ -478,11 +474,54 @@ width: auto;
     min-height: 175px;
 }
 .ql-toolbar.ql-snow {
-    border-radius: 6px 6px  0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+// tabla drag an drop
+.table-drag-drop .ant-table-thead {
+    display: none;
+}
+
+.table-drag-drop .ant-table-tbody > tr:nth-child(2n) td {
+    background-color: #fff !important;
+}
+
+.table-drag-drop .ant-table-tbody tr td:first-child {
+    background: #f6f6f6 !important;
+    border-radius: 4px 0 0 4px;
+    padding: 5px;
+}
+.table-drag-drop .ant-table-tbody tr td:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.table-drag-drop .ant-table-tbody > tr > td {
+    border-bottom: none !important;
+    border: 1px solid #f0f0f0 !important;
 }
 
 
+.table-drag-drop .ant-table-measure-row {
+   display: none !important;
+}
+.table-drag-drop .ant-table-row {
+    border: 1px solid #f0f0f0 !important;
+    border-radius: 10px !important;
+}
 
+.table-drag-drop table {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
 
+.table-drag-drop .ant-table.ant-table-bordered > .ant-table-container {
+    border-left: none !important;
+}
 
-
+.table-drag-drop
+    .ant-table.ant-table-bordered
+    > .ant-table-container
+    > .ant-table-content
+    > table {
+    border-top: none !important;
+}

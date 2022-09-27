@@ -1,33 +1,19 @@
 import { IRoute } from "../../utils/components/router/custom_types";
-import ListEvent from "./views/ListEvent";
+import ListEvent from "../event/views/ListEvent";
 // import EditPublication from "./EditPublication";
-import CreateEvent from "./views/CreateEvent";
+import CreateEvent from "../event/views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";
 import ListPublication from "./views/ListPublication";
 import EditPublication from "./views/EditPublication";
 import { guards } from "../home/routes";
 import DetailPublication from "./views/DetailPublication";
 import ListNotifications from "./views/ListNotifications";
-import ListNewsletters from "./views/ListNewsletters";
 
 // import store from '../../config/store';
 ;
 
 const get_routes = (): IRoute[] => {
     return [
-        {
-            exact: true,
-            is_private: true,
-            can_access:  guards.success_login,
-            format: true,
-            path: '/newsletters/list',
-            template_props: {
-                breadcrumbs: [
-                    { name: 'Notificaciones' },
-                ],
-            },
-            component: ListNewsletters,
-        },
         {
             exact: true,
             is_private: true,
@@ -70,36 +56,6 @@ const get_routes = (): IRoute[] => {
                 ],
             },
             component: CreatePublication,
-        },
-        {
-            exact: true,
-            is_private: true,
-            can_access: guards.success_login,
-            format: true,
-            path: '/event/create',
-            template_props: {
-                breadcrumbs: [
-                    {
-                        name: 'Gestionar eventos',
-                        to: '/event/list',
-                    },
-                       { name: 'Crear evento',}
-                ],
-            },
-            component: CreateEvent,
-        },
-        {
-            exact: true,
-            is_private: true,
-            can_access: guards.success_login,
-            format: true,
-            path: '/event/list',
-            template_props: {
-                breadcrumbs: [
-                    { name: 'Gestionar eventos' },
-                ],
-            },
-            component: ListEvent,
         },
         {
             exact: true,

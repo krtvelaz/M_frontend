@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { Card } from '../../../utils/ui';
-import FormEvent from '../components/event/FormEvent';
 import { IEvent } from '../custom_types';
 import { FormikProps, FormikValues } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../redux';
 import { useNavigate } from 'react-router-dom';
+import FormEvent from '../compenents/FormEvent';
+import { actions } from '../redux';
 
 const CreateEvent = () => {
     const loading: boolean = useSelector((store: any) => store.event.event.loading);

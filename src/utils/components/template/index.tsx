@@ -10,7 +10,7 @@ import { Breadcrumb } from '../router/custom_types';
 import { useNavigate } from 'react-router-dom';
 import { actions as auth_actions } from '../../../modules/auth/redux';
 import { useDispatch } from 'react-redux';
-import '../../../utils/assets/styles/template.scss';
+import '../../assets/styles/template.scss'
 
 interface ITemplate {
     breadcrumbs?: Breadcrumb[];

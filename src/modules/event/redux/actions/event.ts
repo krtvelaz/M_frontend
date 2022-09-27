@@ -1,7 +1,7 @@
 import { cms_http } from '../../../../config/axios_instances';
 import { swal_error } from '../../../../utils/ui';
 import { swal_success } from '../../../../utils/ui/swalAlert';
-import { IEvent } from '../../custom_types';
+
 import {
     default_event,
     default_events,
@@ -13,21 +13,26 @@ import {
     success_events,
     success_list_event,
 } from '../slice';
+import { IEvent } from '../../custom_types';
+import moment from 'moment';
 
 interface filter {
     page: number;
     page_size?: number;
-    only?: string;
+    order_by_key?:  string;
+    order_by_value?: string;
+    is_published?: boolean;
 }
 
 export const create_event = (_values: IEvent) => {
     return async (dispatch: any) => {
         dispatch(default_event());
-        
+
         const values = JSON.parse(JSON.stringify(_values));
         const data = {
             ...values,
-            eve_numero_cupos: Number(values.eve_numero_cupos) || null,
+            eve_hour: moment(values.eve_hour, 'h:mm:ss A').format('HH:mm:ss'),
+            eve_limit_entry: Number(values.eve_numero_cupos) || 0,
         };
         let form = new FormData();
         form.append('data', data);
@@ -68,10 +73,13 @@ export const create_event = (_values: IEvent) => {
 export const delete_event = (id: number) => {
     return async (dispatch: any) => {
         // dispatch(default_event());
-
         try {
-            const URI = `/event/event/${id}`;
-            const res = await cms_http.delete(URI);
+            const URI = `/events`;
+            const res = await cms_http.delete(URI,{
+                params: {
+                    id
+                }
+            });
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -112,6 +120,8 @@ export const get_list_events = (filter?: filter) => {
                 results: res.data.data,
                 pagination: res.data.meta,
             };
+            console.log(events);
+            
             dispatch(success_list_event(events));
             return res.data.data;
         } catch (error) {
@@ -141,10 +151,14 @@ export const get_event_by_id = (id: number) => {
     return async (dispatch: any) => {
         dispatch(default_event);
         try {
-            const URI = `event/list/${id}`;
-            const res = await cms_http.get(URI);
-            dispatch(success_event(res.data.data[0]));
-            return res.data.data[0];
+            const URI = `/events`;
+            const res = await cms_http.get(URI, {
+                params: {
+                    id,
+                },
+            });
+            dispatch(success_event(res.data.data));
+            return res.data.data;
         } catch (error) {
             dispatch(fail_event());
             return Promise.reject('Error');
@@ -157,27 +171,28 @@ export const edit_event = (_values: IEvent) => {
         dispatch(default_event());
         const values = JSON.parse(JSON.stringify(_values));
         const data = {
-            action: 'update',
-            info: {
-                id: values.id,
-            },
-            data: {
-                ...values,
-                eve_numero_cupos: Number(values.eve_numero_cupos) || null,
-            },
+            ...values,
+            eve_hour: moment(values.eve_hour, 'h:mm:ss A').format('HH:mm:ss'),
+            eve_limit_entry: values?.eve_limit_entry || 0
         };
-        delete data.data.id;
-        delete data.data.eve_creacion;
+        if(!data.eve_with_limit_entry) delete data.eve_limit_entry
+        delete data.id;
+        delete data.eve_created_at;
+        delete data.eve_created_at;
+        delete data.eve_updated_at;
+        delete data.eve_attendance_limit;
+        delete data.eve_attendance_quota;
+        delete data.eve_type;
+        delete data.eve_status;
 
         try {
-            const URI = '/event';
-            const res = await cms_http.post(URI, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+            const URI = '/events';
+            const res = await cms_http.patch(URI, data, {
+                params: {
+                    id: _values?.id,
                 },
             });
-            // dispatch();
+            dispatch(success_event(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -203,30 +218,19 @@ export const edit_event = (_values: IEvent) => {
     };
 };
 
-export const edit_publication_event = (_values: IEvent, is_public?: any) => {
+export const edit_publication_event = (
+    id: number,
+    is_public?: 'publish' | 'unpublish'
+) => {
     return async (dispatch: any) => {
         dispatch(default_event());
-        const values = JSON.parse(JSON.stringify(_values));
-        const data = {
-            action: 'update',
-            info: {
-                id: values.id,
-            },
-            data: {
-                eve_numero_cupos: Number(values.eve_numero_cupos) || null,
-                eve_publicada: is_public || false,
-            },
-        };
-
+        let form = new FormData();
+        form.append('id', `${id}`);
+        if (is_public) form.append('status', is_public);
         try {
-            const URI = '/event';
-            const res = await cms_http.post(URI, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
-            });
-            // dispatch();
+            const URI = '/events/change-status';
+            const res = await cms_http.patch(URI, form);
+            dispatch(success_event(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:

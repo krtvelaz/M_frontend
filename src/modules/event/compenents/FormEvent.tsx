@@ -1,14 +1,14 @@
 // import {  TimePicker } from "antd";
 import { Formik, Form, Field } from "formik";
 import { FC } from "react";
-import { ErrorMessage } from "../../../../utils/ui";
-import Input from "../../../../utils/ui/CurrencyInput";
-import DateInput from "../../../../utils/ui/DateInput";
-import { IEvent } from "../../custom_types";
 import * as Yup from "yup";
-import RadioMedeinn from "../../../../utils/ui/Radio";
-import TimeInput from "../../../../utils/ui/TimeInput";
 import moment from "moment";
+import { IEvent } from "../custom_types";
+import { ErrorMessage } from "../../../utils/ui";
+import DateInput from "../../../utils/ui/DateInput";
+import TimeInput from "../../../utils/ui/TimeInput";
+import RadioMedeinn from "../../../utils/ui/Radio";
+import Input from "../../../utils/ui/CurrencyInput";
 
 
 
@@ -24,26 +24,26 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
 
 
     const initial_values = {
-        eve_titulo: "",
-        eve_descripcion: "",
-        eve_lugar_evento: "",
-        eve_fecha: "",
-        eve_hora: '',
-        eve_cupos_limitado: "",
-        eve_numero_cupos: "",
+        eve_title: "",
+        eve_description: "",
+        eve_place: "",
+        eve_date: "",
+        eve_hour: '',
+        eve_with_limit_entry: event?.eve_attendance_limit,
+        eve_limit_entry: event?.eve_attendance_quota || "",
         ...event,
         ...(event && {
-            eve_hora: moment(event?.eve_hora,'hh:mm A' ).format('hh:mm A')
+            eve_hour: moment(event?.eve_hour,'hh:mm A' ).format('hh:mm A')
         })
     };
     const schema = Yup.object().shape({
-        eve_titulo: Yup.string().required("Campo obligatorio"),
-        eve_lugar_evento: Yup.string().required("Campo obligatorio"),
-        eve_descripcion: Yup.string().required("Campo obligatorio"),
-        eve_fecha: Yup.string().required("Campo obligatorio"),
-        eve_hora: Yup.string().required("Campo obligatorio"),
-        eve_cupos_limitado: Yup.boolean().required("Campo obligatorio"),
-        eve_numero_cupos: Yup.number().when("eve_cupos_limitado", {
+        eve_title: Yup.string().required("Campo obligatorio"),
+        eve_place: Yup.string().required("Campo obligatorio"),
+        eve_description: Yup.string().required("Campo obligatorio"),
+        eve_date: Yup.string().required("Campo obligatorio"),
+        eve_hour: Yup.string().required("Campo obligatorio"),
+        eve_with_limit_entry: Yup.boolean().required("Campo obligatorio"),
+        eve_limit_entry: Yup.number().when("eve_with_limit_entry", {
             is: true,
             then: Yup.number().nullable().required("Campo obligatorio").max(10000, 'Máximo 10.000')
         }),
@@ -78,15 +78,15 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     style={{ height: "38px" }}
                                     className="form-control"
                                     id="eve_titulo_id"
-                                    name="eve_titulo"
+                                    name="eve_title"
                                     autoComplete="off"
                                     maxLength={60}
                                 />
-                                <ErrorMessage name="eve_titulo" withCount max={60} />
+                                <ErrorMessage name="eve_title" withCount max={60} />
                             </div>
 
                             <div className="col-12 col-md-12  col-lg-6  ">
-                                <label htmlFor="eve_descripcion" className="form-label">
+                                <label htmlFor="eve_description" className="form-label">
                                     Descripción
                                 </label>
                                 <Field
@@ -94,11 +94,11 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     style={{ height: "38px" }}
                                     className="form-control"
                                     id="eve_descripcion_id"
-                                    name="eve_descripcion"
+                                    name="eve_description"
                                     autoComplete="off"
                                     maxLength={100}
                                 />
-                                <ErrorMessage name="eve_descripcion" withCount max={100} />
+                                <ErrorMessage name="eve_description" withCount max={100} />
                             </div>
 
 
@@ -114,11 +114,11 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     style={{ height: "38px" }}
                                     className="form-control"
                                     id="eve_lugar_evento_id"
-                                    name="eve_lugar_evento"
+                                    name="eve_place"
                                     autoComplete="off"
                                     maxLength={50}
                                 />
-                                <ErrorMessage name="eve_lugar_evento" withCount max={50} />
+                                <ErrorMessage name="eve_place" withCount max={50} />
                             </div>
 
                             <div className="col-12 col-md-6  col-lg-3  ">
@@ -127,11 +127,11 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 </label>
                                 <Field
                                     component={DateInput}
-                                    name="eve_fecha"
+                                    name="eve_date"
                                     id="eve_fecha_id"
                                 />
 
-                                <ErrorMessage name="eve_fecha" />
+                                <ErrorMessage name="eve_date" />
                             </div>
 
                             <div className="col-12 col-md-6  col-lg-3  ">
@@ -140,14 +140,14 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 </label>
                                 <Field
                                     component={TimeInput}
-                                    name="eve_hora"
+                                    name="eve_hour"
                                     id="eve_hora_id"
                                     style={{ height: "38px" }}
                                     
 
                                 />
 
-                                <ErrorMessage name="eve_hora" />
+                                <ErrorMessage name="eve_hour" />
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 </label>
                                 <Field
                                     component={RadioMedeinn}
-                                    name="eve_cupos_limitado"
+                                    name="eve_with_limit_entry"
                                     id="eve_cupos_limitado_id"
                                     min={0}
                                     max={10000}
@@ -169,25 +169,25 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 />
 
 
-                                <ErrorMessage name="eve_cupos_limitado" />
+                                <ErrorMessage name="eve_with_limit_entry" />
                             </div>
-                            {values.eve_cupos_limitado ?
+                            {values.eve_with_limit_entry ?
 
                                 <div className="col-6 col-md-6  col-lg-3  " >
 
-                                    <label htmlFor="eve_numero_cupos" className="form-label">
+                                    <label htmlFor="eve_limit_entry" className="form-label">
                                         Número de cupos
                                     </label>
                                     <Field
                                         component={Input}
-                                        name="eve_numero_cupos"
+                                        name="eve_limit_entry"
                                         id="eve_numero_cupos_id"
                                         min={0}
                                         // max={10000}
                                         maxLength={7}
                                         placeholder="0"
                                     />
-                                    <ErrorMessage name="eve_numero_cupos" />
+                                    <ErrorMessage name="eve_limit_entry" />
                                 </div>
                                 :
                                 <div></div>

@@ -169,17 +169,12 @@ export const get_list_document = (
 
 export const get_document = (id: number, type?: string) => {
   return async (dispatch: any) => {
-    // dispatch(loading_document_challenge());
     try {
       const URI =
         type === "report" ? `/informs/pdf/${id}` : `/documents/download/${id}`;
-
       const res: any = await http.get(URI, { responseType: "arraybuffer" });
-
-      // dispatch(get_document_challenge(res.data.body.data));
       return res.data;
     } catch (error) {
-      // dispatch(fail_document_challenge());
       return Promise.reject("Error");
     }
   };

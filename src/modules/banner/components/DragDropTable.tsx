@@ -15,9 +15,10 @@ interface ITable {
     setData: any;
     loading: boolean;
     edit: () => Promise<any>;
+    className?: string;
 }
 
-const DragDropTable: FC<ITable> = ({ _columns, data, setData, loading, edit }) => {
+const DragDropTable: FC<ITable> = ({ _columns, data, setData, loading, edit, className }) => {
     
 
     const [updateData, setUpdateData] = useState<boolean>(false);
@@ -97,8 +98,9 @@ const DragDropTable: FC<ITable> = ({ _columns, data, setData, loading, edit }) =
     return (
         <DndProvider backend={HTML5Backend}>
             <Table
+                
                 bordered={true}
-                className="w-100"
+                className={['w-100', className].join(' ')}
                 loading={loading}
                 columns={columns}
                 dataSource={data}

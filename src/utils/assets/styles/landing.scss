@@ -467,10 +467,16 @@ img {
     position: absolute;
     top: 0;
     right: 0;
+    // background: linear-gradient(
+    //     to top,
+    //     #ffffff 70%,
+    //     transparent 90%,
+    //     transparent 100%
+    // );
     background: linear-gradient(
         to top,
-        #ffffff 70%,
-        transparent 90%,
+        #ffffff 45%,
+        transparent 55%,
         transparent 100%
     );
     z-index: 2;
@@ -607,11 +613,12 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background: linear-gradient(
-        to right top,
-        rgba(0, 0, 0, 0.91) 20%,
-        transparent
-    );
+    background:  rgba(0, 0, 0, 0.4);
+    // background: linear-gradient(
+    //     to right top,
+    //     rgba(0, 0, 0, 0.91) 20%,
+    //     transparent
+    // );
     
 }
 .imagen-events button {

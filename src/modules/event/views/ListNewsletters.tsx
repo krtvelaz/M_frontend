@@ -1,7 +1,8 @@
 import { Popover } from 'antd';
 import moment from 'moment';
 import { downloadExcel } from 'react-export-table-to-excel';
-import { Card, swal_error, Table } from "../../../utils/ui";
+import { Card, Table } from "../../../utils/ui";
+import ModalExport from '../compenents/bulletin/ModalExport';
 import { IEvent } from '../custom_types';
 
 const ListNewsletters = () => {
@@ -85,7 +86,6 @@ const ListNewsletters = () => {
                 );
             },
         },
-
         {
             title: "Fecha",
             dataIndex: "fecha",
@@ -93,53 +93,6 @@ const ListNewsletters = () => {
             render: (date: string) => {
                 return moment(date).format("DD / MM / YYYY")
             },
-        },
-        {
-            //   title: "Acciones",
-            dataIndex: "key",
-            fixed: "right",
-            children: [
-                {
-                    //   title: <span style={{ fontSize: "9px" }}>Editar</span>,
-                    dataIndex: "id",
-                    fixed: "right",
-                    align: "center" as "center",
-                    render: (id: number) => {
-                        // return <ModalEditEvent   onSubmit={editEvent} id={id} />;
-                    },
-                },
-                {
-                    //   title: <span style={{ fontSize: "9px" }}>Eliminar</span>,
-                    fixed: "right",
-                    dataIndex: "id",
-                    align: "center" as "center",
-                    render: (id: number) => {
-                        return (
-                            <img
-                                // src={trash}
-                                className="img-fluid"
-                                alt=""
-                                style={{ cursor: "pointer" }}
-                                onClick={async () => {
-                                    const result = await swal_error.fire({
-                                        title: "Eliminar elemento",
-                                        html:
-                                            '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
-                                            '<div class="mytext">¿Está seguro que desea eliminarlo?</div>',
-                                        showCancelButton: false,
-                                        showDenyButton: true,
-                                        confirmButtonText: "Sí, eliminar",
-                                        denyButtonText: `Cancelar`,
-                                    });
-                                    if (result.isConfirmed) {
-                                        // onDelete(id);
-                                    }
-                                }}
-                            />
-                        );
-                    },
-                },
-            ],
         },
     ];
 
@@ -160,9 +113,9 @@ const ListNewsletters = () => {
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="row">
-                        <h5 className="col d-flex justify-content-start">
+                        <span style={{fontFamily: 'Montserrat-SemiBold', fontSize: '14px'}} className="col d-flex justify-content-start">
                             Inscripciones a boletines
-                        </h5>
+                        </span>
 
                     </div>
 
@@ -174,11 +127,12 @@ const ListNewsletters = () => {
                             paginationTop
                         />
                         <div style={{ position: 'relative', bottom: '49px', textAlign: 'start' }}>
-                            <button
+                            {/* <button
                                 type="button" className="btn btn-outline-primary"
                                 onClick={handleDownloadExcel}
                             >Exportar Datos
-                            </button>
+                            </button> */}
+                            <ModalExport />
                         </div>
                     </Card>
 

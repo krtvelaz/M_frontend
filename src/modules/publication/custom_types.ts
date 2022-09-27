@@ -41,14 +41,4 @@ export interface IGeneralInfo {
     id?: number;
 }
 
-export interface IEvent {
-    id?: number;
-    eve_titulo: string;
-    eve_descripcion: string;
-    eve_lugar_evento: string;
-    eve_fecha: string;
-    eve_hora: string;
-    eve_cupos_limitado: boolean;
-    eve_numero_cupos: number;
-    eve_publicada?: boolean;
-}
+

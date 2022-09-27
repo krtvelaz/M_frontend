@@ -24,11 +24,9 @@ const ModalEditStatistics: FC<statistics> = ({ data, on_submit }) => {
 
     return (
         <>
-            <PencilComponent
-                on_click={() => {
-                    open();
-                }}
-            />
+             <div onClick={open} className="button-assign-rol">
+                    Editar
+                </div>
             <Modal
                 visible={visible}
                 width={1000}

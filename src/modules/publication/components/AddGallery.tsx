@@ -15,10 +15,10 @@ interface IGalleryProps {
 const AddGallery: FC<IGalleryProps> = ({ publication }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [isChange, setIsChange] = useState<boolean>(false);
-    const loading = useSelector((store: any) => store.event.gallery.loading);
+    const loading = useSelector((store: any) => store.publication.gallery.loading);
     const dispatch = useDispatch<any>();
 
-    const list_gallery: IGalleryInfo[] = useSelector((store: any) => store.event.list_gallery.value);
+    const list_gallery: IGalleryInfo[] = useSelector((store: any) => store.publication.list_gallery.value);
 
     const get_list_gallery = async () => {
         await dispatch(actions.get_list_gallery({ publication_id: publication?.general_information?.id || -1}));

@@ -14,7 +14,7 @@ interface ModalEditFormPros {
 const ModalEditGallery: FC<ModalEditFormPros> = ({ gallery, onSubmit }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const form_ref = useRef<FormikProps<FormikValues>>();
-    const loading = useSelector((store: any) => store.event.gallery.loading);
+    const loading = useSelector((store: any) => store.publication.gallery.loading);
     const open = () => set_is_visible(true);
     const close = () => set_is_visible(false);
     const edit = async (values: any) => {
