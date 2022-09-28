@@ -85,9 +85,9 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             </ol>
 
             <button
-                // onClick={() => {
-                //     navigate(`../postulation/challenge${challenge?.id}`);
-                // }}
+                onClick={() => {
+                    navigate(`../postulation/challenge/${challenge?.id}`);
+                }}
                 type="button"
                 className="btn btn-primary my-4"
                 style={{ position: 'relative', zIndex: 4 }}

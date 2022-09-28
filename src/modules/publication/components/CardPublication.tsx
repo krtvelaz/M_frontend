@@ -9,7 +9,7 @@ import { Skeleton } from 'antd';
 import ComponetLoading from '../../event/compenents/ComponetLoading';
 
 interface IDetailCardPublication {
-    keyTab: 'EVENTO' | 'NOTICIA' | 'RESULTADO' | '0';
+    keyTab: string
 }
 
 export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) => {
@@ -25,9 +25,13 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
     let paginationPublications: any[] = [1];
 
     for (let i = 1; i <= Math.ceil(number_pages); i++) {
-        paginationPublications = [...paginationPublications, i];
+        paginationPublications = [ i];
     }
+    
 
+    console.log(publications);
+    console.log(paginationPublications);
+    
     const get_publications = async (page: number) => {
         await dispatch(
             actions.get_list_publications({
@@ -50,7 +54,8 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                 data-pause="hover"
             >
                 <div className="carousel-inner">
-                    {paginationPublications.map((item: any, i: number) => (
+                    
+                    {paginationPublications?.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
                             {loading ? (
                                 <ComponetLoading height='450px' />

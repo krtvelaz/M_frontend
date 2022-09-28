@@ -1,44 +1,38 @@
-import { FC, useRef, useState } from 'react';
-import ComponetCard from '../../../utils/ui/Card';
-import { iconoCheck } from '../../../utils/assets/img';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { iconoCheck } from '../../../utils/assets/img';
+import { Card, swal_error } from '../../../utils/ui';
 import { actions } from '../redux';
-import { swal_error } from '../../../utils/ui';
-interface DocsTecPostulations {
-    dataDoc?: any;
-    documentPos?: any;
-}
-export const DocsAdminPostulations: FC<DocsTecPostulations> = ({ dataDoc, documentPos }) => {
-    const challenge: any = useSelector((store: any) => store.postulation.challenge.value);
+
+const CardDocsPostulation = () => {
+    const documents: any = useSelector((store: any) => store.postulation.challenge.value);
+    console.log(documents);
 
     return (
-        <div
-            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '40px', width: '100%', height: '100%' }}
-        >
-            {challenge?.map((item2: any, i: any) => {
-                return (
-                    item2.retdoc_tipo_formulario === 3 && (
-                        <div key={i}>
-                            <ComponetCard
-                                style={{
-                                    // border: '1px solid #AD0808',
-                                    borderRadius: '13px',
-                                    position: 'relative',
-                                    // minHeight: '130px',
-                                }}
-                                key={i}
-                            >
-                                <DocumentPostulation item2={item2} i={i} />
-                            </ComponetCard>
-                        </div>
-                    )
-                );
-            })}
-        </div>
+        <>
+            <div className="row">
+                {documents?.map((doc: any, i: any) => (
+                    <div className="col-12 col-md-6 col-lg-4">
+                        <Card
+                            // className="my-3"
+                            style={{
+                                position: 'relative',
+                                // maxWidth: '350px',
+                                // padding: '10px 20px 10px 15px',
+                                // boxShadow: '0px 3px 6px #00000029',
+                                // borderRadius: '13px',
+                            }}
+                        >
+                            <DocumentPostulation doc={doc} />
+                        </Card>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 
-const DocumentPostulation = ({ item2, i }: any) => {
+const DocumentPostulation = ({ doc, i }: any) => {
     const [visibleCheckPostulation, setVisibleCheckPostulation] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const inputRef = useRef<any>(null);
@@ -62,7 +56,7 @@ const DocumentPostulation = ({ item2, i }: any) => {
         }
         try {
             const data = {
-                posarc_id_document: item2.retdoc_id_documento,
+                posarc_id_document: doc.retdoc_id_documento,
                 posarc_id_postulation: 15,
             };
             await dispatch(actions.addDocumentPostulation(target, data, i));
@@ -85,23 +79,18 @@ const DocumentPostulation = ({ item2, i }: any) => {
     };
 
     return (
-        <div>
+        <>
             {visibleCheckPostulation && (
                 <ContainerCheckDocument deleteDocumentPostulations={deleteDocumentPostulations} />
             )}
             <div>
-                <div style={{ minHeight: '20px' }}>
-                    <span
-                        style={{
-                            width: '100%',
-                            // color: '#AD0808',
-                            fontSize: '12px',
-                            fontFamily: 'Montserrat-Bold',
-                            marginBottom: '10px',
-                        }}
-                    >
-                        {item2.retdoc_descripcion_documento}
-                    </span>
+                <div
+                    style={{
+                        fontSize: '14px',
+                        fontFamily: 'Montserrat-Bold',
+                    }}
+                >
+                    {doc?.retdoc_descripcion_documento}
                 </div>
                 <p
                     style={{
@@ -110,7 +99,8 @@ const DocumentPostulation = ({ item2, i }: any) => {
                         marginTop: '6px',
                     }}
                 >
-                    {item2.retdoc_descripcion_documento}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus, at
+                    condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis.
                 </p>
                 <div
                     style={{
@@ -151,7 +141,7 @@ const DocumentPostulation = ({ item2, i }: any) => {
                     </label>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
@@ -210,3 +200,5 @@ const ContainerCheckDocument = ({ deleteDocumentPostulations }: any) => {
         </div>
     );
 };
+
+export default CardDocsPostulation;

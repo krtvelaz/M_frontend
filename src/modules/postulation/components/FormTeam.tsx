@@ -39,7 +39,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
     return (
         <div>
             <div className="row">
-                <div className="col-6">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_names_id" className="form-label">
                         Nombre y apellidos
                     </label>
@@ -64,7 +64,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_names`} withCount max={50} />
                 </div>
 
-                <div className="col-3">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_type_document_id" className="form-label ">
                         Tipo de Documento
                     </label>
@@ -111,7 +111,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     </div>
                 </div>
 
-                <div className="col-3 ">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_sex_id" className="form-label">
                         Sexo
                     </label>
@@ -128,10 +128,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     />
                     <ErrorMessage name={`membersPostulations.${i}.gruint_sex`} />
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-3 ">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_identity_id" className="form-label">
                         Identidad de género
                     </label>
@@ -171,8 +168,9 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     />
                     <ErrorMessage name={`membersPostulations.${i}.gruint_identity`} />
                 </div>
-
-                <div className="col-3 ">
+            </div>
+            <div className="row">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_orientation_sexual_id" className="form-label">
                         Orientación sexual
                     </label>
@@ -189,8 +187,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     />
                     <ErrorMessage name={`membersPostulations.${i}.gruint_orientation_sexual`} />
                 </div>
-
-                <div className="col-3 ">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="gruint_ethnicity_id" className="form-label">
                         Etnia
                     </label>
@@ -223,10 +220,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     />
                     <ErrorMessage name={`membersPostulations.${i}.gruint_ethnicity`} />
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-3 ">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="radiogrou_victim_id" className="form-label mb-4">
                         ¿Es víctima del conflicto?
                     </label>
@@ -254,7 +248,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_victim`} />
                 </div>
 
-                <div className="col-3 ">
+                <div className="col-12 col-md-3 col-lg-3">
                     <label htmlFor="radiogrou_disability_id" className="form-label mb-4">
                         ¿Presenta algún tipo de discapacidad?
                     </label>

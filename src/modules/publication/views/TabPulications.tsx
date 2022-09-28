@@ -6,10 +6,11 @@ import { actions } from '../redux';
 
 const TabPulications = () => {
     const { TabPane } = Tabs;
-    const [keyTab, setKeryTab] = useState<'EVENTO' | 'NOTICIA' | 'RESULTADO' | '0'>('0');
+    const [keyTab, setKeryTab] = useState<string>('');
     const dispatch = useDispatch<any>();
     const on_change = (key: any) => {
         setKeryTab(key);
+        
         dispatch(
             actions.get_list_publications({
                 page: 1,

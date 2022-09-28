@@ -59,7 +59,7 @@ export const get_list_publications = (filters?: {
     page_size?: number;
     order_by_key?: string;
     order_by_value?: string;
-    type?: 'EVENTO' | 'NOTICIA' | 'RESULTADO';
+    type?: string
     from?: string;
     is_published?: boolean;
 }) => {

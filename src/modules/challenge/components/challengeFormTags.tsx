@@ -74,7 +74,6 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
 
     useEffect(() => {
         if (active_key === '2' && active_key_docs === 'docs-1') dispatch(actions.get_types_documents('general'));
-        // if (active_key === '2' && active_key_docs === 'docs-2') dispatch(actions.get_master_list(3))
     }, [active_key, active_key_docs]);
 
     const loading: boolean = useSelector((store: any) => store.challenge.challenge.loading);
