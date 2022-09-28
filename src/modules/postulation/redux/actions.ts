@@ -40,7 +40,13 @@ import {
     deleteDocPost_success,
     infoPostulations_default,
     infoPostulations_success,
-    infoPostulations_fail
+    infoPostulations_fail,
+    infoPostulationsdetail_default,
+    infoPostulationsdetail_success,
+    infoPostulationsdetail_fail,
+    download_default_Documents,
+    download_success_Documents,
+    download_fail_Documents
 
 } from './slice';
 import { jsPDF } from 'jspdf';
@@ -126,6 +132,28 @@ const get__document = () => {
         }
     };
 };
+const get__documentDownload = (posarc_id:number) => {
+    return async (dispatch: any) => {
+        dispatch(download_default_Documents);
+        try {
+            const URI = `postulations/download/`;
+
+            const res: any = await http.get(URI,{
+                params:{
+                    id:posarc_id
+                },
+                headers: {
+                     responseType: 'blob',
+                },});
+            dispatch(download_success_Documents(res.data.data));
+            return res.data;
+        } catch (error) {
+            console.log("error",error)
+            dispatch(download_fail_Documents);
+            return Promise.reject('Error');
+        }
+    };
+};
 const get__postulationInfo = () => {
     return async (dispatch: any) => {
         dispatch(infoPostulations_default);
@@ -137,6 +165,20 @@ const get__postulationInfo = () => {
             return res.data;
         } catch (error) {
             dispatch(infoPostulations_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__postulationInfoDetail = (id_postulation: number | string) => {
+    return async (dispatch: any) => {
+        dispatch(infoPostulationsdetail_default);
+        try {
+            const URI = `postulations/detail_postulation/${id_postulation}`;
+            const res: any = await http.get(URI);
+            dispatch(infoPostulationsdetail_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(infoPostulationsdetail_fail);
             return Promise.reject('Error');
         }
     };
@@ -402,6 +444,8 @@ const actions = {
     get__sexual_orientation,
     generate_settled,
     deleteDocumentPostulation,
-    get__postulationInfo
+    get__postulationInfo,
+    get__postulationInfoDetail,
+    get__documentDownload
 };
 export default actions;

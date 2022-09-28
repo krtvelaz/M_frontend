@@ -1,5 +1,7 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { number } from 'yup';
+import { actions } from '../redux';
 
 interface detailPros {
     data?: any;
@@ -7,6 +9,7 @@ interface detailPros {
 }
 
 const DetailGroupPostulation: FC<detailPros> = ({ data, infoPost }) => {
+    const dispatch = useDispatch<any>();
     const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
     const filterInfoPost = infoPosutlations?.filter((item: any) => item.id_postulation === infoPost);
 
@@ -37,7 +40,7 @@ const DetailGroupPostulation: FC<detailPros> = ({ data, infoPost }) => {
                     <label htmlFor="title_id">Dimensión:</label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>Movilidad</span>
+                    <span>{filterInfoPost[0].maedim_name}</span>
                 </div>
             </div>
         </>

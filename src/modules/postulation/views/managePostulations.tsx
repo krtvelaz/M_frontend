@@ -16,26 +16,20 @@ const managePostulations = () => {
 
     const dispatch = useDispatch<any>();
     const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
-
-    console.log('chal', infoPosutlations);
-
+    console.log(infoPosutlations);
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
     });
     useEffect(() => {
         dispatch(actions.get__postulationInfo());
-        getChallenge();
     }, []);
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({ page, pageSize: pageSize || 10 });
         dispatch(actions.get__postulationInfo());
     };
-    const getChallenge = async () => {
-        const res = await dispatch(actions.get_detail_challenge(Number(34)));
-        console.log('res', res);
-    };
+
     const OpenModal = () => {
         setModalOpen(true);
     };
@@ -221,7 +215,7 @@ const managePostulations = () => {
         },
         {
             title: 'Dimensión',
-            dataIndex: 'id_postulation',
+            dataIndex: 'maedim_name',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (

@@ -1,7 +1,7 @@
 import { Modal, Switch, Tabs } from 'antd';
 import 'bootstrap';
 import { FormikProps, FormikValues } from 'formik';
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TableInfoPostulation from './TableInfoPostulation';
 import TableDocsPostulation from './TableDocsPostulation';
@@ -10,6 +10,7 @@ import ComponetCard from '../../../utils/ui/Card';
 import { IEvent } from '../../event/custom_types';
 import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
+import { actions } from '../redux';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
@@ -24,7 +25,12 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     const revisatePostulations = () => {
         setRevisate(!revisate);
     };
-
+    const infoGroupPostulation = async () => {
+        const res = await dispatch(actions.get__postulationInfoDetail(id));
+    };
+    useEffect(() => {
+        infoGroupPostulation();
+    }, []);
     const event: IEvent = useSelector((store: any) => store.event.event.value);
     const dispatch = useDispatch<any>();
     const [is_visible, set_is_visible] = useState<boolean>(false);
@@ -77,11 +83,11 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                                 <DetailGroupPostulation infoPost={infoPost} data={event} />
                             </div>
                             <ComponetCard title="Datos generales del equipo">
-                                <DetailGeneralPostulation data={event} />
+                                <DetailGeneralPostulation data={infoPost} />
                             </ComponetCard>
                         </TabPane>
                         <TabPane tab="Miembros del equipo" key="item-2">
-                            <TableInfoPostulation />
+                            <TableInfoPostulation infoPost={infoPost} />
                         </TabPane>
                         <TabPane tab="Documentos asociados" key="item-3">
                             <div
@@ -92,8 +98,8 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
-                                <TableDocsPostulation title="Documentos técnicos" type="tecnic" />
-                                <TableDocsPostulation title="Documentos administrativos" type="admin" />
+                                <TableDocsPostulation idPos={id} title="Documentos técnicos" type="tecnic" />
+                                <TableDocsPostulation idPos={id} title="Documentos administrativos" type="admin" />
                             </div>
                         </TabPane>
                     </Tabs>
