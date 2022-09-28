@@ -12,53 +12,58 @@ import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import { string } from 'yup/lib/locale';
 import { boolean } from 'yup';
 
-interface IResoponseMap {
-    objectIdFieldName: string;
-    uniqueIdField: {
-        name: string;
-        isSystemMaintained: boolean;
-    };
-    fields: [
-        {
-            name: string;
-            type: string;
-            alias: string;
-            sqlType: string;
-            domain: null;
-            defaultValue: null;
-        }
-    ];
-    features: [
-        {
-            attributes: {
-                OBJECTID: number;
-                id: number;
-                cha_name: string;
-                cha_impact_type: string;
-                cha_commune: string;
-                cha_neighborhood: string;
-            };
-            centroid: {
-                x: number;
-                y: number;
-            };
-        }
-    ];
-}
+
 
 const Map = () => {
+
+    
     const layer = new FeatureLayer({
-        url: `https://medeinn-cms-ms.azurewebsites.net/api/v1/arcgis/events`,
+        url: `https://www.medellin.gov.co/mapas/rest/services/ServiciosSuministros_y_Servicios/BienesInmuebles/MapServer/1/query?where=CBML%3D10130340011&f=geojson`,
+        // url: `https://medeinn-cms-ms.azurewebsites.net/api/v1/arcgis/events`,
+        fields:[
+            {
+               name:"OBJECTID",
+               alias : 'OBJECTID' ,
+               defaultValue :null
+            },
+            {
+               name: "cha_neighborhood",
+               alias: "cha_neighborhood",
+               length: 100,
+               defaultValue: null
+            },
+            {
+               name: "cha_name",
+               alias: "cha_name",
+               length: 100,
+               defaultValue: null
+            },
+            {
+               name: "cha_impact_type",
+               alias: "cha_impact_type",
+               length: 100,
+               defaultValue: null
+            },
+            {
+               name: "cha_commune",
+               alias: "cha_commune",
+               length: 100,
+               defaultValue: null
+            }
+         ],
         // outFields: ['*'],
-        // renderer: new SimpleRenderer({
-        //     symbol: new PictureMarkerSymbol({
-        //         url: `${marcadorPosicion}`,
-        //         width: '14px',
-        //         height: '14px',
-        //     }),
-        // }),
-        // popupTemplate: createPopupTemplate(),
+        renderer: new SimpleRenderer({
+            symbol: new PictureMarkerSymbol({
+                url: `${marcadorPosicion}`,
+                width: '14px',
+                height: '14px',
+            }),
+        }),
+        popupTemplate: createPopupTemplate(),
     });
+
+    console.log(layer);
+    
 
     const map = new _Map({
         basemap: 'arcgis-light-gray',

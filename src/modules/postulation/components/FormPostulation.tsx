@@ -1,24 +1,23 @@
-import { Field, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
+import { Field, Form, Formik,} from 'formik';
+import { FC, useEffect } from 'react';
 import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
-import ComponetCard from '../../../utils/ui/Card';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { profileEnd } from 'console';
 
 interface PostulationFormPros {
+    id_challenge: string | number;
     postulation?: IPostulation;
-    setDisblaTabsPos?: any;
-    setTabSelect: React.Dispatch<React.SetStateAction<string>>;
+    innerRef: any;
+    onSubmit: (values: any, actions: any) => any;
 }
-const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPos, setTabSelect }) => {
+const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge, innerRef, onSubmit }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
     const typeProfile = useSelector((store: any) => store.postulation.profile.value);
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch<any>();    
 
     const initial_values = {
         name: '',
@@ -43,25 +42,20 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
         direction: Yup.string().required('Campo obligatorio'),
     });
 
-    const submit = async (values: any, form: any) => {
-        try {
-            await dispatch(
-                actions.create_main_postulation({
-                    pos_id_challenge: 1,
-                    pos_business_name: values.name,
-                    pos_contact: values.type_contact,
-                    pos_number_contact: values.number_contact,
-                    pos_id_type_competitor: values.type_profiles,
-                    pos_email: values.email,
-                    pos_type_document_id: values.document_type,
-                    pos_documentid: values.number_document,
-                    pos_address: values.direction,
-                    pos_id_user: 1,
-                })
-            );
-            setDisblaTabsPos(false);
-            setTabSelect('2');
-        } catch (_) {}
+    const submit = async (values: any, actions: any) => {
+        const newValues = {
+            pos_id_challenge: id_challenge,
+            pos_business_name: values.name,
+            pos_contact: values.type_contact,
+            pos_number_contact: values.number_contact,
+            pos_id_type_competitor: values.type_profiles,
+            pos_email: values.email,
+            pos_type_document_id: values.document_type,
+            pos_documentid: values.number_document,
+            pos_address: values.direction,
+            pos_id_user: 1,
+        };
+        await onSubmit(newValues, actions);
     };
 
     const typeDocument = async () => {
@@ -80,12 +74,12 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
     }, []);
 
     return (
-        <Formik enableReinitialize onSubmit={submit} initialValues={initial_values} validationSchema={schema}>
+        <Formik enableReinitialize onSubmit={submit} innerRef={innerRef} initialValues={initial_values} validationSchema={schema}>
             {({ handleChange, values }) => {
                 return (
                     <Form>
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="name_id" className="form-label">
                                     Nombre o razón social
                                 </label>
@@ -121,12 +115,12 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                                 <ErrorMessage name="name" />
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="document_type_id" className="form-label ">
                                     Tipo de Documento
                                 </label>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col col-md-2">
                                         <Field
                                             component={Select}
                                             id="document_type_id"
@@ -180,7 +174,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                                 <ErrorMessage name="type_profiles" />
                             </div>
 
-                            <div className="col-6 col-md-6 col-lg-6">
+                            <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="email_id" className="form-label">
                                     Correo electrónico
                                 </label>
@@ -198,12 +192,12 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                         </div>
 
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="type_contact_id" className="form-label ">
                                     Número de contacto
                                 </label>
                                 <div className="row">
-                                    <div className="col-3">
+                                    <div className="col col-md-3">
                                         <Field
                                             component={Select}
                                             id="type_contact_id"
@@ -241,7 +235,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
                                 </div>
                             </div>
 
-                            <div className="col-6 col-md-6 col-lg-6">
+                            <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="direction_id" className="form-label">
                                     Dirección de contacto o sede del postulante
                                 </label>
@@ -259,12 +253,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation, setDisblaTabsPo
 
                                 <ErrorMessage name="direction" withCount max={100} />
                             </div>
-                        </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                            <button key="saveDoc" type="submit" className="btn btn-primary" style={{ width: '17%' }}>
-                                Continuar
-                            </button>
                         </div>
                     </Form>
                 );

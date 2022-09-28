@@ -61,7 +61,7 @@ const get_routes = (): IRoute[] => {
             is_private: true,
             can_access: guards.logOut,
             format: true,
-            path: '/postulation/challenge',
+            path: '/postulation/challenge/:id',
             template_props: {
                 breadcrumbs: [
                     {

@@ -75,15 +75,13 @@ const create_main_postulation = (values: any) => {
         }
     };
 };
-const create_memberPostulation = (values: any) => {
+const create_memberPostulation = (values: any[], id_postulation: number | string) => {
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
-            const URI = `postulations/member/15`;
-            const res = await http.post(URI, values, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const URI = `postulations/member/${id_postulation}`;
+            const res = await http.post(URI, {
+                members : [...values]
             });
             dispatch(members_success(res.data.data));
             await swal_success.fire({
@@ -240,16 +238,12 @@ const addDocumentPostulation = (file: any, data: any,i: number) => {
         }
     };
 };
-const get_detail_challenge = (id: number) => {
+const get_documents_challenge = (id: number, type_person: string | number) => {
     return async (dispatch: any) => {
         dispatch(loading_challenge());
         try {
-            const URI = `/postulations/documents/37/3`;
-            const res = await http.get(URI, {
-                params: {
-                    id,
-                },
-            });
+            const URI = `/postulations/documents/${id}/${type_person}`;
+            const res = await http.get(URI);
             dispatch(get_challenge(res.data.data));
             return res.data.data;
         } catch (error) {
@@ -382,7 +376,7 @@ const actions = {
     get__listSexs,
     addDocumentPostulation,
     get__documentMembers,
-    get_detail_challenge,
+    get_documents_challenge,
     get__sexual_orientation,
     generate_settled,
     deleteDocumentPostulation,

@@ -28,7 +28,7 @@ const CardEvent: FC<ICardProps> = ({ event }) => {
                         </>
                     ) : (
                         <>
-                            <div className='me-5' style={{color: '#FF9300', fontFamily: 'Montserrat-SemiBold',marginTop: '10px'}}>{event?.eve_attendance_limit ? event?.eve_attendance_quota :  'Cupos Ilimitados'}</div>
+                            <div className='me-5' style={{color: '#FF9300', fontFamily: 'Montserrat-SemiBold',marginTop: '10px'}}>{event?.eve_attendance_limit ? `Cupos limitados: ${event?.eve_attendance_quota}` :  'Cupos Ilimitados'}</div>
                             <ModalEvent  />
                             
                         </>

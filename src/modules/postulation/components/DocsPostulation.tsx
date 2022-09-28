@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import ComponetCard from '../../../utils/ui/Card';
 import { DocsTecPostulations } from './DocsTecPostulations';
 import { DocsAdminPostulations } from './DocsAdminPostulations';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
+import CardDocsPostulation from './CardDocsPostulation';
 
-type Props = {
-    setTabSelect: React.Dispatch<React.SetStateAction<string>>;
+interface Props {
+    id_challenge: number | string;
+    type_person: number;
 };
 
-export const DocsPostulation = ({ setTabSelect }: Props) => {
+export const DocsPostulation: FC<Props> = ({ id_challenge, type_person }) => {
     const dispatch = useDispatch<any>();
     const SaveForP = useSelector((store: any) => store.postulation.postulation.value);
 
     const getChallenge = async () => {
-        await dispatch(actions.get_detail_challenge(Number(47)));
+        await dispatch(actions.get_documents_challenge(Number(id_challenge), type_person));
     };
     useEffect(() => {
         getChallenge();
@@ -31,37 +33,18 @@ export const DocsPostulation = ({ setTabSelect }: Props) => {
     };
 
     return (
-        <div style={{ display: 'contents' }}>
-            <ComponetCard>
-                <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos técnicos</span>
-                <hr />
-                <div>
-                    <DocsTecPostulations />
-                </div>
+        <div className='mb-5'>
+            <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos técnicos</span>
+            <hr />
+            <div>
+                <DocsTecPostulations />
+                {/* <CardDocsPostulation /> */}
+            </div>
 
-                <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>
-                    Documentos administrativos
-                </span>
-                <hr />
-                <div>
-                    <DocsAdminPostulations />
-                </div>
-            </ComponetCard>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>
-                    <button onClick={() => setTabSelect('2')} className="btn btn-outline-primary" type="button">
-                        Ir atrás
-                    </button>
-                </div>
-                <button
-                    onClick={() => CreatePostulation()}
-                    key="saveDoc"
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ width: '17%' }}
-                >
-                    Continuar
-                </button>
+            <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>Documentos administrativos</span>
+            <hr />
+            <div>
+                <DocsAdminPostulations />
             </div>
         </div>
     );
