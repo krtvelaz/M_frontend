@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { Card, Table, swal_error } from '../../../utils/ui';
-import { Popover } from 'antd';
+import { Button, Modal, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { useParams } from 'react-router-dom';
 
-import { trash } from '../../../utils/assets/img';
+import { descargaImg } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
 import Item from 'antd/lib/list/Item';
 import fileDownload from 'js-file-download';
@@ -17,8 +17,11 @@ interface TablePros {
 }
 
 const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
+    const [viewPdf, setViewPdf] = useState<any>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const { id } = useParams<any>();
+    const close = () => {
+        setModalOpen(false);
+    };
     const dispatch = useDispatch<any>();
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
     const infoDocsTec = infoPosutlationsetail[0].documents_info.filter((item: any) => item.rettipdoc_type_form === 2);
@@ -82,11 +85,43 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
             children: [
                 {
                     title: <span style={{ fontSize: '9px' }}>Ver</span>,
-                    dataIndex: 'id',
                     fixed: 'right',
                     align: 'center' as 'center',
-                    render: (id: string) => {
-                        return <WatchComponent />;
+                    render: (data: any) => {
+                        const previewFile = async () => {
+                            const petition = await dispatch(actions.get__documentDownload(data.posarc_id));
+                            const PdfFail = new Blob([petition], { type: 'application/pdf' });
+                            const url = URL.createObjectURL(PdfFail);
+                            setViewPdf(url);
+                        };
+                        return (
+                            <>
+                                <WatchComponent
+                                    on_click={async () => {
+                                        setModalOpen(true);
+                                        previewFile();
+                                    }}
+                                />
+
+                                <Modal
+                                    className="ant-modal-close-x2"
+                                    visible={modalOpen}
+                                    title={`Previsualización: ${data.posarc_name_file}`}
+                                    width={1000}
+                                    onCancel={close}
+                                    footer={[
+                                        <Button key="B_CERRAR_1" className="button-gray-ghost m-0" onClick={close}>
+                                            Cerrar
+                                        </Button>,
+                                    ]}
+                                    cancelButtonProps={{ style: { display: 'none' } }}
+                                >
+                                    <div>
+                                        {viewPdf && <embed src={`${viewPdf}#toolbar=0`} width="100%" height="375px" />}
+                                    </div>
+                                </Modal>
+                            </>
+                        );
                     },
                 },
                 {
@@ -94,16 +129,14 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
                     fixed: 'right',
                     align: 'center' as 'center',
                     render: (data: any) => {
-                        console.log('data', data);
                         const DownloadFile = async () => {
                             const petition = await dispatch(actions.get__documentDownload(data.posarc_id));
-                            console.log('respuesta', data);
                             fileDownload(petition, data.posarc_path_file);
                         };
                         return (
                             <div>
                                 <img
-                                    src={trash}
+                                    src={descargaImg}
                                     className="img-fluid"
                                     alt=""
                                     style={{ cursor: 'pointer' }}

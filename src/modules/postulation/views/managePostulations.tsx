@@ -13,14 +13,15 @@ const managePostulations = () => {
         set_is_visible(true);
     };
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [infoModaL, setInfoModaL] = useState<any>(null);
 
     const dispatch = useDispatch<any>();
     const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
-    console.log(infoPosutlations);
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
     });
+
     useEffect(() => {
         dispatch(actions.get__postulationInfo());
     }, []);
@@ -240,11 +241,15 @@ const managePostulations = () => {
             children: [
                 {
                     title: <span style={{ fontSize: '9px' }}>Editar</span>,
-                    dataIndex: 'id_postulation',
                     fixed: 'right',
                     align: 'center' as 'center',
-                    render: (id_postulation: number) => {
-                        return <ModalInfoPostulations onSubmit={OpenModal} id={id_postulation} />;
+
+                    render: (data: any) => {
+                        return (
+                            data.pos_status === 'FINALIZADO' && (
+                                <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
+                            )
+                        );
                     },
                 },
             ],

@@ -26,7 +26,7 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
         setRevisate(!revisate);
     };
     const infoGroupPostulation = async () => {
-        const res = await dispatch(actions.get__postulationInfoDetail(id));
+        await dispatch(actions.get__postulationInfoDetail(id));
     };
     useEffect(() => {
         infoGroupPostulation();
@@ -44,7 +44,6 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
         await onSubmit(values);
         set_is_visible(false);
     };
-
     return (
         <>
             <div onClick={open} className="button-assign-rol">

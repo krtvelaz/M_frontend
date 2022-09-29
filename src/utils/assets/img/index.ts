@@ -46,6 +46,8 @@ export { default as logoMedeinnWhite  } from './logo-medeinn-white.svg';
 export { default as iconoCheck  } from './iconoCheck.svg';
 export { default as circuloTabs  } from './circuloTabs.png';
 export { default as arrowsFromLine  } from './arrows-from-line.svg';
+export { default as descargaImg  } from './descargaImg.svg';
+
 
 
 
