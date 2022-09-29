@@ -21,7 +21,6 @@ const managePostulations = () => {
         page: 1,
         pageSize: 10,
     });
-
     useEffect(() => {
         dispatch(actions.get__postulationInfo());
     }, []);
@@ -47,7 +46,7 @@ const managePostulations = () => {
         {
             title: 'Conv.',
             fixed: 'left',
-            dataIndex: 'conv.',
+            dataIndex: 'cha_announcement.',
             align: 'left' as 'left',
             render: (data: any, values: any, i: number) => {
                 return (i = 1);
@@ -246,9 +245,9 @@ const managePostulations = () => {
 
                     render: (data: any) => {
                         return (
-                            data.pos_status === 'FINALIZADO' && (
-                                <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
-                            )
+                            // data.pos_status === 'FINALIZADO' && (
+                            <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
+                            // )
                         );
                     },
                 },

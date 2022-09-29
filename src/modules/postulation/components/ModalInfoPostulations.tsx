@@ -11,6 +11,7 @@ import { IEvent } from '../../event/custom_types';
 import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
 import { actions } from '../redux';
+import { useNavigate } from 'react-router-dom';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
@@ -22,9 +23,19 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [revisate, setRevisate] = useState<boolean>(true);
     const [infoPost, setInfoPost] = useState<any>(null);
-    const revisatePostulations = () => {
+    const [is_visible, set_is_visible] = useState<boolean>(false);
+    const [infoPostDis, setInfoPostDis] = useState<any>(null);
+    const navigate = useNavigate();
+
+    const disableButton = () => {
         setRevisate(!revisate);
     };
+    const revisatePostulations = async () => {
+        if (!revisate) {
+            await dispatch(actions.get__RevisatePostulationInfoDetail(id, set_is_visible));
+        }
+    };
+
     const infoGroupPostulation = async () => {
         await dispatch(actions.get__postulationInfoDetail(id));
     };
@@ -33,7 +44,6 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     }, []);
     const event: IEvent = useSelector((store: any) => store.event.event.value);
     const dispatch = useDispatch<any>();
-    const [is_visible, set_is_visible] = useState<boolean>(false);
     const open = () => {
         set_is_visible(true);
         setInfoPost(id);
@@ -43,6 +53,9 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     const edit = async (values: IEvent) => {
         await onSubmit(values);
         set_is_visible(false);
+    };
+    const validateButton = () => {
+        setRevisate(true);
     };
     return (
         <>
@@ -69,7 +82,12 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                     }}
                     footer={null}
                 >
-                    <Tabs tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}>
+                    <Tabs
+                        onChange={() => {
+                            validateButton();
+                        }}
+                        tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}
+                    >
                         <TabPane tab="Información postulación" key="item-1">
                             <div
                                 style={{
@@ -106,11 +124,12 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                     <ComponetCard>
                         <div style={{ flexDirection: 'column', textAlign: 'end' }}>
                             <span className="State-postulation-info me-3">Estado de la postulación:</span>
-                            <Switch onClick={revisatePostulations} />
+                            <Switch checked={!revisate} onClick={disableButton} />
                             <span className="state-revisate-postulations-info me-3 ms-3">
                                 {revisate ? 'sin revisar' : 'Revisado'}
                             </span>
                             <button
+                                onClick={revisatePostulations}
                                 key="saveDoc"
                                 type="button"
                                 className="btn btn-primary"

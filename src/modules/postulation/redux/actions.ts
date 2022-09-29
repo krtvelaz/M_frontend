@@ -1,4 +1,4 @@
-import {  http } from '../../../config/axios_instances';
+import { http } from '../../../config/axios_instances';
 import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
 import {
     fail_typeDocuments,
@@ -46,10 +46,13 @@ import {
     infoPostulationsdetail_fail,
     download_default_Documents,
     download_success_Documents,
-    download_fail_Documents
-
+    download_fail_Documents,
+    revisateInfoPostulations_default,
+    revisateInfoPostulations_success,
+    revisateInfoPostulations_fail,
 } from './slice';
 import { jsPDF } from 'jspdf';
+import { useNavigate } from 'react-router-dom';
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(postulations_default());
@@ -85,13 +88,16 @@ const create_main_postulation = (values: any) => {
         }
     };
 };
-const create_memberPostulation = (values: any[], id_postulation: number | string) => {
+const create_memberPostulation = (
+    values: any[],
+    id_postulation: number | string
+) => {
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
             const URI = `postulations/member/${id_postulation}`;
             const res = await http.post(URI, {
-                members : [...values]
+                members: [...values],
             });
             dispatch(members_success(res.data.data));
             await swal_success.fire({
@@ -132,23 +138,24 @@ const get__document = () => {
         }
     };
 };
-const get__documentDownload = (posarc_id:number) => {
+const get__documentDownload = (posarc_id: number) => {
     return async (dispatch: any) => {
         dispatch(download_default_Documents);
         try {
             const URI = `postulations/download/`;
 
-            const res: any = await http.get(URI,{
-                params:{
-                    id:posarc_id
+            const res: any = await http.get(URI, {
+                params: {
+                    id: posarc_id,
                 },
                 headers: {
-                     responseType: 'blob',
-                },});
+                    responseType: 'blob',
+                },
+            });
             dispatch(download_success_Documents(res.data.data));
             return res.data;
         } catch (error) {
-            console.log("error",error)
+            console.log('error', error);
             dispatch(download_fail_Documents);
             return Promise.reject('Error');
         }
@@ -179,6 +186,39 @@ const get__postulationInfoDetail = (id_postulation: number | string) => {
             return res.data;
         } catch (error) {
             dispatch(infoPostulationsdetail_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+
+const get__RevisatePostulationInfoDetail = (
+    id_postulation: number | string,
+    set_is_visible:React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    return async (dispatch: any) => {
+        dispatch(revisateInfoPostulations_default);
+        try {
+            const URI = `postulations/status_reviewed/${id_postulation}`;
+            const res: any = await http.get(URI);
+            dispatch(revisateInfoPostulations_success(res.data.data));
+            await swal_success
+                .fire({
+                    title: 'Proceso exitoso',
+                    html:
+                        `<div class="mysubtitle">${res.data.message}</div>` +
+                        '<div class="mytext">De click en aceptar para continuar</div>',
+                    showCancelButton: true,
+                    cancelButtonText: 'Seguir viendo',
+                    confirmButtonText: 'Ir a Lista Postulaciones',
+                })
+                .then((confirm) => {
+                    if (confirm.isConfirmed) {
+                        set_is_visible(false)
+                    }
+                });
+            return res.data;
+        } catch (error) {
+            dispatch(revisateInfoPostulations_fail);
             return Promise.reject('Error');
         }
     };
@@ -258,7 +298,7 @@ const get__profiles = () => {
         }
     };
 };
-const addDocumentPostulation = (file: any, data: any,i: number) => {
+const addDocumentPostulation = (file: any, data: any, i: number) => {
     return async (dispatch: any) => {
         dispatch(addDoc_default());
 
@@ -275,7 +315,7 @@ const addDocumentPostulation = (file: any, data: any,i: number) => {
                     'Access-Control-Allow-Headers': 'Content-Type',
                 },
             });
-            dispatch(addDoc_success({...res.data.data, i}));
+            dispatch(addDoc_success({ ...res.data.data, i }));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -337,7 +377,10 @@ const generate_settled = (values: any, SaveForP: any) => {
                 didOpen: () => {
                     const validatePdf = document.getElementById('pdfDownald');
                     const DownloadHTML = () => {
-                        const stringHtml = HtmlStringPdf(SaveForP, res.data.data);
+                        const stringHtml = HtmlStringPdf(
+                            SaveForP,
+                            res.data.data
+                        );
                         const doc = new jsPDF('p', 'pt', 'a4');
                         doc.html(stringHtml, {
                             callback: (pdf) => {
@@ -367,8 +410,6 @@ const generate_settled = (values: any, SaveForP: any) => {
         }
     };
 };
-
-
 
 const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
     return `<table  class="table_postulation">
@@ -446,6 +487,7 @@ const actions = {
     deleteDocumentPostulation,
     get__postulationInfo,
     get__postulationInfoDetail,
-    get__documentDownload
+    get__documentDownload,
+    get__RevisatePostulationInfoDetail,
 };
 export default actions;

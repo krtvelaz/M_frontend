@@ -26,6 +26,7 @@ interface State {
     inforPostulation:Loadable<any | null>;
     detail_postulation:Loadable<any | null>;
     downaldDocument:Loadable<any | null>;
+    revisatePostulation:Loadable<any | null>;
 
 }
 
@@ -36,6 +37,11 @@ const initialState: State = {
         loaded: false,
     },
     testimony: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    revisatePostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -456,6 +462,27 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    revisateInfoPostulations_default: (state) => {
+        state.revisatePostulation = {
+            value: state.revisatePostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    revisateInfoPostulations_success: (state, action) => {
+        state.revisatePostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    revisateInfoPostulations_fail: (state) => {
+        state.revisatePostulation = {
+            value: initialState.revisatePostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
     infoPostulationsdetail_default: (state) => {
         state.detail_postulation = {
             value: state.detail_postulation.value,
@@ -530,5 +557,8 @@ export const {
     infoPostulationsdetail_fail,
     download_default_Documents,
     download_success_Documents,
-    download_fail_Documents
+    download_fail_Documents,
+    revisateInfoPostulations_default,
+    revisateInfoPostulations_success,
+    revisateInfoPostulations_fail
 } = postulationSlice.actions;
