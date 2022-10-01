@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Card, Table } from '../../../utils/ui';
-import { Popover } from 'antd';
+import { Button, Modal, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { useParams } from 'react-router-dom';
 import ModalInfoPostulations from '../components/ModalInfoPostulations';
 import PostulationsFilter from '../components/PostulationsFilter';
+import { Formik } from 'formik';
+import { ModalExportData } from '../components/ModalExportData';
 
 const managePostulations = () => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
@@ -13,10 +15,12 @@ const managePostulations = () => {
         set_is_visible(true);
     };
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [infoModaL, setInfoModaL] = useState<any>(null);
+    const [infoModaL, setInfoModaL] = useState<boolean>(false);
 
     const dispatch = useDispatch<any>();
     const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
+    const infoPosutlationsFilter = useSelector((store: any) => store.postulation.searchPostulations.value);
+    const inforPostFilterData = infoPosutlationsFilter?.data;
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
@@ -32,6 +36,9 @@ const managePostulations = () => {
 
     const OpenModal = () => {
         setModalOpen(true);
+    };
+    const OpenModalExportData = () => {
+        setInfoModaL(true);
     };
 
     const table_columns = [
@@ -242,12 +249,11 @@ const managePostulations = () => {
                     title: <span style={{ fontSize: '9px' }}>Editar</span>,
                     fixed: 'right',
                     align: 'center' as 'center',
-
                     render: (data: any) => {
                         return (
-                            // data.pos_status === 'FINALIZADO' && (
-                            <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
-                            // )
+                            data.pos_status === 'FINALIZADO' && (
+                                <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
+                            )
                         );
                     },
                 },
@@ -260,19 +266,7 @@ const managePostulations = () => {
                 <div className="col-md-12">
                     <h5 className="col d-flex justify-content-start mb-3">Gestionar Postulaciones a Retos</h5>
 
-                    <Card
-                        title={'Buscar Reto'}
-                        actions={[
-                            <div className="d-flex flex-row justify-content-end my-3">
-                                <button className="btn me-3" style={{ color: '#1D98D1' }}>
-                                    Limpiar filtros
-                                </button>
-                                <button key="saveDoc" type="button" className="btn btn-primary me-4">
-                                    Buscar
-                                </button>
-                            </div>,
-                        ]}
-                    >
+                    <Card title={'Buscar Reto'}>
                         <PostulationsFilter />
                     </Card>
 
@@ -285,6 +279,18 @@ const managePostulations = () => {
                             change_page={change_page}
                             with_pagination
                         />
+                        <div style={{ position: 'relative' }}>
+                            <button
+                                key="saveDoc"
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={OpenModalExportData}
+                            >
+                                Exportar datos
+                            </button>
+
+                            <ModalExportData setInfoModaL={setInfoModaL} infoModaL={infoModaL} />
+                        </div>
                     </Card>
                 </div>
             </div>

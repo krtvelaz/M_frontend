@@ -6,7 +6,6 @@ import { actions } from '../redux';
 
 const CardDocsPostulation = () => {
     const documents: any = useSelector((store: any) => store.postulation.challenge.value);
-    console.log(documents);
 
     return (
         <>

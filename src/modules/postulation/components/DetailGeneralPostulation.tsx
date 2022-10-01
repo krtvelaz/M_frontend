@@ -12,10 +12,12 @@ interface detailPros {
 const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
     const dispatch = useDispatch<any>();
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoGeneralGroup = infoPosutlationsetail[0]?.postulation_info;
+    console.log(infoPosutlationsetail);
+    const infoGeneralGroup = infoPosutlationsetail && infoPosutlationsetail[0]?.postulation_info;
 
     const infoGroupPostulation = async () => {
         const res = await dispatch(actions.get__postulationInfoDetail(data));
+        console.log(res);
     };
     useEffect(() => {
         infoGroupPostulation();

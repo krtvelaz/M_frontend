@@ -21,19 +21,15 @@ interface ModalInfoPostulations {
 const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
     const { TabPane } = Tabs;
     const form_ref = useRef<FormikProps<FormikValues>>();
-    const [revisate, setRevisate] = useState<boolean>(true);
+    const [revisate, setRevisate] = useState<boolean>(false);
     const [infoPost, setInfoPost] = useState<any>(null);
     const [is_visible, set_is_visible] = useState<boolean>(false);
-    const [infoPostDis, setInfoPostDis] = useState<any>(null);
-    const navigate = useNavigate();
 
     const disableButton = () => {
         setRevisate(!revisate);
     };
     const revisatePostulations = async () => {
-        if (!revisate) {
-            await dispatch(actions.get__RevisatePostulationInfoDetail(id, set_is_visible));
-        }
+        await dispatch(actions.get__RevisatePostulationInfoDetail(id, set_is_visible));
     };
 
     const infoGroupPostulation = async () => {
@@ -54,9 +50,7 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
         await onSubmit(values);
         set_is_visible(false);
     };
-    const validateButton = () => {
-        setRevisate(true);
-    };
+
     return (
         <>
             <div onClick={open} className="button-assign-rol">
@@ -82,12 +76,7 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                     }}
                     footer={null}
                 >
-                    <Tabs
-                        onChange={() => {
-                            validateButton();
-                        }}
-                        tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}
-                    >
+                    <Tabs tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}>
                         <TabPane tab="Información postulación" key="item-1">
                             <div
                                 style={{
@@ -124,16 +113,16 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                     <ComponetCard>
                         <div style={{ flexDirection: 'column', textAlign: 'end' }}>
                             <span className="State-postulation-info me-3">Estado de la postulación:</span>
-                            <Switch checked={!revisate} onClick={disableButton} />
+                            <Switch onClick={disableButton} />
                             <span className="state-revisate-postulations-info me-3 ms-3">
-                                {revisate ? 'sin revisar' : 'Revisado'}
+                                {revisate ? 'Revisado' : 'sin revisar'}
                             </span>
                             <button
                                 onClick={revisatePostulations}
                                 key="saveDoc"
                                 type="button"
                                 className="btn btn-primary"
-                                disabled={revisate ? true : false}
+                                disabled={revisate ? false : true}
                             >
                                 Guardar Cambios
                                 {form_ref.current?.isSubmitting && (

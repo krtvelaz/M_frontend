@@ -27,6 +27,8 @@ interface State {
     detail_postulation:Loadable<any | null>;
     downaldDocument:Loadable<any | null>;
     revisatePostulation:Loadable<any | null>;
+    generateReportPostulation:Loadable<any | null>;
+    searchPostulations:Loadable<any | null>;
 
 }
 
@@ -37,6 +39,16 @@ const initialState: State = {
         loaded: false,
     },
     testimony: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    searchPostulations: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    generateReportPostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -196,6 +208,27 @@ export const postulationSlice = createSlice({
         postulations_list_fail: (state) => {
             state.list_postulations = {
                 value: initialState.list_postulations.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+        postulationsSearch_default: (state) => {
+            state.searchPostulations = {
+                value: state.searchPostulations.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        postulationsSearch_success: (state, action) => {
+            state.searchPostulations = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        postulationsSearch_fail: (state) => {
+            state.searchPostulations = {
+                value: initialState.searchPostulations.value,
                 loading: false,
                 loaded: false,
             };
@@ -440,6 +473,27 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    GeneratePostulationsReport_default: (state) => {
+        state.generateReportPostulation = {
+            value: state.generateReportPostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    GeneratePostulationsReport_success: (state, action) => {
+        state.generateReportPostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    GeneratePostulationsReport_fail: (state) => {
+        state.generateReportPostulation = {
+            value: initialState.generateReportPostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
 
     infoPostulations_default: (state) => {
         state.inforPostulation = {
@@ -546,6 +600,9 @@ export const {
     GeneratePostulations_default,
     GeneratePostulations_success,
     GeneratePostulations_fail,
+    GeneratePostulationsReport_default,
+    GeneratePostulationsReport_success,
+    GeneratePostulationsReport_fail,
     deleteDoc_default,
     deleteDoc_success,
     deleteDoc_fail,
@@ -560,5 +617,8 @@ export const {
     download_fail_Documents,
     revisateInfoPostulations_default,
     revisateInfoPostulations_success,
-    revisateInfoPostulations_fail
+    revisateInfoPostulations_fail,
+    postulationsSearch_success,
+    postulationsSearch_fail,
+    postulationsSearch_default
 } = postulationSlice.actions;

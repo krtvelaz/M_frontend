@@ -50,9 +50,15 @@ import {
     revisateInfoPostulations_default,
     revisateInfoPostulations_success,
     revisateInfoPostulations_fail,
+    GeneratePostulationsReport_default,
+    GeneratePostulationsReport_success,
+    GeneratePostulationsReport_fail,
+    postulationsSearch_success,
+    postulationsSearch_fail,
+    postulationsSearch_default
 } from './slice';
 import { jsPDF } from 'jspdf';
-import { useNavigate } from 'react-router-dom';
+import fileDownload from 'js-file-download';
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(postulations_default());
@@ -190,10 +196,64 @@ const get__postulationInfoDetail = (id_postulation: number | string) => {
         }
     };
 };
+const get__postulationReportDetail = (
+    convocatoria: number | string,
+    estadoPostulacion: number | string
+) => {
+    return async (dispatch: any) => {
+        dispatch(GeneratePostulationsReport_default);
+        try {
+            const URI = `postulations/report/${convocatoria}/${estadoPostulacion}`;
+            const res: any = await http.get(URI, {
+                responseType: 'blob',
+            });
+            dispatch(GeneratePostulationsReport_success(res.data));
+            if (res.data) {
+                fileDownload(res.data, 'Reporte Postulaciones.xlsx');
+            }
+
+            return res.data;
+        } catch (error) {
+            dispatch(GeneratePostulationsReport_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+
+const get_postulationSearch = (
+    page: number | string,
+    per_page : number | string,
+    palabraClave: number | string,
+    convocatoriaSearch: number | string,
+    estadoPos: number | string,
+) => {
+    return async (dispatch: any) => {
+        dispatch(postulationsSearch_default);
+        try {
+            const URI = `postulations/`;
+            const res: any = await http.get(URI, {
+                params: {
+                    page,
+                    per_page,
+                    challenge_name:palabraClave,
+                    cha_announcement:convocatoriaSearch,
+                    status:estadoPos
+                },
+                
+            });
+            dispatch(postulationsSearch_success(res.data.data));
+            dispatch(infoPostulations_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(postulationsSearch_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
 
 const get__RevisatePostulationInfoDetail = (
     id_postulation: number | string,
-    set_is_visible:React.Dispatch<React.SetStateAction<boolean>>
+    set_is_visible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     return async (dispatch: any) => {
         dispatch(revisateInfoPostulations_default);
@@ -213,7 +273,7 @@ const get__RevisatePostulationInfoDetail = (
                 })
                 .then((confirm) => {
                     if (confirm.isConfirmed) {
-                        set_is_visible(false)
+                        set_is_visible(false);
                     }
                 });
             return res.data;
@@ -489,5 +549,7 @@ const actions = {
     get__postulationInfoDetail,
     get__documentDownload,
     get__RevisatePostulationInfoDetail,
+    get__postulationReportDetail,
+    get_postulationSearch
 };
 export default actions;
