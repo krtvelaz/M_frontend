@@ -23,6 +23,12 @@ interface State {
     sexual_orientation:Loadable<any | null>;
     generatePostulation:Loadable<any | null>;
     deleteDocument:Loadable<any | null>;
+    inforPostulation:Loadable<any | null>;
+    detail_postulation:Loadable<any | null>;
+    downaldDocument:Loadable<any | null>;
+    revisatePostulation:Loadable<any | null>;
+    generateReportPostulation:Loadable<any | null>;
+    searchPostulations:Loadable<any | null>;
 
 }
 
@@ -37,7 +43,37 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
+    searchPostulations: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    generateReportPostulation: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    revisatePostulation: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    downaldDocument: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    detail_postulation: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
     deleteDocument: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+    inforPostulation: {
         value: null,
         loading: false,
         loaded: false,
@@ -176,6 +212,27 @@ export const postulationSlice = createSlice({
                 loaded: false,
             };
         },
+        postulationsSearch_default: (state) => {
+            state.searchPostulations = {
+                value: state.searchPostulations.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        postulationsSearch_success: (state, action) => {
+            state.searchPostulations = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        postulationsSearch_fail: (state) => {
+            state.searchPostulations = {
+                value: initialState.searchPostulations.value,
+                loading: false,
+                loaded: false,
+            };
+        },
         loading_typeDocumentsMembers: (state) => {
             state.loading_typeDocumentsMembers = {
                 value: state.loading_typeDocumentsMembers.value,
@@ -215,6 +272,28 @@ export const postulationSlice = createSlice({
         fail_typeDocuments: (state, action) => {
             state.documentType = {
                 value: initialState.documentType.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+        download_default_Documents: (state) => {
+            state.downaldDocument = {
+                value: state.downaldDocument.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+     
+        download_success_Documents: (state, action) => {
+            state.downaldDocument = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        download_fail_Documents: (state, action) => {
+            state.downaldDocument = {
+                value: initialState.downaldDocument.value,
                 loading: false,
                 loaded: false,
             };
@@ -394,6 +473,91 @@ export const postulationSlice = createSlice({
             loaded: false,
         };
     },
+    GeneratePostulationsReport_default: (state) => {
+        state.generateReportPostulation = {
+            value: state.generateReportPostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    GeneratePostulationsReport_success: (state, action) => {
+        state.generateReportPostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    GeneratePostulationsReport_fail: (state) => {
+        state.generateReportPostulation = {
+            value: initialState.generateReportPostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
+
+    infoPostulations_default: (state) => {
+        state.inforPostulation = {
+            value: state.inforPostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    infoPostulations_success: (state, action) => {
+        state.inforPostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    infoPostulations_fail: (state) => {
+        state.inforPostulation = {
+            value: initialState.inforPostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
+    revisateInfoPostulations_default: (state) => {
+        state.revisatePostulation = {
+            value: state.revisatePostulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    revisateInfoPostulations_success: (state, action) => {
+        state.revisatePostulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    revisateInfoPostulations_fail: (state) => {
+        state.revisatePostulation = {
+            value: initialState.revisatePostulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
+    infoPostulationsdetail_default: (state) => {
+        state.detail_postulation = {
+            value: state.detail_postulation.value,
+            loading: true,
+            loaded: false,
+        };
+    },
+    infoPostulationsdetail_success: (state, action) => {
+        state.detail_postulation = {
+            value: action.payload,
+            loading: false,
+            loaded: true,
+        };
+    },
+    infoPostulationsdetail_fail: (state) => {
+        state.detail_postulation = {
+            value: initialState.detail_postulation.value,
+            loading: false,
+            loaded: false,
+        };
+    },
    
     },
 });
@@ -436,7 +600,25 @@ export const {
     GeneratePostulations_default,
     GeneratePostulations_success,
     GeneratePostulations_fail,
+    GeneratePostulationsReport_default,
+    GeneratePostulationsReport_success,
+    GeneratePostulationsReport_fail,
     deleteDoc_default,
     deleteDoc_success,
     deleteDoc_fail,
+    infoPostulations_default,
+    infoPostulations_success,
+    infoPostulations_fail,
+    infoPostulationsdetail_default,
+    infoPostulationsdetail_success,
+    infoPostulationsdetail_fail,
+    download_default_Documents,
+    download_success_Documents,
+    download_fail_Documents,
+    revisateInfoPostulations_default,
+    revisateInfoPostulations_success,
+    revisateInfoPostulations_fail,
+    postulationsSearch_success,
+    postulationsSearch_fail,
+    postulationsSearch_default
 } = postulationSlice.actions;

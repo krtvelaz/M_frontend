@@ -1,4 +1,4 @@
-import {  http } from '../../../config/axios_instances';
+import { http } from '../../../config/axios_instances';
 import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
 import {
     fail_typeDocuments,
@@ -38,8 +38,27 @@ import {
     deleteDoc_success,
     deleteDoc_fail,
     deleteDocPost_success,
+    infoPostulations_default,
+    infoPostulations_success,
+    infoPostulations_fail,
+    infoPostulationsdetail_default,
+    infoPostulationsdetail_success,
+    infoPostulationsdetail_fail,
+    download_default_Documents,
+    download_success_Documents,
+    download_fail_Documents,
+    revisateInfoPostulations_default,
+    revisateInfoPostulations_success,
+    revisateInfoPostulations_fail,
+    GeneratePostulationsReport_default,
+    GeneratePostulationsReport_success,
+    GeneratePostulationsReport_fail,
+    postulationsSearch_success,
+    postulationsSearch_fail,
+    postulationsSearch_default
 } from './slice';
 import { jsPDF } from 'jspdf';
+import fileDownload from 'js-file-download';
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
         dispatch(postulations_default());
@@ -75,13 +94,16 @@ const create_main_postulation = (values: any) => {
         }
     };
 };
-const create_memberPostulation = (values: any[], id_postulation: number | string) => {
+const create_memberPostulation = (
+    values: any[],
+    id_postulation: number | string
+) => {
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
             const URI = `postulations/member/${id_postulation}`;
             const res = await http.post(URI, {
-                members : [...values]
+                members: [...values],
             });
             dispatch(members_success(res.data.data));
             await swal_success.fire({
@@ -118,6 +140,145 @@ const get__document = () => {
             return res.data;
         } catch (error) {
             dispatch(fail_typeDocuments);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__documentDownload = (posarc_id: number) => {
+    return async (dispatch: any) => {
+        dispatch(download_default_Documents);
+        try {
+            const URI = `postulations/download/`;
+
+            const res: any = await http.get(URI, {
+                params: {
+                    id: posarc_id,
+                },
+                headers: {
+                    responseType: 'blob',
+                },
+            });
+            dispatch(download_success_Documents(res.data.data));
+            return res.data;
+        } catch (error) {
+            console.log('error', error);
+            dispatch(download_fail_Documents);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__postulationInfo = () => {
+    return async (dispatch: any) => {
+        dispatch(infoPostulations_default);
+        try {
+            const URI = `postulations`;
+
+            const res: any = await http.get(URI);
+            dispatch(infoPostulations_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(infoPostulations_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__postulationInfoDetail = (id_postulation: number | string) => {
+    return async (dispatch: any) => {
+        dispatch(infoPostulationsdetail_default);
+        try {
+            const URI = `postulations/detail_postulation/${id_postulation}`;
+            const res: any = await http.get(URI);
+            dispatch(infoPostulationsdetail_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(infoPostulationsdetail_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+const get__postulationReportDetail = (
+    convocatoria: number | string,
+    estadoPostulacion: number | string
+) => {
+    return async (dispatch: any) => {
+        dispatch(GeneratePostulationsReport_default);
+        try {
+            const URI = `postulations/report/${convocatoria}/${estadoPostulacion}`;
+            const res: any = await http.get(URI, {
+                responseType: 'blob',
+            });
+            dispatch(GeneratePostulationsReport_success(res.data));
+            if (res.data) {
+                fileDownload(res.data, 'Reporte Postulaciones.xlsx');
+            }
+
+            return res.data;
+        } catch (error) {
+            dispatch(GeneratePostulationsReport_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+
+const get_postulationSearch = (
+    page: number | string,
+    per_page : number | string,
+    palabraClave: number | string,
+    convocatoriaSearch: number | string,
+    estadoPos: number | string,
+) => {
+    return async (dispatch: any) => {
+        dispatch(postulationsSearch_default);
+        try {
+            const URI = `postulations/`;
+            const res: any = await http.get(URI, {
+                params: {
+                    page,
+                    per_page,
+                    challenge_name:palabraClave,
+                    cha_announcement:convocatoriaSearch,
+                    status:estadoPos
+                },
+                
+            });
+            dispatch(postulationsSearch_success(res.data.data));
+            dispatch(infoPostulations_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(postulationsSearch_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
+
+const get__RevisatePostulationInfoDetail = (
+    id_postulation: number | string,
+    set_is_visible: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    return async (dispatch: any) => {
+        dispatch(revisateInfoPostulations_default);
+        try {
+            const URI = `postulations/status_reviewed/${id_postulation}`;
+            const res: any = await http.get(URI);
+            dispatch(revisateInfoPostulations_success(res.data.data));
+            await swal_success
+                .fire({
+                    title: 'Proceso exitoso',
+                    html:
+                        `<div class="mysubtitle">${res.data.message}</div>` +
+                        '<div class="mytext">De click en aceptar para continuar</div>',
+                    showCancelButton: true,
+                    cancelButtonText: 'Seguir viendo',
+                    confirmButtonText: 'Ir a Lista Postulaciones',
+                })
+                .then((confirm) => {
+                    if (confirm.isConfirmed) {
+                        set_is_visible(false);
+                    }
+                });
+            return res.data;
+        } catch (error) {
+            dispatch(revisateInfoPostulations_fail);
             return Promise.reject('Error');
         }
     };
@@ -252,6 +413,7 @@ const get_documents_challenge = (id: number, type_person: string | number) => {
         }
     };
 };
+
 const generate_settled = (values: any, SaveForP: any) => {
     return async (dispatch: any) => {
         dispatch(GeneratePostulations_default());
@@ -275,7 +437,10 @@ const generate_settled = (values: any, SaveForP: any) => {
                 didOpen: () => {
                     const validatePdf = document.getElementById('pdfDownald');
                     const DownloadHTML = () => {
-                        const stringHtml = HtmlStringPdf(SaveForP, res.data.data);
+                        const stringHtml = HtmlStringPdf(
+                            SaveForP,
+                            res.data.data
+                        );
                         const doc = new jsPDF('p', 'pt', 'a4');
                         doc.html(stringHtml, {
                             callback: (pdf) => {
@@ -393,6 +558,12 @@ const actions = {
     get__sexual_orientation,
     generate_settled,
     deleteDocumentPostulation,
-    get_document_challenge
+    get_document_challenge,
+    get__postulationInfo,
+    get__postulationInfoDetail,
+    get__documentDownload,
+    get__RevisatePostulationInfoDetail,
+    get__postulationReportDetail,
+    get_postulationSearch
 };
 export default actions;

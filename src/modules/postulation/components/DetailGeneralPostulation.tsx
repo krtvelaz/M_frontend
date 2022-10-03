@@ -1,14 +1,25 @@
-
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import * as Yup from 'yup';
 import moment from 'moment';
 import { IEvent } from '../../event/custom_types';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux';
 
 interface detailPros {
     data?: any;
 }
 
 const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
+    const dispatch = useDispatch<any>();
+    const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
+    const infoGeneralGroup = infoPosutlationsetail && infoPosutlationsetail[0]?.postulation_info;
+
+    const infoGroupPostulation = async () => {
+        const res = await dispatch(actions.get__postulationInfoDetail(data));
+    };
+    useEffect(() => {
+        infoGroupPostulation();
+    }, []);
     return (
         <>
             <div className="row mb-3">
@@ -18,7 +29,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span className="">Andrea Ceballos Villareal</span>
+                    <span className="">{infoGeneralGroup?.pos_business_name}</span>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3" style={{ textAlign: 'end' }}>
                     <label htmlFor="eve_descripcion" className="form-label">
@@ -26,7 +37,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>3006183669</span>
+                    <span>{infoGeneralGroup?.pos_number_contact}</span>
                 </div>
             </div>
             <div className="row mb-3">
@@ -36,7 +47,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>CC 101719606</span>
+                    <span>CC {infoGeneralGroup?.pos_document_id}</span>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3" style={{ textAlign: 'end' }}>
                     <label htmlFor="eve_lugar_evento_id" className="form-label">
@@ -44,7 +55,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>Persona jurídica</span>
+                    <span>{infoGeneralGroup?.pos_id_type_competitor}</span>
                 </div>
             </div>
             <div className="row">
@@ -54,7 +65,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>correo@ejemplo.com</span>
+                    <span>{infoGeneralGroup?.pos_email}</span>
                 </div>
             </div>
         </>
