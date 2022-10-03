@@ -73,24 +73,11 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
                                         <div style={{ width: '48%' }}>
                                             <label htmlFor="convocatoria_id">Número de convocatoria</label>
                                             <Field
-                                                component={Select}
-                                                placeholder="Seleccione…"
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Seleccionar…"
                                                 id="convocatoria_id"
                                                 name="convocatoria"
-                                                options={[
-                                                    {
-                                                        name: 1,
-                                                        id: 1,
-                                                    },
-                                                    {
-                                                        name: 2,
-                                                        id: 2,
-                                                    },
-                                                    {
-                                                        name: 3,
-                                                        id: 3,
-                                                    },
-                                                ]}
                                             />
 
                                             <ErrorMessage name="convocatoria" />
@@ -99,7 +86,8 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
                                             <label htmlFor="estadoPostulacion_id">Estado</label>
                                             <Field
                                                 component={Select}
-                                                maxTagCount="responsive"
+                                                type="select"
+                                                placeholder="Seleccionar…"
                                                 id="estadoPostulacion_id"
                                                 name="estadoPostulacion"
                                                 options={[

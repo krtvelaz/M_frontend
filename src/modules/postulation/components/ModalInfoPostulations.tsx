@@ -16,9 +16,10 @@ import { useNavigate } from 'react-router-dom';
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
     id: number;
+    state?: string;
 }
 
-const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
+const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state }) => {
     const { TabPane } = Tabs;
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [revisate, setRevisate] = useState<boolean>(false);
@@ -50,10 +51,13 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
         await onSubmit(values);
         set_is_visible(false);
     };
-
     return (
         <>
-            <div onClick={open} className="button-assign-rol">
+            <div
+                style={state === 'SIN FINALIZAR' ? { color: 'white' } : {}}
+                onClick={open}
+                className="button-assign-rol"
+            >
                 ver detalles
             </div>
 
@@ -76,7 +80,15 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id }) => {
                     }}
                     footer={null}
                 >
-                    <Tabs tabBarStyle={{ backgroundColor: '#1D98D1', color: 'white', fontWeight: 'bold', margin: 0 }}>
+                    <Tabs
+                        tabBarStyle={{
+                            backgroundColor: '#1D98D1',
+                            color: 'white',
+                            fontWeight: 'bold',
+                            margin: 0,
+                            paddingLeft: '20px',
+                        }}
+                    >
                         <TabPane tab="Información postulación" key="item-1">
                             <div
                                 style={{

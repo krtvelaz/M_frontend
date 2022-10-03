@@ -8,9 +8,10 @@ import ModalInfoPostulations from '../components/ModalInfoPostulations';
 import PostulationsFilter from '../components/PostulationsFilter';
 import { Formik } from 'formik';
 import { ModalExportData } from '../components/ModalExportData';
-
+import moment from 'moment';
 const managePostulations = () => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
+    const [colorState, setColorState] = useState<boolean>(false);
     const open = () => {
         set_is_visible(true);
     };
@@ -40,7 +41,7 @@ const managePostulations = () => {
     const OpenModalExportData = () => {
         setInfoModaL(true);
     };
-
+    let className = 'menu';
     const table_columns = [
         {
             title: 'No.',
@@ -94,7 +95,17 @@ const managePostulations = () => {
                             )}...`}</span>
                         </Popover>
                     ) : (
-                        value
+                        <span
+                            style={
+                                value === 'REVISADO'
+                                    ? { color: '#29740B', fontWeight: 'bold' }
+                                    : value === 'FINALIZADO'
+                                    ? { color: '#F28C02', fontWeight: 'bold' }
+                                    : {}
+                            }
+                        >
+                            {value}
+                        </span>
                     ))
                 );
             },
@@ -195,7 +206,7 @@ const managePostulations = () => {
                             )}...`}</span>
                         </Popover>
                     ) : (
-                        value
+                        moment(value).format('YYYY-MM-DD')
                     ))
                 );
             },
@@ -215,7 +226,7 @@ const managePostulations = () => {
                             )}...`}</span>
                         </Popover>
                     ) : (
-                        value
+                        moment(value).format('HH:mm:ss')
                     ))
                 );
             },
@@ -251,9 +262,14 @@ const managePostulations = () => {
                     align: 'center' as 'center',
                     render: (data: any) => {
                         return (
-                            data.pos_status === 'FINALIZADO' && (
-                                <ModalInfoPostulations onSubmit={OpenModal} id={data.id_postulation} />
-                            )
+                            // data.pos_status === 'FINALIZADO' ||
+                            // (data.pos_status === 'REVISADO' && (
+                            <ModalInfoPostulations
+                                state={data.pos_status}
+                                onSubmit={OpenModal}
+                                id={data.id_postulation}
+                            />
+                            // ))
                         );
                     },
                 },
@@ -264,15 +280,26 @@ const managePostulations = () => {
         <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-md-12">
-                    <h5 className="col d-flex justify-content-start mb-3">Gestionar Postulaciones a Retos</h5>
+                    <h5
+                        className="col d-flex justify-content-start mb-3"
+                        style={{ fontSize: '14px', fontFamily: 'Montserrat-SemiBold' }}
+                    >
+                        Gestionar Postulaciones a Retos
+                    </h5>
 
-                    <Card title={'Buscar Reto'}>
+                    <Card
+                        title={
+                            <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
+                                {'Buscar reto'}
+                            </span>
+                        }
+                    >
                         <PostulationsFilter />
                     </Card>
 
                     <Card>
                         <Table
-                            title="Listado de postulaciones"
+                            title="Lista de retos"
                             columns={table_columns}
                             paginationTop
                             items={infoPosutlations}
@@ -283,7 +310,8 @@ const managePostulations = () => {
                             <button
                                 key="saveDoc"
                                 type="button"
-                                className="btn btn-primary"
+                                style={{ color: '#1D98D1' }}
+                                className="btn me-3"
                                 onClick={OpenModalExportData}
                             >
                                 Exportar datos

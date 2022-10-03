@@ -12,12 +12,10 @@ interface detailPros {
 const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
     const dispatch = useDispatch<any>();
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    console.log(infoPosutlationsetail);
     const infoGeneralGroup = infoPosutlationsetail && infoPosutlationsetail[0]?.postulation_info;
 
     const infoGroupPostulation = async () => {
         const res = await dispatch(actions.get__postulationInfoDetail(data));
-        console.log(res);
     };
     useEffect(() => {
         infoGroupPostulation();
@@ -31,7 +29,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span className="">{infoGeneralGroup.pos_business_name}</span>
+                    <span className="">{infoGeneralGroup?.pos_business_name}</span>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3" style={{ textAlign: 'end' }}>
                     <label htmlFor="eve_descripcion" className="form-label">
@@ -39,7 +37,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>{infoGeneralGroup.pos_number_contact}</span>
+                    <span>{infoGeneralGroup?.pos_number_contact}</span>
                 </div>
             </div>
             <div className="row mb-3">
@@ -49,7 +47,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>CC {infoGeneralGroup.pos_document_id}</span>
+                    <span>CC {infoGeneralGroup?.pos_document_id}</span>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3" style={{ textAlign: 'end' }}>
                     <label htmlFor="eve_lugar_evento_id" className="form-label">
@@ -57,7 +55,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>{infoGeneralGroup.pos_id_type_competitor}</span>
+                    <span>{infoGeneralGroup?.pos_id_type_competitor}</span>
                 </div>
             </div>
             <div className="row">
@@ -67,7 +65,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <span>{infoGeneralGroup.pos_email}</span>
+                    <span>{infoGeneralGroup?.pos_email}</span>
                 </div>
             </div>
         </>

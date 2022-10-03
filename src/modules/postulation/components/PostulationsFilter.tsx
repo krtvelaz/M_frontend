@@ -47,7 +47,6 @@ const PostulationsFilter: FC<PostulationsFilter> = () => {
                                         component={Select}
                                         id="convocatoriaSearch_id"
                                         name="convocatoriaSearch"
-                                        dropdownMatchSelectWidth={false}
                                         options={[
                                             {
                                                 name: 1,
