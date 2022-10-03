@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch,} from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';
 import { LogoPDF } from '../../../utils/assets/img';
@@ -12,13 +12,11 @@ interface DetailChallenge {
 
 const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const dispatch = useDispatch<any>();
-    const [challengesUltimete, setChallengesUltimete] = useState();
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const navigate = useNavigate();
     const [url, setUrl] = useState<string>('');
     const getChallenges = async () => {
         const results = await dispatch(actions.get_four_challenge());
-        console.log('gg', results);
     };
     useEffect(() => {
         getChallenges();
@@ -89,7 +87,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                     navigate(`../postulation/challenge/${challenge?.id}`);
                 }}
                 type="button"
-                className="btn btn-primary my-4"
+                className="btn btn-landing-primary my-4"
                 style={{ position: 'relative', zIndex: 4 }}
             >
                 POSTULAR AL RETO

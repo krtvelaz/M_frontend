@@ -4,16 +4,17 @@ interface LoadingProps {
     title?: string;
     loading?: boolean;
     height?: string;
+    color?: string;
 }
 
-const ComponetLoading: FC<LoadingProps> = ({ title, loading, height }) => {
+const ComponetLoading: FC<LoadingProps> = ({ title, loading, height, color, }) => {
     return (
         <div
             className="text-center container mb-3"
             style={{
                 position: 'relative',
                 minHeight: `${height}`,
-                background: 'rgba(255, 255, 255, 0.6)',
+                background: `${color}`,
                 borderRadius: '10px',
                 display: 'flex',
                 alignItems: 'center',
@@ -36,7 +37,8 @@ const ComponetLoading: FC<LoadingProps> = ({ title, loading, height }) => {
 ComponetLoading.defaultProps = {
     title: 'Cargando...',
     loading: true,
-    height: '300px'
+    height: '300px',
+    color: 'rgba(255, 255, 255, 0.6)'
 };
 
 export default ComponetLoading;

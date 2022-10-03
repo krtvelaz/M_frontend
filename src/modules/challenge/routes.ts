@@ -68,7 +68,7 @@ const get_routes = (): IRoute[] => {
             component: DetailChallenge,
             template_props: {
                 breadcrumbs: [
-                    { name: 'Inicio' },
+                    { name: 'Detalles del reto' },
                 ],
             },
         },

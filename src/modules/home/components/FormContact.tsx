@@ -123,7 +123,7 @@ const FormContact = () => {
                                     </button>
                                     <button
                                         type="submit"
-                                        className="btn btn-primary my-3"
+                                        className="btn btn-landing-primary my-3"
                                     >
                                         Enviar mensaje
                                     </button>

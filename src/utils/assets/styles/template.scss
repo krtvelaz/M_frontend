@@ -23,7 +23,6 @@
 }
 
 .component-link {
-  color: #1D98D1;
   text-decoration: none;
   > span {
       margin-left: 4px;
@@ -162,9 +161,12 @@
   }
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-  color: #fff !important;
-}
+// .breadcrumb-item + .breadcrumb-item::before {
+//   color: #fff !important;
+// }
+// .breadcrumb-item-landing + .breadcrumb-item-landing::before {
+//   color: #0A0707 !important;
+// }
 
 .form-error {
   margin-top: .25rem;
@@ -172,7 +174,6 @@
   width: 100%;
   height: 22px;
   font-size: 10px !important;
-  color: #AD0808 !important;
 }
 
 //paginator

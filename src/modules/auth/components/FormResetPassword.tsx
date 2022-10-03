@@ -50,7 +50,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                 return (
                     <Form>
                         <div className="row ">
-                            <div className="col-4">
+                            <div className="col-12 col-md-4 col-lg-4">
                                 <label htmlFor="user_id" className="form-label">
                                     {/* Número de identificación */}
                                     Digite su usuario
@@ -77,7 +77,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                 <ErrorMessage name="user" />
                             </div>
 
-                            <div className="col-4">
+                            <div className="col-12 col-md-4 col-lg-4">
                                 <label htmlFor="password_id" className="form-label">
                                     Nueva contraseña
                                 </label>
@@ -110,7 +110,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                 </div>
                             </div>
 
-                            <div className="col-4">
+                            <div className="col-12 col-md-4 col-lg-4">
                                 <label htmlFor="confirmPassword_id" className="form-label">
                                     Confirme su nueva contraseña
                                 </label>
@@ -145,16 +145,16 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                         </div>
 
                         <div className="row mt-3 mb-4">
-                            <div className="col-3 ">
+                            <div className="col-12 col-md-6 col-lg-3">
                                 <div className="row">
-                                    {minuscula.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en minúscula</span> : <span><CheckOutlined /> Un carácter en minúscula</span>}
+                                    {minuscula.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en minúscula</span> : <span><CheckOutlined style={{ color: '#C7C7C7' }} /> Un carácter en minúscula</span>}
                                 </div>
                                 <div className="row">
                                     {mayuscula.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en mayúscula</span> : <span><CheckOutlined /> Un carácter en mayúscula</span>}
                                 </div>
                             </div>
 
-                            <div className="col-3">
+                            <div className="col-12 col-md-6 col-lg-3">
                                 <div className="row">
                                     {numero.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un número</span> : <span><CheckOutlined /> Un número</span>}
                                 </div>

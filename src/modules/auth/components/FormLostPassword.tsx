@@ -7,22 +7,22 @@ import { ILostPassword } from '../custom_types';
 
 interface LostPasswordFormPros {
     innerRef: any;
-    // onSubmit: (values: any, form?: any) => any;
+    onSubmit: (values: any, form?: any) => any;
     lostPassword?: ILostPassword;
 }
-const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef }) => {
+const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, onSubmit }) => {
 
     const initialValues = {
-        user: '',
+        document: '',
         email: '',
         ...lostPassword
     };
-    const submit = (values: any, form: any) => {
-        
+    const submit = async (values: any, form: any) => {
+        await onSubmit(values, form);
     };
 
     const schema = Yup.object().shape({
-        user: Yup.string().required('Campo obligatorio'),
+        document: Yup.string().required('Campo obligatorio'),
         email: Yup.string().email("Ingrese un correo electrónico valido").required("Campo obligatorio"),
 
     });
@@ -39,34 +39,33 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef }) 
                     <Form>
                         <div className="row ">
                             <div className="col-6">
-                                <label htmlFor="user_id" className="form-label">
-                                    {/* Número de identificación */}
+                                <label htmlFor="user_id" className="form-label label-landing">
                                     Digite su usuario
                                 </label>
                                 <Field
                                     type="text"
                                     className="form-control"
                                     id="user_id"
-                                    name="user"
+                                    name="document"
                                     placeholder='Ingrese su usuario, cédula o NIT'
                                     // disabled={disabled}
                                     autoComplete="off"
                                     min={0}
-                                    max={999999}
+                                    max={9999999999999999}
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^[0-9]{0,15}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="user" />
+                                <ErrorMessage name="document" />
                             </div>
 
                             <div className="col-6">
-                                <label htmlFor="email_id" className="form-label">
+                                <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
                                 </label>
                                 <Field

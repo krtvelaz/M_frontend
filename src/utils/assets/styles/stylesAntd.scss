@@ -409,9 +409,9 @@ textarea.form-control {
 }
 
 // arcgis
-// .esri-popup__header {
-//     display: none !important;
-// }
+.esri-popup__header {
+    display: none !important;
+}
 
 .esri-popup__footer {
     display: none !important;
@@ -427,6 +427,7 @@ textarea.form-control {
 
 .esri-feature {
     border-radius: 16px 16px 0 0;
+    padding-bottom: 5px;
 }
 
 .esri-popup__content {

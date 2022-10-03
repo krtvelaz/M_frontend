@@ -1,84 +1,64 @@
 import { Popover } from 'antd';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { downloadExcel } from 'react-export-table-to-excel';
-import { Card, Table } from "../../../utils/ui";
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Table } from '../../../utils/ui';
 import ModalExport from '../compenents/bulletin/ModalExport';
 import { IEvent } from '../custom_types';
+import { actions } from '../redux';
 
 const ListNewsletters = () => {
+    const dispatch = useDispatch<any>();
+    const newsletters = useSelector((store: any) => store.event.newsletters.value);
+    const loading = useSelector((store: any) => store.event.newsletters.loading);
+    const { total } = useSelector((store: any) => store.event.newsletters.pagination);
 
-    const dataSource = [
-        {
-            key: '1',
-            email: 'micorreoconnombrelargo@midominio.com',
-            fecha: ' 05/03/2023',
+    const [filters, setFilters] = useState({
+        page: 1,
+        page_size: 10,
+    });
 
-        },
-        {
-            key: '2',
-            email: 'Will@gmail.com',
-            fecha: ' 06/03/2023',
+    const get_news_letters = async () => {
+        await dispatch(actions.get_list_bulletin(filters));
+    };
 
-        }, {
-            key: '3',
-            email: 'Mike@gmail.com',
-            fecha: ' 05/03/2023',
+    const change_page = (page: number, pageSize?: number) => {
+        setFilters({
+          page,
+          page_size: pageSize || 10
+        })
+        dispatch(actions.get_list_bulletin({page, page_size: pageSize}))
+      }
 
-        },
-        {
-            key: '4',
-            email: 'Will@gmail.com',
-            fecha: ' 06/03/2023',
-
-        }, {
-            key: '5',
-            email: 'Mike@gmail.com',
-            fecha: ' 05/03/2023',
-
-        },
-        {
-            key: '6',
-            email: 'Will@gmail.com',
-            fecha: ' 06/03/2023',
-
-        }, {
-            key: '7',
-            email: 'Mike@gmail.com',
-            fecha: ' 05/03/2023',
-
-        },
-        {
-            key: '8',
-            email: 'Will@gmail.com',
-            fecha: ' 06/03/2023',
-
-        },
-
-    ];
+    useEffect(() => {
+        get_news_letters();
+    }, []);
 
     const table_columns: any = [
         {
-            title: "No.",
-            fixed: "left",
-            align: "center" as "center",
-            render: (data: IEvent, values: any, i: number) => {
-                return i + 1;
-            },
+            title: 'No.',
+            fixed: 'left',
+            dataIndex: 'id',
+            align: 'center' as 'center',
+            // render: (data: IEvent, values: any, i: number) => {
+            //     return i + 1;
+            // },
         },
         {
-            title: "Correo electrónico",
-            dataIndex: "email",
-            align: "left" as "left",
+            title: 'Correo electrónico',
+            dataIndex: 'sub_email',
+            align: 'left' as 'left',
             with: '500px',
             render: (value: string) => {
                 return (
                     value &&
                     (value.length > 65 ? (
                         <Popover content={value}>
-                            <span
-                                style={{ cursor: "pointer" }}
-                                className="popover-span"
-                            >{`${value.substring(0, 64)}...`}</span>
+                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
+                                0,
+                                64
+                            )}...`}</span>
                         </Popover>
                     ) : (
                         value
@@ -87,59 +67,56 @@ const ListNewsletters = () => {
             },
         },
         {
-            title: "Fecha",
-            dataIndex: "fecha",
-            align: "left" as "left",
+            title: 'Fecha',
+            dataIndex: 'sub_created_at',
+            align: 'left' as 'left',
             render: (date: string) => {
-                return moment(date).format("DD / MM / YYYY")
+                return moment(date).format('DD / MM / YYYY');
             },
         },
     ];
 
-
-
     const handleDownloadExcel = () => {
         downloadExcel({
-            fileName: "Tabla-inscritos-boletines",
-            sheet: "Boletines",
+            fileName: 'Tabla-inscritos-boletines',
+            sheet: 'Boletines',
             tablePayload: {
                 header: ['id', 'email', 'fecha'],
-                body: dataSource
-            }
+                body: newsletters,
+            },
         });
-    }
+    };
     return (
         <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="row">
-                        <span style={{fontFamily: 'Montserrat-SemiBold', fontSize: '14px'}} className="col d-flex justify-content-start">
+                        <span
+                            style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px' }}
+                            className="col d-flex justify-content-start"
+                        >
                             Inscripciones a boletines
                         </span>
-
                     </div>
 
                     <Card>
                         <Table
-                            title='Lista de correos inscritos'
+                            title="Lista de correos inscritos"
                             columns={table_columns}
-                            items={dataSource}
+                            items={newsletters}
+                            change_page={change_page}
+                            count={total}
+                            loading={loading}
                             paginationTop
                         />
-                        <div style={{ position: 'relative', bottom: '49px', textAlign: 'start' }}>
-                            {/* <button
-                                type="button" className="btn btn-outline-primary"
-                                onClick={handleDownloadExcel}
-                            >Exportar Datos
-                            </button> */}
+                        <div style={{ position: 'relative', bottom: '49px', textAlign: 'start', width:'200px' }}>
                             <ModalExport />
                         </div>
                     </Card>
-
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ListNewsletters;

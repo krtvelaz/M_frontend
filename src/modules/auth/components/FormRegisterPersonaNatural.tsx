@@ -1,68 +1,72 @@
 import { Radio } from 'antd';
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik';
 import { FC } from 'react';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import { Card, ErrorMessage, Select } from '../../../utils/ui';
+import ModalAddress from '../../challenge/components/ModalAddress';
 import { IRegisterPersonaNatural } from '../custom_types';
 
 interface RegisterFormPros {
     innerRef: any;
-    // onSubmit: (values: any, form?: any) => any;
-    register?: IRegisterPersonaNatural
+    onSubmit: (values: any, form?: any) => any;
+    register?: IRegisterPersonaNatural;
 }
-const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef }) => {
+const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, onSubmit }) => {
     const initial_values = {
-        name: "",
-        last_name: "",
+        names: '',
+        surnames: '',
         document_type: null,
-        number_document: "",
+        document_number: '',
         gender: null,
-        email: "",
-        direccion_residencia: "",
-        type_contact: null,
-        number_contact: "",
-        radioPolitica:"",
-        ...register
+        email: '',
+        address: '',
+        contact_type: null,
+        contact_number: '',
+        radioPolitica: '',
+        country: null,
+        state: null,
+        city: null,
+        ...register,
     };
 
     const schema = Yup.object().shape({
-        name: Yup.string().required("Campo obligatorio").min(3,"Mínimo 3 caracteres"),
-        last_name: Yup.string().required("Campo obligatorio").min(3,"Mínimo 3 caracteres"),
-        document_type: Yup.string().nullable().required("Campo obligatorio"),
-        number_document: Yup.string().required("Campo obligatorio").min(7,"Mínimo 7 caracteres"),
-        gender: Yup.string().nullable().required("Campo obligatorio"),
-        email: Yup.string().email("Ingrese un correo electrónico valido").required("Campo obligatorio"),
-        direccion_residencia: Yup.string().required("Campo obligatorio"),
-        type_contact: Yup.string().nullable().required("Campo obligatorio"),
-        number_contact: Yup.string().required("Campo obligatorio").min(7,"Mínimo 7 caracteres"),
-        country: Yup.string().nullable().required("Campo obligatorio"),
+        names: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+        surnames: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+        document_type: Yup.string().nullable().required('Campo obligatorio'),
+        document_number: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        gender: Yup.string().nullable().required('Campo obligatorio'),
+        email: Yup.string().email('Ingrese un correo electrónico valido').required('Campo obligatorio'),
+        address: Yup.string().required('Campo obligatorio'),
+        contact_type: Yup.string().nullable().required('Campo obligatorio'),
+        contact_number: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        country: Yup.string().nullable().required('Campo obligatorio'),
+        state: Yup.string().nullable().required('Campo obligatorio'),
+        city: Yup.string().nullable().required('Campo obligatorio'),
         // radioPolitica: Yup.string().required("Debes aceptar las politicas para continuar")
     });
-    const submit = (values: any, form: any) => {
-        // onSubmit(values);
-       
-
+    const submit = async (values: any, form: any) => {
+       await  onSubmit(values, form);
     };
-  return (
-    <Formik
+    return (
+        <Formik
             enableReinitialize
-             onSubmit={submit}
+            onSubmit={submit}
             initialValues={initial_values}
             validationSchema={schema}
             innerRef={innerRef}
         >
             {({ handleChange, values }) => {
                 return (
-                     <Form>
-                        <div className='row'>
-                            <div className="col-3">
-                                <label htmlFor="name_id" className="form-label" >
+                    <Form>
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="name_id" className="form-label label-landing">
                                     Nombre(s)
                                 </label>
                                 <Field
                                     type="text"
                                     id="name_id"
-                                    name="name"
+                                    name="names"
                                     className="form-control"
                                     autoComplete="off"
                                     placeholder="Nombres"
@@ -70,26 +74,23 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
 
-                               
-                                <ErrorMessage name="name" withCount max={50} />
+                                <ErrorMessage name="names" withCount max={50} />
                             </div>
-                            <div className="col-3">
-                                <label htmlFor="last_name_id" className="form-label" >
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="last_name_id" className="form-label label-landing">
                                     Apellido(s)
                                 </label>
                                 <Field
                                     type="text"
                                     id="last_name_id"
-                                    name="last_name"
+                                    name="surnames"
                                     className="form-control"
                                     autoComplete="off"
                                     placeholder="Apellidos"
@@ -97,21 +98,17 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
 
-                               
-                                <ErrorMessage name="last_name" withCount max={50} />
+                                <ErrorMessage name="surnames" withCount max={50} />
                             </div>
-
-                            <div className="col-3">
-                                <label htmlFor="document_type_id" className="form-label ">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="document_type_id" className="form-label label-landing">
                                     Tipo de Documento
                                 </label>
                                 <div className="row">
@@ -128,30 +125,28 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                             }}
                                             options={[
                                                 {
-                                                    name: "C.C.",
-                                                    id: "C.C",
+                                                    name: 'C.C.',
+                                                    id: 1,
                                                 },
-                                                { name: "C.G.I.", id: "C.G.I." },
+                                                { name: 'C.G.I.', id: 2 },
                                                 {
-                                                    name: "NIT",
-                                                    id: "NIT",
+                                                    name: 'NIT',
+                                                    id: 3,
                                                 },
                                             ]}
                                             placeholder="C.C."
                                             filterOption={(input: any, option: any) => {
                                                 return (
-                                                    option?.children
-                                                        ?.toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
+                                                    option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                                 );
                                             }}
                                         />
-                                         <ErrorMessage name="document_type"  />
+                                        <ErrorMessage name="document_type" />
                                     </div>
                                     <div className="col">
                                         <Field
                                             type="text"
-                                            name="number_document"
+                                            name="document_number"
                                             id="number_document_id"
                                             className="form-control"
                                             autoComplete="off"
@@ -165,49 +160,37 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
-                                            }
-                                            }
+                                            }}
                                         />
-                                        <ErrorMessage name="number_document" withCount max={14} />
-                                    </div>    
+                                        <ErrorMessage name="document_number" withCount max={14} />
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="col-3 ">
-                                    <label htmlFor="gender_id" className="form-label">
-                                        Género
-                                    </label>
-                                    <Field
-                                        component={Select}
-                                        id="gender_id"
-                                        name="gender"
-                                        style={{ height: "38px" }}
-
-                                        options={[
-
-                                            { name: "Femenino", id: "Femenino" },
-                                            { name: "Másculino", id: "Másculino" },
-                                           
-
-                                        ]}
-                                        placeholder="Seleccione…"
-                                        filterOption={(input: any, option: any) => {
-                                            return (
-                                                option?.children
-                                                    ?.toLowerCase()
-                                                    .indexOf(input.toLowerCase()) >= 0
-                                            );
-                                        }}
-                                    />
-                                    <ErrorMessage name="gender" />
-                                </div>
-
-
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="gender_id" className="form-label label-landing">
+                                    Género
+                                </label>
+                                <Field
+                                    component={Select}
+                                    id="gender_id"
+                                    name="gender"
+                                    style={{ height: '38px' }}
+                                    options={[
+                                        { name: 'Femenino', id: 'F' },
+                                        { name: 'Másculino', id: 'M' },
+                                        { name: 'Otro', id: 'O' },
+                                    ]}
+                                    placeholder="Seleccione…"
+                                    filterOption={(input: any, option: any) => {
+                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                />
+                                <ErrorMessage name="gender" />
+                            </div>
                         </div>
-
-                        <div className='row'>
-                            <div className="col-3 col-md-6 col-lg-3">
-                                <label htmlFor="email_id" className="form-label">
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
                                 </label>
                                 <Field
@@ -216,42 +199,30 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                     name="email"
                                     className="form-control"
                                     autoComplete="off"
-                                    style={{ height: "38px" }}
+                                    style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
-
                                 />
                                 <ErrorMessage name="email" />
                             </div>
-
-                            <div className="col-6 col-md-6 col-lg-3">
-                                <label htmlFor="direccion_residencia_id" className="form-label">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="direccion_residencia_id" className="form-label label-landing">
                                     Dirección de residencia
                                 </label>
                                 <Field
+                                    component={ModalAddress}
                                     type="text"
-                                    id="direccion_residencia_id"
-                                    name="direccion_residencia"
                                     className="form-control"
                                     autoComplete="off"
                                     minLength={3}
                                     maxLength={100}
                                     placeholder="Ingrese una dirección..."
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
+                                    id="direccion_residencia_id"
+                                    name="address"
                                 />
-                                <ErrorMessage name="direccion_residencia" withCount max={100} />
+                                <ErrorMessage name="address" withCount max={100} />
                             </div>
-
-                            <div className="col-3">
-                                <label htmlFor="type_contact_id" className="form-label ">
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="type_contact_id" className="form-label label-landing">
                                     Número de contacto
                                 </label>
                                 <div className="row">
@@ -259,31 +230,29 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                         <Field
                                             component={Select}
                                             id="type_contact_id"
-                                            name="type_contact"
+                                            name="contact_type"
                                             className=""
                                             options={[
                                                 {
-                                                    name: "Fijo", id: "Fijo",
+                                                    name: 'Fijo',
+                                                    id: 'F',
                                                 },
-                                                { name: "Celular", id: "Celular" },
-
+                                                { name: 'Celular', id: 'M' },
                                             ]}
                                             placeholder="Seleccione..."
                                             filterOption={(input: any, option: any) => {
                                                 return (
-                                                    option?.children
-                                                        ?.toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
+                                                    option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                                 );
                                             }}
                                         />
-                                         <ErrorMessage name="type_contact" />
+                                        <ErrorMessage name="contact_type" />
                                     </div>
                                     <div className="col">
                                         <Field
                                             type="text"
                                             id="number_contact_id"
-                                            name="number_contact"
+                                            name="contact_number"
                                             className="form-control"
                                             autoComplete="off"
                                             placeholder="No. Digite el número de contacto."
@@ -296,133 +265,105 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({   register, innerRef
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
-                                            }
-                                            }
+                                            }}
                                         />
-                                        <ErrorMessage name="number_contact" withCount max={10} />
+                                        <ErrorMessage name="contact_number" withCount max={10} />
                                     </div>
-                                    
                                 </div>
-
                             </div>
-
-                            <div className="col-3 ">
-                                    <label htmlFor="country_id" className="form-label">
-                                        País
-                                    </label>
-                                    <Field
-                                        component={Select}
-                                        id="country_id"
-                                        name="country"
-                                        style={{ height: "38px" }}
-
-                                        options={[
-
-                                            { name: "Colombia", id: "Colombia" },
-                                            { name: "Brasil", id: "Brasil" },
-                                            { name: "Raizal", id: "Raizal" },
-                                            { name: "Indígena", id: "Indígena" },
-                                            { name: "Rom gitano", id: "Rom gitano" },
-                                            { name: "Ninguno", id: "Ninguno" },
-
-                                        ]}
-                                        placeholder="Seleccione…"
-                                        filterOption={(input: any, option: any) => {
-                                            return (
-                                                option?.children
-                                                    ?.toLowerCase()
-                                                    .indexOf(input.toLowerCase()) >= 0
-                                            );
-                                        }}
-                                    />
-                                    <ErrorMessage name="country" />
-                                </div>
+                            <div className="col-12 col-md-6 col-lg-3">
+                                <label htmlFor="country_id" className="form-label label-landing">
+                                    País
+                                </label>
+                                <Field
+                                    component={Select}
+                                    id="country_id"
+                                    name="country"
+                                    style={{ height: '38px' }}
+                                    options={[
+                                        { name: 'Colombia', id: 'CO' },
+                                        // { name: 'Brasil', id: 'Brasil' },
+                                        // { name: 'Raizal', id: 'Raizal' },
+                                        // { name: 'Indígena', id: 'Indígena' },
+                                        // { name: 'Rom gitano', id: 'Rom gitano' },
+                                        // { name: 'Ninguno', id: 'Ninguno' },
+                                    ]}
+                                    placeholder="Seleccione…"
+                                    filterOption={(input: any, option: any) => {
+                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                />
+                                <ErrorMessage name="country" />
+                            </div>
                         </div>
                         <div className="row">
-                        <div className="col-3 ">
-                                    <label htmlFor="country_id" className="form-label">
-                                        Departamento
-                                    </label>
-                                    <Field
-                                        component={Select}
-                                        id="country_id"
-                                        name="country"
-                                        style={{ height: "38px" }}
-                                        disabled={true}
-                                        options={[
+                            <div className="col-6 col-md-6 col-lg-3">
+                                <label htmlFor="state_id" className="form-label label-landing">
+                                    Departamento
+                                </label>
+                                <Field
+                                    component={Select}
+                                    id="country_id"
+                                    name="state"
+                                    style={{ height: '38px' }}
+                                    // disabled={true}
+                                    options={[
+                                        { name: 'Antioquia', id: 1 },
+                                        // { name: 'Brasil', id: 'Brasil' },
+                                        // { name: 'Raizal', id: 'Raizal' },
+                                        // { name: 'Indígena', id: 'Indígena' },
+                                        // { name: 'Rom gitano', id: 'Rom gitano' },
+                                        // { name: 'Ninguno', id: 'Ninguno' },
+                                    ]}
+                                    placeholder="Seleccione…"
+                                    filterOption={(input: any, option: any) => {
+                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                />
+                                <ErrorMessage name="state" />
+                            </div>
 
-                                            { name: "Colombia", id: "Colombia" },
-                                            { name: "Brasil", id: "Brasil" },
-                                            { name: "Raizal", id: "Raizal" },
-                                            { name: "Indígena", id: "Indígena" },
-                                            { name: "Rom gitano", id: "Rom gitano" },
-                                            { name: "Ninguno", id: "Ninguno" },
-
-                                        ]}
-                                        placeholder="Seleccione…"
-                                        filterOption={(input: any, option: any) => {
-                                            return (
-                                                option?.children
-                                                    ?.toLowerCase()
-                                                    .indexOf(input.toLowerCase()) >= 0
-                                            );
-                                        }}
-                                    />
-                                    <ErrorMessage name="country" />
-                                </div>
-
-                                <div className="col-3 ">
-                                    <label htmlFor="country_id" className="form-label">
-                                        Ciudad
-                                    </label>
-                                    <Field
-                                        component={Select}
-                                        id="country_id"
-                                        name="country"
-                                        style={{ height: "38px" }}
-                                        disabled={true}
-                                        options={[
-
-                                            { name: "Colombia", id: "Colombia" },
-                                            { name: "Brasil", id: "Brasil" },
-                                            { name: "Raizal", id: "Raizal" },
-                                            { name: "Indígena", id: "Indígena" },
-                                            { name: "Rom gitano", id: "Rom gitano" },
-                                            { name: "Ninguno", id: "Ninguno" },
-
-                                        ]}
-                                        placeholder="Seleccione…"
-                                        filterOption={(input: any, option: any) => {
-                                            return (
-                                                option?.children
-                                                    ?.toLowerCase()
-                                                    .indexOf(input.toLowerCase()) >= 0
-                                            );
-                                        }}
-                                    />
-                                    <ErrorMessage name="country" />
-                                </div>
+                            <div className="col-6 col-md-6 col-lg-3">
+                                <label htmlFor="city_id" className="form-label label-landing">
+                                    Ciudad
+                                </label>
+                                <Field
+                                    component={Select}
+                                    id="city_id"
+                                    name="city"
+                                    style={{ height: '38px' }}
+                                    // disabled={true}
+                                    options={[
+                                        { name: 'Medellin', id: 1 },
+                                        // { name: 'Brasil', id: 'Brasil' },
+                                        // { name: 'Raizal', id: 'Raizal' },
+                                        // { name: 'Indígena', id: 'Indígena' },
+                                        // { name: 'Rom gitano', id: 'Rom gitano' },
+                                        // { name: 'Ninguno', id: 'Ninguno' },
+                                    ]}
+                                    placeholder="Seleccione…"
+                                    filterOption={(input: any, option: any) => {
+                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                />
+                                <ErrorMessage name="city" />
+                            </div>
                         </div>
 
-                        <div className='row'>
-                        <div className=" ">
-                                
-                                    <Radio.Group name="radioPolitica" id='radioPolitica'  >
-                                        <Radio value="si"> Acepto Políticas de uso y los Términos y Condiciones</Radio>
-                                    </Radio.Group>
+                        <div className="row">
+                            <div className=" ">
+                                <Radio.Group name="radioPolitica" id="radioPolitica">
+                                    <Radio value="si"> Acepto Políticas de uso y los Términos y Condiciones</Radio>
+                                </Radio.Group>
 
-                                    <ErrorMessage name="radioPolitica" />
-                                </div>
+                                <ErrorMessage name="radioPolitica" />
+                            </div>
                         </div>
- 
                     </Form>
-                   
                 );
             }}
-
         </Formik>
+    );
+};
 
-  )
-}
-
-export default FormRegisterPersonaNatural
+export default FormRegisterPersonaNatural;

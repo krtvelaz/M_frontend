@@ -1,100 +1,95 @@
 import _Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer';
-import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
-import WebStyleSymbol from '@arcgis/core/symbols/WebStyleSymbol';
-import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
-import { text } from 'stream/consumers';
-import Color from '@arcgis/core/Color';
-import { bell, marcadorPosicion } from '../../assets/img';
+import { marcadorPosicion } from '../../assets/img';
 import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
-import { string } from 'yup/lib/locale';
-import { boolean } from 'yup';
-
-
+import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer';
+import { useEffect, useRef, useState } from 'react';
 
 const Map = () => {
+    const ref = useRef(false);
+    const [ view , set_view ] = useState<MapView>();
+    const geojson = {
+        type: 'FeatureCollection',
+        features: [
+            {
+                type: 'Feature',
+                id: 15,
+                properties: {
+                    cha_name: 'RETO PRUEBA?????',
+                    cha_impact_type: '',
+                    cha_commune: 'SANTA ELENA',
+                    cha_neighborhood: 'LA LOMA',
+                },
+                geometry: { type: 'Point', coordinates: [-75.58997744, 6.219193414] },
+            },
+            {
+                type: 'Feature',
+                id: 15,
+                properties: {
+                    cha_name: 'RETO PRUEBA',
+                    cha_impact_type: 'asdasdasdasd',
+                    cha_commune: 'SANTA ELENA',
+                    cha_neighborhood: 'LA LOMA',
+                },
+                geometry: { type: 'Point', coordinates: [-75.58997744, 6.219193414] },
+            },
+           
+        ],
+    };
 
-    
-    const layer = new FeatureLayer({
-        url: `https://www.medellin.gov.co/mapas/rest/services/ServiciosSuministros_y_Servicios/BienesInmuebles/MapServer/1/query?where=CBML%3D10130340011&f=geojson`,
-        // url: `https://medeinn-cms-ms.azurewebsites.net/api/v1/arcgis/events`,
-        fields:[
-            {
-               name:"OBJECTID",
-               alias : 'OBJECTID' ,
-               defaultValue :null
-            },
-            {
-               name: "cha_neighborhood",
-               alias: "cha_neighborhood",
-               length: 100,
-               defaultValue: null
-            },
-            {
-               name: "cha_name",
-               alias: "cha_name",
-               length: 100,
-               defaultValue: null
-            },
-            {
-               name: "cha_impact_type",
-               alias: "cha_impact_type",
-               length: 100,
-               defaultValue: null
-            },
-            {
-               name: "cha_commune",
-               alias: "cha_commune",
-               length: 100,
-               defaultValue: null
-            }
-         ],
-        // outFields: ['*'],
-        renderer: new SimpleRenderer({
-            symbol: new PictureMarkerSymbol({
-                url: `${marcadorPosicion}`,
-                width: '14px',
-                height: '14px',
-            }),
-        }),
-        popupTemplate: createPopupTemplate(),
+    const blob = new Blob([JSON.stringify(geojson)], {
+        type: 'application/json',
     });
 
-    console.log(layer);
-    
+    const url = URL.createObjectURL(blob);
 
-    const map = new _Map({
-        basemap: 'arcgis-light-gray',
-        layers: [layer],
-    });
+    useEffect(() => {
+        if (!ref.current) {
+            ref.current = true;
+        } else {
+            const geojsonLayer = new GeoJSONLayer({
+                url,
+                renderer: new SimpleRenderer({
+                    symbol: new PictureMarkerSymbol({
+                        url: `${marcadorPosicion}`,
+                        width: '14px',
+                        height: '14px',
+                    }),
+                }),
+                popupTemplate: createPopupTemplate(),
+            });
+            const _map = new _Map({
+                basemap: 'arcgis-light-gray',
+                layers: [geojsonLayer],
+            });
+            const _view = new MapView({
+                container: 'viewDiv',
+                map: _map,
+                center: [-75.567, 6.217], //latitud y longitud
+                zoom: 8,
+                padding: {
+                    right: 380,
+                },
+            });
+            set_view(_view);
+        }
+    }, [ref.current]);
 
-    const view = new MapView({
-        container: 'viewDiv',
-        map: map,
-        center: [-75.567, 6.217], //latitud y longitud
-        zoom: 15,
-        padding: {
-            right: 380,
-        },
-    });
 
     function createPopupTemplate() {
         return {
-            title: '{NOMBRE}',
-            // title: `<img  src='https://images.pexels.com/photos/13220874/pexels-photo-13220874.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load' alt='imagen reto'/>`,
             content: [
                 {
                     type: 'text',
                     text: `
                     <img className='img-arcgis-content'  src='https://images.pexels.com/photos/13220874/pexels-photo-13220874.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load' alt='imagen reto'/>
-                    <h4>Nombre del reto implementado</h4>
+                    <h4>{cha_name}</h4>
                     <p >
                         <label >Ubicación:</label>
-                        <label >Carrera 50 No.101 Sur 50</label>
+                        <label >{cha_commune} - {cha_neighborhood}</label>
                     </p>
-                    <p>Tipo de impacto: Descripción del impacto y solución del reto. Acá puede incluirse un video o llevarlo a una página interna.</p>
+                    <p>Tipo de impacto: {cha_impact_type}</p>
                     `,
                 },
             ],

@@ -19,7 +19,6 @@ const ListEvent = () => {
   const list_events: IEvent[] = useSelector(
     (store: any) => store.event.list_event.value
   );
-  console.log("resss",list_events)
   const loading: boolean = useSelector(
     (store: any) => store.event.list_event.loading
     );

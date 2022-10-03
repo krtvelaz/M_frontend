@@ -9,7 +9,7 @@ import { actions } from '../redux';
 export const useCreatePostulation = (
     type: 'create' | 'edit',
     postulation_data?: any
-): [string, any, any[], number, boolean, () => void, () => void, () => void, (key: string) => void, any, any] => {
+): [string, any, any[], number, boolean, () => void, () => void, () => void, (key: string) => void, any] => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch<any>();
@@ -35,52 +35,63 @@ export const useCreatePostulation = (
         membersPostulations: [
             {
                 gruint_names: '',
-                gruint_type_document: '',
+                gruint_type_document: null,
                 gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
+                gruint_sex: null,
+                gruint_identity: null,
+                gruint_orientation_sexual: null,
+                gruint_ethnicity: null,
                 gruint_victim: '',
                 gruint_disability: '',
             },
             {
                 gruint_names: '',
-                gruint_type_document: '',
+                gruint_type_document: null,
                 gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
+                gruint_sex: null,
+                gruint_identity: null,
+                gruint_orientation_sexual: null,
+                gruint_ethnicity: null,
                 gruint_victim: '',
                 gruint_disability: '',
             },
             {
                 gruint_names: '',
-                gruint_type_document: '',
+                gruint_type_document: null,
                 gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
+                gruint_sex: null,
+                gruint_identity: null,
+                gruint_orientation_sexual: null,
+                gruint_ethnicity: null,
                 gruint_victim: '',
                 gruint_disability: '',
             },
         ],
-        formats: [],
+        formats: [
+            {
+                retdoc_descripcion_documento: '',
+                retdoc_id_documento: '',
+                retdoc_id_tipo_documento: '',
+                retdoc_nombre_plantilla: '',
+                retdoc_nombre_tipo_documento: '',
+                retdoc_ruta_plantilla: '',
+                retdoc_tipo_formulario: '',
+                docPostulation: '',
+            },
+        ],
     };
 
     const [postulation, setPostulation] = useState(ls?.postulation ? ls.postulation : initial_values);
     const [max, set_max] = useState<number>(state?.max || 1);
     const [is_saving, set_is_saving] = useState<boolean>(false);
     const [go_next, set_go_next] = useState<string>('');
-    const ref = useRef<FormikProps<FormikValues>>();
 
     const steps = [
         {
+            ref: useRef<FormikProps<FormikValues>>(),
             save: async () => {
                 set_is_saving(true);
-                await ref.current?.submitForm();
+                await steps[0]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
                 try {
@@ -109,12 +120,12 @@ export const useCreatePostulation = (
             },
         },
         {
+            ref: useRef<FormikProps<FormikValues>>(),
             save: async () => {
                 set_is_saving(true);
-                await ref.current?.submitForm();
+                await steps[1]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
-
                 const membersSend = values.membersPostulations.map((member: any) => {
                     return {
                         ...member,
@@ -123,7 +134,9 @@ export const useCreatePostulation = (
                     };
                 });
                 try {
-                    const res = await dispatch(actions.create_memberPostulation(membersSend, postulation.applicant_data.id));
+                    const res = await dispatch(
+                        actions.create_memberPostulation(membersSend, postulation.applicant_data.id)
+                    );
                     setPostulation((data: any) => ({
                         ...data,
                         membersPostulations: values.membersPostulations,
@@ -135,11 +148,16 @@ export const useCreatePostulation = (
             },
         },
         {
+            ref: useRef<FormikProps<FormikValues>>(),
             save: async (is_finish?: boolean) => {
+                console.log('aquiiii');
+                
                 set_is_saving(true);
-                await ref.current?.submitForm();
+                await steps[2]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
+                console.log(values);
+
                 set_is_saving(false);
             },
         },
@@ -147,8 +165,11 @@ export const useCreatePostulation = (
     const limit = 3;
     const show_next = parseInt(active_key) < limit;
     const next_tab = () => {
+        
         const key = parseInt(active_key);
         const next = key + 1;
+        console.log(next);
+        
         if (next <= limit) {
             callback(`${next}`);
         }
@@ -164,6 +185,8 @@ export const useCreatePostulation = (
     const callback = (key: string, prev = false) => {
         const int_key = parseInt(active_key);
         const save = steps[int_key - 1]?.save;
+        
+        
 
         if (prev) {
             set_is_saving(false);
@@ -200,8 +223,6 @@ export const useCreatePostulation = (
 
     useEffect(() => {
         if (!is_saving && go_next) {
-            console.log('aquiiiiii');
-
             const key = parseInt(go_next);
             if (key > max) {
                 set_max(key);
@@ -230,6 +251,5 @@ export const useCreatePostulation = (
         execute_save,
         callback,
         setPostulation,
-        ref,
     ];
 };

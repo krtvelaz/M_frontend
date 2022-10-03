@@ -92,7 +92,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                                 : publication.pub_description}
                                                         </p>
                                                         <button
-                                                            className="btn btn-primary"
+                                                            className="btn btn-landing-primary"
                                                             onClick={() => {
                                                                 const hola = navigate(
                                                                     `../detail-publication/${publication?.id}`

@@ -65,8 +65,11 @@ const get_routes = (): IRoute[] => {
             template_props: {
                 breadcrumbs: [
                     {
-                        name: 'Retos y Postulaciones',
-                        to: '/postulation/challenge',
+                        name: 'Detalles del reto',
+                        
+                    },
+                    {
+                        name: 'postulación',                        
                     },
                     
                 ],

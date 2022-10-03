@@ -9,22 +9,22 @@ import DateInput from '../../../../utils/ui/DateInput';
 interface IPros {
     disabled?: boolean;
     innerRef: any;
-    onSubmit: (values: any) => any;
+    onSubmit: (values: any, actions: any) => any;
 }
 
 const FormExport: FC<IPros> = ({ onSubmit, innerRef, disabled }) => {
     const initialValues = {
-        start_date: '',
-        end_date: '',
+        from: '',
+        to: '',
     };
 
     const schema = Yup.object().shape({
-        start_date: Yup.string().required('Campo obligatorio'),
-        end_date: Yup.string().required('Campo obligatorio'),
+        from: Yup.string().required('Campo obligatorio'),
+        to: Yup.string().required('Campo obligatorio'),
     });
 
     const submit = async (values: any, actions: any) => {
-        await onSubmit(values);
+        await onSubmit(values, actions);
         actions.setSubmitting(false);
     };
     return (
@@ -37,10 +37,10 @@ const FormExport: FC<IPros> = ({ onSubmit, innerRef, disabled }) => {
         >
             {({ values }) => {
                 const disabledDate: TimeRangePickerProps['disabledDate'] = (current) => {
-                    return current && current < moment(values?.start_date).endOf('day');
+                    return current && current < moment(values?.from).endOf('day');
                 };
                 const disabledDateStart: TimeRangePickerProps['disabledDate'] = (current) => {
-                    return current && current > moment(values?.end_date).endOf('day');
+                    return current && current > moment(values?.to).endOf('day');
                 };
                 return (
                     <Form>
@@ -51,12 +51,12 @@ const FormExport: FC<IPros> = ({ onSubmit, innerRef, disabled }) => {
                                 </label>
                                 <Field
                                     component={DateInput}
-                                    name="start_date"
+                                    name="from"
                                     id="fecha_inicio_id"
                                     disabledDate={disabledDateStart}
                                 />
 
-                                <ErrorMessage name="start_date" />
+                                <ErrorMessage name="from" />
                             </div>
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="fecha_final_id" className="form-label">
@@ -64,11 +64,11 @@ const FormExport: FC<IPros> = ({ onSubmit, innerRef, disabled }) => {
                                 </label>
                                 <Field
                                     component={DateInput}
-                                    name="end_date"
+                                    name="to"
                                     id="fecha_final_id"
                                     disabledDate={disabledDate}
                                 />
-                                <ErrorMessage name="end_date" />
+                                <ErrorMessage name="to" />
                             </div>
                         </div>
                     </Form>

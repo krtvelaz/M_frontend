@@ -6,17 +6,24 @@ import Drawer from 'antd/lib/drawer';
 import { TemplateContext } from '../template/templateContext';
 import { useNavigate } from 'react-router-dom';
 import '../../../utils/assets/styles/landing.scss';
+import Breadcrumbs from './breadcrumbs';
+import { Breadcrumb } from '../router/custom_types';
+import ModalLogin from '../../../modules/auth/components/ModalLogin';
 
 interface ILanding {
+    breadcrumbs?: Breadcrumb[];
+    show_breadcrumbs?: boolean;
     children: any;
 }
 
-const LandingPage: FC<ILanding> = ({ children }) => {
+const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs }) => {
     const { Header, Content, Footer } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
+
     return (
         <>
+            <ModalLogin open={context.login_modal} toggle={context.toggle_login_modal} is_new_user={true} />
             <Layout className="w-100 h-100">
                 <Layout className="site-layout-landing">
                     <Header className="landing-header">
@@ -25,6 +32,18 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />
                         <div className="d-flex flex-column w-100">
+                            {show_breadcrumbs && (
+                                <div
+                                    className="d-flex justify-content-between align-items-center bar"
+                                    style={{
+                                        backgroundColor: '#FFFFFF',
+                                        padding: '4px 24px',
+                                        boxShadow: 'inset 0px 5px 3px #00000015',
+                                    }}
+                                >
+                                    <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
+                                </div>
+                            )}
                             <div className="content medeinn-main-content overflow-auto">
                                 {children}
                                 <AppFooter />
@@ -72,7 +91,10 @@ const LandingPage: FC<ILanding> = ({ children }) => {
                                     fontSize: '12px',
                                 }}
                                 key="Drawer-landing-3"
-                                onClick={() => navigate('../auth/login/')}
+                                onClick={() => {
+                                    context.toggle_login_modal();
+                                    context.drawer_close();
+                                }}
                             >
                                 Ingresar
                             </Menu.Item>
@@ -82,6 +104,10 @@ const LandingPage: FC<ILanding> = ({ children }) => {
             </Drawer>
         </>
     );
+};
+
+LandingPage.defaultProps = {
+    show_breadcrumbs: true,
 };
 
 export default LandingPage;

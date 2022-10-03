@@ -9,7 +9,7 @@ const ModalEvent = () => {
     const close = () => setvisible(false);
     return (
         <>
-        <button className="btn btn-primary me-3" onClick={open}>Asistiré</button>
+        <button className="btn btn-landing-primary me-3" onClick={open}>Asistiré</button>
         <Modal
             visible={visible}
             width={1000}

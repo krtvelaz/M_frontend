@@ -24,15 +24,22 @@ interface LinkButtonProps {
     avatar?: boolean;
     className?: string;
     onClick?: MouseEventHandler<HTMLSpanElement>;
+    color?: string;
 }
-export const LinkButton: FC<LinkButtonProps> = ({ name, icon, iconText, avatar, onClick, className }) => {
+
+export const LinkButton: FC<LinkButtonProps> = ({ name, icon, iconText, avatar, onClick, className, color }) => {
     const has_icon = icon || iconText;
     const axu_class = ['d-flex justify-content-center align-items-center component-link', className].join(' ');
     return (
-        <span className={axu_class} onClick={onClick}>
+        <span className={axu_class} onClick={onClick} style={{color: `${color}`}}>
             <span style={{ cursor: 'pointer' }}>{name}</span>
             {has_icon && avatar && (
-                <Avatar className="ms-2 text-white link-avatar" size={28} icon={icon} style={{ backgroundColor: '#1D98D1' }}>
+                <Avatar
+                    className="ms-2 text-white link-avatar"
+                    size={28}
+                    icon={icon}
+                    style={{ backgroundColor: `${color}` }}
+                >
                     {iconText}
                 </Avatar>
             )}
@@ -43,4 +50,7 @@ export const LinkButton: FC<LinkButtonProps> = ({ name, icon, iconText, avatar, 
             )}
         </span>
     );
+};
+LinkButton.defaultProps = {
+    color: '#1D98D1',
 };

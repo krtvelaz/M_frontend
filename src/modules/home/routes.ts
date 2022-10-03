@@ -35,6 +35,10 @@ const get_routes = (): IRoute[] => {
             format: true,
             can_access: guards.logOut,
             path: '/',
+            template_props: {
+                show_breadcrumbs: false
+            },
+            
             component: Homepage,
         },
         {
@@ -56,6 +60,11 @@ const get_routes = (): IRoute[] => {
             format: true,
             can_access: guards.logOut,
             path: '/calendar-events',
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Calendario de eventos' },
+                ],
+            },
             component: CalendarEvents,
         },
     ];

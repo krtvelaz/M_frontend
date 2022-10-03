@@ -37,7 +37,7 @@ const PopoverEvent:FC<ICardProps> = ({ event, children }) => {
                         <div className="mt-4 d-flex justify-content-end">
                             <div className="" style={{marginRight: '50px', color: '#FF8403', fontFamily: 'Montserrat-SemiBold', marginTop: '10px'}}>{event?.eve_attendance_limit === true ? ` Cupos limitados ${event?.eve_attendance_quota} `  : 'Cupos ilimitados'}</div>
                            
-                            <button className="btn btn-primary me-3"
+                            <button className="btn btn-landing-primary me-3"
                             onClick={() => {
                                 window.open('https://forms.office.com/r/qBLYjsgrm8', '_blank')
                             }}

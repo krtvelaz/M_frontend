@@ -1,26 +1,57 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../../../utils/ui';
+import { actions } from '../redux';
 import ModalAssignRole from './ModalAssignRole';
 
 const TableUser = () => {
+    const users: any[] = useSelector((store: any) => store.user.list_users.value);
+    const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
+    const {total}: any = useSelector((store: any) => store.user.list_users.pagination);
+    const dispatch = useDispatch<any>();
+    const [filters, setFilters] = useState({
+        page: 1,
+        page_size: 10,
+    });
+    
+    useEffect(() => {
+        get_users();
+    }, []);
+
+    const get_users = async () => {
+        await dispatch(actions.get_list_users(filters));
+    };
+
+    const change_page = (page: number, pageSize?: number) => {
+        setFilters({
+          page,
+          page_size: pageSize || 10
+        })
+        dispatch(actions.get_list_users({page, page_size: pageSize}))
+      }
+
     const table_columns: any = [
         {
             title: 'No.',
             dataIndex: 'id',
             align: 'left' as 'left',
+            render: (data: any, values: any, i: number) => {
+                return i + 1;
+            },
         },
         {
             title: 'Nombre completo',
-            dataIndex: 'name',
+            dataIndex: 'use_email',
             align: 'left' as 'left',
         },
         {
             title: 'Usuario',
-            dataIndex: 'user',
+            dataIndex: 'use_id',
             align: 'left' as 'left',
         },
         {
             title: 'Rol asignado',
-            dataIndex: 'role',
+            dataIndex: 'use_id_role',
             align: 'left' as 'left',
         },
         {
@@ -28,7 +59,7 @@ const TableUser = () => {
             align: 'center' as 'center',
             // fixed: 'right',
             render: () => {
-                return <ModalAssignRole type='change' />;
+                return <ModalAssignRole type="change" />;
             },
         },
     ];
@@ -37,10 +68,12 @@ const TableUser = () => {
             <Table
                 title="Usuarios con roles asignados"
                 paginationTop
+                change_page={change_page}
                 columns={table_columns}
-                items={[{ id: 1, name: 'Luisa María Sánchez Cadavid', user: '101719606', role: 'Super administrador' }]}
+                items={users}
                 with_pagination
-                loading={false}
+                count={total}
+                loading={loading}
             />
         </>
     );

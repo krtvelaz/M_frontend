@@ -82,11 +82,8 @@ const get_routes = (): IRoute[] => {
             path: '/detail-publication/:id',
             template_props: {
                 breadcrumbs: [
-                    {
-                        name: 'Gestionar publicaciones',
-                        to: '/publication/list',
-                    },
-                    { name: 'Editar publicación' },
+                    
+                    { name: 'Detalles de la publicación' },
                 ],
             },
             component: DetailPublication,

@@ -1,7 +1,7 @@
 import { Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
 import { FC, useRef, useState } from 'react';
-import { Modal } from 'antd';
+import { Divider, Modal } from 'antd';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
 import { FieldProps } from 'formik';
 import * as Yup from 'yup';
@@ -83,7 +83,11 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 {field.value}
             </div>
             <Modal
-                title="Ingrese la dirección"
+                title={
+                   <>
+                   <div style={{fontFamily: 'Montserrat-Bold', fontSize: '16px'}}>Ingrese la dirección</div>
+                   </>
+                }
                 visible={is_visible}
                 width={1000}
                 onCancel={() => {
@@ -92,13 +96,13 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 }}
                 footer={[
                     <>
-                        <button className="btn btn-outline-primary me-3" onClick={close}>
+                        <button className="btn btn-outline-landing-primary me-3" onClick={close}>
                             Cancelar
                         </button>
                         <button
                             onClick={() => form_ref.current?.submitForm()}
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-landing-primary"
                         >
                             Aceptar
                         </button>
@@ -112,7 +116,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                             <Form>
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="tipo_via_id">Tipo de vía</label>
+                                        <label htmlFor="tipo_via_id"  style={{fontFamily: 'Montserrat-Bold', fontSize: '14px'}}>Tipo de vía</label>
                                         <Field
                                             component={Select}
                                             maxTagCount="responsive"

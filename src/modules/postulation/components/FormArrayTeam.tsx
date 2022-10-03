@@ -1,54 +1,55 @@
 import { FieldArray, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import * as Yup from 'yup';
+import { LinkButton } from '../../../utils/ui/Link';
 import FormTeam from './FormTeam';
 
 interface FormIProps {
-    postulation?: any
+    postulation?: any;
     innerRef: any;
     onSubmit: (values: any, actions: any) => any;
 }
 
-const FormArrayTeam: FC<FormIProps> = ({innerRef, onSubmit, postulation }) => {
-
-    const [buttonVisible, setButtonVisible] = useState<boolean>(true);
-
+const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
+ 
     const initial_values = {
-        membersPostulations: postulation ? postulation : [
-            {
-                gruint_names: '',
-                gruint_type_document: '',
-                gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
-                gruint_victim: '',
-                gruint_disability: '',
-            },
-            {
-                gruint_names: '',
-                gruint_type_document: '',
-                gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
-                gruint_victim: '',
-                gruint_disability: '',
-            },
-            {
-                gruint_names: '',
-                gruint_type_document: '',
-                gruint_document: '',
-                gruint_sex: '',
-                gruint_identity: '',
-                gruint_orientation_sexual: '',
-                gruint_ethnicity: '',
-                gruint_victim: '',
-                gruint_disability: '',
-            },
-        ],
+        membersPostulations: postulation
+            ? postulation
+            : [
+                  {
+                      gruint_names: '',
+                      gruint_type_document: null,
+                      gruint_document: '',
+                      gruint_sex: null,
+                      gruint_identity: null,
+                      gruint_orientation_sexual: null,
+                      gruint_ethnicity: null,
+                      gruint_victim: '',
+                      gruint_disability: '',
+                  },
+                  {
+                      gruint_names: '',
+                      gruint_type_document: null,
+                      gruint_document: '',
+                      gruint_sex: null,
+                      gruint_identity: null,
+                      gruint_orientation_sexual: null,
+                      gruint_ethnicity: null,
+                      gruint_victim: '',
+                      gruint_disability: '',
+                  },
+                  {
+                      gruint_names: '',
+                      gruint_type_document: null,
+                      gruint_document: '',
+                      gruint_sex: null,
+                      gruint_identity: null,
+                      gruint_orientation_sexual: null,
+                      gruint_ethnicity: null,
+                      gruint_victim: '',
+                      gruint_disability: '',
+                  },
+              ],
     };
     const schema = Yup.object().shape({
         membersPostulations: Yup.array().of(
@@ -66,7 +67,6 @@ const FormArrayTeam: FC<FormIProps> = ({innerRef, onSubmit, postulation }) => {
         ),
     });
 
-    
     function onChangeTickets(values: any, setValues: any) {
         if (values.membersPostulations.length <= 4) {
             const membersPostulations = [...values.membersPostulations];
@@ -82,9 +82,18 @@ const FormArrayTeam: FC<FormIProps> = ({innerRef, onSubmit, postulation }) => {
                 gruint_disability: '',
             });
             setValues({ ...values, membersPostulations });
-            values.membersPostulations.length === 4 && setButtonVisible(false);
         }
     }
+
+    const removeForm = (setValues: any, index_remove: number) => {
+        setValues((data: any) => {
+            return {
+                membersPostulations: data?.membersPostulations?.filter(
+                    (value: any, index: number) => index !== index_remove
+                ),
+            };
+        });
+    };
     return (
         <Formik
             enableReinitialize
@@ -95,26 +104,44 @@ const FormArrayTeam: FC<FormIProps> = ({innerRef, onSubmit, postulation }) => {
             initialValues={initial_values}
         >
             {({ handleChange, values, setValues }) => {
+                console.log(values);
+                
                 return (
                     <Form>
                         <FieldArray name="membersPostulations">
                             {() =>
                                 values.membersPostulations.map((data: any, i: number) => (
                                     <>
-                                    <div style={{fontFamily: 'Montserrat-SemiBold', fontSize: '14px'}}>{`Participante ${i+1}`}</div>
-                                    <hr />
-                                    <FormTeam key={i} handleChange={handleChange} i={i} />
+                                        <div className="row">
+                                            <div
+                                                className="col"
+                                                style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px' }}
+                                            >{`Participante ${i + 1}`}</div>
+                                            {i > 1 && (
+                                                <div
+                                                    className="col"
+                                                    style={{ textAlign: 'end', color: 'rgb(173, 8, 8)' }}
+                                                    onClick={() => removeForm(setValues, i)}
+                                                >
+                                                    <i className="fa fa-times" aria-hidden="true"/>
+                                                    <span> eliminar </span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <hr />
+
+                                        <FormTeam key={i} handleChange={handleChange} i={i} />
                                     </>
-                                    
                                 ))
                             }
                         </FieldArray>
-                        {buttonVisible && (
+                        {values?.membersPostulations?.length < 5 && (
                             <div style={{ display: 'flex', justifyContent: 'end' }}>
-                                <span style={{ padding: '2%', color: '#FF8403' }}>Agegar otro participante</span>
+                                <LinkButton className='my-5' color='#FF8403' onClick={() => onChangeTickets(values, setValues)} name='Agegar otro participante' iconText='+' avatar  />
+                                {/* <span style={{ padding: '2%', color: '#FF8403' }}>Agegar otro participante</span>
                                 <button
                                     type="button"
-                                    onClick={() => onChangeTickets(values, setValues)}
+                                    
                                     style={{
                                         borderRadius: '50%',
                                         color: 'white',
@@ -128,7 +155,7 @@ const FormArrayTeam: FC<FormIProps> = ({innerRef, onSubmit, postulation }) => {
                                     }}
                                 >
                                     +
-                                </button>
+                                </button> */}
                             </div>
                         )}
                     </Form>

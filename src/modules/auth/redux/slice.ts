@@ -18,8 +18,8 @@ const initialState: State = {
     },
 };
 
-export const userSlice = createSlice({
-    name: 'user',
+export const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
         loading_user: (state) => {
@@ -63,4 +63,4 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { loading_user, success_user, fail_user, logOut } = userSlice.actions;
+export const { loading_user, success_user, fail_user, logOut } = authSlice.actions;

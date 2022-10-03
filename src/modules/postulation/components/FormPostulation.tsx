@@ -80,7 +80,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                     <Form>
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="name_id" className="form-label">
+                                <label htmlFor="name_id" className="form-label label-landing">
                                     Nombre o razón social
                                 </label>
                                 <Field
@@ -109,18 +109,18 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             fontFamily: 'Montserrat',
                                         }}
                                     >
-                                        En caso de eqipo de innovadores elija un responsable y escriba su nombre
+                                        En caso de equipo de innovadores elija un responsable y escriba su nombre
                                     </span>
                                 </label>
                                 <ErrorMessage name="name" />
                             </div>
 
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="document_type_id" className="form-label ">
+                                <label htmlFor="document_type_id" className="form-label label-landing">
                                     Tipo de Documento
                                 </label>
                                 <div className="row">
-                                    <div className="col col-md-2">
+                                    <div className="col col-md-3">
                                         <Field
                                             component={Select}
                                             id="document_type_id"
@@ -160,7 +160,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                         </div>
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="type_profiles_id" className="form-label">
+                                <label htmlFor="type_profiles_id" className="form-label label-landing">
                                     Tipo de persona
                                 </label>
                                 <Field
@@ -175,7 +175,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                             </div>
 
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="email_id" className="form-label">
+                                <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
                                 </label>
                                 <Field
@@ -193,15 +193,16 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
 
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="type_contact_id" className="form-label ">
+                                <label htmlFor="type_contact_id" className="form-label label-landing">
                                     Número de contacto
                                 </label>
                                 <div className="row">
-                                    <div className="col col-md-3">
+                                    <div className="col col-md-4">
                                         <Field
                                             component={Select}
                                             id="type_contact_id"
                                             name="type_contact"
+                                            placeholder='Seleccione...'
                                             className=""
                                             dropdownMatchSelectWidth={false}
                                             options={typeNumberContact.map((typeNumber: any) => ({
@@ -236,7 +237,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                             </div>
 
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="direction_id" className="form-label">
+                                <label htmlFor="direction_id" className="form-label label-landing">
                                     Dirección de contacto o sede del postulante
                                 </label>
                                 <Field

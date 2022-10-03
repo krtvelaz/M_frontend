@@ -44,7 +44,7 @@ const CarouselEvent = () => {
                     {paginationCarousel.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
                                 <div className="container">
-                                    <div className="row">
+                                    <div className="row justify-content-center">
                                         {events.length > 0 ? (
                                             events.map((event: any, index: number) => (
                                                 <div className="col-12 col-md-4 col-lg-4" key={`card-event-${index}`}>

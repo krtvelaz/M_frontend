@@ -197,7 +197,7 @@ const get__profiles = () => {
         }
     };
 };
-const addDocumentPostulation = (file: any, data: any,i: number) => {
+const addDocumentPostulation = (file: any, data: any) => {
     return async (dispatch: any) => {
         dispatch(addDoc_default());
 
@@ -214,7 +214,7 @@ const addDocumentPostulation = (file: any, data: any,i: number) => {
                     'Access-Control-Allow-Headers': 'Content-Type',
                 },
             });
-            dispatch(addDoc_success({...res.data.data, i}));
+            dispatch(addDoc_success({...res.data.data}));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -335,6 +335,19 @@ const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
 </table>`;
 };
 
+export const get_document_challenge = (id: number, type?: string) => {
+    return async (dispatch: any) => {
+      try {
+        const URI =
+          type === "report" ? `/informs/pdf/${id}` : `/documents/download/${id}`;
+        const res: any = await http.get(URI, { responseType: 'blob', });
+        return res.data;
+      } catch (error) {
+        return Promise.reject("Error");
+      }
+    };
+  };
+
 const deleteDocumentPostulation = (data: any) => {
     return async (dispatch: any) => {
         dispatch(deleteDoc_default());
@@ -380,5 +393,6 @@ const actions = {
     get__sexual_orientation,
     generate_settled,
     deleteDocumentPostulation,
+    get_document_challenge
 };
 export default actions;

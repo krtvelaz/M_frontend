@@ -1,65 +1,33 @@
-import { Button, Modal } from 'antd';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { Modal } from 'antd';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoMedeinnLogin } from '../../../utils/assets/img';
-import actions from '../redux/actions';
-import FormLoginCopy from './FormLoginCopy';
+import FormLogin from './FormLogin';
 
+export interface LoginModalProps {
+    open?: boolean;
+    toggle?: () => void;
+    is_new_user: boolean;
+}
 
-const ModalLogin = () => {
-    const [alert, set_alert] = useState<string>();
-    const dispatch = useDispatch<any>();
+const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
+
     const navigate = useNavigate();
-    const onLogin = async (values: any) => {
-        navigate('../home', { replace: true });
+    
 
-        // const promise: any = dispatch(actions.login(values.email, values.password));
-        // await promise
-        //     .then((res: any) => {
-        //         navigate('../home', { replace: true });
-
-        //     })
-        //     .catch((e: any) => {                                
-        //         set_alert(e?.response?.data?.message);
-        //     });
-    };
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                Open Modal
-            </Button>
-            <Modal
-
-                footer={false}
-                title="" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal visible={open} footer={null} onCancel={toggle} title="" >
                 <div className="row" style={{ height: '100vh' }}>
-
                     <div className="col mt-5">
                         <div className="container-form-login mx-auto" style={{ width: 300 }}>
                             <div className="container-center text-center mb-4">
                                 <img className="image-logo-container-login" src={logoMedeinnLogin} />
                             </div>
-                            <h5 className="sub-header-login text-center">
-                                Ingrese sus datos para iniciar sesión
-                            </h5>
+                            <h5 className="sub-header-login text-center mb-5">Ingrese sus datos para iniciar sesión</h5>
                             <div className="form-login">
-
-                                <FormLoginCopy onSubmit={onLogin} alert={alert} />
+                                <FormLogin toggle={toggle} />
                                 <div
                                     className="row"
                                     style={{
@@ -68,22 +36,27 @@ const ModalLogin = () => {
                                     }}
                                 >
                                     <div className="col text-center">
-                                        <p>Si aún no tienes usuario <a style={{ font: 'Montserrat', color: '#41A0FF' }}  onClick={()=>  navigate('../auth/register', { replace: true })}>Regístrate</a></p>
-
+                                        <p>
+                                            Si aún no tienes usuario{' '}
+                                            <a
+                                                style={{ font: 'Montserrat', color: '#41A0FF' }}
+                                                onClick={() => {
+                                                    console.log('ir a registrar');
+                                                    navigate(`../auth/register/`);
+                                                   if(toggle) toggle();
+                                                   
+                                                }}
+                                                // onClick={() => navigate('../auth/register', { replace: true })}
+                                            >
+                                                Regístrate
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col ">
-                                        {/* <button
-                                    type="button"
-                                    className="btn btn-outline-primary my-3"
-                                    onClick={() => (window.location.href = 'http://localhost:3000/auth/signup')}
-                                >
-                                    Registrarme
-                                </button> */}
+                                       
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -91,7 +64,7 @@ const ModalLogin = () => {
                 </div>
             </Modal>
         </>
-    )
-}
+    );
+};
 
-export default ModalLogin
+export default ModalLogin;
