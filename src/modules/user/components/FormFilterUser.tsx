@@ -12,12 +12,12 @@ interface IPros {
 
 const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
     const initialValues = {
-        cha_announcement: '',
-        cha_name: '',
+        role: null,
+        document: '',
     };
 
     const schema = Yup.object().shape({
-        cha_announcement: Yup.number().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
+        // role: Yup.string().nullable().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
     });
 
     const submit = async (values: any, actions: any) => {
@@ -43,7 +43,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                 <Field
                                     type="text"
                                     id="ret_nombre_id"
-                                    name="cha_name"
+                                    name="document"
                                     className="form-control"
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
@@ -58,44 +58,41 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="cha_name" withCount max={80} />
+                                <ErrorMessage name="document" withCount max={80} />
                             </div>
 
                             {type !== 'assign' ? (
                                 <div className="col-12 col-md-6 col-lg-6">
-                                    <label htmlFor="ret_perfil_id" className="form-label">
+                                    <label htmlFor="role_id" className="form-label">
                                         {type === 'change' ? 'Seleccionar rol' : 'Rol'}
                                     </label>
                                     <Field
                                         component={Select}
                                         maxTagCount="responsive"
-                                        showArrow
                                         dropdownMatchSelectWidth={false}
-                                        id="ret_perfil_id"
-                                        name="cha_profiles"
-                                        className=""
+                                        id="role_id"
+                                        name="role"
                                         options={[
                                             {
                                                 id: 1,
                                                 name: 'Super administrador',
                                             },
                                             {
-                                                id: 1,
+                                                id: 2,
                                                 name: 'Administrador',
                                             },
                                             {
-                                                id: 1,
+                                                id: 3,
                                                 name: 'Invitado',
                                             },
                                         ]}
                                         placeholder="Seleccione uno o más perfiles…"
-                                        mode="multiple"
                                         showSearch
                                         filterOption={(input: any, option: any) => {
                                             return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                         }}
                                     />
-                                    <ErrorMessage name="cha_profiles" />
+                                    <ErrorMessage name="role" />
                                 </div>
                             ) : (
                                 <div className="col-12 col-md-2" style={{marginTop: '25px'}}>

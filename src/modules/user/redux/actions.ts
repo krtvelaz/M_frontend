@@ -2,10 +2,12 @@ import { auth_http } from '../../../config/axios_instances';
 import { default_list_users, fail_list_users, success_list_users } from './slice';
 
 interface filter {
-    page: number;
+    page?: number;
     page_size?: number;
     order_by_key?:  string;
     order_by_value?: string;
+    document?: string;
+    role?: string | number;
     is_published?: boolean;
 }
 

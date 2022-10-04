@@ -10,11 +10,11 @@ import { IResetPassword } from '../custom_types';
 
 interface ResetPasswordFormPros {
     innerRef: any;
-    // onSubmit: (values: any, form?: any) => any;
+    onSubmit: (values: any, form?: any) => any;
     disabled?: boolean;
     resetPassword?: IResetPassword;
 }
-const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, resetPassword }) => {
+const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, resetPassword, onSubmit }) => {
     const [minuscula, setMinuscula] = useState(/^(?=.*[a-z])/)
     const [mayuscula, setMayuscula] = useState(/^(?=.*[A-Z])/)
     const [numero, setNumero] = useState(/^(?=.*[0-9])/)
@@ -25,12 +25,13 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
     const [type, setType] = useState(0);
     const [type2, setType2] = useState(0);
     const initialValues = {
-        user: '12345678',
+        user: '1000200500',
         password: '',
         confirmPassword: '',
         ...resetPassword
     };
-    const submit = (values: any) => {
+    const submit = async (values: any) => {
+        await onSubmit(values)
     };
 
     const schema = Yup.object().shape({

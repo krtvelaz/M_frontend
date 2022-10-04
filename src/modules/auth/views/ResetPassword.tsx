@@ -1,11 +1,28 @@
 import { FormikProps, FormikValues } from 'formik';
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '../../../utils/ui';
 import FormLostPassword from '../components/FormLostPassword';
 import FormResetPassword from '../components/FormResetPassword';
+import { actions } from '../redux';
 
 const ResetPassword = () => {
     const form_ref = useRef<FormikProps<FormikValues>>();
+    const dispatch = useDispatch<any>();
+    const navigate = useNavigate();
+
+    const onRestPassword = async (values: any) => {
+        const reult: any = dispatch(actions.change_password(values.user, values.confirmPassword, values.password));
+        await reult
+            .then((res: any) => {
+                navigate('../', { replace: true });
+                
+            })
+            .catch((e: any) => {                                
+                // set_alert(e?.response?.data?.message);
+            });
+    }
 
     return (
         <div className="box-resetPaswword">
@@ -27,7 +44,7 @@ const ResetPassword = () => {
                             <div className='mt-3'  style={{ fontSize: '17px' }}>Actualizar datos</div>
                             <hr style={{ border: '1px solid #FF8403' }} />
                             
-                            <FormResetPassword innerRef={form_ref} />
+                            <FormResetPassword innerRef={form_ref} onSubmit={onRestPassword} />
                             <hr />
                             <div className="text-end">
                                 <button
