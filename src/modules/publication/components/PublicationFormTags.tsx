@@ -16,10 +16,21 @@ interface ITagsPublication {
 
 const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) => {
     const { TabPane } = Tabs;
-    let [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication] =
-        useInit(type, publication_data); // agregar o no  el publication_data y type
+    let [
+        active_key,
+        publication,
+        steps,
+        max,
+        show_next,
+        next_tab,
+        goBack,
+        execute_save,
+        callback,
+        setPublication,
+    ] = useInit(type, publication_data, ); // agregar o no  el publication_data y type
 
-    const loading = useSelector((store: any) => store.event.publication.loading);    
+    const loading = useSelector((store: any) => store.publication.publication.loading);
+
 
     return (
         <>
@@ -32,7 +43,17 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                             </span>
                         </div>
                         <div className="">
-                            <Tabs activeKey={active_key} className="w-100 h-100" onChange={callback}>
+                            <Tabs
+                                activeKey={active_key}
+                                className="w-100 h-100"
+                                onChange={callback}
+                                tabBarStyle={{
+                                    background: '#fff',
+                                    paddingLeft: '20px',
+                                    fontSize: '13px',
+                                    marginBottom: 0,
+                                }}
+                            >
                                 <TabPane tab="Información general" key="1">
                                     <GeneralInformation
                                         innerRef={steps[0].ref}
@@ -63,16 +84,27 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                         <button
                             type="button"
                             className="btn btn-outline-primary me-3"
-                            onClick={next_tab}
+                            onClick={() => {next_tab(false)}}
                             disabled={loading}
                         >
-                            Agregar Galería
+                            Guardar y continuar
                             {loading && (
                                 <i
                                     className="fa fa-circle-o-notch fa-spin"
-                                    style={{ fontSize: 12, marginLeft: 4, color: '#603CE6' }}
+                                    style={{ fontSize: 12, marginLeft: 10, color: '#1D98D1' }}
                                 />
                             )}
+                        </button>
+                    )}
+                    {(publication.general_information.id || type === 'edit') && show_next && (
+                        <button
+                            type="button"
+                            className="btn btn-primary me-3"
+                            onClick={async() => {
+                                next_tab(true);
+                            }}
+                        >
+                            continuar
                         </button>
                     )}
                     {!show_next && (
@@ -88,8 +120,8 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
 
 const useInit = (
     type: 'create' | 'edit',
-    publication_data?: IPublication
-): [string, any, any[], number, boolean, () => void, () => void, () => void, (key: string) => void, any] => {
+    publication_data?: IPublication,
+): [string, any, any[], number, boolean, (edit?: boolean) => any, () => void, () => void, (key: string) => void, any, ] => {
     const dispatch = useDispatch<any>();
 
     const navigate = useNavigate();
@@ -106,13 +138,9 @@ const useInit = (
 
     const initial_values: IPublication = {
         general_information: {
-            hec_id_tipo_publicacion: '',
-            hec_titulo: '',
-            hec_autor: '',
-            hec_descripcion: '',
-            hec_nombre_imagen_principal: '',
-            hec_ruta_imagen_principal: '',
-            hec_nombre_imagen: '',
+            pub_title: '',
+            pub_description: '',
+            pub_author: '',
             ...publication_data,
         },
         gallery: [],
@@ -128,6 +156,7 @@ const useInit = (
             ref: useRef<FormikProps<FormikValues>>(),
             save: async (back: boolean) => {
                 set_is_saving(true);
+                
                 await steps[0].ref.current?.submitForm();
             },
             onSave: async (values: IGeneralInfo) => {
@@ -136,21 +165,27 @@ const useInit = (
                     setPublication((data: IPublication) => {
                         return {
                             ...data,
-                            general_information: result,
+                            general_information: {
+                                ... result,
+                                pub_imagen: values.pub_imagen,
+                                pub_type: values.pub_type,
+
+                            }
                         };
                     });
                 } else {
-                    await dispatch(actions.edit_publication(values));
-
-                    // Descomentar una vez el editar regrese la info.
-                    // const result = await dispatch(actions.edit_publication(values));
-
-                    // setPublication((data: IPublication) => {
-                    //     return {
-                    //         ...data,
-                    //         general_information: result,
-                    //     };
-                    // });
+                    
+                    const result = await dispatch(actions.edit_publication(values));                    
+                    setPublication((data: IPublication) => {
+                        return {
+                            ...data,
+                            general_information: {
+                                ...result,
+                                pub_imagen: values.pub_imagen,
+                                pub_type: values.pub_type,
+                            },
+                        };
+                    });
                 }
 
                 set_is_saving(false);
@@ -192,9 +227,14 @@ const useInit = (
     ];
     const limit = 2;
     const show_next = parseInt(active_key) < limit;
-    const next_tab = () => {
+    const next_tab = (edit?: boolean) => {
         const next = parseInt(active_key) + 1;
         if (next <= limit) {
+            if(edit) {
+                set_go_next(`${next}`);
+                set_is_saving(false);
+                return;
+            }
             callback(`${next}`);
         }
     };
@@ -210,6 +250,7 @@ const useInit = (
     const callback = (key: string, back = false) => {
         const int_key = parseInt(active_key);
         const save = steps[int_key - 1]?.save;
+       
         save &&
             save(back).then(() => {
                 set_go_next(key);
@@ -229,6 +270,7 @@ const useInit = (
     };
 
     useEffect(() => {
+        
         if (!is_saving && go_next) {
             const key = parseInt(go_next);
             if (key > max) {
@@ -257,7 +299,18 @@ const useInit = (
         }
     }, [publication_data]);
 
-    return [active_key, publication, steps, max, show_next, next_tab, goBack, execute_save, callback, setPublication];
+    return [
+        active_key,
+        publication,
+        steps,
+        max,
+        show_next,
+        next_tab,
+        goBack,
+        execute_save,
+        callback,
+        setPublication,
+    ];
 };
 
 export default PublicationFormTags;

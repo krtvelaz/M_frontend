@@ -1,10 +1,11 @@
 import { Popover, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil, trash } from '../../../utils/assets/img';
+import { trash } from '../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from '../../../utils/ui';
 import { actions } from '../redux';
 import moment from 'moment';
+import PencilComponent from '../../../utils/assets/img/PencilComponent';
 
 const ListChallenge = () => {
     const [filters, setFilters] = useState({
@@ -25,7 +26,14 @@ const ListChallenge = () => {
             align: 'center' as 'center',
         },
         {
+            title: 'Conv.',
+            fixed: 'left',
+            dataIndex: 'announcement_id',
+            align: 'center' as 'center',
+        },
+        {
             title: 'Nombre del reto',
+            fixed: 'left',
             dataIndex: 'name',
             align: 'left' as 'left',
             render: (value: string) => {
@@ -49,7 +57,7 @@ const ListChallenge = () => {
             dataIndex: 'createdBy',
             align: 'left' as 'left',
             render: (value: string) => {
-                return 'Luisa Sánchez'
+                return 'Luisa Sánchez';
                 // return moment(value).format('DD / MM / YYYY');
             },
         },
@@ -57,7 +65,7 @@ const ListChallenge = () => {
             title: 'Publicado',
             align: 'left' as 'left',
             render: (value: any) => {
-                const onChange = async (e: any) => {                    
+                const onChange = async (e: any) => {
                     if (
                         value.status !== 'Pendiente' &&
                         value.status !== 'Aceptado' &&
@@ -122,7 +130,7 @@ const ListChallenge = () => {
                                 to={`/challenge/edit/${id}/`}
                                 name=""
                                 avatar={false}
-                                icon={<img src={pencil} style={{ cursor: 'pointer' }} className="img-pencil" alt="" />}
+                                icon={<PencilComponent />}
                             />
                         );
                     },
@@ -177,14 +185,14 @@ const ListChallenge = () => {
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="row">
-                        <h5 className="col d-flex justify-content-start">Gestionar Retos</h5>
+                        <h5 className="col d-flex justify-content-start">Gestionar retos</h5>
                         <div
                             style={{
                                 margin: '0 20px 10px 0',
                             }}
                             className="col d-flex justify-content-end"
                         >
-                            <Link to="/challenge/create" name="Crear Reto" iconText="+" />
+                            <Link to="/challenge/create" name="Crear reto" iconText="+" />
                         </div>
                     </div>
 

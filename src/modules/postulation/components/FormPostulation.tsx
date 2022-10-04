@@ -1,57 +1,86 @@
-import { Field, Form, Formik } from 'formik'
-import { FC } from 'react';
-import * as Yup from "yup";
+import { Field, Form, Formik,} from 'formik';
+import { FC, useEffect } from 'react';
+import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
+import ModalAddress from '../../challenge/components/ModalAddress';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux';
 
 interface PostulationFormPros {
+    id_challenge: string | number;
+    postulation?: IPostulation;
     innerRef: any;
-    onSubmit: (values: any, form?: any) => any;
-    postulation?: IPostulation
+    onSubmit: (values: any, actions: any) => any;
 }
-const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulation }) => {
+const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge, innerRef, onSubmit }) => {
+    const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
+    const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
+    const typeProfile = useSelector((store: any) => store.postulation.profile.value);
+    const dispatch = useDispatch<any>();    
+
     const initial_values = {
-        name: "",
+        name: '',
         document_type: null,
-        number_document: "",
+        number_document: '',
         type_profiles: null,
-        email: "",
+        email: '',
         type_contact: null,
-        number_contact: "",
-        direction: "",
-        ...postulation
+        number_contact: '',
+        direction: '',
+        ...postulation,
     };
 
     const schema = Yup.object().shape({
-        name: Yup.string().required("Campo obligatorio").min(3,"Mínimo 3 caracteres"),
-        document_type: Yup.string().nullable().required("Campo obligatorio"),
-        number_document: Yup.string().required("Campo obligatorio").min(7,"Mínimo 7 caracteres"),
-        type_profiles: Yup.string().nullable().required("Campo obligatorio"),
-        email: Yup.string().email("Correo invalido ejemplo: correo@gmail.com").required("Campo obligatorio"),
-        type_contact: Yup.string().nullable().required("Campo obligatorio"),
-        number_contact: Yup.string().required("Campo obligatorio").min(7,"Mínimo 7 caracteres"),
-        direction: Yup.string().required("Campo obligatorio"),
+        name: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+        document_type: Yup.string().nullable().min(1, 'Mínimo 7 caracteres').required('Campo obligatorio'),
+        number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        type_profiles: Yup.string().nullable().required('Campo obligatorio'),
+        email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
+        type_contact: Yup.string().nullable().required('Campo obligatorio'),
+        number_contact: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
+        direction: Yup.string().required('Campo obligatorio'),
     });
-    const submit = (values: any, form: any) => {
-        onSubmit(values);
 
+    const submit = async (values: any, actions: any) => {
+        const newValues = {
+            pos_id_challenge: id_challenge,
+            pos_business_name: values.name,
+            pos_contact: values.type_contact,
+            pos_number_contact: values.number_contact,
+            pos_id_type_competitor: values.type_profiles,
+            pos_email: values.email,
+            pos_type_document_id: values.document_type,
+            pos_documentid: values.number_document,
+            pos_address: values.direction,
+            pos_id_user: 1,
+        };
+        await onSubmit(newValues, actions);
     };
 
+    const typeDocument = async () => {
+        await dispatch(actions.get__document());
+    };
+    const typeNumContact = async () => {
+        await dispatch(actions.get__typeNumberContact());
+    };
+    const typeProfilePerson = async () => {
+        await dispatch(actions.get__profiles());
+    };
+    useEffect(() => {
+        typeDocument();
+        typeNumContact();
+        typeProfilePerson();
+    }, []);
+
     return (
-        <Formik
-            enableReinitialize
-            onSubmit={submit}
-            initialValues={initial_values}
-            validationSchema={schema}
-            innerRef={innerRef}
-        >
+        <Formik enableReinitialize onSubmit={submit} innerRef={innerRef} initialValues={initial_values} validationSchema={schema}>
             {({ handleChange, values }) => {
                 return (
-
                     <Form>
-                        <div className='row'>
-                            <div className="col-6">
-                                <label htmlFor="name_id" className="form-label" >
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <label htmlFor="name_id" className="form-label label-landing">
                                     Nombre o razón social
                                 </label>
                                 <Field
@@ -66,58 +95,44 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
                                     }}
                                 />
 
-                                <label className="form-label" >
-                                    <span >En caso de eqipo de innovadores elija un responsable y escriba su nombre</span>
+                                <label className="form-label">
+                                    <span
+                                        style={{
+                                            fontSize: '10px',
+                                            fontFamily: 'Montserrat',
+                                        }}
+                                    >
+                                        En caso de equipo de innovadores elija un responsable y escriba su nombre
+                                    </span>
                                 </label>
-                                <ErrorMessage name="name"  />
+                                <ErrorMessage name="name" />
                             </div>
 
-                            <div className="col-6">
-                                <label htmlFor="document_type_id" className="form-label ">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <label htmlFor="document_type_id" className="form-label label-landing">
                                     Tipo de Documento
                                 </label>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col col-md-3">
                                         <Field
                                             component={Select}
                                             id="document_type_id"
                                             name="document_type"
                                             className=""
-                                            dropdownStyle={{
-                                                maxHeight: 400,
-                                                overflow: 'auto',
-                                                minWidth: 300,
-                                            }}
-                                            options={[
-                                                {
-                                                    name: "C.C - Cédula de ciudadania",
-                                                    id: "C.C",
-                                                },
-                                                { name: "C.G.I.", id: "C.G.I." },
-                                                {
-                                                    name: "NIT - Número de Identificación Tributaria",
-                                                    id: "NIT",
-                                                },
-                                            ]}
+                                            options={typeDocumentsForm.map((docuemnt: any) => ({
+                                                id: docuemnt.id,
+                                                name: docuemnt.name,
+                                            }))}
                                             placeholder="C.C."
-                                            filterOption={(input: any, option: any) => {
-                                                return (
-                                                    option?.children
-                                                        ?.toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
-                                                );
-                                            }}
                                         />
-                                         <ErrorMessage name="document_type"  />
+                                        <ErrorMessage name="document_type" />
                                     </div>
                                     <div className="col">
                                         <Field
@@ -136,55 +151,31 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
-                                            }
-                                            }
+                                            }}
                                         />
                                         <ErrorMessage name="number_document" withCount max={14} />
                                     </div>
                                 </div>
-
-
                             </div>
-
-
-
                         </div>
-                        <div className='row'>
+                        <div className="row">
                             <div className="col-12 col-md-6 col-lg-6">
-                                <label htmlFor="type_profiles_id" className="form-label">
+                                <label htmlFor="type_profiles_id" className="form-label label-landing">
                                     Tipo de persona
                                 </label>
                                 <Field
                                     component={Select}
                                     id="type_profiles_id"
                                     name="type_profiles"
-                                    style={{ height: "38px" }}
-
-                                    options={[
-                                        {
-                                            name: "Grupo de investigación",
-                                            id: "Grupo de investigación",
-                                        },
-                                        { name: "Persona jurídica", id: "Persona jurídica" },
-                                        {
-                                            name: "Equipo de innovadores",
-                                            id: "Equipo de innovadores",
-                                        },
-                                    ]}
+                                    className=""
+                                    options={typeProfile}
                                     placeholder="Seleccione…"
-                                    filterOption={(input: any, option: any) => {
-                                        return (
-                                            option?.children
-                                                ?.toLowerCase()
-                                                .indexOf(input.toLowerCase()) >= 0
-                                        );
-                                    }}
                                 />
                                 <ErrorMessage name="type_profiles" />
                             </div>
 
-                            <div className="col-6 col-md-6 col-lg-6">
-                                <label htmlFor="email_id" className="form-label">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
                                 </label>
                                 <Field
@@ -193,44 +184,33 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                     name="email"
                                     className="form-control"
                                     autoComplete="off"
-                                    style={{ height: "38px" }}
+                                    style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
-
                                 />
                                 <ErrorMessage name="email" />
                             </div>
                         </div>
 
-                        <div className='row'>
-                            <div className="col-6">
-                                <label htmlFor="type_contact_id" className="form-label ">
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <label htmlFor="type_contact_id" className="form-label label-landing">
                                     Número de contacto
                                 </label>
                                 <div className="row">
-                                    <div className="col-3">
+                                    <div className="col col-md-4">
                                         <Field
                                             component={Select}
                                             id="type_contact_id"
                                             name="type_contact"
+                                            placeholder='Seleccione...'
                                             className=""
-                                            options={[
-                                                {
-                                                    name: "Fijo",
-                                                    id: "Fijo",
-                                                },
-                                                { name: "Celular", id: "Celular" },
-
-                                            ]}
-                                            placeholder="Seleccione..."
-                                            filterOption={(input: any, option: any) => {
-                                                return (
-                                                    option?.children
-                                                        ?.toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
-                                                );
-                                            }}
+                                            dropdownMatchSelectWidth={false}
+                                            options={typeNumberContact.map((typeNumber: any) => ({
+                                                id: typeNumber.name,
+                                                name: typeNumber.name,
+                                            }))}
                                         />
-                                         <ErrorMessage name="type_contact" />
+                                        <ErrorMessage name="type_contact" />
                                     </div>
                                     <div className="col">
                                         <Field
@@ -249,21 +229,19 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
-                                            }
-                                            }
+                                            }}
                                         />
                                         <ErrorMessage name="number_contact" withCount max={10} />
                                     </div>
                                 </div>
-
-
                             </div>
 
-                            <div className="col-6 col-md-6 col-lg-6">
-                                <label htmlFor="direction_id" className="form-label">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <label htmlFor="direction_id" className="form-label label-landing">
                                     Dirección de contacto o sede del postulante
                                 </label>
                                 <Field
+                                    component={ModalAddress}
                                     type="text"
                                     id="direction_id"
                                     name="direction"
@@ -272,28 +250,16 @@ const FormPostulation: FC<PostulationFormPros> = ({ innerRef, onSubmit, postulat
                                     minLength={3}
                                     maxLength={100}
                                     placeholder="Ingrese una dirección..."
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                        );
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
                                 />
-                                {/* <ErrorMessage name="direction" withCount max={100} /> */}
+
+                                <ErrorMessage name="direction" withCount max={100} />
                             </div>
                         </div>
- 
                     </Form>
                 );
             }}
-
         </Formik>
-
     );
-}
+};
 
-export default FormPostulation
+export default FormPostulation;

@@ -11,6 +11,13 @@ img {
     // display: block;
 }
 
+// label -landing
+
+.label-landing {
+    font-family: 'Montserrat-Medium' !important;
+    color: #0A0909 !important;
+}
+
 // cohete
 .styles-rocket {
     padding-left: 20px;
@@ -467,11 +474,17 @@ img {
     position: absolute;
     top: 0;
     right: 0;
+    // background: linear-gradient(
+    //     to top,
+    //     #ffffff 70%,
+    //     transparent 90%,
+    //     transparent 100%
+    // );
+    // border-color: rgba(0, 0, 0, 0.4);
     background: linear-gradient(
         to top,
-        #ffffff 70%,
-        transparent 90%,
-        transparent 100%
+        #ffffff 50%,
+        rgba(0, 0, 0, 0.2)
     );
     z-index: 2;
 }
@@ -490,9 +503,9 @@ img {
         display: none;
     }
 
-    .container-img-principal img {
-        top: 0 !important;
-    }
+    // .container-img-principal img {
+    //     top: 0 !important;
+    // }
 }
 
 @media (min-width: 1500px) {
@@ -551,6 +564,10 @@ img {
 .card-event .ant-card-actions {
  border-top: none;
 }
+.card-event .ant-card-body {
+//  min-height: 285px !important;
+ min-height: 260px !important;
+}
 
 .title-card-event {
     font-family: 'Montserrat-Bold' !important;
@@ -570,9 +587,7 @@ img {
     overflow: hidden;
 }
 
-.tabs-events .ant-tabs-nav-wrap {
-    background-color: transparent !important;
-}
+
 
 .tabs-events .ant-tabs-tab-btn {
     color: white;
@@ -580,6 +595,7 @@ img {
 
 .tabs-events .ant-tabs-tab-active .ant-tabs-tab-btn {
     color: white !important;
+    font-family: 'Montserrat-Bold' !important;
 }
 
 .tabs-events .ant-tabs-ink-bar {
@@ -590,10 +606,10 @@ img {
     position: relative;
     margin: auto;
     padding: 0;
-    border-radius: 16px !important;
+    // border-radius: 16px !important;
     position: relative;
     overflow: hidden;
-    border-radius: 16px;
+    // border-radius: 16px;
 }
 
 .imagen-events::before {
@@ -603,23 +619,78 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background: linear-gradient(
-        to right top,
-        rgba(0, 0, 0, 0.91) 20%,
-        transparent
-    );
-    border-radius: 16px;
+    background:  rgba(0, 0, 0, 0.4);
+    // background: linear-gradient(
+    //     to right top,
+    //     rgba(0, 0, 0, 0.91) 20%,
+    //     transparent
+    // );
+    
+}
+.imagen-events button {
+    display: none;
+
+}
+
+.imagen-events:hover button {
+    display: block;
+}
+
+// imagen publicacion galeria
+
+.imagen-events .lupa-image-postulation {
+    display: none;
+
+}
+.imagen-events:hover .lupa-image-postulation {
+    display: block;
+}
+
+.container-publication-detail .imagen-events::before {
+    background:  transparent;
+    
+}
+.container-publication-detail:hover .imagen-events::before {
+    background:  rgba(0, 0, 0, 0.4);;
+    
+}
+
+
+
+// ***** Registro****
+
+.box-register {
+    background-image: linear-gradient(to top, #ffffff 50%, rgba(0, 0, 0, 0.4)),
+        url('/src/utils/assets/img/personas-trabajando.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: auto;
+    // background-size: 100%;
+    position: relative;
+    overflow: hidden;
+    // padding-bottom: 200px;
+}
+
+.box-resetPaswword {
+    background-image: linear-gradient(to top, #ffffff 40%, transparent),
+        url('/src/utils/assets/img/reset-password.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
+    // padding-bottom: 200px;
 }
 
 /****** nuestros retos *****/
-.tab-our-challenges .ant-tabs-nav-wrap {
-    border-bottom: 1px solid #603ce6;
-    background-color: transparent !important;
-}
+// .tab-our-challenges .ant-tabs-nav-wrap {
+//     border-bottom: 1px solid #603ce6;
+//     background-color: transparent !important;
+// }
 
-.tab-our-challenges .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #603ce6 !important;
-}
+// .tab-our-challenges .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+//     color: #603ce6 !important;
+// }
 
 .history-challenges {
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -800,4 +871,10 @@ img {
     .card-challenge {
         width: 300px;
     }
+}
+
+// boletines
+#email_id_boletin::placeholder, #number_id_boletin::placeholder {
+ color: #DEDEDF !important;
+
 }

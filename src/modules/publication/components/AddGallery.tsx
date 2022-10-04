@@ -15,16 +15,16 @@ interface IGalleryProps {
 const AddGallery: FC<IGalleryProps> = ({ publication }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [isChange, setIsChange] = useState<boolean>(false);
-    const loading = useSelector((store: any) => store.event.gallery.loading);
+    const loading = useSelector((store: any) => store.publication.gallery.loading);
     const dispatch = useDispatch<any>();
 
-    const list_gallery: IGalleryInfo[] = useSelector((store: any) => store.event.list_gallery.value);
+    const list_gallery: IGalleryInfo[] = useSelector((store: any) => store.publication.list_gallery.value);
 
     const get_list_gallery = async () => {
-        await dispatch(actions.get_list_gallery(publication?.general_information?.id || -1));
+        await dispatch(actions.get_list_gallery({ publication_id: publication?.general_information?.id || -1}));
     };
     const editImage = async (values: IGalleryInfo) => {
-        await dispatch(actions.edit_gallery(publication?.general_information?.id || -1, values));
+        await dispatch(actions.edit_gallery(values));
         setIsChange(true);
     };
 
@@ -67,7 +67,7 @@ const AddGallery: FC<IGalleryProps> = ({ publication }) => {
                                     {loading && (
                                         <i
                                             className="fa fa-circle-o-notch fa-spin"
-                                            style={{ fontSize: 12, marginLeft: 4, color: '#603CE6' }}
+                                            style={{ fontSize: 12, marginLeft: 10, color: '#1D98D1' }}
                                         />
                                     )}
                                 </button>

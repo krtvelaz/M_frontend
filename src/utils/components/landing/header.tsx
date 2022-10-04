@@ -43,8 +43,11 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
               Nuestros retos
             </Link>
             <Link
-              to={"/auth/login/"}
+              to={"#"}
               className="link-card"
+              onClick={() => {                
+                context.toggle_login_modal();
+              }}
               style={{
                 color: "black",
                 textDecoration: "none",
@@ -55,13 +58,13 @@ const Header: FC<{ collapsible: boolean }> = ({ collapsible }) => {
               Ingresar
             </Link>
             <Link
-              to={"/"}
+              to={"/auth/register "}
               className="link-card"
               style={{ marginRight: "30px", marginTop: "7px" }}
             >
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-landing-primary"
                 onClick={() => {}}
               >
                 Registrarme

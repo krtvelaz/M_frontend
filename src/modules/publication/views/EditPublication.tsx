@@ -8,7 +8,7 @@ import { actions } from '../redux';
 const EditPublication = () => {
     const { id } = useParams();
     const dispatch = useDispatch<any>();
-    const publication_data: IPublication = useSelector((store: any) => store.event.publication.value);
+    const publication_data: IPublication = useSelector((store: any) => store.publication.publication.value);
 
     useEffect(() => {
         dispatch(actions.get_publication_by_id(Number(id)));

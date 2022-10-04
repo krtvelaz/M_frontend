@@ -1,100 +1,131 @@
-import { FormikProps, FormikValues } from "formik";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Card } from "../../../utils/ui";
-import FormIndicator from "../components/FormIndicator";
-import { IIndicator } from "../custom_types";
-import { actions } from "../redux";
+import { FormikProps, FormikValues } from 'formik';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { arrowsFromLine } from '../../../utils/assets/img';
+import { Card, Table } from '../../../utils/ui';
+import DragDropTable from '../components/DragDropTable';
+import FormIndicator from '../components/statistics/FormIndicator';
+import ModalEditStatistics from '../components/statistics/ModalEditStatistics';
+import { IIndicator } from '../custom_types';
+import { actions } from '../redux';
 
 const CreateIndicator = () => {
-  const form_ref = useRef<FormikProps<FormikValues>>();
-  const dispatch = useDispatch<any>();
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const dispatch = useDispatch<any>();
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const statistics: any[] = useSelector((store: any) => store.banner.statistics.value);
+    const [data, setData] = useState<any>([]);
+    const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
 
-  const statistics: IIndicator = useSelector(
-    (store: any) => store.banner.statistics.value
-  );
-  const loading: boolean = useSelector((store: any) => store.banner.statistics.loading);
+    const table_columns: any = [
+        {
+            title: 'No.',
+            dataIndex: 'sta_order',
+            align: 'center' as 'center',
+            render: () => {
+                return (
+                    <div className="">
+                        <img src={arrowsFromLine} alt="drag and drop image" />
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Nombre',
+            align: 'left' as 'left',
+            render: (data: any) => {
+                return (
+                    <div style={{ fontFamily: 'Montserrat-SemiBold' }}>
+                        {data?.sta_name}: <span>{data?.sta_value}</span> - Descripción:{' '}
+                        <span> {data?.sta_description}</span>
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Acciones',
+            fixed: 'value',
+            children: [
+                {
+                    title: <span style={{ fontSize: '9px' }}>Editar</span>,
+                    align: 'center' as 'center',
+                    render: (value: IIndicator) => {
+                        return <ModalEditStatistics data={value} on_submit={editIndicator} />;
+                    },
+                },
+            ],
+        },
+    ];
 
+    const editIndicator = async (values: IIndicator) => {
+        await dispatch(actions.edit_statistics(values));
+        setIsSuccess(true);
+    };
 
-  const addIndicator = async (values: IIndicator) => {
-    await dispatch(actions.create_statistics(values));
-    setIsSuccess(true);
-  };
+    useEffect(() => {
+        dispatch(actions.get_statistics({ page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' }));
+    }, []);
 
-  useEffect(() => {
-    dispatch(actions.get_statistics());
-  }, []);
+    useEffect(() => {
+        if (Array.isArray(statistics)) {
+            setData(statistics);
+        }
+    }, [statistics]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(actions.get_statistics());
-      setIsSuccess(false);
-    }
-  }, [isSuccess]);
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(
+                actions.get_statistics({ page: 1, page_size: 4, order_by_key: 'sta_order', order_by_value: 'asc' })
+            );
+            setIsSuccess(false);
+        }
+    }, [isSuccess]);
 
-  return (
-    <div className="h-100 d-flex flex-column">
-      <div className="flex-fill overflow-auto">
+    return (
         <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="d-flex flex-row mb-3">
-              <h5 className="">Estadísticas</h5>
+            <div className="row justify-content-center">
+                <div style={{ fontSize: '14px', fontFamily: 'Montserrat-SemiBold' }} className="mb-3 ms-5">
+                    Estadísticas
+                </div>
+                <div className="col-md-12">
+                    <Card
+                        title={
+                            <>
+                                <div style={{ fontSize: '14px' }}>
+                                    Lista de Estadísticas{' '}
+                                    <span>- Arrastre la estadística para cambiar el orden de visualización</span>
+                                </div>
+                            </>
+                        }
+                    >
+                        <DragDropTable
+                            className="table-drag-drop"
+                            _columns={table_columns}
+                            data={data}
+                            setData={setData}
+                            loading={loading}
+                            edit={async () => {
+                                const newdata = data?.map((d: any, i: number) => {
+                                    return (d = {
+                                        id: d.id,
+                                        sta_order: i + 1,
+                                    });
+                                });
+                                await dispatch(actions.edit_order_statistics(newdata));
+                                await dispatch(
+                                    actions.get_statistics({
+                                        page: 1,
+                                        page_size: 4,
+                                        order_by_key: 'sta_order',
+                                        order_by_value: 'asc',
+                                    })
+                                );
+                            }}
+                        />
+                    </Card>
+                </div>
             </div>
-            <div className="col-md-12">
-              <Card
-                title={
-                  <>
-                    Editar estadísticas
-                    <span style={{ color: "#AD0808", fontSize: "10px" }}>
-                      {" "}
-                      - Todos los campos son obligatorios
-                    </span>
-                  </>
-                }
-                actions={[]}
-              >
-                <FormIndicator
-                  indicator={statistics}
-                  innerRef={form_ref}
-                  onSubmit={addIndicator}
-                />
-              </Card>
-            </div>
-          </div>
         </div>
-      </div>
-      <div
-        className="bg-white d-flex flex-row justify-content-between  btn-responsive"
-        style={{ padding: 16, marginBottom: 60, borderTop: "1px solid #ccc" }}
-      >
-        <button
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={() => {}}
-        >
-          Atrás
-        </button>
-        <div className="flex-fill" />
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            form_ref.current?.submitForm();
-          }}
-          disabled={loading}
-        >
-          Guardar
-          {loading && (
-              <i
-                className="fa fa-circle-o-notch fa-spin"
-                style={{ fontSize: 12, marginLeft: 4, color: "#fff" }}
-              />
-            )}
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default CreateIndicator;

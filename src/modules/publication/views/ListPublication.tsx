@@ -2,16 +2,16 @@ import { Popover, Radio } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pencil, trash } from '../../../utils/assets/img';
+import { trash } from '../../../utils/assets/img';
+import PencilComponent from '../../../utils/assets/img/PencilComponent';
 import { Card, Link, swal_error, Table } from '../../../utils/ui';
 import { IGeneralInfo } from '../custom_types';
 import { actions } from '../redux';
 
 const ListPublication = () => {
-    const list_publication: IGeneralInfo[] = useSelector((store: any) => store.event.list_publication.value);
-    const { total }: any = useSelector((store: any) => store.event.list_publication.pagination);
-    const loading: any = useSelector((store: any) => store.event.list_publication.loading);
-        
+    const list_publication: IGeneralInfo[] = useSelector((store: any) => store.publication.list_publication.value);
+    const { total }: any = useSelector((store: any) => store.publication.list_publication.pagination);
+    const loading: any = useSelector((store: any) => store.publication.list_publication.loading);        
     const [isChange, setIsChange] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const onDelete = async (id: number) => {
@@ -19,10 +19,10 @@ const ListPublication = () => {
         setIsChange(true);
     };
     const getPublications = async () => {
-        await dispatch(actions.get_list_publications({}));
+        await dispatch(actions.get_list_publications());
     };
-    const change_page = (page: number, pageSize?: number) => {
-        dispatch(actions.get_list_publications({ page, limi: pageSize }));
+    const change_page = (page: number, page_size?: number) => {
+        dispatch(actions.get_list_publications({ page, page_size }));
     };
     const editPublication = async (id: number, values: IGeneralInfo) => {
         await dispatch(actions.edit_publication(/*id ,*/ values));
@@ -49,7 +49,7 @@ const ListPublication = () => {
         },
         {
             title: 'Nombre',
-            dataIndex: 'hec_titulo',
+            dataIndex: 'pub_title',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -69,7 +69,7 @@ const ListPublication = () => {
         },
         {
             title: 'Tipo',
-            dataIndex: 'tipo_publicacion',
+            dataIndex: 'pub_type',
             align: 'left' as 'left',
         },
         {
@@ -78,12 +78,14 @@ const ListPublication = () => {
             render: (data: IGeneralInfo) => {              
                 
                 const onChange = async (e: any) => {                    
-                    await dispatch(actions.edit_published_publication(data, e?.target?.value));
+                    await dispatch(actions.edit_published_publication(Number(data?.id), e?.target?.value === true ? 'publish' : 'unpublish'));
+                    await getPublications();
                 };
+                
                 return (
-                    <Radio.Group onChange={onChange} value={data?.hec_publicada}>
+                    <Radio.Group onChange={onChange} value={data?.pub_status === 'Publicado' ? true : false}>
                         <Radio value={true}>Si</Radio>
-                        <Radio value={false || null}>No</Radio>
+                        <Radio value={false}>No</Radio>
                     </Radio.Group>
                 );
             },
@@ -118,7 +120,7 @@ const ListPublication = () => {
                                 to={`/publication/edit/${id}/`}
                                 name=""
                                 avatar={false}
-                                icon={<img src={pencil} style={{ cursor: 'pointer' }} className="img-pencil" alt="" />}
+                                icon={ <PencilComponent />}
                             />
                         );
                     },

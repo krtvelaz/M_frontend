@@ -1,0 +1,23 @@
+.modal-roles .ant-modal-content {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.modal-roles .ant-modal-footer {
+    border-top: none !important;
+}
+
+.button-assign-rol {
+    color: #1D98D1;
+    font-family: 'Montserrat-Medium' !important;
+    cursor: context-menu;
+
+}
+.button-assign-rol:hover {
+    color: #00FFE0;
+
+}
+
+.modal-header-roles .ant-modal-header {
+    display: none !important;
+}

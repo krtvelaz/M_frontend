@@ -1,0 +1,85 @@
+import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Table } from '../../../utils/ui';
+import { actions } from '../redux';
+import ModalAssignRole from './ModalAssignRole';
+
+interface IProps {
+    filters: any,
+    setFilters: any
+
+}
+
+const TableUser: FC<IProps> = ({ filters, setFilters}) => {
+    const users: any[] = useSelector((store: any) => store.user.list_users.value);
+    const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
+    const {total}: any = useSelector((store: any) => store.user.list_users.pagination);
+    const dispatch = useDispatch<any>();
+    
+    
+    useEffect(() => {
+        get_users();
+    }, []);
+
+    const get_users = async () => {
+        await dispatch(actions.get_list_users(filters));
+    };
+
+    const change_page = (page: number, pageSize?: number) => {
+        setFilters({
+          page,
+          page_size: pageSize || 10
+        })
+        dispatch(actions.get_list_users({page, page_size: pageSize}))
+      }
+
+    const table_columns: any = [
+        {
+            title: 'No.',
+            dataIndex: 'id',
+            align: 'left' as 'left',
+            render: (data: any, values: any, i: number) => {
+                return i + 1;
+            },
+        },
+        {
+            title: 'Nombre completo',
+            dataIndex: 'use_email',
+            align: 'left' as 'left',
+        },
+        {
+            title: 'Usuario',
+            dataIndex: 'use_id',
+            align: 'left' as 'left',
+        },
+        {
+            title: 'Rol asignado',
+            dataIndex: 'use_id_role',
+            align: 'left' as 'left',
+        },
+        {
+            title: 'Acciones',
+            align: 'center' as 'center',
+            // fixed: 'right',
+            render: () => {
+                return <ModalAssignRole type="change" />;
+            },
+        },
+    ];
+    return (
+        <>
+            <Table
+                title="Usuarios con roles asignados"
+                paginationTop
+                change_page={change_page}
+                columns={table_columns}
+                items={users}
+                with_pagination
+                count={total}
+                loading={loading}
+            />
+        </>
+    );
+};
+
+export default TableUser;

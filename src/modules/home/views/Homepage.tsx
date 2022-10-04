@@ -1,30 +1,22 @@
 import { useContext } from 'react';
-import {
-    arrowLeft,
-    arrowRight,
-    figurasFondo,
-    fondo_retos,
-    grupo_personas,
-    rocket,
-    trazado_amarillo,
-} from '../../../utils/assets/img';
-import StatisticsLanding from '../../banner/components/StatisticsLanding';
+import { figurasFondo, fondo_retos, grupo_personas, rocket, trazado_amarillo } from '../../../utils/assets/img';
+import StatisticsLanding from '../../banner/components/statistics/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import StaticInformation from '../components/StaticInformation';
 import PublishedChallenges from '../../challenge/components/PublishedChallenges';
-import { Card } from '../../../utils/ui';
 import TabPulications from '../../publication/views/TabPulications';
 import FormContact from '../components/FormContact';
 import FormSuscribe from '../components/FormSuscribe';
 import FrequentlyQuestions from '../components/FrequentlyQuestions';
 import CarouselTestimony from '../components/CarouselTestimony';
-import CarouselEvent from '../../publication/components/event/CarouselEvent';
 import Map from '../../../utils/components/arcgis/Map';
+import { useSelector } from 'react-redux';
+import CarouselEvent from '../../event/compenents/CarouselEvent';
 
 const Homepage = () => {
     const context = useContext(TemplateContext);
-
+    const publications = useSelector((store: any) => store.publication.list_publication.value);
     return (
         <>
             <section>
@@ -58,29 +50,36 @@ const Homepage = () => {
 
             <section className="section-events">
                 <img src={figurasFondo} alt="fihuras de fondo" className="figuras-fondo" />
-                <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
+                {publications?.length >= 3 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
                         Eventos más cercanos
                     </div>
                     <CarouselEvent />
                     <div className="text-center  pb-5">
-                        <a style={{ position: 'relative', zIndex: 1, bottom: '20px' }} href="/calendar-events" className="text-white">
+                        <a
+                            style={{ position: 'relative', zIndex: 1, bottom: '20px' }}
+                            href="/calendar-events"
+                            className="text-white"
+                        >
                             Ver calendario de eventos
                         </a>
                     </div>
                 </div>
                 <div className="container">
-                    <div className="text-center py-5">
-                        <div className="text-white" style={{ fontSize: '16px' }}>
-                            {' '}
-                            <span style={{ fontSize: '16px', fontFamily: 'Montserrat-Bold' }}>Suscríbete</span> a
-                            nuestros botines de noticias y eventos{' '}
+                    <div className=" py-5">
+                        <div className="text-center">
+                            <div className="text-white" style={{ fontSize: '16px' }}>
+                                {' '}
+                                <span style={{ fontSize: '16px', fontFamily: 'Montserrat-Bold' }}>Suscríbete</span> a
+                                nuestros botines de noticias y eventos{' '}
+                            </div>
+                            <a className="text-center" href="" style={{ color: '#FFDC2F' }}>
+                                Al dar click en suscribirme ahora, acepta los términos y condiciones
+                            </a>
                         </div>
-                        <a href="" style={{ color: '#FFDC2F' }}>
-                            Al dar click en suscribirme ahora, acepta los términos y condiciones
-                        </a>
-                        <div className=" mt-5">
+
+                        <div className=" mt-5 mx-auto">
                             <FormSuscribe />
                         </div>
                         <TabPulications />
@@ -114,15 +113,14 @@ const Homepage = () => {
                     </div>
                 </div>
             </section>
-            {/* <section>
+            <section>
                 <Map />
-            </section> */}
+            </section>
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container">
                     <FrequentlyQuestions />
                 </div>
             </section>
-            
         </>
     );
 };

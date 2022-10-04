@@ -1,14 +1,15 @@
 import { auth_http } from '../../../config/axios_instances';
-import { fail_user, loading_user, success_user, logOut } from './slice';
+import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
+import { fail_user, loading_user, success_user, logOut, loading_countries, success_countries, fail_countries, loading_states, success_states, fail_states, loading_cities, success_cities, fail_cities } from './slice';
 
-const login = (email: string, password: string) => {
+const login = (document: string, password: string) => {
     return async (dispatch: any) => {
         dispatch(loading_user());
         let user = null;
         try {
             const URI = '/auth/login';
             const res_token: any = await auth_http.post(URI, {
-                email,
+                document,
                 password,
             });
             if (res_token.data.data.token) {
@@ -23,11 +24,9 @@ const login = (email: string, password: string) => {
                 );
                 user = {
                     token: res_token.data.data.token,
-                    detail_user: resul_user.data.data.user[0],
+                    detail_user: resul_user.data.data.userData,
                     can_access: true,
                 };
-
-                
             }
 
             dispatch(success_user(user));
@@ -38,15 +37,144 @@ const login = (email: string, password: string) => {
         }
     };
 };
+
 const logout = () => {
-    return async (dispatch: any) => {        
-        dispatch(logOut());        
+    return async (dispatch: any) => {
+        dispatch(logOut());
     };
 };
 
+const register = (data: any) => {
+    return async (dispatch: any) => {
+        let user = null;
+        try {
+            const URI = '/users';
+            const res: any = await auth_http.post(URI, {
+                ...data,
+                state: {
+                    name: 'Antioquia',
+                    id: data.state
+                },
+                city: {
+                    name: 'Medellin',
+                    id: data.city
+                },
+                society_type: data.society_type || 'N',
+
+            });
+            await swal_success.fire({
+                title: 'Proceso exitoso',
+                html:
+                    `<div class="mysubtitle">${res.data.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return res.data;
+        } catch (error: any) {
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    '<div class="mytext">De click en aceptar para continuar.</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+            return Promise.reject(error);
+        }
+    };
+};
+
+const recover_password = (document: string, email: string) => {
+    return async (dispatch: any) => {
+        try {
+            const URI = '/users/recovery-password';
+            const res: any = await auth_http.post(URI, {
+                document,
+                email,
+            });
+            return res.data.data;
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+};
+const change_password = (document: string, provisional_password: string, new_password: string) => {
+    return async (dispatch: any) => {
+        try {
+            const URI = '/users/update-password';
+            const res: any = await auth_http.patch(URI, {
+                document,
+                provisional_password: 'xF5eRL7oJ2yC',
+                new_password
+            });
+            return res.data.data;
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+};
+
+const get_countries = () => {
+    return async (dispatch: any) => {
+        dispatch(loading_countries())
+        try {
+            const URI = '/lists/countries';
+            const res: any = await auth_http.get(URI);
+            dispatch(success_countries(res.data.data))
+            return res.data.data;
+        } catch (error) {
+            dispatch(fail_countries())
+            return Promise.reject(error);
+        }
+    };
+};
+const get_states = () => {
+    return async (dispatch: any) => {
+        dispatch(loading_states())
+        try {
+            const URI = '/lists/states';
+            const res: any = await auth_http.get(URI);
+            dispatch(success_states(res.data.data))
+            return res.data.data;
+        } catch (error) {
+            dispatch(fail_states())
+            return Promise.reject(error);
+        }
+    };
+};
+const get_cities = (id_state: string) => {
+    return async (dispatch: any) => {
+        dispatch(loading_cities())
+        try {
+            const URI = '/lists/cities';
+            const res: any = await auth_http.get(URI,{
+                params: {
+                    id_state,
+                }
+            });
+            dispatch(success_cities(res.data.data))
+            return res.data.data;
+        } catch (error) {
+            dispatch(fail_cities())
+            return Promise.reject(error);
+        }
+    };
+};
+
+
+
+
+
 const actions = {
     login,
-    logout
+    logout,
+    register,
+    recover_password,
+    change_password,
+    get_countries,
+    get_states,
+    get_cities,
 };
 
 export default actions;

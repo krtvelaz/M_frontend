@@ -1,7 +1,7 @@
 
 import { IRoute } from '../../utils/components/router/custom_types';
 import AboutUs from './views/AboutUs';
-import CalendarEvents from './views/CalendarEvents';
+import CalendarEvents from '../event/compenents/CalendarEvents';
 import Home from './views/Home';
 import Homepage from './views/Homepage';
 
@@ -35,6 +35,10 @@ const get_routes = (): IRoute[] => {
             format: true,
             can_access: guards.logOut,
             path: '/',
+            template_props: {
+                show_breadcrumbs: false
+            },
+            
             component: Homepage,
         },
         {
@@ -56,6 +60,11 @@ const get_routes = (): IRoute[] => {
             format: true,
             can_access: guards.logOut,
             path: '/calendar-events',
+            template_props: {
+                breadcrumbs: [
+                    { name: 'Calendario de eventos' },
+                ],
+            },
             component: CalendarEvents,
         },
     ];

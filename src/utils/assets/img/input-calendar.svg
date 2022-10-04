@@ -1,6 +1,6 @@
 <svg id="fi-rr-calendar" xmlns="http://www.w3.org/2000/svg" width="15.784" height="15.784" viewBox="0 0 15.784 15.784">
-  <path id="Trazado_27" data-name="Trazado 27" d="M12.5,1.315h-.658V.658a.658.658,0,1,0-1.315,0v.658H5.261V.658a.658.658,0,1,0-1.315,0v.658H3.288A3.292,3.292,0,0,0,0,4.6V12.5a3.292,3.292,0,0,0,3.288,3.288H12.5A3.292,3.292,0,0,0,15.784,12.5V4.6A3.292,3.292,0,0,0,12.5,1.315ZM1.315,4.6A1.973,1.973,0,0,1,3.288,2.631H12.5A1.973,1.973,0,0,1,14.468,4.6v.658H1.315ZM12.5,14.468H3.288A1.973,1.973,0,0,1,1.315,12.5V6.577H14.468V12.5A1.973,1.973,0,0,1,12.5,14.468Z" transform="translate(0 0)" fill="#603ce6"/>
-  <circle id="Elipse_7" data-name="Elipse 7" cx="0.986" cy="0.986" r="0.986" transform="translate(6.905 8.878)" fill="#603ce6"/>
-  <circle id="Elipse_8" data-name="Elipse 8" cx="0.986" cy="0.986" r="0.986" transform="translate(3.617 8.878)" fill="#603ce6"/>
-  <circle id="Elipse_9" data-name="Elipse 9" cx="0.986" cy="0.986" r="0.986" transform="translate(10.194 8.878)" fill="#603ce6"/>
+  <path id="Trazado_27" data-name="Trazado 27" d="M12.5,1.315h-.658V.658a.658.658,0,1,0-1.315,0v.658H5.261V.658a.658.658,0,1,0-1.315,0v.658H3.288A3.292,3.292,0,0,0,0,4.6V12.5a3.292,3.292,0,0,0,3.288,3.288H12.5A3.292,3.292,0,0,0,15.784,12.5V4.6A3.292,3.292,0,0,0,12.5,1.315ZM1.315,4.6A1.973,1.973,0,0,1,3.288,2.631H12.5A1.973,1.973,0,0,1,14.468,4.6v.658H1.315ZM12.5,14.468H3.288A1.973,1.973,0,0,1,1.315,12.5V6.577H14.468V12.5A1.973,1.973,0,0,1,12.5,14.468Z" transform="translate(0 0)" fill="#1D98D1"/>
+  <circle id="Elipse_7" data-name="Elipse 7" cx="0.986" cy="0.986" r="0.986" transform="translate(6.905 8.878)" fill="#1D98D1"/>
+  <circle id="Elipse_8" data-name="Elipse 8" cx="0.986" cy="0.986" r="0.986" transform="translate(3.617 8.878)" fill="#1D98D1"/>
+  <circle id="Elipse_9" data-name="Elipse 9" cx="0.986" cy="0.986" r="0.986" transform="translate(10.194 8.878)" fill="#1D98D1"/>
 </svg>

@@ -13,7 +13,7 @@ interface TemplateProps {
     set_drawer_menu_collapsed: any;
     menu_key_path: KeyPath;
     set_menu_key_path: Function;
-    pass_modal: boolean;
+    login_modal: boolean;
     percentege: boolean;
     canon_type: string;
     toggle_pass_modal: () => void;
@@ -32,7 +32,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const [drawer_collapsed, set_drawer_collapsed] = useState<boolean>(false);
     const [sider_collapsed, set_sider_collapsed] = useState<boolean>(false);
     const [drawer_menu_collapsed, set_drawer_menu_collapsed] = useState<boolean>(false);
-    const [pass_modal, set_pass_modal] = useState<boolean>(false);
+    const [login_modal, set_login_modal] = useState<boolean>(false);
     const [percentege, setpercentege] = useState<boolean>(false);
     const [canon_type, setCanon_type] = useState<any>(null);
     const [idNode, set_idNode] = useState<string>('');
@@ -79,7 +79,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 menu_collapsed,
                 sider_collapsed,
                 drawer_collapsed,
-                pass_modal,
+                login_modal,
                 percentege,
                 canon_type,
                 idNode,
@@ -94,7 +94,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 sider_close: () => set_sider_collapsed(false),
                 drawer_open: () => set_drawer_collapsed(true),
                 drawer_close: () => set_drawer_collapsed(false),
-                toggle_pass_modal: () => set_pass_modal((collapsed) => !collapsed),
+                toggle_login_modal: () => set_login_modal((collapsed) => !collapsed),
                 toggle_percentage_modal: () => setpercentege((collapsed) => !collapsed),
                 set_canon_type: (type: 'inversion' | 'inversion_social' | null) => {
                     setCanon_type(type);

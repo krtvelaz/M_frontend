@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { trash } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
@@ -18,8 +18,14 @@ interface IGalleryProps {
 const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication }) => {
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const [url, setUrl] = useState<string>('');
+    const [list_gallery, set_list_gallery] = useState<any[]>([]);
     const dispatch = useDispatch<any>();
-    const loading = useSelector((store: any) => store.event.list_gallery.loading)
+    const loading = useSelector((store: any) => store.publication.list_gallery.loading);
+
+    useEffect(() => {
+        const gallery = images.filter((publication) => publication !== null && publication !== undefined );
+        set_list_gallery(gallery);
+    }, [images]);
 
     const table_columns = [
         {
@@ -31,19 +37,22 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
         },
         {
             title: 'Título',
-            dataIndex: 'gal_titulo',
+            dataIndex: 'pubfil_title',
             align: 'left' as 'left',
         },
         {
             title: 'Descripción',
-            dataIndex: 'gal_descripcion',
+            dataIndex: 'pubfil_description',
             align: 'left' as 'left',
         },
         {
             title: 'Imagen',
-            dataIndex: 'gal_nombre_imagen',
+            dataIndex: 'pubfil_name',
             responsive: ['md'],
             align: 'left' as 'left',
+            render: (name: string) => {
+                return `${name}.jpg`;
+            },
         },
         {
             title: 'Acciones',
@@ -59,7 +68,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
                             <>
                                 <WatchComponent
                                     on_click={async () => {
-                                        const res = await dispatch(actions.get_gallery_by_id(id || -1));
+                                        const res = await dispatch(actions.get_image_gallery(id || -1));
                                         if (res) {
                                             let _img = Buffer.from(res).toString('base64');
 
@@ -67,7 +76,6 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
                                             set_is_visible_doc(true);
                                         }
                                     }}
-                                    color_fill="#603CE6"
                                 />
                             </>
                         );
@@ -117,7 +125,7 @@ const ListGallery: FC<IGalleryProps> = ({ images, onEdit, onDelete, publication 
     ];
     return (
         <>
-            <Table columns={table_columns} items={images} with_pagination={false} loading={loading} />
+            <Table columns={table_columns} items={list_gallery} with_pagination={false} loading={loading} />
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} fileType="img" />
         </>
     );

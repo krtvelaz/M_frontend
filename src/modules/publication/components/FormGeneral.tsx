@@ -3,6 +3,7 @@ import { IGeneralInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { DocumentInput, ErrorMessage, Select } from "../../../utils/ui";
+import RichText from "./RichText";
 
 
 interface PublicationPros {
@@ -16,25 +17,26 @@ const FormGeneral: FC<PublicationPros> = ({
   publication,
 }) => {
   const initial_values = {
-    hec_id_tipo_publicacion: "",
-    hec_titulo: "",
-    hec_autor: "",
-    hec_descripcion: "",
-    hec_imagen: {
-      name: publication?.hec_nombre_imagen_principal || "",
+    pub_type: "",
+    pub_title: "",
+    pub_author: "",
+    pub_description: "",
+    pub_imagen: {
+      name: publication?.pub_image?.pubfil_name ? `${publication?.pub_image?.pubfil_name }.${publication?.pub_image?.pubfil_type }` : "",
       id: publication?.id,
     },
     ...publication,
   };
 
+
   const schema = Yup.object().shape({
-    hec_id_tipo_publicacion: Yup.string().required("Campo Obligatorio"),
-    hec_titulo: Yup.string().required("Campo obligatorio"),
-    hec_autor: Yup.string().required("Campo obligatorio"),
-    hec_imagen: Yup.object({
+    pub_type: Yup.string().required("Campo Obligatorio"),
+    pub_title: Yup.string().required("Campo obligatorio"),
+    pub_author: Yup.string().required("Campo obligatorio"),
+    pub_imagen: Yup.object({
       name: Yup.string().required("Campo obligatorio"),
     }).nullable(),
-    hec_descripcion: Yup.string().required("Campo obligatorio"),
+    pub_description: Yup.string().required("Campo obligatorio"),
   });
 
   const submit = async (values: any, actions: any) => {
@@ -55,6 +57,7 @@ const FormGeneral: FC<PublicationPros> = ({
         return (
           <Form>
             <div className="row">
+              
               <div className="col-12 col-md-6 col-lg-6">
                 <label
                   htmlFor="hec_id_tipo_publicacion_id"
@@ -64,14 +67,14 @@ const FormGeneral: FC<PublicationPros> = ({
                 </label>
                 <Field
                   id="hec_id_tipo_publicacion_id"
-                  name="hec_id_tipo_publicacion"
+                  name="pub_type"
                   component={Select}
                   options={[
                     {
                       name: "Noticia",
-                      id: 1,
+                      id: 2,
                     },
-                    { name: "Evento", id: 2 },
+                    { name: "Evento", id: 1 },
                     {
                       name: "Resultado",
                       id: 3,
@@ -79,7 +82,7 @@ const FormGeneral: FC<PublicationPros> = ({
                   ]}
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="hec_id_tipo_publicacion" />
+                <ErrorMessage name="pub_type" />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="hec_titulo_id" className="form-label">
@@ -89,12 +92,12 @@ const FormGeneral: FC<PublicationPros> = ({
                   as="textarea"
                   className="form-control"
                   id="hec_titulo_id"
-                  name="hec_titulo"
+                  name="pub_title"
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
                 />
-                <ErrorMessage name="hec_titulo" withCount max={100} />
+                <ErrorMessage name="pub_title" withCount max={100} />
               </div>
             </div>
 
@@ -107,12 +110,12 @@ const FormGeneral: FC<PublicationPros> = ({
                   as="textarea"
                   className="form-control"
                   id="hec_autor_id"
-                  name="hec_autor"
+                  name="pub_author"
                   autoComplete="off"
                   maxLength={100}
                   style={{ height: "38px" }}
                 />
-                <ErrorMessage name="hec_autor" withCount max={100} />
+                <ErrorMessage name="pub_author" withCount max={100} />
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label
@@ -128,11 +131,11 @@ const FormGeneral: FC<PublicationPros> = ({
                   type_image="JPG"
                   type="text"
                   id="hec_imagen_id"
-                  name="hec_imagen"
+                  name="pub_imagen"
                   className="form-control"
                   placeholder="Seleccionar…"
                 />
-                <ErrorMessage name="hec_imagen.name" />
+                <ErrorMessage name="pub_imagen.name" />
               </div>
             </div>
 
@@ -141,15 +144,14 @@ const FormGeneral: FC<PublicationPros> = ({
                 Contenido
               </label>
               <Field
-                as="textarea"
-                className="form-control"
+                component={RichText}
                 id="hec_descripcion_id"
-                name="hec_descripcion"
+                name="pub_description"
                 autoComplete="off"
                 maxLength={3000}
                 style={{ height: "157px" }}
               />
-              <ErrorMessage name="hec_descripcion" withCount max={3000} />
+              <ErrorMessage name="pub_description" withCount max={3000} />
             </div>
           </Form>
         );

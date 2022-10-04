@@ -89,6 +89,25 @@ main {
   font-family: "Montserrat-SemiBold" !important;
 }
 
+.table_postulation {
+  width: 590px;
+	border-collapse: collapse;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+.table_postulation td {
+	padding: 15px;
+}
+.table_postulation tbody td {
+	color: #636363;
+	border: 1px solid #dddfe1;
+}
+.table_postulation tbody tr {
+	background-color: #f4f4fc;
+}
+.table_postulation tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
 .mysubtitle {
   margin-bottom: 10px;
   font-size: 14px !important;

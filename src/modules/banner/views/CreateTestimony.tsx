@@ -23,7 +23,11 @@ const CreateTestimony = () => {
   const form_ref = useRef<FormikProps<FormikValues>>(); 
 
   const addTestimony = async (values: ITestimony) => {
-    await dispatch(actions.create_testimony(values));
+    const newTestiminial = {
+      ...values,
+      tes_order: testimonials.length + 1
+    }
+    await dispatch(actions.create_testimony(newTestiminial));
     setIsChange(true);
   };
 
@@ -38,7 +42,7 @@ const CreateTestimony = () => {
   };
 
   const get_testimonals = async () => {
-    await dispatch(actions.get_list_testimonials());
+    await dispatch(actions.get_list_testimonials({page: 1, page_size: 4, order_by_key: 'tes_order', order_by_value: 'asc' }));
   };
 
   useEffect(() => {
@@ -80,7 +84,7 @@ const CreateTestimony = () => {
                       { loading && (
                         <i
                           className="fa fa-circle-o-notch fa-spin"
-                          style={{ fontSize: 12, marginLeft: 4, color: "#603CE6" }}
+                          style={{ fontSize: 12, marginLeft: 10, color: "#1D98D1" }}
                         />
                       )}
                     </button>
@@ -93,7 +97,7 @@ const CreateTestimony = () => {
                 <Card>
                   <h4>Elementos agregados</h4>
                   <ListTestimony
-                    data={testimonials}
+                    testimonials={testimonials}
                     onEdit={editTetimony}
                     onDelete={onDelete}
                   />

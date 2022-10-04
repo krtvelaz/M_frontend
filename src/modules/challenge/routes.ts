@@ -6,6 +6,9 @@ import DetailChallenge from './views/DetailChallenge';
 import EditChallemge from './views/EditChallemge';
 import ListChallenge from './views/ListChallenge';
 import OurChallenges from './views/OurChallenges';
+import managePostulations from '../postulation/views/managePostulations';
+import FormPostulation from '../postulation/components/FormPostulation';
+import PostulationView from '../postulation/views/PostulationView';
 
 const get_routes = (): IRoute[] => {
     return [
@@ -65,7 +68,7 @@ const get_routes = (): IRoute[] => {
             component: DetailChallenge,
             template_props: {
                 breadcrumbs: [
-                    { name: 'Inicio' },
+                    { name: 'Detalles del reto' },
                 ],
             },
         },
@@ -82,6 +85,8 @@ const get_routes = (): IRoute[] => {
                 ],
             },
         },
+       
+        
     ];
 };
 

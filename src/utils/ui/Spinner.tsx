@@ -15,7 +15,7 @@ const Spinner = () => {
                 zIndex: 100,
             }}
         >
-            <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: 30, marginLeft: 4, color: '#fff' }} />
+            <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: 30, marginLeft: 10, color: '#fff' }} />
         </div>
     );
 };

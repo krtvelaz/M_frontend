@@ -1,0 +1,124 @@
+{
+    "objectIdFieldName" : "OBJECTID", 
+    "uniqueIdField" : 
+    {
+      "name" : "OBJECTID", 
+      "isSystemMaintained" : true
+    }, 
+    "fields" : [
+      {
+        "name" : "OBJECTID", 
+        "type" : "esriFieldTypeOID", 
+        "alias" : "OBJECTID", 
+        "sqlType" : "sqlTypeOther", 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "CODIGO", 
+        "type" : "esriFieldTypeString", 
+        "alias" : "CODIGO", 
+        "sqlType" : "sqlTypeOther", 
+        "length" : 20, 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "NOMBRE", 
+        "type" : "esriFieldTypeString", 
+        "alias" : "NOMBRE", 
+        "sqlType" : "sqlTypeOther", 
+        "length" : 200, 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "IDENTIFICACION", 
+        "type" : "esriFieldTypeString", 
+        "alias" : "IDENTIFICACION", 
+        "sqlType" : "sqlTypeOther", 
+        "length" : 100, 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "LIMITECOMUNACORREGIMIENTOID", 
+        "type" : "esriFieldTypeString", 
+        "alias" : "LIMITECOMUNACORREGIMIENTOID", 
+        "sqlType" : "sqlTypeOther", 
+        "length" : 20, 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "LIMITEMUNICIPIOID", 
+        "type" : "esriFieldTypeString", 
+        "alias" : "LIMITEMUNICIPIOID", 
+        "sqlType" : "sqlTypeOther", 
+        "length" : 20, 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "SUBTIPO_BARRIOVEREDA", 
+        "type" : "esriFieldTypeInteger", 
+        "alias" : "SubTipo_BarrioVereda", 
+        "sqlType" : "sqlTypeOther", 
+        "domain" : null
+      }, 
+      {
+        "name" : "SHAPE__Area", 
+        "type" : "esriFieldTypeDouble", 
+        "alias" : "SHAPE__Area", 
+        "sqlType" : "sqlTypeDouble", 
+        "domain" : null, 
+        "defaultValue" : null
+      }, 
+      {
+        "name" : "SHAPE__Length", 
+        "type" : "esriFieldTypeDouble", 
+        "alias" : "SHAPE__Length", 
+        "sqlType" : "sqlTypeDouble", 
+        "domain" : null, 
+        "defaultValue" : null
+      }
+    ], 
+    "features" : [
+      {
+        "attributes" : {
+          "OBJECTID" : 974, 
+          "CODIGO" : "Inst_15", 
+          "NOMBRE" : "U.P.B", 
+          "IDENTIFICACION" : "Inst_15", 
+          "LIMITECOMUNACORREGIMIENTOID" : "11", 
+          "LIMITEMUNICIPIOID" : "001", 
+          "SUBTIPO_BARRIOVEREDA" : 1, 
+          "SHAPE__Area" : 220456.312011719, 
+          "SHAPE__Length" : 1888.54619215448
+        }, 
+        "centroid" : 
+        {
+          "x" : -8414584.0424405355, 
+          "y" : 696264.35236467852
+        }
+      }, 
+      {
+        "attributes" : {
+          "OBJECTID" : 975, 
+          "CODIGO" : "Inst_18", 
+          "NOMBRE" : "Cerro Nutibara", 
+          "IDENTIFICACION" : "Inst_18", 
+          "LIMITECOMUNACORREGIMIENTOID" : "16", 
+          "LIMITEMUNICIPIOID" : "001", 
+          "SUBTIPO_BARRIOVEREDA" : 1, 
+          "SHAPE__Area" : 406412.520507813, 
+          "SHAPE__Length" : 2866.3642110973
+        }, 
+        "centroid" : 
+        {
+          "x" : -8413431.0347589087, 
+          "y" : 695460.9203393152
+        }
+      }
+    ]
+}

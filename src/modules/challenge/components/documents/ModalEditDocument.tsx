@@ -1,10 +1,9 @@
 import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { pencil } from '../../../../utils/assets/img';
-import { IChallenge, IDocument } from '../../custom_types';
-import { actions } from '../../redux';
+import { FC, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import PencilComponent from '../../../../utils/assets/img/PencilComponent';
+import { IDocument } from '../../custom_types';
 import FormAddDocument from './FormAddDocument';
 
 interface ModalPros {
@@ -30,7 +29,11 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
 
     return (
         <>
-            <img src={pencil} style={{ cursor: 'pointer' }} onClick={() => open()} className="img-pencil" alt="" />
+        <PencilComponent
+                on_click={() => {
+                    open();
+                }}
+            />
             <Modal
                 visible={is_visible}
                 width={1000}
@@ -53,7 +56,7 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
                         {loading_form && (
                             <i
                                 className="fa fa-circle-o-notch fa-spin"
-                                style={{ fontSize: 12, marginLeft: 4, color: '#fff' }}
+                                style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
                             />
                         )}
                     </button>,

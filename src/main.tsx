@@ -8,6 +8,11 @@ import "./utils/assets/styles/index.scss";
 import TemplateProvider from './utils/components/template/templateContext';
 import { store } from "./config/store";
 import _config from '@arcgis/core/config';
+import moment from 'moment';
+import 'moment/locale/fr';
+
+moment.locale('es');
+
 
 
 if (import.meta.env.VITE_APP_ARGIS_KEY) {

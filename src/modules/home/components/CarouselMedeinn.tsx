@@ -1,33 +1,29 @@
 import 'bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../banner/redux';
 import ModalVideo from './ModalVideo';
 import { Buffer } from 'buffer';
-import { useNavigate } from 'react-router-dom';
 import { arrowLeft, arrowRight } from '../../../utils/assets/img';
 
 const CarouselMedeinn = () => {
-    const navigate = useNavigate();
-    const [images, setBannerImages] = useState<any[]>([]);
     const dispatch = useDispatch<any>();
     const data = useSelector((store: any) => store.banner.list_banners.value);
     useEffect(() => {
         getBanner();
     }, []);
 
-    // const data = [2];
-
     const getBanner = async () => {
         try {
-            const results = await dispatch(actions.get_list_banners());
-
-            if (results.length > 0) {
-                const images = await Promise.all(
-                    results.map((result: any) => dispatch(actions.get_image_banner(result?.id)))
-                );
-                setBannerImages(images.map((image) => Buffer.from(image).toString('base64')));
-            }
+            await dispatch(
+                actions.get_list_banners({
+                    page: 1,
+                    page_size: 4,
+                    order_by_key: 'ban_order',
+                    order_by_value: 'asc',
+                    from: 'landing',
+                })
+            );
         } catch (error) {
             console.error(error);
         }
@@ -53,37 +49,31 @@ const CarouselMedeinn = () => {
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
                             <div className="row container-carrousel">
                                 <div className="col-12 col-md-12 col-lg-4 content-carrousel">
-                                    <h2>{item?.car_titulo}</h2>
-                                    <p>{item?.car_descripcion}</p>
+                                    <h2>{item?.ban_title}</h2>
+                                    <p>{item?.ban_description}</p>
 
-                                    {item?.car_url_video ? <ModalVideo urlVideo={item?.car_url_video} /> : null}
+                                    {item?.ban_embedded_video ? (
+                                        <ModalVideo urlVideo={item?.ban_embedded_video} />
+                                    ) : null}
 
-                                    {item?.car_url && (
-                                        <a
-                                        href={`${item?.car_url}`}
-                                            className="btn btn-outline-primary ms-5"
-                                           
-                                        >
+                                    {item?.ban_reference_url && (
+                                        <a href={`${item?.car_url}`} className="btn btn-outline-landing-primary ms-5">
                                             Conoce más
                                         </a>
                                     )}
-                                    {/* <div className="" data-bs-target="#carouselIndicators" data-bs-slide="prev">
-                                        <img src={arrowLeft} alt="flecha izquierda" />
-                                        <span className="visually-hidden">Anterior</span>
-                                    </div>
-                                    <div data-bs-target="#carouselIndicators" data-bs-slide="next">
-                                        <img src={arrowRight} alt="flecha derecha" />
-                                        <span className="visually-hidden">Siguiente</span>
-                                    </div> */}
                                 </div>
                                 <div className="col-12  col-md-12 col-lg-8 height-carousel">
                                     <div className="contenedor-magen-carrusel">
-                                        <img
-                                            src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}
-                                            className="w-100 h-100"
-                                            style={{ height: '100%' }}
-                                            alt="imagen"
-                                        />
+                                        {item?.cha_background_image_buffer?.data && (
+                                            <img
+                                                src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
+                                                    item?.cha_background_image_buffer?.data
+                                                ).toString('base64')}`}
+                                                className="w-100 h-100"
+                                                style={{ height: '100%' }}
+                                                alt="imagen"
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +96,7 @@ const CarouselMedeinn = () => {
                     data-bs-target="#carouselIndicators"
                     data-bs-slide="next"
                 >
-                    <img src={arrowRight} alt="flecha izquierda" className='w-100' />
+                    <img src={arrowRight} alt="flecha izquierda" className="w-100" />
                     {/* <span className="carousel-control-next-icon" aria-hidden="true"></span> */}
                     <span className="visually-hidden">Siguiente</span>
                 </button>

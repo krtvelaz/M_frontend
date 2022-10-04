@@ -21,7 +21,6 @@ const DetailChallenge = () => {
 
     const getChallenge = async () => {
         const res = await dispatch(actions.get_detail_challenge(Number(id)));
-
         if (res) {
             const _imgPrincipal = await dispatch(actions.get_image_principal(res?.id));
             setImgPrincipal(Buffer.from(_imgPrincipal).toString('base64'));

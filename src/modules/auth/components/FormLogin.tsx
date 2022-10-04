@@ -1,64 +1,79 @@
-import { Alert } from 'antd';
+import { Alert, Checkbox } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
+import { actions } from '../redux';
 
 interface IloginFormPros {
-    onSubmit: (values: any, actions?: any) => any;
     disabled?: boolean;
-    alert?: string;
+    toggle?: any;
 }
 
-const FormLogin: FC<IloginFormPros> = ({ onSubmit, disabled, alert }) => {
+const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
+    const [alert, set_alert] = useState<string>();
+    const dispatch = useDispatch<any>();
+    const navigate = useNavigate();
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);
+
     const initialValues = {
-        email: '',
+        document: '',
         password: '',
         remember: false,
     };
-    const submit = (values: any, actions: any) => {
-        actions.setSubmitting(true);
-        onSubmit(values, actions)
-            .then(() => {
-                actions.setSubmitting(false);
-                actions.resetForm();
+    const submit = async (values: any, form: any) => {
+        const promise: any = dispatch(actions.login(values.document, values.password));
+        await promise
+            .then((res: any) => {
+                navigate('../home', { replace: true });
+                
             })
-            .catch(() => {
-                actions.setSubmitting(false);
+            .catch((e: any) => {                                
+                set_alert(e?.response?.data?.message);
             });
     };
 
     const schema = Yup.object().shape({
-        email: Yup.string().email('email inválido').required('Campo obligatorio'),
+        document: Yup.string().required('Campo obligatorio'),
         password: Yup.string().required('Campo obligatorio'),
     });
     return (
         <Formik enableReinitialize onSubmit={submit} initialValues={initialValues} validationSchema={schema}>
-            {({ isSubmitting }) => {
+            {({ isSubmitting, values, handleChange }) => {
                 return (
                     <Form>
-                        <div className="container-inputs-login usuario-item-login">
+                        <div className="container-inputs-login usuario-item-login mt-4">
                             <label htmlFor="user_id" className="form-label">
-                                {/* Número de identificación */}
-                                Correo electrónico
+                                Digite su usuario
                             </label>
                             <Field
-                                type="email"
+                                type="text"
                                 className="form-control"
                                 id="user_id"
-                                name="email"
-                                autoComplete="on"
+                                name="document"
                                 disabled={disabled}
+                                autoComplete="off"
+                                min={0}
+                                max={9999999999}
+                                onChange={(e: any) => {
+                                    e.preventDefault();
+                                    const { value } = e.target;
+                                    const regex = /^[0-9]{0,20}$/;
+                                    if (regex.test(value.toString())) {
+                                        handleChange(e);
+                                    }
+                                }}
                             />
-                            <ErrorMessage name="email" />
+                            <ErrorMessage name="document" />
                         </div>
                         <div className="container-inputs-login">
                             <label htmlFor="password_id" className="form-label">
                                 Digite su contraseña
                             </label>
-                            <div className="input-group mb-3">
+                            <div className="input-group ">
                                 <Field
                                     type={passwordType[type]}
                                     className="form-control border-end-0"
@@ -70,7 +85,6 @@ const FormLogin: FC<IloginFormPros> = ({ onSubmit, disabled, alert }) => {
 
                                 <span
                                     className="input-group-text bg-white border-start-0"
-                                    
                                     onClick={() => {
                                         if (type === 0) {
                                             setType(1);
@@ -89,9 +103,9 @@ const FormLogin: FC<IloginFormPros> = ({ onSubmit, disabled, alert }) => {
                         <div className="row">
                             <div className="col-12">
                                 <label className="d-flex align-items-center fw-normal">
-                                    {/* <Checkbox onChange={() => {}}>Recordar datos de acceso</Checkbox> */}
-                                    {/* <Field type="checkbox" name="remember" value="remember-me" /> */}
-                                    {/* <span className="d-inline-block ms-1">Recordar datos de acceso</span> */}
+                                    {/* <Checkbox onChange={() => { }}>Recordar datos de acceso</Checkbox> */}
+                                    <Field type="checkbox" name="remember" />
+                                    <span className="d-inline-block ms-1">Recordar datos de acceso</span>
                                 </label>
                             </div>
                         </div>
@@ -109,29 +123,42 @@ const FormLogin: FC<IloginFormPros> = ({ onSubmit, disabled, alert }) => {
                             </div>
                         )}
                         <div className="row">
-                            <div className="col ">
-                                {/*<button*/}
-                                {/*    type="button"*/}
-                                {/*    className="btn btn-outline-primary my-3"*/}
-                                {/*    onClick={() => (window.location.href = 'http://localhost:3000/auth/signup')}*/}
-                                {/*>*/}
-                                {/*    Registrarme*/}
-                                {/*</button>*/}
+                            <div className="col-12 text-center mt-4">
+                                <p>
+                                    ¿Olvidó su contraseña?{' '}
+                                    <a
+                                        style={{ font: 'Montserrat', color: '#41A0FF' }}
+                                        onClick={() => {
+                                            navigate(`../auth/forgot-password/`);
+                                            if(toggle) toggle();
+                                        }}
+                                    >
+                                        {' '}
+                                        Recuperala AQUÍ
+                                    </a>
+                                </p>
                             </div>
-                            <div className="col text-end">
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary my-3"
-                                    disabled={disabled || isSubmitting}
-                                >
-                                    Ingresar
-                                    {isSubmitting && (
-                                        <i
-                                            className="fa fa-circle-o-notch fa-spin"
-                                            style={{ fontSize: 12, marginLeft: 4, color: '#fff' }}
-                                        />
-                                    )}
-                                </button>
+                            <div className="bg-white d-flex flex-row justify-content-between mt-4 mb-5 text-center">
+                                <div className="col-6">
+                                    <button type="button" className="btn btn-outline-primary  me-2" onClick={() => {}}>
+                                        Cancelar
+                                    </button>
+                                </div>
+                                <div className="col-6">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary "
+                                        disabled={disabled || isSubmitting}
+                                    >
+                                        Ingresar
+                                        {isSubmitting && (
+                                            <i
+                                                className="fa fa-circle-o-notch fa-spin"
+                                                style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
+                                            />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </Form>
