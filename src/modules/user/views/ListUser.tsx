@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, } from '../../../utils/ui';
+import { Card } from '../../../utils/ui';
 import FormFilterUser from '../components/FormFilterUser';
 import ModalAssignRole from '../components/ModalAssignRole';
 import TableUser from '../components/TableUser';
@@ -15,20 +15,22 @@ const ListUser = () => {
         page_size: 10,
     });
 
-    const filterUsers = async (values: {document?: string, role?: string | number }) => {
-       
-        if(!values.document && !values.role) {
+    const filterUsers = async (values: { document?: string; role?: string | number }) => {
+        if (!values.document && !values.role) {
             return;
         }
-        await dispatch(actions.get_list_users({ ...(values.document && {document: values.document}), ...(values.role && {role: values.role}) }))
-        setClean(true)
-        
-    }
+        await dispatch(
+            actions.get_list_users({
+                ...(values.document && { document: values.document }),
+                ...(values.role && { role: values.role }),
+            })
+        );
+        setClean(true);
+    };
     return (
         <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-md-12">
-                    
                     <div className="row">
                         <h5 className="col d-flex justify-content-start">Roles y permisos</h5>
                         <div
@@ -37,7 +39,7 @@ const ListUser = () => {
                             }}
                             className="col d-flex justify-content-end"
                         >
-                            <ModalAssignRole type='assign'/>
+                            <ModalAssignRole type="assign" />
                         </div>
                     </div>
                     <Card
@@ -47,16 +49,13 @@ const ListUser = () => {
                                 <button
                                     type="button"
                                     className="btn-back me-5"
-                                    onClick={async() => {
-                                        const {role, document} = form_ref.current.values
-                                        if((role || document) && clean) {
-                                            await dispatch(actions.get_list_users(filters))
-                                            setClean(false)
-
+                                    onClick={async () => {
+                                        const { role, document } = form_ref.current.values;
+                                        if ((role || document) && clean) {
+                                            await dispatch(actions.get_list_users(filters));
+                                            setClean(false);
                                         }
-                                        form_ref.current?.resetForm()
-                                        
-                                        
+                                        form_ref.current?.resetForm();
                                     }}
                                 >
                                     Limpiar
@@ -71,7 +70,7 @@ const ListUser = () => {
                             </div>,
                         ]}
                     >
-                        <FormFilterUser innerRef={form_ref} onSubmit={filterUsers} />
+                        <FormFilterUser type="filter" innerRef={form_ref} onSubmit={filterUsers} />
                     </Card>
                     <Card>
                         <TableUser filters={filters} setFilters={setFilters} />

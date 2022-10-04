@@ -1,5 +1,9 @@
 import { auth_http } from '../../../config/axios_instances';
-import { default_list_users, fail_list_users, success_list_users } from './slice';
+import { default_list_users, fail_list_users, success_list_users,
+    detailRole_default,
+    detailRole_success,
+    detailRole_fail
+} from './slice';
 
 interface filter {
     page?: number;
@@ -36,10 +40,27 @@ const get_list_users = (filter?: filter) => {
     };
 };
 
+const get__RoleDetail = (id: any) => {
+    return async (dispatch: any) => {
+        dispatch(detailRole_default);
+        try {
+            const URI = `/roles`;
+            const res: any = await auth_http.get(URI, {
+                params: {
+                    id,
+                },});
+            dispatch(detailRole_success(res.data.data));
+            return res.data;
+        } catch (error) {
+            dispatch(detailRole_fail);
+            return Promise.reject('Error');
+        }
+    };
+};
 
 const actions = {
     get_list_users,
-
+    get__RoleDetail
 }
 
 export default actions;

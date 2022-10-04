@@ -3,7 +3,7 @@ import { IPageable, Loadable, Pageable } from '../../../custom_types';
 
 interface State {
     list_users: IPageable<any>;
-    
+detailRole:Loadable<any | null>;
 
     
 }
@@ -25,7 +25,11 @@ const initialState: State = {
         loading: false,
         loaded: false,
     },
-    
+    detailRole: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
     
    
 };
@@ -69,6 +73,27 @@ export const userSlice = createSlice({
                 loaded: true,
             };
         },
+       detailRole_default: (state) => {
+            state.detailRole = {
+                value: state.detailRole.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        detailRole_success: (state, action) => {
+            state.detailRole = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        detailRole_fail: (state) => {
+            state.detailRole = {
+                value: initialState.detailRole.value,
+                loading: false,
+                loaded: false,
+            };
+        },
        
     },
 });
@@ -76,7 +101,10 @@ export const userSlice = createSlice({
 export const {
     default_list_users,
     success_list_users,
-    fail_list_users
+    fail_list_users,
+    detailRole_default,
+    detailRole_success,
+    detailRole_fail
     
     
 } = userSlice.actions;
