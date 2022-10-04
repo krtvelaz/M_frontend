@@ -1,21 +1,18 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../../../utils/ui';
 import { actions } from '../redux';
 import ModalAssignRole from './ModalAssignRole';
 
-interface IProps {
-    filters: any,
-    setFilters: any
-
-}
-
-const TableUser: FC<IProps> = ({ filters, setFilters}) => {
+const TableUser = () => {
     const users: any[] = useSelector((store: any) => store.user.list_users.value);
     const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
     const {total}: any = useSelector((store: any) => store.user.list_users.pagination);
     const dispatch = useDispatch<any>();
-    
+    const [filters, setFilters] = useState({
+        page: 1,
+        page_size: 10,
+    });
     
     useEffect(() => {
         get_users();

@@ -49,7 +49,7 @@ const Map = () => {
             ref.current = true;
         } else {
             const geojsonLayer = new GeoJSONLayer({
-                url: 'https://medeinn-cms-ms.azurewebsites.net/api/v1/arcgis/events',
+                url,
                 renderer: new SimpleRenderer({
                     symbol: new PictureMarkerSymbol({
                         url: `${marcadorPosicion}`,
