@@ -25,13 +25,20 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
         remember: false,
     };
     const submit = async (values: any, form: any) => {
+        
         const promise: any = dispatch(actions.login(values.document, values.password));
         await promise
             .then((res: any) => {
                 navigate('../home', { replace: true });
                 
             })
-            .catch((e: any) => {                                
+            .catch((e: any) => {   
+                if( e?.response?.data?.message === 'El usuario requiere cambio de contraseña') {
+                    navigate(`../auth/change-password/`, {state: {data_user: values}});
+                    toggle();
+                    return;
+
+                }                             
                 set_alert(e?.response?.data?.message);
             });
     };
@@ -129,7 +136,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                     <a
                                         style={{ font: 'Montserrat', color: '#41A0FF' }}
                                         onClick={() => {
-                                            navigate(`../auth/forgot-password/`);
+                                            navigate(`../auth/recover-password/`);
                                             if(toggle) toggle();
                                         }}
                                     >

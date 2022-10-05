@@ -161,7 +161,6 @@ const get__documentDownload = (posarc_id: number) => {
             dispatch(download_success_Documents(res.data.data));
             return res.data;
         } catch (error) {
-            console.log('error', error);
             dispatch(download_fail_Documents);
             return Promise.reject('Error');
         }

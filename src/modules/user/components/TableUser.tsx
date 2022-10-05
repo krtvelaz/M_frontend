@@ -54,12 +54,16 @@ const TableUser: FC<IProps> = ({ filters, setFilters}) => {
         },
         {
             title: 'Rol asignado',
-            dataIndex: 'use_id_role',
+            dataIndex: 'use_role',
             align: 'left' as 'left',
+            render: (role: {id: number, rol_name: string}) => {
+                return role.rol_name.toLocaleLowerCase();
+            }
         },
         {
             title: 'Acciones',
             align: 'center' as 'center',
+            dataIndex: 'use_role',
             // fixed: 'right',
             render: () => {
                 return <ModalAssignRole type="change" />;

@@ -104,7 +104,6 @@ const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
             initialValues={initial_values}
         >
             {({ handleChange, values, setValues }) => {
-                console.log(values);
                 
                 return (
                     <Form>

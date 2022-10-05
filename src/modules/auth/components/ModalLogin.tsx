@@ -41,7 +41,6 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                                             <a
                                                 style={{ font: 'Montserrat', color: '#41A0FF' }}
                                                 onClick={() => {
-                                                    console.log('ir a registrar');
                                                     navigate(`../auth/register/`);
                                                    if(toggle) toggle();
                                                    

@@ -15,7 +15,7 @@ const ListChallenge = () => {
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({ page, pageSize: pageSize || 10 });
-        dispatch(actions.get_list_challenges(page, pageSize));
+        dispatch(actions.get_list_challenges({page, page_size: pageSize}));
     };
 
     const table_columns: any = [
@@ -28,13 +28,13 @@ const ListChallenge = () => {
         {
             title: 'Conv.',
             fixed: 'left',
-            dataIndex: 'announcement_id',
+            dataIndex: 'cha_announcement',
             align: 'center' as 'center',
         },
         {
             title: 'Nombre del reto',
             fixed: 'left',
-            dataIndex: 'name',
+            dataIndex: 'cha_name',
             align: 'left' as 'left',
             render: (value: string) => {
                 return (
@@ -66,29 +66,29 @@ const ListChallenge = () => {
             align: 'left' as 'left',
             render: (value: any) => {
                 const onChange = async (e: any) => {
-                    if (
-                        value.status !== 'Pendiente' &&
-                        value.status !== 'Aceptado' &&
-                        value.status !== 'Publicado' &&
-                        value.status !== 'Postulado'
-                    ) {
-                        swal_error.fire({
-                            title: 'Está función no se puede realizar por el momento',
-                            html:
-                                '<div class="mysubtitle">El reto no cumple con todos los parámetros necesarios</div>' +
-                                '<div class="mytext">Por favor, termina de crear el reto</div>',
-                            showCancelButton: false,
-                            confirmButtonText: 'Aceptar',
-                        });
-                        return;
-                    }
+                    // if (
+                    //     value.status !== 'Pendiente' &&
+                    //     value.status !== 'Aceptado' &&
+                    //     value.status !== 'Publicado' &&
+                    //     value.status !== 'Postulado'
+                    // ) {
+                    //     swal_error.fire({
+                    //         title: 'Está función no se puede realizar por el momento',
+                    //         html:
+                    //             '<div class="mysubtitle">El reto no cumple con todos los parámetros necesarios</div>' +
+                    //             '<div class="mytext">Por favor, termina de crear el reto</div>',
+                    //         showCancelButton: false,
+                    //         confirmButtonText: 'Aceptar',
+                    //     });
+                    //     return;
+                    // }
 
                     if (e.target.value === true) {
                         await dispatch(actions.publish_challenge(value.id));
                     } else {
                         await dispatch(actions.unpublish_challenge(value.id));
                     }
-                    await dispatch(actions.get_list_challenges(filters.page, filters.pageSize));
+                    await dispatch(actions.get_list_challenges({page: filters.page, page_size: filters.pageSize}));
                 };
 
                 return (
@@ -101,7 +101,7 @@ const ListChallenge = () => {
         },
         {
             title: 'Fecha inicio',
-            dataIndex: 'startDate',
+            dataIndex: 'cha_start_date',
             align: 'left' as 'left',
             render: (value: string) => {
                 return moment(value).format('DD / MM / YYYY');
@@ -109,7 +109,7 @@ const ListChallenge = () => {
         },
         {
             title: 'Fecha cierre',
-            dataIndex: 'closeDate',
+            dataIndex: 'cha_end_date',
             align: 'left' as 'left',
             render: (value: string) => {
                 return moment(value).format('DD / MM / YYYY');
@@ -177,7 +177,7 @@ const ListChallenge = () => {
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
 
     useEffect(() => {
-        dispatch(actions.get_list_challenges());
+        dispatch(actions.get_list_challenges({page: 1, page_size:10}));
     }, []);
 
     return (

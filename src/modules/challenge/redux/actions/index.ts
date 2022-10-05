@@ -2,13 +2,11 @@ import {
   get_detail_challenge,
   create_challenge,
   update_challenge,
-  get_four_challenge,
   get_image_principal,
   get_list_challenges,
   delete_challenge,
   publish_challenge,
   unpublish_challenge,
-  get_history_challenges
 } from "./challenge";
 
 import {
@@ -47,8 +45,6 @@ const actions = {
   edit_challenge_report,
   get_list_challenge_report,
   delete_challenge_report,
-  get_four_challenge,
-  get_history_challenges,
   get_document,
   get_types_documents,
   create_challenge_document,

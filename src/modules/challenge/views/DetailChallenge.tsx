@@ -23,6 +23,7 @@ const DetailChallenge = () => {
         const res = await dispatch(actions.get_detail_challenge(Number(id)));
         if (res) {
             const _imgPrincipal = await dispatch(actions.get_image_principal(res?.id));
+            
             setImgPrincipal(Buffer.from(_imgPrincipal).toString('base64'));
         }
     };
@@ -37,7 +38,7 @@ const DetailChallenge = () => {
                 className="container-info-detail"
                 style={{
                     padding: '90px 50px',
-                    // background: 'linear-gradient(to top, #ffffff 65%, transparent), url("https://images.pexels.com/photos/12470916/pexels-photo-12470916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
+                    // background: `linear-gradient(to top, #ffffff 65%, transparent), url(${imgPrincipal})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     backgroundPosition: 'left center',

@@ -36,7 +36,6 @@ const CalendarEvents = () => {
             let year = +moment(item?.eve_date).format('YYYY');
             let month = +moment(item?.eve_date).format('M');
             let day = +moment(item?.eve_date).format('D');
-            console.log(year, month, day);
             
             switch (value.year()) {
                 case year:

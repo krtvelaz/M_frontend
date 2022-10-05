@@ -1,6 +1,21 @@
+import Swal from 'sweetalert2';
 import { auth_http } from '../../../config/axios_instances';
 import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
-import { fail_user, loading_user, success_user, logOut, loading_countries, success_countries, fail_countries, loading_states, success_states, fail_states, loading_cities, success_cities, fail_cities } from './slice';
+import {
+    fail_user,
+    loading_user,
+    success_user,
+    logOut,
+    loading_countries,
+    success_countries,
+    fail_countries,
+    loading_states,
+    success_states,
+    fail_states,
+    loading_cities,
+    success_cities,
+    fail_cities,
+} from './slice';
 
 const login = (document: string, password: string) => {
     return async (dispatch: any) => {
@@ -31,8 +46,9 @@ const login = (document: string, password: string) => {
 
             dispatch(success_user(user));
             return user;
-        } catch (error) {
-            dispatch(fail_user());
+        } catch (error:any) {
+            dispatch(fail_user());         
+            
             return Promise.reject(error);
         }
     };
@@ -53,14 +69,13 @@ const register = (data: any) => {
                 ...data,
                 state: {
                     name: 'Antioquia',
-                    id: data.state
+                    id: data.state,
                 },
                 city: {
                     name: 'Medellin',
-                    id: data.city
+                    id: data.city,
                 },
                 society_type: data.society_type || 'N',
-
             });
             await swal_success.fire({
                 title: 'Proceso exitoso',
@@ -93,20 +108,46 @@ const recover_password = (document: string, email: string) => {
                 document,
                 email,
             });
+            await Swal.fire({
+                icon: 'success',
+                title: 'Recuperar contraseña',
+                html:
+                    '<div class="mytext"></div>' +
+                    `<div class="mysubtitle">${res.data?.message}</div>` +
+                    `<div class="mysubtitle">De click en aceptar para continuar</div>`,
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+                width: '500px'
+            });
             return res.data.data;
-        } catch (error) {
+        } catch (error: any) {
+            await Swal.fire({
+                icon: 'error',
+                title: 'Recuperar contraseña',
+                html:
+                    '<div class="mytext"></div>' +
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    `<div class="mysubtitle">De click en aceptar para continuar</div>`,
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+                width: '500px'
+            });
             return Promise.reject(error);
         }
     };
 };
-const change_password = (document: string, provisional_password: string, new_password: string) => {
+const change_password = (
+    document: string,
+    provisional_password: string,
+    new_password: string
+) => {
     return async (dispatch: any) => {
         try {
             const URI = '/users/update-password';
             const res: any = await auth_http.patch(URI, {
                 document,
-                provisional_password: 'xF5eRL7oJ2yC',
-                new_password
+                provisional_password,
+                new_password,
             });
             return res.data.data;
         } catch (error) {
@@ -117,54 +158,50 @@ const change_password = (document: string, provisional_password: string, new_pas
 
 const get_countries = () => {
     return async (dispatch: any) => {
-        dispatch(loading_countries())
+        dispatch(loading_countries());
         try {
             const URI = '/lists/countries';
             const res: any = await auth_http.get(URI);
-            dispatch(success_countries(res.data.data))
+            dispatch(success_countries(res.data.data));
             return res.data.data;
         } catch (error) {
-            dispatch(fail_countries())
+            dispatch(fail_countries());
             return Promise.reject(error);
         }
     };
 };
 const get_states = () => {
     return async (dispatch: any) => {
-        dispatch(loading_states())
+        dispatch(loading_states());
         try {
             const URI = '/lists/states';
             const res: any = await auth_http.get(URI);
-            dispatch(success_states(res.data.data))
+            dispatch(success_states(res.data.data));
             return res.data.data;
         } catch (error) {
-            dispatch(fail_states())
+            dispatch(fail_states());
             return Promise.reject(error);
         }
     };
 };
 const get_cities = (id_state: string) => {
     return async (dispatch: any) => {
-        dispatch(loading_cities())
+        dispatch(loading_cities());
         try {
             const URI = '/lists/cities';
-            const res: any = await auth_http.get(URI,{
+            const res: any = await auth_http.get(URI, {
                 params: {
                     id_state,
-                }
+                },
             });
-            dispatch(success_cities(res.data.data))
+            dispatch(success_cities(res.data.data));
             return res.data.data;
         } catch (error) {
-            dispatch(fail_cities())
+            dispatch(fail_cities());
             return Promise.reject(error);
         }
     };
 };
-
-
-
-
 
 const actions = {
     login,

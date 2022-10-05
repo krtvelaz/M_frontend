@@ -1,11 +1,12 @@
 import { Card, Skeleton } from 'antd';
-import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
+
+
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
@@ -19,7 +20,9 @@ const PublishedChallenges = () => {
 
     const getChallenges = async () => {
         setLoading(true);
-        const results = await dispatch(actions.get_four_challenge());
+        const results = await dispatch(actions.get_list_challenges({page: 1, page_size: 4, is_published: true, order_by_value: 'desc', from: 'landing'}));
+        
+        
         if (results.length > 0) {
             setChallenges(results);
             setLoading(false);
