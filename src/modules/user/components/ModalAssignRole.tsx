@@ -13,22 +13,27 @@ interface IModal {
 
 const ModalAssignRole: FC<IModal> = ({ type, id }) => {
     const dispatch = useDispatch<any>();
+    const [roleUser, setRoleUser] = useState(null);
     const users1: any[] = useSelector((store: any) => store.user.list_users.value);
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const [user, setUser] = useState(true);
-    const [userlistFilter, setUserlistFilter] = useState<any>();
+    const [userlistFilter, setUserlistFilter] = useState<any>({});
     const [userInfo, setUserInfo] = useState<any>();
     const form_ref = useRef<any>();
     const open = () => set_is_visible(true);
     const close = () => set_is_visible(false);
     const get_inforRolesDetail = async () => {
-        const res = await dispatch(actions.get__RoleDetail(1));
-        setUserlistFilter(res.data);
+        if (userInfo !== undefined) {
+            const res = await dispatch(actions.get__RoleDetail(roleUser ? roleUser : userInfo?.use_role?.id));
+            setUserlistFilter(res?.data);
+        }
+    };
+    const changeRoleUsers = async () => {
+        await dispatch(actions.change_RoleUser(Number(userInfo?.use_id), roleUser, set_is_visible));
     };
     useEffect(() => {
         get_inforRolesDetail();
-    }, []);
-
+    }, [userInfo, roleUser]);
     return (
         <>
             {type === 'assign' ? (
@@ -84,28 +89,36 @@ const ModalAssignRole: FC<IModal> = ({ type, id }) => {
                         actions={[
                             <div className="my-3 d-flex justify-content-end me-4">
                                 <button className="btn btn-outline-primary me-3">Cancelar</button>
-                                <button className="btn btn-primary">Asignar rol</button>
+                                <button onClick={changeRoleUsers} className="btn btn-primary">
+                                    Asignar rol
+                                </button>
                             </div>,
                         ]}
                     >
                         <FormFilterUser
-                            infoUser={{ role: userInfo?.use_role?.id, document: userInfo?.use_id }}
+                            setRoleUser={setRoleUser}
+                            infoUser={{
+                                role: roleUser === null ? userInfo?.use_role?.id : roleUser,
+                                document: userInfo?.use_id,
+                            }}
                             innerRef={form_ref}
                             onSubmit={() => {}}
                             type="change"
                         />
-                        <Alert
-                            message={
-                                <div style={{ color: '#F28C02' }}>
-                                    <div style={{ fontFamily: 'Montserrat-SemiBold' }}>
-                                        Ha seleccionado el rol de {userlistFilter?.rol_name}, el usuario tendrá permiso
-                                        para:
+                        {userlistFilter && (
+                            <Alert
+                                message={
+                                    <div style={{ color: '#F28C02' }}>
+                                        <div style={{ fontFamily: 'Montserrat-SemiBold' }}>
+                                            Ha seleccionado el rol de {userlistFilter?.rol_name}, el usuario tendrá
+                                            permiso para:
+                                        </div>
+                                        <div>{userlistFilter?.rol_description}</div>
                                     </div>
-                                    <div>{userlistFilter?.rol_description}</div>
-                                </div>
-                            }
-                            type="warning"
-                        />
+                                }
+                                type="warning"
+                            />
+                        )}
                     </Card>
                 )}
             </Modal>

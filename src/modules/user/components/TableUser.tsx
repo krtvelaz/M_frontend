@@ -52,8 +52,8 @@ const TableUser: FC<IProps> = ({ filters, setFilters }) => {
         },
         {
             title: 'Rol asignado',
-            dataIndex: 'use_id_role',
             align: 'left' as 'left',
+            dataIndex: 'use_id',
         },
         {
             title: 'Acciones',

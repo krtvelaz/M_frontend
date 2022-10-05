@@ -12,9 +12,10 @@ interface IPros {
     onSubmit: (values: any) => any;
     setUserInfoId?: any;
     infoUser?: any;
+    setRoleUser?: any;
 }
 
-const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, infoUser }) => {
+const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, infoUser, setRoleUser }) => {
     const users1: any[] = useSelector((store: any) => store.user.list_users.value);
     const initialValues = {
         role: null,
@@ -88,6 +89,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                         dropdownMatchSelectWidth={false}
                                         id="role_id"
                                         name="role"
+                                        onChange={(e: any) => setRoleUser(e)}
                                         options={[
                                             {
                                                 id: 1,
@@ -101,9 +103,12 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                                 id: 3,
                                                 name: 'Invitado',
                                             },
+                                            {
+                                                id: 4,
+                                                name: 'CIUDADANO',
+                                            },
                                         ]}
                                         placeholder="Seleccione uno o más perfiles…"
-                                        showSearch
                                         filterOption={(input: any, option: any) => {
                                             return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                         }}
