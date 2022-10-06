@@ -35,7 +35,6 @@ const PostulationsFilter: FC<PostulationsFilter> = () => {
                                         id="palabraClave_id"
                                         name="palabraClave"
                                         className="form-control"
-                                        dropdownMatchSelectWidth={false}
                                     />
                                 </div>
 
@@ -78,7 +77,6 @@ const PostulationsFilter: FC<PostulationsFilter> = () => {
                                         component={Select}
                                         id="estadoPos_id"
                                         name="estadoPos"
-                                        dropdownMatchSelectWidth={false}
                                         options={[
                                             {
                                                 name: 'Finalizado',

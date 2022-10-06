@@ -9,9 +9,11 @@ import { actions } from '../redux';
 interface IModal {
     type: 'assign' | 'change';
     id?: number;
+    switchGetUsers?: boolean;
+    setSwitchGetUsers?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalAssignRole: FC<IModal> = ({ type, id }) => {
+const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUsers }) => {
     const dispatch = useDispatch<any>();
     const [roleUser, setRoleUser] = useState(null);
     const users1: any[] = useSelector((store: any) => store.user.list_users.value);
@@ -20,8 +22,12 @@ const ModalAssignRole: FC<IModal> = ({ type, id }) => {
     const [userlistFilter, setUserlistFilter] = useState<any>({});
     const [userInfo, setUserInfo] = useState<any>();
     const form_ref = useRef<any>();
-    const open = () => set_is_visible(true);
-    const close = () => set_is_visible(false);
+    const open = () => {
+        set_is_visible(true);
+    };
+    const close = () => {
+        set_is_visible(false);
+    };
     const get_inforRolesDetail = async () => {
         if (userInfo !== undefined) {
             const res = await dispatch(actions.get__RoleDetail(roleUser ? roleUser : userInfo?.use_role?.id));
@@ -30,6 +36,7 @@ const ModalAssignRole: FC<IModal> = ({ type, id }) => {
     };
     const changeRoleUsers = async () => {
         await dispatch(actions.change_RoleUser(Number(userInfo?.use_id), roleUser, set_is_visible));
+        if (setSwitchGetUsers) setSwitchGetUsers(!switchGetUsers);
     };
     useEffect(() => {
         get_inforRolesDetail();
