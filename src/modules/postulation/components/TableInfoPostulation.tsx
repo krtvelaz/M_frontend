@@ -14,11 +14,13 @@ const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
     const { id } = useParams<any>();
     const dispatch = useDispatch<any>();
 
+    
+
     const challenges = useSelector((store: any) => store.challenge.challenges.value);
     const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoGeneralGroup = infoPosutlationsetail[0]?.members_info.map((item: any) => ({
+    const infoGeneralGroup = infoPosutlationsetail[0]?.members_info?.map((item: any) => ({
         gruint_disability: item.gruint_disability === true ? 'Si' : 'No',
         gruint_document: item.gruint_document,
         gruint_ethnicity: item.gruint_ethnicity,
@@ -27,6 +29,8 @@ const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
         gruint_orientation_sexual: item.gruint_orientation_sexual,
         gruint_sex: item.gruint_sex,
     }));
+
+    
     const infoGroupPostulation = async () => {
         await dispatch(actions.get__postulationInfoDetail(infoPost));
     };
