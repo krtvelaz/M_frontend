@@ -25,7 +25,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
     const [type, setType] = useState(0);
     const [type2, setType2] = useState(0);
     const initialValues = {
-        user: '1000200500',
+        user: '',
         password: '',
         confirmPassword: '',
         ...resetPassword

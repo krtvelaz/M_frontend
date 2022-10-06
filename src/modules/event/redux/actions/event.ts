@@ -120,7 +120,6 @@ export const get_list_events = (filter?: filter) => {
                 results: res.data.data,
                 pagination: res.data.meta,
             };
-            console.log(events);
             
             dispatch(success_list_event(events));
             return res.data.data;

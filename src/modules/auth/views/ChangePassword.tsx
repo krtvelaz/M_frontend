@@ -1,50 +1,74 @@
 import { FormikProps, FormikValues } from 'formik';
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Card } from '../../../utils/ui';
 import FormLostPassword from '../components/FormLostPassword';
 import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
 
-const ResetPassword = () => {
+const ChangePassword = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const form_ref = useRef<FormikProps<FormikValues>>();
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
+    const location: any = useLocation();
+
+    const user = {
+        user: location?.state.data_user.document,
+        provisional_password: location?.state.data_user.password,
+        password: '',
+        confirmPassword: '',
+    } 
+    
 
     const onRestPassword = async (values: any) => {
-        const reult: any = dispatch(actions.change_password(values.user, values.confirmPassword, values.password));
+        setLoading(true);
+        const reult: any = dispatch(actions.change_password(values.user, values.provisional_password, values.password));
         await reult
             .then((res: any) => {
                 navigate('../', { replace: true });
                 
             })
-            .catch((e: any) => {                                
+            .catch((e: any) => {
                 // set_alert(e?.response?.data?.message);
             });
-    }
+            setLoading(false);
+    };
 
     return (
         <div className="box-resetPaswword">
             <div style={{ marginTop: '110' }} className="container">
                 <div className="row justify-content-center">
                     <div className="d-flex flex-row m-5 col-md-12">
-                        <div style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold'}} className="mt-5 ms-5 text-white">Restablece tu contraseña</div>
+                        <div
+                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold' }}
+                            className="mt-5 ms-5 text-white"
+                        >
+                            Restablece tu contraseña
+                        </div>
                     </div>
 
                     <Card actions={[]}>
                         <div className="row px-5">
                             <div className="" style={{ fontSize: '20px' }}>
-                                Hola, <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}> Luisa María Sánchez Cadavid, </span> Por tu seguridad debes cambiar la contraseña
+                                Hola,{' '}
+                                <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
+                                    {' '}
+                                    Luisa María Sánchez Cadavid,{' '}
+                                </span>{' '}
+                                Por tu seguridad debes cambiar la contraseña
                             </div>
                             <div style={{ fontSize: '13px' }}>
                                 Por favor ingresa los siguientes campos y ten en cuenta las indicaciones para generar
                                 una nueva contraseña de acceso.
                             </div>
-                            <div className='mt-3'  style={{ fontSize: '17px' }}>Actualizar datos</div>
+                            <div className="mt-3" style={{ fontSize: '17px' }}>
+                                Actualizar datos
+                            </div>
                             <hr style={{ border: '1px solid #FF8403' }} />
-                            
-                            <FormResetPassword innerRef={form_ref} onSubmit={onRestPassword} />
+
+                            <FormResetPassword innerRef={form_ref} onSubmit={onRestPassword} resetPassword={user} />
                             <hr />
                             <div className="text-end">
                                 <button
@@ -53,8 +77,15 @@ const ResetPassword = () => {
                                     onClick={() => {
                                         form_ref.current?.submitForm();
                                     }}
+                                    disabled={loading}
                                 >
                                     Restablecer contraseña
+                                    {loading && (
+                                        <i
+                                            className="fa fa-circle-o-notch fa-spin"
+                                            style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
+                                        />
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -65,4 +96,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default ChangePassword;

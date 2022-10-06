@@ -1,9 +1,10 @@
 import { Alert, Checkbox } from 'antd';
 import { Field, Form, Formik } from 'formik';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { ErrorMessage } from '../../../utils/ui';
 import { actions } from '../redux';
 
@@ -16,6 +17,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
     const [alert, set_alert] = useState<string>();
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
+    const context = useContext(TemplateContext);
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);
 
@@ -28,10 +30,20 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
         const promise: any = dispatch(actions.login(values.document, values.password));
         await promise
             .then((res: any) => {
-                navigate('../home', { replace: true });
-                
+                if (res?.detail_user?.use_role?.id === 4) {
+                    
+                    navigate('../', { replace: true });
+                    context.toggle_login_modal();
+                } else {
+                    navigate('../home', { replace: true });
+                }
             })
-            .catch((e: any) => {                                
+            .catch((e: any) => {
+                if (e?.response?.data?.message === 'El usuario requiere cambio de contraseña') {
+                    navigate(`../auth/change-password/`, { state: { data_user: values } });
+                    toggle();
+                    return;
+                }
                 set_alert(e?.response?.data?.message);
             });
     };
@@ -129,8 +141,8 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                     <a
                                         style={{ font: 'Montserrat', color: '#41A0FF' }}
                                         onClick={() => {
-                                            navigate(`../auth/forgot-password/`);
-                                            if(toggle) toggle();
+                                            navigate(`../auth/recover-password/`);
+                                            if (toggle) toggle();
                                         }}
                                     >
                                         {' '}

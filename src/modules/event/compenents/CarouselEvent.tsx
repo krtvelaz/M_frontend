@@ -21,7 +21,6 @@ const CarouselEvent = () => {
     for (let i = 1; i <= Math.ceil(number_pages); i++) {
         paginationCarousel = [...paginationCarousel, i];
     }
-    console.log(loading);
 
     const get_events = async (page: number) => {
         await dispatch(actions.get_list_events({ page, page_size: 3, is_published: true }));

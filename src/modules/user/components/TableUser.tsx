@@ -5,18 +5,16 @@ import { actions } from '../redux';
 import ModalAssignRole from './ModalAssignRole';
 
 interface IProps {
-    filters: any,
-    setFilters: any
-
+    filters: any;
+    setFilters: any;
 }
 
-const TableUser: FC<IProps> = ({ filters, setFilters}) => {
+const TableUser: FC<IProps> = ({ filters, setFilters }) => {
     const users: any[] = useSelector((store: any) => store.user.list_users.value);
     const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
-    const {total}: any = useSelector((store: any) => store.user.list_users.pagination);
+    const { total }: any = useSelector((store: any) => store.user.list_users.pagination);
     const dispatch = useDispatch<any>();
-    
-    
+
     useEffect(() => {
         get_users();
     }, []);
@@ -27,11 +25,11 @@ const TableUser: FC<IProps> = ({ filters, setFilters}) => {
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({
-          page,
-          page_size: pageSize || 10
-        })
-        dispatch(actions.get_list_users({page, page_size: pageSize}))
-      }
+            page,
+            page_size: pageSize || 10,
+        });
+        dispatch(actions.get_list_users({ page, page_size: pageSize }));
+    };
 
     const table_columns: any = [
         {
@@ -54,15 +52,19 @@ const TableUser: FC<IProps> = ({ filters, setFilters}) => {
         },
         {
             title: 'Rol asignado',
-            dataIndex: 'use_id_role',
+            dataIndex: 'use_role',
             align: 'left' as 'left',
+            render: (role: {id: number, rol_name: string}) => {
+                return role.rol_name.toLocaleLowerCase();
+            }
         },
         {
             title: 'Acciones',
             align: 'center' as 'center',
+            dataIndex: 'use_id',
             // fixed: 'right',
-            render: () => {
-                return <ModalAssignRole type="change" />;
+            render: (id: number) => {
+                return <ModalAssignRole id={id} type="change" />;
             },
         },
     ];

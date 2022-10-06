@@ -29,8 +29,6 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
     }
     
 
-    console.log(publications);
-    console.log(paginationPublications);
     
     const get_publications = async (page: number) => {
         await dispatch(

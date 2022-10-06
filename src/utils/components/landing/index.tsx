@@ -14,9 +14,10 @@ interface ILanding {
     breadcrumbs?: Breadcrumb[];
     show_breadcrumbs?: boolean;
     children: any;
+    user: any;
 }
 
-const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs }) => {
+const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, user }) => {
     const { Header, Content, Footer } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs }) 
             <Layout className="w-100 h-100">
                 <Layout className="site-layout-landing">
                     <Header className="landing-header">
-                        <AppHeader collapsible={false} />
+                        <AppHeader collapsible={false} name={user?.use_email || ""} />
                     </Header>
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />

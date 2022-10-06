@@ -149,15 +149,11 @@ export const useCreatePostulation = (
         },
         {
             ref: useRef<FormikProps<FormikValues>>(),
-            save: async (is_finish?: boolean) => {
-                console.log('aquiiii');
-                
+            save: async (is_finish?: boolean) => {                
                 set_is_saving(true);
                 await steps[2]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
-                console.log(values);
-
                 set_is_saving(false);
             },
         },
@@ -168,7 +164,6 @@ export const useCreatePostulation = (
         
         const key = parseInt(active_key);
         const next = key + 1;
-        console.log(next);
         
         if (next <= limit) {
             callback(`${next}`);

@@ -36,13 +36,11 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
     const infoGroupPostulation = async () => {
         await dispatch(actions.get__postulationInfoDetail(id));
     };
-    useEffect(() => {
-        infoGroupPostulation();
-    }, []);
+    
     const event: IEvent = useSelector((store: any) => store.event.event.value);
     const dispatch = useDispatch<any>();
-    const open = () => {
-        set_is_visible(true);
+    const open = async  () => {
+        await set_is_visible(true);
         setInfoPost(id);
     };
     const close = () => set_is_visible(false);
@@ -54,7 +52,7 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
     return (
         <>
             <div
-                style={state === 'SIN FINALIZAR' ? { color: 'white' } : {}}
+                style={state === 'SIN FINALIZAR' ? { color: '#F2F2F2' } : {}}
                 onClick={open}
                 className="button-assign-rol"
             >
