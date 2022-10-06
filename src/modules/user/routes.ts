@@ -7,7 +7,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access: guards.login_admin,
             format: true,
             path: '/list/users',
             template_props: {

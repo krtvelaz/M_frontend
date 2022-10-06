@@ -6,16 +6,14 @@ import DetailChallenge from './views/DetailChallenge';
 import EditChallemge from './views/EditChallemge';
 import ListChallenge from './views/ListChallenge';
 import OurChallenges from './views/OurChallenges';
-import managePostulations from '../postulation/views/managePostulations';
-import FormPostulation from '../postulation/components/FormPostulation';
-import PostulationView from '../postulation/views/PostulationView';
+
 
 const get_routes = (): IRoute[] => {
     return [
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access:  guards.login_guest,
             format: true,
             path: '/challenge/create',
             template_props: {
@@ -32,7 +30,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access:  guards.login_guest,
             format: true,
             path: '/challenge/list',
             template_props: {
@@ -45,7 +43,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access:  guards.login_guest,
             format: true,
             path: '/challenge/edit/:id',
             template_props: {
@@ -62,7 +60,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: false,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             format: true,
             path: '/detail-challenge/:id',
             component: DetailChallenge,
@@ -75,7 +73,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: false,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             format: true,
             path: '/our-challenges',
             component: OurChallenges,

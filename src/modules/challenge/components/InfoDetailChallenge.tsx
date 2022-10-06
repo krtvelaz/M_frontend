@@ -15,12 +15,12 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const navigate = useNavigate();
     const [url, setUrl] = useState<string>('');
-    const getChallenges = async () => {
-        const results = await dispatch(actions.get_four_challenge());
-    };
-    useEffect(() => {
-        getChallenges();
-    }, []);
+    // const getChallenges = async () => {
+    //     const results = await dispatch(actions.get_four_challenge());
+    // };
+    // useEffect(() => {
+    //     getChallenges();
+    // }, []);
     return (
         <div>
             <p>{challenge?.cha_description}</p>

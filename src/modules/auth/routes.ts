@@ -1,8 +1,8 @@
 import { IRoute } from '../../utils/components/router/custom_types';
 import Register from './views/Register';
-import ResetPassword from './views/ResetPassword';
 import { guards } from '../home/routes';
-import ForgotPassword from './views/ForgotPassword';
+import RecoverPassword from './views/RecoverPassword';
+import ChangePassword from './views/ChangePassword';
 
 const get_routes = (): IRoute[] => {
     return [
@@ -18,7 +18,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/auth/register/',
             template_props: {
                 breadcrumbs: [
@@ -33,8 +33,8 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
-            path: '/auth/reset-password/',
+            can_access: guards.landing,
+            path: '/auth/change-password/',
             template_props: {
                 breadcrumbs: [
                     {
@@ -42,22 +42,22 @@ const get_routes = (): IRoute[] => {
                     },
                 ],
             },
-            component: ResetPassword,
+            component: ChangePassword,
         },
         {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
-            path: '/auth/forgot-password/',
+            can_access: guards.landing,
+            path: '/auth/recover-password/',
             template_props: {
                 breadcrumbs: [
                     {
-                        name: 'Reestablecer contraseña',
+                        name: 'Recuperar contraseña',
                     },
                 ],
             },
-            component: ForgotPassword,
+            component: RecoverPassword,
         },
     ];
 };

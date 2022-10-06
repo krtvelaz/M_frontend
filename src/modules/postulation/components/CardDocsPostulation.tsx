@@ -32,7 +32,6 @@ const CardDocsPostulation: FC<SelectProps> = ({
         link.target = '_blank';
         link.setAttribute('download', `documento.pdf`);
         document.body.appendChild(link);
-        console.log(link);
         link.click();
     };
 

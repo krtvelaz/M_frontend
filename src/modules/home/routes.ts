@@ -6,12 +6,19 @@ import Home from './views/Home';
 import Homepage from './views/Homepage';
 
 export const guards = {
-    success_login: (props?: any) => {                
-        return !!props?.user?.token;
+    login_admin: (props?: any) => {                
+        return props?.user?.detail_user?.use_role?.id === 1 || props?.user?.detail_user?.use_role?.id === 2;
     },
-    logOut: (props?: any) => {              
-        return props?.user?.token ? false : true;
+    login_guest: (props?: any) => {                
+        return props?.user?.detail_user?.use_role?.id === 1 || props?.user?.detail_user?.use_role?.id === 2 || props?.user?.detail_user?.use_role?.id === 3;
     },
+    login_citizen: (props?: any) => {                
+        return props?.user?.detail_user?.use_role?.id === 4 ;
+    },
+    landing: (props?: any) => {                      
+        return !props?.user?.token || props?.user?.detail_user?.use_role?.id === 4;
+    },
+    
 };
 
 const get_routes = (): IRoute[] => {
@@ -20,7 +27,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: true,
             format: true,
-            can_access: guards.success_login,
+            can_access: guards.login_guest,
             path: '/home',
             component: Home,
             template_props: {
@@ -33,7 +40,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/',
             template_props: {
                 show_breadcrumbs: false
@@ -45,7 +52,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access:  guards.logOut,
+            can_access: guards.landing,
             path: '/about-us',
             component: AboutUs,
             template_props: {
@@ -58,7 +65,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/calendar-events',
             template_props: {
                 breadcrumbs: [

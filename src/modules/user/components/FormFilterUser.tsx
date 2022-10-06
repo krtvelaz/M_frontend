@@ -1,19 +1,26 @@
 import { Field, Form, Formik } from 'formik';
 import { ErrorMessage, Select } from '../../../utils/ui';
 import * as Yup from 'yup';
-import { FC } from 'react';
+import { FC, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux';
 
 interface IPros {
     disabled?: boolean;
-    type?: 'assign' | 'change';
-    innerRef: any;
+    type?: 'assign' | 'change' | 'filter';
+    innerRef?: any;
     onSubmit: (values: any) => any;
+    setUserInfoId?: any;
+    infoUser?: any;
+    setRoleUser?: any;
 }
 
-const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
+const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, infoUser, setRoleUser }) => {
+    const users1: any[] = useSelector((store: any) => store.user.list_users.value);
     const initialValues = {
-        cha_announcement: '',
-        cha_name: '',
+        role: null,
+        document: '',
+        ...infoUser,
     };
 
     const schema = Yup.object().shape({
@@ -21,16 +28,22 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
     });
 
     const submit = async (values: any, actions: any) => {
-        await onSubmit(values);
+        if (type === 'filter') {
+            await onSubmit(values);
+            return;
+        }
+        const filterInfoUsersList = users1.find((item: any) => item?.use_id === values.document);
+        setUserInfoId(filterInfoUsersList);
         actions.setSubmitting(false);
     };
+
     return (
         <Formik
+            {...(type === 'filter' && (innerRef = { innerRef }))}
             enableReinitialize
             onSubmit={submit}
             initialValues={initialValues}
             validationSchema={schema}
-            innerRef={innerRef}
         >
             {({ handleChange, values, setFieldValue }) => {
                 return (
@@ -38,7 +51,11 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                         <div className="row">
                             <div className={`col-12 col-md-${type === 'assign' ? 10 : 6} `}>
                                 <label htmlFor="ret_nombre_id" className="form-label">
-                                    {type === 'assign' ? 'Buscar usuario' : type === 'change' ? 'Datos del usuario' : 'Usuario'}
+                                    {type === 'assign'
+                                        ? 'Buscar usuario'
+                                        : type === 'change'
+                                        ? 'Datos del usuario'
+                                        : 'Usuario'}
                                 </label>
                                 <Field
                                     type="text"
@@ -48,7 +65,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                     maxLength={80}
-                                    disabled={type=== 'change'}
+                                    disabled={type === 'change'}
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
@@ -71,9 +88,11 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                         maxTagCount="responsive"
                                         showArrow
                                         dropdownMatchSelectWidth={false}
-                                        id="ret_perfil_id"
-                                        name="cha_profiles"
-                                        className=""
+                                        id="role_id"
+                                        name="role"
+                                        extra_on_change={(role: number) => {
+                                            setRoleUser(role);
+                                        }}
                                         options={[
                                             {
                                                 id: 1,
@@ -87,10 +106,12 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                                 id: 1,
                                                 name: 'Invitado',
                                             },
+                                            {
+                                                id: 4,
+                                                name: 'Ciudadano',
+                                            },
                                         ]}
                                         placeholder="Seleccione uno o más perfiles…"
-                                        mode="multiple"
-                                        showSearch
                                         filterOption={(input: any, option: any) => {
                                             return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                         }}
@@ -98,8 +119,10 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type }) => {
                                     <ErrorMessage name="cha_profiles" />
                                 </div>
                             ) : (
-                                <div className="col-12 col-md-2" style={{marginTop: '25px'}}>
-                                    <button className="btn btn-primary">Buscar</button>
+                                <div className="col-12 col-md-2" style={{ marginTop: '25px' }}>
+                                    <button type="submit" className="btn btn-primary">
+                                        Buscar
+                                    </button>
                                 </div>
                             )}
                         </div>

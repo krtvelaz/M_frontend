@@ -1,11 +1,13 @@
 import { Card, Skeleton } from 'antd';
-import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
+
+
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
@@ -13,13 +15,17 @@ const PublishedChallenges = () => {
     const [loading, setLoading] = useState<any>({});
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
+    const context = useContext(TemplateContext);
+    const user = useSelector((store: any) => store?.auth?.user?.value);
     useEffect(() => {
         getChallenges();
     }, []);
 
     const getChallenges = async () => {
         setLoading(true);
-        const results = await dispatch(actions.get_four_challenge());
+        const results = await dispatch(actions.get_list_challenges({page: 1, page_size: 4, is_published: true, order_by_value: 'desc', from: 'landing'}));
+        
+        
         if (results.length > 0) {
             setChallenges(results);
             setLoading(false);
@@ -57,9 +63,7 @@ const PublishedChallenges = () => {
                                 key={`published-challenges-${i}`}
                             >
                                 <Card
-                                    onClick={() => {
-                                        navigate(`../detail-challenge/${challenge?.id}`);
-                                    }}
+                                    
                                     hoverable
                                     className="card-challenge"
                                     cover={
@@ -103,6 +107,13 @@ const PublishedChallenges = () => {
                                             </div>
 
                                             <button
+                                            onClick={() => {
+                                                if(!user) {
+                                                    context.toggle_login_modal();
+                                                    return;
+                                                }
+                                                navigate(`../detail-challenge/${challenge?.id}`);
+                                            }}
                                                 className="btn"
                                                 style={{
                                                     position: 'absolute',

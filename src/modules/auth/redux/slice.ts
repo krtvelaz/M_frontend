@@ -3,6 +3,9 @@ import { Loadable, IPageable } from '../../../custom_types';
 
 interface State {
     user: Loadable<any | null>;
+    countries: Loadable<any[] | null>;
+    states: Loadable<any[] | null>;
+    cities: Loadable<any[] | null>;
 }
 
 const buffer = localStorage.getItem('_uk_');
@@ -12,7 +15,22 @@ const token: string | null = localStorage.getItem('_tk_');
 
 const initialState: State = {
     user: {
-        value: token ? {detail_user: user, token, can_access: true } : null,
+        value: token ? { detail_user: user, token, can_access: true } : null,
+        loading: false,
+        loaded: false,
+    },
+    countries: {
+        value: [],
+        loading: false,
+        loaded: false,
+    },
+    states: {
+        value: [],
+        loading: false,
+        loaded: false,
+    },
+    cities: {
+        value: [],
         loading: false,
         loaded: false,
     },
@@ -47,7 +65,69 @@ export const authSlice = createSlice({
                 loading: false,
                 loaded: false,
             };
-            
+        },
+        loading_countries: (state) => {
+            state.countries = {
+                value: state.countries.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_countries: (state, action) => {
+            state.countries = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_countries: (state) => {
+            state.countries = {
+                value: initialState.countries.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+        loading_states: (state) => {
+            state.states = {
+                value: state.states.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_states: (state, action) => {
+            state.states = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_states: (state) => {
+            state.states = {
+                value: initialState.states.value,
+                loading: false,
+                loaded: false,
+            };
+        },
+        loading_cities: (state) => {
+            state.cities = {
+                value: state.cities.value,
+                loading: true,
+                loaded: false,
+            };
+        },
+        success_cities: (state, action) => {
+            state.cities = {
+                value: action.payload,
+                loading: false,
+                loaded: true,
+            };
+        },
+        fail_cities: (state) => {
+            state.cities = {
+                value: initialState.cities.value,
+                loading: false,
+                loaded: false,
+            };
         },
         logOut: (state) => {
             state.user = {
@@ -57,10 +137,23 @@ export const authSlice = createSlice({
             };
             localStorage.removeItem('_tk_');
             localStorage.removeItem('_uk_');
-            
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { loading_user, success_user, fail_user, logOut } = authSlice.actions;
+export const {
+    loading_user,
+    success_user,
+    fail_user,
+    logOut,
+    loading_countries,
+    success_countries,
+    fail_countries,
+    loading_states,
+    success_states,
+    fail_states,
+    loading_cities,
+    success_cities,
+    fail_cities,
+} = authSlice.actions;

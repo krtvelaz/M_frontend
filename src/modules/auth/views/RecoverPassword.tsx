@@ -1,28 +1,33 @@
 import { FormikProps, FormikValues } from 'formik';
-import React, { useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Card } from '../../../utils/ui';
 import FormLostPassword from '../components/FormLostPassword';
 import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
 
-const ForgotPassword = () => {
+const RecoverPassword = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const form_ref = useRef<FormikProps<FormikValues>>();
     const dispatch = useDispatch<any>();
+    const context = useContext(TemplateContext);
     const navigate = useNavigate();
 
-    const RecoverPassword = async (values: any, form: any) => {
+    const recover = async (values: any, form: any) => {
+        setLoading(true);
         const reult: any = dispatch(actions.recover_password(values.document, values.email));
         await reult
             .then((res: any) => {
-                // navigate('../home', { replace: true });
+                context.toggle_login_modal();
+                 navigate('../', { replace: true });
                 
             })
             .catch((e: any) => {                                
                 // set_alert(e?.response?.data?.message);
             });
-        
+            setLoading(false);
 
     }
 
@@ -42,7 +47,7 @@ const ForgotPassword = () => {
                             <div className='mt-3'  style={{ fontSize: '17px' }}>Ingrese sus datos</div>
                             <hr style={{ border: '1px solid #FF8403' }} />
                             
-                            <FormLostPassword innerRef={form_ref} onSubmit={RecoverPassword} />
+                            <FormLostPassword innerRef={form_ref} onSubmit={recover} />
                             <hr />
                             <div className="text-end">
                                 <button
@@ -51,8 +56,15 @@ const ForgotPassword = () => {
                                     onClick={() => {
                                         form_ref.current?.submitForm();
                                     }}
+                                    disabled={loading}
                                 >
                                     Restablecer contraseña
+                                    {loading && (
+                                        <i
+                                            className="fa fa-circle-o-notch fa-spin"
+                                            style={{ fontSize: 12, marginLeft: 10, color: '#fff' }}
+                                        />
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -63,4 +75,4 @@ const ForgotPassword = () => {
     );
 };
 
-export default ForgotPassword;
+export default RecoverPassword;

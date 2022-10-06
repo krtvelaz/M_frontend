@@ -10,6 +10,19 @@ import {
     fail_challenges,
 } from '../slice';
 
+
+interface filters {
+    page: number;
+    page_size?: number;
+    order_by_key?: string;
+    order_by_value?: 'asc' | 'desc';
+    is_published?: boolean;
+    from?: 'landing';
+    is_opened?: boolean;
+    is_closed?: boolean;
+    dimension?: string;
+}
+
 /*----------------Reto---------------------*/
 
 export const create_challenge = (values: IGeneralInformation) => {
@@ -122,7 +135,7 @@ export const get_detail_challenge = (id: number) => {
     return async (dispatch: any) => {
         dispatch(loading_challenge());
         try {
-            const URI = `/challenges/details`;
+            const URI = `/challenges`;
             const res = await http.get(URI, {
                 params: {
                     id,
@@ -137,22 +150,12 @@ export const get_detail_challenge = (id: number) => {
     };
 };
 
-export const get_four_challenge = () => {
-    return async (dispatch: any) => {
-        try {
-            const URI = '/challenges/last-four';
-            const res = await http.get(URI);
-            return res.data.data;
-        } catch (error) {
-            return Promise.reject('Error');
-        }
-    };
-};
+
 
 export const get_image_principal = (id: number) => {
     return async (dispatch: any) => {
         try {
-            const URI = `challenges/img`;
+            const URI = `challenges/download-image`;
             const res = await http.get(URI, {
                 responseType: 'arraybuffer',
                 params: {
@@ -166,24 +169,24 @@ export const get_image_principal = (id: number) => {
     };
 };
 
-export const get_list_challenges = (page = 1, pageSize = 10) => {
+export const get_list_challenges = (filters?: filters) => {
     return async (dispatch: any) => {
         dispatch(loading_challenges());
         try {
-            const URI = 'lists/challenges';
+            const URI = '/challenges/list';
             const res = await http.get(URI, {
                 params: {
-                    page,
-                    per_page: pageSize,
+                   ...filters
                 },
             });
+            
             const challenges = {
                 results: res.data.data,
                 pagination: res.data.meta,
             };
 
             dispatch(success_challenges(challenges));
-            return challenges;
+            return res.data.data;
         } catch (error) {
             dispatch(fail_challenges());
             return Promise.reject(error);
@@ -257,31 +260,5 @@ export const delete_challenge = (id: number) => {
 };
 
 
-export const get_history_challenges = (form: number, dimension?: number, limit = 9) => {
-    return async (dispatch: any) => {
-        dispatch(loading_challenges());
-        try {
-            const URI = '/challenges/history';
-            const res = await http.get(URI, {
-                params: {
-                    form,
-                    ...(dimension && {
-                        dimension
-                    }),
-                    limit
-                },
-            });
-            const challenges = {
-                results: res.data.data,
-                pagination: {}
-            }
-            
-            dispatch(success_challenges(challenges));
-            return res.data;
-        } catch (error) {
-            dispatch(fail_challenges());
-            return Promise.reject(error);
-        }
-    };
-};
+
 

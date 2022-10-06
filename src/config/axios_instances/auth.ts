@@ -6,7 +6,7 @@ export const http = axios.create({
     baseURL: API_URL,
 });
 
-http.interceptors.request.use((config: any) => {    
+http.interceptors.request.use((config: any) => {   
     if (config.url !== '/auth/login/' && config.url !== '/auth/password-recovery') {
         const token = localStorage.getItem('_tk_');
         if (token) {
