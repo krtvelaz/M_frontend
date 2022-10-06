@@ -89,7 +89,10 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                         dropdownMatchSelectWidth={false}
                                         id="role_id"
                                         name="role"
-                                        onChange={(e: any) => setRoleUser(e)}
+                                        extra_on_change={(role: number) => {
+                                            setRoleUser(role)
+                                        }}
+                                    
                                         options={[
                                             {
                                                 id: 1,
@@ -105,7 +108,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                             },
                                             {
                                                 id: 4,
-                                                name: 'CIUDADANO',
+                                                name: 'Ciudadano',
                                             },
                                         ]}
                                         placeholder="Seleccione uno o más perfiles…"

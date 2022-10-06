@@ -18,7 +18,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/auth/register/',
             template_props: {
                 breadcrumbs: [
@@ -33,7 +33,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/auth/change-password/',
             template_props: {
                 breadcrumbs: [
@@ -48,7 +48,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             path: '/auth/recover-password/',
             template_props: {
                 breadcrumbs: [

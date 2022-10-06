@@ -10,7 +10,6 @@ const OurChallenges = () => {
     const [activeKey, setActiveKey] = useState<number>(1);
     const dispath = useDispatch<any>();
     const onChange = async (key: string) => {
-        console.log(key);
         await dispath(
             actions.get_list_challenges({
                 page: 1,
@@ -31,8 +30,6 @@ const OurChallenges = () => {
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
     const dimensions = useSelector((store: any) => store.challenge.dimensions.value);
 
-    console.log(first_page);
-    console.log(last_page);
 
     const onDimiension = (dimension: any) => {
         dispath(

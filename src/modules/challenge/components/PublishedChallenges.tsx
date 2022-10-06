@@ -1,10 +1,11 @@
 import { Card, Skeleton } from 'antd';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 
 
@@ -14,6 +15,8 @@ const PublishedChallenges = () => {
     const [loading, setLoading] = useState<any>({});
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
+    const context = useContext(TemplateContext);
+    const user = useSelector((store: any) => store?.auth?.user?.value);
     useEffect(() => {
         getChallenges();
     }, []);
@@ -60,9 +63,7 @@ const PublishedChallenges = () => {
                                 key={`published-challenges-${i}`}
                             >
                                 <Card
-                                    onClick={() => {
-                                        navigate(`../detail-challenge/${challenge?.id}`);
-                                    }}
+                                    
                                     hoverable
                                     className="card-challenge"
                                     cover={
@@ -106,6 +107,13 @@ const PublishedChallenges = () => {
                                             </div>
 
                                             <button
+                                            onClick={() => {
+                                                if(!user) {
+                                                    context.toggle_login_modal();
+                                                    return;
+                                                }
+                                                navigate(`../detail-challenge/${challenge?.id}`);
+                                            }}
                                                 className="btn"
                                                 style={{
                                                     position: 'absolute',

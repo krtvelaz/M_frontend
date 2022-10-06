@@ -17,7 +17,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access:  guards.success_login,
+            can_access:  guards.login_admin,
             format: true,
             path: '/notifications/list',
             template_props: {
@@ -30,7 +30,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access:  guards.success_login,
+            can_access: guards.login_admin,
             format: true,
             path: '/publication/list',
             template_props: {
@@ -43,7 +43,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access: guards.login_admin,
             format: true,
             path: '/publication/create',
             template_props: {
@@ -60,7 +60,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access: guards.login_admin,
             format: true,
             path: '/publication/edit/:id',
             template_props: {
@@ -77,7 +77,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: false,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             format: true,
             path: '/detail-publication/:id',
             template_props: {

@@ -12,6 +12,7 @@ export const redirect_fn = (can_access: boolean, location: any) => {
 
 export const get_can_access = (can_access: CanAccess, props: any): boolean => {
   let has_access = !!can_access;
+  
   if (has_access) {    
     if (typeof can_access === "function") {
       has_access = can_access(props);

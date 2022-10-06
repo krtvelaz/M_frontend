@@ -37,6 +37,7 @@ const login = (document: string, password: string) => {
                         },
                     }
                 );
+                
                 user = {
                     token: res_token.data.data.token,
                     detail_user: resul_user.data.data.userData,

@@ -13,7 +13,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.success_login,
+            can_access: guards.login_admin,
             format: true,
             path: '/list/postulations',
             template_props: {
@@ -30,7 +30,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.logOut,
+            can_access: guards.landing,
             format: true,
             path: '/postulation-challenge',
             component: CreatePostulation,
@@ -59,7 +59,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.logOut,
+            can_access:  guards.landing,
             format: true,
             path: '/postulation/challenge/:id',
             template_props: {

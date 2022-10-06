@@ -26,7 +26,7 @@ const CustomRender: FC<RouteWithSubRoutesProps> = ({
     template_props,
     format,
     ..._props
-}) => {
+}) => {    
     const dr = compute_redirect(defaultRedirect, location);
     if (redirect) {
         return compute_redirect(redirect, location);
@@ -38,19 +38,24 @@ const CustomRender: FC<RouteWithSubRoutesProps> = ({
     };
     const cp = lazy ? withSuspense(ops, dr)(component) : withSuspense(ops, dr, false)(component);
     if (format) {
+        
+        
         const has_access = get_can_access(can_access as CanAccess, _props);
         if (has_access) {
+            
             const Template = template;
             const template_ops = {
                 ...template_props,
-                user: _props.user?.detailsUser,
-                roles_user: _props.user?.roles,
+                user: _props.user?.detail_user,
+                // roles_user: _props.user?.roles,
             };
             return template ? <Template {...template_ops}>{cp}</Template> : cp;
         } else {
-            if(_props.user)  {
+            
+            if(_props.user && _props?.user?.detail_user?.use_role?.id !== 4)  {
                 return compute_redirect(privateRedirect, location);
             }  else {
+                
                 return compute_redirect(defaultRedirect, location);
             }
 

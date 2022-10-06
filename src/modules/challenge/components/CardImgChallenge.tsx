@@ -13,7 +13,6 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
     if (Array.isArray(data?.cha_image_stream?.data)) {
         _img = Buffer.from(data?.cha_image_stream?.data).toString('base64');
     }
-    console.log(data);
     
 
     return (
