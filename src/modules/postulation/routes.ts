@@ -4,7 +4,6 @@ import managePostulations from "./views/managePostulations";
 import { guards } from "../home/routes";
 import FormPostulation from "./components/FormPostulation";
 import CreatePostulation from "./views/CreatePostulation";
-import CreatePostulationTeam from "./views/CreatePostulationTeam";
 import PostulationView from "./views/PostulationView";
 
 
@@ -38,20 +37,6 @@ const get_routes = (): IRoute[] => {
                 breadcrumbs: [
                     { name: 'Postulation' },
                     
-                ],
-            },
-            
-        },
-        {
-            exact: true,
-            is_private: true,
-            can_access: true,
-            format: true,
-            path: '/postulation-team-challenge',
-            component: CreatePostulationTeam,
-            template_props: {
-                breadcrumbs: [
-                    { name: 'Team' },
                 ],
             },
             
