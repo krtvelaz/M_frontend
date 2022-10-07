@@ -1,13 +1,11 @@
-import { FC, useEffect, useState } from 'react';
-import { Card, Table, swal_error } from '../../../utils/ui';
+import { FC, useState } from 'react';
+import { Table } from '../../../utils/ui';
 import { Button, Modal, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { useParams } from 'react-router-dom';
 
 import { descargaImg } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
-import Item from 'antd/lib/list/Item';
 import fileDownload from 'js-file-download';
 
 interface TablePros {
@@ -142,16 +140,6 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
                                     style={{ cursor: 'pointer' }}
                                     onClick={async () => {
                                         DownloadFile();
-                                        // const result = await swal_error.fire({
-                                        //     title: 'Eliminar elemento',
-                                        //     html:
-                                        //         '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
-                                        //         '<div class="mytext">¿Está seguro que desea eliminarlo?</div>',
-                                        //     showCancelButton: false,
-                                        //     showDenyButton: true,
-                                        //     confirmButtonText: 'Sí, eliminar',
-                                        //     denyButtonText: `Cancelar`,
-                                        // });
                                     }}
                                 />
                             </div>

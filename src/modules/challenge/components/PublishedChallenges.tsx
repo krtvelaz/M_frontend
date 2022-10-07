@@ -7,8 +7,6 @@ import { actions } from '../redux';
 import { formatDate } from '../../../utils';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 
-
-
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
     const [images, setImages] = useState<any>({});
@@ -23,9 +21,16 @@ const PublishedChallenges = () => {
 
     const getChallenges = async () => {
         setLoading(true);
-        const results = await dispatch(actions.get_list_challenges({page: 1, page_size: 4, is_published: true, order_by_value: 'desc', from: 'landing'}));
-        
-        
+        const results = await dispatch(
+            actions.get_list_challenges({
+                page: 1,
+                page_size: 4,
+                is_published: true,
+                order_by_value: 'desc',
+                from: 'landing',
+            })
+        );
+
         if (results.length > 0) {
             setChallenges(results);
             setLoading(false);
@@ -41,11 +46,11 @@ const PublishedChallenges = () => {
     return (
         <div className="row">
             <div className="col-12 col-md-12 col-lg-5" style={{ marginTop: '55px', position: 'relative' }}>
-                <h2>
-                    Solucionar e ider
+                <span style={{ fontSize: '16px' }}>
+                    Solucionar e idear
                     <br />
                     <span className="text-stake">Convocatoria abierta</span>
-                </h2>
+                </span>
                 <br />
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam provident voluptatem ipsum odit
@@ -63,7 +68,6 @@ const PublishedChallenges = () => {
                                 key={`published-challenges-${i}`}
                             >
                                 <Card
-                                    
                                     hoverable
                                     className="card-challenge"
                                     cover={
@@ -107,13 +111,13 @@ const PublishedChallenges = () => {
                                             </div>
 
                                             <button
-                                            onClick={() => {
-                                                if(!user) {
-                                                    context.toggle_login_modal();
-                                                    return;
-                                                }
-                                                navigate(`../detail-challenge/${challenge?.id}`);
-                                            }}
+                                                onClick={() => {
+                                                    if (!user) {
+                                                        context.toggle_login_modal();
+                                                        return;
+                                                    }
+                                                    navigate(`../detail-challenge/${challenge?.id}`);
+                                                }}
                                                 className="btn"
                                                 style={{
                                                     position: 'absolute',

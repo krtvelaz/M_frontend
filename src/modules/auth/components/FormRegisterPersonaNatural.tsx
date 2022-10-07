@@ -47,17 +47,18 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         contact_type: Yup.string().nullable().required('Campo obligatorio'),
         contact_number: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         country: Yup.string().nullable().required('Campo obligatorio'),
-        state: Yup.string().nullable().when("country", {
-            is: 'CO-Colombia',
-            then: Yup.string().nullable().required("Campo obligatorio"),
-        }),
-        city: Yup.string().nullable().when("country", {
-            is: 'CO-Colombia',
-            then: Yup.string().nullable().required("Campo obligatorio"),
-        }),
-        // state: Yup.string().nullable().required('Campo obligatorio'),
-        // city: Yup.string().nullable().required('Campo obligatorio'),
-        // radioPolitica: Yup.string().required("Debes aceptar las politicas para continuar")
+        state: Yup.string()
+            .nullable()
+            .when('country', {
+                is: 'CO-Colombia',
+                then: Yup.string().nullable().required('Campo obligatorio'),
+            }),
+        city: Yup.string()
+            .nullable()
+            .when('country', {
+                is: 'CO-Colombia',
+                then: Yup.string().nullable().required('Campo obligatorio'),
+            }),
     });
     const submit = async (values: any, form: any) => {
         await onSubmit(values, form);

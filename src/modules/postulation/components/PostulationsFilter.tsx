@@ -1,8 +1,7 @@
-import { ErrorMessage, Select } from '../../../utils/ui';
+import { Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
-import * as Yup from 'yup';
 import { FC, useRef } from 'react';
 interface PostulationsFilter {}
 const PostulationsFilter: FC<PostulationsFilter> = () => {

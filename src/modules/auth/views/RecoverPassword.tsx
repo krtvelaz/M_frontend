@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Card } from '../../../utils/ui';
 import FormLostPassword from '../components/FormLostPassword';
-import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
 
 const RecoverPassword = () => {
@@ -21,22 +20,23 @@ const RecoverPassword = () => {
         await reult
             .then((res: any) => {
                 context.toggle_login_modal();
-                 navigate('../', { replace: true });
-                
+                navigate('../', { replace: true });
             })
-            .catch((e: any) => {                                
-                // set_alert(e?.response?.data?.message);
-            });
-            setLoading(false);
-
-    }
+            .catch((e: any) => {});
+        setLoading(false);
+    };
 
     return (
         <div className="box-resetPaswword">
             <div style={{ marginTop: '110' }} className="container">
                 <div className="row justify-content-center">
                     <div className="d-flex flex-row m-5 col-md-12">
-                        <div style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold'}} className="mt-5 ms-5 text-white">¿Olvido su contraseña?</div>
+                        <div
+                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold' }}
+                            className="mt-5 ms-5 text-white"
+                        >
+                            ¿Olvido su contraseña?
+                        </div>
                     </div>
 
                     <Card actions={[]}>
@@ -44,9 +44,11 @@ const RecoverPassword = () => {
                             <div className="" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                                 Completa los campos para iniciar el proceso de recuperación de su contraseña
                             </div>
-                            <div className='mt-3'  style={{ fontSize: '17px' }}>Ingrese sus datos</div>
+                            <div className="mt-3" style={{ fontSize: '17px' }}>
+                                Ingrese sus datos
+                            </div>
                             <hr style={{ border: '1px solid #FF8403' }} />
-                            
+
                             <FormLostPassword innerRef={form_ref} onSubmit={recover} />
                             <hr />
                             <div className="text-end">

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Card, Skeleton } from 'antd';
-import moment from 'moment';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
 
@@ -13,7 +12,6 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
     if (Array.isArray(data?.cha_image_stream?.data)) {
         _img = Buffer.from(data?.cha_image_stream?.data).toString('base64');
     }
-    
 
     return (
         <Card
@@ -28,8 +26,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                         alt="Imagen principal del reto"
                     />
                 ) : (
-                    <Skeleton.Image className='w-100' style={{ minHeight: '150px', borderRadius: ' 40px 40px 0 0' }}  />
-                    
+                    <Skeleton.Image className="w-100" style={{ minHeight: '150px', borderRadius: ' 40px 40px 0 0' }} />
                 )
             }
         >
@@ -51,7 +48,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                 </div>
 
                 <button className="btn" style={{ position: 'absolute', top: '-20px', left: '20px', margin: 0 }}>
-                   {data?.cha_dimension?.maedim_nombre}
+                    {data?.cha_dimension?.maedim_nombre}
                 </button>
             </div>
         </Card>

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { number } from 'yup';
 import { actions } from '../redux';
 import moment from 'moment';
@@ -10,7 +10,6 @@ interface detailPros {
 }
 
 const DetailGroupPostulation: FC<detailPros> = ({ data, infoPost }) => {
-    const dispatch = useDispatch<any>();
     const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
     const filterInfoPost = infoPosutlations?.filter((item: any) => item.id_postulation === infoPost);
     const fecAndHour = moment(filterInfoPost[0]?.pos_updated_at).format('YYYY-MM-DD HH:mm:ss');

@@ -1,7 +1,4 @@
 import { FC, useEffect } from 'react';
-import * as Yup from 'yup';
-import moment from 'moment';
-import { IEvent } from '../../event/custom_types';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 
@@ -15,7 +12,7 @@ const DetailGeneralPostulation: FC<detailPros> = ({ data }) => {
     const infoGeneralGroup = infoPosutlationsetail && infoPosutlationsetail[0]?.postulation_info;
 
     const infoGroupPostulation = async () => {
-        const res = await dispatch(actions.get__postulationInfoDetail(data));
+        await dispatch(actions.get__postulationInfoDetail(data));
     };
     useEffect(() => {
         infoGroupPostulation();

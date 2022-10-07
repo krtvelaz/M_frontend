@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FC } from 'react';
-import { useDispatch,} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';
 import { LogoPDF } from '../../../utils/assets/img';
@@ -15,12 +15,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const navigate = useNavigate();
     const [url, setUrl] = useState<string>('');
-    // const getChallenges = async () => {
-    //     const results = await dispatch(actions.get_four_challenge());
-    // };
-    // useEffect(() => {
-    //     getChallenges();
-    // }, []);
+
     return (
         <div>
             <p>{challenge?.cha_description}</p>

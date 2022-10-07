@@ -11,7 +11,6 @@ import { IEvent } from '../../event/custom_types';
 import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
 import { actions } from '../redux';
-import { useNavigate } from 'react-router-dom';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
@@ -36,10 +35,10 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
     const infoGroupPostulation = async () => {
         await dispatch(actions.get__postulationInfoDetail(id));
     };
-    
+
     const event: IEvent = useSelector((store: any) => store.event.event.value);
     const dispatch = useDispatch<any>();
-    const open = async  () => {
+    const open = async () => {
         await set_is_visible(true);
         setInfoPost(id);
     };

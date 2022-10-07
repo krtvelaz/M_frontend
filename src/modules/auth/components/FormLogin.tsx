@@ -31,7 +31,6 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
         await promise
             .then((res: any) => {
                 if (res?.detail_user?.use_role?.id === 4) {
-                    
                     navigate('../', { replace: true });
                     context.toggle_login_modal();
                 } else {
@@ -137,7 +136,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                         <div className="row">
                             <div className="col-12 text-center mt-4">
                                 <p>
-                                    ¿Olvidó su contraseña?{' '}
+                                    ¿Olvidó su contraseña?
                                     <a
                                         style={{ font: 'Montserrat', color: '#41A0FF' }}
                                         onClick={() => {
@@ -145,7 +144,6 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                             if (toggle) toggle();
                                         }}
                                     >
-                                        {' '}
                                         Recuperala AQUÍ
                                     </a>
                                 </p>
