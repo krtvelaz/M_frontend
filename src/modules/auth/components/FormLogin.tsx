@@ -138,7 +138,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                 <p>
                                     ¿Olvidó su contraseña?
                                     <a
-                                        style={{ font: 'Montserrat', color: '#41A0FF' }}
+                                        style={{ font: 'Montserrat', color: '#41A0FF', fontWeight: '600' }}
                                         onClick={() => {
                                             navigate(`../auth/recover-password/`);
                                             if (toggle) toggle();
@@ -150,12 +150,24 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                             </div>
                             <div className="bg-white d-flex flex-row justify-content-between mt-4 mb-5 text-center">
                                 <div className="col-6">
-                                    <button type="button" className="btn btn-outline-primary  me-2" onClick={() => {}}>
+                                    <button
+                                        style={{
+                                            width: '80%',
+                                            height: '93%',
+                                        }}
+                                        type="button"
+                                        className="btn btn-outline-primary  me-2"
+                                        onClick={() => {}}
+                                    >
                                         Cancelar
                                     </button>
                                 </div>
                                 <div className="col-6">
                                     <button
+                                        style={{
+                                            width: '80%',
+                                            height: '93%',
+                                        }}
                                         type="submit"
                                         className="btn btn-primary "
                                         disabled={disabled || isSubmitting}
