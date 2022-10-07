@@ -22,10 +22,12 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
     };
     const dispatch = useDispatch<any>();
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoDocsTec = infoPosutlationsetail[0].documents_info.filter((item: any) => item.rettipdoc_type_form === 2);
-    const infoDocsAdmins = infoPosutlationsetail[0].documents_info.filter(
-        (item: any) => item.rettipdoc_type_form === 3
-    );
+    const infoDocsTec =
+        infoPosutlationsetail &&
+        infoPosutlationsetail[0].documents_info.filter((item: any) => item.rettipdoc_type_form === 2);
+    const infoDocsAdmins =
+        infoPosutlationsetail &&
+        infoPosutlationsetail[0].documents_info.filter((item: any) => item.rettipdoc_type_form === 3);
 
     const table_columns = [
         {

@@ -18,15 +18,17 @@ const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
     const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
     const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoGeneralGroup = infoPosutlationsetail[0]?.members_info.map((item: any) => ({
-        gruint_disability: item.gruint_disability === true ? 'Si' : 'No',
-        gruint_document: item.gruint_document,
-        gruint_ethnicity: item.gruint_ethnicity,
-        gruint_identity: item.gruint_identity,
-        gruint_names: item.gruint_names,
-        gruint_orientation_sexual: item.gruint_orientation_sexual,
-        gruint_sex: item.gruint_sex,
-    }));
+    const infoGeneralGroup =
+        infoPosutlationsetail &&
+        infoPosutlationsetail[0]?.members_info.map((item: any) => ({
+            gruint_disability: item.gruint_disability === true ? 'Si' : 'No',
+            gruint_document: item.gruint_document,
+            gruint_ethnicity: item.gruint_ethnicity,
+            gruint_identity: item.gruint_identity,
+            gruint_names: item.gruint_names,
+            gruint_orientation_sexual: item.gruint_orientation_sexual,
+            gruint_sex: item.gruint_sex,
+        }));
     const infoGroupPostulation = async () => {
         await dispatch(actions.get__postulationInfoDetail(infoPost));
     };
