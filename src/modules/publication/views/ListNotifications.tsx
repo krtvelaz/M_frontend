@@ -2,7 +2,6 @@ import { Popover } from 'antd';
 import moment from 'moment';
 import { downloadExcel } from 'react-export-table-to-excel';
 import { Card, swal_error, Table } from "../../../utils/ui";
-import { IEvent } from '../custom_types';
 
 const ListNotifications = () => {
 
@@ -69,7 +68,7 @@ const ListNotifications = () => {
             dataIndex: "key",
             fixed: "left",
             align: "center" as "center",
-            render: (data: IEvent, values: any, i: number) => {
+            render: (data: any, values: any, i: number) => {
                 return i + 1;
             },
         },
@@ -98,7 +97,7 @@ const ListNotifications = () => {
             title: "No. radicado",
             dataIndex: "radicado",
             align: "left" as "left",
-            render: (data: IEvent, values: any, i: number) => {
+            render: (data: any, values: any, i: number) => {
                 return '000' + i;
             },
         },

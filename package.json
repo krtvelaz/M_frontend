@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "vite --port 3000",
         "build": "tsc && vite build",
+        "docker": "docker build --memory 4096m -t medeinn_frontend . ",
         "preview": "vite preview"
     },
     "dependencies": {
