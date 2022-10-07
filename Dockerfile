@@ -3,6 +3,8 @@ WORKDIR /app
 COPY . .
 COPY .env.prod .env
 # install node packages
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+
 RUN npm set progress=false && npm config set depth 0
 RUN npm install
 RUN npm install socket.io-client
