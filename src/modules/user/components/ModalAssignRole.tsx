@@ -62,8 +62,11 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
                 title="Buscar y asignar rol a usuario"
                 visible={is_visible}
                 width={1000}
+                afterClose={() => {
+                    setUserInfo('');
+                    console.log('entrreee', form_ref);
+                }}
                 onCancel={() => {
-                    form_ref.current?.resetForm();
                     close();
                 }}
                 bodyStyle={{ padding: 0, background: 'transparent' }}
@@ -95,7 +98,9 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
                         title="Usuario encontrado"
                         actions={[
                             <div className="my-3 d-flex justify-content-end me-4">
-                                <button className="btn btn-outline-primary me-3">Cancelar</button>
+                                <button onClick={close} className="btn btn-outline-primary me-3">
+                                    Cancelar
+                                </button>
                                 <button onClick={changeRoleUsers} className="btn btn-primary">
                                     Asignar rol
                                 </button>

@@ -39,7 +39,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
 
     return (
         <Formik
-            {...(type === 'filter' && (innerRef = { innerRef }))}
+            {...((type === 'filter' || type === 'change' || type === 'assign') && (innerRef = { innerRef }))}
             enableReinitialize
             onSubmit={submit}
             initialValues={initialValues}
