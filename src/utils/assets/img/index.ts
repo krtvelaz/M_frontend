@@ -9,7 +9,7 @@ export { default as inputTime } from './input-time.svg';
 export { default as trash } from './trash.svg';
 export { default as arrowMenu } from './arrowMenu.svg';
 export { default as logoMedeinn } from './logoMedeinn.svg';
-export { default as logoMedeinnLogin } from './logoMedeinnLogin.svg';
+export { default as logoMedeinnLogin } from './LogoMedeinnLogin.svg';
 export { default as logoAlcaldiaNegro } from './logoAlcaldiaNegro.svg';
 export { default as rocket } from './rocket.svg';
 export { default as trazado } from './trazado.svg';

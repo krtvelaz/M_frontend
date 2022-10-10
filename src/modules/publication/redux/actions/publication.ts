@@ -89,7 +89,7 @@ export const get_publication_by_id = (id: number, from?: 'landing') => {
     return async (dispatch: any) => {
         dispatch(default_publication());
         try {
-            const URI = `/publications/details`;
+            const URI = `/publications`;
             const res = await cms_http.get(URI, {
                 params: {
                     id,
