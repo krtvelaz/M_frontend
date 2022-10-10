@@ -6,7 +6,7 @@ COPY .env.prod .env
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 RUN npm set progress=false && npm config set depth 0
-RUN npm i --omit=dev
+RUN npm i
 RUN npm run build
 
 # expose port and define CMD
