@@ -1,9 +1,8 @@
 import { Field, Form, Formik } from 'formik';
 import { ErrorMessage, Select } from '../../../utils/ui';
 import * as Yup from 'yup';
-import { FC, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../redux';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 interface IPros {
     disabled?: boolean;
