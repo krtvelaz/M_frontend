@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FC } from 'react';
-import { useDispatch,} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';
 import { LogoPDF } from '../../../utils/assets/img';
@@ -81,17 +81,18 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                         )
                 )}
             </ol>
-
-            <button
-                onClick={() => {
-                    navigate(`../postulation/challenge/${challenge?.id}`);
-                }}
-                type="button"
-                className="btn btn-landing-primary my-4"
-                style={{ position: 'relative', zIndex: 4 }}
-            >
-                POSTULAR AL RETO
-            </button>
+            {challenge?.cha_total_days !== 0 && (
+                <button
+                    onClick={() => {
+                        navigate(`../postulation/challenge/${challenge?.id}`);
+                    }}
+                    type="button"
+                    className="btn btn-landing-primary my-4"
+                    style={{ position: 'relative', zIndex: 4 }}
+                >
+                    POSTULAR AL RETO
+                </button>
+            )}
 
             <div className="my-3" style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#603CE6' }}>
                 Visualizar informes del reto

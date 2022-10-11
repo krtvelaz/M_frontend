@@ -48,6 +48,8 @@ export { default as circuloTabs  } from './circuloTabs.png';
 export { default as arrowsFromLine  } from './arrows-from-line.svg';
 export { default as inicioLading  } from './inicio-landing.svg';
 export { default as descargaImg  } from './descargaImg.svg';
+export { default as calendarLanding  } from './calendarLanding.svg';
+export { default as successAlert  } from './successAlert.svg';
 
 
 

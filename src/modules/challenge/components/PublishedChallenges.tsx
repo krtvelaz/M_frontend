@@ -6,8 +6,7 @@ import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
-
-
+import { calendarLanding } from '../../../utils/assets/img';
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
@@ -23,9 +22,16 @@ const PublishedChallenges = () => {
 
     const getChallenges = async () => {
         setLoading(true);
-        const results = await dispatch(actions.get_list_challenges({page: 1, page_size: 4, is_published: true, order_by_value: 'desc', from: 'landing'}));
-        
-        
+        const results = await dispatch(
+            actions.get_list_challenges({
+                page: 1,
+                page_size: 4,
+                is_published: true,
+                order_by_value: 'desc',
+                from: 'landing',
+            })
+        );
+
         if (results.length > 0) {
             setChallenges(results);
             setLoading(false);
@@ -63,7 +69,6 @@ const PublishedChallenges = () => {
                                 key={`published-challenges-${i}`}
                             >
                                 <Card
-                                    
                                     hoverable
                                     className="card-challenge"
                                     cover={
@@ -87,11 +92,7 @@ const PublishedChallenges = () => {
                                             <h3 className="text-center">{challenge?.cha_name}</h3>
                                             <div className="row mb-4">
                                                 <div className="col-2">
-                                                    <i
-                                                        className="fa fa-calendar-o"
-                                                        aria-hidden="true"
-                                                        style={{ fontSize: '30px', color: '#DE096B' }}
-                                                    ></i>
+                                                    <img alt="imagen de calendario" src={calendarLanding} />
                                                 </div>
                                                 <div className="col-10 p-0">
                                                     <p>Fecha de vigencia para postulaciones</p>
@@ -107,13 +108,13 @@ const PublishedChallenges = () => {
                                             </div>
 
                                             <button
-                                            onClick={() => {
-                                                if(!user) {
-                                                    context.toggle_login_modal();
-                                                    return;
-                                                }
-                                                navigate(`../detail-challenge/${challenge?.id}`);
-                                            }}
+                                                onClick={() => {
+                                                    if (!user) {
+                                                        context.toggle_login_modal();
+                                                        return;
+                                                    }
+                                                    navigate(`../detail-challenge/${challenge?.id}`);
+                                                }}
                                                 className="btn"
                                                 style={{
                                                     position: 'absolute',

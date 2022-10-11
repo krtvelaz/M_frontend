@@ -13,6 +13,7 @@ const ListUser = () => {
     const [filters, setFilters] = useState({
         page: 1,
         page_size: 10,
+        from: 'management'
     });
 
     const filterUsers = async (values: { document?: string; role?: string | number }) => {
@@ -23,6 +24,7 @@ const ListUser = () => {
             actions.get_list_users({
                 ...(values.document && { document: values.document }),
                 ...(values.role && { role: values.role }),
+                from: 'management'
             })
         );
         setClean(true);

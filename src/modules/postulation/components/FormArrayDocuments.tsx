@@ -1,19 +1,22 @@
 import { FieldArray, Form, Formik } from 'formik';
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { actions } from '../redux';
 import FormDocumentsPostulation from './FormDocumentsPostulation';
 
 interface IProps {
     postulation?: any;
     setPostulation?: any;
     innerRef: any;
+    id_challenge: number | string;
     onSubmit: (values: any, actions: any) => any;
 }
 
-const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPostulation  }) => {
+const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPostulation, id_challenge }) => {
     const _documents: any[] = useSelector((store: any) => store.postulation.challenge.value);
-
+    const dispatch = useDispatch<any>();
+    console.log(postulation);
     const initial_values = {
         documents: Array.isArray(_documents)
             ? _documents.map((doc) => {
@@ -31,6 +34,9 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
         await onSubmit(values, actions);
     };
 
+    
+    
+
     const schema = Yup.object().shape({
         documents: Yup.array().of(
             Yup.object().shape({
@@ -40,6 +46,10 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
             })
         ),
     });
+
+    useEffect(() => {
+        dispatch(actions.get_documents_challenge(Number(id_challenge), postulation?.applicant_data?.type_profiles ));
+    }, []);
 
     return (
         <Formik

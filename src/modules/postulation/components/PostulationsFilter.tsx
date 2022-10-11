@@ -4,8 +4,11 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import * as Yup from 'yup';
 import { FC, useRef } from 'react';
-interface PostulationsFilter {}
-const PostulationsFilter: FC<PostulationsFilter> = () => {
+interface PostulationsFilter {
+    setFilters: any;
+    filters: any;
+}
+const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => {
     const initial_values = {
         palabraClave: '',
         convocatoriaSearch: '',
@@ -15,10 +18,19 @@ const PostulationsFilter: FC<PostulationsFilter> = () => {
     const dispatch = useDispatch<any>();
 
     const submit = async (values: any) => {
+        console.log(values);
+        
         await dispatch(
-            actions.get_postulationSearch(1, 10, values?.palabraClave, values?.convocatoriaSearch, values?.estadoPos)
+            actions.get_list_postulation({
+                page: 1,
+                per_page: 100,
+                challenge_name: values.palabraClave,
+                cha_announcement: values.convocatoriaSearch,
+                status: values.estadoPos.toUpperCase()
+            })
         );
     };
+
     return (
         <div>
             <Formik onSubmit={submit} initialValues={initial_values} innerRef={form_ref}>
@@ -102,7 +114,7 @@ const PostulationsFilter: FC<PostulationsFilter> = () => {
                                 <button
                                     onClick={() => {
                                         form_ref.current?.resetForm();
-                                        dispatch(actions.get__postulationInfo());
+                                        dispatch(actions.get_list_postulation({ page: 1, per_page: 10 }));
                                     }}
                                     className="btn me-3"
                                     style={{ color: '#1D98D1' }}

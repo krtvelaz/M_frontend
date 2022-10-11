@@ -3,6 +3,7 @@ import { Card, Skeleton } from 'antd';
 import moment from 'moment';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
+import { calendarLanding } from '../../../utils/assets/img';
 
 interface IPropsCards {
     data: any;
@@ -37,11 +38,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                 <h3 className="mt-3">{data?.cha_name}</h3>
                 <div className="row">
                     <div className="col-2">
-                        <i
-                            className="fa fa-calendar-o"
-                            aria-hidden="true"
-                            style={{ fontSize: '30px', color: '#DE096B' }}
-                        ></i>
+                    <img alt="imagen de calendario" src={calendarLanding} />
                     </div>
                     <div className="col-10">
                         <p>Fecha de vigencia para postulaciones</p>
