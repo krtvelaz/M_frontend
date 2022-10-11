@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../../../utils/ui';
 import { actions } from '../redux';
@@ -14,7 +14,6 @@ const TableUser: FC<IProps> = ({ filters, setFilters }) => {
     const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
     const { total }: any = useSelector((store: any) => store.user.list_users.pagination);
     const dispatch = useDispatch<any>();
-
     useEffect(() => {
         get_users();
     }, []);
@@ -54,9 +53,9 @@ const TableUser: FC<IProps> = ({ filters, setFilters }) => {
             title: 'Rol asignado',
             dataIndex: 'use_role',
             align: 'left' as 'left',
-            render: (role: {id: number, rol_name: string}) => {
+            render: (role: { id: number; rol_name: string }) => {
                 return role.rol_name.toLocaleLowerCase();
-            }
+            },
         },
         {
             title: 'Acciones',

@@ -24,7 +24,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
     };
 
     const schema = Yup.object().shape({
-        // role: Yup.string().nullable().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
+        cha_announcement: Yup.number().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
     });
 
     const submit = async (values: any, actions: any) => {
@@ -60,7 +60,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                 <Field
                                     type="text"
                                     id="ret_nombre_id"
-                                    name="document"
+                                    name="cha_name"
                                     className="form-control"
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
@@ -75,35 +75,35 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="document" withCount max={80} />
+                                <ErrorMessage name="cha_name" withCount max={80} />
                             </div>
 
                             {type !== 'assign' ? (
                                 <div className="col-12 col-md-6 col-lg-6">
-                                    <label htmlFor="role_id" className="form-label">
+                                    <label htmlFor="ret_perfil_id" className="form-label">
                                         {type === 'change' ? 'Seleccionar rol' : 'Rol'}
                                     </label>
                                     <Field
                                         component={Select}
                                         maxTagCount="responsive"
+                                        showArrow
                                         dropdownMatchSelectWidth={false}
                                         id="role_id"
                                         name="role"
                                         extra_on_change={(role: number) => {
-                                            setRoleUser(role)
+                                            setRoleUser(role);
                                         }}
-                                    
                                         options={[
                                             {
                                                 id: 1,
                                                 name: 'Super administrador',
                                             },
                                             {
-                                                id: 2,
+                                                id: 1,
                                                 name: 'Administrador',
                                             },
                                             {
-                                                id: 3,
+                                                id: 1,
                                                 name: 'Invitado',
                                             },
                                             {
@@ -116,7 +116,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                             return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                         }}
                                     />
-                                    <ErrorMessage name="role" />
+                                    <ErrorMessage name="cha_profiles" />
                                 </div>
                             ) : (
                                 <div className="col-12 col-md-2" style={{ marginTop: '25px' }}>

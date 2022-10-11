@@ -37,7 +37,7 @@ const login = (document: string, password: string) => {
                         },
                     }
                 );
-                
+
                 user = {
                     token: res_token.data.data.token,
                     detail_user: resul_user.data.data.userData,
@@ -47,9 +47,9 @@ const login = (document: string, password: string) => {
 
             dispatch(success_user(user));
             return user;
-        } catch (error:any) {
-            dispatch(fail_user());         
-            
+        } catch (error: any) {
+            dispatch(fail_user());
+
             return Promise.reject(error);
         }
     };
@@ -118,7 +118,7 @@ const recover_password = (document: string, email: string) => {
                     `<div class="mysubtitle">De click en aceptar para continuar</div>`,
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
-                width: '500px'
+                width: '500px',
             });
             return res.data.data;
         } catch (error: any) {
@@ -131,7 +131,7 @@ const recover_password = (document: string, email: string) => {
                     `<div class="mysubtitle">De click en aceptar para continuar</div>`,
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
-                width: '500px'
+                width: '500px',
             });
             return Promise.reject(error);
         }
