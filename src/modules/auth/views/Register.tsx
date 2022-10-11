@@ -1,6 +1,6 @@
 import { Radio, RadioChangeEvent } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Card } from '../../../utils/ui';
 import FormRegisterPersonaJuridica from '../components/FormRegisterPersonaJuridica';
@@ -21,6 +21,11 @@ const Register = () => {
     const on_register = async (values: any, form: any) => {
         await dispatch(actions.register(values))
     }
+
+    useEffect(() => {
+
+dispatch(actions.get_countries())
+    },[])
 
     return (
         <div className="box-register">

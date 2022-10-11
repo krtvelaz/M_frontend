@@ -19,7 +19,8 @@ const ChangePassword = () => {
         provisional_password: location?.state.data_user.password,
         password: '',
         confirmPassword: '',
-    };
+    } 
+    
 
     const onRestPassword = async (values: any) => {
         setLoading(true);
@@ -27,11 +28,12 @@ const ChangePassword = () => {
         await reult
             .then((res: any) => {
                 navigate('../', { replace: true });
+                
             })
             .catch((e: any) => {
                 // set_alert(e?.response?.data?.message);
             });
-        setLoading(false);
+            setLoading(false);
     };
 
     return (

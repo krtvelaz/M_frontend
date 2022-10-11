@@ -73,7 +73,7 @@ const ListUser = () => {
                         <FormFilterUser type="filter" innerRef={form_ref} onSubmit={filterUsers} />
                     </Card>
                     <Card>
-                        <TableUser />
+                        <TableUser filters={filters} setFilters={setFilters} />
                     </Card>
                 </div>
             </div>

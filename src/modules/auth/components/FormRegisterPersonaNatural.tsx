@@ -1,10 +1,12 @@
 import { Radio } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { Card, ErrorMessage, Select } from '../../../utils/ui';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { IRegisterPersonaNatural } from '../custom_types';
+import { actions } from '../redux';
 
 interface RegisterFormPros {
     innerRef: any;
@@ -12,6 +14,11 @@ interface RegisterFormPros {
     register?: IRegisterPersonaNatural;
 }
 const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, onSubmit }) => {
+    const dispatch = useDispatch<any>();
+    const countries: any[] = useSelector((store: any) => store.auth.countries.value);
+    const states: any[] = useSelector((store: any) => store.auth.states.value);
+    const cities: any[] = useSelector((store: any) => store.auth.cities.value);
+
     const initial_values = {
         names: '',
         surnames: '',
@@ -40,12 +47,20 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         contact_type: Yup.string().nullable().required('Campo obligatorio'),
         contact_number: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         country: Yup.string().nullable().required('Campo obligatorio'),
-        state: Yup.string().nullable().required('Campo obligatorio'),
-        city: Yup.string().nullable().required('Campo obligatorio'),
+        state: Yup.string().nullable().when("country", {
+            is: 'CO-Colombia',
+            then: Yup.string().nullable().required("Campo obligatorio"),
+        }),
+        city: Yup.string().nullable().when("country", {
+            is: 'CO-Colombia',
+            then: Yup.string().nullable().required("Campo obligatorio"),
+        }),
+        // state: Yup.string().nullable().required('Campo obligatorio'),
+        // city: Yup.string().nullable().required('Campo obligatorio'),
         // radioPolitica: Yup.string().required("Debes aceptar las politicas para continuar")
     });
     const submit = async (values: any, form: any) => {
-       await  onSubmit(values, form);
+        await onSubmit(values, form);
     };
     return (
         <Formik
@@ -55,7 +70,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ handleChange, values }) => {
+            {({ handleChange, values, setFieldValue }) => {
                 return (
                     <Form>
                         <div className="row">
@@ -280,17 +295,18 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="country_id"
                                     name="country"
                                     style={{ height: '38px' }}
-                                    options={[
-                                        { name: 'Colombia', id: 'CO' },
-                                        // { name: 'Brasil', id: 'Brasil' },
-                                        // { name: 'Raizal', id: 'Raizal' },
-                                        // { name: 'Indígena', id: 'Indígena' },
-                                        // { name: 'Rom gitano', id: 'Rom gitano' },
-                                        // { name: 'Ninguno', id: 'Ninguno' },
-                                    ]}
+                                    options={countries.map((country: any) => ({ name: country.name, id: country.id }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                    extra_on_change={async (value: any) => {
+                                        if (value === 'CO-Colombia') {
+                                            await dispatch(actions.get_states());
+                                        } else {
+                                            setFieldValue('state', null, false);
+                                            setFieldValue('city', null, false);
+                                        }
                                     }}
                                 />
                                 <ErrorMessage name="country" />
@@ -306,18 +322,15 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="country_id"
                                     name="state"
                                     style={{ height: '38px' }}
-                                    // disabled={true}
-                                    options={[
-                                        { name: 'Antioquia', id: 1 },
-                                        // { name: 'Brasil', id: 'Brasil' },
-                                        // { name: 'Raizal', id: 'Raizal' },
-                                        // { name: 'Indígena', id: 'Indígena' },
-                                        // { name: 'Rom gitano', id: 'Rom gitano' },
-                                        // { name: 'Ninguno', id: 'Ninguno' },
-                                    ]}
+                                    disabled={values.country !== 'CO-Colombia'}
+                                    options={states.map((state: any) => ({ name: state.name, id: state.id }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                    }}
+                                    extra_on_change={async (value: any) => {
+                                        setFieldValue('city', null, false);
+                                        await dispatch(actions.get_cities(value));
                                     }}
                                 />
                                 <ErrorMessage name="state" />
@@ -332,15 +345,8 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="city_id"
                                     name="city"
                                     style={{ height: '38px' }}
-                                    // disabled={true}
-                                    options={[
-                                        { name: 'Medellin', id: 1 },
-                                        // { name: 'Brasil', id: 'Brasil' },
-                                        // { name: 'Raizal', id: 'Raizal' },
-                                        // { name: 'Indígena', id: 'Indígena' },
-                                        // { name: 'Rom gitano', id: 'Rom gitano' },
-                                        // { name: 'Ninguno', id: 'Ninguno' },
-                                    ]}
+                                    disabled={!values.state}
+                                    options={cities.map((city: any) => ({ name: city.name, id: city.id }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
