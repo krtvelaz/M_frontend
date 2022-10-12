@@ -1,5 +1,5 @@
 import { FieldArray, Form, Formik } from 'formik';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import * as Yup from 'yup';
 import { LinkButton } from '../../../utils/ui/Link';
 import FormTeam from './FormTeam';
@@ -11,7 +11,6 @@ interface FormIProps {
 }
 
 const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
- 
     const initial_values = {
         membersPostulations: postulation
             ? postulation
@@ -121,7 +120,7 @@ const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
                                                     style={{ textAlign: 'end', color: 'rgb(173, 8, 8)' }}
                                                     onClick={() => removeForm(setValues, i)}
                                                 >
-                                                    <i className="fa fa-times" aria-hidden="true"/>
+                                                    <i className="fa fa-times" aria-hidden="true" />
                                                     <span> eliminar </span>
                                                 </div>
                                             )}
@@ -135,25 +134,14 @@ const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
                         </FieldArray>
                         {values?.membersPostulations?.length < 5 && (
                             <div style={{ display: 'flex', justifyContent: 'end' }}>
-                                <LinkButton className='my-5' color='#FF8403' onClick={() => onChangeTickets(values, setValues)} name='Agegar otro participante' iconText='+' avatar  />
-                                {/* <span style={{ padding: '2%', color: '#FF8403' }}>Agegar otro participante</span>
-                                <button
-                                    type="button"
-                                    
-                                    style={{
-                                        borderRadius: '50%',
-                                        color: 'white',
-                                        backgroundColor: '#FF8403',
-                                        border: 'aliceblue',
-                                        width: '3%',
-                                        height: '0%',
-                                        marginTop: '1%',
-                                        fontFamily: 'Monserrat',
-                                        fontSize: '19px',
-                                    }}
-                                >
-                                    +
-                                </button> */}
+                                <LinkButton
+                                    className="my-5"
+                                    color="#FF8403"
+                                    onClick={() => onChangeTickets(values, setValues)}
+                                    name="Agegar otro participante"
+                                    iconText="+"
+                                    avatar
+                                />
                             </div>
                         )}
                     </Form>

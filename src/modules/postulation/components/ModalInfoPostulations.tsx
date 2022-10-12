@@ -1,17 +1,14 @@
 import { Modal, Switch, Tabs } from 'antd';
 import 'bootstrap';
-import { FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TableInfoPostulation from './TableInfoPostulation';
 import TableDocsPostulation from './TableDocsPostulation';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import ComponetCard from '../../../utils/ui/Card';
-import { IEvent } from '../../event/custom_types';
 import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
 import { actions } from '../redux';
-import { useNavigate } from 'react-router-dom';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;

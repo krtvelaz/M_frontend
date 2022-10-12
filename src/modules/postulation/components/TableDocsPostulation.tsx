@@ -118,16 +118,6 @@ const TableDocsPostulation: FC<TablePros> = ({ title, type }) => {
                                     style={{ cursor: 'pointer' }}
                                     onClick={async () => {
                                         DownloadFile();
-                                        // const result = await swal_error.fire({
-                                        //     title: 'Eliminar elemento',
-                                        //     html:
-                                        //         '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
-                                        //         '<div class="mytext">¿Está seguro que desea eliminarlo?</div>',
-                                        //     showCancelButton: false,
-                                        //     showDenyButton: true,
-                                        //     confirmButtonText: 'Sí, eliminar',
-                                        //     denyButtonText: `Cancelar`,
-                                        // });
                                     }}
                                 />
                             </div>

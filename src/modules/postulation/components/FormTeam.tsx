@@ -109,7 +109,6 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                 }}
                             />
                         </div>
-                        {/* <ErrorMessage name={`membersPostulations.${i}.gruint_type_document`} /> */}
 
                         <ErrorMessage name={`membersPostulations.${i}.gruint_document`} withCount max={20} />
                     </div>

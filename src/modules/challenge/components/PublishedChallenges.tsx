@@ -47,11 +47,11 @@ const PublishedChallenges = () => {
     return (
         <div className="row">
             <div className="col-12 col-md-12 col-lg-5" style={{ marginTop: '55px', position: 'relative' }}>
-                <h2>
-                    Solucionar e ider
+                <span style={{ fontSize: '16px' }}>
+                    Solucionar e idear
                     <br />
                     <span className="text-stake">Convocatoria abierta</span>
-                </h2>
+                </span>
                 <br />
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam provident voluptatem ipsum odit

@@ -1,8 +1,7 @@
-import { ErrorMessage, Select } from '../../../utils/ui';
+import { Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
-import * as Yup from 'yup';
 import { FC, useRef } from 'react';
 interface PostulationsFilter {
     setFilters: any;
@@ -52,7 +51,6 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                                         id="palabraClave_id"
                                         name="palabraClave"
                                         className="form-control"
-                                        dropdownMatchSelectWidth={false}
                                     />
                                 </div>
 
@@ -95,7 +93,6 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                                         component={Select}
                                         id="estadoPos_id"
                                         name="estadoPos"
-                                        dropdownMatchSelectWidth={false}
                                         options={[
                                             {
                                                 name: 'Finalizado',

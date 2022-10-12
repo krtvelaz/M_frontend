@@ -8,6 +8,7 @@ import { actions } from '../redux';
 
 const ListUser = () => {
     const form_ref = useRef<any>();
+    const [switchGetUsers, setSwitchGetUsers] = useState<boolean>(false);
     const dispatch = useDispatch<any>();
     const [clean, setClean] = useState<boolean>(false);
     const [filters, setFilters] = useState({
@@ -41,7 +42,11 @@ const ListUser = () => {
                             }}
                             className="col d-flex justify-content-end"
                         >
-                            <ModalAssignRole type="assign" />
+                            <ModalAssignRole
+                                setSwitchGetUsers={setSwitchGetUsers}
+                                switchGetUsers={switchGetUsers}
+                                type="assign"
+                            />
                         </div>
                     </div>
                     <Card
@@ -75,7 +80,12 @@ const ListUser = () => {
                         <FormFilterUser type="filter" innerRef={form_ref} onSubmit={filterUsers} />
                     </Card>
                     <Card>
-                        <TableUser filters={filters} setFilters={setFilters} />
+                        <TableUser
+                            setSwitchGetUsers={setSwitchGetUsers}
+                            switchGetUsers={switchGetUsers}
+                            filters={filters}
+                            setFilters={setFilters}
+                        />
                     </Card>
                 </div>
             </div>

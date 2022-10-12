@@ -1,5 +1,5 @@
- import { ErrorMessage, FieldProps } from 'formik';
-import { FC, useRef, useState } from 'react';
+import { FieldProps } from 'formik';
+import { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { iconoCheck } from '../../../utils/assets/img';
 import { Card, swal_error } from '../../../utils/ui';
@@ -73,15 +73,6 @@ const CardDocsPostulation: FC<SelectProps> = ({
             { ...field.value, docPostulation: { name: doc.name, file: doc, id: res.id, path: res.posarc_path_file } },
             false
         );
-        // terminar guardado
-        // setPostulation((data: any) => {
-        //     return {
-        //         ...data,
-        //         formats: [
-
-        //         ]
-        //     };
-        // });
         extra_on_change && extra_on_change(doc, field.value);
     };
 
@@ -149,7 +140,6 @@ const CardDocsPostulation: FC<SelectProps> = ({
                     </div>
                 )}
 
-                {/* contenido normal */}
                 <div>
                     <div
                         style={{

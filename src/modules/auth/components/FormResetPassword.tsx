@@ -1,6 +1,4 @@
-import { CheckCircleTwoTone, CheckOutlined, HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
-import { Space } from 'antd';
-import Password from 'antd/lib/input/Password';
+import { CheckOutlined } from '@ant-design/icons';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,11 +13,11 @@ interface ResetPasswordFormPros {
     resetPassword?: IResetPassword;
 }
 const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, resetPassword, onSubmit }) => {
-    const [minuscula, setMinuscula] = useState(/^(?=.*[a-z])/)
-    const [mayuscula, setMayuscula] = useState(/^(?=.*[A-Z])/)
-    const [numero, setNumero] = useState(/^(?=.*[0-9])/)
-    const [caracteres, setCaracteres] = useState(/^(?=.{8,})/)
-    
+    const [minuscula, setMinuscula] = useState(/^(?=.*[a-z])/);
+    const [mayuscula, setMayuscula] = useState(/^(?=.*[A-Z])/);
+    const [numero, setNumero] = useState(/^(?=.*[0-9])/);
+    const [caracteres, setCaracteres] = useState(/^(?=.{8,})/);
+
     const navigate = useNavigate();
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);
@@ -28,10 +26,10 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
         user: '',
         password: '',
         confirmPassword: '',
-        ...resetPassword
+        ...resetPassword,
     };
     const submit = async (values: any) => {
-        await onSubmit(values)
+        await onSubmit(values);
     };
 
     const schema = Yup.object().shape({
@@ -61,7 +59,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                     className="form-control"
                                     id="user_id"
                                     name="user"
-                                    placeholder='Ingrese su usuario, cédula o NIT'
+                                    placeholder="Ingrese su usuario, cédula o NIT"
                                     disabled={true}
                                     autoComplete="off"
                                     min={0}
@@ -94,7 +92,6 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
 
                                     <span
                                         className="input-group-text bg-white border-start-0"
-
                                         onClick={() => {
                                             if (type === 0) {
                                                 setType(1);
@@ -127,7 +124,6 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
 
                                     <span
                                         className="input-group-text bg-white border-start-0"
-
                                         onClick={() => {
                                             if (type2 === 0) {
                                                 setType2(1);
@@ -148,30 +144,59 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                         <div className="row mt-3 mb-4">
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="row">
-                                    {minuscula.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en minúscula</span> : <span><CheckOutlined style={{ color: '#C7C7C7' }} /> Un carácter en minúscula</span>}
+                                    {minuscula.test(values.password) === true ? (
+                                        <span>
+                                            <CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en minúscula
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <CheckOutlined style={{ color: '#C7C7C7' }} /> Un carácter en minúscula
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="row">
-                                    {mayuscula.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en mayúscula</span> : <span><CheckOutlined /> Un carácter en mayúscula</span>}
+                                    {mayuscula.test(values.password) === true ? (
+                                        <span>
+                                            <CheckOutlined style={{ color: '#FF8403' }} /> Un carácter en mayúscula
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <CheckOutlined /> Un carácter en mayúscula
+                                        </span>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="col-12 col-md-6 col-lg-3">
                                 <div className="row">
-                                    {numero.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> Un número</span> : <span><CheckOutlined /> Un número</span>}
+                                    {numero.test(values.password) === true ? (
+                                        <span>
+                                            <CheckOutlined style={{ color: '#FF8403' }} /> Un número
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <CheckOutlined /> Un número
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="row">
-                                    {caracteres.test(values.password) === true ? <span><CheckOutlined style={{ color: '#FF8403' }} /> 8 caracteres como mínimo</span> : <span><CheckOutlined /> 8 caracteres como mínimo</span>}
+                                    {caracteres.test(values.password) === true ? (
+                                        <span>
+                                            <CheckOutlined style={{ color: '#FF8403' }} /> 8 caracteres como mínimo
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            <CheckOutlined /> 8 caracteres como mínimo
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </div>
-
-
                     </Form>
                 );
             }}
         </Formik>
-    )
-}
+    );
+};
 
-
-export default FormResetPassword
+export default FormResetPassword;

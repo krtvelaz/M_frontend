@@ -23,13 +23,10 @@ const OurChallenges = () => {
     };
 
     const challenges = useSelector((store: any) => store.challenge.challenges.value);
-    const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
-    const { current_page } = useSelector((store: any) => store.challenge.challenges.pagination);
     const { last_page } = useSelector((store: any) => store.challenge.challenges.pagination);
     const { first_page } = useSelector((store: any) => store.challenge.challenges.pagination);
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
     const dimensions = useSelector((store: any) => store.challenge.dimensions.value);
-
 
     const onDimiension = (dimension: any) => {
         dispath(
