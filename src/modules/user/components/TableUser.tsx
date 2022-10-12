@@ -30,7 +30,7 @@ const TableUser: FC<IProps> = ({ filters, setFilters, setSwitchGetUsers, switchG
             page,
             page_size: pageSize || 10,
         });
-        dispatch(actions.get_list_users({ page, page_size: pageSize }));
+        dispatch(actions.get_list_users({ page, page_size: pageSize, ...filters }));
     };
 
     const table_columns: any = [

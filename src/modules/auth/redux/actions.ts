@@ -62,22 +62,19 @@ const logout = () => {
 };
 
 const register = (data: any) => {
-    return async (dispatch: any) => {
-        let user = null;
+    return async (dispatch: any) => {        
+        const final_data = {
+            ...data,
+            state: data?.state || data?.country,
+            city: data?.city || data?.country,
+            neighborhood: data?.neighborhood || data?.country,
+            
+        }
+        delete final_data.commune;
+        delete final_data.radioPolitica;
         try {
             const URI = '/users';
-            const res: any = await auth_http.post(URI, {
-                ...data,
-                state: {
-                    name: 'Antioquia',
-                    id: data.state,
-                },
-                city: {
-                    name: 'Medellin',
-                    id: data.city,
-                },
-                society_type: data.society_type || 'N',
-            });
+            const res: any = await auth_http.post(URI, final_data);
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
