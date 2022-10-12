@@ -1,7 +1,9 @@
 import { Radio, RadioChangeEvent } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Card } from '../../../utils/ui';
 import FormRegisterPersonaJuridica from '../components/FormRegisterPersonaJuridica';
 import FormRegisterPersonaNatural from '../components/FormRegisterPersonaNatural';
@@ -11,14 +13,32 @@ const Register = () => {
     const [radio, setRadio] = useState(1);
     const dispatch = useDispatch<any>();
     const form_ref = useRef<FormikProps<FormikValues>>();
+    const context = useContext(TemplateContext);
+    const navigate = useNavigate();
+    const onChange = (e: RadioChangeEvent) => {
+        setRadio(e.target.value);
+    };
 
     const onChange = (e: RadioChangeEvent) => {
         setRadio(e.target.value);
     };
 
     const on_register = async (values: any, form: any) => {
-        await dispatch(actions.register(values));
-    };
+        try {
+            const new_values = {
+                ...values,
+                society_type: radio === 1 ? 'N' : 'J',
+    
+            };
+            await dispatch(actions.register(new_values));
+            navigate('../', { replace: true });
+            context.toggle_login_modal();
+            
+        } catch (error) {
+            console.error(error)
+        }
+        
+    }
 
     useEffect(() => {
         dispatch(actions.get_countries());
