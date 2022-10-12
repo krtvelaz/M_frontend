@@ -15,10 +15,7 @@ const Register = () => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
-    const onChange = (e: RadioChangeEvent) => {
-        setRadio(e.target.value);
-    };
-
+    
     const onChange = (e: RadioChangeEvent) => {
         setRadio(e.target.value);
     };

@@ -52,6 +52,8 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
             innerRef={innerRef}
         >
             {({ values, handleChange, errors, touched, setFieldValue, isSubmitting }) => {
+                console.log("Errors and touched: ", errors, touched);
+                
                 return (
                     <Form>
                         <div className="row ">
@@ -101,7 +103,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
                                     name="tes_background_image"
                                     autoComplete="off"
                                 />
-                                <ErrorMessage name="tes_background_image.name" />
+                                { !values.tes_background_image.name && <ErrorMessage name="tes_background_image.name" /> }
                             </div>
 
                             <div className="col-12 col-md-6 col-lg-6">
@@ -126,7 +128,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
                                         }
                                     }}
                                 />
-                                <ErrorMessage name="tes_background_logo.name" />
+                                { !values.tes_background_logo.name && <ErrorMessage name="tes_background_image.name" /> }
                             </div>
                         </div>
                     </Form>
