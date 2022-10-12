@@ -16,7 +16,7 @@ const TableDocsPostulation: FC<TablePros> = ({ title, type }) => {
     const [viewPdf, setViewPdf] = useState<any>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const { documents_info } = useSelector((store: any) => store.postulation.detail_postulation.value);
+    const postulation = useSelector((store: any) => store.postulation.detail_postulation.value);
 
     const close = () => {
         setModalOpen(false);
@@ -150,13 +150,13 @@ const TableDocsPostulation: FC<TablePros> = ({ title, type }) => {
             {type === 'tecnic' ? (
                 <Table
                     columns={table_columns}
-                    items={documents_info.filter((item: any) => item.rettipdoc_type_form === 2)}
+                    items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 2)}
                     with_pagination={false}
                 />
             ) : (
                 <Table
                     columns={table_columns}
-                    items={documents_info.filter((item: any) => item.rettipdoc_type_form === 3)}
+                    items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 3)}
                     with_pagination={false}
                 />
             )}

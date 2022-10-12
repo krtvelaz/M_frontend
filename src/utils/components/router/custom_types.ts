@@ -1,10 +1,10 @@
 
 import { ReactNode } from 'react';
-import { RouteProps } from 'react-router-dom';
+import { PathRouteProps, RouteProps } from 'react-router-dom';
 
 export type CanAccess = ((props: any) => boolean) | boolean;
 export type Breadcrumb = { to?: any; name: string; icon?: any };
-export interface IRoute extends RouteProps {
+export interface IRoute extends PathRouteProps {
     
     exact?: boolean | undefined;
     component?: React.ComponentType<any> | undefined;

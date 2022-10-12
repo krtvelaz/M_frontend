@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const TableInfoPostulation = () => {
 
-    const { members_info } = useSelector((store: any) => store.postulation.detail_postulation.value)
+    const postulation = useSelector((store: any) => store.postulation.detail_postulation.value)
 
     const table_columns = [
         {
@@ -151,7 +151,7 @@ const TableInfoPostulation = () => {
                 <Table
                     title="Listado de postulaciones"
                     columns={table_columns}
-                    items={members_info}
+                    items={postulation?.members_info}
                     with_pagination
                 />
             </Card>

@@ -27,10 +27,10 @@ const TabPulications = () => {
 
     return (
         <div className="my-5">
-            <div className="text-white" style={{ fontFamily: '14px' }}>
+            <div className="text-center text-white" style={{ fontFamily: '14px' }}>
                 Conoce lo último
             </div>
-            <h2 className="text-white" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
+            <h2 className="text-center text-white" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                 Entérate de lo más actual
             </h2>
             <Tabs
