@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
@@ -23,7 +22,7 @@ const DetailChallenge = () => {
         const res = await dispatch(actions.get_detail_challenge(Number(id)));
         if (res) {
             const _imgPrincipal = await dispatch(actions.get_image_principal(res?.id));
-            
+
             setImgPrincipal(Buffer.from(_imgPrincipal).toString('base64'));
         }
     };
@@ -52,7 +51,7 @@ const DetailChallenge = () => {
                             src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
                             alt="imagen"
                             className="w-100"
-                            style={{position: 'relative', top: '-13%'}}
+                            style={{ position: 'relative', top: '-13%' }}
                         />
                     </div>
 
@@ -103,11 +102,15 @@ const DetailChallenge = () => {
                                                     Fecha de vigencia para postulaciones
                                                 </p>
                                                 <div className="mb-2">
-                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>INICIO DEL RETO: </span>
+                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>
+                                                        INICIO DEL RETO:{' '}
+                                                    </span>
                                                     {formatDate(challenge?.cha_start_date)}
                                                 </div>
                                                 <div>
-                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>FIN DEL RETO: </span>
+                                                    <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '11px' }}>
+                                                        FIN DEL RETO:{' '}
+                                                    </span>
                                                     {formatDate(challenge?.cha_end_date)}
                                                 </div>
                                             </div>

@@ -1,33 +1,27 @@
-import { FC, useEffect, useState } from 'react';
-import { Card, Table, swal_error } from '../../../utils/ui';
+import { FC, useState } from 'react';
+import { Table } from '../../../utils/ui';
 import { Button, Modal, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { useParams } from 'react-router-dom';
-
 import { descargaImg } from '../../../utils/assets/img';
 import WatchComponent from '../../../utils/assets/img/WatchComponent';
-import Item from 'antd/lib/list/Item';
 import fileDownload from 'js-file-download';
 
 interface TablePros {
     title: string;
     type: 'admin' | 'tecnic';
-    idPos?: number;
 }
 
-const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
+const TableDocsPostulation: FC<TablePros> = ({ title, type }) => {
     const [viewPdf, setViewPdf] = useState<any>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+    const postulation = useSelector((store: any) => store.postulation.detail_postulation.value);
+
     const close = () => {
         setModalOpen(false);
     };
     const dispatch = useDispatch<any>();
-    const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoDocsTec = infoPosutlationsetail[0].documents_info.filter((item: any) => item.rettipdoc_type_form === 2);
-    const infoDocsAdmins = infoPosutlationsetail[0].documents_info.filter(
-        (item: any) => item.rettipdoc_type_form === 3
-    );
 
     const table_columns = [
         {
@@ -102,24 +96,6 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
                                         previewFile();
                                     }}
                                 />
-
-                                <Modal
-                                    className="ant-modal-close-x2"
-                                    visible={modalOpen}
-                                    title={`Previsualización: ${data.posarc_name_file}`}
-                                    width={1000}
-                                    onCancel={close}
-                                    footer={[
-                                        <Button key="B_CERRAR_1" className="button-gray-ghost m-0" onClick={close}>
-                                            Cerrar
-                                        </Button>,
-                                    ]}
-                                    cancelButtonProps={{ style: { display: 'none' } }}
-                                >
-                                    <div>
-                                        {viewPdf && <embed src={`${viewPdf}#toolbar=0`} width="100%" height="375px" />}
-                                    </div>
-                                </Modal>
                             </>
                         );
                     },
@@ -142,16 +118,6 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
                                     style={{ cursor: 'pointer' }}
                                     onClick={async () => {
                                         DownloadFile();
-                                        // const result = await swal_error.fire({
-                                        //     title: 'Eliminar elemento',
-                                        //     html:
-                                        //         '<div class="mysubtitle">Se eliminará el elemento seleccionado</div>' +
-                                        //         '<div class="mytext">¿Está seguro que desea eliminarlo?</div>',
-                                        //     showCancelButton: false,
-                                        //     showDenyButton: true,
-                                        //     confirmButtonText: 'Sí, eliminar',
-                                        //     denyButtonText: `Cancelar`,
-                                        // });
                                     }}
                                 />
                             </div>
@@ -163,13 +129,36 @@ const TableDocsPostulation: FC<TablePros> = ({ title, idPos }) => {
     ];
     return (
         <>
+            <Modal
+                className="ant-modal-close-x2"
+                visible={modalOpen}
+                title={`Previsualización: `}
+                width={1000}
+                onCancel={close}
+                footer={[
+                    <Button key="B_CERRAR_1" className="button-gray-ghost m-0" onClick={close}>
+                        Cerrar
+                    </Button>,
+                ]}
+                cancelButtonProps={{ style: { display: 'none' } }}
+            >
+                <div>{viewPdf && <embed src={`${viewPdf}#toolbar=0`} width="100%" height="375px" />}</div>
+            </Modal>
             <span style={{ padding: '2% 0% 2% 1%', fontWeight: 'bold', color: '#000000', fontSize: '14px' }}>
                 {title}
             </span>
-            {title === 'Documentos técnicos' ? (
-                <Table columns={table_columns} items={infoDocsTec} with_pagination={false} />
+            {type === 'tecnic' ? (
+                <Table
+                    columns={table_columns}
+                    items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 2)}
+                    with_pagination={false}
+                />
             ) : (
-                <Table columns={table_columns} items={infoDocsAdmins} with_pagination={false} />
+                <Table
+                    columns={table_columns}
+                    items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 3)}
+                    with_pagination={false}
+                />
             )}
         </>
     );

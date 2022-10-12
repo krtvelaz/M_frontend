@@ -33,7 +33,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
 
     const schema = Yup.object().shape({
         name: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-        document_type: Yup.string().nullable().min(1, 'Mínimo 7 caracteres').required('Campo obligatorio'),
+        document_type: Yup.number().nullable().required('Campo obligatorio'),
         number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         type_profiles: Yup.string().nullable().required('Campo obligatorio'),
         email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
@@ -75,7 +75,10 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
 
     return (
         <Formik enableReinitialize onSubmit={submit} innerRef={innerRef} initialValues={initial_values} validationSchema={schema}>
-            {({ handleChange, values }) => {
+            {({ handleChange, values, errors, touched}) => {
+                console.log(errors);
+                console.log(values);
+                
                 return (
                     <Form>
                         <div className="row">
@@ -127,8 +130,8 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             name="document_type"
                                             className=""
                                             options={typeDocumentsForm.map((docuemnt: any) => ({
-                                                id: docuemnt.id,
-                                                name: docuemnt.name,
+                                                id: `${docuemnt.id}`,
+                                                name:`${docuemnt.type} - ${docuemnt.name}`,
                                             }))}
                                             placeholder="C.C."
                                         />

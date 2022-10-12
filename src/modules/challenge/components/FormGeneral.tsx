@@ -6,7 +6,7 @@ import DocumentInput from '../../../utils/ui/DocumentInput';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
 import Select from '../../../utils/ui/Select';
 import * as Yup from 'yup';
-import { IGeneralInformation, IMasters } from '../custom_types';
+import { IGeneralInformation } from '../custom_types';
 import moment from 'moment';
 import { TimeRangePickerProps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -124,7 +124,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                 />
-                                <ErrorMessage name="cha_announcement"  />
+                                <ErrorMessage name="cha_announcement" />
                             </div>
                             <div className="col-12 col-md-6 col-lg-9">
                                 <label htmlFor="ret_nombre_id" className="form-label">

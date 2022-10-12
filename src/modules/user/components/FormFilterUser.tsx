@@ -1,9 +1,8 @@
 import { Field, Form, Formik } from 'formik';
 import { ErrorMessage, Select } from '../../../utils/ui';
 import * as Yup from 'yup';
-import { FC, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../redux';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 interface IPros {
     disabled?: boolean;
@@ -39,7 +38,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
 
     return (
         <Formik
-            {...(type === 'filter' && (innerRef = { innerRef }))}
+            {...((type === 'filter' || type === 'change' || type === 'assign') && (innerRef = { innerRef }))}
             enableReinitialize
             onSubmit={submit}
             initialValues={initialValues}
@@ -90,9 +89,8 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                         id="role_id"
                                         name="role"
                                         extra_on_change={(role: number) => {
-                                            setRoleUser(role)
+                                            setRoleUser(role);
                                         }}
-                                    
                                         options={[
                                             {
                                                 id: 1,

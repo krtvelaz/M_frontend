@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { bus, car, family, trazado } from '../../../../utils/assets/img';
 import { IIndicator } from '../../custom_types';
 import { actions } from '../../redux';
 
@@ -17,14 +16,11 @@ const StatisticsLanding = () => {
             {statistics?.map((statistic: any) => (
                 <div className="col-6 col-md-3">
                     <div className="img-number">
-                        {/* <img src={trazado} alt="imagen" /> */}
                         <p className="">{statistic?.sta_value}</p>
                     </div>
                     <p>{statistic?.sta_description}</p>
                 </div>
             ))}
-
-            
         </section>
     );
 };

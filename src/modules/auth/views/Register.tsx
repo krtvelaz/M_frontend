@@ -5,27 +5,24 @@ import { useDispatch } from 'react-redux';
 import { Card } from '../../../utils/ui';
 import FormRegisterPersonaJuridica from '../components/FormRegisterPersonaJuridica';
 import FormRegisterPersonaNatural from '../components/FormRegisterPersonaNatural';
-import ModalLogin from '../components/ModalLogin';
 import { actions } from '../redux';
 
 const Register = () => {
-    const [radio, setRadio] = useState(1);
+    // const [radio, setRadio] = useState(1);
     const dispatch = useDispatch<any>();
     const form_ref = useRef<FormikProps<FormikValues>>();
 
-    const onChange = (e: RadioChangeEvent) => {
-        setRadio(e.target.value);
-    };
-
+    // const onChange = (e: RadioChangeEvent) => {
+    //     setRadio(e.target.value);
+    // };
 
     const on_register = async (values: any, form: any) => {
-        await dispatch(actions.register(values))
-    }
+        await dispatch(actions.register(values));
+    };
 
     useEffect(() => {
-
-dispatch(actions.get_countries())
-    },[])
+        dispatch(actions.get_countries());
+    }, []);
 
     return (
         <div className="box-register">
@@ -43,23 +40,22 @@ dispatch(actions.get_countries())
                             <h1 className="text-stake-mediun mb-4">Recuerda que todos los campos son obligatorios.</h1>
 
                             <h1 className="text-stake">Datos personales</h1>
-                            <hr  style={{ border: '1px solid #FF8403' }} />
+                            <hr style={{ border: '1px solid #FF8403' }} />
                             <h1 className="mt-3 text-stake-mediun">Tipo de sociedad</h1>
                             <div className=" mb-3">
-                                <Radio.Group name="radiogroup" onChange={onChange} value={radio}>
+                                {/* <Radio.Group name="radiogroup" onChange={onChange} value={radio}>
                                     <div className="d-flex flex-row col-12 ">
                                         <Radio value={1}>Persona Natural</Radio>
                                         <Radio value={2}>Persona Juridica</Radio>
                                     </div>
-                                </Radio.Group>
+                                </Radio.Group> */}
                             </div>
-                            {radio === 1 ? (
+                            {/* {radio === 1 ? (
                                 <FormRegisterPersonaNatural innerRef={form_ref} onSubmit={on_register} />
                             ) : (
                                 <FormRegisterPersonaJuridica innerRef={form_ref} />
-                            )}
+                            )} */}
                             <hr />
-                            {/* <ModalLogin /> */}
                             <div className="bg-white d-flex flex-row justify-content-between">
                                 <button type="button" className="btn-back me-4 " onClick={() => {}}>
                                     Atrás

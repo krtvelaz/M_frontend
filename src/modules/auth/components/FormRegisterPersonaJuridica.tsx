@@ -6,7 +6,6 @@ import { Card, ErrorMessage, Select } from '../../../utils/ui';
 import { IRegisterPersonaJuridica } from '../custom_types';
 interface RegisterFormPros {
     innerRef: any;
-    // onSubmit: (values: any, form?: any) => any;
     register_juridica?: IRegisterPersonaJuridica;
 }
 const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, innerRef }) => {
@@ -35,17 +34,11 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
         email: Yup.string().email('Ingrese un correo electrónico valido').required('Campo obligatorio'),
         direccion_comercial: Yup.string().required('Campo obligatorio'),
         direccion_residencia: Yup.string().required('Campo obligatorio'),
-        // barrio: Yup.string(),
         type_contact: Yup.string().nullable().required('Campo obligatorio'),
         number_contact: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         country: Yup.string().nullable().required('Campo obligatorio'),
-        // departament: Yup.string().nullable(),
-        // city: Yup.string().nullable(),
-        // radio_politicas: Yup.boolean().required("acepta las politicas")
     });
-    const submit = (values: any, form: any) => {
-        // onSubmit(values);
-    };
+    const submit = (values: any, form: any) => {};
     return (
         <Formik
             onSubmit={submit}
@@ -324,7 +317,6 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                 />
-                                {/* <ErrorMessage name="departament" /> */}
                             </div>
 
                             <div className="col-3 ">
@@ -350,7 +342,6 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                 />
-                                {/* <ErrorMessage name="city" /> */}
                             </div>
                         </div>
 

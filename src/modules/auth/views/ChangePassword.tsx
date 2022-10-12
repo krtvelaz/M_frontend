@@ -1,9 +1,8 @@
 import { FormikProps, FormikValues } from 'formik';
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Card } from '../../../utils/ui';
-import FormLostPassword from '../components/FormLostPassword';
 import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
 
@@ -19,8 +18,7 @@ const ChangePassword = () => {
         provisional_password: location?.state.data_user.password,
         password: '',
         confirmPassword: '',
-    } 
-    
+    };
 
     const onRestPassword = async (values: any) => {
         setLoading(true);
@@ -28,12 +26,9 @@ const ChangePassword = () => {
         await reult
             .then((res: any) => {
                 navigate('../', { replace: true });
-                
             })
-            .catch((e: any) => {
-                // set_alert(e?.response?.data?.message);
-            });
-            setLoading(false);
+            .catch((e: any) => {});
+        setLoading(false);
     };
 
     return (

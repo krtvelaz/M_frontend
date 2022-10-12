@@ -125,7 +125,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                     Ingresar
                                 </Link>
                                 <Link
-                                    to={'/auth/register '}
+                                    to={'/auth/register'}
                                     className="link-card"
                                     style={{ marginRight: '30px', marginTop: '7px' }}
                                 >

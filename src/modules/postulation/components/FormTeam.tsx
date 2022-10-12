@@ -79,7 +79,10 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                     overflow: 'auto',
                                     minWidth: 300,
                                 }}
-                                options={TypeDocMember}
+                                options={TypeDocMember?.map((docuemnt: any) => ({
+                                    id: `${docuemnt.id}`,
+                                    name: docuemnt.name,
+                                }))}
                                 placeholder="C.C."
                                 filterOption={(input: any, option: any) => {
                                     return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
@@ -106,9 +109,8 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                 }}
                             />
                         </div>
-                            {/* <ErrorMessage name={`membersPostulations.${i}.gruint_type_document`} /> */}
 
-                            <ErrorMessage name={`membersPostulations.${i}.gruint_document`} withCount max={20} />
+                        <ErrorMessage name={`membersPostulations.${i}.gruint_document`} withCount max={20} />
                     </div>
                 </div>
 

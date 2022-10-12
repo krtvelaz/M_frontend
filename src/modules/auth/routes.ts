@@ -18,7 +18,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.landing,
+            can_access: true,
             path: '/auth/register/',
             template_props: {
                 breadcrumbs: [

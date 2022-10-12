@@ -1,47 +1,47 @@
-import { Formik, Form, FormikProps, FormikValues, Field } from "formik";
-import { FC, MutableRefObject } from "react";
-import * as Yup from "yup";
-import { DocumentInput, ErrorMessage } from "../../../../utils/ui";
-import { IMainBanner } from "../../custom_types";
+import { Formik, Form, Field } from 'formik';
+import { FC } from 'react';
+import * as Yup from 'yup';
+import { DocumentInput, ErrorMessage } from '../../../../utils/ui';
+import { IMainBanner } from '../../custom_types';
 
 interface BannerFormPros {
-  innerRef: any;
-  onSubmit: (values: IMainBanner, form?: any) => any;
-  banner?: IMainBanner;
-  type: 'create' | 'edit';
+    innerRef: any;
+    onSubmit: (values: IMainBanner, form?: any) => any;
+    banner?: IMainBanner;
+    type: 'create' | 'edit';
 }
 
 const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }) => {
-  const initial_values = {
-    ban_order: '',
-    ban_title: '',
-    ban_description: '',
-    ban_reference_url: '',
-    ban_embedded_video: '',
-    ban_image: {
-      name:  banner?.cha_image_name ? `${banner?.cha_image_name}.jpg` : '',
-      id: banner?.id || '',
-    },
-    ...banner,
-  };
+    const initial_values = {
+        ban_order: '',
+        ban_title: '',
+        ban_description: '',
+        ban_reference_url: '',
+        ban_embedded_video: '',
+        ban_image: {
+            name: banner?.cha_image_name ? `${banner?.cha_image_name}.jpg` : '',
+            id: banner?.id || '',
+        },
+        ...banner,
+    };
 
-  const schema = Yup.object().shape({
-    ban_title: Yup.string().required('Campo obligatorio'),
-    ban_description: Yup.string().required('Campo obligatorio'),
-    ban_embedded_video: Yup.string().url("Por favor ingrese una url").max(200, 'Máximo 200 caracteres'),
-    ban_reference_url: Yup.string().url("Por favor ingrese una url").max(200, 'Máximo 200 caracteres'),
-    ban_image: Yup.object({
-      name: Yup.string().required('Campo obligatorio')
-    }).nullable(),
-  });
+    const schema = Yup.object().shape({
+        ban_title: Yup.string().required('Campo obligatorio'),
+        ban_description: Yup.string().required('Campo obligatorio'),
+        ban_embedded_video: Yup.string().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
+        ban_reference_url: Yup.string().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
+        ban_image: Yup.object({
+            name: Yup.string().required('Campo obligatorio'),
+        }).nullable(),
+    });
 
-  const submit = async (values: any, form: any) => {
-    await onSubmit(values);
-    form.setSubmitting(false);
-    if(type === 'create'){
-      form.resetForm();
-    }
-  };
+    const submit = async (values: any, form: any) => {
+        await onSubmit(values);
+        form.setSubmitting(false);
+        if (type === 'create') {
+            form.resetForm();
+        }
+    };
 
   return (
     <Formik

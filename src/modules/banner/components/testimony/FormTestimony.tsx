@@ -38,7 +38,6 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
 
     const submit = async (values: any, form: any) => {
         await onSubmit(values);
-        // form.setSubmitting(false);
         if (type === 'create') {
             form.resetForm();
         }

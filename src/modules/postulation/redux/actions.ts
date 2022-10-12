@@ -3,9 +3,9 @@ import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
 import {
     fail_typeDocuments,
     loading_typeDocuments,
-    postulations_default,
-    postulations_fail,
-    postulations_success,
+    postulation_default,
+    postulation_fail,
+    postulation_success,
     members_default,
     members_success,
     members_fail,
@@ -38,9 +38,6 @@ import {
     deleteDoc_success,
     deleteDoc_fail,
     deleteDocPost_success,
-    infoPostulations_default,
-    infoPostulations_success,
-    infoPostulations_fail,
     infoPostulationsdetail_default,
     infoPostulationsdetail_success,
     infoPostulationsdetail_fail,
@@ -53,15 +50,21 @@ import {
     GeneratePostulationsReport_default,
     GeneratePostulationsReport_success,
     GeneratePostulationsReport_fail,
-    postulationsSearch_success,
-    postulationsSearch_fail,
-    postulationsSearch_default
+
+
+    postulations_list_default,
+    postulations_list_success,
+    postulations_list_fail,
+
+
 } from './slice';
 import { jsPDF } from 'jspdf';
 import fileDownload from 'js-file-download';
+import { successAlert } from '../../../utils/assets/img';
+
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
-        dispatch(postulations_default());
+        dispatch(postulation_default());
         try {
             const URI = 'postulations/';
             const res = await http.post(URI, values, {
@@ -70,7 +73,7 @@ const create_main_postulation = (values: any) => {
                 },
             });
 
-            dispatch(postulations_success(res.data.data));
+            dispatch(postulation_success(res.data.data));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -81,7 +84,7 @@ const create_main_postulation = (values: any) => {
             });
             return res.data.data;
         } catch (error: any) {
-            dispatch(postulations_fail());
+            dispatch(postulation_fail());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:
@@ -94,6 +97,7 @@ const create_main_postulation = (values: any) => {
         }
     };
 };
+
 const create_memberPostulation = (
     values: any[],
     id_postulation: number | string
@@ -129,6 +133,8 @@ const create_memberPostulation = (
         }
     };
 };
+
+
 const get__document = () => {
     return async (dispatch: any) => {
         dispatch(loading_typeDocuments);
@@ -144,6 +150,7 @@ const get__document = () => {
         }
     };
 };
+
 const get__documentDownload = (posarc_id: number) => {
     return async (dispatch: any) => {
         dispatch(download_default_Documents);
@@ -166,31 +173,46 @@ const get__documentDownload = (posarc_id: number) => {
         }
     };
 };
-const get__postulationInfo = () => {
+
+const get_list_postulation = (filters?: {
+    page: number;
+    per_page: number;
+    challenge_name?: string;
+    cha_announcement?: number;
+    status?: string;
+}) => {
     return async (dispatch: any) => {
-        dispatch(infoPostulations_default);
+        dispatch(postulations_list_default());
         try {
             const URI = `postulations`;
 
-            const res: any = await http.get(URI);
-            dispatch(infoPostulations_success(res.data.data));
-            return res.data;
+            const res: any = await http.get(URI, {
+                params: {
+                    ...filters,
+                },
+            });
+            const postulations = {
+                results: res.data.data,
+                pagination: res.data.meta
+            }
+            dispatch(postulations_list_success(postulations));
+            return res.data.data;
         } catch (error) {
-            dispatch(infoPostulations_fail);
+            dispatch(postulations_list_fail());
             return Promise.reject('Error');
         }
     };
 };
 const get__postulationInfoDetail = (id_postulation: number | string) => {
     return async (dispatch: any) => {
-        dispatch(infoPostulationsdetail_default);
+        dispatch(infoPostulationsdetail_default());
         try {
             const URI = `postulations/detail_postulation/${id_postulation}`;
             const res: any = await http.get(URI);
-            dispatch(infoPostulationsdetail_success(res.data.data));
-            return res.data;
+            dispatch(infoPostulationsdetail_success(res.data.data[0]));
+            return res.data.data[0];
         } catch (error) {
-            dispatch(infoPostulationsdetail_fail);
+            dispatch(infoPostulationsdetail_fail());
             return Promise.reject('Error');
         }
     };
@@ -214,37 +236,6 @@ const get__postulationReportDetail = (
             return res.data;
         } catch (error) {
             dispatch(GeneratePostulationsReport_fail);
-            return Promise.reject('Error');
-        }
-    };
-};
-
-const get_postulationSearch = (
-    page: number | string,
-    per_page : number | string,
-    palabraClave: number | string,
-    convocatoriaSearch: number | string,
-    estadoPos: number | string,
-) => {
-    return async (dispatch: any) => {
-        dispatch(postulationsSearch_default);
-        try {
-            const URI = `postulations/`;
-            const res: any = await http.get(URI, {
-                params: {
-                    page,
-                    per_page,
-                    challenge_name:palabraClave,
-                    cha_announcement:convocatoriaSearch,
-                    status:estadoPos
-                },
-                
-            });
-            dispatch(postulationsSearch_success(res.data.data));
-            dispatch(infoPostulations_success(res.data.data));
-            return res.data;
-        } catch (error) {
-            dispatch(postulationsSearch_fail);
             return Promise.reject('Error');
         }
     };
@@ -374,7 +365,7 @@ const addDocumentPostulation = (file: any, data: any) => {
                     'Access-Control-Allow-Headers': 'Content-Type',
                 },
             });
-            dispatch(addDoc_success({...res.data.data}));
+            dispatch(addDoc_success({ ...res.data.data }));
             await swal_success.fire({
                 title: 'Proceso exitoso',
                 html:
@@ -413,7 +404,7 @@ const get_documents_challenge = (id: number, type_person: string | number) => {
     };
 };
 
-const generate_settled = (values: any, SaveForP: any) => {
+const generate_settled = (values: any) => {
     return async (dispatch: any) => {
         dispatch(GeneratePostulations_default());
         try {
@@ -423,23 +414,34 @@ const generate_settled = (values: any, SaveForP: any) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            // const res = {
+            //     data: {
+            //         data: {
+            //             infoSettled: {
+            //                 pos_settled: 4522,
+            //             },
+            //         },
+            //     },
+            // };
             dispatch(GeneratePostulations_success(res.data.data));
             await swal_success.fire({
-                title: 'Proceso exitoso',
                 html:
-                    `<div class="mysubtitle">${res.data.message}</div>` +
-                    `<div class="mytext">${res.data.data.infoSettled.pos_settled}</div>` +
-                    '<div class="mytext">De click en aceptar para continuar</div>' +
-                    `<div><button id="pdfDownald" class="btn btn-outline-primary">Descargar comprobante</button></div>`,
+                    `<div class="pt-3"> <div class="mysubtitle">
+                    <img src='${successAlert}' width='80px' alt="imagen" />
+                    </div>` +
+                    `<div class="titleRadicado">¡Fantástico! Se ha postulado con éxito</div>` +
+                    `<div class="numberRadicado">No. de radicado ${res.data.data.infoSettled.pos_settled}</div>` +
+                    `<div class="mysubtitle p-3">Se registraron con éxito sus datos y se ha enviado a su correo electrónico el comprobante con el cual puede hacer seguimiento a su postulación.</div>` +
+                    '<div class="continueRadicado my-3">A continuación serás dirigido a la pagina de inicio.</div> </div>',
                 showCancelButton: false,
-                confirmButtonText: 'Aceptar',
+                showDenyButton: true,
+                confirmButtonText: 'Continuar',
+                denyButtonText: `<div id="pdfDownald">Descargar comprobante</button>`,
+                // confirmButtonText: '<button id="pdfDownald" class="btn btn-landing-primary ">Continuar</button>',
                 didOpen: () => {
                     const validatePdf = document.getElementById('pdfDownald');
                     const DownloadHTML = () => {
-                        const stringHtml = HtmlStringPdf(
-                            SaveForP,
-                            res.data.data
-                        );
+                        const stringHtml = HtmlStringPdf(res.data.data);
                         const doc = new jsPDF('p', 'pt', 'a4');
                         doc.html(stringHtml, {
                             callback: (pdf) => {
@@ -470,7 +472,7 @@ const generate_settled = (values: any, SaveForP: any) => {
     };
 };
 
-const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
+const HtmlStringPdf = (generatePost: any) => {
     return `<table  class="table_postulation">
     <tr>
         <td >Número del Radicado</td>
@@ -478,39 +480,41 @@ const HtmlStringPdf = (SaveForP: any, generatePost: any) => {
     </tr>
     <tr>
         <td >Convocatoria</td>
-        <td >${SaveForP.pos_business_name}</td>
+        <td >${generatePost?.infoSettled?.pos_business_name}</td>
     </tr>
     <tr>
         <td >Tipo de documento</td>
-        <td >${SaveForP.pos_type_document_id}</td>
+        <td >${generatePost?.infoSettled?.pos_type_document_id}</td>
     </tr>
     <tr>
         <td >Número de documento</td>
-        <td >${SaveForP.pos_documentid}</td>
+        <td >${generatePost?.infoSettled?.pos_documentid}</td>
     </tr>
     <tr>
         <td >Tipo de perfil</td>
-        <td >${SaveForP.pos_id_type_competitor}</td>
+        <td >${generatePost?.infoSettled?.pos_id_type_competitor}</td>
     </tr>
     <tr>
         <td >Fecha</td>
-        <td>${SaveForP.pos_created_at}</td>
+        <td>${generatePost?.infoSettled?.pos_updated_at}</td>
     </tr>
 </table>`;
 };
 
 export const get_document_challenge = (id: number, type?: string) => {
     return async (dispatch: any) => {
-      try {
-        const URI =
-          type === "report" ? `/informs/pdf/${id}` : `/documents/download/${id}`;
-        const res: any = await http.get(URI, { responseType: 'blob', });
-        return res.data;
-      } catch (error) {
-        return Promise.reject("Error");
-      }
+        try {
+            const URI =
+                type === 'report'
+                    ? `/informs/pdf/${id}`
+                    : `/documents/download/${id}`;
+            const res: any = await http.get(URI, { responseType: 'blob' });
+            return res.data;
+        } catch (error) {
+            return Promise.reject('Error');
+        }
     };
-  };
+};
 
 const deleteDocumentPostulation = (data: any) => {
     return async (dispatch: any) => {
@@ -558,11 +562,10 @@ const actions = {
     generate_settled,
     deleteDocumentPostulation,
     get_document_challenge,
-    get__postulationInfo,
+    get_list_postulation,
     get__postulationInfoDetail,
     get__documentDownload,
     get__RevisatePostulationInfoDetail,
     get__postulationReportDetail,
-    get_postulationSearch
 };
 export default actions;

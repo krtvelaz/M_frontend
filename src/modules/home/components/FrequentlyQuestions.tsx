@@ -65,5 +65,3 @@ const FrequentlyQuestions = () => {
     </div>
   )
 }
-
-export default FrequentlyQuestions
