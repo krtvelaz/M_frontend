@@ -21,6 +21,7 @@ interface filter {
     document?: string;
     role?: string | number;
     is_published?: boolean;
+    from?: string;
 }
 
 const get_list_users = (filter?: filter) => {

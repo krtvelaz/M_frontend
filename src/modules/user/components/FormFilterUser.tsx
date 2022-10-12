@@ -38,7 +38,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
 
     return (
         <Formik
-            {...(type === 'filter' && (innerRef = { innerRef }))}
+            {...((type === 'filter' || type === 'change' || type === 'assign') && (innerRef = { innerRef }))}
             enableReinitialize
             onSubmit={submit}
             initialValues={initialValues}
@@ -89,9 +89,8 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                         id="role_id"
                                         name="role"
                                         extra_on_change={(role: number) => {
-                                            setRoleUser(role)
+                                            setRoleUser(role);
                                         }}
-                                    
                                         options={[
                                             {
                                                 id: 1,

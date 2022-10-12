@@ -2,7 +2,6 @@ import { Modal } from 'antd';
 import { FormikProps, FormikValues } from 'formik';
 import { FC, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import PencilComponent from '../../../../utils/assets/img/PencilComponent';
 import { IIndicator } from '../../custom_types';
 import FormIndicator from './FormIndicator';
 
@@ -24,9 +23,9 @@ const ModalEditStatistics: FC<statistics> = ({ data, on_submit }) => {
 
     return (
         <>
-             <div onClick={open} className="button-assign-rol">
-                    Editar
-                </div>
+            <div onClick={open} className="button-assign-rol">
+                Editar
+            </div>
             <Modal
                 visible={visible}
                 width={1000}

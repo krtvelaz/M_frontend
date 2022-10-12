@@ -2,7 +2,7 @@ import { Popover } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { trash } from '../../../../utils/assets/img';
-import { swal_error, Table } from '../../../../utils/ui';
+import { swal_error } from '../../../../utils/ui';
 import { ITestimony } from '../../custom_types';
 import { actions } from '../../redux';
 import DragDropTable from '../DragDropTable';

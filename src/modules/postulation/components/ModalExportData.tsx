@@ -1,6 +1,6 @@
 import { Modal } from 'antd';
 import { Field, Form, Formik } from 'formik';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { ErrorMessage, Select } from '../../../utils/ui';
@@ -11,7 +11,6 @@ interface ModalExportData {
     setInfoModaL?: any;
 }
 export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }) => {
-    const [disableReport, setDisableReport] = useState<any>(null);
     const dispatch = useDispatch<any>();
     const form_ref = useRef<any>();
 

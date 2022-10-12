@@ -7,18 +7,20 @@ import ModalAssignRole from './ModalAssignRole';
 interface IProps {
     filters: any;
     setFilters: any;
+    setSwitchGetUsers: React.Dispatch<React.SetStateAction<boolean>>;
+    switchGetUsers: boolean;
 }
 
-const TableUser: FC<IProps> = ({ filters, setFilters }) => {
+const TableUser: FC<IProps> = ({ filters, setFilters, setSwitchGetUsers, switchGetUsers }) => {
     const users: any[] = useSelector((store: any) => store.user.list_users.value);
     const loading: boolean = useSelector((store: any) => store.user.list_users.loading);
     const { total }: any = useSelector((store: any) => store.user.list_users.pagination);
+
     const dispatch = useDispatch<any>();
 
     useEffect(() => {
         get_users();
-    }, []);
-
+    }, [switchGetUsers]);
     const get_users = async () => {
         await dispatch(actions.get_list_users(filters));
     };
@@ -54,9 +56,9 @@ const TableUser: FC<IProps> = ({ filters, setFilters }) => {
             title: 'Rol asignado',
             dataIndex: 'use_role',
             align: 'left' as 'left',
-            render: (role: {id: number, rol_name: string}) => {
+            render: (role: { id: number; rol_name: string }) => {
                 return role.rol_name.toLocaleLowerCase();
-            }
+            },
         },
         {
             title: 'Acciones',
@@ -64,7 +66,14 @@ const TableUser: FC<IProps> = ({ filters, setFilters }) => {
             dataIndex: 'use_id',
             // fixed: 'right',
             render: (id: number) => {
-                return <ModalAssignRole id={id} type="change" />;
+                return (
+                    <ModalAssignRole
+                        switchGetUsers={switchGetUsers}
+                        setSwitchGetUsers={setSwitchGetUsers}
+                        id={id}
+                        type="change"
+                    />
+                );
             },
         },
     ];

@@ -1,17 +1,14 @@
 import { Modal, Switch, Tabs } from 'antd';
 import 'bootstrap';
-import { FormikProps, FormikValues } from 'formik';
-import { FC, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TableInfoPostulation from './TableInfoPostulation';
 import TableDocsPostulation from './TableDocsPostulation';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
 import ComponetCard from '../../../utils/ui/Card';
-import { IEvent } from '../../event/custom_types';
 import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
 import { actions } from '../redux';
-import { useNavigate } from 'react-router-dom';
 
 interface ModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
@@ -20,35 +17,30 @@ interface ModalInfoPostulations {
 }
 
 const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state }) => {
-    const { TabPane } = Tabs;
-    const form_ref = useRef<FormikProps<FormikValues>>();
+    
+    const dispatch = useDispatch<any>();
+    const form_ref = useRef<any>();
     const [revisate, setRevisate] = useState<boolean>(false);
-    const [infoPost, setInfoPost] = useState<any>(null);
     const [is_visible, set_is_visible] = useState<boolean>(false);
+
+    const { TabPane } = Tabs;
 
     const disableButton = () => {
         setRevisate(!revisate);
     };
+
     const revisatePostulations = async () => {
         await dispatch(actions.get__RevisatePostulationInfoDetail(id, set_is_visible));
     };
 
-    const infoGroupPostulation = async () => {
+    const open = async () =>  {
         await dispatch(actions.get__postulationInfoDetail(id));
-    };
-    
-    const event: IEvent = useSelector((store: any) => store.event.event.value);
-    const dispatch = useDispatch<any>();
-    const open = async  () => {
-        await set_is_visible(true);
-        setInfoPost(id);
-    };
+        set_is_visible(true);
+
+    }
     const close = () => set_is_visible(false);
 
-    const edit = async (values: IEvent) => {
-        await onSubmit(values);
-        set_is_visible(false);
-    };
+  
     return (
         <>
             <div
@@ -96,14 +88,14 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
-                                <DetailGroupPostulation infoPost={infoPost} data={event} />
+                                <DetailGroupPostulation />
                             </div>
                             <ComponetCard title="Datos generales del equipo">
-                                <DetailGeneralPostulation data={infoPost} />
+                                <DetailGeneralPostulation />
                             </ComponetCard>
                         </TabPane>
                         <TabPane tab="Miembros del equipo" key="item-2">
-                            <TableInfoPostulation infoPost={infoPost} />
+                            <TableInfoPostulation  />
                         </TabPane>
                         <TabPane tab="Documentos asociados" key="item-3">
                             <div
@@ -114,8 +106,8 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
-                                <TableDocsPostulation idPos={id} title="Documentos técnicos" type="tecnic" />
-                                <TableDocsPostulation idPos={id} title="Documentos administrativos" type="admin" />
+                                <TableDocsPostulation title="Documentos técnicos" type="tecnic" />
+                                <TableDocsPostulation title="Documentos administrativos" type="admin" />
                             </div>
                         </TabPane>
                     </Tabs>

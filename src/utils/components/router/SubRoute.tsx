@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import CustomRender from './CustomRender';
 
 interface RouteWithSubRoutesProps {
@@ -28,27 +28,32 @@ const SubRoute: FC<RouteWithSubRoutesProps> = ({
     test,
     // ..._props
 }) => {
+
+    console.log(routes);
+    
+
     return (
         <Routes>
             {routes.map((route: any, i: number) => {
                 return (
                     <Route
-                    key={`route_admin-${i}`}
+                        key={`route_admin-${i}`}
                         path={route.path}
                         element={
-                            <CustomRender 
-                            lazy={lazy}
-                            defaultRedirect={defaultRedirect as string}
-                            privateRedirect={privateRedirect as string}
-                            template={template}
-                            user={user} //TODO: agregar cuando este login
-                            test={test as boolean}
-                            {...route}
-                            />  
+                            <CustomRender
+                                lazy={lazy}
+                                defaultRedirect={defaultRedirect as string}
+                                privateRedirect={privateRedirect as string}
+                                template={template}
+                                user={user} //TODO: agregar cuando este login
+                                test={test as boolean}
+                                {...route}
+                            />
                         }
                     />
                 );
             })}
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );
 };

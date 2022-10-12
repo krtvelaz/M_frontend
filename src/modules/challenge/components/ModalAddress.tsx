@@ -1,7 +1,7 @@
 import { Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
 import { FC, useRef, useState } from 'react';
-import { Divider, Modal } from 'antd';
+import { Modal } from 'antd';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
 import { FieldProps } from 'formik';
 import * as Yup from 'yup';
@@ -84,9 +84,9 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
             </div>
             <Modal
                 title={
-                   <>
-                   <div style={{fontFamily: 'Montserrat-Bold', fontSize: '16px'}}>Ingrese la dirección</div>
-                   </>
+                    <>
+                        <div style={{ fontFamily: 'Montserrat-Bold', fontSize: '16px' }}>Ingrese la dirección</div>
+                    </>
                 }
                 visible={is_visible}
                 width={1000}
@@ -116,7 +116,12 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                             <Form>
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="tipo_via_id"  style={{fontFamily: 'Montserrat-Bold', fontSize: '14px'}}>Tipo de vía</label>
+                                        <label
+                                            htmlFor="tipo_via_id"
+                                            style={{ fontFamily: 'Montserrat-Bold', fontSize: '14px' }}
+                                        >
+                                            Tipo de vía
+                                        </label>
                                         <Field
                                             component={Select}
                                             maxTagCount="responsive"

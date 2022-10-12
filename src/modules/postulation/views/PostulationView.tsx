@@ -143,6 +143,7 @@ const PostulationView = () => {
                                 onSubmit={steps[2].onSave}
                                 postulation={postulation}
                                 setPostulation={setPostulation}
+                                id_challenge={id || -1}
                             />
                         </TabPane>
                     </Tabs>
