@@ -26,7 +26,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
         },
         {
             path: '/publication/list',
-            label: 'Gestionar postulaciones',
+            label: 'Gestionar publicaciones',
         },
     ];
     const eventos = [

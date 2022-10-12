@@ -27,8 +27,10 @@ const ListTestimony: FC<IListTestimony> = ({ testimonials, onEdit, onDelete }) =
     const table_columns = [
         {
             title: 'No.',
-            dataIndex: 'tes_order',
             align: 'center' as 'center',
+            render: (datos: any, datos2: any, index: number) => {
+                return index + 1;
+            }
         },
         {
             title: 'Título',

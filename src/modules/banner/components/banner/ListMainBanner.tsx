@@ -30,8 +30,10 @@ const ListMainBanner: FC<BannerFormPros> = ({ banners, onEdit, onDelete, loading
     const table_columns: any = [
         {
             title: 'No.',
-            dataIndex: 'ban_order',
             align: 'center' as 'center',
+            render: (datos: any, datos2: any, index: number) => {
+                return index + 1;
+            }
         },
         {
             title: 'Título',

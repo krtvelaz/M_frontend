@@ -45,7 +45,7 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
                                     <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
                                 </div>
                             )}
-                            <div className="content medeinn-main-content overflow-auto">
+                            <div id='scroll-landing' className="content medeinn-main-content overflow-auto">
                                 {children}
                                 <AppFooter />
                             </div>

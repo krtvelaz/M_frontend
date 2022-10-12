@@ -116,7 +116,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
                   autoComplete="off"
                 />
                 <div style={{ fontSize: "10px", marginTop: "5px" }}>
-                  URL embebida (YouTube, Vimeo)
+                  URL embebida (YouTube, Video)
                 </div>
                 <ErrorMessage name="ban_embedded_video" />
               </div>

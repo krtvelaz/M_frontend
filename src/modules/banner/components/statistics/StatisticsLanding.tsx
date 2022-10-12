@@ -7,7 +7,7 @@ import { actions } from '../../redux';
 const StatisticsLanding = () => {
     const dispatch = useDispatch<any>();
     useEffect(() => {
-        dispatch(actions.get_statistics());
+        dispatch(actions.get_statistics({ order_by_value: 'asc' }));
     }, []);
 
     const statistics: IIndicator[] = useSelector((store: any) => store.banner.statistics.value);

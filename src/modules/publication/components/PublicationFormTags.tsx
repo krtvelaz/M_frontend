@@ -104,12 +104,12 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                                 next_tab(true);
                             }}
                         >
-                            continuar
+                            Continuar
                         </button>
                     )}
                     {!show_next && (
                         <button type="button" className="btn btn-primary" onClick={execute_save}>
-                            Publicar
+                            Finalizar
                         </button>
                     )}
                 </div>

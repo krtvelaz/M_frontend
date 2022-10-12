@@ -92,7 +92,7 @@ const ListPublication = () => {
         },
         {
             title: 'Creado por',
-            dataIndex: 'hec_autor',
+            dataIndex: 'pub_author',
             align: 'left' as 'left',
         },
         {

@@ -1,7 +1,11 @@
 import { Popover } from "antd";
+import { useContext } from "react";
 import { apoyo, hacerClic, lamp, medalla, postulamos } from "../../../utils/assets/img";
+import { TemplateContext } from "../../../utils/components/template/templateContext";
 
 const StaticInformation = () => {
+  const context = useContext(TemplateContext);
+
   const contenido_postulamos = (
     <div className="row container-static-information">
       <div className="col-2">
