@@ -1,11 +1,8 @@
 import { Popover } from "antd";
 import { useContext } from "react";
 import { apoyo, hacerClic, lamp, medalla, postulamos } from "../../../utils/assets/img";
-import { TemplateContext } from "../../../utils/components/template/templateContext";
 
 const StaticInformation = () => {
-  const context = useContext(TemplateContext);
-
   const contenido_postulamos = (
     <div className="row container-static-information">
       <div className="col-2">
@@ -111,10 +108,7 @@ const StaticInformation = () => {
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
                 <Popover
                     content={contenido_postulamos}
-                    placement="bottom"
                     trigger="hover"
-                    style={{ width: 700 }}
-                    className="popover-postulamos"
                 >
                     <div className="circle-text-wraps mx-auto">
                         <div className="circle-number-container">
@@ -130,7 +124,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_selecionamos} placement="bottom" trigger="hover">
+                <Popover content={contenido_selecionamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
@@ -145,7 +139,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_acompañamos} placement="bottom" trigger="hover">
+                <Popover content={contenido_acompañamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
@@ -160,7 +154,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_premiamos} placement="bottom" trigger="hover">
+                <Popover placement="topRight" content={contenido_premiamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>

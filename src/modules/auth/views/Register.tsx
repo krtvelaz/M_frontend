@@ -8,13 +8,13 @@ import FormRegisterPersonaNatural from '../components/FormRegisterPersonaNatural
 import { actions } from '../redux';
 
 const Register = () => {
-    // const [radio, setRadio] = useState(1);
+    const [radio, setRadio] = useState(1);
     const dispatch = useDispatch<any>();
     const form_ref = useRef<FormikProps<FormikValues>>();
 
-    // const onChange = (e: RadioChangeEvent) => {
-    //     setRadio(e.target.value);
-    // };
+    const onChange = (e: RadioChangeEvent) => {
+        setRadio(e.target.value);
+    };
 
     const on_register = async (values: any, form: any) => {
         await dispatch(actions.register(values));
@@ -43,18 +43,18 @@ const Register = () => {
                             <hr style={{ border: '1px solid #FF8403' }} />
                             <h1 className="mt-3 text-stake-mediun">Tipo de sociedad</h1>
                             <div className=" mb-3">
-                                {/* <Radio.Group name="radiogroup" onChange={onChange} value={radio}>
+                                <Radio.Group name="radiogroup" onChange={onChange} value={radio}>
                                     <div className="d-flex flex-row col-12 ">
                                         <Radio value={1}>Persona Natural</Radio>
                                         <Radio value={2}>Persona Juridica</Radio>
                                     </div>
-                                </Radio.Group> */}
+                                </Radio.Group>
                             </div>
-                            {/* {radio === 1 ? (
+                            {radio === 1 ? (
                                 <FormRegisterPersonaNatural innerRef={form_ref} onSubmit={on_register} />
                             ) : (
                                 <FormRegisterPersonaJuridica innerRef={form_ref} />
-                            )} */}
+                            )}
                             <hr />
                             <div className="bg-white d-flex flex-row justify-content-between">
                                 <button type="button" className="btn-back me-4 " onClick={() => {}}>
