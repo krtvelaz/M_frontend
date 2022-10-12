@@ -1,38 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Card, Table } from '../../../utils/ui';
-import { Button, Modal, Popover } from 'antd';
+import { Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { useParams } from 'react-router-dom';
 import ModalInfoPostulations from '../components/ModalInfoPostulations';
 import PostulationsFilter from '../components/PostulationsFilter';
-import { Formik } from 'formik';
 import { ModalExportData } from '../components/ModalExportData';
 import moment from 'moment';
 const managePostulations = () => {
-    const [is_visible, set_is_visible] = useState<boolean>(false);
-    const [colorState, setColorState] = useState<boolean>(false);
-    const open = () => {
-        set_is_visible(true);
-    };
+    
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [infoModaL, setInfoModaL] = useState<boolean>(false);
 
     const dispatch = useDispatch<any>();
-    const infoPosutlations = useSelector((store: any) => store.postulation.inforPostulation.value);
-    const infoPosutlationsFilter = useSelector((store: any) => store.postulation.searchPostulations.value);
-    const inforPostFilterData = infoPosutlationsFilter?.data;
+    const infoPosutlations = useSelector((store: any) => store.postulation.list_postulations.value);
+    const { total } = useSelector((store: any) => store.postulation.list_postulations.pagination);
+    const loading = useSelector((store: any) => store.postulation.list_postulations.loading);
+   
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
     });
+
     useEffect(() => {
-        dispatch(actions.get__postulationInfo());
+        dispatch(actions.get_list_postulation({ page: filters.page, per_page: filters.pageSize}));
     }, []);
 
     const change_page = (page: number, pageSize?: number) => {
-        setFilters({ page, pageSize: pageSize || 10 });
-        dispatch(actions.get__postulationInfo());
+        setFilters({ ...filters, page, pageSize: pageSize || 10 });
+        dispatch(actions.get_list_postulation({...filters, page: page, per_page: pageSize || 10}));
     };
 
     const OpenModal = () => {
@@ -41,24 +37,23 @@ const managePostulations = () => {
     const OpenModalExportData = () => {
         setInfoModaL(true);
     };
-    let className = 'menu';
+
     const table_columns = [
         {
             title: 'No.',
             fixed: 'left',
+            dataIndex: 'id_postulation',
             align: 'center' as 'center',
-            render: (data: any, values: any, i: number) => {
-                return i + 1;
-            },
+            // render: (data: any, values: any, i: number) => {
+            //     return i + 1;
+            // },
         },
         {
             title: 'Conv.',
             fixed: 'left',
-            dataIndex: 'cha_announcement.',
+            dataIndex: 'cha_announcement',
             align: 'left' as 'left',
-            render: (data: any, values: any, i: number) => {
-                return (i = 1);
-            },
+            
         },
         {
             title: 'Nombre del reto',
@@ -175,40 +170,14 @@ const managePostulations = () => {
             title: 'Cód. postulación',
             dataIndex: 'pos_settled',
             align: 'left' as 'left',
-            render: (value: string) => {
-                return (
-                    value &&
-                    (value.length > 65 ? (
-                        <Popover content={value}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
-                                0,
-                                64
-                            )}...`}</span>
-                        </Popover>
-                    ) : (
-                        value
-                    ))
-                );
-            },
+            
         },
         {
-            title: 'Fecha. postulación',
+            title: 'Fecha postulación',
             dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
             render: (value: string) => {
-                return (
-                    value &&
-                    (value.length > 65 ? (
-                        <Popover content={value}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
-                                0,
-                                64
-                            )}...`}</span>
-                        </Popover>
-                    ) : (
-                        moment(value).format('YYYY-MM-DD')
-                    ))
-                );
+                return  moment(value).format('DD / MM / YYYY')
             },
         },
         {
@@ -216,19 +185,7 @@ const managePostulations = () => {
             dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
             render: (value: string) => {
-                return (
-                    value &&
-                    (value.length > 65 ? (
-                        <Popover content={value}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
-                                0,
-                                64
-                            )}...`}</span>
-                        </Popover>
-                    ) : (
-                        moment(value).format('HH:mm:ss')
-                    ))
-                );
+                return moment(value).format('hh:mm A')
             },
         },
         {
@@ -294,7 +251,7 @@ const managePostulations = () => {
                             </span>
                         }
                     >
-                        <PostulationsFilter />
+                        <PostulationsFilter setFilters={setFilters} filters={filters} />
                     </Card>
 
                     <Card>
@@ -304,6 +261,8 @@ const managePostulations = () => {
                             paginationTop
                             items={infoPosutlations}
                             change_page={change_page}
+                            count={total}
+                            loading={loading}
                             with_pagination
                         />
                         <div style={{ position: 'relative' }}>

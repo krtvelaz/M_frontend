@@ -1,50 +1,11 @@
-import { FC, useEffect, useState } from 'react';
 import { Card, Table } from '../../../utils/ui';
 import { Popover } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { actions } from '../redux';
+import { useSelector } from 'react-redux';
 
-interface TableInfoPostulationPros {
-    infoPost?: any;
-}
 
-const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const { id } = useParams<any>();
-    const dispatch = useDispatch<any>();
+const TableInfoPostulation = () => {
 
-    
-
-    const challenges = useSelector((store: any) => store.challenge.challenges.value);
-    const { total } = useSelector((store: any) => store.challenge.challenges.pagination);
-    const loading = useSelector((store: any) => store.challenge.challenges.loading);
-    const infoPosutlationsetail = useSelector((store: any) => store.postulation.detail_postulation.value);
-    const infoGeneralGroup = infoPosutlationsetail[0]?.members_info?.map((item: any) => ({
-        gruint_disability: item.gruint_disability === true ? 'Si' : 'No',
-        gruint_document: item.gruint_document,
-        gruint_ethnicity: item.gruint_ethnicity,
-        gruint_identity: item.gruint_identity,
-        gruint_names: item.gruint_names,
-        gruint_orientation_sexual: item.gruint_orientation_sexual,
-        gruint_sex: item.gruint_sex,
-    }));
-
-    
-    const infoGroupPostulation = async () => {
-        await dispatch(actions.get__postulationInfoDetail(infoPost));
-    };
-    const [filters, setFilters] = useState({
-        page: 1,
-        pageSize: 10,
-    });
-    useEffect(() => {
-        infoGroupPostulation();
-    }, []);
-
-    const OpenModal = () => {
-        setModalOpen(true);
-    };
+    const { members_info } = useSelector((store: any) => store.postulation.detail_postulation.value)
 
     const table_columns = [
         {
@@ -99,20 +60,8 @@ const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
             title: 'Discapacitado',
             dataIndex: 'gruint_disability',
             align: 'left' as 'left',
-            render: (value: string) => {
-                return (
-                    value &&
-                    (value.length > 65 ? (
-                        <Popover content={value}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">{`${value.substring(
-                                0,
-                                64
-                            )}...`}</span>
-                        </Popover>
-                    ) : (
-                        value
-                    ))
-                );
+            render: (value: boolean) => {
+                return value ? 'Si' : 'No'
             },
         },
         {
@@ -202,7 +151,7 @@ const TableInfoPostulation: FC<TableInfoPostulationPros> = ({ infoPost }) => {
                 <Table
                     title="Listado de postulaciones"
                     columns={table_columns}
-                    items={infoGeneralGroup}
+                    items={members_info}
                     with_pagination
                 />
             </Card>

@@ -154,7 +154,16 @@ export const useCreatePostulation = (
                 await steps[2]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
+                
+                const new_values = {
+                    id_postulacion : postulation.applicant_data.id,
+                    to : postulation.applicant_data.email,
+                    subject: 'Alcaldia de medellin',
+                    attachment: []
+                }
+                
                 set_is_saving(false);
+                await dispatch(actions.generate_settled(new_values));
             },
         },
     ];
