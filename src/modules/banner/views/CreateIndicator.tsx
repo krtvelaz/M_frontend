@@ -1,10 +1,8 @@
-import { FormikProps, FormikValues } from 'formik';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { arrowsFromLine } from '../../../utils/assets/img';
-import { Card, Table } from '../../../utils/ui';
+import { Card } from '../../../utils/ui';
 import DragDropTable from '../components/DragDropTable';
-import FormIndicator from '../components/statistics/FormIndicator';
 import ModalEditStatistics from '../components/statistics/ModalEditStatistics';
 import { IIndicator } from '../custom_types';
 import { actions } from '../redux';

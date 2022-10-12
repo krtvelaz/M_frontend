@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Card, Skeleton } from 'antd';
-import moment from 'moment';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
+import { calendarLanding } from '../../../utils/assets/img';
 
 interface IPropsCards {
     data: any;
@@ -13,7 +13,6 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
     if (Array.isArray(data?.cha_image_stream?.data)) {
         _img = Buffer.from(data?.cha_image_stream?.data).toString('base64');
     }
-    
 
     return (
         <Card
@@ -28,8 +27,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                         alt="Imagen principal del reto"
                     />
                 ) : (
-                    <Skeleton.Image className='w-100' style={{ minHeight: '150px', borderRadius: ' 40px 40px 0 0' }}  />
-                    
+                    <Skeleton.Image className="w-100" style={{ minHeight: '150px', borderRadius: ' 40px 40px 0 0' }} />
                 )
             }
         >
@@ -37,11 +35,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                 <h3 className="mt-3">{data?.cha_name}</h3>
                 <div className="row">
                     <div className="col-2">
-                        <i
-                            className="fa fa-calendar-o"
-                            aria-hidden="true"
-                            style={{ fontSize: '30px', color: '#DE096B' }}
-                        ></i>
+                    <img alt="imagen de calendario" src={calendarLanding} />
                     </div>
                     <div className="col-10">
                         <p>Fecha de vigencia para postulaciones</p>
@@ -51,7 +45,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                 </div>
 
                 <button className="btn" style={{ position: 'absolute', top: '-20px', left: '20px', margin: 0 }}>
-                   {data?.cha_dimension?.maedim_nombre}
+                    {data?.cha_dimension?.maedim_nombre}
                 </button>
             </div>
         </Card>

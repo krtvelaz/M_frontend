@@ -11,14 +11,11 @@ export interface LoginModalProps {
 }
 
 const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
-
     const navigate = useNavigate();
-    
-
 
     return (
         <>
-            <Modal visible={open} footer={null} onCancel={toggle} title="" >
+            <Modal bodyStyle={{ height: '54rem' }} visible={open} footer={null} onCancel={toggle} title="">
                 <div className="row" style={{ height: '100vh' }}>
                     <div className="col mt-5">
                         <div className="container-form-login mx-auto" style={{ width: 300 }}>
@@ -39,11 +36,10 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                                         <p>
                                             Si aún no tienes usuario{' '}
                                             <a
-                                                style={{ font: 'Montserrat', color: '#41A0FF' }}
+                                                style={{ font: 'Montserrat', color: '#41A0FF', fontWeight: '600' }}
                                                 onClick={() => {
                                                     navigate(`../auth/register/`);
-                                                   if(toggle) toggle();
-                                                   
+                                                    if (toggle) toggle();
                                                 }}
                                                 // onClick={() => navigate('../auth/register', { replace: true })}
                                             >
@@ -53,9 +49,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col ">
-                                       
-                                    </div>
+                                    <div className="col "></div>
                                 </div>
                             </div>
                         </div>

@@ -11,12 +11,11 @@ const ModalExport = () => {
     const close = () => setvisible(false);
     const dispatch = useDispatch<any>();
 
-
     const export_values = async (values: any, form: any) => {
         await dispatch(actions.export_data(values));
         form.resetForm();
         close();
-    }
+    };
 
     return (
         <>
@@ -34,9 +33,15 @@ const ModalExport = () => {
                     backgroundColor: 'rgba(6, 100, 144 ,0.71)',
                 }}
                 footer={[
-                    <button disabled={false} key="saveDoc" type="button" className="btn btn-primary" onClick={() => {
-                        form_ref.current?.submitForm();
-                    }}>
+                    <button
+                        disabled={false}
+                        key="saveDoc"
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                            form_ref.current?.submitForm();
+                        }}
+                    >
                         Exportar datos
                     </button>,
                 ]}

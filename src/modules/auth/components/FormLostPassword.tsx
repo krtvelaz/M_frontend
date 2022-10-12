@@ -1,6 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC } from 'react';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
 import { ILostPassword } from '../custom_types';
@@ -11,11 +10,10 @@ interface LostPasswordFormPros {
     lostPassword?: ILostPassword;
 }
 const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, onSubmit }) => {
-
     const initialValues = {
         document: '',
         email: '',
-        ...lostPassword
+        ...lostPassword,
     };
     const submit = async (values: any, form: any) => {
         await onSubmit(values, form);
@@ -23,8 +21,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
 
     const schema = Yup.object().shape({
         document: Yup.string().required('Campo obligatorio'),
-        email: Yup.string().email("Ingrese un correo electrónico valido").required("Campo obligatorio"),
-
+        email: Yup.string().email('Ingrese un correo electrónico valido').required('Campo obligatorio'),
     });
     return (
         <Formik
@@ -47,7 +44,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     className="form-control"
                                     id="user_id"
                                     name="document"
-                                    placeholder='Ingrese su usuario, cédula o NIT'
+                                    placeholder="Ingrese su usuario, cédula o NIT"
                                     // disabled={disabled}
                                     autoComplete="off"
                                     min={0}
@@ -74,19 +71,17 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     name="email"
                                     className="form-control"
                                     autoComplete="off"
-                                    style={{ height: "38px" }}
+                                    style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
-
                                 />
                                 <ErrorMessage name="email" />
                             </div>
                         </div>
-
                     </Form>
                 );
             }}
         </Formik>
-    )
-}
+    );
+};
 
-export default FormLostPassword
+export default FormLostPassword;

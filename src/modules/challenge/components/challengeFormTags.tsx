@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IChallenge, IGeneralInformation } from '../custom_types';
+import { IGeneralInformation } from '../custom_types';
 import { useInit } from '../hooks/useInit';
 import useDocument from '../hooks/useTypeDocs';
 import { actions } from '../redux';
