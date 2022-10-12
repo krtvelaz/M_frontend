@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Card, Table } from '../../../utils/ui';
-import { Button, Modal, Popover } from 'antd';
+import { Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
-import { useParams } from 'react-router-dom';
 import ModalInfoPostulations from '../components/ModalInfoPostulations';
 import PostulationsFilter from '../components/PostulationsFilter';
-import { Formik } from 'formik';
 import { ModalExportData } from '../components/ModalExportData';
 import moment from 'moment';
 const managePostulations = () => {
@@ -29,8 +27,8 @@ const managePostulations = () => {
     }, []);
 
     const change_page = (page: number, pageSize?: number) => {
-        setFilters({ page, pageSize: pageSize || 10 });
-        dispatch(actions.get_list_postulation({ page, per_page: pageSize || 10}));
+        setFilters({ ...filters, page, pageSize: pageSize || 10 });
+        dispatch(actions.get_list_postulation({...filters, page: page, per_page: pageSize || 10}));
     };
 
     const OpenModal = () => {
@@ -44,10 +42,11 @@ const managePostulations = () => {
         {
             title: 'No.',
             fixed: 'left',
+            dataIndex: 'id_postulation',
             align: 'center' as 'center',
-            render: (data: any, values: any, i: number) => {
-                return i + 1;
-            },
+            // render: (data: any, values: any, i: number) => {
+            //     return i + 1;
+            // },
         },
         {
             title: 'Conv.',

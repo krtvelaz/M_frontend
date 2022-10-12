@@ -205,14 +205,14 @@ const get_list_postulation = (filters?: {
 };
 const get__postulationInfoDetail = (id_postulation: number | string) => {
     return async (dispatch: any) => {
-        dispatch(infoPostulationsdetail_default);
+        dispatch(infoPostulationsdetail_default());
         try {
             const URI = `postulations/detail_postulation/${id_postulation}`;
             const res: any = await http.get(URI);
-            dispatch(infoPostulationsdetail_success(res.data.data));
-            return res.data;
+            dispatch(infoPostulationsdetail_success(res.data.data[0]));
+            return res.data.data[0];
         } catch (error) {
-            dispatch(infoPostulationsdetail_fail);
+            dispatch(infoPostulationsdetail_fail());
             return Promise.reject('Error');
         }
     };

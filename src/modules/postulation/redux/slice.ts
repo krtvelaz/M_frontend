@@ -33,6 +33,12 @@ const initialState: State = {
         loaded: false,
     },
 
+    detail_postulation: {
+        value: null,
+        loading: false,
+        loaded: false,
+    },
+
     list_postulations: {
         value: [],
         pagination: {
@@ -70,11 +76,7 @@ const initialState: State = {
         loaded: false,
     },
 
-    detail_postulation: {
-        value: null,
-        loading: false,
-        loaded: false,
-    },
+    
     
     deleteDocument: {
         value: null,

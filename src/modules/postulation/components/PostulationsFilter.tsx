@@ -18,15 +18,20 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
     const dispatch = useDispatch<any>();
 
     const submit = async (values: any) => {
-        console.log(values);
-        
+        setFilters({
+            page: 1,
+            per_page: 10,
+            challenge_name: values.palabraClave,
+            cha_announcement: values.convocatoriaSearch,
+            status: values.estadoPos.toUpperCase(),
+        });
         await dispatch(
             actions.get_list_postulation({
                 page: 1,
-                per_page: 100,
+                per_page: 10,
                 challenge_name: values.palabraClave,
                 cha_announcement: values.convocatoriaSearch,
-                status: values.estadoPos.toUpperCase()
+                status: values.estadoPos.toUpperCase(),
             })
         );
     };
@@ -114,6 +119,10 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                                 <button
                                     onClick={() => {
                                         form_ref.current?.resetForm();
+                                        setFilters({
+                                            page: 1,
+                                            per_page: 10,
+                                        });
                                         dispatch(actions.get_list_postulation({ page: 1, per_page: 10 }));
                                     }}
                                     className="btn me-3"
