@@ -6,6 +6,7 @@ import { publicationSlice } from '../modules/publication/redux/slice';
 import {postulationSlice} from '../modules/postulation/redux/slice'
 import {eventSlice} from '../modules/event/redux/slice'
 import { userSlice } from '../modules/user/redux/slice';
+import { notificationSlice } from '../modules/notificacion/redux/slice';
 
 
 export const store = configureStore({
@@ -16,7 +17,8 @@ export const store = configureStore({
     event: eventSlice.reducer,
     auth: authSlice.reducer,
     postulation: postulationSlice.reducer,
-    user: userSlice.reducer
+    user: userSlice.reducer,
+    notification: notificationSlice.reducer
   },
 })
 

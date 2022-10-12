@@ -1,32 +1,13 @@
 import { IRoute } from "../../utils/components/router/custom_types";
-import ListEvent from "../event/views/ListEvent";
-// import EditPublication from "./EditPublication";
-import CreateEvent from "../event/views/CreateEvent";
 import CreatePublication from "./views/CreatePublication";
 import ListPublication from "./views/ListPublication";
 import EditPublication from "./views/EditPublication";
 import { guards } from "../home/routes";
 import DetailPublication from "./views/DetailPublication";
-import ListNotifications from "./views/ListNotifications";
 
-// import store from '../../config/store';
-;
 
 const get_routes = (): IRoute[] => {
     return [
-        {
-            exact: true,
-            is_private: true,
-            can_access:  guards.login_admin,
-            format: true,
-            path: '/notifications/list',
-            template_props: {
-                breadcrumbs: [
-                    { name: 'Notificaciones' },
-                ],
-            },
-            component: ListNotifications,
-        },
         {
             exact: true,
             is_private: true,
