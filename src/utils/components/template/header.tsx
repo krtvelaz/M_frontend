@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { TemplateContext } from './templateContext';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import bars from '../../assets/img/bars.svg';
-import DropdownNotification from '../../../modules/notificacions/views/DropdownNotification';
+import DropdownNotification from '../../../modules/notificacion/views/DropdownNotification';
 
 
 const Header: FC<{ collapsible: boolean; name: string }> = ({ collapsible, name }) => {

@@ -1,12 +1,13 @@
 import { Radio } from 'antd';
 import { Field, Form, Formik } from 'formik';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { Card, ErrorMessage, Select } from '../../../utils/ui';
+import { ErrorMessage, Select } from '../../../utils/ui';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { IRegisterPersonaNatural } from '../custom_types';
 import { actions } from '../redux';
+import { actions as actionsChallenge } from '../../challenge/redux';
 
 interface RegisterFormPros {
     innerRef: any;
@@ -33,8 +34,13 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         country: null,
         state: null,
         city: null,
+        commune: null,
+        neighborhood: null,
         ...register,
     };
+
+    const neighborhoods: any = useSelector((store: any) => store.challenge.neighborhoods.value);
+    const communes: any = useSelector((store: any) => store.challenge.communes.value);
 
     const schema = Yup.object().shape({
         names: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
@@ -50,15 +56,30 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         state: Yup.string()
             .nullable()
             .when('country', {
-                is: 'CO-Colombia',
+                is: 'CO',
                 then: Yup.string().nullable().required('Campo obligatorio'),
             }),
         city: Yup.string()
             .nullable()
             .when('country', {
-                is: 'CO-Colombia',
+                is: 'CO',
                 then: Yup.string().nullable().required('Campo obligatorio'),
             }),
+        commune: Yup.string()
+            .nullable()
+            .when('city', {
+                is: '05001-MEDELLÍN',
+                then: Yup.string().nullable().required('Campo obligatorio'),
+            }),
+        neighborhood: Yup.string()
+            .nullable()
+            .when('city', {
+                is: '05001-MEDELLÍN',
+                then: Yup.string().nullable().required('Campo obligatorio'),
+            }),
+        // state: Yup.string().nullable().required('Campo obligatorio'),
+        // city: Yup.string().nullable().required('Campo obligatorio'),
+        // radioPolitica: Yup.string().required("Debes aceptar las politicas para continuar")
     });
     const submit = async (values: any, form: any) => {
         await onSubmit(values, form);
@@ -296,13 +317,13 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="country_id"
                                     name="country"
                                     style={{ height: '38px' }}
-                                    options={countries.map((country: any) => ({ name: country.name, id: country.id }))}
+                                    options={countries.map((country: any) => ({ name: country.name, id: country.code }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                     extra_on_change={async (value: any) => {
-                                        if (value === 'CO-Colombia') {
+                                        if (value === 'CO') {
                                             await dispatch(actions.get_states());
                                         } else {
                                             setFieldValue('state', null, false);
@@ -323,13 +344,15 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="country_id"
                                     name="state"
                                     style={{ height: '38px' }}
-                                    disabled={values.country !== 'CO-Colombia'}
+                                    disabled={values.country !== 'CO'}
                                     options={states.map((state: any) => ({ name: state.name, id: state.id }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                     extra_on_change={async (value: any) => {
+                                        console.log(value);
+                                        
                                         setFieldValue('city', null, false);
                                         await dispatch(actions.get_cities(value));
                                     }}
@@ -349,11 +372,59 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     disabled={!values.state}
                                     options={cities.map((city: any) => ({ name: city.name, id: city.id }))}
                                     placeholder="Seleccione…"
+                                    extra_on_change={async (value: string) => {
+                                        if (value === '05001-MEDELLÍN') {
+                                            dispatch(actionsChallenge.get_communes());
+                                            return;
+                                        }
+                                        setFieldValue('commune', null, false);
+                                    }}
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                 />
                                 <ErrorMessage name="city" />
+                            </div>
+                            <div className="col-6 col-md-6 col-lg-3">
+                                <label htmlFor="comuna_id" className="form-label label-landing">
+                                    Comuna
+                                </label>
+                                <Field
+                                    style={{ height: '38px' }}
+                                    component={Select}
+                                    disabled={values.city !== '05001-MEDELLÍN'}
+                                    id="comuna_id"
+                                    name="commune"
+                                    className=""
+                                    options={communes?.map((commune: any) => ({
+                                        id: commune?.id,
+                                        name: commune?.commune,
+                                    }))}
+                                    extra_on_change={(id_commune: number) => {
+                                        setFieldValue('neighborhood', null, false);
+                                        dispatch(actionsChallenge.get_neighborhoods(id_commune));
+                                    }}
+                                    placeholder="Seleccionar…"
+                                />
+                                <ErrorMessage name="commune" />
+                            </div>
+                            <div className="col-6 col-md-6 col-lg-3">
+                                <label htmlFor="neighborhood_id" className="form-label label-landing">
+                                    Barrio
+                                </label>
+                                <Field
+                                    component={Select}
+                                    disabled={!values.commune}
+                                    id="neighborhood_id"
+                                    name="neighborhood"
+                                    className=""
+                                    options={neighborhoods?.map((neighborhood: any) => ({
+                                        id: neighborhood?.neighborhood,
+                                        name: neighborhood?.neighborhood,
+                                    }))}
+                                    placeholder={`${neighborhoods.length > 0 ? 'Seleccionar…' : '------'}`}
+                                />
+                                <ErrorMessage name="neighborhood" />
                             </div>
                         </div>
 

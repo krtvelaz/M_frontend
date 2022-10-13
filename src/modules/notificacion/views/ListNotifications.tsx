@@ -1,60 +1,29 @@
 import { Popover } from 'antd';
 import moment from 'moment';
-import { downloadExcel } from 'react-export-table-to-excel';
-import { Card, swal_error, Table } from '../../../utils/ui';
-import { IEvent } from '../../event/custom_types';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Table } from '../../../utils/ui';
+import actions from '../redux/actions';
 
 const ListNotifications = () => {
-    const dataSource = [
-        {
-            key: '1',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 05/03/2022',
-        },
-        {
-            key: '2',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 06/03/2022',
-        },
-        {
-            key: '3',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 05/03/2022',
-        },
-        {
-            key: '4',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 06/03/2022',
-        },
-        {
-            key: '5',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 05/03/2022',
-        },
-        {
-            key: '6',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 06/06/2022',
-        },
-        {
-            key: '7',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 05/03/2022',
-        },
-        {
-            key: '8',
-            mensaje: 'Un nuevo equipo ha postulado',
-            radicado: '00',
-            fecha: ' 06/03/2022',
-        },
-    ];
+    const notifications = useSelector((store: any) => store.notification.notifications.value);
+    const loading = useSelector((store: any) => store.notification.notifications.loading);
+    const { total } = useSelector((store: any) => store.notification.notifications.pagination);
+
+    const [filters, setFilters] = useState({
+        page: 1, page_size: 10, order_by_value: 'desc', is_readed: false,
+    });
+
+    const dispacth = useDispatch<any>();
+    useEffect(() => {
+        dispacth(actions.get_list_notifications(filters))
+    }, []);
+
+    const change_page = (page: number, page_size?: number) => {
+        setFilters({...filters, page: page, page_size: page_size || 10});
+        dispacth(actions.get_list_notifications({...filters, page: page, page_size: page_size}))
+    }
+    
 
     const table_columns: any = [
         {
@@ -62,13 +31,13 @@ const ListNotifications = () => {
             dataIndex: 'key',
             fixed: 'left',
             align: 'center' as 'center',
-            render: (data: IEvent, values: any, i: number) => {
+            render: (data: any, values: any, i: number) => {
                 return i + 1;
             },
         },
         {
             title: 'Mensaje',
-            dataIndex: 'mensaje',
+            dataIndex: 'not_message',
             align: 'left' as 'left',
             with: '500px',
             render: (value: string) => {
@@ -89,16 +58,12 @@ const ListNotifications = () => {
         },
         {
             title: 'No. radicado',
-            dataIndex: 'radicado',
-            align: 'left' as 'left',
-            render: (data: IEvent, values: any, i: number) => {
-                return '000' + i;
-            },
+            dataIndex: 'not_located',
         },
 
         {
             title: 'Fecha',
-            dataIndex: 'fecha',
+            dataIndex: 'not_created_at',
             align: 'left' as 'left',
             render: (date: string) => {
                 return moment(date).format('DD / MM / YYYY');
@@ -116,10 +81,13 @@ const ListNotifications = () => {
 
                     <Card>
                         <Table
+                        change_page={change_page}
                             title="Lista de notificaciones"
                             columns={table_columns}
-                            items={dataSource}
+                            items={notifications}
                             paginationTop
+                            loading={loading}
+                            count={total}
                         />
                     </Card>
                 </div>

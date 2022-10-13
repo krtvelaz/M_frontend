@@ -57,7 +57,7 @@ const CarouselMedeinn = () => {
                                     ) : null}
 
                                     {item?.ban_reference_url && (
-                                        <a href={`${item?.car_url}`} className="btn btn-outline-landing-primary ms-5">
+                                        <a href={`${item?.ban_reference_url}`} target="_blank" className="btn btn-outline-landing-primary ms-5">
                                             Conoce más
                                         </a>
                                     )}

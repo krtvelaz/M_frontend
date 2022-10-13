@@ -61,20 +61,23 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
             <div className="d-flex justify-content-end">
                 {context.device === 'lg' ? (
                     <>
-                        <Link
-                            to={'/about-us'}
+                        <div
                             className="link-card"
                             style={{
                                 color: 'black',
                                 textDecoration: 'none',
                                 marginRight: '30px',
                                 marginTop: '7px',
+                            }}
+                            onClick={() => {
+                                navigate('../about-us');
+                                const landingScroll: any = document.getElementById('scroll-landing');
+                                landingScroll.scrollTop = 0;
                             }}
                         >
                             Nosotros
-                        </Link>
-                        <Link
-                            to={'/our-challenges'}
+                        </div>
+                        <div
                             className="link-card"
                             style={{
                                 color: 'black',
@@ -82,9 +85,14 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 marginRight: '30px',
                                 marginTop: '7px',
                             }}
+                            onClick={() => {
+                                navigate('../our-challenges');
+                                const landingScroll: any = document.getElementById('scroll-landing');
+                                landingScroll.scrollTop = 0;
+                            }}
                         >
                             Nuestros retos
-                        </Link>
+                        </div>
                         {name ? (
                             <Dropdown overlay={menu}>
                                 <span

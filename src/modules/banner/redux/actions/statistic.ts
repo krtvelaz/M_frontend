@@ -72,7 +72,7 @@ export const edit_order_statistics = (values: any[]) => {
 };
 
 export const get_statistics = (filters?: {
-    page: number;
+    page?: number;
     page_size?: number;
     order_by_key?: string;
     order_by_value?: string;

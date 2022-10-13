@@ -1,74 +1,92 @@
-import { Popover } from 'antd';
-import { apoyo, hacerClic, lamp, medalla, postulamos } from '../../../utils/assets/img';
+import { Popover } from "antd";
+import { useContext } from "react";
+import { apoyo, hacerClic, lamp, medalla, postulamos } from "../../../utils/assets/img";
 
 const StaticInformation = () => {
-    const contenido_postulamos = (
-        <div className="row container-static-information">
-            <div className="col-2">
-                <img src={postulamos} alt="imagen postulamos" />
-            </div>
-            <div className="col container-text-stake">
-                {' '}
-                <div className="text-stake my-3">Postulamos</div>
-                <p>
-                    En este momento, podrás revisar toda la información respecto al reto de tu interés, conocer los
-                    datos de la problemática, el impacto esperado de la solución; y, muy importante, revisar de forma
-                    detallada los términos de referencia para determinar si podrás aplicar a la convocatoria. Una vez
-                    hayas revisado cada uno de los pasos asociados al reto y a los requisitos para la postulación,
-                    podrás recolectar la información necesaria para la postulación de la solución y cargarla en la
-                    plataforma, dentro de los plazos definidos
-                </p>
-            </div>
-        </div>
-    );
-    const contenido_selecionamos = (
-        <div className="row container-static-information">
-            <div className="col-2">
-                <img src={postulamos} alt="imagen postulamos" />
-            </div>
-            <div className="col container-text-stake">
-                {' '}
-                <div className="text-stake">Seleccionamos</div>
-                <p>
-                    A partir de los criterios de selección expuestos en los términos de referencia serán elegidos los
-                    participantes que harán parte de la fase de acompañamiento. Esta fase no garantiza acceder a
-                    premiación alguna.
-                </p>
-            </div>
-        </div>
-    );
-    const contenido_acompañamos = (
-        <div className="row container-static-information">
-            <div className="col-2">
-                <img src={postulamos} alt="imagen postulamos" />
-            </div>
-            <div className="col container-text-stake">
-                {' '}
-                <div className="text-stake my-3">Acompañamos</div>
-                <p>
-                    En esta etapa se lleva a cabo el dialogo técnico para la adaptación e innovación en la solución
-                    presentada. Lo anterior, permite documentar la novedad o mejora en las propuestas seleccionadas,
-                    posterior a las jornadas de trabajo con las partes interesadas. El resultado de esta fase será el
-                    que se evalúe para determinar quiénes acceden a la premiación o implementación de la solución.
-                </p>
-            </div>
-        </div>
-    );
-    const contenido_premiamos = (
-        <div className="row container-static-information">
-            <div className="col-2">
-                <img src={postulamos} alt="imagen postulamos" />
-            </div>
-            <div className="col container-text-stake">
-                {' '}
-                <div className="text-stake">Premiamos</div>
-                <p>
-                    Las propuestas seleccionadas, como resultado de la fase de acompañamiento, tendrán la oportunidad de
-                    implementar su solución en la ciudad y así generar mayor calidad de vida a los ciudadanos.
-                </p>
-            </div>
-        </div>
-    );
+  const contenido_postulamos = (
+    <div className="row container-static-information">
+      <div className="col-2">
+        <img
+          src={postulamos}
+          alt="imagen postulamos"
+        />
+      </div>
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake my-3">Postulamos</div>
+        <p>
+          En este momento, podrás revisar toda la información respecto al reto
+          de tu interés, conocer los datos de la problemática, el impacto
+          esperado de la solución; y, muy importante, revisar de forma detallada
+          los términos de referencia para determinar si podrás aplicar a la
+          convocatoria. Una vez hayas revisado cada uno de los pasos asociados
+          al reto y a los requisitos para la postulación, podrás recolectar la
+          información necesaria para la postulación de la solución y cargarla en
+          la plataforma, dentro de los plazos definidos
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_selecionamos = (
+    <div className="row container-static-information">
+      <div className="col-2">
+        <img
+          src={postulamos}
+          alt="imagen postulamos"
+        />
+      </div>
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake">Seleccionamos</div>
+        <p>
+          A partir de los criterios de selección expuestos en los términos de
+          referencia serán elegidos los participantes que harán parte de la fase
+          de acompañamiento. Esta fase no garantiza acceder a premiación alguna.
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_acompañamos = (
+    <div className="row container-static-information">
+      <div className="col-2">
+        <img
+          src={postulamos}
+          alt="imagen postulamos"
+        />
+      </div>
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake my-3">Acompañamos</div>
+        <p>
+          En esta etapa se lleva a cabo el dialogo técnico para la adaptación e
+          innovación en la solución presentada. Lo anterior, permite documentar
+          la novedad o mejora en las propuestas seleccionadas, posterior a las
+          jornadas de trabajo con las partes interesadas. El resultado de esta
+          fase será el que se evalúe para determinar quiénes acceden a la
+          premiación o implementación de la solución.
+        </p>
+      </div>
+    </div>
+  );
+  const contenido_premiamos = (
+    <div className="row container-static-information">
+      <div className="col-2">
+        <img
+          src={postulamos}
+          alt="imagen postulamos"
+        />
+      </div>
+      <div className="col container-text-stake">
+        {" "}
+        <div className="text-stake">Premiamos</div>
+        <p>
+          Las propuestas seleccionadas, como resultado de la fase de
+          acompañamiento, tendrán la oportunidad de implementar su solución en
+          la ciudad y así generar mayor calidad de vida a los ciudadanos.
+        </p>
+      </div>
+    </div>
+  );
 
     return (
         <div className="row container-stake">
@@ -90,10 +108,7 @@ const StaticInformation = () => {
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
                 <Popover
                     content={contenido_postulamos}
-                    placement="bottom"
                     trigger="hover"
-                    style={{ width: 700 }}
-                    className="popover-postulamos"
                 >
                     <div className="circle-text-wraps mx-auto">
                         <div className="circle-number-container">
@@ -109,7 +124,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_selecionamos} placement="bottom" trigger="hover">
+                <Popover content={contenido_selecionamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
@@ -124,7 +139,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_acompañamos} placement="bottom" trigger="hover">
+                <Popover content={contenido_acompañamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
@@ -139,7 +154,7 @@ const StaticInformation = () => {
                 </Popover>
             </div>
             <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_premiamos} placement="bottom" trigger="hover">
+                <Popover placement="topRight" content={contenido_premiamos} trigger="hover">
                     <div className="circle-text-wraps  mx-auto">
                         <div className="circle-number-container">
                             <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>

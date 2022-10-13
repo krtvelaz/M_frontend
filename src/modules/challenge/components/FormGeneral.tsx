@@ -371,7 +371,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     className="form-control"
                                     autoComplete="off"
                                 />
-                                <div style={{ fontSize: '10px', marginTop: '5px' }}>URL embebida (YouTube, Vimeo)</div>
+                                <div style={{ fontSize: '10px', marginTop: '5px' }}>URL embebida (YouTube, Video)</div>
                                 <ErrorMessage name="cha_video_url" />
                             </div>
                             <div className="col-12 col-md-6 col-lg-6">
