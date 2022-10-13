@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Collapse } from "antd";
+import { Collapse } from 'antd';
+import { useState } from 'react';
 const { Panel } = Collapse;
 
 const FrequentlyQuestions = () => {
@@ -19,20 +19,20 @@ const FrequentlyQuestions = () => {
           }}
           onChange={(e) => setSelectedPanel(e)}
         >
-          <Panel extra={ selectedPanel.includes('1') ? '-' : '+' } showArrow={false} header=" ¿Puedo presentar varias ideas de solución a un mismo reto? " key="1">
+          <Panel extra={ selectedPanel.includes('1') ? '-' : '+' } className={selectedPanel.includes('1') ? 'panel-collapse' : '' } style={{ fontSize: '16px' }} showArrow={false} header="¿Puedo presentar varias ideas de solución a un mismo reto?" key="1">
             <p>
               {" "}
               Sólo podrás postularte una vez por reto; en caso de que tengas un error en el proceso de postulación
               puedes comunicarte con nosotros a través del correo medeinn@medellin.gov.co.
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('2') ? '-' : '+' } showArrow={false} header="¿Me puedo postular a más de un reto?" key="2">
+          <Panel extra={ selectedPanel.includes('2') ? '-' : '+' } className={selectedPanel.includes('2') ? 'panel-collapse' : '' } showArrow={false} header="¿Me puedo postular a más de un reto?" key="2">
             <p>
               {" "}
               Sí, siempre y cuando la propuesta de solución sea adaptable o correspondiente al reto que se postula. Los interesados ​​podrán postularse a varios, sin embargo, en caso de ser seleccionados como participantes del proceso de innovación abierta como solucionadores de dos (2) o más desafíos, deberán participar como solucionador en solo uno (1) de ellos.
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('3') ? '-' : '+' } showArrow={false} header="¿Cuándo y dónde informarán los postulados seleccionados?" key="3">
+          <Panel extra={ selectedPanel.includes('3') ? '-' : '+' } className={selectedPanel.includes('3') ? 'panel-collapse' : '' } showArrow={false} header="¿Cuándo y dónde informarán los postulados seleccionados?" key="3">
             <p>
               {" "}
               Convocatoria Residuos sólidos: Las propuestas pre-seleccionadas serán anunciadas el día 06 de junio, según los Términos de referencia, a través del correo electrónico de cada postulante.
@@ -40,21 +40,21 @@ const FrequentlyQuestions = () => {
 
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('4') ? '-' : '+' } showArrow={false} header="¿Cómo puedo contactar al equipo de la convocatoria para recibir atención?" key="4">
+          <Panel extra={ selectedPanel.includes('4') ? '-' : '+' } className={selectedPanel.includes('4') ? 'panel-collapse' : '' } showArrow={false} header="¿Cómo puedo contactar al equipo de la convocatoria para recibir atención?" key="4">
             <p>
 
               {" "}
               Si tiene alguna inquietud o necesita recibir alguna atención, puede comunicarse con nosotros a través del correo medeinn@medellin.gov.co, dentro de las fechas definidas en los términos de referencia de acuerdo a cada etapa.
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('5') ? '-' : '+' } showArrow={false} header="¿Cuantas propuestas se van a seleccionar?" key="5">
+          <Panel extra={ selectedPanel.includes('5') ? '-' : '+' } className={selectedPanel.includes('5') ? 'panel-collapse' : '' } showArrow={false} header="¿Cuantas propuestas se van a seleccionar?" key="5">
             <p>
 
               {" "}
               Convocatoria Residuos sólidos: Una vez concluida la fase de postulación, se elegirán 2 solucionadores por reto, es decir, un total de 4 preseleccionados.
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('6') ? '-' : '+' } showArrow={false} header="¿Cómo serán seleccionados los ganadores?" key="6">
+          <Panel extra={ selectedPanel.includes('6') ? '-' : '+' } className={selectedPanel.includes('6') ? 'panel-collapse' : '' } showArrow={false} header="¿Cómo serán seleccionados los ganadores?" key="6">
             <p>
 
               {" "}

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Card, Skeleton } from 'antd';
+import { Card, Divider, Skeleton } from 'antd';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
 import { calendarLanding } from '../../../utils/assets/img';
@@ -10,8 +10,8 @@ interface IPropsCards {
 
 const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
     let _img = null;
-    if (Array.isArray(data?.cha_image_stream?.data)) {
-        _img = Buffer.from(data?.cha_image_stream?.data).toString('base64');
+    if (Array.isArray(data?.cha_image_buffer?.data)) {
+        _img = Buffer.from(data?.cha_image_buffer?.data).toString('base64');
     }
 
     return (
@@ -21,11 +21,12 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
             className="card-challenge"
             cover={
                 _img ? (
-                    <img
-                        style={{ borderRadius: ' 40px 40px 0 0' }}
-                        src={`data:image/jpeg;charset=utf-8;base64,${_img}`}
-                        alt="Imagen principal del reto"
-                    />
+                        <img
+                        className="w-100 h-100"
+                            style={{ borderRadius: ' 40px 40px 0 0',  objectFit: 'cover', objectPosition: '50% 50%' }}
+                            src={`data:image/jpeg;charset=utf-8;base64,${_img}`}
+                            alt="Imagen principal del reto"
+                        />
                 ) : (
                     <Skeleton.Image className="w-100" style={{ minHeight: '150px', borderRadius: ' 40px 40px 0 0' }} />
                 )
@@ -35,7 +36,7 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                 <h3 className="mt-3">{data?.cha_name}</h3>
                 <div className="row">
                     <div className="col-2">
-                    <img alt="imagen de calendario" src={calendarLanding} />
+                        <img alt="imagen de calendario" src={calendarLanding} />
                     </div>
                     <div className="col-10">
                         <p>Fecha de vigencia para postulaciones</p>

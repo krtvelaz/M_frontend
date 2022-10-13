@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import {
     centro_revelos,
     chat,
+    Imagen_footer,
     intranet,
     linea_atencion,
     linea_gratuita,
     logoAlcaldiaNegro,
     logo_alcaldia_footer,
+    logo_colombia,
+    marca_logo,
 } from '../../assets/img';
 import { TemplateContext } from '../template/templateContext';
 
@@ -58,7 +61,7 @@ const footer = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <img src="src/utils/assets/img/imagen_footer.png" alt="imagen" className="d-block w-100" />
+                        <img src={Imagen_footer} alt="imagen" className="d-block w-100" />
                     </div>
                 </div>
             </div>
@@ -66,13 +69,13 @@ const footer = () => {
             <div className="" style={{ backgroundColor: '#3366CC', padding: '10px' }}>
                 <div className="row align-items-center" style={{ margin: '0px 100px' }}>
                     <div className="col">
-                        <img src={logo_alcaldia_footer} alt="" className="d-block w-100" />
+                        <img src={logo_alcaldia_footer} alt="imagen pie de pagina" className="d-block w-100" />
                     </div>
                     <div className="col">
-                        <img src="src/utils/assets/img/marca_logo.png" alt="" className="d-block" />
+                        <img src={marca_logo} alt="marca logo" className="d-block" />
                     </div>
                     <div className="col">
-                        <img src="src/utils/assets/img/logo_colombia.png" alt="" className="d-block" />
+                        <img src={logo_colombia} alt="logo colombia" className="d-block" />
                     </div>
                     <div className="col">
                         <a href="#" className="text-white">

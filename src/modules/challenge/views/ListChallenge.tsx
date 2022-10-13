@@ -82,6 +82,22 @@ const ListChallenge = () => {
                     //     });
                     //     return;
                     // }
+                    if(
+                        value.cha_status !== 2 &&
+                        value.cha_status !== 3 &&
+                        value.cha_status !== 5 
+                        // value.cha_status !== 'Postulado'
+                    ) {
+                        swal_error.fire({
+                            title: 'Está función no se puede realizar por el momento',
+                            html:
+                                '<div class="mysubtitle">El reto no cumple con todos los parámetros necesarios</div>' +
+                                '<div class="mytext">Por favor, termina de crear el reto</div>',
+                            showCancelButton: false,
+                            confirmButtonText: 'Aceptar',
+                        });
+                        return;
+                    }
 
                     if (e.target.value === true) {
                         await dispatch(actions.publish_challenge(value.id));
@@ -92,7 +108,7 @@ const ListChallenge = () => {
                 };
 
                 return (
-                    <Radio.Group onChange={onChange} value={value.status === 'Publicado' ? true : false}>
+                    <Radio.Group onChange={onChange} value={value.cha_status === 5 ? true : false}>
                         <Radio value={true}>Si</Radio>
                         <Radio value={false}>No</Radio>
                     </Radio.Group>

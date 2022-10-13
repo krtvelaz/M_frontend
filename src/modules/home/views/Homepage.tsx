@@ -50,7 +50,7 @@ const Homepage = () => {
 
             <section className="section-events">
                 <img src={figurasFondo} alt="fihuras de fondo" className="figuras-fondo" />
-                {publications?.length >= 3 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
+                {publications?.length > 0 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
                         Eventos más cercanos
@@ -58,7 +58,7 @@ const Homepage = () => {
                     <CarouselEvent />
                     <div className="text-center  pb-5">
                         <a
-                            style={{ position: 'relative', zIndex: 1, bottom: '20px' }}
+                            style={{ position: 'relative', zIndex: 1, bottom: '5px' }}
                             href="/calendar-events"
                             className="text-white"
                         >
@@ -97,7 +97,7 @@ const Homepage = () => {
 
             <section style={{ background: '#FFFFFF' }}>
                 <div className="container pt-4 ">
-                    <div className="row justify-content-center ">
+                    <div className="row justify-content-center container ">
                         <div className="text-center mb-3">
                             <span className="text-stake-mediun">Dudas o preguntas</span>
                             <h1 className="text-stake">Contáctanos</h1>
@@ -107,7 +107,7 @@ const Homepage = () => {
                             realicemos, estamos atentos para darte una respuesta. Si tienes alguna duda o pregunta,
                             completa el siguiente formulario. Todos los campos son requeridos.
                         </p>
-                        <div className="container mb-3  col-10 ">
+                        <div className="mb-3  col-12">
                             <FormContact />
                         </div>
                     </div>
