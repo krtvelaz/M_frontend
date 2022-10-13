@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+
+@import './settings';
 @import "./fonts.scss";
 
 @import './main';
@@ -7,11 +9,12 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'antd/dist/antd.css';
 
+
+
 @import './base';
 @import './button';
 @import './template';
 
 @import './stylesAntd';
-
 @import './landing';
 @import './svg.scss';

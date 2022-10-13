@@ -1,7 +1,12 @@
 import { Popover } from 'antd';
+import { useState } from 'react';
 import { apoyo, hacerClic, lamp, medalla, postulamos } from '../../../utils/assets/img';
 
 const StaticInformation = () => {
+    const [openPostulamos, setOpenPostulamos] = useState<boolean>(false);
+    const [openSeleccionamos, setOpenSeleccionamos] = useState<boolean>(false);
+    const [openAcompañamos, setOpenAcompañamos] = useState<boolean>(false);
+    const [openPremiamos, setOpenPremiamos] = useState<boolean>(false);
     const contenido_postulamos = (
         <div className="row container-static-information">
             <div className="col-2">
@@ -71,89 +76,126 @@ const StaticInformation = () => {
     );
 
     return (
-        <div className="row container-stake">
-            <div
-                className="col-12 col-md-12 col-lg-12 col-xl-4 "
-                style={{ position: 'relative', marginBottom: '65px' }}
-            >
-                <h2 className="text-stake">
-                    <span style={{ fontSize: '16px' }}>Nuestro proceso de innovación con</span>
-                    <br />
-                    Participación por un Territorio Inteligente.
-                </h2>
-                <br />
-                <p>
-                    Metodología basada en compras públicas para la Innovación que, conectando soluciones con retos del
-                    territorio, busca fortalecer el ecosistema GovTech y generar valor público para Medellín.
-                </p>
-            </div>
-            <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover
-                    content={contenido_postulamos}
-                    placement="bottom"
-                    trigger="hover"
-                    style={{ width: 700 }}
-                    className="popover-postulamos"
+        <>
+            {(openPostulamos || openSeleccionamos || openAcompañamos || openPremiamos) && (
+                <div
+                    style={{
+                        width: '100%',
+                        height: '100vh',
+                        position: 'fixed',
+                        top: '0',
+                        left: '0',
+                        background: 'rgba(20, 16, 28, 0.6)',
+                        zIndex: 2,
+                    }}
+                />
+            )}
+
+            <div className="row container-stake">
+                <div
+                    className="col-12 col-md-12 col-lg-12 col-xl-4 "
+                    style={{ position: 'relative', marginBottom: '65px' }}
                 >
-                    <div className="circle-text-wraps mx-auto">
-                        <div className="circle-number-container">
-                            <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
-                                1
-                            </span>
+                    <h2 className="text-stake">
+                        <span style={{ fontSize: '16px' }}>Nuestro proceso de innovación con</span>
+                        <br />
+                        Participación por un Territorio Inteligente.
+                    </h2>
+                    <br />
+                    <p>
+                        Metodología basada en compras públicas para la Innovación que, conectando soluciones con retos
+                        del territorio, busca fortalecer el ecosistema GovTech y generar valor público para Medellín.
+                    </p>
+                </div>
+                <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
+                    <Popover
+                        open={openPostulamos}
+                        onOpenChange={(newOpen: boolean) => setOpenPostulamos(newOpen)}
+                        content={contenido_postulamos}
+                        trigger="hover"
+                    >
+                        <div className="circle-text-wraps mx-auto">
+                            <div className="circle-number-container">
+                                <span
+                                    className="circle-number"
+                                    style={{ font: 'normal normal 900 40px/20px Montserrat' }}
+                                >
+                                    1
+                                </span>
+                            </div>
+                            <div className="circle-children">
+                                <img src={lamp} width="50%" alt="foto" />
+                                <span className="my-3">Postulamos</span>
+                            </div>
                         </div>
-                        <div className="circle-children">
-                            <img src={lamp} width="50%" alt="foto" />
-                            <span className="my-3">Postulamos</span>
+                    </Popover>
+                </div>
+                <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
+                    <Popover
+                        open={openSeleccionamos}
+                        onOpenChange={(newOpen: boolean) => setOpenSeleccionamos(newOpen)}
+                        content={contenido_selecionamos}
+                        trigger="hover"
+                    >
+                        <div className="circle-text-wraps  mx-auto">
+                            <div className="circle-number-container">
+                                <span
+                                    className="circle-number"
+                                    style={{ font: 'normal normal 900 40px/20px Montserrat' }}
+                                >
+                                    2
+                                </span>
+                            </div>
+                            <div className="circle-children">
+                                <img src={hacerClic} width="30%" alt="foto" />
+                                <span className="my-3">Seleccionamos</span>
+                            </div>
                         </div>
-                    </div>
-                </Popover>
+                    </Popover>
+                </div>
+                <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
+                    <Popover
+                        open={openAcompañamos}
+                        onOpenChange={(newOpen: boolean) => setOpenAcompañamos(newOpen)}
+                        content={contenido_acompañamos}
+                        trigger="hover"
+                    >
+                        <div className="circle-text-wraps  mx-auto">
+                            <div className="circle-number-container">
+                                <span
+                                    className="circle-number"
+                                    style={{ font: 'normal normal 900 40px/20px Montserrat' }}
+                                >
+                                    3
+                                </span>
+                            </div>
+                            <div className="circle-children">
+                                <img src={apoyo} width="40%" alt="foto" />
+                                <span className="my-3">Acompañamos</span>
+                            </div>
+                        </div>
+                    </Popover>
+                </div>
+                <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
+                    <Popover open={openPremiamos} onOpenChange={(newOpen: boolean) => setOpenPremiamos(newOpen)} placement="topRight" content={contenido_premiamos} trigger="hover">
+                        <div className="circle-text-wraps  mx-auto">
+                            <div className="circle-number-container">
+                                <span
+                                    className="circle-number"
+                                    style={{ font: 'normal normal 900 40px/20px Montserrat' }}
+                                >
+                                    4
+                                </span>
+                            </div>
+                            <div className="circle-children">
+                                <img src={medalla} width="40%" alt="foto" />
+                                <span className="my-3">Premiamos</span>
+                            </div>
+                        </div>
+                    </Popover>
+                </div>
             </div>
-            <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_selecionamos} placement="bottom" trigger="hover">
-                    <div className="circle-text-wraps  mx-auto">
-                        <div className="circle-number-container">
-                            <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
-                                2
-                            </span>
-                        </div>
-                        <div className="circle-children">
-                            <img src={hacerClic} width="30%" alt="foto" />
-                            <span className="my-3">Seleccionamos</span>
-                        </div>
-                    </div>
-                </Popover>
-            </div>
-            <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_acompañamos} placement="bottom" trigger="hover">
-                    <div className="circle-text-wraps  mx-auto">
-                        <div className="circle-number-container">
-                            <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
-                                3
-                            </span>
-                        </div>
-                        <div className="circle-children">
-                            <img src={apoyo} width="40%" alt="foto" />
-                            <span className="my-3">Acompañamos</span>
-                        </div>
-                    </div>
-                </Popover>
-            </div>
-            <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                <Popover content={contenido_premiamos} placement="bottom" trigger="hover">
-                    <div className="circle-text-wraps  mx-auto">
-                        <div className="circle-number-container">
-                            <span className="circle-number" style={{ font: 'normal normal 900 40px/20px Montserrat' }}>
-                                4
-                            </span>
-                        </div>
-                        <div className="circle-children">
-                            <img src={medalla} width="40%" alt="foto" />
-                            <span className="my-3">Premiamos</span>
-                        </div>
-                    </div>
-                </Popover>
-            </div>
-        </div>
+        </>
     );
 };
 

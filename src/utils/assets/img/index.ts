@@ -49,7 +49,10 @@ export { default as arrowsFromLine  } from './arrows-from-line.svg';
 export { default as inicioLading  } from './inicio-landing.svg';
 export { default as descargaImg  } from './descargaImg.svg';
 export { default as calendarLanding  } from './calendarLanding.svg';
-export { default as successAlert  } from './successAlert.svg';
+export { default as successAlert } from './successAlert.svg';
+export { default as Imagen_footer } from './Imagen_footer.png';
+export { default as marca_logo } from './marca_logo.png';
+export { default as logo_colombia } from './logo_colombia.png';
 
 
 

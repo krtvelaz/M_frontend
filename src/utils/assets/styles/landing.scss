@@ -1,6 +1,33 @@
+@import './settings';
+
 // .ant-layout {
 //   background-color: #E4EFF0;
 // }
+
+.colorear {
+    transition: all 2s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    position: relative;
+    margin: auto;
+    padding: 0;
+    border-radius: 40px 40px 0 0 !important;
+    position: relative;
+    overflow: hidden;
+    // border-radius: 16px;
+}
+
+.colorear:hover::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(222, 9, 107, 0.52);
+}
 
 .site-layout-landing {
     background-color: #e4eff0;
@@ -15,7 +42,7 @@ img {
 
 .label-landing {
     font-family: 'Montserrat-Medium' !important;
-    color: #0A0909 !important;
+    color: #0a0909 !important;
 }
 
 // cohete
@@ -84,7 +111,7 @@ img {
 
 .container-statistics {
     position: relative;
-    z-index: 100;
+    z-index: 2;
 }
 
 .statistics {
@@ -97,7 +124,7 @@ img {
     background: linear-gradient(to right top, #ffffff, transparent);
     opacity: 1;
     backdrop-filter: blur(43px);
-    z-index: 200;
+    z-index: 1;
 }
 
 .statistics::after {
@@ -198,7 +225,7 @@ img {
 }
 
 @media (max-width: 1024px) {
-    .container-static-information  {
+    .container-static-information {
         width: auto;
     }
 }
@@ -221,10 +248,8 @@ img {
 }
 
 .text-stake-mediun {
-  font-family: "Montserrat-Bold" !important;
-  font-size: 14px !important;
+    font-size: 14px !important;
 }
-
 
 .container-stake p {
     color: #232d50;
@@ -237,6 +262,7 @@ img {
     border-radius: 50%;
     display: grid;
     place-items: center;
+    z-index: 2;
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 0px 20px 60px #00000029;
 }
@@ -255,6 +281,7 @@ img {
     width: 100%;
     height: 100%;
     margin: 0;
+    z-index: 2;
 }
 
 .circle-number-container span {
@@ -288,7 +315,7 @@ img {
 }
 
 .imagen-fondo {
-    left: 520px;
+    left: 580px;
     top: -128px;
     position: absolute;
     background-repeat: no-repeat;
@@ -296,6 +323,14 @@ img {
     max-width: 300%;
     z-index: 0;
     overflow: hidden;
+}
+
+@media (min-width: 1600px) {
+    .imagen-fondo {
+        left: 820px;
+        max-width: 250%;
+        top: -200px;
+    }
 }
 
 .imagen-grupo-personas {
@@ -314,6 +349,10 @@ img {
 
 #card-challenge-four {
     margin-top: -100px;
+}
+
+.ant-card-cover {
+    height: 200px !important;
 }
 
 .card-challenge {
@@ -354,19 +393,34 @@ img {
 .ant-card-body {
     position: relative;
 }
+
+// $development: true;
+// $production: false;
+
 /****** About-Us *******/
 .img-about {
-    background: linear-gradient(to right top, #ffffff, transparent),
-        // url('src/utils/assets/img/hombreConGafas.png');
-        url('/assets/businessMan.ee9b2e12.png');
+    @if $development == true {
+        background: linear-gradient(to right top, #ffffff, transparent),
+            url('src/utils/assets/img/businessMan.png');
+    }
+    @if $production == true {
+        background: linear-gradient(to right top, #ffffff, transparent),
+            url('/assets/businessMan.ee9b2e12.png');
+    }
     height: 539px;
     background-repeat: no-repeat;
 }
 
 .box-about {
-    background-image: linear-gradient(to top, #ffffff 60%, transparent),
-        // url('src/utils/assets/img/hombreGafasInteligentes.png');
-        url('/assets/hombreGafasInteligentes.1a3cdf5c.png');
+    @if $development == true {
+        background-image: linear-gradient(to top, #ffffff 75%, transparent),
+            url('src/utils/assets/img/hombreGafasInteligentes.png');
+    }
+    @if $production == true {
+        background-image: linear-gradient(to top, #ffffff 60%, transparent),
+            url('/assets/hombreGafasInteligentes.1a3cdf5c.png');
+    }
+
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100%;
@@ -374,7 +428,6 @@ img {
     overflow: hidden;
     // padding-bottom: 200px;
 }
-
 
 .h1-about {
     font-family: 'Montserrat-Bold' !important;
@@ -481,11 +534,7 @@ img {
     //     transparent 100%
     // );
     // border-color: rgba(0, 0, 0, 0.4);
-    background: linear-gradient(
-        to top,
-        #ffffff 50%,
-        rgba(0, 0, 0, 0.2)
-    );
+    background: linear-gradient(to top, #ffffff 50%, rgba(0, 0, 0, 0.2));
     z-index: 2;
 }
 
@@ -541,7 +590,12 @@ img {
 
 .imagen-fondo-events {
     position: relative;
-    background-image: url('src/utils/assets/img/businessMan.png');
+    @if $development == true {
+        background-image: url('src/utils/assets/img/businessMan.png');
+    }
+    @if $production == true {
+        background-image: url('src/utils/assets/img/businessMan.png');
+    }
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -556,17 +610,17 @@ img {
     background: #ff7415;
     border-radius: 8px;
     padding: 10px;
-    font-family: 'Montserrat-SemiBold' !important;
+    font-family: 'RedHat-Display-black' !important;
     font-size: 14px !important;
     margin-bottom: 10px;
 }
 
 .card-event .ant-card-actions {
- border-top: none;
+    border-top: none;
 }
 .card-event .ant-card-body {
-//  min-height: 285px !important;
- min-height: 260px !important;
+    //  min-height: 285px !important;
+    min-height: 260px !important;
 }
 
 .title-card-event {
@@ -587,8 +641,6 @@ img {
     overflow: hidden;
 }
 
-
-
 .tabs-events .ant-tabs-tab-btn {
     color: white;
 }
@@ -603,6 +655,9 @@ img {
 }
 
 .imagen-events {
+    height: 350px;
+    object-fit: cover;
+    object-position: 50% 50%;
     position: relative;
     margin: auto;
     padding: 0;
@@ -619,17 +674,16 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background:  rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
     // background: linear-gradient(
     //     to right top,
     //     rgba(0, 0, 0, 0.91) 20%,
     //     transparent
     // );
-    
 }
+
 .imagen-events button {
     display: none;
-
 }
 
 .imagen-events:hover button {
@@ -640,22 +694,17 @@ img {
 
 .imagen-events .lupa-image-postulation {
     display: none;
-
 }
 .imagen-events:hover .lupa-image-postulation {
     display: block;
 }
 
 .container-publication-detail .imagen-events::before {
-    background:  transparent;
-    
+    background: transparent;
 }
 .container-publication-detail:hover .imagen-events::before {
-    background:  rgba(0, 0, 0, 0.4);;
-    
+    background: rgba(0, 0, 0, 0.4);
 }
-
-
 
 // ***** Registro****
 
@@ -683,14 +732,20 @@ img {
 }
 
 /****** nuestros retos *****/
-// .tab-our-challenges .ant-tabs-nav-wrap {
-//     border-bottom: 1px solid #603ce6;
-//     background-color: transparent !important;
-// }
+.tab-our-challenges .ant-tabs-nav-wrap {
+    background-color: transparent !important;
+}
+.tab-our-challenges .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-family: 'Montserrat-SemiBold' !important;
+}
 
-// .tab-our-challenges .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-//     color: #603ce6 !important;
-// }
+.tab-our-challenges .ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
+    background-color: #603ce6 !important;
+}
+
+.tab-our-challenges .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #603ce6 !important;
+}
 
 .history-challenges {
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -702,62 +757,59 @@ img {
 
 // ************ calendar event ***********
 .box-calendar {
-  background-image: linear-gradient(to top, #ffffff 65%, transparent),
-    url("src/utils/assets/img/headway.png");
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: 100%;
-  position: relative;
-  overflow: hidden;
+    background-image: linear-gradient(to top, #ffffff 65%, transparent),
+        url('src/utils/assets/img/headway.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .ant-picker-calendar {
-  margin: 0 60px 0 60px !important;
+    margin: 0 60px 0 60px !important;
 }
 .events {
-  margin: 0;
-  padding: 0;
-  list-style: none !important;
- 
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
 }
-.ant-picker-calendar-date-value{
-  font-family: "Montserrat-Bold" !important;
-  opacity: 1;
-  
+.ant-picker-calendar-date-value {
+    font-family: 'Montserrat-Bold' !important;
+    opacity: 1;
 }
- .ant-picker-calendar-date-content ul {
-  margin: 0 !important;
-  padding: 0 !important;
- }
+.ant-picker-calendar-date-content ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
- .ant-picker-content thead{
-  background: #603CE6;
-  text-align: center;
- }
+.ant-picker-content thead {
+    background: #603ce6;
+    text-align: center;
+}
 
- .ant-picker-content thead tr th{
-  color: #fff;
- }
- .ant-picker-content tbody tr td {
-  border:#E9E9E9  solid 1px !important;
- }
+.ant-picker-content thead tr th {
+    color: #fff;
+}
+.ant-picker-content tbody tr td {
+    border: #e9e9e9 solid 1px !important;
+}
 .events .ant-badge-status {
-  width: 100%;
-  overflow: hidden;
-  font-size: 12px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .notes-month {
-  font-size: 28px;
-  text-align: center;
+    font-size: 28px;
+    text-align: center;
 }
 .notes-month section {
-  font-size: 28px;
-  margin: 0;
-  padding: 0;
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
 }
-
 
 @media (max-width: 425px) {
     .height-carousel {
@@ -874,7 +926,21 @@ img {
 }
 
 // boletines
-#email_id_boletin::placeholder, #number_id_boletin::placeholder {
- color: #DEDEDF !important;
+#email_id_boletin::placeholder,
+#number_id_boletin::placeholder {
+    color: #dededf !important;
+}
 
+// ** preguntas Frecuentes
+.ant-collapse-header-text {
+    font-size: 14px !important;
+}
+
+.ant-collapse-content {
+    border-top: none !important;
+}
+
+.panel-collapse .ant-collapse-header-text {
+    font-size: 14px !important;
+    font-family: 'Montserrat-SemiBold' !important;
 }

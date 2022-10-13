@@ -41,7 +41,7 @@ const CardEvent: FC<ICardProps> = ({ event }) => {
                     <div className="col-12 col-md-12 col-lg-3">
                         <div className="text-white text-center date-event" style={{ lineHeight: 1 }}>
                             {moment(event?.eve_date).format('MMM').toUpperCase()}{' '}
-                            <span style={{ fontSize: '25px', fontFamily: 'Montserrat-Bold' }}>
+                            <span style={{ fontSize: '25px', fontFamily: 'RedHat-Display-black' }}>
                                 {moment(event?.eve_date).format('DD')}
                             </span>
                         </div>

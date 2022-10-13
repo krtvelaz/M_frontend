@@ -42,52 +42,54 @@ const CarouselEvent = () => {
                 <div className="carousel-inner">
                     {paginationCarousel.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        {events.length > 0 ? (
-                                            events.map((event: any, index: number) => (
-                                                <div className="col-12 col-md-4 col-lg-4" key={`card-event-${index}`}>
-                                                    <CardEvent event={event} />
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <ComponetLoading title='No hay eventos publicados' loading={false} />
-                                        )}
-                                    </div>
+                            <div className="container">
+                                <div className="row justify-content-center">
+                                    {events.length > 0 ? (
+                                        events.map((event: any, index: number) => (
+                                            <div className="col-12 col-md-4 col-lg-4" key={`card-event-${index}`}>
+                                                <CardEvent event={event} />
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <ComponetLoading title="No hay eventos publicados" loading={false} />
+                                    )}
                                 </div>
+                            </div>
                         </div>
                     ))}
                 </div>
-                <div style={{ position: 'relative', bottom: '5px', right: '100px', textAlign: 'end' }}>
-                    <div
-                        data-bs-target="#carouselEvents"
-                        data-bs-slide="prev"
-                        style={{ marginRight: '50px', cursor: 'pointer' }}
-                        onClick={() => {
-                            setTimeout(function () {
-                                get_events(current_page - 1 >= first_page ? current_page - 1 : last_page);
-                            }, 200);
-                        }}
-                    >
-                        <ArrowLeft color_fill={'#FFFFFF'} />
-                        <span className="visually-hidden">Anterior</span>
-                    </div>
+                {number_pages > 1 && (
+                    <div style={{ position: 'relative', bottom: '5px', right: '100px', textAlign: 'end' }}>
+                        <div
+                            data-bs-target="#carouselEvents"
+                            data-bs-slide="prev"
+                            style={{ marginRight: '50px', cursor: 'pointer' }}
+                            onClick={() => {
+                                setTimeout(function () {
+                                    get_events(current_page - 1 >= first_page ? current_page - 1 : last_page);
+                                }, 200);
+                            }}
+                        >
+                            <ArrowLeft color_fill={'#FFFFFF'} />
+                            <span className="visually-hidden">Anterior</span>
+                        </div>
 
-                    <div
-                        data-bs-target="#carouselEvents"
-                        data-bs-slide="next"
-                        className="ms-5"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                            setTimeout(function () {
-                                get_events(current_page + 1 <= last_page ? current_page + 1 : first_page);
-                            }, 200);
-                        }}
-                    >
-                        <ArrowRight color_fill="#ffffff" />
-                        <span className="visually-hidden">Siguiente</span>
+                        <div
+                            data-bs-target="#carouselEvents"
+                            data-bs-slide="next"
+                            className="ms-5"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                setTimeout(function () {
+                                    get_events(current_page + 1 <= last_page ? current_page + 1 : first_page);
+                                }, 200);
+                            }}
+                        >
+                            <ArrowRight color_fill="#ffffff" />
+                            <span className="visually-hidden">Siguiente</span>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </>
     );
