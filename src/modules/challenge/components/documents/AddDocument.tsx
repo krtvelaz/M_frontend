@@ -2,7 +2,7 @@ import { FormikProps, FormikValues } from 'formik';
 import { FC, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from '../../../../utils/ui';
-import { IDocument } from '../../custom_types';
+import { IChallenge, IDocument } from '../../custom_types';
 import FormAddDocument from './FormAddDocument';
 import TableDocs from './TableDocs';
 
@@ -13,8 +13,9 @@ interface DocsFormPros {
     onEditDocument: (values: IDocument) => void;
     typeDoc: 'general' | 'admin' | 'technicians' | '';
     title: string;
+    challenge: IChallenge;
 }
-const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete, onEditDocument, typeDoc, title }) => {
+const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete, onEditDocument, typeDoc, title, challenge }) => {
     const documents: any = useSelector((store: any) => store.challenge.documents_challenge.value);
 
     const loading: boolean = useSelector((store: any) => store.challenge.documents_challenge.loading);
@@ -53,6 +54,7 @@ const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete,
                         ]}
                     >
                         <FormAddDocument
+                            challenge={challenge}
                             innerRef={form_ref}
                             onSubmit={onAddDocument}
                             typeDoc={typeDoc}

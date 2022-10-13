@@ -82,10 +82,10 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                             on_change(e.target.files[0]);
                         } else {
                             await swal_error.fire({
-                                title: 'Tamaño del documento',
+                                title: 'Tamaño de la imagen',
                                 html:
-                                    '<div class="mysubtitle">El archivo excede el tamaño permitido</div>' +
-                                    '<div class="mytext">Intente adjuntar un archivo más pequeño</div>',
+                                    '<div class="mysubtitle">La imagen excede el tamaño permitido de 2MB</div>' +
+                                    '<div class="mytext">Intente adjuntar una imagen más pequeña</div>',
                                 showCancelButton: false,
                                 confirmButtonText: 'Aceptar',
                             });
@@ -95,8 +95,8 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                             title: 'Tipo del documento',
                             html:
                                 '<div class="mysubtitle">El archivo no es del tipo requerido</div>' +
-                                `<div class="mytext">Intente adjunta un archivo de tipo ${
-                                    file_type === 'img' ? 'imagen' : 'PDF'
+                                `<div class="mytext">Intente adjuntar un archivo de tipo ${
+                                    file_type === 'img' ? 'imagen JPG' : 'PDF'
                                 }</div>`,
                             showCancelButton: false,
                             confirmButtonText: 'Aceptar',

@@ -50,6 +50,8 @@ export { default as inicioLading  } from './inicio-landing.svg';
 export { default as descargaImg  } from './descargaImg.svg';
 export { default as calendarLanding  } from './calendarLanding.svg';
 export { default as successAlert  } from './successAlert.svg';
+export { default as arrowUp  } from './arrowUp.svg';
+export { default as arrowDown  } from './arrowDown.svg';
 
 
 

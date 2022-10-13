@@ -17,8 +17,7 @@ export const get_list_notifications = (filters?: {
                     ...filters,
                 },
             });
-            console.log(res.data.data);
-
+            
             const notifications = {
                 results: res.data.data,
                 pagination: res.data.meta

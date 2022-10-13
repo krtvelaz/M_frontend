@@ -100,7 +100,7 @@ const CompressTable: FC<CompressTableProps> = ({
                         color: 'blue',
                     }}
                     description={
-                        <span className="text-primary">
+                        <span style={{ color: '#000000' }}>
                             No hay datos para mostrar.
                             <br />
                         </span>

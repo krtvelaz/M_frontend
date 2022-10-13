@@ -198,7 +198,7 @@ img {
 }
 
 @media (max-width: 1024px) {
-    .container-static-information  {
+    .container-static-information {
         width: auto;
     }
 }
@@ -233,8 +233,8 @@ img {
 }
 
 .text-stake-mediun {
-  font-family: "Montserrat-Bold" !important;
-  font-size: 14px !important;
+    font-family: "Montserrat-Bold" !important;
+    font-size: 14px !important;
 }
 
 
@@ -344,6 +344,7 @@ img {
     font-size: 12px;
     margin-bottom: 5px;
 }
+
 .body-card-challenge button {
     background-color: #ff7415;
     color: #fff;
@@ -366,6 +367,7 @@ img {
 .ant-card-body {
     position: relative;
 }
+
 /****** About-Us *******/
 .img-about {
     background: linear-gradient(to right top, #ffffff, transparent),
@@ -493,11 +495,9 @@ img {
     //     transparent 100%
     // );
     // border-color: rgba(0, 0, 0, 0.4);
-    background: linear-gradient(
-        to top,
-        #ffffff 50%,
-        rgba(0, 0, 0, 0.2)
-    );
+    background: linear-gradient(to top,
+            #ffffff 50%,
+            rgba(0, 0, 0, 0.2));
     z-index: 2;
 }
 
@@ -574,11 +574,12 @@ img {
 }
 
 .card-event .ant-card-actions {
- border-top: none;
+    border-top: none;
 }
+
 .card-event .ant-card-body {
-//  min-height: 285px !important;
- min-height: 260px !important;
+    //  min-height: 285px !important;
+    min-height: 260px !important;
 }
 
 .title-card-event {
@@ -631,14 +632,15 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background:  rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
     // background: linear-gradient(
     //     to right top,
     //     rgba(0, 0, 0, 0.91) 20%,
     //     transparent
     // );
-    
+
 }
+
 .imagen-events button {
     display: none;
 
@@ -654,17 +656,20 @@ img {
     display: none;
 
 }
+
 .imagen-events:hover .lupa-image-postulation {
     display: block;
 }
 
 .container-publication-detail .imagen-events::before {
-    background:  transparent;
-    
+    background: transparent;
+
 }
+
 .container-publication-detail:hover .imagen-events::before {
-    background:  rgba(0, 0, 0, 0.4);;
-    
+    background: rgba(0, 0, 0, 0.4);
+    ;
+
 }
 
 
@@ -714,60 +719,67 @@ img {
 
 // ************ calendar event ***********
 .box-calendar {
-  background-image: linear-gradient(to top, #ffffff 65%, transparent),
-    url("src/utils/assets/img/headway.png");
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: 100%;
-  position: relative;
-  overflow: hidden;
+    background-image: linear-gradient(to top, #ffffff 65%, transparent),
+        url("src/utils/assets/img/headway.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .ant-picker-calendar {
-  margin: 0 60px 0 60px !important;
+    margin: 0 60px 0 60px !important;
 }
+
 .events {
-  margin: 0;
-  padding: 0;
-  list-style: none !important;
- 
-}
-.ant-picker-calendar-date-value{
-  font-family: "Montserrat-Bold" !important;
-  opacity: 1;
-  
-}
- .ant-picker-calendar-date-content ul {
-  margin: 0 !important;
-  padding: 0 !important;
- }
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
 
- .ant-picker-content thead{
-  background: #603CE6;
-  text-align: center;
- }
+}
 
- .ant-picker-content thead tr th{
-  color: #fff;
- }
- .ant-picker-content tbody tr td {
-  border:#E9E9E9  solid 1px !important;
- }
+.ant-picker-calendar-date-value {
+    font-family: "Montserrat-Bold" !important;
+    opacity: 1;
+
+}
+
+.ant-picker-calendar-date-content ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ant-picker-content thead {
+    background: #603CE6;
+    text-align: center;
+}
+
+.ant-picker-content thead tr th {
+    color: #fff;
+}
+
+.ant-picker-content tbody tr td {
+    border: #E9E9E9 solid 1px !important;
+}
+
 .events .ant-badge-status {
-  width: 100%;
-  overflow: hidden;
-  font-size: 12px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .notes-month {
-  font-size: 28px;
-  text-align: center;
+    font-size: 28px;
+    text-align: center;
 }
+
 .notes-month section {
-  font-size: 28px;
-  margin: 0;
-  padding: 0;
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -880,13 +892,29 @@ img {
         margin-top: 20px;
         margin-bottom: 100px;
     }
+
     .card-challenge {
         width: 300px;
     }
 }
 
+// Alert login
+
+.container-error-login {
+    background-color: #F9EFEE;
+    border: 1px solid #AD0808;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.text-error-login {
+    font-weight: bold;
+    color: #AD0808;
+}
+
 // boletines
-#email_id_boletin::placeholder, #number_id_boletin::placeholder {
- color: #DEDEDF !important;
+#email_id_boletin::placeholder,
+#number_id_boletin::placeholder {
+    color: #DEDEDF !important;
 
 }

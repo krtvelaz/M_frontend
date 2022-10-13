@@ -160,6 +160,16 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 </label>
                                 <Field
                                     component={RadioMedeinn}
+                                    options={[
+                                        {
+                                            value: true,
+                                            name: "Sí"
+                                        },
+                                        {
+                                            value: false,
+                                            name: "No"
+                                        }
+                                    ]}
                                     name="eve_with_limit_entry"
                                     id="eve_cupos_limitado_id"
                                     min={0}

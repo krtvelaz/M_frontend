@@ -120,16 +120,11 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                 </label>
                             </div>
                         </div>
-                        {alert && (
-                            <div className="row">
-                                <div className="col-12">
-                                    <Alert
-                                        message=""
-                                        description={alert}
-                                        type="error"
-                                        closable
-                                        style={{ fontSize: 13 }}
-                                    />
+                        {alert && alert.length > 0 && (
+                            <div style={{ paddingLeft: '10px', paddingRight: '10px', marginTop: '10px' }}>
+                                <div className="row container-error-login">
+                                    <div className="col-11 font-color-AD0808 font-size-12px font-family-Montserrat-Regular text-error-login">{alert}</div>
+                                    <div className="col-1 justify-content-flex-end font-size-12px font-color-AD0808" onClick={() => { set_alert('') }}><span style={{ color: '#AD0808', fontWeight: 'bold', cursor: 'pointer' }}>x</span></div>
                                 </div>
                             </div>
                         )}
@@ -157,7 +152,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                         }}
                                         type="button"
                                         className="btn btn-outline-primary  me-2"
-                                        onClick={() => {}}
+                                        onClick={() => { }}
                                     >
                                         Cancelar
                                     </button>
