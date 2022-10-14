@@ -62,11 +62,8 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
     const schema = Yup.object().shape({
         tipo_via: Yup.string().nullable().required('Campo obligatorio'),
         numero_dir: Yup.string().required('Campo obligatorio'),
-        letra_dir: Yup.string().required('Campo obligatorio'),
-        zona_dir: Yup.string().required('Campo obligatorio'),
         numero2_dir: Yup.string().required('Campo obligatorio'),
-        numero3_dir: Yup.string().required('Campo obligatorio'),
-        obser_dir: Yup.string().required('Campo obligatorio'),
+        numero3_dir: Yup.string().required('Campo obligatorio')
     });
 
     return (
@@ -132,12 +129,60 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             style={{ marginTop: '10px' }}
                                             options={[
                                                 {
+                                                    name: 'Autopista',
+                                                    id: 'Autopista',
+                                                },
+                                                {
+                                                    name: 'Autovía',
+                                                    id: 'Autovía',
+                                                },
+                                                {
+                                                    name: 'Avenida',
+                                                    id: 'Avenida',
+                                                },
+                                                {
+                                                    name: 'Bulevar',
+                                                    id: 'Bulevar',
+                                                },
+                                                {
                                                     name: 'Calle',
                                                     id: 'Calle',
                                                 },
                                                 {
                                                     name: 'Carrera',
                                                     id: 'Carrera',
+                                                },
+                                                {
+                                                    name: 'Callejón',
+                                                    id: 'Callejón',
+                                                },
+                                                {
+                                                    name: 'Camino',
+                                                    id: 'Camino',
+                                                },
+                                                {
+                                                    name: 'Diagonal',
+                                                    id: 'Diagonal',
+                                                },
+                                                {
+                                                    name: 'Carril',
+                                                    id: 'Carril',
+                                                },
+                                                {
+                                                    name: 'Carretera',
+                                                    id: 'Carretera',
+                                                },
+                                                {
+                                                    name: 'Sendero',
+                                                    id: 'Sendero',
+                                                },
+                                                {
+                                                    name: 'Vía rápida',
+                                                    id: 'Vía rápida',
+                                                },
+                                                {
+                                                    name: 'Urbanización',
+                                                    id: 'Urbanización',
                                                 },
                                             ]}
                                             placeholder="Seleccione uno o más perfiles…"
@@ -167,7 +212,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         <ErrorMessage name="numero_dir" withCount max={3} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="letra_dir_id">Letra</label>
+                                        <label htmlFor="letra_dir_id">Letra - Opcional</label>
                                         <Field
                                             type="text"
                                             id="letra_dir_id"
@@ -181,7 +226,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                     </div>
 
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="zona_dir_id">Zona</label>
+                                        <label htmlFor="zona_dir_id">Zona - Opcional</label>
                                         <Field
                                             component={Select}
                                             id="zona_dir_id"
@@ -289,7 +334,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
 
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-12">
-                                        <label htmlFor="obser_dir">Observaciones</label>
+                                        <label htmlFor="obser_dir">Observaciones - Opcional</label>
                                         <Field
                                             type="text"
                                             id="obser_dir"

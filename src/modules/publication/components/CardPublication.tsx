@@ -9,7 +9,7 @@ import { Skeleton } from 'antd';
 import ComponetLoading from '../../event/compenents/ComponetLoading';
 
 interface IDetailCardPublication {
-    keyTab: string
+    keyTab: string;
 }
 
 export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) => {
@@ -25,11 +25,9 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
     let paginationPublications: any[] = [1];
 
     for (let i = 1; i <= Math.ceil(number_pages); i++) {
-        paginationPublications = [ i];
+        paginationPublications = [i];
     }
-    
 
-    
     const get_publications = async (page: number) => {
         await dispatch(
             actions.get_list_publications({
@@ -42,6 +40,9 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
         );
     };
 
+    console.log(number_pages);
+    
+
     return (
         <>
             <div
@@ -52,19 +53,15 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                 data-pause="hover"
             >
                 <div className="carousel-inner">
-                    
                     {paginationPublications?.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carousel-events-${i}`}>
                             {loading ? (
-                                <ComponetLoading height='450px' />
+                                <ComponetLoading height="450px" />
                             ) : publications.length > 0 ? (
                                 <div className="container">
                                     <div className="row my-5 pe-5 ps-5">
                                         {publications?.map((publication: any, index: any) => (
                                             <div
-                                                // className={`col-12 col-md-12 col-lg-6 p-0 ${
-                                                //     publication?.pub_image?.pubfil_image_buffer?.data && 'imagen-events'
-                                                // } `}
                                                 className={`col-12 col-md-12 col-lg-6 p-0 imagen-events `}
                                                 key={`detailPublication${index}`}
                                                 style={{
@@ -104,6 +101,8 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                     {publication?.pub_image?.pubfil_image_buffer?.data ? (
                                                         <img
                                                             style={{
+                                                                objectFit: 'cover',
+                                                                objectPosition: '50% 50%',
                                                                 minHeight: '350px',
                                                                 borderRadius: `${
                                                                     index === 0 || index === 1
@@ -138,41 +137,47 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                     </div>
                                 </div>
                             ) : (
-                                <ComponetLoading height='450px' title={`No hay publicaciones de ${keyTab.toLocaleLowerCase()}`} loading={false} />
+                                <ComponetLoading
+                                    height="450px"
+                                    title={`No hay publicaciones de ${keyTab.toLocaleLowerCase()}`}
+                                    loading={false}
+                                />
                             )}
                         </div>
                     ))}
                 </div>
-                <div style={{ position: 'relative', bottom: '5px', right: '100px', textAlign: 'end' }}>
-                    <div
-                        data-bs-target="#carouselPoblications"
-                        data-bs-slide="prev"
-                        style={{ marginRight: '50px', cursor: 'pointer' }}
-                        onClick={() => {
-                            setTimeout(function () {
-                                get_publications(current_page - 1 >= first_page ? current_page - 1 : last_page);
-                            }, 200);
-                        }}
-                    >
-                        <ArrowLeft color_fill={'#FFFFFF'} />
-                        <span className="visually-hidden">Anterior</span>
-                    </div>
+                {number_pages && (
+                    <div style={{ position: 'relative', bottom: '5px', right: '100px', textAlign: 'end' }}>
+                        <div
+                            data-bs-target="#carouselPoblications"
+                            data-bs-slide="prev"
+                            style={{ marginRight: '50px', cursor: 'pointer' }}
+                            onClick={() => {
+                                setTimeout(function () {
+                                    get_publications(current_page - 1 >= first_page ? current_page - 1 : last_page);
+                                }, 200);
+                            }}
+                        >
+                            <ArrowLeft color_fill={'#FFFFFF'} />
+                            <span className="visually-hidden">Anterior</span>
+                        </div>
 
-                    <div
-                        data-bs-target="#carouselPoblications"
-                        data-bs-slide="next"
-                        className="ms-5"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                            setTimeout(function () {
-                                get_publications(current_page + 1 <= last_page ? current_page + 1 : first_page);
-                            }, 200);
-                        }}
-                    >
-                        <ArrowRight color_fill="#ffffff" />
-                        <span className="visually-hidden">Siguiente</span>
+                        <div
+                            data-bs-target="#carouselPoblications"
+                            data-bs-slide="next"
+                            className="ms-5"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                setTimeout(function () {
+                                    get_publications(current_page + 1 <= last_page ? current_page + 1 : first_page);
+                                }, 200);
+                            }}
+                        >
+                            <ArrowRight color_fill="#ffffff" />
+                            <span className="visually-hidden">Siguiente</span>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </>
     );

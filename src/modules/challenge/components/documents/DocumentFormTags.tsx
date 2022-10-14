@@ -34,6 +34,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         >
             <TabPane tab="Doc. Generales" key="docs-1">
                 <AddDocument
+                    challenge={challenge}
                     typesDocument={types_docuemnts}
                     onAddDocument={onAddDocument}
                     onDelete={onDelete}
@@ -44,6 +45,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
             </TabPane>
             <TabPane tab="Doc. Técnicos" key="docs-2" disabled={challenge.documents.general.length === 0}>
                 <AddDocument
+                    challenge={challenge}
                     typesDocument={types_docuemnts}
                     onAddDocument={onAddDocument}
                     onDelete={onDelete}
@@ -54,6 +56,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
             </TabPane>
             <TabPane tab="Doc. Administrativos" key="docs-3" disabled={challenge.documents.general.length === 0}>
                 <AddDocument
+                    challenge={challenge}
                     typesDocument={types_docuemnts}
                     onAddDocument={onAddDocument}
                     onDelete={onDelete}

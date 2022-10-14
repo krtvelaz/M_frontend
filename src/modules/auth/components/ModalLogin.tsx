@@ -15,7 +15,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
 
     return (
         <>
-            <Modal bodyStyle={{ height: '54rem' }} visible={open} footer={null} onCancel={toggle} title="">
+            <Modal bodyStyle={{ height: '54rem' }} visible={open} footer={null} onCancel={toggle} title="" className='modal-form-login'>
                 <div className="row" style={{ height: '100vh' }}>
                     <div className="col mt-5">
                         <div className="container-form-login mx-auto" style={{ width: 300 }}>
@@ -33,7 +33,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                                     }}
                                 >
                                     <div className="col text-center">
-                                        <p>
+                                        <p style={{ marginTop: '30px' }}>
                                             Si aún no tienes usuario{' '}
                                             <a
                                                 style={{ font: 'Montserrat', color: '#41A0FF', fontWeight: '600' }}

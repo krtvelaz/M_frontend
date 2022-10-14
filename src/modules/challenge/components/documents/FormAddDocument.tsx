@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { DocumentInput, ErrorMessage, Select } from '../../../../utils/ui';
-import { IDocument, IMasters } from '../../custom_types';
+import { IChallenge, IDocument, IMasters } from '../../custom_types';
 import { actions } from '../../redux';
 
 interface DocsFormPros {
@@ -14,20 +14,50 @@ interface DocsFormPros {
     doc?: IDocument;
     onSubmit: (values: IDocument) => void;
     typesDocument: any[];
+    challenge?: IChallenge;
 }
 
-const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, doc, onSubmit, typesDocument }) => {
+const FormAddDocument: FC<DocsFormPros> = ({
+    disabled,
+    type,
+    typeDoc,
+    innerRef,
+    doc,
+    onSubmit,
+    typesDocument,
+    challenge,
+}) => {
     const dispatch = useDispatch<any>();
+    const [profiles, setProfiles] = useState<any>([]);
     const [type_document, set_type_document] = useState<number | null>();
     useEffect(() => {
-        if(typeDoc) {
+        if (typeDoc) {
             if (doc?.chafil_document_type?.profile) {
-                dispatch(actions.get_types_documents(typeDoc, doc?.chafil_document_type?.profile?.id ));
-            }else {
+                dispatch(actions.get_types_documents(typeDoc, doc?.chafil_document_type?.profile?.id));
+            } else {
                 dispatch(actions.get_types_documents(typeDoc));
             }
         }
     }, []);
+
+    useEffect(() => {
+        const profiles = [
+            { name: 'Persona jurídica', id: 1 },
+            { name: 'Grupo de investigación', id: 2 },
+            { name: 'Equipo de innovadores', id: 3 },
+        ];
+
+        if (challenge?.general_information.cha_profiles) {
+            const arraysFilter: any = challenge?.general_information.cha_profiles?.map((profile: number) => {
+                const newProfiles = profiles.find((x: any) => profile === x.id);
+                return newProfiles;
+            });
+
+            setProfiles(arraysFilter);
+        } else {
+            setProfiles(profiles);
+        }
+    }, [challenge?.general_information.cha_profiles]);
 
     const initialValues = {
         chafil_id_tipo_documento: '',
@@ -43,30 +73,28 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
             chafil_perfiles: Number(doc?.chafil_document_type.profile?.id) || '',
         }),
     };
-        
-    
 
     const schema = Yup.object().shape({
         chafil_id_tipo_documento: Yup.number().nullable().required('Campo obligatorio'),
-        ...(type_document &&
-          {
+        ...(type_document && {
             chafil_nombre_tipo_documento: Yup.string().required('Campo obligatorio'),
-          }
-        ), 
-        ...(typeDoc && typeDoc !== 'general' && {
-            chafil_perfiles: Yup.string().nullable().required('Campo obligatorio'),
         }),
-        ...((typeDoc !== 'technicians' && typeDoc !== 'admin') && {
-            chafil_plantilla: Yup.object({
-                name: Yup.string().required('Campo obligatorio'),
-            }).nullable(),
-        }),
+        ...(typeDoc &&
+            typeDoc !== 'general' && {
+                chafil_perfiles: Yup.string().nullable().required('Campo obligatorio'),
+            }),
+        ...(typeDoc !== 'technicians' &&
+            typeDoc !== 'admin' && {
+                chafil_plantilla: Yup.object({
+                    name: Yup.string().required('Campo obligatorio'),
+                }).nullable(),
+            }),
     });
 
     const submit = async (values: any, actions: any) => {
         await onSubmit(values);
         actions.setSubmitting(false);
-        if(type === 'create') {
+        if (type === 'create') {
             actions.resetForm();
         }
     };
@@ -79,13 +107,11 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ handleChange, values, setFieldValue, errors }) => {        
-              
-                                        
+            {({ handleChange, values, setFieldValue, errors }) => {
                 return (
                     <Form>
                         <div className="row">
-                            {(typeDoc && typeDoc !== 'general') && (
+                            {typeDoc && typeDoc !== 'general' && (
                                 <div className="col-12 col-md-3 col-lg-3">
                                     <label htmlFor="ret_perfiles_id" className="form-label">
                                         Perfil
@@ -95,17 +121,7 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                         id="ret_perfiles_id"
                                         name="chafil_perfiles"
                                         dropdownMatchSelectWidth={false}
-                                        options={[
-                                            {
-                                                name: 'Persona jurídica',
-                                                id: 1,
-                                            },
-                                            { name: 'Grupo de investigación', id: 2 },
-                                            {
-                                                name: 'Equipo de innovadores',
-                                                id: 3,
-                                            },
-                                        ]}
+                                        options={profiles}
                                         placeholder="Seleccionar…"
                                         extra_on_change={(value: number) => {
                                             if (typeDoc) {
@@ -117,7 +133,7 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                     <ErrorMessage name="chafil_perfiles" />
                                 </div>
                             )}
-                            <div className={`col-12 col-md-${(typeDoc && typeDoc !== 'general') ? 3 : 6} `}>
+                            <div className={`col-12 col-md-${typeDoc && typeDoc !== 'general' ? 3 : 6} `}>
                                 <label htmlFor="ret_tipo_documento_id" className="form-label">
                                     Tipo de documento
                                 </label>
@@ -134,19 +150,19 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                     }))}
                                     placeholder="Seleccionar…"
                                     extra_on_change={(value: number) => {
-                                      if (
-                                          value === 47 ||
-                                          value === 48 ||
-                                          value === 49 ||
-                                          value === 50 ||
-                                          value === 51 ||
-                                          value === 52
-                                      ) {
-                                        set_type_document(value);
-                                      }else {
-                                        set_type_document(null)
-                                      }
-                                  }}
+                                        if (
+                                            value === 47 ||
+                                            value === 48 ||
+                                            value === 49 ||
+                                            value === 50 ||
+                                            value === 51 ||
+                                            value === 52
+                                        ) {
+                                            set_type_document(value);
+                                        } else {
+                                            set_type_document(null);
+                                        }
+                                    }}
                                 />
                                 <ErrorMessage name="chafil_id_tipo_documento" />
                             </div>
@@ -188,7 +204,7 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                 <label htmlFor="ret_plantilla_id" className="form-label">
                                     <>
                                         Adjuntar plantilla{' '}
-                                        {(typeDoc && typeDoc !== 'general') && (
+                                        {typeDoc && typeDoc !== 'general' && (
                                             <span style={{ fontSize: '10px' }}> - Opcional </span>
                                         )}
                                     </>

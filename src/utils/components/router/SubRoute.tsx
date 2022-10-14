@@ -28,10 +28,6 @@ const SubRoute: FC<RouteWithSubRoutesProps> = ({
     test,
     // ..._props
 }) => {
-
-    console.log(routes);
-    
-
     return (
         <Routes>
             {routes.map((route: any, i: number) => {

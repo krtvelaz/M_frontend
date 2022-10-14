@@ -19,7 +19,7 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
         set_is_visible(false);
         form_ref.current?.resetForm();
     };
-    const form_ref = useRef<FormikProps<FormikValues>>();
+    const form_ref = useRef<any>();
     const loading_form: boolean = useSelector((store: any) => store.challenge.document_challenge.loading);
 
     const onEditDocument = async (values: IDocument) => {
@@ -63,6 +63,7 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
                 ]}
             >
                 <FormAddDocument
+                
                     innerRef={form_ref}
                     onSubmit={onEditDocument}
                     type="edit"

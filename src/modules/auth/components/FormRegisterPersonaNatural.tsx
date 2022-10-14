@@ -8,6 +8,7 @@ import ModalAddress from '../../challenge/components/ModalAddress';
 import { IRegisterPersonaNatural } from '../custom_types';
 import { actions } from '../redux';
 import { actions as actionsChallenge } from '../../challenge/redux';
+import RadioMedeinn from '../../../utils/ui/Radio';
 
 interface RegisterFormPros {
     innerRef: any;
@@ -79,9 +80,11 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
             }),
         // state: Yup.string().nullable().required('Campo obligatorio'),
         // city: Yup.string().nullable().required('Campo obligatorio'),
-        // radioPolitica: Yup.string().required("Debes aceptar las politicas para continuar")
+        radioPolitica: Yup.boolean().required("Debes aceptar las politicas para continuar")
     });
     const submit = async (values: any, form: any) => {
+        console.log("Valores: ", values);
+
         await onSubmit(values, form);
     };
     return (
@@ -352,7 +355,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     }}
                                     extra_on_change={async (value: any) => {
                                         console.log(value);
-                                        
+
                                         setFieldValue('city', null, false);
                                         await dispatch(actions.get_cities(value));
                                     }}
@@ -430,9 +433,17 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
 
                         <div className="row">
                             <div className=" ">
-                                <Radio.Group name="radioPolitica" id="radioPolitica">
-                                    <Radio value="si"> Acepto Políticas de uso y los Términos y Condiciones</Radio>
-                                </Radio.Group>
+                                <Field
+                                    component={RadioMedeinn}
+                                    options={[
+                                        {
+                                            value: true,
+                                            name: "Acepto Políticas de uso y los Términos y Condiciones"
+                                        }
+                                    ]}
+                                    name="radioPolitica"
+                                    id="radioPolitica"
+                                />
 
                                 <ErrorMessage name="radioPolitica" />
                             </div>
@@ -443,5 +454,27 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         </Formik>
     );
 };
+
+// interface IRadioPros{
+//     className?: string;
+//     extra_on_change?: (value: any, prev_value?: any) => void;
+//     field:any;
+//     form:any;
+// }
+
+// const RadioMedeinn: FC<IRadioPros> = ({
+//     field, form, className, extra_on_change, ...props
+// }) => {
+//     const on_change = (value: any) =>{
+//         form.setFieldValue(field.name, value.target.value, false);
+//         extra_on_change && extra_on_change(value.target.value, field.value);
+//     }
+
+//     return (
+//         <Radio.Group {...props} onChange={on_change} value={field.value} >
+//             <Radio value={true}> Acepto Políticas de uso y los Términos y Condiciones</Radio>
+//         </Radio.Group>
+//     )
+// }
 
 export default FormRegisterPersonaNatural;

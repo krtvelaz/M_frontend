@@ -41,6 +41,7 @@ export { default as hacerClic } from './hacerClic.svg';
 export { default as grupo_personas } from './grupo_personas.png';
 export { default as businessMan } from './businessMan.png';
 export { default as hombreGafasInteligentes  } from './hombreGafasInteligentes.png';
+export { default as headway  } from './headway.png';
 export { default as marcadorPosicion  } from './marcadorPosicion.svg';
 export { default as logoMedeinnWhite  } from './logo-medeinn-white.svg';
 export { default as iconoCheck  } from './iconoCheck.svg';
@@ -50,6 +51,11 @@ export { default as inicioLading  } from './inicio-landing.svg';
 export { default as descargaImg  } from './descargaImg.svg';
 export { default as calendarLanding  } from './calendarLanding.svg';
 export { default as successAlert  } from './successAlert.svg';
+export { default as arrowUp  } from './arrowUp.svg';
+export { default as arrowDown  } from './arrowDown.svg';
+export { default as Imagen_footer } from './Imagen_footer.png';
+export { default as marca_logo } from './marca_logo.png';
+export { default as logo_colombia } from './logo_colombia.png';
 
 
 

@@ -220,6 +220,20 @@ textarea.form-control {
     color: #d02b2b;
 }
 
+.modal-form-login {
+    .ant-modal-close-x {
+        display: none!important;
+    }
+
+    .container-form-login {
+        width: 375px!important;
+    }
+
+    .ant-modal-body {
+        padding: 0!important;
+    }
+}
+
 .swal2-container.swal2-center > .swal2-popup {
     grid-row: auto !important;
     border-radius: 10px !important;
@@ -525,4 +539,9 @@ textarea.form-control {
     > .ant-table-content
     > table {
     border-top: none !important;
+}
+
+.anticon-left,
+.anticon-right {
+    display: block!important;
 }

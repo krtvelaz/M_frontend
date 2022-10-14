@@ -10,7 +10,6 @@ import { calendarLanding } from '../../../utils/assets/img';
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
-    const [images, setImages] = useState<any>({});
     const [loading, setLoading] = useState<any>({});
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
@@ -34,14 +33,8 @@ const PublishedChallenges = () => {
 
         if (results.length > 0) {
             setChallenges(results);
-            setLoading(false);
-            const _images = await Promise.all(
-                results?.map((result: any) => dispatch(actions.get_image_principal(result?.id)))
-            );
-            setImages(_images?.map((image) => Buffer.from(image).toString('base64')));
-        } else {
-            setChallenges([null, null, null, null]);
-        }
+            setLoading(false);    
+        } 
     };
 
     return (
@@ -72,16 +65,22 @@ const PublishedChallenges = () => {
                                     hoverable
                                     className="card-challenge"
                                     cover={
-                                        images[i] ? (
-                                            <img
+                                        challenge?.cha_image_buffer?.data ? (
+                                            <div className="colorear">
+                                                <img
                                                 alt="example"
-                                                style={{ borderRadius: ' 40px 40px 0 0' }}
-                                                src={`data:image/jpeg;charset=utf-8;base64,${images[i]}`}
+
+                                                className="w-100 h-100"
+                                                style={{ borderRadius: ' 40px 40px 0 0', objectFit: 'cover', objectPosition: '50% 50%' }}
+                                                src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(challenge?.cha_image_buffer?.data).toString('base64')}`}
                                             />
+
+                                            </div>
+                                            
                                         ) : (
                                             <Skeleton.Image
                                                 className="w-100"
-                                                style={{ borderRadius: ' 40px 40px 0 0', minHeight: '150px' }}
+                                                style={{ borderRadius: ' 40px 40px 0 0', minHeight: '200px' }}
                                                 active={loading}
                                             />
                                         )

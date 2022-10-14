@@ -54,7 +54,7 @@ const CardDocsPostulation: FC<SelectProps> = ({
                 title: 'Tipo del documento',
                 html:
                     '<div class="mysubtitle">El archivo no es del tipo requerido</div>' +
-                    `<div class="mytext">Intente adjunta un archivo de tipo ${
+                    `<div class="mytext">Intente adjuntar un archivo de tipo ${
                         doc.type === 'img' ? 'imagen' : 'PDF'
                     }</div>`,
                 showCancelButton: false,

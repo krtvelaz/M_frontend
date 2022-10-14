@@ -41,7 +41,9 @@ const CarouselMedeinn = () => {
                             className={`${i === 0 ? 'active' : ''}`}
                             aria-current={`${i === 0 ? 'true' : 'false'}`}
                             aria-label={`Slide ${i + 1}`}
-                        ></button>
+                        >
+
+                        </button>
                     ))}
                 </div>
                 <div className="carousel-inner">
@@ -70,7 +72,7 @@ const CarouselMedeinn = () => {
                                                     item?.cha_background_image_buffer?.data
                                                 ).toString('base64')}`}
                                                 className="w-100 h-100"
-                                                style={{ height: '100%' }}
+                                                style={{ objectFit: 'cover', objectPosition: '50% 50%' }}
                                                 alt="imagen"
                                             />
                                         )}

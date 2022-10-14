@@ -68,6 +68,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 textDecoration: 'none',
                                 marginRight: '30px',
                                 marginTop: '7px',
+                                cursor: 'pointer'
                             }}
                             onClick={() => {
                                 navigate('../about-us');
@@ -84,6 +85,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 textDecoration: 'none',
                                 marginRight: '30px',
                                 marginTop: '7px',
+                                cursor: 'pointer'
                             }}
                             onClick={() => {
                                 navigate('../our-challenges');
