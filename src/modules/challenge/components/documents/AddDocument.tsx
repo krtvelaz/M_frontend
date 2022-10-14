@@ -20,7 +20,7 @@ const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete,
 
     const loading: boolean = useSelector((store: any) => store.challenge.documents_challenge.loading);
     const loading_form: boolean = useSelector((store: any) => store.challenge.document_challenge.loading);
-    const form_ref = useRef<FormikProps<FormikValues>>();
+    const form_ref = useRef<any>();
 
     return (
         <div className="container-fluid">

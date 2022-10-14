@@ -604,7 +604,7 @@ img {
         background-image: url('src/utils/assets/img/businessMan.png');
     }
     @if $production == true {
-        background-image: url('src/utils/assets/img/businessMan.png');
+        background-image: url('/assets/businessMan.ee9b2e12.png');
     }
     background-repeat: no-repeat;
     background-size: cover;
@@ -722,8 +722,22 @@ img {
 // ***** Registro****
 
 .box-register {
-    background-image: linear-gradient(to top, #ffffff 50%, rgba(0, 0, 0, 0.4)),
-        url('/src/utils/assets/img/personas-trabajando.png');
+    @if $development == true {
+        background-image: linear-gradient(
+                to top,
+                #ffffff 50%,
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/src/utils/assets/img/personas-trabajando.png');
+    }
+    @if $production == true {
+        background-image: linear-gradient(
+                to top,
+                #ffffff 50%,
+                rgba(0, 0, 0, 0.4)
+            ),
+            url('/assets/personas-trabajando.ee62fe4d.png');
+    }
     background-repeat: no-repeat;
     background-position: top;
     background-size: auto;
@@ -734,8 +748,15 @@ img {
 }
 
 .box-resetPaswword {
-    background-image: linear-gradient(to top, #ffffff 40%, transparent),
+    @if $development == true {
+        background-image: linear-gradient(to top, #ffffff 40%, transparent),
         url('/src/utils/assets/img/reset-password.png');
+    }
+    @if $production == true {
+        background: linear-gradient(to right top, #ffffff, transparent),
+            url('/assets/reset-password.fea1c36f.png');
+    }
+    
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100%;
@@ -770,8 +791,15 @@ img {
 
 // ************ calendar event ***********
 .box-calendar {
-    background-image: linear-gradient(to top, #ffffff 65%, transparent),
-        url('src/utils/assets/img/headway.png');
+    @if $development == true {
+        background-image: linear-gradient(to top, #ffffff 65%, transparent),
+            url('src/utils/assets/img/headway.png');
+    }
+    @if $production == true {
+        background-image: linear-gradient(to top, #ffffff 65%, transparent),
+            url('/assets/headway.6b5139cf.png ');
+    }
+
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100%;
@@ -945,8 +973,8 @@ img {
 // Alert login
 
 .container-error-login {
-    background-color: #F9EFEE;
-    border: 1px solid #AD0808;
+    background-color: #f9efee;
+    border: 1px solid #ad0808;
     padding-top: 1%;
     padding-bottom: 1%;
 }
@@ -972,12 +1000,11 @@ img {
 
 .text-error-login {
     font-weight: bold;
-    color: #AD0808;
+    color: #ad0808;
 }
 
 // boletines
 #email_id_boletin::placeholder,
 #number_id_boletin::placeholder {
-    color: #DEDEDF !important;
-
+    color: #dededf !important;
 }

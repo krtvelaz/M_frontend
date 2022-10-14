@@ -41,6 +41,7 @@ export { default as hacerClic } from './hacerClic.svg';
 export { default as grupo_personas } from './grupo_personas.png';
 export { default as businessMan } from './businessMan.png';
 export { default as hombreGafasInteligentes  } from './hombreGafasInteligentes.png';
+export { default as headway  } from './headway.png';
 export { default as marcadorPosicion  } from './marcadorPosicion.svg';
 export { default as logoMedeinnWhite  } from './logo-medeinn-white.svg';
 export { default as iconoCheck  } from './iconoCheck.svg';

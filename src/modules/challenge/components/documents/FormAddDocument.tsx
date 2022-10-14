@@ -14,10 +14,19 @@ interface DocsFormPros {
     doc?: IDocument;
     onSubmit: (values: IDocument) => void;
     typesDocument: any[];
-    challenge: IChallenge;
+    challenge?: IChallenge;
 }
 
-const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, doc, onSubmit, typesDocument, challenge }) => {
+const FormAddDocument: FC<DocsFormPros> = ({
+    disabled,
+    type,
+    typeDoc,
+    innerRef,
+    doc,
+    onSubmit,
+    typesDocument,
+    challenge,
+}) => {
     const dispatch = useDispatch<any>();
     const [profiles, setProfiles] = useState<any>([]);
     const [type_document, set_type_document] = useState<number | null>();
@@ -36,17 +45,19 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
             { name: 'Persona jurídica', id: 1 },
             { name: 'Grupo de investigación', id: 2 },
             { name: 'Equipo de innovadores', id: 3 },
-        ]
-    
-        const arraysFilter: any = challenge.general_information.cha_profiles?.map((profile: number) => {
-            const newProfiles = profiles.find((x: any) => profile === x.id);
-            return newProfiles;
-        });
+        ];
 
-        setProfiles(arraysFilter);
+        if (challenge?.general_information.cha_profiles) {
+            const arraysFilter: any = challenge?.general_information.cha_profiles?.map((profile: number) => {
+                const newProfiles = profiles.find((x: any) => profile === x.id);
+                return newProfiles;
+            });
 
-    }, [challenge.general_information.cha_profiles])
-    
+            setProfiles(arraysFilter);
+        } else {
+            setProfiles(profiles);
+        }
+    }, [challenge?.general_information.cha_profiles]);
 
     const initialValues = {
         chafil_id_tipo_documento: '',
@@ -65,19 +76,19 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
 
     const schema = Yup.object().shape({
         chafil_id_tipo_documento: Yup.number().nullable().required('Campo obligatorio'),
-        ...(type_document &&
-        {
+        ...(type_document && {
             chafil_nombre_tipo_documento: Yup.string().required('Campo obligatorio'),
-        }
-        ),
-        ...(typeDoc && typeDoc !== 'general' && {
-            chafil_perfiles: Yup.string().nullable().required('Campo obligatorio'),
         }),
-        ...((typeDoc !== 'technicians' && typeDoc !== 'admin') && {
-            chafil_plantilla: Yup.object({
-                name: Yup.string().required('Campo obligatorio'),
-            }).nullable(),
-        }),
+        ...(typeDoc &&
+            typeDoc !== 'general' && {
+                chafil_perfiles: Yup.string().nullable().required('Campo obligatorio'),
+            }),
+        ...(typeDoc !== 'technicians' &&
+            typeDoc !== 'admin' && {
+                chafil_plantilla: Yup.object({
+                    name: Yup.string().required('Campo obligatorio'),
+                }).nullable(),
+            }),
     });
 
     const submit = async (values: any, actions: any) => {
@@ -97,12 +108,10 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
             innerRef={innerRef}
         >
             {({ handleChange, values, setFieldValue, errors }) => {
-
-
                 return (
                     <Form>
                         <div className="row">
-                            {(typeDoc && typeDoc !== 'general') && (
+                            {typeDoc && typeDoc !== 'general' && (
                                 <div className="col-12 col-md-3 col-lg-3">
                                     <label htmlFor="ret_perfiles_id" className="form-label">
                                         Perfil
@@ -124,7 +133,7 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                     <ErrorMessage name="chafil_perfiles" />
                                 </div>
                             )}
-                            <div className={`col-12 col-md-${(typeDoc && typeDoc !== 'general') ? 3 : 6} `}>
+                            <div className={`col-12 col-md-${typeDoc && typeDoc !== 'general' ? 3 : 6} `}>
                                 <label htmlFor="ret_tipo_documento_id" className="form-label">
                                     Tipo de documento
                                 </label>
@@ -151,7 +160,7 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                         ) {
                                             set_type_document(value);
                                         } else {
-                                            set_type_document(null)
+                                            set_type_document(null);
                                         }
                                     }}
                                 />
@@ -164,38 +173,38 @@ const FormAddDocument: FC<DocsFormPros> = ({ disabled, type, typeDoc, innerRef, 
                                 values.chafil_id_tipo_documento === 50 ||
                                 values.chafil_id_tipo_documento === 51 ||
                                 values.chafil_id_tipo_documento === 52) && (
-                                    <div className="col-12 col-md-6 col-lg-6">
-                                        <label htmlFor="ret_nombre_documento_id" className="form-label">
-                                            Nombre
-                                        </label>
-                                        <Field
-                                            type="text"
-                                            id="ret_nombre_documento_id"
-                                            name="chafil_nombre_tipo_documento"
-                                            className="form-control"
-                                            aria-describedby="nombre del documento"
-                                            autoComplete="off"
-                                            maxLength={80}
-                                            onChange={(e: any) => {
-                                                e.preventDefault();
-                                                const { value } = e.target;
-                                                const regex = new RegExp(
-                                                    /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
-                                                );
-                                                if (regex.test(value.toString())) {
-                                                    handleChange(e);
-                                                }
-                                            }}
-                                        />
-                                        <ErrorMessage name="chafil_nombre_tipo_documento" withCount max={80} />
-                                    </div>
-                                )}
+                                <div className="col-12 col-md-6 col-lg-6">
+                                    <label htmlFor="ret_nombre_documento_id" className="form-label">
+                                        Nombre
+                                    </label>
+                                    <Field
+                                        type="text"
+                                        id="ret_nombre_documento_id"
+                                        name="chafil_nombre_tipo_documento"
+                                        className="form-control"
+                                        aria-describedby="nombre del documento"
+                                        autoComplete="off"
+                                        maxLength={80}
+                                        onChange={(e: any) => {
+                                            e.preventDefault();
+                                            const { value } = e.target;
+                                            const regex = new RegExp(
+                                                /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            );
+                                            if (regex.test(value.toString())) {
+                                                handleChange(e);
+                                            }
+                                        }}
+                                    />
+                                    <ErrorMessage name="chafil_nombre_tipo_documento" withCount max={80} />
+                                </div>
+                            )}
 
                             <div className="col-12 col-md-6 col-lg-6">
                                 <label htmlFor="ret_plantilla_id" className="form-label">
                                     <>
                                         Adjuntar plantilla{' '}
-                                        {(typeDoc && typeDoc !== 'general') && (
+                                        {typeDoc && typeDoc !== 'general' && (
                                             <span style={{ fontSize: '10px' }}> - Opcional </span>
                                         )}
                                     </>
