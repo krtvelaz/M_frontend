@@ -10,17 +10,19 @@ import { Breadcrumb } from '../router/custom_types';
 import { useNavigate } from 'react-router-dom';
 import { actions as auth_actions } from '../../../modules/auth/redux';
 import { useDispatch } from 'react-redux';
-import '../../assets/styles/template.scss'
+import '../../assets/styles/template.scss';
 
 interface ITemplate {
     breadcrumbs?: Breadcrumb[];
     show_breadcrumbs?: boolean;
-    // user: any;
+    user: any;
     roles_user?: any;
     children?: any;
 }
 
-const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs }) => {
+const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user }) => {
+    console.log(user);
+
     const { Header, Sider, Content } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
@@ -72,7 +74,7 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs }) =>
                 )}
                 <Layout className="site-layout">
                     <Header className="component-header p-0">
-                        <AppHeader collapsible={collapsible} name={'Luisa María Sánchez Cadavid'} />
+                        <AppHeader collapsible={collapsible} name={`${user?.use_names} ${user?.use_surnames}`} />
                     </Header>
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />
@@ -90,7 +92,12 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs }) =>
                                     <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
                                 </div>
                             )}
-                            <div className="content medeinn-main-content overflow-auto">{children}</div>
+                            <div
+                                
+                                className="content medeinn-main-content overflow-auto"
+                            >
+                                {children}
+                            </div>
                         </div>
                     </Content>
                 </Layout>

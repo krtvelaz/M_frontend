@@ -206,7 +206,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             id="type_contact_id"
                                             name="type_contact"
                                             placeholder='Seleccione...'
-                                            className=""
+                                            className="select-landing"
                                             dropdownMatchSelectWidth={false}
                                             options={typeNumberContact.map((typeNumber: any) => ({
                                                 id: typeNumber.name,

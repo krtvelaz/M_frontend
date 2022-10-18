@@ -8,8 +8,9 @@ interface SelectProps extends FieldProps {
     className?: string;
     extra_on_change?: (value: any, prev_value?: any) => void;
     children?: any;
+    type_select?: 'document' 
 }
-const Select: FC<SelectProps> = ({ children, field, form, options, className, extra_on_change, ...props }) => {
+const Select: FC<SelectProps> = ({ children, field, form, options, className, extra_on_change, type_select, ...props }) => {
     const { Option } = AntdSelect;
     const [ changeArrow, setChangeArrow ] = useState<boolean>(false);
     if (options && Array.isArray(options)) {
@@ -25,7 +26,7 @@ const Select: FC<SelectProps> = ({ children, field, form, options, className, ex
         items?.map((item: any, i: any) => {
 
             return (
-                <Option key={`project_${i}`} value={item?.id || ""} label={item?.name || ""}>
+                <Option key={`project_${i}`} value={item?.id || ""} label={type_select === 'document' ? item?.type : item?.name || ""}>
                     {item?.name || ""}
                 </Option>
             );
@@ -37,7 +38,7 @@ const Select: FC<SelectProps> = ({ children, field, form, options, className, ex
             value={field.value}
             onChange={on_change}
             optionLabelProp="label"
-            className={['w-100', className].join('')}
+            className={['w-100', className].join(' ')}
             {...props}
         >
             {render_options(options)}

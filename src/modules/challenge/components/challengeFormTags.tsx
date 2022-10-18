@@ -88,13 +88,14 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                                 {type === 'edit' ? 'Editar reto' : 'Crear nuevo reto'}
                             </span>
                         </div>
-                        <div className="">
+                        <div className="challenge-tabs">
                             <Tabs
                                 className="w-100 h-100 "
                                 activeKey={active_key}
                                 onChange={callback}
                                 tabBarStyle={{
                                     background: '#fff',
+                                    color: '#000000',
                                     paddingLeft: '20px',
                                     fontSize: '13px',
                                     marginBottom: 0,

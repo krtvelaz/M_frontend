@@ -37,7 +37,10 @@ const create_bulletin = (values: any) => {
     return async (dispatch: any) => {
         try {
             const URI = '/subscriptions/newsletter';
-            const res = await cms_http.post(URI, values,);
+            const res = await cms_http.post(URI, { 
+                sub_email: values.email,
+                sub_cellphone_number: values.number
+            });
             // await swal_success.fire({
             //     title: 'Proceso exitoso',
             //     html:

@@ -91,7 +91,7 @@ const OurChallenges = () => {
                     <hr style={{
                             position: 'absolute',
                             width: '91%',
-                            top: '30px',
+                            top: '37px',
                             left: '0px',
                             opacity: 1,
                         
@@ -99,7 +99,7 @@ const OurChallenges = () => {
                             borderTop: '1px solid #603CE6', borderBottom: 'none'}} />
                     <Tabs
                         tabBarStyle={{
-                            fontSize: '13px',
+                            fontSize: '16px',
                             marginBottom: 0,
                         }}
                         className="container tab-our-challenges"

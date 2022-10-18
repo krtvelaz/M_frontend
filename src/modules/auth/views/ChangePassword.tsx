@@ -50,7 +50,7 @@ const ChangePassword = () => {
                                 Hola,{' '}
                                 <span style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                                     {' '}
-                                    Luisa María Sánchez Cadavid,{' '}
+                                    {location?.state.data_user?.name}
                                 </span>{' '}
                                 Por tu seguridad debes cambiar la contraseña
                             </div>

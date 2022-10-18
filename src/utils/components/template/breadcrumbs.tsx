@@ -5,7 +5,7 @@ import inicio from "../../assets/img/inicio.svg";
 
 const Breadcrumbs: FC<{ breadcrumbs: Breadcrumb[] }> = ({breadcrumbs}) => {
   return (
-    <ol className="breadcrumb m-0">
+    <ol className="breadcrumb m-0 breadcrumb-template">
       <li className="breadcrumb-item">
         <Link to="/home" className="text-white">
         <img

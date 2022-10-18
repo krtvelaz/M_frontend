@@ -44,6 +44,14 @@
 //     margin-left: 25px;
 // }
 
+// tabs challenge
+.challenge-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #000000;
+    font-family: 'Montserrat-Bold';
+}
+
+
+
 // table
 .ant-table {
     font-size: 12px !important;
@@ -175,6 +183,12 @@
     transition: all 300ms;
 }
 
+.select-landing .ant-select-item-option:hover {
+    background-color: #603CE6 !important;
+    color: white !important;
+    transition: all 300ms;
+}
+
 .ant-select-arrow {
     color: #1d98d1;
 }
@@ -183,6 +197,12 @@
 input[type='text'] {
     height: 38px;
     border-radius: 6px;
+    outline: none;
+}
+
+input[type='text']:focus {
+    outline: none !important;
+    box-shadow: none;
 }
 
 input[type='password'] {
@@ -197,6 +217,20 @@ input[type='email'] {
 input[type='number'] {
     height: 38px;
     border-radius: 6px;
+}
+input[type='number']:focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.ant-select-status-error.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer)
+    .ant-select-selector {
+        border-color: #AD0808 !important;
 }
 
 .ant-input-number-input {
@@ -222,15 +256,15 @@ textarea.form-control {
 
 .modal-form-login {
     .ant-modal-close-x {
-        display: none!important;
+        display: none !important;
     }
 
     .container-form-login {
-        width: 375px!important;
+        width: 375px !important;
     }
 
     .ant-modal-body {
-        padding: 0!important;
+        padding: 0 !important;
     }
 }
 
@@ -515,9 +549,8 @@ textarea.form-control {
     border: 1px solid #f0f0f0 !important;
 }
 
-
 .table-drag-drop .ant-table-measure-row {
-   display: none !important;
+    display: none !important;
 }
 .table-drag-drop .ant-table-row {
     border: 1px solid #f0f0f0 !important;
@@ -543,5 +576,10 @@ textarea.form-control {
 
 .anticon-left,
 .anticon-right {
-    display: block!important;
+    display: block !important;
+}
+
+// x documentos tag
+.anticon svg {
+    display: block;
 }

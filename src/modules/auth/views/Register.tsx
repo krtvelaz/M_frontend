@@ -8,6 +8,7 @@ import { Card } from '../../../utils/ui';
 import FormRegisterPersonaJuridica from '../components/FormRegisterPersonaJuridica';
 import FormRegisterPersonaNatural from '../components/FormRegisterPersonaNatural';
 import { actions } from '../redux';
+import { actions as actionsPostulation } from '../../postulation/redux';
 
 const Register = () => {
     const [radio, setRadio] = useState(1);
@@ -39,6 +40,7 @@ const Register = () => {
 
     useEffect(() => {
         dispatch(actions.get_countries());
+        dispatch(actionsPostulation.get__document());
     }, []);
 
     return (
@@ -50,7 +52,7 @@ const Register = () => {
                     </div>
 
                     <Card actions={[]}>
-                        <div className="row container px-5">
+                        <div className="row container">
                             <h1 className="text-stake">
                                 Completa el formulario de registro para participar retos de innovación abierta.
                             </h1>
@@ -68,9 +70,10 @@ const Register = () => {
                                 </Radio.Group>
                             </div>
                             {radio === 1 ? (
-                                <FormRegisterPersonaNatural innerRef={form_ref} onSubmit={on_register} />
+                                <FormRegisterPersonaNatural type='natural' innerRef={form_ref} onSubmit={on_register} />
                             ) : (
-                                <FormRegisterPersonaJuridica innerRef={form_ref} />
+                                <FormRegisterPersonaNatural type='legal' innerRef={form_ref} onSubmit={on_register} />
+                                // <FormRegisterPersonaJuridica innerRef={form_ref} />
                             )}
                             <hr />
                             <div className="bg-white d-flex flex-row justify-content-between">
