@@ -99,8 +99,6 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         ),
     });
     const submit = async (values: any, form: any) => {
-        console.log('Valores: ', values);
-
         await onSubmit(values, form);
     };
     return (
@@ -112,8 +110,6 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
             innerRef={innerRef}
         >
             {({ handleChange, values, setFieldValue, errors, touched}) => {
-                console.log(errors);
-                
                 return (
                     <Form>
                         <div className="row">
@@ -396,8 +392,6 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                                     }}
                                     extra_on_change={async (value: any) => {
-                                        console.log(value);
-
                                         setFieldValue('city', null, false);
                                         await dispatch(actions.get_cities(value));
                                     }}

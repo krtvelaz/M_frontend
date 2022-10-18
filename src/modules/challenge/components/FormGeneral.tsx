@@ -103,8 +103,6 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
             innerRef={innerRef}
         >
             {({ handleChange, values, setFieldValue, errors, touched }) => {
-                console.log();
-
                 const disabledDate: TimeRangePickerProps['disabledDate'] = (current) => {
                     return current && current < moment(values?.cha_start_date).endOf('day');
                 };

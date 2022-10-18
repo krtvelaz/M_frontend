@@ -64,7 +64,6 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
                 width={1000}
                 afterClose={() => {
                     setUserInfo('');
-                    console.log('entrreee', form_ref);
                 }}
                 onCancel={() => {
                     close();

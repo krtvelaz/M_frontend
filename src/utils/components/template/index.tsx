@@ -21,8 +21,6 @@ interface ITemplate {
 }
 
 const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user }) => {
-    console.log(user);
-
     const { Header, Sider, Content } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();

@@ -76,8 +76,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
     return (
         <Formik enableReinitialize onSubmit={submit} innerRef={innerRef} initialValues={initial_values} validationSchema={schema}>
             {({ handleChange, values, errors, touched}) => {
-                console.log(errors);
-                console.log(values);
                 
                 return (
                     <Form>

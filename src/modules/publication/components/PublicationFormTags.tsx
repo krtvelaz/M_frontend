@@ -267,8 +267,6 @@ const useInit = (
     };
 
     const goBack = () => {
-        console.log("Console log");
-        
         if (active_key === '1') {
             navigate('/publication/list');
         } else {

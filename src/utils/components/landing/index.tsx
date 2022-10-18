@@ -22,7 +22,6 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
 
-    console.log(user);
     
 
     return (

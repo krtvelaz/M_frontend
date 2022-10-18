@@ -39,10 +39,6 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
             })
         );
     };
-
-    console.log(number_pages);
-    
-
     return (
         <>
             <div
