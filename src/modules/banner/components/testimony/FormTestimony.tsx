@@ -52,8 +52,6 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
             innerRef={innerRef}
         >
             {({ values, handleChange, errors, touched, setFieldValue, isSubmitting }) => {
-                console.log("Errors and touched: ", errors, touched);
-                
                 return (
                     <Form>
                         <div className="row ">

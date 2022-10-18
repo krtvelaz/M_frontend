@@ -161,12 +161,17 @@
   }
 }
 
-// .breadcrumb-item + .breadcrumb-item::before {
-//   color: #fff !important;
-// }
+.breadcrumb-template .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff !important;
+}
 // .breadcrumb-item-landing + .breadcrumb-item-landing::before {
 //   color: #0A0707 !important;
 // }
+
+.error-input {
+  border: 1px solid #AD0808 !important;
+  border-radius: 6px
+}
 
 .form-error {
   margin-top: .25rem;

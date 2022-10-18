@@ -1,5 +1,5 @@
 
-import { trazado_amarillo } from "../../../utils/assets/img";
+import { figuraRetos, trazado_amarillo } from "../../../utils/assets/img";
 import { Card } from "../../../utils/ui";
 import quienesSomos from "../../../utils/assets/img/quienesSomos.png";
 import queBuscamos from "../../../utils/assets/img/queBuscamos.png";
@@ -16,12 +16,18 @@ const AboutUs = () => {
         }}
       >
         <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />
+        <img src={figuraRetos} alt="trazado" style={{
+          position: 'absolute',
+          top: 0,
+          right: '-30px',
+          maxWidth: '25%'
+        }}  />
         <div
           className="row justify-content-center container-about"
         >
           
-          <div className="d-flex flex-row mb-3">
-            <h5 className="text-white">Laboratorio de innovación Medeinn</h5>
+          <div className="d-flex flex-row" style={{margin: '70px 0 40px 0'}}>
+            <h5 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: '110px'}}>Laboratorio de innovación Medeinn</h5>
           </div>
           <div className="col-md-12">
             <Card className="card-about">

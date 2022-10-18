@@ -36,7 +36,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
         document_type: Yup.number().nullable().required('Campo obligatorio'),
         number_document: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         type_profiles: Yup.string().nullable().required('Campo obligatorio'),
-        email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
+        email: Yup.string().email('Correo inválido ejemplo: correo@gmail.com').required('Campo obligatorio'),
         type_contact: Yup.string().nullable().required('Campo obligatorio'),
         number_contact: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
         direction: Yup.string().required('Campo obligatorio'),
@@ -76,8 +76,6 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
     return (
         <Formik enableReinitialize onSubmit={submit} innerRef={innerRef} initialValues={initial_values} validationSchema={schema}>
             {({ handleChange, values, errors, touched}) => {
-                console.log(errors);
-                console.log(values);
                 
                 return (
                     <Form>
@@ -206,7 +204,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             id="type_contact_id"
                                             name="type_contact"
                                             placeholder='Seleccione...'
-                                            className=""
+                                            className="select-landing"
                                             dropdownMatchSelectWidth={false}
                                             options={typeNumberContact.map((typeNumber: any) => ({
                                                 id: typeNumber.name,

@@ -19,8 +19,8 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
     
 
     const schema = Yup.object().shape({
-        sta_value: Yup.string().required('Campo obligatorio'),
-        sta_description: Yup.string().required('Campo obligatorio'),
+        sta_value: Yup.string().trim().required('Campo obligatorio'),
+        sta_description: Yup.string().trim().required('Campo obligatorio'),
     });
 
     const submit = (values: any, form: any) => {

@@ -69,23 +69,23 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
     const dispatch = useDispatch<any>();
     const schema = Yup.object().shape({
         cha_announcement: Yup.number().required('Campo obligatorio').min(1, 'Mínimo es 1').max(9999, 'Máximo es 9999'),
-        cha_name: Yup.string().required('Campo obligatorio'),
+        cha_name: Yup.string().trim().required('Campo obligatorio'),
         cha_profiles: Yup.array().min(1, 'Campo obligatorio'),
-        cha_id_dimension: Yup.string().nullable().required('Campo obligatorio'),
+        cha_id_dimension: Yup.string().trim().nullable().required('Campo obligatorio'),
         cha_id_dependency: Yup.number().nullable().required('Campo obligatorio'),
-        cha_start_date: Yup.string().required('Campo obligatorio'),
-        cha_end_date: Yup.string().required('Campo obligatorio'),
-        cha_description: Yup.string().required('Campo obligatorio'),
-        cha_id_commune: Yup.string().nullable().required('Campo obligatorio'),
-        cha_id_neighborhood: Yup.string().nullable().required('Campo obligatorio'),
+        cha_start_date: Yup.string().trim().required('Campo obligatorio'),
+        cha_end_date: Yup.string().trim().required('Campo obligatorio'),
+        cha_description: Yup.string().trim().required('Campo obligatorio'),
+        cha_id_commune: Yup.string().trim().nullable().required('Campo obligatorio'),
+        cha_id_neighborhood: Yup.string().trim().nullable().required('Campo obligatorio'),
         cha_imagen_principal: Yup.object({
             name: Yup.string().required('Campo obligatorio'),
         }).nullable(),
-        cha_details_population_impact: Yup.string().required('Campo obligatorio'),
-        cha_important_data: Yup.string().required('Campo obligatorio'),
-        cha_expected_results: Yup.string().required('Campo obligatorio'),
-        cha_details: Yup.string().required('Campo obligatorio'),
-        cha_video_url: Yup.string().url('Por favor ingrese una url'),
+        cha_details_population_impact: Yup.string().trim().required('Campo obligatorio'),
+        cha_important_data: Yup.string().trim().required('Campo obligatorio'),
+        cha_expected_results: Yup.string().trim().required('Campo obligatorio'),
+        cha_details: Yup.string().trim().required('Campo obligatorio'),
+        cha_video_url: Yup.string().trim().url('Por favor ingrese una url'),
         cha_amount: Yup.number().nullable().max(10000000000, 'El máximo es $10.000.000.000'),
     });
 
@@ -102,7 +102,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ handleChange, values, setFieldValue }) => {
+            {({ handleChange, values, setFieldValue, errors, touched }) => {
                 const disabledDate: TimeRangePickerProps['disabledDate'] = (current) => {
                     return current && current < moment(values?.cha_start_date).endOf('day');
                 };
@@ -120,7 +120,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     type="number"
                                     id="cha_announcement_id"
                                     name="cha_announcement"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_announcement && 'error-input'}`}
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                 />
@@ -131,10 +131,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     Nombre
                                 </label>
                                 <Field
+                                    autoFocus={false}
                                     type="text"
                                     id="ret_nombre_id"
                                     name="cha_name"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_name && 'error-input'}`}
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                     maxLength={80}
@@ -158,11 +159,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <Field
                                     component={Select}
                                     maxTagCount="responsive"
+                                    status={errors?.cha_profiles ? 'error' : 'success'}
                                     showArrow
                                     dropdownMatchSelectWidth={false}
                                     id="ret_perfil_id"
                                     name="cha_profiles"
-                                    className=""
                                     options={profiles?.map((profile: any) => ({
                                         id: profile?.id,
                                         name: profile?.name,
@@ -184,7 +185,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     component={Select}
                                     id="ret_dimension_id"
                                     name="cha_id_dimension"
-                                    className=""
+                                    status={errors?.cha_id_dimension ? 'error' : 'success'}
                                     options={dimensions?.map((dimension: any) => ({
                                         id: dimension?.id,
                                         name: dimension?.maedim_nombre,
@@ -201,7 +202,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     component={Select}
                                     id="ret_dependencia_id"
                                     name="cha_id_dependency"
-                                    className=""
+                                    status={errors?.cha_id_dependency ? 'error' : 'success'}
                                     options={dependencies.map((dependency: any) => ({
                                         id: dependency?.id,
                                         name: dependency?.maedep_nombre,
@@ -217,6 +218,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     Fecha de inicio
                                 </label>
                                 <Field
+                                    className={`${errors.cha_start_date && 'error-input'}`}
                                     component={DateInput}
                                     name="cha_start_date"
                                     id="ret_fecha_inicio_id"
@@ -230,6 +232,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     Fecha de cierre
                                 </label>
                                 <Field
+                                    className={`${errors.cha_end_date && 'error-input'}`}
                                     component={DateInput}
                                     name="cha_end_date"
                                     id="ret_fecha_final_id"
@@ -243,7 +246,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_description && 'error-input'}`}
                                     id="ret_descripcion_id"
                                     name="cha_description"
                                     autoComplete="off"
@@ -260,7 +263,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_details && 'error-input'}`}
                                     id="ret_detalles_id"
                                     name="cha_details"
                                     autoComplete="off"
@@ -288,7 +291,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                             component={Select}
                                             id="ret_comuna_id"
                                             name="cha_id_commune"
-                                            className=""
+                                            status={errors?.cha_id_commune ? 'error' : 'success'}
                                             options={communes?.map((commune: any) => ({
                                                 id: commune?.id,
                                                 name: commune?.commune,
@@ -307,7 +310,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                             disabled={neighborhoods.length === 0}
                                             id="ret_barrio_id"
                                             name="cha_id_neighborhood"
-                                            className=""
+                                            status={errors?.cha_id_neighborhood ? 'error' : 'success'}
                                             options={neighborhoods?.map((neighborhood: any) => ({
                                                 id: neighborhood?.id,
                                                 name: neighborhood?.neighborhood,
@@ -324,7 +327,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_details_population_impact && 'error-input'}`}
                                     id="ret_detalles_poblacion_impactar_id"
                                     name="cha_details_population_impact"
                                     autoComplete="off"
@@ -368,7 +371,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     type="text"
                                     id="ret_video_id"
                                     name="cha_video_url"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_video_url && 'error-input'}`}
                                     autoComplete="off"
                                 />
                                 <div style={{ fontSize: '10px', marginTop: '5px' }}>URL embebida (YouTube, Video)</div>
@@ -380,7 +383,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_important_data && 'error-input'}`}
                                     style={{ height: '38px' }}
                                     id="ret_dato_importante_id"
                                     name="cha_important_data"
@@ -405,7 +408,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_expected_results && 'error-input'}`}
                                     style={{ height: '38px' }}
                                     id="ret_resultado_esperado_id"
                                     name="cha_expected_results"
@@ -429,7 +432,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${errors.cha_impact_type && 'error-input'}`}
                                     id="cha_impact_type_id"
                                     name="cha_impact_type"
                                     autoComplete="off"
@@ -454,6 +457,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <Field
                                     // type="number"
                                     component={Input}
+                                    status={errors?.cha_amount ? 'error' : 'success'}
                                     name="cha_amount"
                                     id="ret_monto_id"
                                     min={0}

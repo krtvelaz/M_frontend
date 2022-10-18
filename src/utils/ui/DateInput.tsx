@@ -1,4 +1,4 @@
-import { DatePicker, Form } from "antd";
+import { DatePicker } from "antd";
 import { FieldProps } from "formik";
 import moment from "moment";
 import { FC, useEffect, useState } from "react";
@@ -6,9 +6,10 @@ import { inputCalendar } from "../assets/img";
 
 interface IProps extends FieldProps {
   extra_on_change?: (value: any, prev_value?: any) => void;
+  className?: string;
 }
 
-const DateInput: FC<IProps> = ({  field, form, extra_on_change, ...props }) => {
+const DateInput: FC<IProps> = ({  field, form, extra_on_change,  className, ...props }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
@@ -39,7 +40,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, ...props }) => {
       <div className="row g-2">
         <div className="col-3 text-center">
           <div
-            className="form-control"
+            className={['form-control', className].join(' ')}
             style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
             <span style={{lineHeight: '25px'}}> {day || "DD"}</span>
@@ -47,7 +48,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, ...props }) => {
         </div>
         <div className="col-3 text-center">
           <div
-            className="form-control"
+            className={['form-control', className].join(' ')}
             style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
            
@@ -56,7 +57,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change, ...props }) => {
         </div>
         <div className="col-4 text-center">
           <div
-            className="form-control"
+            className={['form-control', className].join(' ')}
             style={{ borderRadius: "6px", height: '38px', color: "#ABAFB3" }}
           >
             <span  style={{lineHeight: '25px'}}>{year || "AAAA"}</span>

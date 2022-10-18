@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { swal_error } from '../../../utils/ui';
+import { swal_success } from '../../../utils/ui/swalAlert';
 import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from '../custom_types';
 import { actions } from '../redux';
 import AddGallery from './AddGallery';
@@ -199,6 +200,14 @@ const useInit = (
                     return;
                 }
                 if (is_finish) {
+                    await swal_success.fire({
+                        title: 'Creación exitosa',
+                        html:
+                            '<div class="mysubtitle">¡Finalizó la creación del hecho noticioso!</div>' +
+                            '<div class="mytext">Se ha guardado la información correctamente.</div>',
+                        showCancelButton: false,
+                        confirmButtonText: 'Aceptar',
+                    });
                     navigate('/publication/list');
                     return;
                 }

@@ -423,7 +423,7 @@ img {
 
 .box-about {
     @if $development == true {
-        background-image: linear-gradient(to top, #ffffff 75%, transparent),
+        background-image: linear-gradient(to top, #ffffff 75%, transparent 85%, transparent),
             url('src/utils/assets/img/hombreGafasInteligentes.png');
     }
     @if $production == true {
@@ -766,6 +766,13 @@ img {
 }
 
 /****** nuestros retos *****/
+.tab-our-challenges .ant-tabs-tab-btn {
+    font-size: 16px !important;
+}
+.tab-our-challenges .ant-tabs-tab:hover {
+    color: #000 !important;
+}
+
 .tab-our-challenges .ant-tabs-nav-wrap {
     background-color: transparent !important;
 }

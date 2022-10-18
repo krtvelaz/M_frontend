@@ -17,7 +17,7 @@ const FormContact = () => {
     const schema = Yup.object().shape({
         subject: Yup.string().required('Campo obligatorio').max(50, 'Máximo 50 caracteres'),
         fullname: Yup.string().required('Campo obligatorio').max(50, 'Máximo 50 caracteres'),
-        email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
+        email: Yup.string().email('Correo inválido ejemplo: correo@gmail.com').required('Campo obligatorio'),
         content: Yup.string().required('Campo obligatorio').max(500, 'Máximo 500 caracteres'),
     });
 

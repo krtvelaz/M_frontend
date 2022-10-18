@@ -16,7 +16,6 @@ interface IProps {
 const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPostulation, id_challenge }) => {
     const _documents: any[] = useSelector((store: any) => store.postulation.challenge.value);
     const dispatch = useDispatch<any>();
-    console.log(postulation);
     const initial_values = {
         documents: Array.isArray(_documents)
             ? _documents.map((doc) => {

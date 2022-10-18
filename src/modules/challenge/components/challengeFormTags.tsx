@@ -88,19 +88,20 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                                 {type === 'edit' ? 'Editar reto' : 'Crear nuevo reto'}
                             </span>
                         </div>
-                        <div className="">
+                        <div className="challenge-tabs">
                             <Tabs
                                 className="w-100 h-100 "
                                 activeKey={active_key}
                                 onChange={callback}
                                 tabBarStyle={{
                                     background: '#fff',
+                                    color: '#000000',
                                     paddingLeft: '20px',
                                     fontSize: '13px',
                                     marginBottom: 0,
                                 }}
                             >
-                                <TabPane tab="Información general" key="1">
+                                <TabPane tab="Información general" key="1" disabled>
                                     <CreateGeneral
                                         general_information={challenge?.general_information}
                                         innerRef={ref}
@@ -108,7 +109,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                                         active_key={active_key}
                                     />
                                 </TabPane>
-                                <TabPane tab="Documentos" key="2" disabled={max < 2}>
+                                <TabPane tab="Documentos" key="2" disabled>
                                     <DocumentFormTags
                                         onAddDocument={onAddDocument}
                                         onDelete={onDelete}
@@ -118,7 +119,7 @@ const ChallengeFormTags: FC<ChallengeFormPros> = ({ challenge_data, type }) => {
                                         active_key={active_key_docs}
                                     />
                                 </TabPane>
-                                <TabPane tab="Informes" key="3" disabled={max < 3}>
+                                <TabPane tab="Informes" key="3" disabled>
                                     <AddReport challenge={challenge} setChallenge={setChallenge} />
                                 </TabPane>
                             </Tabs>
