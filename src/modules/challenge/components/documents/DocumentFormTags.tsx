@@ -32,7 +32,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
             activeKey={active_key}
             tabBarStyle={{ background: '#fff', paddingLeft: '20px', fontSize: '13px', height: '60px' }}
         >
-            <TabPane tab="Doc. Generales" key="docs-1">
+            <TabPane tab="Doc. Generales" key="docs-1" disabled>
                 <AddDocument
                     challenge={challenge}
                     typesDocument={types_docuemnts}
@@ -43,7 +43,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
                     title="Agregar documentos generales"
                 />
             </TabPane>
-            <TabPane tab="Doc. Técnicos" key="docs-2" disabled={challenge.documents.general.length === 0}>
+            <TabPane tab="Doc. Técnicos" key="docs-2" disabled>
                 <AddDocument
                     challenge={challenge}
                     typesDocument={types_docuemnts}
@@ -54,7 +54,7 @@ const DocumentFormTags: FC<DocumentsProps> = ({
                     title="Agregar documentos técnicos"
                 />
             </TabPane>
-            <TabPane tab="Doc. Administrativos" key="docs-3" disabled={challenge.documents.general.length === 0}>
+            <TabPane tab="Doc. Administrativos" key="docs-3" disabled>
                 <AddDocument
                     challenge={challenge}
                     typesDocument={types_docuemnts}
