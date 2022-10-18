@@ -14,7 +14,7 @@ const FormSuscribe = () => {
     };
 
     const schema = Yup.object().shape({
-        email: Yup.string().email('Correo invalido ejemplo: correo@gmail.com').required('Campo obligatorio'),
+        email: Yup.string().email('Correo inválido ejemplo: correo@gmail.com').required('Campo obligatorio'),
         number: Yup.string().required('Campo obligatorio').max(10, 'Máximo 10 caracteres'),
     });
 
@@ -29,6 +29,10 @@ const FormSuscribe = () => {
             form.setSubmitting(false);
             form.resetForm();
         } catch (error: any) {
+            if (error?.response?.data?.status === 400) {
+                setMessage('Este correo ya se encuentra registrado en nuestros boletines, ingresa uno nuevo.');
+                return;
+            } 
             setMessage(error?.response?.data?.message);
         }
     };
@@ -48,7 +52,7 @@ const FormSuscribe = () => {
                                     name="email"
                                     autoComplete="off"
                                     maxLength={70}
-                                    placeholder="Ingrese su correo electrónico..."
+                                    placeholder="Digite su correo electrónico..."
                                 />
                                 
                                 {message ? <span style={{color: `#FFF`}} className="form-error">{message}</span> : 
@@ -73,7 +77,7 @@ const FormSuscribe = () => {
                                             handleChange(e);
                                         }
                                     }}
-                                    placeholder="Ingrese su numero de contacto..."
+                                    placeholder="Digite su numero de contacto..."
                                 />
                                 <ErrorMessage color="#FFF" name="number" withCount max={10} />
                             </div>
@@ -84,7 +88,7 @@ const FormSuscribe = () => {
                                     type="submit"
                                     className="btn btn-primary-suscribe "
                                 >
-                                    Suscríbete ahora
+                                    Suscribase ahora
                                 </button>
                             </div>
                         </div>

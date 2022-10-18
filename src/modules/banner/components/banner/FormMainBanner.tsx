@@ -26,12 +26,12 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
     };
 
     const schema = Yup.object().shape({
-        ban_title: Yup.string().required('Campo obligatorio'),
-        ban_description: Yup.string().required('Campo obligatorio'),
-        ban_embedded_video: Yup.string().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
-        ban_reference_url: Yup.string().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
+        ban_title: Yup.string().trim().required('Campo obligatorio'),
+        ban_description: Yup.string().trim().required('Campo obligatorio'),
+        ban_embedded_video: Yup.string().trim().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
+        ban_reference_url: Yup.string().trim().url('Por favor ingrese una url').max(200, 'Máximo 200 caracteres'),
         ban_image: Yup.object({
-            name: Yup.string().required('Campo obligatorio'),
+            name: Yup.string().trim().required('Campo obligatorio'),
         }).nullable(),
     });
 

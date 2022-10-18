@@ -40,7 +40,7 @@ const ModalEditEvent: FC<ModalFormPros> = ({ onSubmit, id }) => {
                     form_ref.current?.resetForm();
                     close();
                 }}
-                title={<span style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '16px' }}>Editar documento</span>}
+                title={<span style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '16px' }}>Editar evento</span>}
                 maskStyle={{
                     backgroundColor: 'rgba(6, 100, 144 ,0.71)',
                 }}

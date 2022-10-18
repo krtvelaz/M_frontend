@@ -81,14 +81,27 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
                         if (e.target.files[0].size < size) {
                             on_change(e.target.files[0]);
                         } else {
-                            await swal_error.fire({
-                                title: 'Tamaño de la imagen',
-                                html:
-                                    '<div class="mysubtitle">La imagen excede el tamaño permitido de 2MB</div>' +
-                                    '<div class="mytext">Intente adjuntar una imagen más pequeña</div>',
-                                showCancelButton: false,
-                                confirmButtonText: 'Aceptar',
-                            });
+                            if (file_type === 'pdf') {
+                                await swal_error.fire({
+                                    title: `Tamaño del documento`,
+                                    html:
+                                        `<div class="mysubtitle">El documento excede el tamaño permitido de ${maximum_size} MB</div>` +
+                                        '<div class="mytext">Intente adjuntar un documento más pequeño</div>',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Aceptar',
+                                });
+                            } 
+                            
+                            if (file_type === 'img'){
+                                await swal_error.fire({
+                                    title: `Tamaño de la imagen`,
+                                    html:
+                                        `<div class="mysubtitle">La imagen excede el tamaño permitido de ${maximum_size} MB</div>` +
+                                        '<div class="mytext">Intente adjuntar una imagen más pequeña</div>',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Aceptar',
+                                });
+                            }
                         }
                     } else {
                         await swal_error.fire({

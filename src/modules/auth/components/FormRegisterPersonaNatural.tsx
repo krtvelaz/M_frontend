@@ -83,8 +83,6 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         radioPolitica: Yup.boolean().required("Debes aceptar las politicas para continuar")
     });
     const submit = async (values: any, form: any) => {
-        console.log("Valores: ", values);
-
         await onSubmit(values, form);
     };
     return (
