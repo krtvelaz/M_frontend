@@ -25,7 +25,8 @@ const Input: FC<InputProps> = ({ field, form, className, extra_on_change, ...pro
                 const regex = /^[0-9.,]{0,30}$/;
                 if (regex.test(value.toString())) {
                     return e;
-                } else {
+                } 
+                else {
                     return e.target.value = e.target.value.substring(0, e.target.value.length - 1);
                 }
             }}

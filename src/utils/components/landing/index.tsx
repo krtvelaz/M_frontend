@@ -22,13 +22,16 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
 
+    console.log(user);
+    
+
     return (
         <>
             <ModalLogin open={context.login_modal} toggle={context.toggle_login_modal} is_new_user={true} />
             <Layout className="w-100 h-100">
                 <Layout className="site-layout-landing">
                     <Header className="landing-header">
-                        <AppHeader collapsible={false} name={user?.use_email || ""} />
+                        <AppHeader collapsible={false} name={user ? `${user?.use_names || ''} ${user?.use_surnames || ''}` : ''} />
                     </Header>
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />

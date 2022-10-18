@@ -161,7 +161,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                         </span>
                                     ) : (
                                         <span>
-                                            <CheckOutlined /> Un carácter en mayúscula
+                                            <CheckOutlined style={{ color: '#C7C7C7' }} /> Un carácter en mayúscula
                                         </span>
                                     )}
                                 </div>
@@ -175,7 +175,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                         </span>
                                     ) : (
                                         <span>
-                                            <CheckOutlined /> Un número
+                                            <CheckOutlined style={{ color: '#C7C7C7' }} /> Un número
                                         </span>
                                     )}
                                 </div>
@@ -186,7 +186,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                         </span>
                                     ) : (
                                         <span>
-                                            <CheckOutlined /> 8 caracteres como mínimo
+                                            <CheckOutlined style={{ color: '#C7C7C7' }} /> 8 caracteres como mínimo
                                         </span>
                                     )}
                                 </div>

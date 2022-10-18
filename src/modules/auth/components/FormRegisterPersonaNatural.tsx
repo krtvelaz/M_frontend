@@ -1,6 +1,6 @@
 import { Radio } from 'antd';
 import { Field, Form, Formik } from 'formik';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { ErrorMessage, Select } from '../../../utils/ui';
@@ -14,19 +14,24 @@ interface RegisterFormPros {
     innerRef: any;
     onSubmit: (values: any, form?: any) => any;
     register?: IRegisterPersonaNatural;
+    type: 'natural' | 'legal';
 }
-const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, onSubmit }) => {
+const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type }) => {
     const dispatch = useDispatch<any>();
+    const [typeDocs, setTypeDocs] = useState([]);
     const countries: any[] = useSelector((store: any) => store.auth.countries.value);
     const states: any[] = useSelector((store: any) => store.auth.states.value);
     const cities: any[] = useSelector((store: any) => store.auth.cities.value);
+    const neighborhoods: any = useSelector((store: any) => store.challenge.neighborhoods.value);
+    const communes: any = useSelector((store: any) => store.challenge.communes.value);
+    const types_docuemnts: any = useSelector((store: any) => store.postulation.documentType.value);
 
     const initial_values = {
         names: '',
         surnames: '',
-        document_type: null,
+        document_type: type === 'legal' ? 4 :  null,
         document_number: '',
-        gender: null,
+        gender: type === 'legal' ? 'O' :  null,
         email: '',
         address: '',
         contact_type: null,
@@ -37,18 +42,19 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
         city: null,
         commune: null,
         neighborhood: null,
+        entity_type: null,
         ...register,
     };
 
-    const neighborhoods: any = useSelector((store: any) => store.challenge.neighborhoods.value);
-    const communes: any = useSelector((store: any) => store.challenge.communes.value);
+
+    useEffect(() => {
+        setTypeDocs(types_docuemnts?.filter((doc: {id:number; type: string; name: string}) => doc?.id !== 4))
+    },[types_docuemnts])
+    
 
     const schema = Yup.object().shape({
         names: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-        surnames: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-        document_type: Yup.string().nullable().required('Campo obligatorio'),
         document_number: Yup.string().required('Campo obligatorio').min(7, 'Mínimo 7 caracteres'),
-        gender: Yup.string().nullable().required('Campo obligatorio'),
         email: Yup.string().email('Ingrese un correo electrónico valido').required('Campo obligatorio'),
         address: Yup.string().required('Campo obligatorio'),
         contact_type: Yup.string().nullable().required('Campo obligatorio'),
@@ -80,10 +86,20 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
             }),
         // state: Yup.string().nullable().required('Campo obligatorio'),
         // city: Yup.string().nullable().required('Campo obligatorio'),
-        radioPolitica: Yup.boolean().required("Debes aceptar las politicas para continuar")
+        radioPolitica: Yup.boolean().required('Debes aceptar las politicas para continuar'),
+        ...(type === 'legal' ? {
+            entity_type: Yup.string().nullable().required('Campo obligatorio'),
+        } :
+        { 
+            document_type: Yup.string().nullable().required('Campo obligatorio'),
+            surnames: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+            gender: Yup.string().nullable().required('Campo obligatorio'),
+        }
+        
+        ),
     });
     const submit = async (values: any, form: any) => {
-        console.log("Valores: ", values);
+        console.log('Valores: ', values);
 
         await onSubmit(values, form);
     };
@@ -95,13 +111,15 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ handleChange, values, setFieldValue }) => {
+            {({ handleChange, values, setFieldValue, errors, touched}) => {
+                console.log(errors);
+                
                 return (
                     <Form>
                         <div className="row">
                             <div className="col-12 col-md-6 col-lg-3">
                                 <label htmlFor="name_id" className="form-label label-landing">
-                                    Nombre(s)
+                                    {type === 'natural' ? 'Nombre(s)' : 'Nombre o razón social'}
                                 </label>
                                 <Field
                                     type="text"
@@ -123,66 +141,66 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
 
                                 <ErrorMessage name="names" withCount max={50} />
                             </div>
-                            <div className="col-12 col-md-6 col-lg-3">
-                                <label htmlFor="last_name_id" className="form-label label-landing">
-                                    Apellido(s)
-                                </label>
-                                <Field
-                                    type="text"
-                                    id="last_name_id"
-                                    name="surnames"
-                                    className="form-control"
-                                    autoComplete="off"
-                                    placeholder="Apellidos"
-                                    maxLength={50}
-                                    onChange={(e: any) => {
-                                        e.preventDefault();
-                                        const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
-                                        if (regex.test(value.toString())) {
-                                            handleChange(e);
-                                        }
-                                    }}
-                                />
+                            {type === 'natural' && (
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <label htmlFor="last_name_id" className="form-label label-landing">
+                                        Apellido(s)
+                                    </label>
+                                    <Field
+                                        type="text"
+                                        id="last_name_id"
+                                        name="surnames"
+                                        className="form-control"
+                                        autoComplete="off"
+                                        placeholder="Apellidos"
+                                        maxLength={50}
+                                        onChange={(e: any) => {
+                                            e.preventDefault();
+                                            const { value } = e.target;
+                                            const regex = new RegExp(
+                                                /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            );
+                                            if (regex.test(value.toString())) {
+                                                handleChange(e);
+                                            }
+                                        }}
+                                    />
 
-                                <ErrorMessage name="surnames" withCount max={50} />
-                            </div>
+                                    <ErrorMessage name="surnames" withCount max={50} />
+                                </div>
+                            )}
+
                             <div className="col-12 col-md-6 col-lg-3">
                                 <label htmlFor="document_type_id" className="form-label label-landing">
-                                    Tipo de Documento
+                                    {type === 'natural' ? 'Tipo de Documento' : 'NIT'}
                                 </label>
                                 <div className="row">
-                                    <div className="col-4">
-                                        <Field
-                                            component={Select}
-                                            id="document_type_id"
-                                            name="document_type"
-                                            className=""
-                                            dropdownStyle={{
-                                                maxHeight: 400,
-                                                overflow: 'auto',
-                                                minWidth: 300,
-                                            }}
-                                            options={[
-                                                {
-                                                    name: 'C.C.',
-                                                    id: 1,
-                                                },
-                                                { name: 'C.G.I.', id: 2 },
-                                                {
-                                                    name: 'NIT',
-                                                    id: 3,
-                                                },
-                                            ]}
-                                            placeholder="C.C."
-                                            filterOption={(input: any, option: any) => {
-                                                return (
-                                                    option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                                );
-                                            }}
-                                        />
-                                        <ErrorMessage name="document_type" />
-                                    </div>
+                                    {type === 'natural' && (
+                                        <div className="col-4" style={{paddingRight: 0,}}>
+                                            <Field
+                                                component={Select}
+                                                id="document_type_id"
+                                                name="document_type"
+                                                className=""
+                                                dropdownStyle={{
+                                                    maxHeight: 400,
+                                                    overflow: 'auto',
+                                                    minWidth: 300,
+                                                }}
+                                                type_select='document'
+                                                options={typeDocs?.map((document: any) => ({ id: document.id, name: `${document.type} - ${document.name}`, type: document.type }))}
+                                                placeholder="C.C."
+                                                filterOption={(input: any, option: any) => {
+                                                    return (
+                                                        option?.children?.toLowerCase().indexOf(input.toLowerCase()) >=
+                                                        0
+                                                    );
+                                                }}
+                                            />
+                                            <ErrorMessage name="document_type" />
+                                        </div>
+                                    )}
+
                                     <div className="col">
                                         <Field
                                             type="text"
@@ -206,29 +224,52 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6 col-lg-3">
-                                <label htmlFor="gender_id" className="form-label label-landing">
-                                    Género
-                                </label>
-                                <Field
-                                    component={Select}
-                                    id="gender_id"
-                                    name="gender"
-                                    style={{ height: '38px' }}
-                                    options={[
-                                        { name: 'Femenino', id: 'F' },
-                                        { name: 'Másculino', id: 'M' },
-                                        { name: 'Otro', id: 'O' },
-                                    ]}
-                                    placeholder="Seleccione…"
-                                    filterOption={(input: any, option: any) => {
-                                        return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-                                    }}
-                                />
-                                <ErrorMessage name="gender" />
-                            </div>
-                        </div>
-                        <div className="row">
+
+                            {type === 'natural' ? (
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <label htmlFor="gender_id" className="form-label label-landing">
+                                        Género
+                                    </label>
+                                    <Field
+                                        component={Select}
+                                        id="gender_id"
+                                        name="gender"
+                                        style={{ height: '38px' }}
+                                        options={[
+                                            { name: 'Femenino', id: 'F' },
+                                            { name: 'Másculino', id: 'M' },
+                                            { name: 'Otro', id: 'O' },
+                                        ]}
+                                        placeholder="Seleccione…"
+                                        filterOption={(input: any, option: any) => {
+                                            return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                        }}
+                                    />
+                                    <ErrorMessage name="gender" />
+                                </div>
+                            ) : (
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <label htmlFor="entity_type_id" className="form-label label-landing">
+                                        Tipo de entidad
+                                    </label>
+                                    <Field
+                                        component={Select}
+                                        id="entity_type_id"
+                                        name="entity_type"
+                                        style={{ height: '38px' }}
+                                        options={[
+                                            { name: 'Otro', id: 'Otro' },
+                                            { name: 'Privada', id: 'Privada' },
+                                            { name: 'Pública', id: 'Pública' },
+                                        ]}
+                                        placeholder="Seleccione…"
+                                        filterOption={(input: any, option: any) => {
+                                            return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                        }}
+                                    />
+                                    <ErrorMessage name="entity_type" />
+                                </div>
+                            )}
                             <div className="col-12 col-md-6 col-lg-3">
                                 <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
@@ -320,7 +361,10 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="country_id"
                                     name="country"
                                     style={{ height: '38px' }}
-                                    options={countries.map((country: any) => ({ name: country.name, id: country.code }))}
+                                    options={countries.map((country: any) => ({
+                                        name: country.name,
+                                        id: country.code,
+                                    }))}
                                     placeholder="Seleccione…"
                                     filterOption={(input: any, option: any) => {
                                         return option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0;
@@ -336,8 +380,6 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                 />
                                 <ErrorMessage name="country" />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-6 col-md-6 col-lg-3">
                                 <label htmlFor="state_id" className="form-label label-landing">
                                     Departamento
@@ -438,8 +480,8 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     options={[
                                         {
                                             value: true,
-                                            name: "Acepto Políticas de uso y los Términos y Condiciones"
-                                        }
+                                            name: 'Acepto Políticas de uso y los Términos y Condiciones',
+                                        },
                                     ]}
                                     name="radioPolitica"
                                     id="radioPolitica"

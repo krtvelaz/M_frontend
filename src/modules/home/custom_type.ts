@@ -5,5 +5,5 @@ export interface IContact {
     fullname:string;
     email:string;
     content: string;
-
+    number:string | number;
 }

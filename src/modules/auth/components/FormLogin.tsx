@@ -39,7 +39,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
             })
             .catch((e: any) => {
                 if (e?.response?.data?.message === 'El usuario requiere cambio de contraseña') {
-                    navigate(`../auth/change-password/`, { state: { data_user: values } });
+                    navigate(`../auth/change-password/`, { state: { data_user: {...values, name: e?.response?.data?.data} } });
                     toggle();
                     return;
                 }
@@ -139,7 +139,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                             if (toggle) toggle();
                                         }}
                                     >
-                                        Recuperala AQUÍ
+                                       {' '} Recuperala AQUÍ
                                     </a>
                                 </p>
                             </div>
@@ -152,7 +152,9 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                         }}
                                         type="button"
                                         className="btn btn-outline-primary  me-2"
-                                        onClick={() => { }}
+                                        onClick={() => { 
+                                            context.toggle_login_modal();
+                                        }}
                                     >
                                         Cancelar
                                     </button>

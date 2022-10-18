@@ -3,7 +3,18 @@ import { challenges, publications, LandingPage, calendar } from '../../../utils/
 
 const Home = () => {
     return (
-        <>
+        <div
+        style={{
+            height: 'inherit',
+            backgroundImage:
+                "linear-gradient(to right, #F7FBFF 35%, transparent),url('src/utils/assets/img/imageHome.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right',
+            backgroundSize: '100%',
+            position: 'relative',
+            overflow: 'hidden',
+        }}
+        >
             <section className="pt-5" id="texto-superior">
                 <div className="container">
                     <div className="row">
@@ -93,7 +104,7 @@ const Home = () => {
                     </div>
                 </section>
             </div>
-        </>
+        </div>
     );
 };
 

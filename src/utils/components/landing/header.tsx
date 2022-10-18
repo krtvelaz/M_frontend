@@ -105,7 +105,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                         marginTop: '7px',
                                     }}
                                 >
-                                    Hola, {name}
+                                    Hola, <span style={{fontFamily: 'Montserrat-Medium'}}>{name}{' '}</span> 
                                     <DownOutlined />
                                 </span>
                             </Dropdown>
