@@ -45,13 +45,13 @@ const TabPulications = () => {
                 <TabPane tab="Todos" key="0">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
+                <TabPane tab="Resultados" key="RESULTADO">
+                    <DetailCardPublication keyTab={keyTab} />
+                </TabPane>
                 <TabPane tab="Noticias" key="NOTICIA">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
                 <TabPane tab="Eventos" key="EVENTO">
-                    <DetailCardPublication keyTab={keyTab} />
-                </TabPane>
-                <TabPane tab="Resultados" key="RESULTADO">
                     <DetailCardPublication keyTab={keyTab} />
                 </TabPane>
             </Tabs>

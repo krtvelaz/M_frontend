@@ -32,7 +32,7 @@ export const create_event = (_values: IEvent) => {
         const data = {
             ...values,
             eve_hour: moment(values.eve_hour, 'h:mm:ss A').format('HH:mm:ss'),
-            eve_limit_entry: Number(values.eve_numero_cupos) || 0,
+            eve_limit_entry: Number(values.eve_limit_entry) || 0,
         };
         let form = new FormData();
         form.append('data', data);

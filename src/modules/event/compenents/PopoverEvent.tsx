@@ -30,8 +30,7 @@ const PopoverEvent:FC<ICardProps> = ({ event, children }) => {
                                 </p>
                                 <div className="my-4">{event?.eve_place}</div>
 
-                                <span>{moment(event?.eve_date, 'hh:mm A').format('LTS')}</span>
-                                <span>{moment(new Date('2022-08-01T10:52:00.000Z').getTime(), 'hh:mm A').format('LTS')}</span>
+                                <span>{moment(event?.eve_date).utc().format('LT')}</span>
                             </div>
                         </div>
                         <div className="mt-4 d-flex justify-content-end">
