@@ -77,7 +77,7 @@ const FormSuscribe = () => {
                                             handleChange(e);
                                         }
                                     }}
-                                    placeholder="Digite su numero de contacto..."
+                                    placeholder="Digite su número de contacto..."
                                 />
                                 <ErrorMessage color="#FFF" name="number" withCount max={10} />
                             </div>

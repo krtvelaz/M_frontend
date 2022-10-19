@@ -1,4 +1,5 @@
-import { Popover } from 'antd';
+import { Checkbox, Popover } from 'antd';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +12,7 @@ const ListNotifications = () => {
     const { total } = useSelector((store: any) => store.notification.notifications.pagination);
 
     const [filters, setFilters] = useState({
-        page: 1, page_size: 10, order_by_value: 'desc', is_readed: false,
+        page: 1, page_size: 10, order_by_value: 'desc', 
     });
 
     const dispacth = useDispatch<any>();
@@ -24,16 +25,20 @@ const ListNotifications = () => {
         dispacth(actions.get_list_notifications({...filters, page: page, page_size: page_size}))
     }
     
+    const change_read_notification = async (id: number) => {
+        await dispacth(actions.status_notification(id))
+        await dispacth(actions.get_list_notifications({...filters}))
+      };
 
     const table_columns: any = [
         {
             title: 'No.',
-            dataIndex: 'key',
+            dataIndex: 'id',
             fixed: 'left',
             align: 'center' as 'center',
-            render: (data: any, values: any, i: number) => {
-                return i + 1;
-            },
+            // render: (data: any, values: any, i: number) => {
+            //     return i + 1;
+            // },
         },
         {
             title: 'Mensaje',
@@ -68,6 +73,24 @@ const ListNotifications = () => {
             render: (date: string) => {
                 return moment(date).format('DD / MM / YYYY');
             },
+        },
+        {
+            title: 'Acciones',
+            fixed: 'right',
+            align: 'center' as 'center',
+            children: [
+                {
+                    title: <span style={{ fontSize: '9px' }}>Marcar como leido</span>,
+                    fixed: 'right',
+                    align: 'center' as 'center',
+                    render: (data: any) => {
+                        return (
+                            <Checkbox checked={data?.not_readed} onChange={() => change_read_notification(data?.id)}/>
+                        );
+                    },
+                },
+            ],
+            
         },
     ];
 

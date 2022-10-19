@@ -30,7 +30,14 @@ const DocumentFormTags: FC<DocumentsProps> = ({
         <Tabs
             className="w-100 h-100 docs-challenge"
             activeKey={active_key}
-            tabBarStyle={{ background: '#fff', paddingLeft: '20px', fontSize: '13px', height: '60px' }}
+            tabBarStyle={{
+                background: '#fff',
+                color: '#000000',
+                paddingLeft: '20px',
+                fontSize: '13px',
+                marginBottom: 0,
+                height: '60px' 
+            }}
         >
             <TabPane tab="Doc. Generales" key="docs-1" disabled>
                 <AddDocument

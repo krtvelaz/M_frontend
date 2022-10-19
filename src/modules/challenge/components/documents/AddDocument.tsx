@@ -23,7 +23,7 @@ const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete,
     const form_ref = useRef<any>();
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingTop: '20px'}}>
             <div className="row">
                 <div className="col-md-12">
                     <Card
@@ -32,6 +32,9 @@ const AddDocument: FC<DocsFormPros> = ({ typesDocument, onAddDocument, onDelete,
                                 <span style={{ fontSize: '14px' }}>{title}</span>
                             </>
                         }
+                        bodyStyle={{
+                            paddingBottom: '15px'
+                        }}
                         actions={[
                             <div className="d-flex justify-content-end" style={{ padding: '20px' }}>
                                 <button

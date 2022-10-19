@@ -24,7 +24,7 @@ const Select: FC<SelectProps> = ({ children, field, form, options, className, ex
     };
     const render_options = (items: any) =>
         items?.map((item: any, i: any) => {
-
+            
             return (
                 <Option key={`project_${i}`} value={item?.id || ""} label={type_select === 'document' ? item?.type : item?.name || ""}>
                     {item?.name || ""}
