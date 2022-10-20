@@ -16,7 +16,7 @@ const CreateGeneral: FC<GeneralInformationProps> = ({ general_information, inner
     const list_profiles: any = useSelector((store: any) => store.challenge.profiles.value);
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingTop: '20px'}}>
             <div className="row">
                 <div className="col-md-12">
                     <Card

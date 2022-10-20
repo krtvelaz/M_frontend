@@ -177,15 +177,15 @@ const get__documentDownload = (posarc_id: number) => {
 
 const get_list_postulation = (filters?: {
     page: number;
-    per_page: number;
-    challenge_name?: string;
+    page_size: number;
+    cha_name?: string;
     cha_announcement?: number;
-    status?: string;
+    pos_status?: string;
 }) => {
     return async (dispatch: any) => {
         dispatch(postulations_list_default());
         try {
-            const URI = `postulations`;
+            const URI = `/postulations/list`;
 
             const res: any = await http.get(URI, {
                 params: {
@@ -480,7 +480,11 @@ const HtmlStringPdf = (generatePost: any) => {
         <td>${generatePost?.infoSettled?.pos_settled}</td>
     </tr>
     <tr>
-        <td >Convocatoria</td>
+        <td >Nombre del reto</td>
+        <td >${generatePost?.infoSettled?.cha_name}</td>
+    </tr>
+    <tr>
+        <td >Nombre o razón social</td>
         <td >${generatePost?.infoSettled?.pos_business_name}</td>
     </tr>
     <tr>

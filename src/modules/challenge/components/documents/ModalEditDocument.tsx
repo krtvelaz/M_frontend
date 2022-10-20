@@ -29,7 +29,7 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
 
     return (
         <>
-        <PencilComponent
+            <PencilComponent
                 on_click={() => {
                     open();
                 }}
@@ -63,7 +63,6 @@ const ModalEditDocument: FC<ModalPros> = ({ typeDoc, doc, typesDocument, onEdit 
                 ]}
             >
                 <FormAddDocument
-                
                     innerRef={form_ref}
                     onSubmit={onEditDocument}
                     type="edit"

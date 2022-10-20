@@ -38,7 +38,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
     const submit = (values: any, actions: any) => {
         form.setFieldValue(
             field.name,
-            `${values.tipo_via} ${values.numero_dir} ${values.letra_dir}  ${values.zona_dir} ${values.numero2_dir} ${values.letra2_dir} ${values.zona2_dir} ${values.numero3_dir} ${values.obser_dir},`,
+            `${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`,
             false
         );
         close();
@@ -63,7 +63,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
         tipo_via: Yup.string().nullable().required('Campo obligatorio'),
         numero_dir: Yup.string().required('Campo obligatorio'),
         numero2_dir: Yup.string().required('Campo obligatorio'),
-        numero3_dir: Yup.string().required('Campo obligatorio')
+        numero3_dir: Yup.string().required('Campo obligatorio'),
     });
 
     return (
@@ -93,7 +93,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 }}
                 footer={[
                     <>
-                        <button className="btn btn-outline-landing-primary me-3" onClick={close}>
+                        <button className="btn-back me-3" onClick={close}>
                             Cancelar
                         </button>
                         <button
@@ -113,10 +113,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                             <Form>
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label
-                                            htmlFor="tipo_via_id"
-                                            style={{ fontFamily: 'Montserrat-Bold', fontSize: '14px' }}
-                                        >
+                                        <label htmlFor="tipo_via_id" className="form-label label-landing">
                                             Tipo de vía
                                         </label>
                                         <Field
@@ -126,7 +123,6 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             id="ret_perfil_id"
                                             name="tipo_via"
                                             className=""
-                                            style={{ marginTop: '10px' }}
                                             options={[
                                                 {
                                                     name: 'Autopista',
@@ -191,15 +187,17 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         <ErrorMessage name="tipo_via" />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="numero_dir_id">Número</label>
+                                        <label htmlFor="numero_dir_id" className="form-label label-landing">
+                                            Número
+                                        </label>
                                         <Field
                                             type="text"
                                             id="numero_dir_id"
                                             name="numero_dir"
                                             className="form-control"
+                                            autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
-                                            style={{ marginTop: '10px' }}
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
@@ -212,28 +210,39 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         <ErrorMessage name="numero_dir" withCount max={3} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="letra_dir_id">Letra - Opcional</label>
+                                        <label htmlFor="letra_dir_id" className="form-label label-landing">
+                                            Letra <span> - Opcional</span>{' '}
+                                        </label>
                                         <Field
                                             type="text"
                                             id="letra_dir_id"
                                             name="letra_dir"
                                             className="form-control"
+                                            autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={1}
-                                            style={{ marginTop: '10px' }}
+                                            onChange={(e: any) => {
+                                                e.preventDefault();
+                                                const { value } = e.target;
+                                                const regex = new RegExp(/^[A-Za-z\\Ñ\\ñ"]*$/g);
+                                                if (regex.test(value.toString())) {
+                                                    handleChange(e);
+                                                }
+                                            }}
                                         />
                                         <ErrorMessage name="letra_dir" withCount max={1} />
                                     </div>
 
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="zona_dir_id">Zona - Opcional</label>
+                                        <label htmlFor="zona_dir_id" className="form-label label-landing">
+                                            Zona <span> - Opcional</span>
+                                        </label>
                                         <Field
                                             component={Select}
                                             id="zona_dir_id"
                                             name="zona_dir"
                                             dropdownMatchSelectWidth={false}
                                             options={optionsV}
-                                            style={{ margin: '10px 0' }}
                                         />
                                         <ErrorMessage name="zona_dir" />
                                     </div>
@@ -241,15 +250,17 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
 
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="numero2_dir">Número</label>
+                                        <label htmlFor="numero2_dir" className="form-label label-landing">
+                                            Número
+                                        </label>
                                         <Field
                                             type="text"
                                             id="numero2_dir"
                                             name="numero2_dir"
                                             className="form-control"
+                                            autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
-                                            style={{ marginTop: '10px' }}
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
@@ -262,7 +273,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         <ErrorMessage name="numero2_dir" withCount max={3} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="letra2_dir">
+                                        <label htmlFor="letra2_dir" className="form-label label-landing">
                                             Letra <span> - Opcional</span>
                                         </label>
 
@@ -273,12 +284,20 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={1}
-                                            style={{ marginTop: '10px' }}
+                                            autocomplete="off"
+                                            onChange={(e: any) => {
+                                                e.preventDefault();
+                                                const { value } = e.target;
+                                                const regex = new RegExp(/^[A-Za-z\\Ñ\\ñ"]*$/g);
+                                                if (regex.test(value.toString())) {
+                                                    handleChange(e);
+                                                }
+                                            }}
                                         />
                                         <ErrorMessage name="letra2_dir" withCount max={1} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="zona2_dir">
+                                        <label htmlFor="zona2_dir" className="form-label label-landing">
                                             Zona <span> - Opcional</span>
                                         </label>
                                         <Field
@@ -304,21 +323,22 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                                     id: 'Oeste',
                                                 },
                                             ]}
-                                            style={{ marginTop: '10px' }}
                                             extra_on_change={(value: number) => {}}
                                         />
                                         <ErrorMessage name="zona2_dir" />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
-                                        <label htmlFor="numero3_dir">Número</label>
+                                        <label htmlFor="numero3_dir" className="form-label label-landing">
+                                            Número
+                                        </label>
                                         <Field
                                             type="text"
                                             id="numero3_dir"
                                             name="numero3_dir"
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
+                                            autocomplete="off"
                                             maxLength="3"
-                                            style={{ marginTop: '10px' }}
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
@@ -334,15 +354,17 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
 
                                 <div className="row">
                                     <div className="col-12 col-md-6 col-lg-12">
-                                        <label htmlFor="obser_dir">Observaciones - Opcional</label>
+                                        <label htmlFor="obser_dir" className="form-label label-landing">
+                                            Observaciones <span> - Opcional</span>
+                                        </label>
                                         <Field
                                             type="text"
                                             id="obser_dir"
                                             name="obser_dir"
+                                            autocomplete="off"
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}
-                                            style={{ marginTop: '10px' }}
                                         />
                                         <ErrorMessage name="obser_dir" withCount max={100} />
                                     </div>
@@ -360,11 +382,10 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="dir_ing"
                                             name="dir_ing"
-                                            value={`${values.tipo_via} ${values.numero_dir} ${values.letra_dir}  ${values.zona_dir} ${values.numero2_dir} ${values.letra2_dir} ${values.zona2_dir} ${values.numero3_dir} ${values.obser_dir}`}
+                                            value={`${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`}
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}
-                                            style={{ marginTop: '10px' }}
                                         />
                                         <ErrorMessage name="dir_ing" withCount max={100} />
                                     </div>

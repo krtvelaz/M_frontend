@@ -153,9 +153,9 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                 name: 'Fluido no binario',
                                 id: 3,
                             },
-                            { name: 'Mujer Cls', id: 4 },
+                            { name: 'Mujer cis', id: 4 },
                             {
-                                name: 'Hombre Cls',
+                                name: 'Hombre cis',
                                 id: 5,
                             },
                             { name: 'Sin dato', id: 6 },
