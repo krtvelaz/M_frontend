@@ -27,7 +27,9 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
     });
 
     const submit = async (values: any, actions: any) => {
-        if (type === 'filter') {
+        
+        
+        if (type === 'filter' || type === 'assign') {
             await onSubmit(values);
             return;
         }

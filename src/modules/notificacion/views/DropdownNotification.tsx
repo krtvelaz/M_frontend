@@ -55,7 +55,7 @@ const DropdownNotification = () => {
     return (
         <Dropdown overlay={menu}>
             <div>
-                <img src={bell} alt="" style={{ marginLeft: '10px', cursor: 'pointer' }} />
+                <img src={bell} alt="" style={{ marginLeft: '0px', cursor: 'pointer' }} />
 
                 <span
                     style={{

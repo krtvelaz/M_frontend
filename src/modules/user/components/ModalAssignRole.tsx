@@ -38,6 +38,13 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
         await dispatch(actions.change_RoleUser(Number(userInfo?.use_id), roleUser, set_is_visible));
         if (setSwitchGetUsers) setSwitchGetUsers(!switchGetUsers);
     };
+
+    const search_user = async (values: any) => {
+        const user = await dispatch(actions.get_user(Number(values?.document)));
+        if(user)
+        setUserInfo(user)
+    }
+
     useEffect(() => {
         get_inforRolesDetail();
     }, [userInfo, roleUser]);
@@ -86,7 +93,7 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
                         <FormFilterUser
                             setUserInfoId={setUserInfo}
                             innerRef={form_ref}
-                            onSubmit={() => {}}
+                            onSubmit={search_user}
                             type="assign"
                         />
                     </div>
