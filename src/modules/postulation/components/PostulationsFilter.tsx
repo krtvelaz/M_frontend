@@ -21,7 +21,7 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
             page: 1,
             pageSize: 10,
             challenge_name: values.palabraClave,
-            cha_announcement: values.convocatoriaSearch,
+            cha_announcement: values.cha_announcement,
             status: values.estadoPos.toUpperCase(),
         });
         await dispatch(
@@ -29,7 +29,7 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                 page: 1,
                 page_size: 10,
                 cha_name: values.palabraClave,
-                cha_announcement: values.convocatoriaSearch,
+                cha_announcement: values.cha_announcement,
                 pos_status: values.estadoPos.toUpperCase(),
             })
         );
@@ -56,33 +56,14 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
 
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <label htmlFor="convocatoriaSearch_id" className="form-label">
-                                        No. Convocatoria
+                                        No. Convocatoría
                                     </label>
                                     <Field
-                                        component={Select}
-                                        id="convocatoriaSearch_id"
-                                        name="convocatoriaSearch"
-                                        options={[
-                                            {
-                                                name: 1,
-                                                id: 1,
-                                            },
-                                            { name: 2, id: 2 },
-                                            {
-                                                name: 3,
-                                                id: 3,
-                                            },
-                                            {
-                                                name: 4,
-                                                id: 4,
-                                            },
-                                            {
-                                                name: 5,
-                                                id: 5,
-                                            },
-                                        ]}
-                                        placeholder="Seleccionar…"
-                                        extra_on_change={(value: number) => {}}
+                                        type="number"
+                                        id="cha_announcement_id"
+                                        name="cha_announcement"
+                                        className={`form-control`}
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-3">

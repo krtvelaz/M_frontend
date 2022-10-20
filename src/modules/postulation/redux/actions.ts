@@ -499,7 +499,7 @@ const HtmlStringPdf = (generatePost: any) => {
     </tr>
     <tr>
         <td >Fecha</td>
-        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format('DD/MM/YYYY')}</td>
+        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format('DD/MM/YYYY')} - ${moment(generatePost?.infoSettled?.pos_updated_at).format('HH:mm:ss')}</td>
     </tr>
 </table>`;
 };
