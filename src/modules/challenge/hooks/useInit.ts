@@ -30,6 +30,10 @@ export const useInit = (
   const documents: any = useSelector(
     (store: any) => store.challenge.documents_challenge.value
   );
+  const user = useSelector((store: any) => store?.auth?.user?.value);
+  const aux_user = {
+    ...user,
+};
   const state = location.state as {
     active_key_docs: Location;
     active_key: Location;
@@ -84,9 +88,14 @@ export const useInit = (
         set_is_saving(true);
         await ref.current?.submitForm();
       },
-      onSave: async (values: IGeneralInformation) => {        
+      onSave: async (values: IGeneralInformation) => {   
+        const new_values = {
+          ...values,
+          cha_id_user: aux_user?.detail_user?.use_id
+        }   
+          
         if (!challenge.general_information.key) {
-          const result = await dispatch(actions.create_challenge(values));           
+          const result = await dispatch(actions.create_challenge(new_values));           
           if (result) {
             setChallenge((data: any) => ({
               ...data,
@@ -98,7 +107,7 @@ export const useInit = (
             }));
           }
         } else {
-          const res = await dispatch(actions.update_challenge(values));
+          const res = await dispatch(actions.update_challenge(new_values));
           setChallenge((data: any) => ({
             ...data,
             general_information: {
@@ -113,6 +122,8 @@ export const useInit = (
     },
     {
       save: async () => {
+        
+        
         if (documents.length > 0 && active_key_docs === "docs-1") {
           setChallenge((data: IChallenge) => ({
             ...data,
@@ -132,6 +143,7 @@ export const useInit = (
           set_is_saving(false);
           return;
         }
+        
         if (documents.length > 0 && active_key_docs === "docs-2") {
           setChallenge((data: IChallenge) => ({
             ...data,

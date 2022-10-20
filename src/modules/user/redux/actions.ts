@@ -48,6 +48,22 @@ const get_list_users = (filter?: filter) => {
     };
 };
 
+const get_user = (id: number) => {
+    return async (dispatch: any) => {
+        try {
+            const URI = `/users`;
+            const res = await auth_http.get(URI, {
+                params: {
+                    id,
+                },
+            });
+            return res.data.data;
+        } catch (error) {
+            return Promise.reject('Error');
+        }
+    };
+}
+
 const get__RoleDetail = (id: any) => {
     return async (dispatch: any) => {
         dispatch(detailRole_default);
@@ -119,6 +135,7 @@ const get__RoleDetail = (id: any) => {
 
 const actions = {
     get_list_users,
+    get_user,
     get__RoleDetail,
     change_RoleUser,
 };

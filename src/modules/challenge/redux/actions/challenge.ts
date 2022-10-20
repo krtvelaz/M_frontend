@@ -29,7 +29,6 @@ export const create_challenge = (values: IGeneralInformation) => {
     const img = values.cha_imagen_principal;
     const data: IGeneralInformation = {
         ...values,
-        cha_id_user: 1,
         cha_principal_image_path: '',
         cha_amount: values.cha_amount || 0,
         cha_name_image: values.cha_imagen_principal?.name || '',
@@ -73,7 +72,6 @@ export const create_challenge = (values: IGeneralInformation) => {
 export const update_challenge = (values: IGeneralInformation) => {
     const data: IGeneralInformation = {
         ...values,
-        cha_id_user: 1,
         cha_amount: values.cha_amount || 0,
         cha_name_image: values.cha_imagen_principal?.name || '',
     };

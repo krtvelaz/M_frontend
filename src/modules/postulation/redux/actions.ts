@@ -162,9 +162,7 @@ const get__documentDownload = (posarc_id: number) => {
                 params: {
                     id: posarc_id,
                 },
-                headers: {
-                    responseType: 'blob',
-                },
+                responseType: "arraybuffer" 
             });
             dispatch(download_success_Documents(res.data.data));
             return res.data;
