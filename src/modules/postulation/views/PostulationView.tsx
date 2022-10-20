@@ -20,7 +20,7 @@ const PostulationView = () => {
     const context = useContext(TemplateContext);
 
     let [active_key, postulation, steps, max, show_next, next_tab, goBack, execute_save, callback, setPostulation] =
-        useCreatePostulation('create');
+        useCreatePostulation('create', Number(id) || -1);
 
     const dispatch = useDispatch<any>();
     const { TabPane } = Tabs;

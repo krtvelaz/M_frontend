@@ -70,6 +70,8 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
                                         </span>
                                         <hr />
                                         {values.documents?.map((data: any, i: number) => {
+                                            console.log('aquiiii');
+                                            
                                             if (data.retdoc_tipo_formulario === 2) {
                                                 return (
                                                     <FormDocumentsPostulation
@@ -80,6 +82,8 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
                                                         i={i}
                                                     />
                                                 );
+                                            } else {
+                                                return <div className='my-3'>No hay documentos técnicos asociados al perfil seleccionado</div>
                                             }
                                         })}
                                         <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>
@@ -97,6 +101,8 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
                                                         i={i}
                                                     />
                                                 );
+                                            }else {
+                                                return <div className='my-3'>No hay documentos administrativos asociados al perfil seleccionado</div>
                                             }
                                         })}
                                     </>

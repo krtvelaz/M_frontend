@@ -1,11 +1,12 @@
 import { Field, Form, Formik,} from 'formik';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { IPostulation } from '../custom_types';
 import { ErrorMessage, Select } from '../../../utils/ui';
 import ModalAddress from '../../challenge/components/ModalAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
+import { useLocation } from 'react-router-dom';
 
 interface PostulationFormPros {
     id_challenge: string | number;
@@ -14,10 +15,26 @@ interface PostulationFormPros {
     onSubmit: (values: any, actions: any) => any;
 }
 const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge, innerRef, onSubmit }) => {
+    const location = useLocation();    
+    const [profiles, setProfiles] = useState<any>([]);
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeNumberContact = useSelector((store: any) => store.postulation.numberContact.value);
-    const typeProfile = useSelector((store: any) => store.postulation.profile.value);
-    const dispatch = useDispatch<any>();    
+    const typePorfile = useSelector((store: any) => store.postulation.profile.value);
+    const dispatch = useDispatch<any>(); 
+    
+    
+    useEffect(() => {
+        if (typePorfile) {
+            const profiles_list = location?.state?.challenge?.cha_profiles?.map((profile: any) => profile.id)
+            const arraysFilter: any = profiles_list?.map((profile: number) => {
+                const newProfiles = typePorfile.find((x: any) => profile === x.id);
+                return newProfiles;
+            });
+            setProfiles(arraysFilter);
+        } else {
+            setProfiles(typePorfile);
+        }
+    }, [typePorfile]);
 
     const initial_values = {
         name: '',
@@ -127,10 +144,9 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             id="document_type_id"
                                             name="document_type"
                                             className=""
-                                            options={typeDocumentsForm.map((docuemnt: any) => ({
-                                                id: `${docuemnt.id}`,
-                                                name:`${docuemnt.type} - ${docuemnt.name}`,
-                                            }))}
+                                            type_select='document'
+                                            dropdownMatchSelectWidth={false}
+                                            options={typeDocumentsForm?.map((document: any) => ({ id: document.id, name: `${document.type} - ${document.name}`, type: document.type }))}
                                             placeholder="C.C."
                                         />
                                         <ErrorMessage name="document_type" />
@@ -169,7 +185,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     id="type_profiles_id"
                                     name="type_profiles"
                                     className=""
-                                    options={typeProfile}
+                                    options={profiles}
                                     placeholder="Seleccione…"
                                 />
                                 <ErrorMessage name="type_profiles" />

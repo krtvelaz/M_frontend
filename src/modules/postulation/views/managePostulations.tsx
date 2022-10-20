@@ -23,12 +23,12 @@ const managePostulations = () => {
     });
 
     useEffect(() => {
-        dispatch(actions.get_list_postulation({ page: filters.page, per_page: filters.pageSize}));
+        dispatch(actions.get_list_postulation({ page: filters.page, page_size: filters.pageSize}));
     }, []);
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({ ...filters, page, pageSize: pageSize || 10 });
-        dispatch(actions.get_list_postulation({...filters, page: page, per_page: pageSize || 10}));
+        dispatch(actions.get_list_postulation({...filters, page: page, page_size: pageSize || 10}));
     };
 
     const OpenModal = () => {
@@ -42,7 +42,7 @@ const managePostulations = () => {
         {
             title: 'No.',
             fixed: 'left',
-            dataIndex: 'id_postulation',
+            dataIndex: 'id',
             align: 'center' as 'center',
             // render: (data: any, values: any, i: number) => {
             //     return i + 1;
@@ -51,26 +51,29 @@ const managePostulations = () => {
         {
             title: 'Conv.',
             fixed: 'left',
-            dataIndex: 'cha_announcement',
+            dataIndex: 'pos_challenge',
             align: 'left' as 'left',
+            render: (value: any) => {                
+                return value?.cha_announcement
+            }
             
         },
         {
             title: 'Nombre del reto',
-            dataIndex: 'cha_name',
+            dataIndex: 'pos_challenge',
             fixed: 'left',
             align: 'left' as 'left',
-            render: (value: string) => {
+            render: (value: any) => {
                 return (
-                    value &&
+                    value?.cha_name &&
                     (value.length > 65 ? (
-                        <Popover content={value}>
+                        <Popover content={value?.cha_name}>
                             <span style={{ cursor: 'pointer' }} className="popover-span">
-                                {`${value.substring(0, 64)}...`}
+                                {`${value?.cha_name.substring(0, 64)}...`}
                             </span>
                         </Popover>
                     ) : (
-                        value
+                        value?.cha_name
                     ))
                 );
             },
@@ -210,7 +213,7 @@ const managePostulations = () => {
         },
         {
             title: 'Acciones',
-            dataIndex: 'id_postulation',
+            dataIndex: 'id',
             fixed: 'right',
             children: [
                 {
@@ -224,7 +227,7 @@ const managePostulations = () => {
                             <ModalInfoPostulations
                                 state={data.pos_status}
                                 onSubmit={OpenModal}
-                                id={data.id_postulation}
+                                id={data.id}
                             />
                             // ))
                         );

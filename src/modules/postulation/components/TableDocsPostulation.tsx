@@ -148,17 +148,23 @@ const TableDocsPostulation: FC<TablePros> = ({ title, type }) => {
                 {title}
             </span>
             {type === 'tecnic' ? (
-                <Table
-                    columns={table_columns}
-                    items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 2)}
-                    with_pagination={false}
-                />
-            ) : (
+                postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 2).length > 0 ? (
+                    <Table
+                        columns={table_columns}
+                        items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 2)}
+                        with_pagination={false}
+                    />
+                ) : (
+                    <div className="m-3">No hay resultados...</div>
+                )
+            ) : postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 3).length > 0 ? (
                 <Table
                     columns={table_columns}
                     items={postulation?.documents_info?.filter((item: any) => item.rettipdoc_type_form === 3)}
                     with_pagination={false}
                 />
+            ) : (
+                <div className="m-3">No hay resultados...</div>
             )}
         </>
     );

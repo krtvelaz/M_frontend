@@ -19,7 +19,7 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
     const submit = async (values: any) => {
         setFilters({
             page: 1,
-            per_page: 10,
+            pageSize: 10,
             challenge_name: values.palabraClave,
             cha_announcement: values.convocatoriaSearch,
             status: values.estadoPos.toUpperCase(),
@@ -27,10 +27,10 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
         await dispatch(
             actions.get_list_postulation({
                 page: 1,
-                per_page: 10,
-                challenge_name: values.palabraClave,
+                page_size: 10,
+                cha_name: values.palabraClave,
                 cha_announcement: values.convocatoriaSearch,
-                status: values.estadoPos.toUpperCase(),
+                pos_status: values.estadoPos.toUpperCase(),
             })
         );
     };
@@ -120,7 +120,7 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                                             page: 1,
                                             per_page: 10,
                                         });
-                                        dispatch(actions.get_list_postulation({ page: 1, per_page: 10 }));
+                                        dispatch(actions.get_list_postulation({ page: 1, page_size: 10 }));
                                     }}
                                     className="btn me-3"
                                     style={{ color: '#1D98D1' }}

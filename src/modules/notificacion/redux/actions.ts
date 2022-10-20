@@ -1,5 +1,12 @@
 import { http } from '../../../config/axios_instances';
-import { notifications_list_default, notifications_list_fail, notifications_list_success } from './slice';
+import {
+    notifications_list_default,
+    notifications_list_fail,
+    notifications_list_success,
+    notification_default,
+    notification_fail,
+    notification_success,
+} from './slice';
 
 export const get_list_notifications = (filters?: {
     page: number;
@@ -17,12 +24,12 @@ export const get_list_notifications = (filters?: {
                     ...filters,
                 },
             });
-            
+
             const notifications = {
                 results: res.data.data,
-                pagination: res.data.meta
-            }
-            
+                pagination: res.data.meta,
+            };
+
             dispatch(notifications_list_success(notifications));
             return res.data.data;
         } catch (error) {
@@ -31,9 +38,32 @@ export const get_list_notifications = (filters?: {
         }
     };
 };
+export const status_notification = (id: number) => {
+    return async (dispatch: any) => {
+        dispatch(notification_default());
+        try {
+            const URI = '/notifications/read';
+            const res = await http.patch(
+                URI,
+                {},
+                {
+                    params: {
+                        id: id,
+                    },
+                }
+            );
+            dispatch(notification_success(res.data.data));
+            return res.data.data;
+        } catch (error) {
+            dispatch(notification_fail());
+            return Promise.reject(error);
+        }
+    };
+};
 
 const actions = {
-    get_list_notifications
+    get_list_notifications,
+    status_notification,
 };
 
 export default actions;

@@ -147,6 +147,7 @@ const CardDocsPostulation: FC<SelectProps> = ({
                             fontFamily: 'Montserrat-Bold',
                             ...(form.errors.documents && !field.value.docPostulation.name && { color: '#AD0808' }),
                         }}
+                        className='mb-3'
                     >
                         {field?.value?.retdoc_descripcion_documento}
                     </div>
@@ -156,9 +157,10 @@ const CardDocsPostulation: FC<SelectProps> = ({
                             fontFamily: 'Work-Sans-Regular',
                             marginTop: '6px',
                         }}
+                        className='my-3'
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus,
-                        at condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis.
+                        {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis gravida nibh quis lectus finibus,
+                        at condimentum enim pulvinar. Quisque vulputate bibendum libero quis venenatis. */}
                     </p>
                     <div
                         style={{

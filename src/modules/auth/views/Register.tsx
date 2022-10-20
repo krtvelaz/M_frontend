@@ -77,7 +77,11 @@ const Register = () => {
                             )}
                             <hr />
                             <div className="bg-white d-flex flex-row justify-content-between">
-                                <button type="button" className="btn-back me-4 " onClick={() => {}}>
+                                <button type="button" className="btn-back me-4 " onClick={() => {
+                                    navigate('../', { replace: true });
+                                    const landingScroll: any = document.getElementById('scroll-landing');
+                                    landingScroll.scrollTop = 0;
+                                }}>
                                     Atrás
                                 </button>
                                 <button

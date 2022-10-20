@@ -19,7 +19,7 @@ const WatchComponent: FC<Icons> = ({
         height="6.986"
         viewBox="0 0 12 6.986"
         onClick={on_click}
-        style={styles}
+        style={{cursor: 'pointer', ...styles }}
       >
         <g id="Grupo_12930" data-name="Grupo 12930">
           <path

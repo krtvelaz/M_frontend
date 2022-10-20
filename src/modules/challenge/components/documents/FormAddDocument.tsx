@@ -108,6 +108,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
             innerRef={innerRef}
         >
             {({ handleChange, values, setFieldValue, errors }) => {
+                
                 return (
                     <Form>
                         <div className="row">
@@ -219,7 +220,10 @@ const FormAddDocument: FC<DocsFormPros> = ({
                                     className="form-control"
                                     placeholder="Seleccionar…"
                                 />
+                                {errors?.chafil_plantilla && 
+                                
                                 <ErrorMessage name="chafil_plantilla.name" />
+                                }
                             </div>
                         </div>
                     </Form>

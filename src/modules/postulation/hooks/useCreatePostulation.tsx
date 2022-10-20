@@ -8,6 +8,7 @@ import { actions } from '../redux';
 
 export const useCreatePostulation = (
     type: 'create' | 'edit',
+    id_challenge: number,
     postulation_data?: any
 ): [string, any, any[], number, boolean, () => void, () => void, () => void, (key: string) => void, any] => {
     const navigate = useNavigate();
@@ -97,6 +98,9 @@ export const useCreatePostulation = (
                 try {
                     if (!postulation.applicant_data.id) {
                         const res = await dispatch(actions.create_main_postulation(values));
+                        console.log(res);
+                        console.log(values);
+
                         setPostulation((data: any) => ({
                             ...data,
                             applicant_data: {
@@ -105,7 +109,7 @@ export const useCreatePostulation = (
                                 number_document: res.pos_documentid,
                                 type_profiles: res.pos_id_type_competitor,
                                 email: res.pos_email,
-                                type_contact: values.type_contact,
+                                type_contact: values.pos_contact,
                                 number_contact: res.pos_number_contact,
                                 direction: res.pos_address,
                                 id: res.id,
@@ -149,31 +153,32 @@ export const useCreatePostulation = (
         },
         {
             ref: useRef<FormikProps<FormikValues>>(),
-            save: async (is_finish?: boolean) => {                
+            save: async (is_finish?: boolean) => {
                 set_is_saving(true);
                 await steps[2]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
-                
                 const new_values = {
-                    id_postulacion : postulation.applicant_data.id,
-                    to : postulation.applicant_data.email,
+                    id_postulacion: postulation.applicant_data.id,
+                    to: postulation.applicant_data.email,
                     subject: 'Alcaldia de medellin',
-                    attachment: []
-                }
-                
+                    attachment: [],
+                };
+
                 set_is_saving(false);
                 await dispatch(actions.generate_settled(new_values));
+                navigate(`../`, { replace: true });
+                const landingScroll: any = document.getElementById('scroll-landing');
+                landingScroll.scrollTop = 0;
             },
         },
     ];
     const limit = 3;
     const show_next = parseInt(active_key) < limit;
     const next_tab = () => {
-        
         const key = parseInt(active_key);
         const next = key + 1;
-        
+
         if (next <= limit) {
             callback(`${next}`);
         }
@@ -189,8 +194,6 @@ export const useCreatePostulation = (
     const callback = (key: string, prev = false) => {
         const int_key = parseInt(active_key);
         const save = steps[int_key - 1]?.save;
-        
-        
 
         if (prev) {
             set_is_saving(false);
@@ -206,7 +209,9 @@ export const useCreatePostulation = (
 
     const goBack = () => {
         if (active_key === '1') {
-            // navigate('../challenge/list', { replace: true });
+            navigate(`../detail-challenge/${id_challenge}`, { replace: true });
+            const landingScroll: any = document.getElementById('scroll-landing');
+            landingScroll.scrollTop = 0;
         } else {
             prev_tab();
         }
@@ -244,16 +249,5 @@ export const useCreatePostulation = (
         }
     }, [is_saving, go_next]);
 
-    return [
-        active_key,
-        postulation,
-        steps,
-        max,
-        show_next,
-        next_tab,
-        goBack,
-        execute_save,
-        callback,
-        setPostulation,
-    ];
+    return [active_key, postulation, steps, max, show_next, next_tab, goBack, execute_save, callback, setPostulation];
 };

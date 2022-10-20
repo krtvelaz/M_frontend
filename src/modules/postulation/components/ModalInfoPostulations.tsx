@@ -78,19 +78,22 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
                             margin: 0,
                             paddingLeft: '20px',
                         }}
+                        className='tab-postulation'
                     >
                         <TabPane tab="Información postulación" key="item-1">
                             <div
                                 style={{
                                     background: '#fff',
-                                    padding: '20px',
+                                    padding: '20px 20px 8px 20px',
                                     marginBottom: '10px',
                                     borderRadius: '0 0 10px 10px',
                                 }}
                             >
                                 <DetailGroupPostulation />
                             </div>
-                            <ComponetCard title="Datos generales del equipo">
+                            <ComponetCard title={
+                                <div style={{fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#000'}}>Datos generales del equipo</div>
+                            }>
                                 <DetailGeneralPostulation />
                             </ComponetCard>
                         </TabPane>
