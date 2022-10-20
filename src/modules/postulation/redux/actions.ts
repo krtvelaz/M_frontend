@@ -61,6 +61,7 @@ import {
 import { jsPDF } from 'jspdf';
 import fileDownload from 'js-file-download';
 import { successAlert } from '../../../utils/assets/img';
+import moment from 'moment';
 
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
@@ -496,7 +497,7 @@ const HtmlStringPdf = (generatePost: any) => {
     </tr>
     <tr>
         <td >Fecha</td>
-        <td>${generatePost?.infoSettled?.pos_updated_at}</td>
+        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format('DD/MM/YYYY')} - ${moment(generatePost?.infoSettled?.pos_updated_at).format('HH:mm:ss')}</td>
     </tr>
 </table>`;
 };
