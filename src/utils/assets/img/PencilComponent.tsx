@@ -15,7 +15,7 @@ const PencilComponent: FC<Icons> = ({ on_click, styles }) => {
             height="12"
             viewBox="0 0 12 12"
             onClick={on_click}
-            style={styles}
+            style={{cursor: 'pointer', ...styles }}
         >
             <g id="_001-editar" data-name="001-editar">
                 <path

@@ -79,7 +79,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             {challenge?.cha_total_days !== 0 && (
                 <button
                     onClick={() => {
-                        navigate(`../postulation/challenge/${challenge?.id}`);
+                        navigate(`../postulation/challenge/${challenge?.id}`, { state: { challenge: challenge } });
                     }}
                     type="button"
                     className="btn btn-landing-primary my-4"

@@ -51,6 +51,8 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
     });
 
     const submit = (values: any, form: any) => {
+        console.log("Valores: ", values);
+        
         onSubmit(values);
         if(type === 'create') {
             form.resetForm();
@@ -193,7 +195,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                         name="eve_limit_entry"
                                         id="eve_numero_cupos_id"
                                         min={0}
-                                        // max={10000}
+                                        max={10000}
                                         maxLength={7}
                                         placeholder="0"
                                     />

@@ -9,6 +9,8 @@ import ModalDetailGallery from '../components/ModalDetailGallery';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Skeleton } from 'antd';
 import ComponetLoading from '../../event/compenents/ComponetLoading';
+import moment from 'moment';
+import { formatDate } from '../../../utils';
 
 const DetailPublication = () => {
     const { id } = useParams();
@@ -65,7 +67,7 @@ const DetailPublication = () => {
                                     className={`text-white ${context.device === 'lg' ? 'my-5' : 'my-2'}`}
                                     style={{ position: 'relative' }}
                                 >
-                                    <div>Medellín 9 de junio de 2022</div>
+                                    <div>Medellín { formatDate(moment(publication?.pub_created_at).format('DD MMMM YYYY').toLowerCase()) }</div>
                                     <h2 className="text-white">{publication?.pub_title}</h2>
                                     <div style={{ fontSize: '16px' }}>
                                         Introducción a la noticia con texto descriptivo del contenido a consultar o leer

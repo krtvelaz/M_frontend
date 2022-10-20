@@ -139,7 +139,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                             if (toggle) toggle();
                                         }}
                                     >
-                                       {' '} Recuperala AQUÍ
+                                       {' '} Recupérala AQUÍ
                                     </a>
                                 </p>
                             </div>

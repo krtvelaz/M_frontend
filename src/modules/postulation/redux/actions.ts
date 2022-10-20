@@ -61,6 +61,7 @@ import {
 import { jsPDF } from 'jspdf';
 import fileDownload from 'js-file-download';
 import { successAlert } from '../../../utils/assets/img';
+import moment from 'moment';
 
 const create_main_postulation = (values: any) => {
     return async (dispatch: any) => {
@@ -176,15 +177,15 @@ const get__documentDownload = (posarc_id: number) => {
 
 const get_list_postulation = (filters?: {
     page: number;
-    per_page: number;
-    challenge_name?: string;
+    page_size: number;
+    cha_name?: string;
     cha_announcement?: number;
-    status?: string;
+    pos_status?: string;
 }) => {
     return async (dispatch: any) => {
         dispatch(postulations_list_default());
         try {
-            const URI = `postulations`;
+            const URI = `/postulations/list`;
 
             const res: any = await http.get(URI, {
                 params: {
@@ -479,7 +480,11 @@ const HtmlStringPdf = (generatePost: any) => {
         <td>${generatePost?.infoSettled?.pos_settled}</td>
     </tr>
     <tr>
-        <td >Convocatoria</td>
+        <td >Nombre del reto</td>
+        <td >${generatePost?.infoSettled?.cha_name}</td>
+    </tr>
+    <tr>
+        <td >Nombre o razón social</td>
         <td >${generatePost?.infoSettled?.pos_business_name}</td>
     </tr>
     <tr>
@@ -496,7 +501,7 @@ const HtmlStringPdf = (generatePost: any) => {
     </tr>
     <tr>
         <td >Fecha</td>
-        <td>${generatePost?.infoSettled?.pos_updated_at}</td>
+        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format('DD/MM/YYYY')}</td>
     </tr>
 </table>`;
 };
