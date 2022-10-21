@@ -23,11 +23,11 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
     };
 
     const schema = Yup.object().shape({
-        pubfil_title: Yup.string().required('Campo obligatorio'),
+        pubfil_title: Yup.string().trim().required('Campo obligatorio'),
         pubfil_image: Yup.object({
-            name: Yup.string().required('Campo obligatorio'),
+            name: Yup.string().trim().required('Campo obligatorio'),
         }).nullable(),
-        pubfil_description: Yup.string().required('Campo obligatorio'),
+        pubfil_description: Yup.string().trim().required('Campo obligatorio'),
     });
 
     const submit = async (values: any, actions: any) => {

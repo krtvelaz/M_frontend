@@ -75,7 +75,7 @@ const Homepage = () => {
                                 nuestros botines de noticias y eventos{' '}
                             </div>
                             <a className="text-center" href="" style={{ color: '#FFDC2F' }}>
-                                Al dar click en suscribirse ahora, acepte los términos y condiciones
+                                Al dar click en suscribirse ahora, aceptas los términos y condiciones
                             </a>
                         </div>
 

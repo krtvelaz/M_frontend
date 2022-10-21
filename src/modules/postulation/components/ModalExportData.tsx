@@ -14,8 +14,9 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
     const dispatch = useDispatch<any>();
     const form_ref = useRef<any>();
 
-    const submit = async (values: any) => {
+    const submit = async (values: any, form: any) => {
         await dispatch(actions.get__postulationReportDetail(values.convocatoria, values.estadoPostulacion));
+        form.resetForm();
         close();
     };
 

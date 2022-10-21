@@ -259,7 +259,7 @@ const managePostulations = () => {
 
                     <Card>
                         <Table
-                            title="Lista de retos"
+                            title="Lista de postulaciones"
                             columns={table_columns}
                             paginationTop
                             items={infoPosutlations}
