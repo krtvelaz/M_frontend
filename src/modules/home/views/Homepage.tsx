@@ -71,8 +71,8 @@ const Homepage = () => {
                         <div className="text-center">
                             <div className="text-white" style={{ fontSize: '16px' }}>
                                 {' '}
-                                <span style={{ fontSize: '16px', fontFamily: 'Montserrat-Bold' }}>Suscribase</span> a
-                                nuestros botines de noticias y eventos{' '}
+                                <span style={{ fontSize: '16px', fontFamily: 'Montserrat-Bold' }}>Suscríbete</span> a
+                                nuestros boletines de noticias y eventos{' '}
                             </div>
                             <a className="text-center" href="" style={{ color: '#FFDC2F' }}>
                                 Al dar click en suscribirse ahora, aceptas los términos y condiciones

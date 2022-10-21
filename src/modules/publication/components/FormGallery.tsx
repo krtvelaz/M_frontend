@@ -44,7 +44,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ values, handleChange }) => {
+            {({ values, handleChange,errors,touched  }) => {
                 return (
                     <Form>
                         <div className="row">
@@ -60,7 +60,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                     type="text"
                                     id="gal_imagen_id"
                                     name="pubfil_image"
-                                    className="form-control"
+                                    className="form-control" 
                                     placeholder="Seleccionar…"
                                 />
                                 <ErrorMessage name="pubfil_image.name" />
@@ -71,7 +71,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className="form-control"
+                                    className={`form-control ${(errors.pubfil_title && touched.pubfil_title) && 'error-input'}`}
                                     id="gal_titulo_id"
                                     name="pubfil_title"
                                     autoComplete="off"
@@ -88,7 +88,7 @@ const FormGallery: FC<GalleryPros> = ({ innerRef, onSubmit, gallery }) => {
                             </label>
                             <Field
                                 as="textarea"
-                                className="form-control"
+                                className={`form-control ${(errors.pubfil_description && touched.pubfil_description) && 'error-input'}`}
                                 id="gal_descripcion_id"
                                 name="pubfil_description"
                                 autoComplete="off"

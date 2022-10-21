@@ -61,7 +61,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
                                 </label>
                                 <Field
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${(errors.tes_title && touched.tes_title) && 'error-input'}`}
                                     id="tes_titulo_id"
                                     name="tes_title"
                                     autoComplete="off"
@@ -76,7 +76,7 @@ const FormTestimony: FC<TestimonyFormPros> = ({ innerRef, onSubmit, testimony, t
                                 </label>
                                 <Field
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${(errors.tes_description && touched.tes_description) && 'error-input'}`}
                                     id="tes_descripcion_id"
                                     name="tes_description"
                                     autoComplete="off"

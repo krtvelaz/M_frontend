@@ -52,7 +52,7 @@ const FormSuscribe = () => {
                                     name="email"
                                     autoComplete="off"
                                     maxLength={70}
-                                    placeholder="Digite su correo electrónico..."
+                                    placeholder="Digita tu correo electrónico..."
                                 />
                                 
                                 {message ? <span style={{color: `#FFF`}} className="form-error">{message}</span> : 
@@ -77,7 +77,7 @@ const FormSuscribe = () => {
                                             handleChange(e);
                                         }
                                     }}
-                                    placeholder="Digite su número de contacto..."
+                                    placeholder="Digita tu número de contacto..."
                                 />
                                 <ErrorMessage color="#FFF" name="number" withCount max={10} />
                             </div>
@@ -88,7 +88,7 @@ const FormSuscribe = () => {
                                     type="submit"
                                     className="btn btn-primary-suscribe "
                                 >
-                                    Suscribase ahora
+                                    Suscríbete ahora
                                 </button>
                             </div>
                         </div>

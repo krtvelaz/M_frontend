@@ -58,7 +58,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                     <Form>
                         <div className="container-inputs-login usuario-item-login mt-4">
                             <label htmlFor="user_id" className="form-label">
-                                Digite su usuario
+                                Digita tu usuario
                             </label>
                             <Field
                                 type="text"
@@ -82,7 +82,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                         </div>
                         <div className="container-inputs-login">
                             <label htmlFor="password_id" className="form-label">
-                                Digite su contraseña
+                                Digita tu contraseña
                             </label>
                             <div className="input-group ">
                                 <Field
@@ -116,7 +116,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                                 <label className="d-flex align-items-center fw-normal">
                                     {/* <Checkbox onChange={() => { }}>Recordar datos de acceso</Checkbox> */}
                                     <Field type="checkbox" name="remember" />
-                                    <span className="d-inline-block ms-1">Recordar datos de acceso</span>
+                                    <span className="d-inline-block ms-1">Recordar tus datos de acceso</span>
                                 </label>
                             </div>
                         </div>
@@ -131,7 +131,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                         <div className="row">
                             <div className="col-12 text-center mt-4">
                                 <p>
-                                    ¿Olvidó su contraseña?
+                                    ¿Olvidaste tu contraseña?
                                     <a
                                         style={{ font: 'Montserrat', color: '#41A0FF', fontWeight: '600' }}
                                         onClick={() => {

@@ -67,7 +67,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
             innerRef={innerRef}
         >
 
-            {({ values, handleChange }) => {
+            {({ values, handleChange,errors,touched  }) => {
                 return (
                     <Form>
                         <div className="row ">
@@ -78,7 +78,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 <Field
                                     as="textarea"
                                     style={{ height: "38px" }}
-                                    className="form-control"
+                                     className={`form-control ${(errors.eve_title && touched.eve_title) && 'error-input'}`}
                                     id="eve_titulo_id"
                                     name="eve_title"
                                     autoComplete="off"
@@ -94,7 +94,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 <Field
                                     as="textarea"
                                     style={{ height: "38px" }}
-                                    className="form-control"
+                                     className={`form-control ${(errors.eve_description && touched.eve_description) && 'error-input'}`}
                                     id="eve_descripcion_id"
                                     name="eve_description"
                                     autoComplete="off"
@@ -114,7 +114,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 <Field
                                     as="textarea"
                                     style={{ height: "38px" }}
-                                    className="form-control"
+                                     className={`form-control ${(errors.eve_place && touched.eve_place) && 'error-input'}`}
                                     id="eve_lugar_evento_id"
                                     name="eve_place"
                                     autoComplete="off"
@@ -129,6 +129,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                 </label>
                                 <Field
                                     component={DateInput}
+                                    className={`form-control ${(errors.eve_date && touched.eve_date) && 'error-input'}`}
                                     name="eve_date"
                                     id="eve_fecha_id"
                                 />
@@ -192,6 +193,7 @@ const FormEvent: FC<EventFormPros> = ({ innerRef, onSubmit, type, event }) => {
                                     </label>
                                     <Field
                                         component={Input}
+                                        className={`${(errors.eve_limit_entry && touched.eve_limit_entry) && 'error-input'}`}
                                         name="eve_limit_entry"
                                         id="eve_numero_cupos_id"
                                         min={0}

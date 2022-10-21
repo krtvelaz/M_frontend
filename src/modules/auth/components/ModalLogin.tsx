@@ -22,7 +22,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                             <div className="container-center text-center mb-4">
                                 <img className="image-logo-container-login" src={logoMedeinnLogin} />
                             </div>
-                            <h5 className="sub-header-login text-center mb-5">Ingrese sus datos para iniciar sesión</h5>
+                            <h5 className="sub-header-login text-center mb-5">Ingresa tus datos para iniciar sesión</h5>
                             <div className="form-login">
                                 <FormLogin toggle={toggle} />
                                 <div

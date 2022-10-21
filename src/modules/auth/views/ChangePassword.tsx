@@ -74,7 +74,7 @@ const ChangePassword = () => {
                                     }}
                                     disabled={loading}
                                 >
-                                    Restablecer contraseña
+                                    Restablece tu contraseña
                                     {loading && (
                                         <i
                                             className="fa fa-circle-o-notch fa-spin"
