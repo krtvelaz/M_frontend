@@ -53,7 +53,7 @@ const FormGeneral: FC<PublicationPros> = ({
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ values, handleChange }) => {
+      {({ values, handleChange,errors,touched }) => {
         return (
           <Form>
             <div className="row">
@@ -69,6 +69,7 @@ const FormGeneral: FC<PublicationPros> = ({
                   id="hec_id_tipo_publicacion_id"
                   name="pub_type"
                   component={Select}
+                  status={(errors?.pub_type && touched.pub_type) ? 'error' : 'success'}
                   options={[
                     {
                       name: "Noticia",
@@ -90,7 +91,7 @@ const FormGeneral: FC<PublicationPros> = ({
                 </label>
                 <Field
                   as="textarea"
-                  className="form-control"
+                  className={`form-control ${(errors.pub_title && touched.pub_title) && 'error-input'}`}
                   id="hec_titulo_id"
                   name="pub_title"
                   autoComplete="off"
@@ -108,7 +109,7 @@ const FormGeneral: FC<PublicationPros> = ({
                 </label>
                 <Field
                   as="textarea"
-                  className="form-control"
+                  className={`form-control ${(errors.pub_author && touched.pub_author) && 'error-input'}`}
                   id="hec_autor_id"
                   name="pub_author"
                   autoComplete="off"
@@ -147,6 +148,7 @@ const FormGeneral: FC<PublicationPros> = ({
                 component={RichText}
                 id="hec_descripcion_id"
                 name="pub_description"
+                className={`${(errors.pub_description && touched.pub_description) && 'error-input'}`}
                 autoComplete="off"
                 maxLength={3000}
                 style={{ height: "157px" }}

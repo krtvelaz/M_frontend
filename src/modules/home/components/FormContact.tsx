@@ -77,7 +77,7 @@ const FormContact = () => {
                                         name="email"
                                         autoComplete="off"
                                         maxLength={70}
-                                        placeholder="Ingrese su correo electrónico..."
+                                        placeholder="Ingresa tu correo electrónico..."
                                     />
                                     <ErrorMessage name="email" withCount max={70} />
                                 </div>
@@ -97,7 +97,7 @@ const FormContact = () => {
                                             name="content"
                                             autoComplete="off"
                                             maxLength={500}
-                                            placeholder="Escriba su mensaje y pronto estaremos en contacto"
+                                            placeholder="Escribe tu mensaje y pronto estaremos en contacto"
                                         />
                                         <ErrorMessage name="content" withCount max={500} />
                                     </div>

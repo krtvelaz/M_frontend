@@ -332,7 +332,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                             name="contact_number"
                                             className="form-control"
                                             autoComplete="off"
-                                            placeholder="No. Digite el número de contacto."
+                                            placeholder="No. Digita tu número de contacto."
                                             min={7}
                                             max={9999999999}
                                             onChange={(e: any) => {

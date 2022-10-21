@@ -52,14 +52,14 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                             <div className="col-12 col-md-4 col-lg-4">
                                 <label htmlFor="user_id" className="form-label">
                                     {/* Número de identificación */}
-                                    Digite su usuario
+                                    Digita tu usuario
                                 </label>
                                 <Field
                                     type="text"
                                     className="form-control"
                                     id="user_id"
                                     name="user"
-                                    placeholder="Ingrese su usuario, cédula o NIT"
+                                    placeholder="ingresa tu usuario, cédula o NIT"
                                     disabled={true}
                                     autoComplete="off"
                                     min={0}

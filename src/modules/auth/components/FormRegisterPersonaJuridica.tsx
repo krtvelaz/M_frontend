@@ -85,7 +85,7 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
                                     id="nit_id"
                                     className="form-control"
                                     autoComplete="off"
-                                    placeholder="No. Digite el número de NIT"
+                                    placeholder="No. Digita tu número de NIT"
                                     min={7}
                                     max={99999999999999}
                                     onChange={(e: any) => {
@@ -251,7 +251,7 @@ const FormRegisterPersonaJuridica: FC<RegisterFormPros> = ({ register_juridica, 
                                             name="number_contact"
                                             className="form-control"
                                             autoComplete="off"
-                                            placeholder="No. Digite el número de contacto."
+                                            placeholder="No. Digita tu número de contacto."
                                             min={7}
                                             max={9999999999}
                                             onChange={(e: any) => {

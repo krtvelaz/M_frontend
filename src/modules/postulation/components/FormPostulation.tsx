@@ -236,7 +236,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             name="number_contact"
                                             className="form-control"
                                             autoComplete="off"
-                                            placeholder="No. Digite el número de contacto."
+                                            placeholder="No. Digita tu número de contacto."
                                             min={7}
                                             max={9999999999}
                                             onChange={(e: any) => {

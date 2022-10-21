@@ -51,7 +51,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
       validationSchema={schema}
       innerRef={innerRef}
     >
-      {({ values, handleChange }) => {
+      {({ values, handleChange,errors,touched  }) => {
         return (
           <Form>
             <div className="row">
@@ -61,7 +61,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
                 </label>
                 <Field
                   type="text"
-                  className="form-control"
+                  className={`form-control ${(errors.ban_title && touched.ban_title) && 'error-input'}`}
                   id="car_titulo_id"
                   name="ban_title"
                   autoComplete="off"
@@ -75,7 +75,7 @@ const FormMainBanner: FC<BannerFormPros> = ({ innerRef, onSubmit, banner, type }
                 </label>
                 <Field
                   as="textarea"
-                  className="form-control"
+                  className={`form-control ${(errors.ban_description && touched.ban_description) && 'error-input'}`}
                   id="car_descripcion_id"
                   name="ban_description"
                   autoComplete="off"

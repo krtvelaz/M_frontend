@@ -35,17 +35,17 @@ const RecoverPassword = () => {
                             style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold' }}
                             className="mt-5 ms-5 text-white"
                         >
-                            ¿Olvido su contraseña?
+                            ¿Olvidaste tu contraseña?
                         </div>
                     </div>
 
                     <Card actions={[]}>
                         <div className="row px-5">
                             <div className="" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
-                                Completa los campos para iniciar el proceso de recuperación de su contraseña
+                                Completa los campos para iniciar el proceso de recuperación de tu contraseña
                             </div>
                             <div className="mt-3" style={{ fontSize: '17px' }}>
-                                Ingrese sus datos
+                                Ingresa tus datos
                             </div>
                             <hr style={{ border: '1px solid #FF8403' }} />
 
@@ -60,7 +60,7 @@ const RecoverPassword = () => {
                                     }}
                                     disabled={loading}
                                 >
-                                    Restablecer contraseña
+                                    Restablece tu contraseña
                                     {loading && (
                                         <i
                                             className="fa fa-circle-o-notch fa-spin"

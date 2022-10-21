@@ -35,7 +35,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ values, handleChange }) => {
+            {({ values, handleChange,errors,touched  }) => {
                 return (
                     <Form>
                         <div className="row ">
@@ -45,7 +45,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
                                 </label>
                                 <Field
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${(errors.sta_value && touched.sta_value) && 'error-input'}`}
                                     id="est_numero_reto_id"
                                     name="sta_value"
                                     autoComplete="off"
@@ -70,7 +70,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
                                 <Field
                                     as="textarea"
                                     style={{ height: '38px' }}
-                                    className="form-control"
+                                    className={`form-control ${(errors.sta_description && touched.sta_description) && 'error-input'}`}
                                     id="sta_description_id"
                                     name="sta_description"
                                     autoComplete="off"

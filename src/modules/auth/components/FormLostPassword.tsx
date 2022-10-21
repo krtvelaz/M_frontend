@@ -37,14 +37,14 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                         <div className="row ">
                             <div className="col-6">
                                 <label htmlFor="user_id" className="form-label label-landing">
-                                    Digite su usuario
+                                    Digita tu usuario
                                 </label>
                                 <Field
                                     type="text"
                                     className="form-control"
                                     id="user_id"
                                     name="document"
-                                    placeholder="Ingrese su usuario, cédula o NIT"
+                                    placeholder="ingresa tu usuario, cédula o NIT"
                                     // disabled={disabled}
                                     autoComplete="off"
                                     min={0}
