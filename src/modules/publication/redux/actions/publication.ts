@@ -125,6 +125,7 @@ export const edit_publication = (values: IGeneralInfo) => {
         delete data.id;
 
         if (!values?.pub_imagen?.id) {
+            console.log("Imagen: ", values?.pub_imagen);
             form.append('image', values?.pub_imagen);
         }
         delete data.pub_imagen;

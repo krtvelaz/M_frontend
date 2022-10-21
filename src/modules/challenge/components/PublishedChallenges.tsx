@@ -41,15 +41,13 @@ const PublishedChallenges = () => {
         <div className="row">
             <div className="col-12 col-md-12 col-lg-5" style={{ marginTop: '55px', position: 'relative' }}>
                 <span style={{ fontSize: '16px' }}>
-                    Solucionar e idear
+                    Soluciona retos de innovación
                     <br />
                     <span className="text-stake">Convocatoria abierta</span>
                 </span>
                 <br />
                 <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam provident voluptatem ipsum odit
-                    modi ducimus reprehenderit illo, adipisci neque tenetur iusto in quod quas sed ut aliquam recusandae
-                    illum beatae!
+                    Conecta con los retos del territorio y mejora la calidad de vida de los habitantes de la ciudad a través de la tecnología.
                 </p>
             </div>
             <div className="col-12 col-md-12 col-lg-7">

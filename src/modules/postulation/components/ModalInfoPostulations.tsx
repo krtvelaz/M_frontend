@@ -17,7 +17,7 @@ interface ModalInfoPostulations {
 }
 
 const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state }) => {
-    
+
     const dispatch = useDispatch<any>();
     const form_ref = useRef<any>();
     const [revisate, setRevisate] = useState<boolean>(false);
@@ -33,24 +33,27 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
         await dispatch(actions.get__RevisatePostulationInfoDetail(id, set_is_visible));
     };
 
-    const open = async () =>  {
+    const open = async () => {
         await dispatch(actions.get__postulationInfoDetail(id));
         set_is_visible(true);
 
     }
     const close = () => set_is_visible(false);
 
-  
+
     return (
         <>
-            <div
-                style={state === 'SIN FINALIZAR' ? { color: '#F2F2F2' } : {}}
-                onClick={open}
-                className="button-assign-rol"
-            >
-                ver detalles
-            </div>
-
+            {
+                state !== 'Sin finalizar' ?
+                    <div
+                        onClick={open}
+                        className="button-assign-rol"
+                    >
+                        Ver detalles
+                    </div>
+                    :
+                    <div></div>
+            }
             <div>
                 <Modal
                     className="modal-roles"
@@ -92,13 +95,13 @@ const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state 
                                 <DetailGroupPostulation />
                             </div>
                             <ComponetCard title={
-                                <div style={{fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#000'}}>Datos generales del equipo</div>
+                                <div style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '14px', color: '#000' }}>Datos generales del equipo</div>
                             }>
                                 <DetailGeneralPostulation />
                             </ComponetCard>
                         </TabPane>
                         <TabPane tab="Miembros del equipo" key="item-2">
-                            <TableInfoPostulation  />
+                            <TableInfoPostulation />
                         </TabPane>
                         <TabPane tab="Documentos asociados" key="item-3">
                             <div
