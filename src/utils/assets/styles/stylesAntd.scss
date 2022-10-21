@@ -381,12 +381,12 @@ textarea.form-control {
     border-bottom: 0.2px solid #e2e2e2;
 }
 
-.ant-menu-vertical .ant-menu-item:hover {
+.ant-menu-vertical .ant-menu-item:hover:enabled  {
     background-color: #1d98d1 !important;
     color: #fff;
 }
 
-.ant-menu-vertical .ant-menu-item:hover .ant-menu-submenu-arrow {
+.ant-menu-vertical .ant-menu-item:hover .ant-menu-submenu-arrow:enabled {
     color: #fff;
 }
 

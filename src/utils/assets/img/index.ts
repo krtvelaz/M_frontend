@@ -7,6 +7,7 @@ export { default as calendar } from './calendar.svg';
 export { default as inputCalendar } from './input-calendar.svg';
 export { default as inputTime } from './input-time.svg';
 export { default as trash } from './trash.svg';
+export { default as trashDisabled } from './trashDisabled.svg';
 export { default as arrowMenu } from './arrowMenu.svg';
 export { default as logoMedeinn } from './logoMedeinn.svg';
 export { default as logoMedeinnLogin } from './LogoMedeinnLogin.svg';

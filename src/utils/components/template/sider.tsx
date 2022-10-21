@@ -4,9 +4,16 @@ import Menu from 'antd/lib/menu';
 import logoAlcaldia from '../../../utils/assets/img/logoAlcaldia.svg';
 import { useNavigate } from 'react-router-dom';
 import { logoMedeinnWhite } from '../../assets/img';
+import { guards } from '../../../modules/home/routes';
+import { useSelector } from 'react-redux';
 
 const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }) => {
     const context = useContext(TemplateContext);
+    const user = useSelector((store: any) => store?.auth?.user?.value);
+    const aux_user = {
+        ...user,
+    };
+
     const navigate = useNavigate();
 
     let retos = [
@@ -100,6 +107,9 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                         </div>
                     </div>
                 ),
+                ...(!guards.login_superAdmin({ user: aux_user }) && {
+                    disabled: true,
+                }),
             path: '/list/users',
         },
         {
@@ -109,9 +119,14 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 ) : (
                     <div>
                         <div style={{ paddingLeft: '35px' }}>Retos</div>
-                        <i className="ant-menu-submenu-arrow" />
+                        <i style={ !guards.login_guest({ user: aux_user }) ? {color: 'rgba(0, 0, 0, 0.25)'} : {} } className="ant-menu-submenu-arrow" />
                     </div>
                 ),
+
+            ...(!guards.login_guest({ user: aux_user }) && {
+                disabled: true,
+            }),
+
             ...(context.device === 'sm' ? { children: retos } : { menu: retos }),
         },
         {
@@ -121,9 +136,12 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 ) : (
                     <div>
                         <div style={{ paddingLeft: '35px' }}>Publicaciones</div>
-                        <i className="ant-menu-submenu-arrow" />
+                        <i style={ !guards.login_admin({ user: aux_user }) ? {color: 'rgba(0, 0, 0, 0.25)'} : {} } className="ant-menu-submenu-arrow" />
                     </div>
                 ),
+                ...(!guards.login_admin({ user: aux_user }) && {
+                    disabled: true,
+                }),
             ...(context.device === 'sm' ? { children: publicaciones } : { menu: publicaciones }),
         },
         {
@@ -133,9 +151,12 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 ) : (
                     <div>
                         <div style={{ paddingLeft: '35px' }}>Landing page</div>
-                        <i className="ant-menu-submenu-arrow" />
+                        <i style={ !guards.login_admin({ user: aux_user }) ? {color: 'rgba(0, 0, 0, 0.25)'} : {} } className="ant-menu-submenu-arrow" />
                     </div>
                 ),
+                ...(!guards.login_admin({ user: aux_user }) && {
+                    disabled: true,
+                }),
             ...(context.device === 'sm' ? { children: landingPage } : { menu: landingPage }),
         },
 
@@ -146,9 +167,12 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 ) : (
                     <div>
                         <div style={{ paddingLeft: '35px' }}>Eventos</div>
-                        <i className="ant-menu-submenu-arrow" />
+                        <i style={ !guards.login_admin({ user: aux_user }) ? {color: 'rgba(0, 0, 0, 0.25)'} : {} }  className="ant-menu-submenu-arrow" />
                     </div>
                 ),
+                ...(!guards.login_admin({ user: aux_user }) && {
+                    disabled: true,
+                }),
             ...(context.device === 'sm' ? { children: eventos } : { menu: eventos }),
         },
         {
@@ -158,9 +182,13 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 ) : (
                     <div>
                         <div style={{ paddingLeft: '35px' }}>Postulaciones</div>
-                        <i className="ant-menu-submenu-arrow" />
+                        <i  style={ !guards.login_superAdmin({ user: aux_user }) ? {color: 'rgba(0, 0, 0, 0.25)'} : {} }
+                           className="ant-menu-submenu-arrow" />
                     </div>
                 ),
+                ...(!guards.login_superAdmin({ user: aux_user }) && {
+                    disabled: true,
+                }),
             ...(context.device === 'sm' ? { children: postulaciones } : { menu: postulaciones }),
         },
     ];

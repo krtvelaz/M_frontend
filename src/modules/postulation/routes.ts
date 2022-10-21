@@ -12,7 +12,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access: guards.login_admin,
+            can_access: guards.login_superAdmin,
             format: true,
             path: '/list/postulations',
             template_props: {

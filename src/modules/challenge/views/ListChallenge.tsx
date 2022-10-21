@@ -1,13 +1,19 @@
 import { Popover, Radio } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { trash } from '../../../utils/assets/img';
+import { trash, trashDisabled } from '../../../utils/assets/img';
 import { Card, Link, swal_error, Table } from '../../../utils/ui';
 import { actions } from '../redux';
 import moment from 'moment';
 import PencilComponent from '../../../utils/assets/img/PencilComponent';
+import { guards } from '../../home/routes';
 
 const ListChallenge = () => {
+    const user = useSelector((store: any) => store?.auth?.user?.value);
+    const aux_user = {
+        ...user,
+    };
+
     const [filters, setFilters] = useState({
         page: 1,
         pageSize: 10,
@@ -15,7 +21,7 @@ const ListChallenge = () => {
 
     const change_page = (page: number, pageSize?: number) => {
         setFilters({ page, pageSize: pageSize || 10 });
-        dispatch(actions.get_list_challenges({page, page_size: pageSize}));
+        dispatch(actions.get_list_challenges({ page, page_size: pageSize }));
     };
 
     const table_columns: any = [
@@ -82,10 +88,10 @@ const ListChallenge = () => {
                     //     });
                     //     return;
                     // }
-                    if(
+                    if (
                         value.cha_status !== 2 &&
                         value.cha_status !== 3 &&
-                        value.cha_status !== 5 
+                        value.cha_status !== 5
                         // value.cha_status !== 'Postulado'
                     ) {
                         swal_error.fire({
@@ -104,11 +110,15 @@ const ListChallenge = () => {
                     } else {
                         await dispatch(actions.unpublish_challenge(value.id));
                     }
-                    await dispatch(actions.get_list_challenges({page: filters.page, page_size: filters.pageSize}));
+                    await dispatch(actions.get_list_challenges({ page: filters.page, page_size: filters.pageSize }));
                 };
 
                 return (
-                    <Radio.Group onChange={onChange} value={value.cha_status === 5 ? true : false}>
+                    <Radio.Group
+                        disabled={!guards.login_admin({ user: aux_user })}
+                        onChange={onChange}
+                        value={value.cha_status === 5 ? true : false}
+                    >
                         <Radio value={true}>Si</Radio>
                         <Radio value={false}>No</Radio>
                     </Radio.Group>
@@ -137,16 +147,32 @@ const ListChallenge = () => {
             children: [
                 {
                     title: <span style={{ fontSize: '9px' }}>Editar</span>,
-                    dataIndex: 'id',
+
                     fixed: 'right',
                     align: 'center' as 'center',
-                    render: (id: string) => {
+                    render: (data: any) => {
                         return (
                             <Link
-                                to={`/challenge/edit/${id}/`}
+                                to={
+                                    guards.user_guest({ user: aux_user }) &&
+                                    (Number(aux_user?.detail_user?.use_id) !== data?.cha_id_user ||
+                                        data.cha_status === 5)
+                                        ? '#'
+                                        : `/challenge/edit/${data?.id}/`
+                                }
                                 name=""
                                 avatar={false}
-                                icon={<PencilComponent />}
+                                icon={
+                                    <PencilComponent
+                                        styles={
+                                            guards.user_guest({ user: aux_user }) &&
+                                            (Number(aux_user?.detail_user?.use_id) !== data?.cha_id_user ||
+                                                data.cha_status === 5)
+                                                ? { fill: '#CFCFCF', cursor: 'not-allowed' }
+                                                : {}
+                                        }
+                                    />
+                                }
                             />
                         );
                     },
@@ -154,16 +180,33 @@ const ListChallenge = () => {
                 {
                     title: <span style={{ fontSize: '9px' }}>Eliminar</span>,
                     fixed: 'right',
-                    dataIndex: 'id',
                     align: 'center' as 'center',
-                    render: (id: number) => {
+                    render: (data: any) => {
                         return (
                             <img
-                                src={trash}
+                                src={
+                                    guards.user_guest({ user: aux_user }) &&
+                                    (Number(aux_user?.detail_user?.use_id) !== data?.cha_id_user ||
+                                        data.cha_status === 5)
+                                        ? trashDisabled
+                                        : trash
+                                }
                                 className="img-fluid"
                                 alt=""
-                                style={{ cursor: 'pointer' }}
+                                style={
+                                    Number(aux_user?.detail_user?.use_id) !== data?.cha_id_user &&
+                                    guards.user_guest({ user: aux_user })
+                                        ? { cursor: 'not-allowed' }
+                                        : { cursor: 'pointer' }
+                                }
                                 onClick={async () => {
+                                    if (
+                                        guards.user_guest({ user: aux_user }) &&
+                                        (Number(aux_user?.detail_user?.use_id) !== data?.cha_id_user ||
+                                            data.cha_status === 5)
+                                    ) {
+                                        return;
+                                    }
                                     const result = await swal_error.fire({
                                         title: 'Eliminar elemento',
                                         html:
@@ -175,7 +218,7 @@ const ListChallenge = () => {
                                         denyButtonText: `Cancelar`,
                                     });
                                     if (result.isConfirmed) {
-                                        await dispatch(actions.delete_challenge(id));
+                                        await dispatch(actions.delete_challenge(data?.id));
                                         await dispatch(actions.get_list_challenges());
                                     }
                                 }}
@@ -193,7 +236,7 @@ const ListChallenge = () => {
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
 
     useEffect(() => {
-        dispatch(actions.get_list_challenges({page: 1, page_size:10}));
+        dispatch(actions.get_list_challenges({ page: 1, page_size: 10 }));
     }, []);
 
     return (

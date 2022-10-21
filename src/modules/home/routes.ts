@@ -6,11 +6,17 @@ import Home from './views/Home';
 import Homepage from './views/Homepage';
 
 export const guards = {
+    login_superAdmin: (props?: any) => {                
+        return props?.user?.detail_user?.use_role?.id === 1;
+    },
     login_admin: (props?: any) => {                
         return props?.user?.detail_user?.use_role?.id === 1 || props?.user?.detail_user?.use_role?.id === 2;
     },
     login_guest: (props?: any) => {                
         return props?.user?.detail_user?.use_role?.id === 1 || props?.user?.detail_user?.use_role?.id === 2 || props?.user?.detail_user?.use_role?.id === 3;
+    },
+    user_guest: (props?: any) => {                
+        return props?.user?.detail_user?.use_role?.id === 3;
     },
     login_citizen: (props?: any) => {                
         return props?.user?.detail_user?.use_role?.id === 4 ;

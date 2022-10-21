@@ -42,7 +42,7 @@ const managePostulations = () => {
         {
             title: 'No.',
             fixed: 'left',
-            dataIndex: 'id',
+            dataIndex: 'id_postulation',
             align: 'center' as 'center',
             // render: (data: any, values: any, i: number) => {
             //     return i + 1;
@@ -51,32 +51,32 @@ const managePostulations = () => {
         {
             title: 'Conv.',
             fixed: 'left',
-            dataIndex: 'pos_challenge',
+            dataIndex: 'cha_announcement',
             align: 'left' as 'left',
-            render: (value: any) => {                
-                return value?.cha_announcement
-            }
+            // render: (value: any) => {                
+            //     return value?.cha_announcement
+            // }
             
         },
         {
             title: 'Nombre del reto',
-            dataIndex: 'pos_challenge',
+            dataIndex: 'cha_name',
             fixed: 'left',
             align: 'left' as 'left',
-            render: (value: any) => {
-                return (
-                    value?.cha_name &&
-                    (value.length > 65 ? (
-                        <Popover content={value?.cha_name}>
-                            <span style={{ cursor: 'pointer' }} className="popover-span">
-                                {`${value?.cha_name.substring(0, 64)}...`}
-                            </span>
-                        </Popover>
-                    ) : (
-                        value?.cha_name
-                    ))
-                );
-            },
+            // render: (value: any) => {
+            //     return (
+            //         value?.cha_name &&
+            //         (value.length > 65 ? (
+            //             <Popover content={value?.cha_name}>
+            //                 <span style={{ cursor: 'pointer' }} className="popover-span">
+            //                     {`${value?.cha_name.substring(0, 64)}...`}
+            //                 </span>
+            //             </Popover>
+            //         ) : (
+            //             value?.cha_name
+            //         ))
+            //     );
+            // },
         },
         {
             title: 'Estado',
@@ -227,7 +227,7 @@ const managePostulations = () => {
                             <ModalInfoPostulations
                                 state={data.pos_status}
                                 onSubmit={OpenModal}
-                                id={data.id}
+                                id={data.id_postulation}
                             />
                             // ))
                         );

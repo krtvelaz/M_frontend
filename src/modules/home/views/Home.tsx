@@ -19,10 +19,10 @@ const Home = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <h4>Bienvenido(a) al sistema de administración de Medeinn</h4>
+                            <h4>Bienvenido(a) al sistema de administración de medeinn</h4>
                             <p className="mb-5">
-                                Desde aquí podrás elegir los módulos para gestionar el contenido del portal MedeInn
-                                Laboratorio de innovación.
+                                Desde aquí podrás elegir los módulos para gestionar el contenido del portal medeinn
+                                laboratorio de innovación.
                             </p>
                         </div>
                     </div>
