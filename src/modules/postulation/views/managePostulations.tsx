@@ -217,7 +217,7 @@ const managePostulations = () => {
             fixed: 'right',
             children: [
                 {
-                    title: <span style={{ fontSize: '9px' }}>Editar</span>,
+                    title: <span style={{ fontSize: '9px' }}></span>,
                     fixed: 'right',
                     align: 'center' as 'center',
                     render: (data: any) => {
@@ -259,7 +259,7 @@ const managePostulations = () => {
 
                     <Card>
                         <Table
-                            title="Lista de retos"
+                            title="Lista de postulaciones"
                             columns={table_columns}
                             paginationTop
                             items={infoPosutlations}

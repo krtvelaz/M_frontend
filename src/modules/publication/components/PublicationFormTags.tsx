@@ -81,10 +81,21 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                         Atrás
                     </button>
                     <div className="flex-fill" />
+                    {(publication.general_information.id || type === 'edit') && show_next && (
+                        <button
+                            type="button"
+                            className={show_next ? "btn btn-outline-primary me-3" : "btn btn-primary me-3"}
+                            onClick={async() => {
+                                next_tab(true);
+                            }}
+                        >
+                            Continuar
+                        </button>
+                    )}
                     {show_next && (
                         <button
                             type="button"
-                            className="btn btn-outline-primary me-3"
+                            className="btn btn-primary me-3"
                             onClick={() => {next_tab(false)}}
                             disabled={loading}
                         >
@@ -95,17 +106,6 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                                     style={{ fontSize: 12, marginLeft: 10, color: '#1D98D1' }}
                                 />
                             )}
-                        </button>
-                    )}
-                    {(publication.general_information.id || type === 'edit') && show_next && (
-                        <button
-                            type="button"
-                            className="btn btn-primary me-3"
-                            onClick={async() => {
-                                next_tab(true);
-                            }}
-                        >
-                            Continuar
                         </button>
                     )}
                     {!show_next && (

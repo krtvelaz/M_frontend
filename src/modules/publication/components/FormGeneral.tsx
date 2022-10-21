@@ -30,13 +30,13 @@ const FormGeneral: FC<PublicationPros> = ({
 
 
   const schema = Yup.object().shape({
-    pub_type: Yup.string().required("Campo Obligatorio"),
-    pub_title: Yup.string().required("Campo obligatorio"),
-    pub_author: Yup.string().required("Campo obligatorio"),
+    pub_type: Yup.string().trim().required("Campo Obligatorio"),
+    pub_title: Yup.string().trim().required("Campo obligatorio"),
+    pub_author: Yup.string().trim().required("Campo obligatorio"),
     pub_imagen: Yup.object({
-      name: Yup.string().required("Campo obligatorio"),
+      name: Yup.string().trim().required("Campo obligatorio"),
     }).nullable(),
-    pub_description: Yup.string().required("Campo obligatorio"),
+    pub_description: Yup.string().trim().required("Campo obligatorio"),
   });
 
   const submit = async (values: any, actions: any) => {
@@ -63,8 +63,8 @@ const FormGeneral: FC<PublicationPros> = ({
                   htmlFor="hec_id_tipo_publicacion_id"
                   className="form-label"
                 >
-                  Tipo de publicación
-                </label>
+                  Tipo de publicación 
+                </label> 
                 <Field
                   id="hec_id_tipo_publicacion_id"
                   name="pub_type"

@@ -53,7 +53,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             <ol className="my-4" style={{ position: 'relative', zIndex: 100 }}>
                 {challenge?.cha_documents?.map(
                     (document: any, index: number) =>
-                        document.chafil_nombre_plantilla && (
+                        (document.chafil_id_tipo_documento === 1 || document.chafil_id_tipo_documento === 2 || document.chafil_id_tipo_documento === 3) && document.chafil_nombre_plantilla && (
                             <li
                                 style={{ cursor: 'pointer' }}
                                 className="list-documents-general-detail"
@@ -122,7 +122,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 <span>Este reto no tiene informes</span>
             )}
 
-            <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} />
+            <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} download={true} />
         </div>
     );
 };
