@@ -217,7 +217,7 @@ const managePostulations = () => {
             fixed: 'right',
             children: [
                 {
-                    title: <span style={{ fontSize: '9px' }}>Editar</span>,
+                    title: <span style={{ fontSize: '9px' }}></span>,
                     fixed: 'right',
                     align: 'center' as 'center',
                     render: (data: any) => {

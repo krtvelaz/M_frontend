@@ -55,14 +55,14 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                                     marginBottom: 0,
                                 }}
                             >
-                                <TabPane tab="Información general" key="1">
+                                <TabPane tab="Información general" key="1" disabled>
                                     <GeneralInformation
                                         innerRef={steps[0].ref}
                                         onSubmit={steps[0].onSave}
                                         publication={publication}
                                     />
                                 </TabPane>
-                                <TabPane tab="Agregar Galería" key="2" disabled={max < 1}>
+                                <TabPane tab="Agregar Galería" key="2" disabled>
                                     <AddGallery
                                         images={publication.gallery}
                                         setImages={setPublication}
