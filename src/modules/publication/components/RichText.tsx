@@ -53,6 +53,8 @@ const RichText: FC<Props> = ({
 
     return (
         <ReactQuill
+        // readOnly
+        // readonly={true}
             ref={(el) => {
                 reactQuillRef = el;
             }}

@@ -39,7 +39,7 @@ const DetailPublication = () => {
         <div style={{ position: 'relative', paddingBottom: '50px', overflow: 'hidden' }}>
             {!loading ? (
                 <>
-                    <div className="container-img-principal">
+                    <div className="container-img-publication-principal">
                         <img
                             src={
                                 publication?.pub_image_buffer?.data &&
@@ -67,7 +67,7 @@ const DetailPublication = () => {
                                     className={`text-white ${context.device === 'lg' ? 'my-5' : 'my-2'}`}
                                     style={{ position: 'relative' }}
                                 >
-                                    <div>Medellín { formatDate(moment(publication?.pub_created_at).format('DD MMMM YYYY').toLowerCase()) }</div>
+                                    <div className="mt-5">Medellín { formatDate(moment(publication?.pub_created_at).format('DD MMMM YYYY').toLowerCase()) }</div>
                                     <h2 className="text-white">{publication?.pub_title}</h2>
                                     <div style={{ fontSize: '16px' }}>
                                         Introducción a la noticia con texto descriptivo del contenido a consultar o leer
