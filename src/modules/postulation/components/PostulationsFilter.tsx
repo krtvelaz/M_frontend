@@ -12,7 +12,9 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
         palabraClave: '',
         convocatoriaSearch: '',
         estadoPos: '',
+        cha_announcement: ''
     };
+    
     const form_ref = useRef<any>();
     const dispatch = useDispatch<any>();
 

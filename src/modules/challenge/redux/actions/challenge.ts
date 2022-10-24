@@ -1,5 +1,5 @@
 import { http } from '../../../../config/axios_instances';
-import { swal_success } from '../../../../utils/ui/swalAlert';
+import { swal_error, swal_success } from '../../../../utils/ui/swalAlert';
 import { IGeneralInformation } from '../../custom_types';
 import {
     fail_challenge,
@@ -122,8 +122,16 @@ export const update_challenge = (values: IGeneralInformation) => {
                 confirmButtonText: 'Aceptar',
             });
             return res.data;
-        } catch (error) {
+        } catch (error: any) {
             dispatch(fail_challenge());
+            await swal_error.fire({
+                title: 'Error en el proceso',
+                html:
+                    `<div class="mysubtitle">${error?.response?.data?.message}</div>` +
+                    '<div class="mytext">¡De click en aceptar para continuar!</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
             return Promise.reject('Error');
         }
     };

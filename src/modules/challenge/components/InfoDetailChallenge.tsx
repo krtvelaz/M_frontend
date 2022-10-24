@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';
 import { LogoPDF } from '../../../utils/assets/img';
 import { useNavigate } from 'react-router-dom';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 interface DetailChallenge {
     challenge: any;
@@ -14,6 +15,8 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const dispatch = useDispatch<any>();
     const [is_visibleDoc, set_is_visible_doc] = useState<boolean>(false);
     const navigate = useNavigate();
+    const user = useSelector((store: any) => store?.auth?.user?.value);
+    const context = useContext(TemplateContext);
     const [url, setUrl] = useState<string>('');
 
     return (
@@ -79,6 +82,10 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             {challenge?.cha_total_days !== 0 && (
                 <button
                     onClick={() => {
+                        if (!user) {
+                            context.toggle_login_modal();
+                            return;
+                        }
                         navigate(`../postulation/challenge/${challenge?.id}`, { state: { challenge: challenge } });
                     }}
                     type="button"

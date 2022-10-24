@@ -180,7 +180,7 @@ const get_list_postulation = (filters?: {
     cha_announcement?: number;
     pos_status?: string;
 }) => {
-    return async (dispatch: any) => {
+    return async (dispatch: any) => {    
         dispatch(postulations_list_default());
         try {
             const URI = `/postulations/list`;

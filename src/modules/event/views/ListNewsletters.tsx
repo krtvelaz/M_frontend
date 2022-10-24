@@ -41,9 +41,9 @@ const ListNewsletters = () => {
             fixed: 'left',
             dataIndex: 'id',
             align: 'center' as 'center',
-            // render: (data: IEvent, values: any, i: number) => {
-            //     return i + 1;
-            // },
+            render: (data: IEvent, values: any, i: number) => {
+                return filters.page === 1 ? i + 1 : (i + 1) + ((filters.page - 1) * 10);
+            },
         },
         {
             title: 'Correo electrónico',
