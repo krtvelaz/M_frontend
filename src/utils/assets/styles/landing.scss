@@ -215,7 +215,7 @@ img {
 }
 
 .height-carousel {
-    height: 500px;
+    height: 700px;
 }
 
 /***** inclusion participación *****/
@@ -327,31 +327,31 @@ img {
 }
 
 .imagen-fondo {
-    left: 580px;
-    top: -128px;
+    left: 46%;
+    top: -5%;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 300%;
+    max-width: 3500px;
     z-index: 0;
     overflow: hidden;
 }
 
-@media (min-width: 1600px) {
-    .imagen-fondo {
-        left: 820px;
-        max-width: 250%;
-        top: -200px;
-    }
-}
+// @media (min-width: 1600px) {
+//     .imagen-fondo {
+//         left: 820px;
+//         max-width: 250%;
+//         top: -200px;
+//     }
+// }
 
 .imagen-grupo-personas {
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
     bottom: 10%;
-    left: -6%;
-    max-width: 50%;
+    left: -18%;
+    max-width: 2000px;
     z-index: 0;
 }
 
@@ -461,8 +461,8 @@ img {
 .image-amarilla {
     position: absolute;
     bottom: 0;
-    left: -350px;
-    max-width: 250%;
+    left: -50%;
+    max-width: 4000px;
 }
 
 /********** detalle reto *******/
@@ -619,7 +619,7 @@ img {
 /********** eventos ***********/
 .section-events {
     background: #603ce6;
-    padding-top: 50px;
+    padding-top: 20px;
     position: relative;
     overflow: hidden;
 }
@@ -668,12 +668,12 @@ img {
 }
 
 .figuras-fondo {
-    left: 340px;
-    top: -177px;
+    left: 0;
+    top: 0;
     position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 75%;
+    max-width: 4000px;
     z-index: 0;
     overflow: hidden;
 }
@@ -692,7 +692,6 @@ img {
 }
 
 .imagen-events {
-    // height: 350px;
     object-fit: cover;
     object-position: 50% 50%;
     position: relative;

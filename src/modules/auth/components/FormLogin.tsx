@@ -35,6 +35,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                     context.toggle_login_modal();
                 } else {
                     navigate('../home', { replace: true });
+                    context.toggle_login_modal();
                 }
             })
             .catch((e: any) => {

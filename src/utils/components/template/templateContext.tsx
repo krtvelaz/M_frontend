@@ -38,19 +38,24 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const [idNode, set_idNode] = useState<string>('');
     const [docReact, setDocReact] = useState(null);
     const [width, setWidth] = useState<number>(window.innerWidth);
-    const [device, setDevice] = useState<'sm' | 'md' | 'lg'>('sm');
+    
+    const [device, setDevice] = useState<'sm' | 'md' | 'lg'>( window.innerWidth <= 767  ? 'sm' :  window.innerWidth  >= 768 && window.innerWidth < 1024 ? 'md' : 'lg' );
     const updateDimensions = () => {
         const _width = window.innerWidth;
         let _device: 'sm' | 'md' | 'lg';
         switch (true) {
             case _width <= 767 :
                 _device = 'sm';
+                
+                
                 break;
             case _width >= 768 && _width < 1024:
                 _device = 'md';
+                
                 break;
             default:
                 _device = 'lg';
+                
                 break;
         }
         if (_width !== width) {
@@ -61,15 +66,20 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
         }
     };
 
+    
 
-    useEffect(() => {        
+
+    useEffect(() => {    
         window.addEventListener('resize', updateDimensions.bind(this));
         window.addEventListener('load', updateDimensions.bind(this));
         return () => {
             window.removeEventListener('load', updateDimensions.bind(this));
             window.removeEventListener('resize', updateDimensions.bind(this));
         };
+        
+        
     }, [width]);
+
 
     return (
         <TemplateContext.Provider

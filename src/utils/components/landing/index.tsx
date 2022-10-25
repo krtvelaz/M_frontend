@@ -21,6 +21,7 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
     const { Header, Content, Footer } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
+    // console.log(context.device);
 
     
 

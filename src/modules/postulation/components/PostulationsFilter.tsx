@@ -12,11 +12,14 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
         palabraClave: '',
         convocatoriaSearch: '',
         estadoPos: '',
+        cha_announcement: '',
     };
     const form_ref = useRef<any>();
     const dispatch = useDispatch<any>();
 
     const submit = async (values: any) => {
+        console.log(values);
+        
         setFilters({
             page: 1,
             pageSize: 10,

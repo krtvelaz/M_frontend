@@ -17,10 +17,15 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change,  className, ...p
 
 
   useEffect(() => {
+
     if (field.value) {
       setDay(moment(field.value).format("DD"));
       setMonth(moment(field.value).format("MM"));
       setYear(moment(field.value).format("YYYY"));
+    }else {
+      setDay("");
+      setMonth("");
+      setYear("");
     }
   }, [field.value]);
 

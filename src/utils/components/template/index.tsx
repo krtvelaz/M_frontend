@@ -23,6 +23,7 @@ interface ITemplate {
 const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user }) => {
     const { Header, Sider, Content } = Layout;
     const context = useContext(TemplateContext);
+    
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [menuSider, setMenuSider] = useState([]);

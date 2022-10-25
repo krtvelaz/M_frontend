@@ -1,5 +1,12 @@
 import { useContext } from 'react';
-import { figurasFondo, fondo_retos, grupo_personas, rocket, trazado_amarillo } from '../../../utils/assets/img';
+import {
+    figurasEvent,
+    figurasFondo,
+    fondo_retos,
+    grupo_personas,
+    rocket,
+    trazado_amarillo,
+} from '../../../utils/assets/img';
 import StatisticsLanding from '../../banner/components/statistics/StatisticsLanding';
 import CarouselMedeinn from '../components/CarouselMedeinn';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
@@ -17,6 +24,7 @@ import CarouselEvent from '../../event/compenents/CarouselEvent';
 const Homepage = () => {
     const context = useContext(TemplateContext);
     const publications = useSelector((store: any) => store.publication.list_publication.value);
+    const challenges = useSelector((store: any) => store.challenge.challenges.value);
     return (
         <>
             <section>
@@ -39,17 +47,18 @@ const Homepage = () => {
 
             <section className="container-challenges">
                 <img src={fondo_retos} alt="letras medeinn" className="imagen-fondo" />
-                {context.device === 'lg' && (
-                    <img src={grupo_personas} alt="grupo personas" className="imagen-grupo-personas" />
-                )}
-                <div className="container">
+
+                <div className="container" style={{ position: 'relative' }}>
                     <StaticInformation />
                     <PublishedChallenges />
+                    {context.device === 'lg' && challenges.length > 0 && (
+                        <img src={grupo_personas} alt="grupo personas" className="imagen-grupo-personas" />
+                    )}
                 </div>
             </section>
 
             <section className="section-events">
-                <img src={figurasFondo} alt="fihuras de fondo" className="figuras-fondo" />
+                <img src={figurasEvent} alt="fihuras de fondo" className="figuras-fondo" />
                 {publications?.length > 0 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
@@ -66,8 +75,25 @@ const Homepage = () => {
                         </a>
                     </div>
                 </div>
-                <div className="container">
-                    <div className=" py-5">
+
+                <div className="container" style={{ position: 'relative' }}>
+                    {context.device === 'lg' && (
+                        <img
+                            src={figurasFondo}
+                            alt="figuras"
+                            style={{
+                                left: '-46%',
+                                top: 0,
+                                position: 'absolute',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: 'cover',
+                                zIndex: 0,
+                                overflow: 'hidden',
+                            }}
+                        />
+                    )}
+
+                    <div className=" py-5" style={{ position: 'relative' }}>
                         <div className="text-center">
                             <div className="text-white" style={{ fontSize: '16px' }}>
                                 {' '}

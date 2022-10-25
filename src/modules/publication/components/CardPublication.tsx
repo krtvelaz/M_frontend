@@ -28,9 +28,6 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
         paginationPublications = [i];
     }
 
-    console.log(number_pages);
-    
-
     const get_publications = async (page: number) => {
         await dispatch(
             actions.get_list_publications({
@@ -42,6 +39,9 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
             })
         );
     };
+
+    
+
     return (
         <>
             <div
@@ -67,6 +67,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                     borderRadius: `${
                                                         index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
                                                     } `,
+                                                    height: '350px',
                                                 }}
                                             >
                                                 <>

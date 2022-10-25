@@ -46,7 +46,7 @@ const PublishedChallenges = () => {
                     <span className="text-stake">Convocatoria abierta</span>
                 </span>
                 <br />
-                <p>
+                <p style={{ width: '300px'}}>
                     Conecta con los retos del territorio y mejora la calidad de vida de los habitantes de la ciudad a través de la tecnología.
                 </p>
             </div>
