@@ -44,7 +44,7 @@ const get_routes = (): IRoute[] => {
         {
             exact: true,
             is_private: true,
-            can_access:  guards.landing,
+            can_access:  guards.login_citizen,
             format: true,
             path: '/postulation/challenge/:id',
             template_props: {

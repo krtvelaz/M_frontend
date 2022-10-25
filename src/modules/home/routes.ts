@@ -24,7 +24,6 @@ export const guards = {
     landing: (props?: any) => {                      
         return !props?.user?.token || props?.user?.detail_user?.use_role?.id === 4;
     },
-    
 };
 
 const get_routes = (): IRoute[] => {

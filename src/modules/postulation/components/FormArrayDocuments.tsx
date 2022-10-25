@@ -1,5 +1,5 @@
 import { FieldArray, Form, Formik } from 'formik';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { actions } from '../redux';
@@ -16,6 +16,7 @@ interface IProps {
 const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPostulation, id_challenge }) => {
     const _documents: any[] = useSelector((store: any) => store.postulation.challenge.value);
     const dispatch = useDispatch<any>();
+    const [ filterDocumentTec , setFilterDocumentTec ] = useState<any>([]);
     const initial_values = {
         documents: Array.isArray(_documents)
             ? _documents.map((doc) => {
@@ -69,42 +70,40 @@ const FormArrayDocuments: FC<IProps> = ({ innerRef, onSubmit, postulation, setPo
                                             Documentos técnicos
                                         </span>
                                         <hr />
-                                        {values.documents?.map((data: any, i: number) => {
-                                            console.log('aquiiii');
-                                            
-                                            if (data.retdoc_tipo_formulario === 2) {
-                                                return (
-                                                    <FormDocumentsPostulation
-                                                        key={`documents-postulation-tecnic-${i}`}
-                                                        postulation={postulation}
-                                                        handleChange={handleChange}
-                                                        setPostulation={setPostulation}
-                                                        i={i}
-                                                    />
-                                                );
-                                            } else {
-                                                return <div className='my-3'>No hay documentos técnicos asociados al perfil seleccionado</div>
-                                            }
-                                        })}
+                                        {
+                                            values.documents?.filter((document: any) => document.retdoc_tipo_formulario === 2).length > 0 ? values.documents?.map((data: any, i: number) => {
+                                                if (data.retdoc_tipo_formulario === 2) {
+                                                    return (
+                                                        <FormDocumentsPostulation
+                                                            key={`documents-postulation-tecnic-${i}`}
+                                                            postulation={postulation}
+                                                            handleChange={handleChange}
+                                                            setPostulation={setPostulation}
+                                                            i={i}
+                                                        />
+                                                    );
+                                                }
+                                            }) : <div className='my-3'>No hay documentos técnicos asociados al perfil seleccionado</div>
+                                        }
                                         <span style={{ color: '#000000', fontWeight: 'bold', fontSize: '15px' }}>
                                             Documentos administrativos
                                         </span>
                                         <hr />
-                                        {values.documents?.map((data: any, i: number) => {
-                                            if (data.retdoc_tipo_formulario === 3) {
-                                                return (
-                                                    <FormDocumentsPostulation
-                                                        key={`documents-postulation-admin-${i}`}
-                                                        postulation={postulation}
-                                                        handleChange={handleChange}
-                                                        setPostulation={setPostulation}
-                                                        i={i}
-                                                    />
-                                                );
-                                            }else {
-                                                return <div className='my-3'>No hay documentos administrativos asociados al perfil seleccionado</div>
-                                            }
-                                        })}
+                                        {
+                                            values.documents?.filter((document: any) => document.retdoc_tipo_formulario === 3).length > 0 ? values.documents?.map((data: any, i: number) => {
+                                                if (data.retdoc_tipo_formulario === 3) {
+                                                    return (
+                                                        <FormDocumentsPostulation
+                                                            key={`documents-postulation-tecnic-${i}`}
+                                                            postulation={postulation}
+                                                            handleChange={handleChange}
+                                                            setPostulation={setPostulation}
+                                                            i={i}
+                                                        />
+                                                    );
+                                                }
+                                            }) : <div className='my-3'>No hay documentos administrativos asociados al perfil seleccionado</div>
+                                        }
                                     </>
                                 )}
                             </FieldArray>

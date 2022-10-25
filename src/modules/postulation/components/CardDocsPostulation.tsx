@@ -48,37 +48,53 @@ const CardDocsPostulation: FC<SelectProps> = ({
 
     const on_change = async (e: any) => {
         const doc = e.target.files[0];
+        const maximum_size = 5 * 1000000;
+
+        if (e.target.files[0].size > maximum_size) {
+            await swal_error.fire({
+                title: 'Tamaño del documento',
+                html:
+                    `<div class="mysubtitle">El documento excede el tamaño permitido de 5 MB</div>` +
+                    '<div class="mytext">Intente adjuntar un documento más pequeño</div>',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar',
+            });
+        }
+
         if (doc.type !== 'application/pdf') {
             e.target.value = null;
             await swal_error.fire({
                 title: 'Tipo del documento',
                 html:
                     '<div class="mysubtitle">El archivo no es del tipo requerido</div>' +
-                    `<div class="mytext">Intente adjuntar un archivo de tipo ${
-                        doc.type === 'img' ? 'imagen' : 'PDF'
+                    `<div class="mytext">Intente adjuntar un archivo de tipo ${doc.type === 'img' ? 'imagen' : 'PDF'
                     }</div>`,
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
             return;
         }
-        const data = {
-            posarc_id_document: field.value.retdoc_id_documento,
-            posarc_id_postulation: postulation?.applicant_data?.id,
-        };
-        const res = await dispatch(actions.addDocumentPostulation(doc, data));
 
-        form.setFieldValue(
-            field.name,
-            { ...field.value, docPostulation: { name: doc.name, file: doc, id: res.id, path: res.posarc_path_file } },
-            false
-        );
-        extra_on_change && extra_on_change(doc, field.value);
+        if (e.target.files[0].size < maximum_size && doc.type === 'application/pdf') {
+            const data = {
+                posarc_id_document: field.value.retdoc_id_documento,
+                posarc_id_postulation: postulation?.applicant_data?.id,
+            };
+            const res = await dispatch(actions.addDocumentPostulation(doc, data));
+
+            form.setFieldValue(
+                field.name,
+                { ...field.value, docPostulation: { name: doc.name, file: doc, id: res.id, path: res.posarc_path_file } },
+                false
+            );
+            extra_on_change && extra_on_change(doc, field.value);
+        }
     };
 
     return (
         <>
             <Card
+                className='card-postulation-documents'
                 style={{
                     position: 'relative',
                     ...(form.errors.documents && !field.value.docPostulation.name && { border: '1px #AD0808 solid' }),

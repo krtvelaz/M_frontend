@@ -13,8 +13,6 @@ const PublishedChallenges = () => {
     const [loading, setLoading] = useState<any>({});
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const context = useContext(TemplateContext);
-    const user = useSelector((store: any) => store?.auth?.user?.value);
     useEffect(() => {
         getChallenges();
     }, []);
@@ -106,10 +104,6 @@ const PublishedChallenges = () => {
 
                                             <button
                                                 onClick={() => {
-                                                    if (!user) {
-                                                        context.toggle_login_modal();
-                                                        return;
-                                                    }
                                                     navigate(`../detail-challenge/${challenge?.id}`);
                                                 }}
                                                 className="btn"

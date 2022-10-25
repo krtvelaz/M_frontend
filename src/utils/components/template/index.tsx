@@ -9,7 +9,7 @@ import Breadcrumbs from './breadcrumbs';
 import { Breadcrumb } from '../router/custom_types';
 import { useNavigate } from 'react-router-dom';
 import { actions as auth_actions } from '../../../modules/auth/redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../assets/styles/template.scss';
 
 interface ITemplate {
@@ -124,8 +124,8 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                         className="d-flex align-start flex-column text-center"
                         style={{ width: '80%', fontFamily: 'Montserrat-Bold' }}
                     >
-                        <span style={{ fontSize: '22px' }}>Luisa María</span>
-                        <span style={{ fontSize: '16px' }}>Sánchez Cadavid</span>
+                        <span style={{ fontSize: '22px' }}> {user?.use_names} </span>
+                        <span style={{ fontSize: '16px' }}> {user?.use_surnames} </span>
                         <span
                             style={{
                                 fontWeight: 400,
@@ -154,7 +154,7 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                             >
                                 Cambiar contraseña
                             </Menu.Item>
-                            <Menu.Item
+                            {/* <Menu.Item
                                 style={{
                                     borderBottom: '0.5px solid #00000029',
                                     fontSize: '12px',
@@ -165,7 +165,7 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                                 }}
                             >
                                 Editar usuario
-                            </Menu.Item>
+                            </Menu.Item> */}
                         </Menu>
                     </div>
                     {context?.device === 'sm' && (

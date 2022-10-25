@@ -171,24 +171,35 @@ const managePostulations = () => {
         },
         {
             title: 'Cód. postulación',
-            dataIndex: 'pos_settled',
             align: 'left' as 'left',
-            
+            render: (data: any) => {
+                if (data.pos_status !== "Finalizado") {
+                    return " - ";
+                } 
+
+                return data.pos_settled;
+            }
         },
         {
             title: 'Fecha postulación',
-            dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
-            render: (value: string) => {
-                return  moment(value).format('DD / MM / YYYY')
+            render: (data: any) => {
+                if (data.pos_status !== "Finalizado") {
+                    return " - ";
+                } 
+
+                return moment(data.pos_updated_at).format('YYYY / MM / DD');
             },
         },
         {
             title: 'Hora postulación',
-            dataIndex: 'pos_updated_at',
             align: 'left' as 'left',
-            render: (value: string) => {
-                return moment(value).format('hh:mm A')
+            render: (data: any) => {
+                if (data.pos_status !== "Finalizado") {
+                    return " - ";
+                } 
+
+                return moment(data.pos_updated_at).format('LT');
             },
         },
         {

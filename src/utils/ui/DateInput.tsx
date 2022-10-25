@@ -22,15 +22,12 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change,  className, ...p
       setDay(moment(field.value).format("DD"));
       setMonth(moment(field.value).format("MM"));
       setYear(moment(field.value).format("YYYY"));
-    }else {
+    } else {
       setDay("");
       setMonth("");
       setYear("");
     }
   }, [field.value]);
-
-
-
 
   const guardarFecha = (fecha: any) => {
     setOpenDatePicker(false);
