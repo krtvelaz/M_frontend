@@ -10,6 +10,8 @@ const OurChallenges = () => {
     const [activeKey, setActiveKey] = useState<number>(1);
     const dispath = useDispatch<any>();
     const onChange = async (key: string) => {
+        await dispath(actions.get_dimensions_challenges(Number(key)));
+
         await dispath(
             actions.get_list_challenges({
                 page: 1,
@@ -26,8 +28,8 @@ const OurChallenges = () => {
     const { last_page } = useSelector((store: any) => store.challenge.challenges.pagination);
     const { first_page } = useSelector((store: any) => store.challenge.challenges.pagination);
     const loading = useSelector((store: any) => store.challenge.challenges.loading);
-    const dimensions = useSelector((store: any) => store.challenge.dimensions.value);
-
+    const dimensions_challenges = useSelector((store: any) => store.challenge.dimensions_challenges.value);
+    
     const onDimiension = (dimension: any) => {
         dispath(
             actions.get_list_challenges({
@@ -36,7 +38,7 @@ const OurChallenges = () => {
                 from: 'landing',
                 is_published: true,
                 ...(activeKey === 1 ? { is_opened: true } : { is_closed: true }),
-                dimension: `${dimension?.id}`,
+                dimension: `${dimension?.id_dimension}`,
             })
         );
     };
@@ -54,7 +56,7 @@ const OurChallenges = () => {
     }, []);
 
     useEffect(() => {
-        dispath(actions.get_dimensions());
+        dispath(actions.get_dimensions_challenges(1));
     }, []);
 
     return (
@@ -131,10 +133,10 @@ const OurChallenges = () => {
                                 >
                                     Todos
                                 </button>
-                                {dimensions.map((dimension: any, index: number) => (
+                                {dimensions_challenges.map((dimension: any, index: number) => (
                                     <button
                                         className="btn  btn-outline-landing-primary me-3"
-                                        id={`btn-dimension-${dimension.id}`}
+                                        id={`btn-dimension-${dimension.id_dimension}`}
                                         key={`dimension-${index}`}
                                         onClick={() => {
                                             var matches = document.querySelectorAll(`.btn-dimension-active`);
@@ -142,14 +144,14 @@ const OurChallenges = () => {
                                                 matches[i].classList.remove('btn-dimension-active');
                                             }
                                             const element: any = document.querySelector(
-                                                `#btn-dimension-${dimension.id}`
+                                                `#btn-dimension-${dimension.id_dimension}`
                                             );
                                             element.classList.add('btn-dimension-active');
 
                                             onDimiension(dimension);
                                         }}
                                     >
-                                        {dimension?.maedim_nombre}
+                                        {dimension?.maedim_name}
                                     </button>
                                 ))}
 
@@ -208,10 +210,10 @@ const OurChallenges = () => {
                                 >
                                     Todos
                                 </button>
-                                {dimensions.map((dimension: any, index: number) => (
+                                {dimensions_challenges.map((dimension: any, index: number) => (
                                     <button
                                         className="btn  btn-outline-landing-primary me-3"
-                                        id={`btn-dimension-close-${dimension.id}`}
+                                        id={`btn-dimension-close-${dimension.id_dimension}`}
                                         key={`dimension-${index}`}
                                         onClick={() => {
                                             var matches = document.querySelectorAll(`.btn-dimension-active`);
@@ -219,14 +221,14 @@ const OurChallenges = () => {
                                                 matches[i].classList.remove('btn-dimension-active');
                                             }
                                             const element: any = document.querySelector(
-                                                `#btn-dimension-close-${dimension.id}`
+                                                `#btn-dimension-close-${dimension.id_dimension}`
                                             );
                                             element.classList.add('btn-dimension-active');
 
                                             onDimiension(dimension);
                                         }}
                                     >
-                                        {dimension?.maedim_nombre}
+                                        {dimension?.maedim_name}
                                     </button>
                                 ))}
                                 {loading ? (

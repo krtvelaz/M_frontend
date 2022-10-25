@@ -58,6 +58,8 @@ export { default as successAlert } from './successAlert.svg';
 export { default as Imagen_footer } from './Imagen_footer.png';
 export { default as marca_logo } from './marca_logo.png';
 export { default as logo_colombia } from './logo_colombia.png';
+export { default as flecha_pagination_left } from './flecha-pagination-left.svg';
+export { default as flecha_pagination_rigth } from './flecha-pagination-rigth.svg';
 
 
 

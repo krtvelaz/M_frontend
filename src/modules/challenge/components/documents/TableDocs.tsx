@@ -141,7 +141,7 @@ const TableDocs: FC<DocsFormPros> = ({ documents, typeDoc, onDelete, onEdit, typ
     return (
         <>
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} />
-            <Table columns={table_columns} items={documents} with_pagination={false} loading={loading} />
+            <Table columns={table_columns} items={documents} with_pagination={true} loading={loading} />
         </>
     );
 };

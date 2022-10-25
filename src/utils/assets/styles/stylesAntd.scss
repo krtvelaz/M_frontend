@@ -176,7 +176,11 @@
 .ant-pagination-item {
     margin-right: 0;
     border-radius: 0;
-    // border-right: none
+    height: auto;
+
+    a {
+        padding: 5px 15px;
+    }
 }
 
 // select
@@ -606,5 +610,21 @@ textarea.form-control {
 }
 
 .ant-card-hoverable {
-    cursor: auto!important;
+    cursor: auto !important;
+}
+
+.border-ant-prev-table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dededf;
+    font-family: "Montserrat-Regular";
+    font-size: 10px!important;
+    padding: 5px;
+    height: 42px;
+    width: auto;
+
+    img {
+        margin: 0 5px;
+    }
 }

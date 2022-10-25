@@ -6,8 +6,7 @@ import Template from './utils/components/template';
 
 
 const MedeinnApp = () => {
-      const user = useSelector((store: any) => store?.auth?.user?.value);
-      
+    const user = useSelector((store: any) => store?.auth?.user?.value);  
       
     const allRoutes = useRoutes();
     return (
