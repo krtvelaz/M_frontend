@@ -28,6 +28,8 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
         execute_save,
         callback,
         setPublication,
+        disableButton,
+        setDisableButton
     ] = useInit(type, publication_data, ); // agregar o no  el publication_data y type
 
     const loading = useSelector((store: any) => store.publication.publication.loading);
@@ -60,6 +62,8 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                                         innerRef={steps[0].ref}
                                         onSubmit={steps[0].onSave}
                                         publication={publication}
+                                        setDisableButton={setDisableButton}
+                                        disableButton={disableButton}
                                     />
                                 </TabPane>
                                 <TabPane tab="Agregar Galería" key="2" disabled>
@@ -88,6 +92,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                             onClick={async() => {
                                 next_tab(true);
                             }}
+                            disabled={disableButton}
                         >
                             Continuar
                         </button>
@@ -97,7 +102,7 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
                             type="button"
                             className="btn btn-primary me-3"
                             onClick={() => {next_tab(false)}}
-                            disabled={loading}
+                            disabled={loading || disableButton}
                         >
                             Guardar y continuar
                             {loading && (
@@ -122,8 +127,9 @@ const PublicationFormTags: FC<ITagsPublication> = ({ type, publication_data }) =
 const useInit = (
     type: 'create' | 'edit',
     publication_data?: IPublication,
-): [string, any, any[], number, boolean, (edit?: boolean) => any, () => void, () => void, (key: string) => void, any, ] => {
+): [string, any, any[], number, boolean, (edit?: boolean) => any, () => void, () => void, (key: string) => void, any, boolean, any] => {
     const dispatch = useDispatch<any>();
+    const [ disableButton, setDisableButton] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -319,6 +325,8 @@ const useInit = (
         execute_save,
         callback,
         setPublication,
+        disableButton,
+        setDisableButton
     ];
 };
 
