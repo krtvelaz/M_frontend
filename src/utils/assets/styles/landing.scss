@@ -59,7 +59,7 @@ img {
     background-color: #909090;
     text-align: center;
     // display: flex;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 .footer-logo {
@@ -221,7 +221,7 @@ img {
 /***** inclusion participación *****/
 
 .container-static-information {
-    width: 1000px;
+    width: 800px;
 }
 
 @media (max-width: 1024px) {
@@ -400,6 +400,7 @@ img {
 }
 
 .ant-card-bordered {
+    box-shadow: 0px 30px 60px #00000014;
     margin-bottom: 40px;
 }
 
@@ -461,7 +462,7 @@ img {
 .image-amarilla {
     position: absolute;
     bottom: 0;
-    left: -50%;
+    left: -32%;
     max-width: 4000px;
 }
 
@@ -710,12 +711,14 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.4);
-    // background: linear-gradient(
-    //     to right top,
-    //     rgba(0, 0, 0, 0.91) 20%,
-    //     transparent
-    // );
+    
+    // background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(
+        to top,  
+        rgba(0, 0, 0, 0.94),
+        transparent 90%
+    );
+    mix-blend-mode: hard-light;
 }
 
 .imagen-events button {
@@ -774,11 +777,11 @@ img {
 
 .box-resetPaswword {
     @if $development == true {
-        background-image: linear-gradient(to top, #ffffff 40%, transparent),
+        background-image: linear-gradient(to top, #ffffff 50%, transparent 60%, transparent),
         url('/src/utils/assets/img/reset-password.png');
     }
     @if $production == true {
-        background: linear-gradient(to right top, #ffffff, transparent),
+        background: linear-gradient(to top, #ffffff 27%, transparent 60%, transparent),
             url('/assets/reset-password.fea1c36f.png');
     }
     

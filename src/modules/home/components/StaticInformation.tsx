@@ -177,7 +177,7 @@ const StaticInformation = () => {
                     </Popover>
                 </div>
                 <div className="col-6 my-3 col-md-3 col-lg-3 col-xl p-0">
-                    <Popover open={openPremiamos} onOpenChange={(newOpen: boolean) => setOpenPremiamos(newOpen)} placement="topRight" content={contenido_premiamos} trigger="hover">
+                    <Popover open={openPremiamos} onOpenChange={(newOpen: boolean) => setOpenPremiamos(newOpen)}  content={contenido_premiamos} trigger="hover">
                         <div className="circle-text-wraps  mx-auto">
                             <div className="circle-number-container">
                                 <span

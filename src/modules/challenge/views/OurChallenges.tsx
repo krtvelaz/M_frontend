@@ -63,7 +63,7 @@ const OurChallenges = () => {
         <>
             <div
                 className="tab-our-challenges"
-                style={{ background: '#fff', position: 'relative', paddingBottom: '120px' }}
+                style={{ background: '#fff', position: 'relative', paddingBottom: '120px', overflow: 'hidden' }}
             >
                 {!loading && challenges?.length > 0 && (
                     <img
@@ -81,7 +81,7 @@ const OurChallenges = () => {
                 <img
                     src={figuraRetos}
                     alt="figuras de fondo"
-                    style={{ position: 'absolute', top: 0, right: 0, width: '21%' }}
+                    style={{ position: 'absolute', top: 0, right: 0, width: '300px' }}
                 />
                 <div className="text-center" style={{ fontSize: '18px', paddingTop: '20px' }}>
                     Conoce todos

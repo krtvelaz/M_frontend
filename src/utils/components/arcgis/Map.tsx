@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const Map = () => {
     const ref = useRef(false);
-    const [ view , set_view ] = useState<MapView>();
+    const [view, set_view] = useState<MapView>();
     const geojson = {
         type: 'FeatureCollection',
         features: [
@@ -34,7 +34,6 @@ const Map = () => {
                 },
                 geometry: { type: 'Point', coordinates: [-75.58997744, 6.219193414] },
             },
-           
         ],
     };
 
@@ -71,11 +70,14 @@ const Map = () => {
                 padding: {
                     right: 380,
                 },
+                navigation: {
+                    mouseWheelZoomEnabled: false,
+                    browserTouchPanEnabled: false,
+                },
             });
             set_view(_view);
         }
     }, [ref.current]);
-
 
     function createPopupTemplate() {
         return {

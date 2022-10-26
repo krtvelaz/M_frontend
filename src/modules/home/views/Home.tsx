@@ -5,14 +5,14 @@ const Home = () => {
     return (
         <div
         style={{
-            height: 'inherit',
+            // height: 'inherit',
             backgroundImage:
                 "linear-gradient(to right, #F7FBFF 35%, transparent),url('src/utils/assets/img/imageHome.png')",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'right',
             backgroundSize: '100%',
-            position: 'relative',
-            overflow: 'hidden',
+            // position: 'relative',
+            // overflow: 'hidden',
         }}
         >
             <section className="pt-5" id="texto-superior">

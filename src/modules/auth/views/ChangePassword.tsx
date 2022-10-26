@@ -2,6 +2,7 @@ import { FormikProps, FormikValues } from 'formik';
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { trazado_amarillo } from '../../../utils/assets/img';
 import { Card } from '../../../utils/ui';
 import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
@@ -33,12 +34,18 @@ const ChangePassword = () => {
 
     return (
         <div className="box-resetPaswword">
-            <div style={{ marginTop: '110' }} className="container">
+            <img src={trazado_amarillo} alt="trazado" style= {{
+                position: 'absolute',
+                top: '-1%',
+                left: '-30%',
+                maxWidth: '3500px',
+            }} />
+            <div style={{ marginTop: '110', marginBottom: '100px'}} className="container">
                 <div className="row justify-content-center">
                     <div className="d-flex flex-row m-5 col-md-12">
                         <div
-                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold' }}
-                            className="mt-5 ms-5 text-white"
+                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold', margin: '100px 0 20px 50px' }}
+                            className="text-white"
                         >
                             Restablece tu contraseña
                         </div>

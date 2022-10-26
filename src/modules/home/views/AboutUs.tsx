@@ -27,7 +27,7 @@ const AboutUs = () => {
         >
           
           <div className="d-flex flex-row" style={{margin: '70px 0 40px 0'}}>
-            <h5 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: '110px'}}>Laboratorio de innovación Medeinn</h5>
+            <h2 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: '110px'}}>Laboratorio de innovación Medeinn</h2>
           </div>
           <div className="col-md-12">
             <Card className="card-about">
