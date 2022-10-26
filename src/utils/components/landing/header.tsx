@@ -71,7 +71,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 cursor: 'pointer'
                             }}
                             onClick={() => {
-                                navigate('/*/about-us');
+                                navigate('../about-us');
                                 const landingScroll: any = document.getElementById('scroll-landing');
                                 landingScroll.scrollTop = 0;
                             }}

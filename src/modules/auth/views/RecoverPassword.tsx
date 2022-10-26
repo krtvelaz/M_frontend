@@ -2,6 +2,7 @@ import { FormikProps, FormikValues } from 'formik';
 import React, { useContext, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { trazado_amarillo } from '../../../utils/assets/img';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Card } from '../../../utils/ui';
 import FormLostPassword from '../components/FormLostPassword';
@@ -27,19 +28,27 @@ const RecoverPassword = () => {
     };
 
     return (
+        <>
+         
         <div className="box-resetPaswword">
-            <div style={{ marginTop: '110' }} className="container">
+            <div style={{ marginTop: '100', marginBottom: '100px'}} className="container">
+            <img src={trazado_amarillo} alt="trazado" style= {{
+                position: 'absolute',
+                top: '-1%',
+                left: '-40%',
+                maxWidth: '3500px',
+            }} />
                 <div className="row justify-content-center">
                     <div className="d-flex flex-row m-5 col-md-12">
                         <div
-                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold' }}
-                            className="mt-5 ms-5 text-white"
+                            style={{ fontSize: '16px', fontFamily: 'Montserrat-SemiBold', margin: '100px 0 20px 50px' }}
+                            className=" text-white"
                         >
                             ¿Olvidaste tu contraseña?
                         </div>
                     </div>
 
-                    <Card actions={[]}>
+                    <Card actions={[]} >
                         <div className="row px-5">
                             <div className="" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                                 Completa los campos para iniciar el proceso de recuperación de tu contraseña
@@ -74,6 +83,8 @@ const RecoverPassword = () => {
                 </div>
             </div>
         </div>
+        </>
+        
     );
 };
 

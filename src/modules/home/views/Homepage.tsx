@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import {
+    figuraRetos,
     figurasEvent,
     figurasFondo,
     fondo_retos,
@@ -59,6 +60,7 @@ const Homepage = () => {
 
             <section className="section-events">
                 <img src={figurasEvent} alt="fihuras de fondo" className="figuras-fondo" />
+                
                 {publications?.length > 0 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
@@ -78,19 +80,26 @@ const Homepage = () => {
 
                 <div className="container" style={{ position: 'relative' }}>
                     {context.device === 'lg' && (
-                        <img
-                            src={figurasFondo}
-                            alt="figuras"
-                            style={{
-                                left: '-46%',
-                                top: 0,
-                                position: 'absolute',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: 'cover',
-                                zIndex: 0,
-                                overflow: 'hidden',
-                            }}
-                        />
+                        <>
+                            <img
+                                src={figurasFondo}
+                                alt="figuras"
+                                style={{
+                                    left: '-46%',
+                                    top: 0,
+                                    position: 'absolute',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundSize: 'cover',
+                                    zIndex: 0,
+                                    overflow: 'hidden',
+                                }}
+                            />
+                            <img
+                                src={figuraRetos}
+                                alt="figuras de fondo"
+                                style={{ position: 'absolute', top: '-3%', right: '-31%', width: '' }}
+                            />
+                        </>
                     )}
 
                     <div className=" py-5" style={{ position: 'relative' }}>
@@ -113,7 +122,12 @@ const Homepage = () => {
                 </div>
             </section>
 
-            <section>
+            <section style={{position: 'relative'}}>
+            <img
+                    src={figuraRetos}
+                    alt="figuras de fondo"
+                    style={{ position: 'absolute', top: '-40%', left: '10%', width: '400px' }}
+                />
                 <div className="container">
                     <div className="row" style={{ background: '#E4EFF0' }}>
                         <CarouselTestimony />

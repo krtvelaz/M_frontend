@@ -40,8 +40,6 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
         );
     };
 
-    
-
     return (
         <>
             <div
@@ -121,9 +119,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                             alt={publication.hec_titulo}
                                                         />
                                                     ) : (
-                                                        <Skeleton.Image
-                                                            active={loading}
-                                                            className="w-100 "
+                                                        <div
                                                             style={{
                                                                 minHeight: '350px',
                                                                 paddingBottom: '20px',
@@ -133,7 +129,12 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                                         : '0 0 16px 16px'
                                                                 } `,
                                                             }}
-                                                        />
+                                                        ></div>
+                                                        // <Skeleton.Image
+                                                        //     active={loading}
+                                                        //     className="w-100 "
+
+                                                        // />
                                                     )}
                                                 </>
                                             </div>

@@ -62,7 +62,7 @@ const Register = () => {
                             <hr style={{ border: '1px solid #FF8403' }} />
                             <h1 className="mt-3 text-stake-mediun">Tipo de sociedad</h1>
                             <div className=" mb-3">
-                                <Radio.Group name="radiogroup" onChange={onChange} value={radio}>
+                                <Radio.Group id='ggggg' name="radiogroup" onChange={onChange} value={radio}>
                                     <div className="d-flex flex-row col-12 ">
                                         <Radio value={1}>Persona Natural</Radio>
                                         <Radio value={2}>Persona Juridica</Radio>
