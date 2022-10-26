@@ -18,6 +18,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
     const user = useSelector((store: any) => store?.auth?.user?.value);
     const context = useContext(TemplateContext);
     const [url, setUrl] = useState<string>('');
+    const [nameDocument, setNameDocument] = useState<string>('');
 
     return (
         <div>
@@ -62,13 +63,14 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                                 className="list-documents-general-detail"
                                 onClick={async () => {
                                     const result = await dispatch(actions.get_document(document.id));
-
+                                    
                                     if (result) {
                                         const pdfDocument = URL.createObjectURL(
                                             new Blob([result], { type: 'application/pdf' })
                                         );
 
                                         setUrl(pdfDocument);
+                                        setNameDocument(document?.chafil_nombre_plantilla);
                                         set_is_visible_doc(true);
                                     }
                                 }}
@@ -129,7 +131,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 <span>Este reto no tiene informes</span>
             )}
 
-            <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} download={true} />
+            <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} download={true} nameDocument={nameDocument} />
         </div>
     );
 };

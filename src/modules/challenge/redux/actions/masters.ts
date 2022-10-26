@@ -6,6 +6,9 @@ import {
   loading_list_dimensions,
   success_list_dimensions,
   fail_list_dimensions,
+  loading_list_dimensions_challenges,
+  success_list_dimensions_challenges,
+  fail_list_dimensions_challenges,
   loading_list_dependencies,
   success_list_dependencies,
   fail_list_dependencies,
@@ -43,6 +46,25 @@ export const get_dimensions = () => {
       return data;
     } catch (error) {
       dispatch(fail_list_dimensions());
+      return Promise.reject("Error");
+    }
+  };
+};
+
+export const get_dimensions_challenges = (key: number) => {
+  return async (dispatch: any) => {
+    dispatch(loading_list_dimensions_challenges());
+    try {
+      const URI = `/lists/dimensions-challenges`;
+      const { data }: any = await http.get(URI, {
+        params: {
+          key
+        }
+      });
+      dispatch(success_list_dimensions_challenges(data.data));      
+      return data;
+    } catch (error) {
+      dispatch(fail_list_dimensions_challenges());
       return Promise.reject("Error");
     }
   };

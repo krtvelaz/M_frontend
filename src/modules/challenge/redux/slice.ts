@@ -10,6 +10,7 @@ interface State {
   reports: IPageable<any>;
   communes: Loadable<any | null>;
   dimensions: Loadable<any | null>;
+  dimensions_challenges: Loadable<any | null>;
   dependencies: Loadable<any | null>;
   profiles: Loadable<any | null>;
   neighborhoods: Loadable<any | null>;
@@ -86,6 +87,11 @@ const initialState: State = {
     loaded: false,
   },
   dimensions: {
+    value: [],
+    loading: false,
+    loaded: false,
+  },
+  dimensions_challenges: {
     value: [],
     loading: false,
     loaded: false,
@@ -331,6 +337,27 @@ export const challengeSlice = createSlice({
         loaded: false,
       };
     },
+    loading_list_dimensions_challenges: (state) => {
+      state.dimensions_challenges = {
+        value: state.dimensions.value,
+        loading: true,
+        loaded: false,
+      };
+    },
+    success_list_dimensions_challenges: (state, action) => {
+      state.dimensions_challenges = {
+        value: action.payload,
+        loading: false,
+        loaded: true,
+      };
+    },
+    fail_list_dimensions_challenges: (state) => {
+      state.communes = {
+        value: initialState.dimensions_challenges.value,
+        loading: false,
+        loaded: false,
+      };
+    },
     loading_list_dependencies: (state) => {
       state.dependencies = {
         value: state.dependencies.value,
@@ -420,6 +447,9 @@ export const {
   loading_list_dimensions,
   success_list_dimensions,
   fail_list_dimensions,
+  loading_list_dimensions_challenges,
+  success_list_dimensions_challenges,
+  fail_list_dimensions_challenges,
   loading_list_dependencies,
   success_list_dependencies,
   fail_list_dependencies,

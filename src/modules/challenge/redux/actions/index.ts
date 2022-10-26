@@ -28,6 +28,7 @@ import {
 import {
   get_communes,
   get_dimensions,
+  get_dimensions_challenges,
   get_dependencies,
   get_profiles,
   get_neighborhoods,
@@ -53,6 +54,7 @@ const actions = {
   delete_challenge_document,
   get_communes,
   get_dimensions,
+  get_dimensions_challenges,
   get_dependencies,
   get_profiles,
   get_neighborhoods,

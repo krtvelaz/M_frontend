@@ -125,7 +125,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
                             <div style={{ paddingLeft: '10px', paddingRight: '10px', marginTop: '10px' }}>
                                 <div className="row container-error-login">
                                     <div className="col-11 font-color-AD0808 font-size-12px font-family-Montserrat-Regular text-error-login">{alert}</div>
-                                    <div className="col-1 justify-content-flex-end font-size-12px font-color-AD0808" onClick={() => { set_alert('') }}><span style={{ color: '#AD0808', fontWeight: 'bold', cursor: 'pointer' }}>x</span></div>
+                                    <div className="col-1 justify-content-flex-end font-size-12px font-color-AD0808" onClick={() => { set_alert('') }}><span style={{ color: '#AD0808', fontWeight: 'bold', cursor: 'pointer'}}>x</span></div>
                                 </div>
                             </div>
                         )}

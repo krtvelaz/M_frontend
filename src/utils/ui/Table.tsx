@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import Table, { TablePaginationConfig } from 'antd/lib/table';
 import { Empty } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { flecha_pagination_left, flecha_pagination_rigth } from '../assets/img';
 
 interface CompressTableProps {
     columns: any;
@@ -13,6 +15,28 @@ interface CompressTableProps {
     count?: number;
     scroll?: any;
     expandable?: any;
+}
+
+// Pagination Table
+
+function itemRenderTable(current: any, type: any, originalElement: any) {
+    if (type === "prev") {
+        return (
+            <span className="border-ant-prev-table font-size-10px" style={{borderRadius: '4px 0 0 4px'}}>
+                <img src={flecha_pagination_left} className="font-color-1FAEEF" style={{ display: "inline-flex", paddingRight: "2px" }} />
+                Ant.
+            </span>
+        );
+    }
+    if (type === "next") {
+        return (
+            <span className="border-ant-prev-table font-size-10px" style={{borderRadius: '0 4px 4px 0'}}>
+                Sig.
+                <img src={flecha_pagination_rigth} className="font-color-1FAEEF" style={{ display: "inline-flex", paddingLeft: "2px" }} />
+            </span>
+        );
+    }
+    return originalElement;
 }
 
 const getPaginator = (
@@ -28,13 +52,14 @@ const getPaginator = (
         showLessItems: true,
         position: paginationTop ? ['bottomRight', 'topRight'] : ['bottomRight'],
         total: total || 0,
+        itemRender: itemRenderTable,
         ...(change_page
             ? {
-                  onChange: change_page,
-                  defaultPageSize: 10,
-                  showSizeChanger: true,
-                  // showQuickJumper: true,
-              }
+                onChange: change_page,
+                defaultPageSize: 10,
+                showSizeChanger: true,
+                // showQuickJumper: true,
+            }
             : {}),
         showTotal: (total /*, current*/) => {
             return (
@@ -84,8 +109,8 @@ const CompressTable: FC<CompressTableProps> = ({
         dataSource: data,
         ...(with_pagination
             ? {
-                  pagination: getPaginator(count ? count : data?.length, paginationTop || false, change_page, title),
-              }
+                pagination: getPaginator(count ? count : data?.length, paginationTop || false, change_page, title),
+            }
             : {}),
         ...(expandable ? expandable : {}),
         loading: loading,
@@ -119,7 +144,7 @@ const CompressTable: FC<CompressTableProps> = ({
 
 CompressTable.defaultProps = {
     items: [],
-    change_page: () => {},
+    change_page: () => { },
     loading: false,
     with_pagination: true,
     scroll: true,

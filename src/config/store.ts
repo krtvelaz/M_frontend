@@ -20,6 +20,10 @@ export const store = configureStore({
     user: userSlice.reducer,
     notification: notificationSlice.reducer
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: false,
+    serializableCheck: false,
+  })
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

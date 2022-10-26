@@ -7,9 +7,10 @@ interface DocumetFormProps {
     setOpen: any;
     fileType?: 'pdf' | 'img';
     download?: boolean;
+    nameDocument?: string;
 }
 
-const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen, fileType, download }) => {
+const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen, fileType, download, nameDocument }) => {
     const close = () => setOpen(false);
     return (
         <Modal
@@ -20,22 +21,33 @@ const ModalDetailDocument: FC<DocumetFormProps> = ({ url, open, setOpen, fileTyp
             maskStyle={{
                 backgroundColor: 'rgba(6, 100, 144 ,0.71)',
             }}
-            footer={[
-                <button
-                    key="saveDoc"
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                        close();
-                    }}
-                >
-                    Aceptar
-                </button>,
-            ]}
+            footer={
+                download ?
+                    <a
+                        key="saveDoc"
+                        type="button"
+                        className="btn btn-primary"
+                        href={url}
+                        download={nameDocument}
+                    >
+                        Descargar documento
+                    </a>
+                    :
+                    <button
+                        key="saveDoc"
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                            close();
+                        }}
+                    >
+                        Aceptar
+                    </button>
+            }
         >
             <div>
                 {fileType === 'pdf' ? (
-                    <embed src={download ? `${url}` : `${url}#toolbar=0`} width="100%" height="375px" />
+                    <embed src={`${url}#toolbar=0`} width="100%" height="375px" />
                 ) : (
                     <img src={`data:image/jpeg;charset=utf-8;base64,${url}`} alt="img" />
                 )}
