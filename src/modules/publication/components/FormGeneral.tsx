@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IGeneralInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -10,11 +10,15 @@ interface PublicationPros {
   innerRef: any;
   onSubmit: (values: any) => any;
   publication?: IGeneralInfo;
+  setDisableButton: any;
+  disableButton: any;
 }
 const FormGeneral: FC<PublicationPros> = ({
   innerRef,
   onSubmit,
   publication,
+  setDisableButton,
+  disableButton
 }) => {
   const initial_values = {
     pub_type: "",
@@ -45,6 +49,7 @@ const FormGeneral: FC<PublicationPros> = ({
       actions.resetForm();
     });
   };
+
   return (
     <Formik
       enableReinitialize
@@ -148,12 +153,24 @@ const FormGeneral: FC<PublicationPros> = ({
                 component={RichText}
                 id="hec_descripcion_id"
                 name="pub_description"
-                className={`${(errors.pub_description && touched.pub_description) && 'error-input'}`}
+                className={`${(errors.pub_description && touched.pub_description) || disableButton && 'error-input'}`}
                 autoComplete="off"
                 maxLength={3000}
                 style={{ height: "157px" }}
+                extra_on_change={(value: any) => { 
+                  if (value.length > 3000) {
+                    setDisableButton(true);
+                  } else {
+                    setDisableButton(false);
+                  }
+                }}
               />
-              <ErrorMessage name="pub_description" withCount max={3000} />
+              {
+                disableButton ?
+                  <span style={{color: `#AD0808`}} className="form-error">Máximo 3000 caracteres</span>
+                  :
+                  <ErrorMessage name="pub_description" withCount max={3000} />
+              }
             </div>
           </Form>
         );

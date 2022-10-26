@@ -56,7 +56,6 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                 className="logo"
                 alt=""
                 width="50px"
-                // style={{ marginTop: "16px" }}
             />
             <div className="d-flex justify-content-end">
                 {context.device === 'lg' ? (

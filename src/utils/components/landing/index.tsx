@@ -36,6 +36,7 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />
                         <div className="d-flex flex-column w-100">
+                            <div id='scroll-landing' className="content medeinn-main-content overflow-auto">
                             {show_breadcrumbs && (
                                 <div
                                     className="d-flex justify-content-between align-items-center bar"
@@ -48,10 +49,9 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
                                     <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
                                 </div>
                             )}
-                            <div id='scroll-landing' className="content medeinn-main-content overflow-auto">
                                 {children}
                                 <AppFooter />
-                            </div>
+                            </div> 
                         </div>
                     </Content>
                 </Layout>

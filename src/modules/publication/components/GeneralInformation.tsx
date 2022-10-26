@@ -7,9 +7,11 @@ interface IGeneralInformationProps {
   innerRef: any;
   onSubmit: (values: any) => void;
   publication: IPublication;
+  setDisableButton: any;
+  disableButton: boolean;
 }
 
-const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, publication}) => {
+const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, publication, setDisableButton, disableButton}) => {
   return (
     <div className="container-fluid">
       <div className="row">
@@ -29,6 +31,8 @@ const GeneralInformation: FC<IGeneralInformationProps> = ({ innerRef, onSubmit, 
             innerRef={innerRef}
             onSubmit={onSubmit}
             publication={publication.general_information}
+            setDisableButton={setDisableButton}
+            disableButton={disableButton}
             />
           </Card>
         </div>
