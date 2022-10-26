@@ -19,7 +19,7 @@ const footer = () => {
     return (
         <div className="footer-landing">
             <div className="mx-auto footer-logo">
-                <img src={logoAlcaldiaNegro} style={{ width: '200px' }} alt="Logo de la alcaldia de medellin" />
+                <img src={logoAlcaldiaNegro} style={{ width: '190px', height: 'auto' }} alt="Logo de la alcaldia de medellin" />
             </div>
             <div
                 style={{
@@ -70,10 +70,9 @@ const footer = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <img src={Imagen_footer} alt="imagen" className="d-block w-100" />
+                            <img src={Imagen_footer} alt="imagen" className="d-block w-100 footer-image" />
                         </div>
                     </div>
-                    
                 </div>
             </div>
 
@@ -86,7 +85,7 @@ const footer = () => {
                         <img src={marca_logo} width="30" alt="marca logo" className="d-block m-0" />
                     </div>
                     <div className="col">
-                        <img src={logo_colombia} width="100" alt="logo colombia" className="d-block" />
+                        <img src={logo_colombia} style={{ width: '150px', height: 'auto' }} alt="logo colombia" className="d-block" />
                     </div>
                     <div className="col">
                         <a href="#" className="text-white">
