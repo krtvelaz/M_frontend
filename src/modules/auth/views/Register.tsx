@@ -5,8 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { Card } from '../../../utils/ui';
-import FormRegisterPersonaJuridica from '../components/FormRegisterPersonaJuridica';
-import FormRegisterPersonaNatural from '../components/FormRegisterPersonaNatural';
+import FormRegister from '../components/FormRegister';
 import { actions } from '../redux';
 import { actions as actionsPostulation } from '../../postulation/redux';
 
@@ -62,7 +61,7 @@ const Register = () => {
                             <hr style={{ border: '1px solid #FF8403' }} />
                             <h1 className="mt-3 text-stake-mediun">Tipo de sociedad</h1>
                             <div className=" mb-3">
-                                <Radio.Group id='ggggg' name="radiogroup" onChange={onChange} value={radio}>
+                                <Radio.Group className='radio-landig' name="radiogroup" onChange={onChange} value={radio}>
                                     <div className="d-flex flex-row col-12 ">
                                         <Radio value={1}>Persona Natural</Radio>
                                         <Radio value={2}>Persona Juridica</Radio>
@@ -70,10 +69,9 @@ const Register = () => {
                                 </Radio.Group>
                             </div>
                             {radio === 1 ? (
-                                <FormRegisterPersonaNatural type='natural' innerRef={form_ref} onSubmit={on_register} />
+                                <FormRegister type='natural' innerRef={form_ref} onSubmit={on_register} />
                             ) : (
-                                <FormRegisterPersonaNatural type='legal' innerRef={form_ref} onSubmit={on_register} />
-                                // <FormRegisterPersonaJuridica innerRef={form_ref} />
+                                <FormRegister type='legal' innerRef={form_ref} onSubmit={on_register} />
                             )}
                             <hr />
                             <div className="bg-white d-flex flex-row justify-content-between">
