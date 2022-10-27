@@ -14,6 +14,7 @@ export const useCreatePostulation = (
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch<any>();
+    const user = useSelector((store: any) =>  store?.auth?.user?.value); 
     const state = location.state as {
         active_key: Location;
         max: number;
@@ -95,9 +96,15 @@ export const useCreatePostulation = (
                 await steps[0]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
+                const new_values = {
+                    ...values,
+                    pos_id_user: user?.detail_user?.use_id
+                }
+                console.log(new_values);
+                
                 try {
                     if (!postulation.applicant_data.id) {
-                        const res = await dispatch(actions.create_main_postulation(values));
+                        const res = await dispatch(actions.create_main_postulation(new_values));
                         console.log(res);
                         console.log(values);
 

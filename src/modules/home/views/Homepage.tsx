@@ -47,7 +47,7 @@ const Homepage = () => {
             </div>
 
             <section className="container-challenges">
-                <img src={fondo_retos} alt="letras medeinn" className="imagen-fondo" />
+                {context.device !== 'sm' && <img src={fondo_retos} alt="letras medeinn" className="imagen-fondo" />}
 
                 <div className="container" style={{ position: 'relative' }}>
                     <StaticInformation />
@@ -60,8 +60,8 @@ const Homepage = () => {
 
             <section className="section-events">
                 <img src={figurasEvent} alt="fihuras de fondo" className="figuras-fondo" />
-                
-                {publications?.length > 0 && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
+
+                {(publications?.length > 0  && context.device !== 'sm') && <img src={trazado_amarillo} alt="trazado" className="image-amarilla" />}
                 <div className="imagen-fondo-events">
                     <div className="text-white text-center container-cards-events" style={{ padding: '3rem 0 1rem 0' }}>
                         Eventos más cercanos
@@ -122,12 +122,15 @@ const Homepage = () => {
                 </div>
             </section>
 
-            <section style={{position: 'relative'}}>
-            <img
+            <section style={{ position: 'relative' }}>
+                {context.device === 'lg' && 
+                <img
                     src={figuraRetos}
                     alt="figuras de fondo"
                     style={{ position: 'absolute', top: '-40%', left: '10%', width: '400px' }}
                 />
+                
+                }
                 <div className="container">
                     <div className="row" style={{ background: '#E4EFF0' }}>
                         <CarouselTestimony />

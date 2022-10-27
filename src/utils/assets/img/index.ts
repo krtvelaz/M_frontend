@@ -58,6 +58,8 @@ export { default as marca_logo } from './marca_logo.png';
 export { default as logo_colombia } from './logo_colombia.png';
 export { default as flecha_pagination_left } from './flecha-pagination-left.svg';
 export { default as flecha_pagination_rigth } from './flecha-pagination-rigth.svg';
+export { default as invalidateImg } from './invalidateImg.svg';
+
 
 
 

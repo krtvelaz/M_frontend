@@ -1,12 +1,15 @@
 import 'bootstrap';
-import { useEffect } from 'react';
+import { useEffect,useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../banner/redux';
 import ModalVideo from './ModalVideo';
 import { Buffer } from 'buffer';
-import { arrowLeft, arrowRight } from '../../../utils/assets/img';
+import ArrowLeft from '../../../utils/assets/img/ArrowLeft';
+import ArrowRight from '../../../utils/assets/img/ArrowRight';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 const CarouselMedeinn = () => {
+    const context = useContext(TemplateContext);
     const dispatch = useDispatch<any>();
     const data = useSelector((store: any) => store.banner.list_banners.value);
     useEffect(() => {
@@ -41,16 +44,14 @@ const CarouselMedeinn = () => {
                             className={`${i === 0 ? 'active' : ''}`}
                             aria-current={`${i === 0 ? 'true' : 'false'}`}
                             aria-label={`Slide ${i + 1}`}
-                        >
-
-                        </button>
+                        ></button>
                     ))}
                 </div>
                 <div className="carousel-inner">
                     {data?.map((item: any, i: number) => (
-                        <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
+                        <div className={` carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
                             <div className="row container-carrousel">
-                                <div className="col-12 col-md-12 col-lg-4 content-carrousel">
+                                <div className=" col-12 col-md-12 col-lg-4 content-carrousel">
                                     <h2>{item?.ban_title}</h2>
                                     <p>{item?.ban_description}</p>
 
@@ -59,7 +60,11 @@ const CarouselMedeinn = () => {
                                     ) : null}
 
                                     {item?.ban_reference_url && (
-                                        <a href={`${item?.ban_reference_url}`} target="_blank" className="btn btn-outline-landing-primary ms-5">
+                                        <a
+                                            href={`${item?.ban_reference_url}`}
+                                            target="_blank"
+                                            className="btn btn-outline-landing-primary ms-5"
+                                        >
                                             Conoce más
                                         </a>
                                     )}
@@ -81,27 +86,27 @@ const CarouselMedeinn = () => {
                             </div>
                         </div>
                     ))}
+                    <div style={{ position: 'absolute', bottom: context.device === 'lg' ? '100px' : '-12px', left: context.device === 'lg' ? '0' : '20px', textAlign: 'end' }}>
+                        <div
+                            data-bs-target="#carouselIndicators"
+                            data-bs-slide="prev"
+                            style={{ marginRight: '50px', cursor: 'pointer' }}
+                        >
+                            <ArrowLeft color_fill={'#000'} />
+                            <span className="visually-hidden">Anterior</span>
+                        </div>
+
+                        <div
+                            data-bs-target="#carouselIndicators"
+                            data-bs-slide="next"
+                            className="ms-5"
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <ArrowRight color_fill="#000" />
+                            <span className="visually-hidden">Siguiente</span>
+                        </div>
+                    </div>
                 </div>
-                <button
-                    className="carousel-control-prev"
-                    type="button"
-                    data-bs-target="#carouselIndicators"
-                    data-bs-slide="prev"
-                >
-                    <img src={arrowLeft} alt="flecha izquierda" />
-                    {/* <span className="carousel-control-prev-icon" aria-hidden="true"></span> */}
-                    <span className="visually-hidden">Anterior</span>
-                </button>
-                <button
-                    className="carousel-control-next"
-                    type="button"
-                    data-bs-target="#carouselIndicators"
-                    data-bs-slide="next"
-                >
-                    <img src={arrowRight} alt="flecha izquierda" className="w-100" />
-                    {/* <span className="carousel-control-next-icon" aria-hidden="true"></span> */}
-                    <span className="visually-hidden">Siguiente</span>
-                </button>
             </div>
         </>
     );

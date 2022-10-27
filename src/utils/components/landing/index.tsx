@@ -57,9 +57,6 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
                 </Layout>
             </Layout>
             <Drawer
-                maskStyle={{
-                    backgroundColor: 'rgba(6, 100, 144 ,0.71)',
-                }}
                 placement="right"
                 onClose={context?.drawer_close}
                 visible={context?.drawer_collapsed}

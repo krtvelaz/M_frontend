@@ -67,7 +67,6 @@ export const edit_banner = (values: IMainBanner, type?: boolean) => {
         }
         form.append('id', JSON.stringify(data.id));
         delete data.ban_image;
-        // delete data.id;
         delete data.ban_updated_at;
         delete data.ban_create_at;
         delete data.cha_image_name;

@@ -10,7 +10,7 @@
     border-bottom: 0.1px solid #d3d0d0;
 }
 
-// tabs postulation
+// tabs postulation modal
 .tab-postulation .ant-tabs-tab-active .ant-tabs-tab-btn {
     color: white !important;
     font-family: 'Montserrat-Bold' !important;
@@ -24,6 +24,31 @@
 .tab-postulation .ant-tabs-ink-bar {
     background: #00ffe0 !important;
     height: 3.5px !important;
+}
+
+// tabs postulation register 
+.tab-postulation-register .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #000 !important;
+    font-family: 'Montserrat-Bold' !important;
+    // padding-left: 3rem !important
+}
+
+.tab-postulation-register .ant-tabs-tab:hover:not(.ant-tabs-tab-disabled) {
+    color: #000 !important;
+}
+
+
+.tab-postulation .ant-tabs-tab:hover {
+    color: white !important;
+    font-family: 'Montserrat-Regular' !important;
+}
+
+.tab-postulation-register .ant-tabs-ink-bar {
+    background: #FF8403 !important;
+    height: 1px !important;
+    bottom: 50% !important;
+    width: 40px !important;
+    display: none !important;
 }
 
 // tabs challenge

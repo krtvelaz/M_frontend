@@ -18,7 +18,6 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
     const [numero, setNumero] = useState(/^(?=.*[0-9])/);
     const [caracteres, setCaracteres] = useState(/^(?=.{8,})/);
 
-    const navigate = useNavigate();
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);
     const [type2, setType2] = useState(0);

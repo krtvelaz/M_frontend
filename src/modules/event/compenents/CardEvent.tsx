@@ -1,5 +1,4 @@
-import { Avatar, Skeleton } from 'antd';
-import Meta from 'antd/lib/card/Meta';
+import { Skeleton } from 'antd';
 import moment from 'moment';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';

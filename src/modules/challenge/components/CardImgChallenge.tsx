@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Card, Divider, Skeleton } from 'antd';
+import { Card } from 'antd';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
-import { calendarLanding } from '../../../utils/assets/img';
+import { calendarLanding, invalidateImg } from '../../../utils/assets/img';
 
 interface IPropsCards {
     data: any;
@@ -28,7 +28,23 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
                         alt="Imagen principal del reto"
                     />
                 ) : (
-                    <Skeleton.Image className="w-100" style={{ minHeight: '200px', borderRadius: ' 40px 40px 0 0' }} />
+                    <div
+                        className="p-4"
+                        style={{
+                            borderRadius: ' 40px 40px 0 0',
+                            minHeight: '200px',
+                            backgroundColor: '#1D98D1',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <img src={invalidateImg} alt="" />
+                        <div className="mt-3 text-white text-center">
+                            Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más tarde.
+                        </div>
+                    </div>
                 )
             }
         >

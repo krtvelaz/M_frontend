@@ -122,7 +122,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                         >
                             <img src={LogoPDF} alt="Logo PDF" style={{ width: '20px', marginRight: '10px' }} />
                             <li>
-                                <a href="#">{inform?.retinf_nombre}</a>
+                                <a style={{ color: '#000', textDecorationLine: 'none'}} href="#">{inform?.retinf_nombre}</a>
                             </li>
                         </div>
                     ))}

@@ -30,7 +30,7 @@ const optionsV = [
     },
 ];
 
-const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props }) => {
+const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, className, ...props }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const close = () => set_is_visible(false);
     const open = () => set_is_visible(true);
@@ -69,7 +69,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
     return (
         <>
             <div
-                className="form-control"
+                className={['form-control', className].join(' ')}
                 onClick={open}
                 style={{
                     borderBottomLeftRadius: '6px',
@@ -108,7 +108,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 closable={false}
             >
                 <Formik onSubmit={submit} initialValues={initial_values} validationSchema={schema} innerRef={form_ref}>
-                    {({ handleChange, values }) => {
+                    {({ handleChange, values, errors, touched   }) => {
                         return (
                             <Form>
                                 <div className="row">
@@ -118,11 +118,12 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             maxTagCount="responsive"
                                             dropdownMatchSelectWidth={false}
                                             id="ret_perfil_id"
                                             name="tipo_via"
-                                            className=""
+                                            status={(errors?.tipo_via && touched.tipo_via) ? 'error' : 'success'}
                                             options={[
                                                 {
                                                     name: 'Autopista',
@@ -194,7 +195,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero_dir_id"
                                             name="numero_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero_dir && touched.numero_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
@@ -217,7 +218,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="letra_dir_id"
                                             name="letra_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.letra_dir && touched.letra_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={1}
@@ -239,8 +240,10 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             id="zona_dir_id"
                                             name="zona_dir"
+                                            status={(errors?.zona_dir && touched.zona_dir) ? 'error' : 'success'}
                                             dropdownMatchSelectWidth={false}
                                             options={optionsV}
                                         />
@@ -257,7 +260,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero2_dir"
                                             name="numero2_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero2_dir && touched.numero2_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
@@ -281,7 +284,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="letra2_dir"
                                             name="letra2_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.letra2_dir && touched.letra2_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
                                             maxLength={1}
                                             autocomplete="off"
@@ -302,8 +305,10 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             id="zona2_dir"
                                             name="zona2_dir"
+                                            status={(errors?.zona2_dir && touched.zona2_dir) ? 'error' : 'success'}
                                             dropdownMatchSelectWidth={false}
                                             options={[
                                                 {
@@ -335,7 +340,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero3_dir"
                                             name="numero3_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero3_dir && touched.numero3_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
                                             autocomplete="off"
                                             maxLength="3"
@@ -362,7 +367,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             id="obser_dir"
                                             name="obser_dir"
                                             autocomplete="off"
-                                            className="form-control"
+                                            className={`form-control ${(errors.obser_dir && touched.obser_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}
                                         />
