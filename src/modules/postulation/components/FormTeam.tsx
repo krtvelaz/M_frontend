@@ -12,9 +12,11 @@ interface PostulationTeamFormPros {
             ? void
             : (e: string | React.ChangeEvent<any>) => void;
     };
+    errors: any;
+    touched: any;
     i: number;
 }
-const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
+const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, i }) => {
     const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeListSexForm = useSelector((store: any) => store.postulation.listSexs.value);
     const TypeDocMember = useSelector((store: any) => store.postulation.loading_typeDocumentsMembers.value);
@@ -36,18 +38,24 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
         listSex_orientation();
     }, []);
 
+    
+    
+// console.log( );
+
+
     return (
         <div>
             <div className="row">
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_names_id" className="form-label">
+                    <label htmlFor="gruint_names_id" className="form-label label-landing">
                         Nombre y apellidos
                     </label>
+                    
                     <Field
                         type="text"
                         id="gruint_names_id"
                         name={`membersPostulations.${i}.gruint_names`}
-                        className="form-control"
+                        className={`form-control ${( errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_names && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_names  ) &&  'error-input'}`}
                         autoComplete="off"
                         placeholder="Nombre y apellidos"
                         minLength={3}
@@ -65,15 +73,17 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                 </div>
 
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_type_document_id" className="form-label ">
+                    <label htmlFor="gruint_type_document_id" className="form-label label-landing">
                         Tipo de Documento
                     </label>
                     <div className="row">
                         <div className="col-4">
                             <Field
                                 component={Select}
+                                color='#603CE6'
                                 id="gruint_type_document_id"
                                 name={`membersPostulations.${i}.gruint_type_document`}
+                                status={(errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_type_document && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_type_document) ? 'error' : 'success'}
                                 dropdownStyle={{
                                     maxHeight: 400,
                                     overflow: 'auto',
@@ -94,7 +104,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                                 type="number"
                                 name={`membersPostulations.${i}.gruint_document`}
                                 id="gruint_document_id"
-                                className="form-control"
+                                className={`form-control ${( errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_document && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_document  ) &&  'error-input'}`}
                                 autoComplete="off"
                                 placeholder="No. Número de documento"
                                 minLength={7}
@@ -115,13 +125,15 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                 </div>
 
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_sex_id" className="form-label">
+                    <label htmlFor="gruint_sex_id" className="form-label label-landing">
                         Sexo
                     </label>
                     <Field
                         component={Select}
+                        color='#603CE6'
                         id="gruint_sex_id"
                         name={`membersPostulations.${i}.gruint_sex`}
+                        status={(errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_sex && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_sex) ? 'error' : 'success'}
                         style={{ height: '38px' }}
                         options={typeListSexForm}
                         placeholder="Seleccione…"
@@ -132,13 +144,15 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_sex`} />
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_identity_id" className="form-label">
+                    <label htmlFor="gruint_identity_id" className="form-label label-landing">
                         Identidad de género
                     </label>
                     <Field
                         component={Select}
+                        color='#603CE6'
                         id="gruint_identity_id"
                         name={`membersPostulations.${i}.gruint_identity`}
+                        status={(errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_identity && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_identity) ? 'error' : 'success'}
                         style={{ height: '38px' }}
                         options={[
                             {
@@ -174,13 +188,15 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
             </div>
             <div className="row">
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_orientation_sexual_id" className="form-label">
+                    <label htmlFor="gruint_orientation_sexual_id" className="form-label label-landing">
                         Orientación sexual
                     </label>
                     <Field
                         component={Select}
+                        color='#603CE6'
                         id="gruint_orientation_sexual_id"
                         name={`membersPostulations.${i}.gruint_orientation_sexual`}
+                        status={(errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_orientation_sexual && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_orientation_sexual) ? 'error' : 'success'}
                         style={{ height: '38px' }}
                         options={SexualOrientations}
                         placeholder="Seleccione…"
@@ -191,13 +207,15 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_orientation_sexual`} />
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="gruint_ethnicity_id" className="form-label">
+                    <label htmlFor="gruint_ethnicity_id" className="form-label label-landing">
                         Etnia
                     </label>
                     <Field
                         component={Select}
+                        color='#603CE6'
                         id="gruint_ethnicity_id"
                         name={`membersPostulations.${i}.gruint_ethnicity`}
+                        status={(errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_ethnicity && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_ethnicity) ? 'error' : 'success'}
                         style={{ height: '38px' }}
                         options={[
                             {
@@ -224,7 +242,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                     <ErrorMessage name={`membersPostulations.${i}.gruint_ethnicity`} />
                 </div>
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="radiogrou_victim_id" className="form-label mb-4">
+                    <label htmlFor="radiogrou_victim_id" className="form-label mb-4 label-landing">
                         ¿Es víctima del conflicto?
                     </label>
                     <div
@@ -252,7 +270,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, i }) => {
                 </div>
 
                 <div className="col-12 col-md-6 col-lg-3">
-                    <label htmlFor="radiogrou_disability_id" className="form-label mb-4">
+                    <label htmlFor="radiogrou_disability_id" className="form-label mb-4 label-landing">
                         ¿Presenta algún tipo de discapacidad?
                     </label>
                     <div

@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../banner/redux';
 import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
-import { Skeleton } from 'antd';
 import ArrowRight from '../../../utils/assets/img/ArrowRight';
 import ArrowLeft from '../../../utils/assets/img/ArrowLeft';
+import { invalidateImg } from '../../../utils/assets/img';
 
 const CarouselTestimony = () => {
     const navigate = useNavigate();
@@ -44,7 +44,7 @@ const CarouselTestimony = () => {
                 <div className="carousel-inner">
                     {data?.map((item: any, i: number) => (
                         <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={`carrousel-${item?.id}`}>
-                            <div className="row mt-5">
+                            <div className="row mt-5 justify-content-center">
                                 <div className="col-lg-4">
                                     {item?.tes_image_buffer?.data ? (
                                         <img
@@ -52,11 +52,27 @@ const CarouselTestimony = () => {
                                                 item?.tes_image_buffer?.data
                                             ).toString('base64')}`}
                                             // className="w-100 h-100 mt-5"
-                                            style={{minHeight: '100px'}}
+                                            style={{ minHeight: '100px' }}
                                             alt="imagen"
                                         />
                                     ) : (
-                                        <Skeleton.Image className="w-100 h-100" active />
+                                        <div
+                                            className="p-4"
+                                            style={{
+                                                minHeight: '200px',
+                                                backgroundColor: '#ACACAC',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <img src={invalidateImg} alt="" />
+                                            <div className="mt-3 text-white text-center">
+                                                Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más
+                                                tarde.
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-6 pt-5">
@@ -70,7 +86,24 @@ const CarouselTestimony = () => {
                                                 alt="logo"
                                             />
                                         ) : (
-                                            <Skeleton.Image className="w-100 h-100" active />
+                                            <div
+                                            className="p-4"
+                                            style={{
+                                                // minHeight: '200px',
+                                                backgroundColor: '#ACACAC',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <img src={invalidateImg} alt="" />
+                                            <div className="mt-3 text-white text-center">
+                                                Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más
+                                                tarde.
+                                            </div>
+                                        </div>
+                                            // <Skeleton.Image className="w-100 h-100" active />
                                         )}
                                     </div>
                                     <div className="row mb-5">
@@ -88,7 +121,6 @@ const CarouselTestimony = () => {
                                             Conoce los retos
                                         </button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -99,7 +131,6 @@ const CarouselTestimony = () => {
                         data-bs-target="#carouselTestimonials"
                         data-bs-slide="prev"
                         style={{ marginRight: '50px', cursor: 'pointer' }}
-                       
                     >
                         <ArrowLeft color_fill={'#603CE6'} />
                         <span className="visually-hidden">Anterior</span>
@@ -110,7 +141,6 @@ const CarouselTestimony = () => {
                         data-bs-slide="next"
                         className="ms-5"
                         style={{ cursor: 'pointer' }}
-                       
                     >
                         <ArrowRight color_fill="#603CE6" />
                         <span className="visually-hidden">Siguiente</span>

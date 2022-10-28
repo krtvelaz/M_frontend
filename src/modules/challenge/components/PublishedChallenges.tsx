@@ -1,12 +1,11 @@
 import { Card, Skeleton } from 'antd';
-import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
-import { TemplateContext } from '../../../utils/components/template/templateContext';
-import { calendarLanding } from '../../../utils/assets/img';
+import { calendarLanding, invalidateImg } from '../../../utils/assets/img';
 
 const PublishedChallenges = () => {
     const [challenges, setChallenges] = useState<any[]>([]);
@@ -45,7 +44,8 @@ const PublishedChallenges = () => {
                 </span>
                 <br />
                 <p style={{ width: '300px' }}>
-                    Conecta con los retos del territorio y mejora la calidad de vida de los habitantes de la ciudad a través de la tecnología.
+                    Conecta con los retos del territorio y mejora la calidad de vida de los habitantes de la ciudad a
+                    través de la tecnología.
                 </p>
             </div>
             <div className="col-12 col-md-12 col-lg-7">
@@ -65,20 +65,36 @@ const PublishedChallenges = () => {
                                             <div className="colorear">
                                                 <img
                                                     alt="example"
-
                                                     className="w-100 h-100"
-                                                    style={{ borderRadius: ' 40px 40px 0 0', objectFit: 'cover', objectPosition: '50% 50%' }}
-                                                    src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(challenge?.cha_image_buffer?.data).toString('base64')}`}
+                                                    style={{
+                                                        borderRadius: ' 40px 40px 0 0',
+                                                        objectFit: 'cover',
+                                                        objectPosition: '50% 50%',
+                                                    }}
+                                                    src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
+                                                        challenge?.cha_image_buffer?.data
+                                                    ).toString('base64')}`}
                                                 />
-
                                             </div>
-
                                         ) : (
-                                            <Skeleton.Image
-                                                className="w-100"
-                                                style={{ borderRadius: ' 40px 40px 0 0', minHeight: '200px' }}
-                                                active={loading}
-                                            />
+                                            <div
+                                                className="p-4"
+                                                style={{
+                                                    borderRadius: ' 40px 40px 0 0',
+                                                    minHeight: '200px',
+                                                    backgroundColor: '#1D98D1',
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                <img src={invalidateImg} alt="" />
+                                                <div className="mt-3 text-white text-center">
+                                                    Lo sentimos actualmente no se puede visualizar la imagen, inténtalo
+                                                    más tarde.
+                                                </div>
+                                            </div>
                                         )
                                     }
                                 >

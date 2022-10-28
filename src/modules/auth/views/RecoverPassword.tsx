@@ -1,5 +1,5 @@
 import { FormikProps, FormikValues } from 'formik';
-import React, { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { trazado_amarillo } from '../../../utils/assets/img';

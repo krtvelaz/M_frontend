@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ArrowLeft from '../../../utils/assets/img/ArrowLeft';
@@ -7,6 +7,7 @@ import { actions } from '../redux';
 import { Buffer } from 'buffer';
 import { Skeleton } from 'antd';
 import ComponetLoading from '../../event/compenents/ComponetLoading';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 interface IDetailCardPublication {
     keyTab: string;
@@ -15,6 +16,7 @@ interface IDetailCardPublication {
 export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
+    const context = useContext(TemplateContext);
     const publications = useSelector((store: any) => store.publication.list_publication.value);
     const loading = useSelector((store: any) => store.publication.list_publication.loading);
     const { total } = useSelector((store: any) => store.publication.list_publication.pagination);
@@ -55,7 +57,7 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                             {loading ? (
                                 <ComponetLoading height="600px" />
                             ) : publications.length > 0 ? (
-                                <div className="container" style={{ height: '800px' }}>
+                                <div className="container" style={ context.device !== 'lg' ? {height: 'auto'} : { height: '800px' }}>
                                     <div className="row my-5 pe-5 ps-5">
                                         {publications?.map((publication: any, index: any) => (
                                             <div

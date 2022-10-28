@@ -33,7 +33,7 @@ const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
                     open();
                 }}
             >
-                <span style={{ cursor: 'pointer', position: 'relative', zIndex: 100 }}>Presentación</span>
+                <span style={{ cursor: 'pointer', position: 'relative', zIndex: 100, color: '#603CE6'}}>Presentación</span>
                 <Avatar className="ms-2 text-white link-avatar" size={28} style={{ backgroundColor: '#603CE6' }}>
                     <i className="fa fa-play" aria-hidden="true"></i>
                 </Avatar>

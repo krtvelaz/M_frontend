@@ -102,7 +102,8 @@ const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
             validationSchema={schema}
             initialValues={initial_values}
         >
-            {({ handleChange, values, setValues }) => {
+            {({ handleChange, values, setValues, errors, touched}) => {
+                           
                 return (
                     <Form>
                         <FieldArray name="membersPostulations">
@@ -127,7 +128,7 @@ const FormArrayTeam: FC<FormIProps> = ({ innerRef, onSubmit, postulation }) => {
                                         </div>
                                         <hr />
 
-                                        <FormTeam key={i} handleChange={handleChange} i={i} />
+                                        <FormTeam key={i} handleChange={handleChange} errors={errors} touched={touched} i={i} />
                                     </>
                                 ))
                             }

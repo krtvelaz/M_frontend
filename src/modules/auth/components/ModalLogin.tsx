@@ -8,9 +8,10 @@ export interface LoginModalProps {
     open?: boolean;
     toggle?: () => void;
     is_new_user: boolean;
+    pathPostulation?: any;
 }
 
-const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
+const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
     const navigate = useNavigate();
 
     return (
@@ -24,7 +25,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle }) => {
                             </div>
                             <h5 className="sub-header-login text-center mb-5">Ingresa tus datos para iniciar sesión</h5>
                             <div className="form-login">
-                                <FormLogin toggle={toggle} />
+                                <FormLogin toggle={toggle} pathPostulation={pathPostulation} />
                                 <div
                                     className="row"
                                     style={{

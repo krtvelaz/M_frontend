@@ -120,7 +120,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     type="text"
                                     id="name_id"
                                     name="names"
-                                    className="form-control"
+                                    className={`form-control ${(errors.names && touched.names) && 'error-input'}`}
                                     autoComplete="off"
                                     placeholder="Nombres"
                                     maxLength={50}
@@ -145,7 +145,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         type="text"
                                         id="last_name_id"
                                         name="surnames"
-                                        className="form-control"
+                                        className={`form-control ${(errors.surnames && touched.surnames) && 'error-input'}`}
                                         autoComplete="off"
                                         placeholder="Apellidos"
                                         maxLength={50}
@@ -177,7 +177,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                                 id="document_type_id"
                                                 name="document_type"
                                                 color='#603CE6'
-                                                className="select-landing"
+                                                status={(errors?.document_type && touched.document_type) ? 'error' : 'success'}
                                                 dropdownStyle={{
                                                     maxHeight: 400,
                                                     overflow: 'auto',
@@ -202,7 +202,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             type="text"
                                             name="document_number"
                                             id="number_document_id"
-                                            className="form-control"
+                                            className={`form-control ${(errors.document_number && touched.document_number) && 'error-input'}`}
                                             autoComplete="off"
                                             placeholder="No."
                                             min={7}
@@ -230,6 +230,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         component={Select}
                                         id="gender_id"
                                         name="gender"
+                                        status={(errors?.gender && touched.gender) ? 'error' : 'success'}
                                         color='#603CE6'
                                         style={{ height: '38px' }}
                                         options={[
@@ -253,6 +254,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         component={Select}
                                         id="entity_type_id"
                                         name="entity_type"
+                                        status={(errors?.entity_type && touched.entity_type) ? 'error' : 'success'}
                                         style={{ height: '38px' }}
                                         options={[
                                             { name: 'Otro', id: 'Otro' },
@@ -275,7 +277,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     type="email"
                                     id="email_id"
                                     name="email"
-                                    className="form-control"
+                                    className={`form-control ${(errors.email && touched.email) && 'error-input'}`}
                                     autoComplete="off"
                                     style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
@@ -289,7 +291,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     component={ModalAddress}
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${(errors.address && touched.address) && 'error-input'}`}
                                     autoComplete="off"
                                     minLength={3}
                                     maxLength={100}
@@ -307,10 +309,10 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     <div className="col-4">
                                         <Field
                                             component={Select}
+                                            status={(errors?.contact_type && touched.contact_type) ? 'error' : 'success'}
                                             id="type_contact_id"
                                             name="contact_type"
                                             color='#603CE6'
-                                            className=""
                                             options={[
                                                 {
                                                     name: 'Fijo',
@@ -332,7 +334,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             type="text"
                                             id="number_contact_id"
                                             name="contact_number"
-                                            className="form-control"
+                                            className={`form-control ${(errors.contact_number && touched.contact_number) && 'error-input'}`}
                                             autoComplete="off"
                                             placeholder="No. Digita tu número de contacto."
                                             min={7}
@@ -360,6 +362,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     color='#603CE6'
                                     id="country_id"
                                     name="country"
+                                    status={(errors?.country && touched.country) ? 'error' : 'success'}
                                     style={{ height: '38px' }}
                                     options={countries.map((country: any) => ({
                                         name: country.name,
@@ -387,6 +390,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     showSearch
                                     component={Select}
+                                    status={(errors?.state && touched.state) ? 'error' : 'success'}
                                     id="country_id"
                                     color='#603CE6'
                                     name="state"
@@ -415,6 +419,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     id="city_id"
                                     color='#603CE6'
                                     name="city"
+                                    status={(errors?.city && touched.city) ? 'error' : 'success'}
                                     style={{ height: '38px' }}
                                     disabled={!values.state}
                                     options={cities.map((city: any) => ({ name: city.name, id: city.id }))}
@@ -443,7 +448,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     disabled={values.city !== '05001-MEDELLÍN'}
                                     id="comuna_id"
                                     name="commune"
-                                    className=""
+                                    status={(errors?.commune && touched.commune) ? 'error' : 'success'}
                                     options={communes?.map((commune: any) => ({
                                         id: commune?.id,
                                         name: commune?.commune,
@@ -468,7 +473,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     disabled={!values.commune}
                                     id="neighborhood_id"
                                     name="neighborhood"
-                                    className=""
+                                    status={(errors?.neighborhood && touched.neighborhood) ? 'error' : 'success'}
                                     color='#603CE6'
                                     options={neighborhoods?.map((neighborhood: any) => ({
                                         id: neighborhood?.neighborhood,
@@ -504,26 +509,5 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
     );
 };
 
-// interface IRadioPros{
-//     className?: string;
-//     extra_on_change?: (value: any, prev_value?: any) => void;
-//     field:any;
-//     form:any;
-// }
-
-// const RadioMedeinn: FC<IRadioPros> = ({
-//     field, form, className, extra_on_change, ...props
-// }) => {
-//     const on_change = (value: any) =>{
-//         form.setFieldValue(field.name, value.target.value, false);
-//         extra_on_change && extra_on_change(value.target.value, field.value);
-//     }
-
-//     return (
-//         <Radio.Group {...props} onChange={on_change} value={field.value} >
-//             <Radio value={true}> Acepto Políticas de uso y los Términos y Condiciones</Radio>
-//         </Radio.Group>
-//     )
-// }
 
 export default FormRegister;

@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
+import { calendarLanding, invalidateImg, letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
 import { Link } from '../../../utils/ui';
 import { actions } from '../redux';
 import InfoDetailChallenge from '../components/InfoDetailChallenge';
@@ -14,7 +14,7 @@ const DetailChallenge = () => {
     const { id } = useParams<any>();
     const challenge: any = useSelector((store: any) => store.challenge.challenge.value);
 
-    const [imgPrincipal, setImgPrincipal] = useState<any>({});
+    const [imgPrincipal, setImgPrincipal] = useState<any>(null);
     const dispatch = useDispatch<any>();
     const context = useContext(TemplateContext);
 
@@ -30,6 +30,8 @@ const DetailChallenge = () => {
     useEffect(() => {
         getChallenge();
     }, []);
+
+
 
     return (
         <>
@@ -47,12 +49,33 @@ const DetailChallenge = () => {
             >
                 <div className="container">
                     <div className="container-img-principal">
-                        <img
-                            src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
-                            alt="imagen"
-                            className="w-100"
-                            style={{ position: 'relative', top: '-13%' }}
-                        />
+                        {imgPrincipal ? (
+                            <img
+                                src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
+                                alt="imagen"
+                                className="w-100"
+                                style={{ position: 'relative', top: '-13%' }}
+                            />
+                        ) : (
+                            <div
+                                className="p-4"
+                                style={{
+                                    height: '100%',
+                                    backgroundColor: '#1D98D1',
+                                }}
+                            >
+                                <div className="row" style={ context.device === 'lg' ? {marginTop: '100px'} : {}}>
+                                    <div className="col-12 col-lg-4"></div>
+                                    <div className="col text-center">
+                                        <img className='' src={invalidateImg} alt="" />
+                                        <div className="mt-3 text-white">
+                                            Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más
+                                            tarde.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" />
@@ -61,7 +84,7 @@ const DetailChallenge = () => {
                         className="row"
                         style={{
                             position: 'relative',
-                            marginTop: '180px',
+                            marginTop: '220px',
                             // zIndex: 1,
                         }}
                     >
@@ -73,7 +96,7 @@ const DetailChallenge = () => {
                                     borderRadius: '18px',
                                     boxShadow: '0px 30px 80px #00000029',
                                     opacity: 1,
-                                    paddingBottom: '300px',
+                                    paddingBottom: '350px',
                                 }}
                             >
                                 <div
@@ -91,11 +114,8 @@ const DetailChallenge = () => {
                                         <h5 className="my-4 card-title-challenge text-center">{challenge?.cha_name}</h5>
                                         <div className="row mb-3">
                                             <div className="col-2">
-                                                <i
-                                                    className="fa fa-calendar-o mx-3"
-                                                    aria-hidden="true"
-                                                    style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }}
-                                                ></i>
+                                            <img alt="imagen de calendario" src={calendarLanding} style={{ fontSize: '25px', marginTop: '15px', color: '#DE096B' }} />
+
                                             </div>
                                             <div className="col-10">
                                                 <p className="mt-3" style={{ fontFamily: 'Montserrat-SemiBold' }}>

@@ -1,9 +1,8 @@
 import { Select } from '../../../utils/ui';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FieldProps } from 'formik';
 import { FC, useRef, useState } from 'react';
 import { Modal } from 'antd';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
-import { FieldProps } from 'formik';
 import * as Yup from 'yup';
 
 interface ModalAddress extends FieldProps {
@@ -34,15 +33,17 @@ const optionsV = [
     },
 ];
 
-const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props }) => {
+const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, className, ...props }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const close = () => set_is_visible(false);
     const open = () => set_is_visible(true);
 
     const submit = (values: any, actions: any) => {
+        console.log('ggggg',values);
+        
         form.setFieldValue(
             field.name,
-            `${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`,
+            `${values?.tipo_via} ${values?.numero_dir}${values?.letra_dir}  ${values?.zona_dir} # ${values?.numero2_dir}${values?.letra2_dir} ${values?.zona2_dir} - ${values?.numero3_dir} ${values?.obser_dir}`,
             false
         );
         close();
@@ -73,7 +74,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
     return (
         <>
             <div
-                className="form-control"
+                className={['form-control', className].join(' ')}
                 onClick={open}
                 style={{
                     borderBottomLeftRadius: '6px',
@@ -112,7 +113,8 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                 closable={false}
             >
                 <Formik onSubmit={submit} initialValues={initial_values} validationSchema={schema} innerRef={form_ref}>
-                    {({ handleChange, values }) => {
+                    {({ handleChange, values, errors, touched   }) => {
+                        console.log(values);
                         return (
                             <Form>
                                 <div className="row">
@@ -122,11 +124,12 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             maxTagCount="responsive"
                                             dropdownMatchSelectWidth={false}
                                             id="ret_perfil_id"
                                             name="tipo_via"
-                                            className=""
+                                            status={(errors?.tipo_via && touched.tipo_via) ? 'error' : 'success'}
                                             options={[
                                                 {
                                                     name: 'Autopista',
@@ -198,7 +201,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero_dir_id"
                                             name="numero_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero_dir && touched.numero_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
@@ -221,10 +224,10 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="letra_dir_id"
                                             name="letra_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.letra_dir && touched.letra_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
-                                            maxLength={1}
+                                            maxLength={2}
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
@@ -234,7 +237,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                                 }
                                             }}
                                         />
-                                        <ErrorMessage name="letra_dir" withCount max={1} />
+                                        <ErrorMessage name="letra_dir" withCount max={2} />
                                     </div>
 
                                     <div className="col-12 col-md-6 col-lg-3">
@@ -243,8 +246,11 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            allowClear
+                                            color='#603CE6'
                                             id="zona_dir_id"
                                             name="zona_dir"
+                                            status={(errors?.zona_dir && touched.zona_dir) ? 'error' : 'success'}
                                             dropdownMatchSelectWidth={false}
                                             options={optionsV}
                                         />
@@ -261,7 +267,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero2_dir"
                                             name="numero2_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero2_dir && touched.numero2_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={3}
@@ -285,9 +291,9 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="letra2_dir"
                                             name="letra2_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.letra2_dir && touched.letra2_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
-                                            maxLength={1}
+                                            maxLength={2}
                                             autocomplete="off"
                                             onChange={(e: any) => {
                                                 e.preventDefault();
@@ -298,7 +304,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                                 }
                                             }}
                                         />
-                                        <ErrorMessage name="letra2_dir" withCount max={1} />
+                                        <ErrorMessage name="letra2_dir" withCount max={2} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
                                         <label htmlFor="zona2_dir" className="form-label label-landing">
@@ -306,8 +312,11 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                         </label>
                                         <Field
                                             component={Select}
+                                            allowClear
+                                            color='#603CE6'
                                             id="zona2_dir"
                                             name="zona2_dir"
+                                            status={(errors?.zona2_dir && touched.zona2_dir) ? 'error' : 'success'}
                                             dropdownMatchSelectWidth={false}
                                             options={[
                                                 {
@@ -339,7 +348,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="numero3_dir"
                                             name="numero3_dir"
-                                            className="form-control"
+                                            className={`form-control ${(errors.numero3_dir && touched.numero3_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
                                             autocomplete="off"
                                             maxLength="3"
@@ -366,7 +375,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             id="obser_dir"
                                             name="obser_dir"
                                             autocomplete="off"
-                                            className="form-control"
+                                            className={`form-control ${(errors.obser_dir && touched.obser_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}
                                         />
@@ -386,7 +395,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, ...props
                                             type="text"
                                             id="dir_ing"
                                             name="dir_ing"
-                                            value={`${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`}
+                                            value={`${values?.tipo_via} ${values?.numero_dir}${values?.letra_dir}  ${values?.zona_dir || ""} # ${values?.numero2_dir}${values?.letra2_dir} ${values?.zona2_dir || ""} - ${values?.numero3_dir} ${values?.obser_dir}`}
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}

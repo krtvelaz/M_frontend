@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { trazado_amarillo } from '../../../utils/assets/img';
+import { invalidateImg, trazado_amarillo } from '../../../utils/assets/img';
 import { Card } from '../../../utils/ui';
 import { actions } from '../redux';
 import { Buffer } from 'buffer';
@@ -40,34 +40,61 @@ const DetailPublication = () => {
             {!loading ? (
                 <>
                     <div className="container-img-publication-principal">
-                        <img
-                            src={
-                                publication?.pub_image_buffer?.data &&
-                                `data:image/jpeg;charset=utf-8;base64,${Buffer.from(
-                                    publication?.pub_image_buffer?.data
-                                ).toString('base64')}`
-                            }
-                            alt="imagen"
-                            className="w-100"
-                            style={{ position: 'relative', top: '-13%' }}
-                        />
+                        {publication?.pub_image_buffer?.data ? (
+                            <img
+                                src={
+                                    publication?.pub_image_buffer?.data &&
+                                    `data:image/jpeg;charset=utf-8;base64,${Buffer.from(
+                                        publication?.pub_image_buffer?.data
+                                    ).toString('base64')}`
+                                }
+                                alt="imagen"
+                                className="w-100"
+                                style={{ position: 'relative', top: '-13%' }}
+                            />
+                        ) : (
+                            <div
+                                className="p-4"
+                                style={{
+                                    height: '100%',
+                                    backgroundColor: '#1D98D1',
+                                }}
+                            >
+                                <div className="row" style={{ marginTop: '40px' }}>
+                                    
+                                    <div className="col-12 col-lg-4 text-center">
+                                        <img className="" src={invalidateImg} alt="" />
+                                        <div className="mt-3 text-white">
+                                            Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más
+                                            tarde.
+                                        </div>
+                                    </div>
+                                    <div className="col"></div>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                    {context.device !== 'sm' && (
+                    {(context.device !== 'sm' && publication?.pub_description.length > 1500) && (
                         <img
                             src={trazado_amarillo}
                             alt="trazado"
-                            style={{ position: 'absolute', bottom: '-12%', left: '-130%', maxWidth: '250%' }}
+                            style={{ position: 'absolute', top: '-5%', left: '-50%', maxWidth: '4000px' }}
                         />
                     )}
-                    <div className="container">
-                        <div className="row">
+                    <div className="container" style={{marginBottom: '100px'}}>
+                        <div className="row" style={context.device !== 'lg' ?{marginTop: '130px'} :{}}>
                             <div className="col-12 col-md-12 col-lg-4"></div>
                             <div className="col">
                                 <div
                                     className={`text-white ${context.device === 'lg' ? 'my-5' : 'my-2'}`}
                                     style={{ position: 'relative' }}
                                 >
-                                    <div className="mt-5">Medellín { formatDate(moment(publication?.pub_created_at).format('DD MMMM YYYY').toLowerCase()) }</div>
+                                    <div className="mt-5">
+                                        Medellín{' '}
+                                        {formatDate(
+                                            moment(publication?.pub_created_at).format('DD MMMM YYYY').toLowerCase()
+                                        )}
+                                    </div>
                                     <h2 className="text-white">{publication?.pub_title}</h2>
                                     <div style={{ fontSize: '16px' }}>
                                         Introducción a la noticia con texto descriptivo del contenido a consultar o leer
@@ -123,8 +150,8 @@ const DetailPublication = () => {
                 //         </div>
                 //     </Card>
                 // </div>
-                <div className='my-5'>
-                    <ComponetLoading height='450px' color='rgba(33, 25, 21, 0.4)' />
+                <div className="my-5">
+                    <ComponetLoading height="450px" color="rgba(33, 25, 21, 0.4)" />
                 </div>
             )}
         </div>

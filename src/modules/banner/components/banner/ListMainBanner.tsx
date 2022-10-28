@@ -24,7 +24,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ banners, onEdit, onDelete, loading
     const dispatch = useDispatch<any>();
 
     useEffect(() => {
-        setData(banners)
+        setData(banners);
     }, [banners]);
 
     const table_columns: any = [
@@ -33,7 +33,7 @@ const ListMainBanner: FC<BannerFormPros> = ({ banners, onEdit, onDelete, loading
             align: 'center' as 'center',
             render: (datos: any, datos2: any, index: number) => {
                 return index + 1;
-            }
+            },
         },
         {
             title: 'Título',
@@ -130,10 +130,10 @@ const ListMainBanner: FC<BannerFormPros> = ({ banners, onEdit, onDelete, loading
                 loading={loading}
                 edit={async () => {
                     const newdata = data?.map((d, i: number) => {
-                        return (d = {
+                        return {
                             ...d,
                             ban_order: i + 1,
-                        });
+                        };
                     });
                     await Promise.all(newdata?.map((result: any) => dispatch(actions.edit_banner(result, true))));
                     const res = await dispatch(

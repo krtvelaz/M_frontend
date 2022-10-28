@@ -2,8 +2,6 @@ import { FormikProps, FormikValues } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { swal_error } from '../../../utils/ui';
-import { swal_success } from '../../../utils/ui/swalAlert';
 import { actions } from '../redux';
 
 export const useCreatePostulation = (
@@ -14,10 +12,12 @@ export const useCreatePostulation = (
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch<any>();
+    const user = useSelector((store: any) => store?.auth?.user?.value);
     const state = location.state as {
         active_key: Location;
         max: number;
         postulation?: any;
+        challenge?: any;
     };
     const active_key: any = state?.active_key || '1';
     const ls = state;
@@ -95,12 +95,13 @@ export const useCreatePostulation = (
                 await steps[0]?.ref?.current?.submitForm();
             },
             onSave: async (values: any) => {
+                const new_values = {
+                    ...values,
+                    pos_id_user: user?.detail_user?.use_id,
+                };
                 try {
                     if (!postulation.applicant_data.id) {
-                        const res = await dispatch(actions.create_main_postulation(values));
-                        console.log(res);
-                        console.log(values);
-
+                        const res = await dispatch(actions.create_main_postulation(new_values));
                         setPostulation((data: any) => ({
                             ...data,
                             applicant_data: {
@@ -116,11 +117,11 @@ export const useCreatePostulation = (
                             },
                         }));
                     }
-
                     set_is_saving(false);
                 } catch (error) {
                     return Promise.reject(error);
                 }
+                
             },
         },
         {
@@ -138,16 +139,16 @@ export const useCreatePostulation = (
                     };
                 });
                 try {
-                    const res = await dispatch(
-                        actions.create_memberPostulation(membersSend, postulation.applicant_data.id)
-                    );
+                    await dispatch(actions.create_memberPostulation(membersSend, postulation.applicant_data.id));
                     setPostulation((data: any) => ({
                         ...data,
                         membersPostulations: values.membersPostulations,
                     }));
+
                 } catch (error) {
                     Promise.reject(error);
                 }
+
                 set_is_saving(false);
             },
         },
@@ -168,8 +169,6 @@ export const useCreatePostulation = (
                 set_is_saving(false);
                 await dispatch(actions.generate_settled(new_values));
                 navigate(`../`, { replace: true });
-                const landingScroll: any = document.getElementById('scroll-landing');
-                landingScroll.scrollTop = 0;
             },
         },
     ];
@@ -198,13 +197,19 @@ export const useCreatePostulation = (
         if (prev) {
             set_is_saving(false);
             set_go_next(key);
+            const landingScroll: any = document.getElementById('scroll-landing');
+            landingScroll.scrollTop = 0;
             return;
         }
 
         save &&
             save().then(() => {
                 set_go_next(key);
+                const landingScroll: any = document.getElementById('scroll-landing');
+                landingScroll.scrollTop = 0;
             });
+            const landingScroll: any = document.getElementById('scroll-landing');
+                landingScroll.scrollTop = 0;
     };
 
     const goBack = () => {
@@ -241,6 +246,7 @@ export const useCreatePostulation = (
                     active_key: go_next,
                     postulation,
                     max,
+                    challenge: location?.state.challenge,
                 },
             });
 

@@ -105,7 +105,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     type="text"
                                     id="name_id"
                                     name="name"
-                                    className="form-control"
+                                    className={`form-control ${(errors.name && touched.name) &&  'error-input'}`}
                                     autoComplete="off"
                                     placeholder="Nombre o razón social"
                                     minLength={3}
@@ -141,9 +141,10 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     <div className="col col-md-3">
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             id="document_type_id"
                                             name="document_type"
-                                            className=""
+                                            status={(errors?.document_type && touched.document_type) ? 'error' : 'success'}
                                             type_select='document'
                                             dropdownMatchSelectWidth={false}
                                             options={typeDocumentsForm?.map((document: any) => ({ id: document.id, name: `${document.type} - ${document.name}`, type: document.type }))}
@@ -156,7 +157,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             type="text"
                                             name="number_document"
                                             id="number_document_id"
-                                            className="form-control"
+                                            className={`form-control ${(errors.number_document && touched.number_document) &&  'error-input'}`}
                                             autoComplete="off"
                                             placeholder="No."
                                             min={7}
@@ -182,9 +183,10 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                 </label>
                                 <Field
                                     component={Select}
+                                    color='#603CE6'
                                     id="type_profiles_id"
                                     name="type_profiles"
-                                    className=""
+                                    status={(errors?.type_profiles && touched.type_profiles) ? 'error' : 'success'}
                                     options={profiles}
                                     placeholder="Seleccione…"
                                 />
@@ -199,7 +201,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     type="email"
                                     id="email_id"
                                     name="email"
-                                    className="form-control"
+                                    className={`form-control ${(errors.email && touched.email) &&  'error-input'}`}
                                     autoComplete="off"
                                     style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
@@ -217,10 +219,11 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     <div className="col col-md-4">
                                         <Field
                                             component={Select}
+                                            color='#603CE6'
                                             id="type_contact_id"
                                             name="type_contact"
                                             placeholder='Seleccione...'
-                                            className="select-landing"
+                                            status={(errors?.type_contact && touched.type_contact) ? 'error' : 'success'}
                                             dropdownMatchSelectWidth={false}
                                             options={typeNumberContact.map((typeNumber: any) => ({
                                                 id: typeNumber.name,
@@ -234,7 +237,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             type="text"
                                             id="number_contact_id"
                                             name="number_contact"
-                                            className="form-control"
+                                            className={`form-control ${(errors.number_contact && touched.number_contact) &&  'error-input'}`}
                                             autoComplete="off"
                                             placeholder="No. Digita tu número de contacto."
                                             min={7}
@@ -262,7 +265,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     type="text"
                                     id="direction_id"
                                     name="direction"
-                                    className="form-control"
+                                    className={`form-control ${(errors.direction && touched.direction) &&  'error-input'}`}
                                     autoComplete="off"
                                     minLength={3}
                                     maxLength={100}

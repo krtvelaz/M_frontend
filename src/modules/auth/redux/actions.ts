@@ -57,7 +57,7 @@ const login = (document: string, password: string) => {
 
 const logout = () => {
     return async (dispatch: any) => {
-        dispatch(await logOut());
+        dispatch(logOut());
     };
 };
 
