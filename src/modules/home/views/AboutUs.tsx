@@ -1,12 +1,15 @@
-
+import { useContext } from 'react';
 import { figuraRetos, trazado_amarillo } from "../../../utils/assets/img";
 import { Card } from "../../../utils/ui";
 import quienesSomos from "../../../utils/assets/img/quienesSomos.png";
 import queBuscamos from "../../../utils/assets/img/queBuscamos.png";
 import FrequentlyQuestions from "../components/FrequentlyQuestions";
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 
 const AboutUs = () => {
+  const context = useContext(TemplateContext);
+
   return (
     <div className="box-about">
       <div
@@ -27,10 +30,10 @@ const AboutUs = () => {
         >
           
           <div className="d-flex flex-row" style={{margin: '70px 0 40px 0'}}>
-            <h2 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: '110px'}}>Laboratorio de innovación Medeinn</h2>
+            <h2 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: context.device === 'sm' ? '20px' : '110px'}}>Laboratorio de innovación Medeinn</h2>
           </div>
           <div className="col-md-12">
-            <Card className="card-about">
+            <Card className="card-about" style={{ margin: '0 20px ' }}>
               <div className="row mb-4">
                 <div className="col-12 col-md-12 col-lg-6 mt-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                   <h2 className="text-stake">¿Quienés somos?</h2>

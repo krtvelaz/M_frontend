@@ -46,7 +46,7 @@ const CarouselEvent = () => {
                                 <div className="row justify-content-center">
                                     {events.length > 0 ? (
                                         events.map((event: any, index: number) => (
-                                            <div className="col-12 col-md-4 col-lg-4" key={`card-event-${index}`}>
+                                            <div className="col-12 col-md-4 col-lg-4" style={{ padding: '0 20px' }} key={`card-event-${index}`}>
                                                 <CardEvent event={event} />
                                             </div>
                                         ))

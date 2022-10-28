@@ -375,7 +375,7 @@ img {
 
 .card-challenge {
     border-radius: 40px;
-    width: 320px;
+    // width: 320px;
     margin-right: auto !important;
     margin-left: auto !important;
 }
@@ -988,9 +988,15 @@ img {
     }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
+// @media (min-width: 992px) and (max-width: 1199px) {
+//     .card-challenge {
+//         width: 270px;
+//     }
+// }
+
+@media (min-width: 1400px) {
     .card-challenge {
-        width: 270px;
+        width: 320px;
     }
 }
 
@@ -1009,9 +1015,9 @@ img {
         margin-bottom: 100px;
     }
 
-    .card-challenge {
-        width: 300px;
-    }
+    // .card-challenge {
+    //     width: 300px;
+    // }
 }
 
 // Alert login

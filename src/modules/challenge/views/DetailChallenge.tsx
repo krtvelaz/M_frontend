@@ -38,7 +38,7 @@ const DetailChallenge = () => {
             <div
                 className="container-info-detail"
                 style={{
-                    padding: '90px 50px',
+                    padding: '90px 20px',
                     // background: `linear-gradient(to top, #ffffff 65%, transparent), url(${imgPrincipal})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',

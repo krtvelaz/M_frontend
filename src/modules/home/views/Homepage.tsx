@@ -114,7 +114,7 @@ const Homepage = () => {
                             </a>
                         </div>
 
-                        <div className=" mt-5 mx-auto">
+                        <div className="mt-5 mx-auto">
                             <FormSuscribe />
                         </div>
                         <TabPulications />
