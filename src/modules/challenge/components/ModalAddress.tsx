@@ -1,9 +1,8 @@
 import { Select } from '../../../utils/ui';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FieldProps } from 'formik';
 import { FC, useRef, useState } from 'react';
 import { Modal } from 'antd';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
-import { FieldProps } from 'formik';
 import * as Yup from 'yup';
 
 interface ModalAddress extends FieldProps {
@@ -36,9 +35,11 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
     const open = () => set_is_visible(true);
 
     const submit = (values: any, actions: any) => {
+        console.log('ggggg',values);
+        
         form.setFieldValue(
             field.name,
-            `${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`,
+            `${values?.tipo_via} ${values?.numero_dir}${values?.letra_dir}  ${values?.zona_dir} # ${values?.numero2_dir}${values?.letra2_dir} ${values?.zona2_dir} - ${values?.numero3_dir} ${values?.obser_dir}`,
             false
         );
         close();
@@ -109,6 +110,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
             >
                 <Formik onSubmit={submit} initialValues={initial_values} validationSchema={schema} innerRef={form_ref}>
                     {({ handleChange, values, errors, touched   }) => {
+                        console.log(values);
                         return (
                             <Form>
                                 <div className="row">
@@ -221,7 +223,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             className={`form-control ${(errors.letra_dir && touched.letra_dir) &&  'error-input'}`}
                                             autocomplete="off"
                                             dropdownMatchSelectWidth={false}
-                                            maxLength={1}
+                                            maxLength={2}
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
@@ -231,7 +233,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                                 }
                                             }}
                                         />
-                                        <ErrorMessage name="letra_dir" withCount max={1} />
+                                        <ErrorMessage name="letra_dir" withCount max={2} />
                                     </div>
 
                                     <div className="col-12 col-md-6 col-lg-3">
@@ -240,6 +242,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                         </label>
                                         <Field
                                             component={Select}
+                                            allowClear
                                             color='#603CE6'
                                             id="zona_dir_id"
                                             name="zona_dir"
@@ -286,7 +289,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             name="letra2_dir"
                                             className={`form-control ${(errors.letra2_dir && touched.letra2_dir) &&  'error-input'}`}
                                             dropdownMatchSelectWidth={false}
-                                            maxLength={1}
+                                            maxLength={2}
                                             autocomplete="off"
                                             onChange={(e: any) => {
                                                 e.preventDefault();
@@ -297,7 +300,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                                 }
                                             }}
                                         />
-                                        <ErrorMessage name="letra2_dir" withCount max={1} />
+                                        <ErrorMessage name="letra2_dir" withCount max={2} />
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-3">
                                         <label htmlFor="zona2_dir" className="form-label label-landing">
@@ -305,6 +308,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                         </label>
                                         <Field
                                             component={Select}
+                                            allowClear
                                             color='#603CE6'
                                             id="zona2_dir"
                                             name="zona2_dir"
@@ -387,7 +391,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             type="text"
                                             id="dir_ing"
                                             name="dir_ing"
-                                            value={`${values.tipo_via} ${values.numero_dir}${values.letra_dir}  ${values.zona_dir} # ${values.numero2_dir}${values.letra2_dir} ${values.zona2_dir} - ${values.numero3_dir} ${values.obser_dir}`}
+                                            value={`${values?.tipo_via} ${values?.numero_dir}${values?.letra_dir}  ${values?.zona_dir || ""} # ${values?.numero2_dir}${values?.letra2_dir} ${values?.zona2_dir || ""} - ${values?.numero3_dir} ${values?.obser_dir}`}
                                             className="form-control"
                                             dropdownMatchSelectWidth={false}
                                             maxLength={100}

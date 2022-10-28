@@ -33,8 +33,8 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
     const [sider_collapsed, set_sider_collapsed] = useState<boolean>(false);
     const [drawer_menu_collapsed, set_drawer_menu_collapsed] = useState<boolean>(false);
     const [login_modal, set_login_modal] = useState<boolean>(false);
+    const [pathLogin, setPathLogin] = useState<any>(null);
     const [percentege, setpercentege] = useState<boolean>(false);
-    const [canon_type, setCanon_type] = useState<any>(null);
     const [idNode, set_idNode] = useState<string>('');
     const [docReact, setDocReact] = useState(null);
     const [width, setWidth] = useState<number>(window.innerWidth);
@@ -90,8 +90,8 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 sider_collapsed,
                 drawer_collapsed,
                 login_modal,
+                pathLogin,
                 percentege,
-                canon_type,
                 idNode,
                 device,
                 docReact,
@@ -106,9 +106,8 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 drawer_close: () => set_drawer_collapsed(false),
                 toggle_login_modal: () => set_login_modal((collapsed) => !collapsed),
                 toggle_percentage_modal: () => setpercentege((collapsed) => !collapsed),
-                set_canon_type: (type: 'inversion' | 'inversion_social' | null) => {
-                    setCanon_type(type);
-                },
+                toggle_path_login: (values: {path?: string, state?: any}) => setPathLogin(values ? {path: values.path, state: values.state}: null),
+                
             }}
         >
             {children}

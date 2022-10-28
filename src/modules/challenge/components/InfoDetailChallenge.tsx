@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
@@ -85,7 +85,9 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
                 <button
                     onClick={() => {
                         if (!user) {
+                            console.log(challenge);
                             context.toggle_login_modal();
+                            context.toggle_path_login({ path: `../postulation/challenge/${challenge?.id}`,  state: { challenge: challenge } });
                             return;
                         }
                         navigate(`../postulation/challenge/${challenge?.id}`, { state: { challenge: challenge } });
@@ -130,6 +132,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             ) : (
                 <span>Este reto no tiene informes</span>
             )}
+
 
             <ModalDetailDocument open={is_visibleDoc} setOpen={set_is_visible_doc} url={url} download={true} nameDocument={nameDocument} />
         </div>

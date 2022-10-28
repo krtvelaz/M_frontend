@@ -50,13 +50,9 @@ import {
     GeneratePostulationsReport_default,
     GeneratePostulationsReport_success,
     GeneratePostulationsReport_fail,
-
-
     postulations_list_default,
     postulations_list_success,
     postulations_list_fail,
-
-
 } from './slice';
 import { jsPDF } from 'jspdf';
 import fileDownload from 'js-file-download';
@@ -135,7 +131,6 @@ const create_memberPostulation = (
     };
 };
 
-
 const get__document = () => {
     return async (dispatch: any) => {
         dispatch(loading_typeDocuments);
@@ -162,7 +157,7 @@ const get__documentDownload = (posarc_id: number) => {
                 params: {
                     id: posarc_id,
                 },
-                responseType: "arraybuffer" 
+                responseType: 'arraybuffer',
             });
             dispatch(download_success_Documents(res.data.data));
             return res.data;
@@ -180,7 +175,7 @@ const get_list_postulation = (filters?: {
     cha_announcement?: number;
     pos_status?: string;
 }) => {
-    return async (dispatch: any) => {    
+    return async (dispatch: any) => {
         dispatch(postulations_list_default());
         try {
             const URI = `/postulations/list`;
@@ -192,8 +187,8 @@ const get_list_postulation = (filters?: {
             });
             const postulations = {
                 results: res.data.data,
-                pagination: res.data.meta
-            }
+                pagination: res.data.meta,
+            };
             dispatch(postulations_list_success(postulations));
             return res.data.data;
         } catch (error) {
@@ -499,7 +494,11 @@ const HtmlStringPdf = (generatePost: any) => {
     </tr>
     <tr>
         <td >Fecha</td>
-        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format('DD/MM/YYYY')} - ${moment(generatePost?.infoSettled?.pos_updated_at).format('HH:mm:ss')}</td>
+        <td>${moment(generatePost?.infoSettled?.pos_updated_at).format(
+            'DD/MM/YYYY'
+        )} - ${moment(generatePost?.infoSettled?.pos_updated_at).format(
+        'HH:mm:ss'
+    )}</td>
     </tr>
 </table>`;
 };

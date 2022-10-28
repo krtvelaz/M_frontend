@@ -18,16 +18,15 @@ interface ILanding {
 }
 
 const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, user }) => {
-    const { Header, Content, Footer } = Layout;
+    const { Header, Content } = Layout;
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
-    // console.log(context.device);
 
     
 
     return (
         <>
-            <ModalLogin open={context.login_modal} toggle={context.toggle_login_modal} is_new_user={true} />
+            <ModalLogin pathPostulation={context.pathLogin} open={context.login_modal} toggle={context.toggle_login_modal} is_new_user={true} />
             <Layout className="w-100 h-100">
                 <Layout className="site-layout-landing">
                     <Header className="landing-header">

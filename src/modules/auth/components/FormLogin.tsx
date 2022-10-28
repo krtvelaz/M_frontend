@@ -10,9 +10,12 @@ import { actions } from '../redux';
 interface IloginFormPros {
     disabled?: boolean;
     toggle?: any;
+    pathPostulation?: any;
 }
 
-const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
+const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) => {
+    console.log(pathPostulation);
+    
     const [alert, set_alert] = useState<string>();
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
@@ -30,7 +33,11 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle }) => {
         await promise
             .then((res: any) => {
                 if (res?.detail_user?.use_role?.id === 4) {
-                    navigate('../', { replace: true });
+                    if(pathPostulation) {
+                        navigate(`${pathPostulation.path}`, {state: pathPostulation.state});
+                    }else {
+                        navigate('../', { replace: true });
+                    }
                     context.toggle_login_modal();
                 } else {
                     navigate('../home', { replace: true });

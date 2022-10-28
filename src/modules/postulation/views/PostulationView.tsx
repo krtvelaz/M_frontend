@@ -3,7 +3,7 @@ import ComponetCard from '../../../utils/ui/Card';
 import { Tabs } from 'antd';
 import FormPostulation from '../components/FormPostulation';
 import '../../../utils/assets/styles/ModalInfoPostulations.scss';
-import { circuloTabs } from '../../../utils/assets/img';
+import { circuloTabs, invalidateImg } from '../../../utils/assets/img';
 import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import { actions as actionsChallenge } from '../../challenge/redux';
@@ -16,7 +16,7 @@ import FormArrayDocuments from '../components/FormArrayDocuments';
 
 const PostulationView = () => {
     const { id } = useParams<any>();
-    const [imgPrincipal, setImgPrincipal] = useState<any>({});
+    const [imgPrincipal, setImgPrincipal] = useState<any>(null);
     const location = useLocation();
     const context = useContext(TemplateContext);
 
@@ -31,7 +31,6 @@ const PostulationView = () => {
         const _imgPrincipal = await dispatch(actionsChallenge.get_image_principal(Number(id)));
         setImgPrincipal(Buffer.from(_imgPrincipal).toString('base64'));
     };
-    
 
     useEffect(() => {
         ListSextype();
@@ -40,27 +39,60 @@ const PostulationView = () => {
     return (
         <div style={{ position: 'relative', overflow: 'hidden' }}>
             <div className="container-img-principal">
-                <img
-                    src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
-                    alt="imagen"
-                    className="w-100"
-                    style={{ position: 'relative', top: `${context.device === 'lg' ? '-13%' : '0'}` }}
-                />
+                {imgPrincipal ? (
+                    <img
+                        src={`data:image/jpeg;charset=utf-8;base64,${imgPrincipal}`}
+                        alt="imagen"
+                        className="w-100"
+                        style={{ position: 'relative', top: `${context.device === 'lg' ? '-13%' : '0'}` }}
+                    />
+                ) : (
+                    <div
+                        className="p-4"
+                        style={{
+                            height: '100%',
+                            backgroundColor: '#1D98D1',
+                        }}
+                    >
+                        <div className="row mt-5 text-center">
+                            <div className="col-12 col-lg-6"></div>
+                            <div className="col-12 col-lg-6">
+                                <img src={invalidateImg} alt="" />
+                                <div className="mt-3 text-white text-center">
+                                    Lo sentimos actualmente no se puede visualizar la imagen, inténtalo más tarde.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
             <div className="container">
                 <div
                     className="text-white"
                     style={{
                         position: 'relative',
-                        ...(context.device === 'lg' && {
-                            marginTop: '90px',
-                            marginBottom: '90px',
-                            marginLeft: '100px',
-                        }),
+
+                        ...(context.device === 'lg'
+                            ? {
+                                  marginTop: '90px',
+                                  marginBottom: '90px',
+                                  marginLeft: '70px',
+                              }
+                            : {
+                                  margin: '170px 0 10px 0',
+                              }),
                     }}
                 >
-                    <div>Postulación a:</div>
-                    <div>{location?.state?.challenge?.cha_name}</div>
+                    <div style={{ fontFamily: 'Montserrat-SemiBold', fontSize: '16px' }}>Postulación a:</div>
+                    <div
+                        style={{
+                            fontFamily: 'Montserrat-SemiBold',
+                            fontSize: '16px',
+                            ...(context.device === 'lg' && { width: '500px' }),
+                        }}
+                    >
+                        {location?.state?.challenge?.cha_name}
+                    </div>
                 </div>
                 <ComponetCard className={`${context.device !== 'sm' && 'px-5'}`}>
                     <div>

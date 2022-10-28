@@ -7,6 +7,7 @@ import { logoAlcaldiaNegro, logoMedeinn } from '../../assets/img';
 import bars from '../../assets/img/bars.svg';
 import { TemplateContext } from '../template/templateContext';
 import { actions as auth_actions } from '../../../modules/auth/redux';
+import ArrowSelect from '../../assets/img/ArrowDown';
 
 const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name }) => {
     const context = useContext(TemplateContext);
@@ -14,30 +15,33 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
     const navigate = useNavigate();
     const menu = (
         <Menu
+            className="menu-header-landing"
+            style={{ padding: 0, margin: 0, borderRadius: '10px', top: '-40px' }}
             items={[
-                {
-                    key: '1',
-                    label: (
-                        <Link
-                            to={'/about-us'}
-                            className="link-card"
-                            style={{
-                                color: 'black',
-                                textDecoration: 'none',
-                                marginRight: '30px',
-                                marginTop: '7px',
-                            }}
-                        >
-                            Configurar cuenta
-                        </Link>
-                    ),
-                },
+                // {
+                //     key: '1',
+                //     label: (
+                //         <Link
+                //             to={'/about-us'}
+                //             className="link-card"
+                //             style={{
+                //                 color: 'black',
+                //                 textDecoration: 'none',
+                //                 marginRight: '30px',
+                //                 marginTop: '7px',
+                //             }}
+                //         >
+                //             Configurar cuenta
+                //         </Link>
+                //     ),
+                // },
                 {
                     key: '2',
                     label: (
                         <div
-                            onClick={async () => {                                
+                            onClick={async () => {
                                 await dispatch(auth_actions.logout());
+                                context.toggle_path_login(null);
                                 navigate('../', { replace: true });
                                 // context.toggle_login_modal();
                             }}
@@ -51,12 +55,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
     );
     return (
         <>
-            <img
-                src={logoMedeinn}
-                className="logo"
-                alt=""
-                width="50px"
-            />
+            <img src={logoMedeinn} className="logo" alt="" width="50px" />
             <div className="d-flex justify-content-end">
                 {context.device === 'lg' ? (
                     <>
@@ -67,7 +66,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 textDecoration: 'none',
                                 marginRight: '30px',
                                 marginTop: '7px',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
                             }}
                             onClick={() => {
                                 navigate('../about-us');
@@ -84,7 +83,7 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 textDecoration: 'none',
                                 marginRight: '30px',
                                 marginTop: '7px',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
                             }}
                             onClick={() => {
                                 navigate('../our-challenges');
@@ -104,8 +103,8 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                         marginTop: '7px',
                                     }}
                                 >
-                                    Hola, <span style={{fontFamily: 'Montserrat-Medium'}}>{name}{' '}</span> 
-                                    <DownOutlined />
+                                    Hola, <span style={{ fontFamily: 'Montserrat-Medium' }}>{name} </span>
+                                    <ArrowSelect type="up" color="#603CE6" />
                                 </span>
                             </Dropdown>
                         ) : (
