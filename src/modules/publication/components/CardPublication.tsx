@@ -62,9 +62,8 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                 className={`col-12 col-md-12 col-lg-6 p-0 imagen-events `}
                                                 key={`detailPublication${index}`}
                                                 style={{
-                                                    borderRadius: `${
-                                                        index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
-                                                    } `,
+                                                    borderRadius: `${index === 0 || index === 1 ? '16px 16px 0 0' : '0 0 16px 16px'
+                                                        } `,
                                                     height: '350px',
                                                 }}
                                             >
@@ -82,8 +81,8 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                                 __html:
                                                                     publication?.pub_description?.length > 60
                                                                         ? `${publication.pub_description
-                                                                              .split('.')[0]
-                                                                              .substring(0, 57)}...`
+                                                                            .split('.')[0]
+                                                                            .substring(0, 57)}...`
                                                                         : publication.pub_description,
                                                             }}
                                                         ></p>
@@ -91,7 +90,9 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                         <button
                                                             className="btn btn-landing-primary"
                                                             onClick={() => {
-                                                                const hola = navigate(
+                                                                const landingScroll: any = document.getElementById('scroll-landing');
+                                                                landingScroll.scrollTop = 0;
+                                                                navigate(
                                                                     `../detail-publication/${publication?.id}`
                                                                 );
                                                             }}
@@ -106,11 +107,10 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                                 objectFit: 'cover',
                                                                 objectPosition: '50% 50%',
                                                                 minHeight: '350px',
-                                                                borderRadius: `${
-                                                                    index === 0 || index === 1
+                                                                borderRadius: `${index === 0 || index === 1
                                                                         ? '16px 16px 0 0'
                                                                         : '0 0 16px 16px'
-                                                                } `,
+                                                                    } `,
                                                             }}
                                                             className="w-100"
                                                             src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(
@@ -123,11 +123,10 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                             style={{
                                                                 minHeight: '350px',
                                                                 paddingBottom: '20px',
-                                                                borderRadius: `${
-                                                                    index === 0 || index === 1
+                                                                borderRadius: `${index === 0 || index === 1
                                                                         ? '16px 16px 0 0'
                                                                         : '0 0 16px 16px'
-                                                                } `,
+                                                                    } `,
                                                             }}
                                                         ></div>
                                                         // <Skeleton.Image

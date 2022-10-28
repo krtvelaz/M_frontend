@@ -31,8 +31,8 @@ const PublishedChallenges = () => {
 
         if (results.length > 0) {
             setChallenges(results);
-            setLoading(false);    
-        } 
+            setLoading(false);
+        }
     };
 
     return (
@@ -44,7 +44,7 @@ const PublishedChallenges = () => {
                     <span className="text-stake">Convocatoria abierta</span>
                 </span>
                 <br />
-                <p style={{ width: '300px'}}>
+                <p style={{ width: '300px' }}>
                     Conecta con los retos del territorio y mejora la calidad de vida de los habitantes de la ciudad a través de la tecnología.
                 </p>
             </div>
@@ -64,15 +64,15 @@ const PublishedChallenges = () => {
                                         challenge?.cha_image_buffer?.data ? (
                                             <div className="colorear">
                                                 <img
-                                                alt="example"
+                                                    alt="example"
 
-                                                className="w-100 h-100"
-                                                style={{ borderRadius: ' 40px 40px 0 0', objectFit: 'cover', objectPosition: '50% 50%' }}
-                                                src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(challenge?.cha_image_buffer?.data).toString('base64')}`}
-                                            />
+                                                    className="w-100 h-100"
+                                                    style={{ borderRadius: ' 40px 40px 0 0', objectFit: 'cover', objectPosition: '50% 50%' }}
+                                                    src={`data:image/jpeg;charset=utf-8;base64,${Buffer.from(challenge?.cha_image_buffer?.data).toString('base64')}`}
+                                                />
 
                                             </div>
-                                            
+
                                         ) : (
                                             <Skeleton.Image
                                                 className="w-100"
@@ -105,6 +105,8 @@ const PublishedChallenges = () => {
                                             <button
                                                 onClick={() => {
                                                     navigate(`../detail-challenge/${challenge?.id}`);
+                                                    const landingScroll: any = document.getElementById('scroll-landing');
+                                                    landingScroll.scrollTop = 0;
                                                 }}
                                                 className="btn"
                                                 style={{

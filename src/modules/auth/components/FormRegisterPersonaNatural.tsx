@@ -128,7 +128,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -154,7 +154,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                             e.preventDefault();
                                             const { value } = e.target;
                                             const regex = new RegExp(
-                                                /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                                /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
                                             );
                                             if (regex.test(value.toString())) {
                                                 handleChange(e);
@@ -353,6 +353,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     País
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     id="country_id"
                                     name="country"
@@ -381,6 +382,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     Departamento
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     id="country_id"
                                     name="state"
@@ -404,6 +406,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     Ciudad
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     id="city_id"
                                     name="city"
@@ -440,6 +443,8 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                         name: commune?.commune,
                                     }))}
                                     extra_on_change={(id_commune: number) => {
+                                        console.log("Id comuna: ", id_commune);
+                                        
                                         setFieldValue('neighborhood', null, false);
                                         dispatch(actionsChallenge.get_neighborhoods(id_commune));
                                     }}
@@ -452,6 +457,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     Barrio
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     disabled={!values.commune}
                                     id="neighborhood_id"
