@@ -139,7 +139,7 @@ const Homepage = () => {
             </section>
 
             <section style={{ background: '#FFFFFF' }}>
-                <div className="container pt-4 ">
+                <div className="container" style={{ padding: '20px' }}>
                     <div className="row justify-content-center container ">
                         <div className="text-center mb-3">
                             <span className="text-stake-mediun">Dudas o preguntas</span>
