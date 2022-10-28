@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { trazado_amarillo } from '../../../utils/assets/img';
 import { Card } from '../../../utils/ui';
+import { swal_error, swal_success } from '../../../utils/ui/swalAlert';
 import FormResetPassword from '../components/FormResetPassword';
 import { actions } from '../redux';
 
@@ -25,10 +26,27 @@ const ChangePassword = () => {
         setLoading(true);
         const reult: any = dispatch(actions.change_password(values.user, values.provisional_password, values.password));
         await reult
-            .then((res: any) => {
+            .then(async (res: any) => {
+                await swal_success.fire({
+                    title: 'Proceso exitoso',
+                    html:
+                        `<div class="mysubtitle">¡Se modifico la contraseña satisfactoriamente!</div>` +
+                        '<div class="mytext">De click en aceptar para continuar</div>',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar',
+                });
                 navigate('../', { replace: true });
             })
-            .catch((e: any) => {});
+            .catch(async (e: any) => {
+                await swal_error.fire({
+                    title: 'Error en el proceso',
+                    html:
+                        `<div class="mysubtitle">¡No se logró modificar la contraseña!</div>` +
+                        '<div class="mytext">De click en aceptar para continuar.</div>',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar',
+                });
+            });
         setLoading(false);
     };
 

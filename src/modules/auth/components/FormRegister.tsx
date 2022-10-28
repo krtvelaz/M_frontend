@@ -127,7 +127,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -153,7 +153,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             e.preventDefault();
                                             const { value } = e.target;
                                             const regex = new RegExp(
-                                                /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                                /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
                                             );
                                             if (regex.test(value.toString())) {
                                                 handleChange(e);
@@ -357,6 +357,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     País
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     color='#603CE6'
                                     id="country_id"
@@ -387,6 +388,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     Departamento
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     status={(errors?.state && touched.state) ? 'error' : 'success'}
                                     id="country_id"
@@ -412,6 +414,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     Ciudad
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     id="city_id"
                                     color='#603CE6'
@@ -451,6 +454,8 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         name: commune?.commune,
                                     }))}
                                     extra_on_change={(id_commune: number) => {
+                                        console.log("Id comuna: ", id_commune);
+                                        
                                         setFieldValue('neighborhood', null, false);
                                         dispatch(actionsChallenge.get_neighborhoods(id_commune));
                                     }}
@@ -463,6 +468,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     Barrio
                                 </label>
                                 <Field
+                                    showSearch
                                     component={Select}
                                     disabled={!values.commune}
                                     id="neighborhood_id"

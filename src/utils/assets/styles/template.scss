@@ -1,3 +1,20 @@
+* {
+  scroll-behavior: smooth!important;
+}
+
+::-webkit-scrollbar {
+  width: 17px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F2F2F2;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #245E8E;
+  border-radius: 11px;
+}
+
 // header de la pagina
 .ant-layout {
   background: #f7fbff;

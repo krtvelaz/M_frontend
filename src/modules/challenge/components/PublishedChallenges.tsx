@@ -1,11 +1,10 @@
 import { Card, Skeleton } from 'antd';
-import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { actions } from '../redux';
 import { formatDate } from '../../../utils';
-import { TemplateContext } from '../../../utils/components/template/templateContext';
 import { calendarLanding, invalidateImg } from '../../../utils/assets/img';
 
 const PublishedChallenges = () => {
@@ -122,6 +121,8 @@ const PublishedChallenges = () => {
                                             <button
                                                 onClick={() => {
                                                     navigate(`../detail-challenge/${challenge?.id}`);
+                                                    const landingScroll: any = document.getElementById('scroll-landing');
+                                                    landingScroll.scrollTop = 0;
                                                 }}
                                                 className="btn"
                                                 style={{

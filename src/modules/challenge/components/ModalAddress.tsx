@@ -12,6 +12,10 @@ interface ModalAddress extends FieldProps {
 
 const optionsV = [
     {
+        name: '',
+        id: '',
+    },
+    {
         name: 'Norte',
         id: 'Norte',
     },

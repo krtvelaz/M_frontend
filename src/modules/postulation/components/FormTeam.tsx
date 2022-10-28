@@ -101,7 +101,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, 
                         </div>
                         <div className="col">
                             <Field
-                                type="text"
+                                type="number"
                                 name={`membersPostulations.${i}.gruint_document`}
                                 id="gruint_document_id"
                                 className={`form-control ${( errors?.membersPostulations && errors?.membersPostulations[i]?.gruint_document && touched?.membersPostulations && touched?.membersPostulations[i]?.gruint_document  ) &&  'error-input'}`}
@@ -112,7 +112,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, 
                                 onChange={(e: any) => {
                                     e.preventDefault();
                                     const { value } = e.target;
-                                    const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                    const regex = /^[0-9]{0,14}$/;
                                     if (regex.test(value.toString())) {
                                         handleChange(e);
                                     }
