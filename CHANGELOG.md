@@ -1,3 +1,17 @@
+## [1.1.3](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/compare/v1.1.1...v1.1.3) (2022-10-28)
+
+
+### Bug Fixes
+
+* ortografía ([01fe792](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/commits/01fe792ff92f4021e433f272b46ce2057f813ab1))
+
+
+### Features
+
+* adding conventional-changelog ([a0cacb1](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/commits/a0cacb1c1cbb8317527bc98c84b72644424be031))
+
+
+
 ## 1.1.1 (2022-10-20)
 
 
