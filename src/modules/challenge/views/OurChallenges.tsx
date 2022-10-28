@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import { figuraRetos } from '../../../utils/assets/img';
 import CardImgChallenge from '../components/CardImgChallenge';
 import { actions } from '../redux';
+import { TemplateContext } from '../../../utils/components/template/templateContext';
 
 const OurChallenges = () => {
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState<number>(1);
     const dispath = useDispatch<any>();
+    const context = useContext(TemplateContext);
+    
     const onChange = async (key: string) => {
         await dispath(actions.get_dimensions_challenges(Number(key)));
 
@@ -78,11 +81,15 @@ const OurChallenges = () => {
                     />
                 )}
 
-                <img
-                    src={figuraRetos}
-                    alt="figuras de fondo"
-                    style={{ position: 'absolute', top: 0, right: 0, width: '300px' }}
+                {
+                    context.device === 'lg' &&
+                        <img
+                        src={figuraRetos}
+                        alt="figuras de fondo"
+                        style={{ position: 'absolute', top: 0, right: 0, width: '300px' }}
                 />
+
+                }
                 <div className="text-center" style={{ fontSize: '18px', paddingTop: '20px' }}>
                     Conoce todos
                 </div>

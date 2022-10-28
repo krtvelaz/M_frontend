@@ -42,7 +42,7 @@ const FormSuscribe = () => {
                 //isSubmitting
                 return (
                     <Form>
-                        <div className="row ">
+                        <div className="row" style={{ justifyContent: 'center' }}>
                             <div className="col-10 col-md-10 col-lg-5">
                                 <Field
                                     style={{ border: 'solid 0.5px #DEDEDF', color: '#FFF', background: '#603CE6' }}
@@ -82,7 +82,7 @@ const FormSuscribe = () => {
                                 <ErrorMessage color="#FFF" name="number" withCount max={10} />
                             </div>
 
-                            <div className="col text-start ">
+                            <div className="col" style={{ textAlign: 'center' }}>
                                 <button
                                     style={{ border: ' solid 0.5px #DEDEDF' }}
                                     type="submit"

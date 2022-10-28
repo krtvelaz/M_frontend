@@ -61,7 +61,7 @@ const DetailPublication = () => {
                                 }}
                             >
                                 <div className="row" style={{ marginTop: '40px' }}>
-                                    
+
                                     <div className="col-12 col-lg-4 text-center">
                                         <img className="" src={invalidateImg} alt="" />
                                         <div className="mt-3 text-white">
@@ -81,13 +81,13 @@ const DetailPublication = () => {
                             style={{ position: 'absolute', top: '-5%', left: '-50%', maxWidth: '4000px' }}
                         />
                     )}
-                    <div className="container" style={{marginBottom: '100px'}}>
-                        <div className="row" style={context.device !== 'lg' ?{marginTop: '130px'} :{}}>
+                    <div className="container" style={{ marginBottom: '100px' }}>
+                        <div className="row" style={context.device !== 'lg' ? { marginTop: '130px' } : {}}>
                             <div className="col-12 col-md-12 col-lg-4"></div>
                             <div className="col">
                                 <div
                                     className={`text-white ${context.device === 'lg' ? 'my-5' : 'my-2'}`}
-                                    style={{ position: 'relative' }}
+                                    style={{ position: 'relative', margin: '0 20px' }}
                                 >
                                     <div className="mt-5">
                                         Medellín{' '}
@@ -96,9 +96,14 @@ const DetailPublication = () => {
                                         )}
                                     </div>
                                     <h2 className="text-white">{publication?.pub_title}</h2>
-                                    <div style={{ fontSize: '16px' }}>
-                                        Introducción a la noticia con texto descriptivo del contenido a consultar o leer
-                                        por el visitante...
+                                    <div style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{
+                                        __html:
+                                            publication?.pub_description?.length > 60
+                                                ? `${publication.pub_description
+                                                    .split('.')[0]
+                                                    .substring(0, 57)}...`
+                                                : publication.pub_description,
+                                    }}>
                                     </div>
                                     <div>Autor</div>
                                     <div>{publication?.pub_author}</div>
@@ -106,7 +111,7 @@ const DetailPublication = () => {
                             </div>
                         </div>
 
-                        <Card loading={loading} className={`${context.device === 'lg' && 'p-5'}`}>
+                        <Card style={{ margin: '0 20px' }} loading={loading} className={`${context.device === 'lg' && 'p-5'}`}>
                             <div id="description-postulation" className="mb-5 "></div>
 
                             <div className="row justify-content-center">
