@@ -1,4 +1,3 @@
-import { Radio } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +15,7 @@ interface RegisterFormPros {
     register?: IRegisterPersonaNatural;
     type: 'natural' | 'legal';
 }
-const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type }) => {
+const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type }) => {
     const dispatch = useDispatch<any>();
     const [typeDocs, setTypeDocs] = useState([]);
     const countries: any[] = useSelector((store: any) => store.auth.countries.value);
@@ -177,7 +176,8 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                                 component={Select}
                                                 id="document_type_id"
                                                 name="document_type"
-                                                className=""
+                                                color='#603CE6'
+                                                className="select-landing"
                                                 dropdownStyle={{
                                                     maxHeight: 400,
                                                     overflow: 'auto',
@@ -230,6 +230,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                         component={Select}
                                         id="gender_id"
                                         name="gender"
+                                        color='#603CE6'
                                         style={{ height: '38px' }}
                                         options={[
                                             { name: 'Femenino', id: 'F' },
@@ -308,6 +309,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                             component={Select}
                                             id="type_contact_id"
                                             name="contact_type"
+                                            color='#603CE6'
                                             className=""
                                             options={[
                                                 {
@@ -355,6 +357,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                 <Field
                                     showSearch
                                     component={Select}
+                                    color='#603CE6'
                                     id="country_id"
                                     name="country"
                                     style={{ height: '38px' }}
@@ -385,6 +388,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     showSearch
                                     component={Select}
                                     id="country_id"
+                                    color='#603CE6'
                                     name="state"
                                     style={{ height: '38px' }}
                                     disabled={values.country !== 'CO'}
@@ -409,6 +413,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     showSearch
                                     component={Select}
                                     id="city_id"
+                                    color='#603CE6'
                                     name="city"
                                     style={{ height: '38px' }}
                                     disabled={!values.state}
@@ -434,6 +439,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                 <Field
                                     style={{ height: '38px' }}
                                     component={Select}
+                                    color='#603CE6'
                                     disabled={values.city !== '05001-MEDELLÍN'}
                                     id="comuna_id"
                                     name="commune"
@@ -463,6 +469,7 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
                                     id="neighborhood_id"
                                     name="neighborhood"
                                     className=""
+                                    color='#603CE6'
                                     options={neighborhoods?.map((neighborhood: any) => ({
                                         id: neighborhood?.neighborhood,
                                         name: neighborhood?.neighborhood,
@@ -519,4 +526,4 @@ const FormRegisterPersonaNatural: FC<RegisterFormPros> = ({ register, innerRef, 
 //     )
 // }
 
-export default FormRegisterPersonaNatural;
+export default FormRegister;

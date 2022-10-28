@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { CanAccess, IRoute } from './custom_types';
 import { compute_redirect, get_can_access, redirect_fn, withSuspense } from './utils';
@@ -26,7 +26,10 @@ const CustomRender: FC<RouteWithSubRoutesProps> = ({
     template_props,
     format,
     ..._props
-}) => {    
+}) => { 
+    
+    
+
     const dr = compute_redirect(defaultRedirect, location);
     if (redirect) {
         return compute_redirect(redirect, location);

@@ -1,7 +1,7 @@
 import AntdSelect from 'antd/lib/select';
 import { FC, useState } from 'react';
 import { FieldProps } from 'formik';
-import { arrowDown, arrowUp } from '../assets/img';
+import ArrowDown from '../assets/img/ArrowDown';
 
 interface SelectProps extends FieldProps {
     options?: any[];
@@ -9,8 +9,9 @@ interface SelectProps extends FieldProps {
     extra_on_change?: (value: any, prev_value?: any) => void;
     children?: any;
     type_select?: 'document' 
+    color?: string;
 }
-const Select: FC<SelectProps> = ({ children, field, form, options, className, extra_on_change, type_select, ...props }) => {
+const Select: FC<SelectProps> = ({ children, field, form, options, className, extra_on_change, type_select, color, ...props }) => {
     const { Option } = AntdSelect;
     const [ changeArrow, setChangeArrow ] = useState<boolean>(false);
     if (options && Array.isArray(options)) {
@@ -34,7 +35,7 @@ const Select: FC<SelectProps> = ({ children, field, form, options, className, ex
     return (
         <AntdSelect
             onDropdownVisibleChange={(e) => { setChangeArrow(e) }}
-            suffixIcon={ <img src={ changeArrow ? arrowDown : arrowUp } /> }
+            suffixIcon={< ArrowDown type={changeArrow ? 'down' : 'up' } color={color} />    }
             value={field.value}
             onChange={on_change}
             optionLabelProp="label"
@@ -48,6 +49,7 @@ const Select: FC<SelectProps> = ({ children, field, form, options, className, ex
 
 Select.defaultProps = {
     options: [],
+    color: '#1D98D1'
 };
 
 export default Select;

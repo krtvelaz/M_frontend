@@ -59,7 +59,7 @@ const CarouselEvent = () => {
                     ))}
                 </div>
                 {number_pages > 1 && (
-                    <div style={{ position: 'relative', bottom: '5px', right: '100px', textAlign: 'end' }}>
+                    <div style={{ position: 'relative', bottom: '5px', left: '0',textAlign: 'end' }}>
                         <div
                             data-bs-target="#carouselEvents"
                             data-bs-slide="prev"
