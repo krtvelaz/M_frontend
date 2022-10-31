@@ -1,5 +1,4 @@
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { FC, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -43,7 +42,6 @@ const Header: FC<{ collapsible: boolean; name?: string }> = ({ collapsible, name
                                 await dispatch(auth_actions.logout());
                                 context.toggle_path_login(null);
                                 navigate('../', { replace: true });
-                                // context.toggle_login_modal();
                             }}
                         >
                             Cerrar sesión
