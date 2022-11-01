@@ -1,12 +1,16 @@
 import { Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
+import { ErrorMessage } from "../../../utils/ui";
 import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import { FC, useRef } from 'react';
+import * as Yup from "yup";
+
 interface PostulationsFilter {
     setFilters: any;
     filters: any;
 }
+
 const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => {
     const initial_values = {
         palabraClave: '',
@@ -14,13 +18,16 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
         estadoPos: '',
         cha_announcement: ''
     };
+
+    const schema = Yup.object().shape({
+        palabraClave: Yup.string().min(3, 'Mínimo 3 caracteres').max(100, 'Máximo 100 caracteres'),
+        cha_announcement: Yup.number()
+    });
     
     const form_ref = useRef<any>();
     const dispatch = useDispatch<any>();
 
     const submit = async (values: any) => {
-        console.log(values);
-        
         setFilters({
             page: 1,
             pageSize: 10,
@@ -41,7 +48,7 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
 
     return (
         <div>
-            <Formik onSubmit={submit} initialValues={initial_values} innerRef={form_ref}>
+            <Formik onSubmit={submit} validationSchema={schema} initialValues={initial_values} innerRef={form_ref}>
                 {({ handleChange, values, setValues }) => {
                     return (
                         <Form>
@@ -55,7 +62,9 @@ const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => 
                                         id="palabraClave_id"
                                         name="palabraClave"
                                         className="form-control"
+                                        maxLength={100}
                                     />
+                                    <ErrorMessage name="palabraClave" withCount max={100} />
                                 </div>
 
                                 <div className="col-12 col-md-6 col-lg-3">

@@ -47,7 +47,7 @@ const FrequentlyQuestions = () => {
               Si tiene alguna inquietud o necesita recibir alguna atención, puede comunicarse con nosotros a través del correo medeinn@medellin.gov.co, dentro de las fechas definidas en los términos de referencia de acuerdo a cada etapa.
             </p>
           </Panel>
-          <Panel extra={ selectedPanel.includes('5') ? '-' : '+' } className={selectedPanel.includes('5') ? 'panel-collapse' : '' } showArrow={false} header="¿Cuantas propuestas se van a seleccionar?" key="5">
+          <Panel extra={ selectedPanel.includes('5') ? '-' : '+' } className={selectedPanel.includes('5') ? 'panel-collapse' : '' } showArrow={false} header="¿Cuántas propuestas se van a seleccionar?" key="5">
             <p>
 
               {" "}

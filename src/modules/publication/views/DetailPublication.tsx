@@ -99,10 +99,10 @@ const DetailPublication = () => {
                                     <div style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{
                                         __html:
                                             publication?.pub_description?.length > 60
-                                                ? `${publication.pub_description
+                                                ? `${publication?.pub_description
                                                     .split('.')[0]
                                                     .substring(0, 57)}...`
-                                                : publication.pub_description,
+                                                : publication?.pub_description,
                                     }}>
                                     </div>
                                     <div>Autor</div>
