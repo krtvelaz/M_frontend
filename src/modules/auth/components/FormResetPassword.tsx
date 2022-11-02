@@ -1,7 +1,6 @@
 import { CheckOutlined } from '@ant-design/icons';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
 import { IResetPassword } from '../custom_types';
@@ -13,10 +12,10 @@ interface ResetPasswordFormPros {
     resetPassword?: IResetPassword;
 }
 const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, resetPassword, onSubmit }) => {
-    const [minuscula, setMinuscula] = useState(/^(?=.*[a-z])/);
-    const [mayuscula, setMayuscula] = useState(/^(?=.*[A-Z])/);
-    const [numero, setNumero] = useState(/^(?=.*[0-9])/);
-    const [caracteres, setCaracteres] = useState(/^(?=.{8,})/);
+    const [minuscula, _setMinuscula] = useState(/^(?=.*[a-z])/);
+    const [mayuscula, _setMayuscula] = useState(/^(?=.*[A-Z])/);
+    const [numero, _setNumero] = useState(/^(?=.*\d)/);
+    const [caracteres, _setCaracteres] = useState(/^(?=.{8,})/);
 
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);

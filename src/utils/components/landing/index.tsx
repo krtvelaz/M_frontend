@@ -22,35 +22,41 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
     const context = useContext(TemplateContext);
     const navigate = useNavigate();
 
-    
-
     return (
         <>
-            <ModalLogin pathPostulation={context.pathLogin} open={context.login_modal} toggle={context.toggle_login_modal} is_new_user={true} />
+            <ModalLogin
+                path={context.pathLogin}
+                open={context.login_modal}
+                toggle={context.toggle_login_modal}
+                is_new_user={true}
+            />
             <Layout className="w-100 h-100">
                 <Layout className="site-layout-landing">
                     <Header className="landing-header">
-                        <AppHeader collapsible={false} name={user ? `${user?.use_names || ''} ${user?.use_surnames || ''}` : ''} />
+                        <AppHeader
+                            collapsible={false}
+                            name={user ? `${user?.use_names || ''} ${user?.use_surnames || ''}` : ''}
+                        />
                     </Header>
                     <Content>
                         <div className={`deck ${context.drawer_menu_collapsed ? 'active' : ''}`} />
                         <div className="d-flex flex-column w-100">
-                            <div id='scroll-landing' className="content medeinn-main-content overflow-auto">
-                            {show_breadcrumbs && (
-                                <div
-                                    className="d-flex justify-content-between align-items-center bar"
-                                    style={{
-                                        backgroundColor: '#FFFFFF',
-                                        padding: '4px 24px',
-                                        boxShadow: 'inset 0px 5px 3px #00000015',
-                                    }}
-                                >
-                                    <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
-                                </div>
-                            )}
+                            <div id="scroll-landing" className="content medeinn-main-content overflow-auto">
+                                {show_breadcrumbs && (
+                                    <div
+                                        className="d-flex justify-content-between align-items-center bar"
+                                        style={{
+                                            backgroundColor: '#FFFFFF',
+                                            padding: '4px 24px',
+                                            boxShadow: 'inset 0px 5px 3px #00000015',
+                                        }}
+                                    >
+                                        <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
+                                    </div>
+                                )}
                                 {children}
                                 <AppFooter />
-                            </div> 
+                            </div>
                         </div>
                     </Content>
                 </Layout>
@@ -58,7 +64,7 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
             <Drawer
                 placement="right"
                 onClose={context?.drawer_close}
-                visible={context?.drawer_collapsed}
+                open={context?.drawer_collapsed}
                 width={300}
                 className="user-drawer"
             >

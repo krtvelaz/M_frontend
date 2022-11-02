@@ -8,8 +8,7 @@
         "docker": "docker build --memory 4096m -t medeinn_frontend . ",
         "preview": "vite preview",
         "version": "npm run changelog && git add CHANGELOG.md",
-        "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-        "changelog:first": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+        "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
         "publish": "npm run publish:origin && npm run publish:tysa",
         "publish:origin": "git push && git push --tags",
         "publish:tysa": "git push tysa && git push tysa --tags"

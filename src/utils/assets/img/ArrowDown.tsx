@@ -19,7 +19,7 @@ const ArrowSelect: FC<Icons> = ({ color, type }) => {
                                 transform="translate(0 0)"
                                 fill={`${color}`}
                                 stroke={`${color}`}
-                                stroke-width="1"
+                                strokeWidth="1"
                             />
                         </g>
                     </g>
@@ -35,7 +35,7 @@ const ArrowSelect: FC<Icons> = ({ color, type }) => {
                                 transform="translate(0 0)"
                                 fill={`${color}`}
                                 stroke={`${color}`}
-                                stroke-width="1"
+                                strokeWidth="1"
                             />
                         </g>
                     </g>
