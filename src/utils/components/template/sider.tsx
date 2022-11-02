@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { logoMedeinnWhite } from '../../assets/img';
 import { guards } from '../../../modules/home/routes';
 import { useSelector } from 'react-redux';
+import Powerby from './powerBy';
 
 const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }) => {
     const context = useContext(TemplateContext);
@@ -220,7 +221,7 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
     };
 
     return (
-        <>
+        <div>
             {context.device !== 'sm' && (
                 <div
                     className="text-center"
@@ -253,7 +254,10 @@ const sider: FC<{ width: number; setMenuSider: any }> = ({ width, setMenuSider }
                 items={menu_config}
                 mode={context.device === 'sm' ? 'inline' : 'vertical'}
             />
-        </>
+            <div style={{ marginTop: '50%' }}>
+                <Powerby />
+            </div>
+        </div>
     );
 };
 

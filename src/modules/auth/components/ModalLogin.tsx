@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoMedeinnLogin } from '../../../utils/assets/img';
+import Powerby from '../../../utils/components/template/powerBy';
 import FormLogin from './FormLogin';
 
 export interface LoginModalProps {
@@ -16,7 +17,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
 
     return (
         <>
-            <Modal bodyStyle={{ height: '54rem' }} visible={open} footer={null} onCancel={toggle} title="" className='modal-form-login'>
+            <Modal bodyStyle={{ height: '58rem' }} visible={open} footer={null} onCancel={toggle} title="" className='modal-form-login'>
                 <div className="row" style={{ height: '100vh' }}>
                     <div className="col mt-5">
                         <div className="container-form-login mx-auto" style={{ width: 300 }}>
@@ -34,7 +35,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
                                     }}
                                 >
                                     <div className="col text-center">
-                                        <p style={{ marginTop: '30px' }}>
+                                        <p style={{ marginTop: '15px', marginBottom: '20px' }}>
                                             Si aún no tienes usuario{' '}
                                             <a
                                                 style={{ font: 'Montserrat', color: '#41A0FF', fontWeight: '600' }}
@@ -47,6 +48,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
                                                 Regístrate
                                             </a>
                                         </p>
+                                        <Powerby />
                                     </div>
                                 </div>
                                 <div className="row">

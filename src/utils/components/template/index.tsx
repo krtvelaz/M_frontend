@@ -134,7 +134,7 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                                 fontFamily: 'Montserrat-Regular',
                             }}
                         >
-                            C.C. {new Intl.NumberFormat().format(1007845632)}
+                            C.C. {new Intl.NumberFormat().format(user?.use_id)}
                         </span>
                     </div>
                 </div>

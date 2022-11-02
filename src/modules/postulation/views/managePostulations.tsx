@@ -34,6 +34,7 @@ const managePostulations = () => {
     const OpenModal = () => {
         setModalOpen(true);
     };
+    
     const OpenModalExportData = () => {
         setInfoModaL(true);
     };

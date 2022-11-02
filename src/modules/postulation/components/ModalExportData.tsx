@@ -29,7 +29,7 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
         estadoPostulacion: '',
     };
     const schema = Yup.object().shape({
-        convocatoria: Yup.string().nullable().required('Campo obligatorio'),
+        convocatoria: Yup.number().required('Campo obligatorio'),
         estadoPostulacion: Yup.string().required('Campo obligatorio'),
     });
 
@@ -73,7 +73,7 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
                                         <div style={{ width: '48%' }}>
                                             <label htmlFor="convocatoria_id">Número de convocatoria</label>
                                             <Field
-                                                type="text"
+                                                type="number"
                                                 className="form-control"
                                                 placeholder="Seleccionar…"
                                                 id="convocatoria_id"
@@ -98,6 +98,10 @@ export const ModalExportData: FC<ModalExportData> = ({ infoModaL, setInfoModaL }
                                                     {
                                                         name: 'Sin finalizar',
                                                         id: 'Sin finalizar',
+                                                    },
+                                                    {
+                                                        name: 'Revisado',
+                                                        id: 'Revisado',
                                                     },
                                                     {
                                                         name: 'Todos',
