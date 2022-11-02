@@ -1,6 +1,4 @@
 FROM node:16.14.2 AS builder
-RUN corepack enable
-RUN corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 COPY . .
@@ -10,8 +8,8 @@ COPY .env.prod .env
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # RUN pnpm set progress=false && pnpm config set depth 0
-RUN pnpm i
-RUN pnpm run build
+RUN npm i
+RUN npm run build
 
 # expose port and define CMD
 #EXPOSE 8080

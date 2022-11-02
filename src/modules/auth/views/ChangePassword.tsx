@@ -24,6 +24,7 @@ const ChangePassword = () => {
 
     const onRestPassword = async (values: any) => {
         setLoading(true);
+
         const reult: any = dispatch(actions.change_password(values.user, values.provisional_password, values.password));
         await reult
             .then(async (res: any) => {
@@ -52,13 +53,17 @@ const ChangePassword = () => {
 
     return (
         <div className="box-resetPaswword">
-            <img src={trazado_amarillo} alt="trazado" style= {{
-                position: 'absolute',
-                top: '-1%',
-                left: '-30%',
-                maxWidth: '3500px',
-            }} />
-            <div style={{ marginTop: '110', marginBottom: '100px'}} className="container">
+            <img
+                src={trazado_amarillo}
+                alt="trazado"
+                style={{
+                    position: 'absolute',
+                    top: '-1%',
+                    left: '-30%',
+                    maxWidth: '3500px',
+                }}
+            />
+            <div style={{ marginTop: '110', marginBottom: '100px' }} className="container">
                 <div className="row justify-content-center">
                     <div className="d-flex flex-row m-5 col-md-12">
                         <div
