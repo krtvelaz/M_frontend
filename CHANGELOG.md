@@ -1,3 +1,12 @@
+## [1.1.6](https://dev.azure.com/AlcaldiaMedellin/InnovacionDigital/_git/medeinn_ws_front/compare/v1.1.5...v1.1.6) (2022-11-02)
+
+
+### Bug Fixes
+
+* azure pipeline for ppd and pdd ([d3568ba](https://dev.azure.com/AlcaldiaMedellin/InnovacionDigital/_git/medeinn_ws_front/commits/d3568ba24f8291838b51f3a5669819dafd040ec7))
+
+
+
 ## [1.1.5](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/compare/v1.1.4...v1.1.5) (2022-11-01)
 
 
