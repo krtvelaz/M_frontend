@@ -14,7 +14,7 @@ const StatisticsLanding = () => {
     return (
         <section className="row statistics">
             {statistics?.map((statistic: any) => (
-                <div className="col-6 col-md-3">
+                <div className="col-6 col-md-3" key={statistic['id']}>
                     <div className="img-number">
                         <p className="">{statistic?.sta_value}</p>
                     </div>
