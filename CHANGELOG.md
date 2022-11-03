@@ -1,3 +1,12 @@
+## [1.1.8](https://dev.azure.com/AlcaldiaMedellin/InnovacionDigital/_git/medeinn_ws_front/compare/v2.1.7...v1.1.8) (2022-11-03)
+
+
+### Bug Fixes
+
+* modal always open ([64a77a6](https://dev.azure.com/AlcaldiaMedellin/InnovacionDigital/_git/medeinn_ws_front/commits/64a77a6b0a1a35804ddf06cac1c895682db790b7))
+
+
+
 ## [2.1.7](https://dev.azure.com/AlcaldiaMedellin/InnovacionDigital/_git/medeinn_ws_front/compare/v1.1.6...v2.1.7) (2022-11-02)
 
 
