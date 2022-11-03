@@ -28,9 +28,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
     const initial_values = {
         names: '',
         surnames: '',
-        document_type: type === 'legal' ? 4 :  null,
+        document_type: type === 'legal' ? 4 : null,
         document_number: '',
-        gender: type === 'legal' ? 'O' :  null,
+        gender: type === 'legal' ? 'O' : null,
         email: '',
         address: '',
         contact_type: null,
@@ -45,11 +45,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
         ...register,
     };
 
-
     useEffect(() => {
-        setTypeDocs(types_docuemnts?.filter((doc: {id:number; type: string; name: string}) => doc?.id !== 4))
-    },[types_docuemnts])
-    
+        setTypeDocs(types_docuemnts?.filter((doc: { id: number; type: string; name: string }) => doc?.id !== 4));
+    }, [types_docuemnts]);
 
     const schema = Yup.object().shape({
         names: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
@@ -86,16 +84,15 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
         // state: Yup.string().nullable().required('Campo obligatorio'),
         // city: Yup.string().nullable().required('Campo obligatorio'),
         radioPolitica: Yup.boolean().required('Debes aceptar las politicas para continuar'),
-        ...(type === 'legal' ? {
-            entity_type: Yup.string().nullable().required('Campo obligatorio'),
-        } :
-        { 
-            document_type: Yup.string().nullable().required('Campo obligatorio'),
-            surnames: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
-            gender: Yup.string().nullable().required('Campo obligatorio'),
-        }
-        
-        ),
+        ...(type === 'legal'
+            ? {
+                  entity_type: Yup.string().nullable().required('Campo obligatorio'),
+              }
+            : {
+                  document_type: Yup.string().nullable().required('Campo obligatorio'),
+                  surnames: Yup.string().required('Campo obligatorio').min(3, 'Mínimo 3 caracteres'),
+                  gender: Yup.string().nullable().required('Campo obligatorio'),
+              }),
     });
     const submit = async (values: any, form: any) => {
         await onSubmit(values, form);
@@ -108,7 +105,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ handleChange, values, setFieldValue, errors, touched}) => {
+            {({ handleChange, values, setFieldValue, errors, touched }) => {
                 return (
                     <Form>
                         <div className="row">
@@ -120,7 +117,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     type="text"
                                     id="name_id"
                                     name="names"
-                                    className={`form-control ${(errors.names && touched.names) && 'error-input'}`}
+                                    className={`form-control ${errors.names && touched.names && 'error-input'}`}
                                     autoComplete="off"
                                     placeholder="Nombres"
                                     maxLength={50}
@@ -145,16 +142,16 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         type="text"
                                         id="last_name_id"
                                         name="surnames"
-                                        className={`form-control ${(errors.surnames && touched.surnames) && 'error-input'}`}
+                                        className={`form-control ${
+                                            errors.surnames && touched.surnames && 'error-input'
+                                        }`}
                                         autoComplete="off"
                                         placeholder="Apellidos"
                                         maxLength={50}
                                         onChange={(e: any) => {
                                             e.preventDefault();
                                             const { value } = e.target;
-                                            const regex = new RegExp(
-                                                /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g
-                                            );
+                                            const regex = new RegExp(/^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g);
                                             if (regex.test(value.toString())) {
                                                 handleChange(e);
                                             }
@@ -171,20 +168,26 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 </label>
                                 <div className="row">
                                     {type === 'natural' && (
-                                        <div className="col-4" style={{paddingRight: 0,}}>
+                                        <div className="col-4" style={{ paddingRight: 0 }}>
                                             <Field
                                                 component={Select}
                                                 id="document_type_id"
                                                 name="document_type"
-                                                color='#603CE6'
-                                                status={(errors?.document_type && touched.document_type) ? 'error' : 'success'}
+                                                color="#603CE6"
+                                                status={
+                                                    errors?.document_type && touched.document_type ? 'error' : 'success'
+                                                }
                                                 dropdownStyle={{
                                                     maxHeight: 400,
                                                     overflow: 'auto',
                                                     minWidth: 300,
                                                 }}
-                                                type_select='document'
-                                                options={typeDocs?.map((document: any) => ({ id: document.id, name: `${document.type} - ${document.name}`, type: document.type }))}
+                                                type_select="document"
+                                                options={typeDocs?.map((document: any) => ({
+                                                    id: document.id,
+                                                    name: `${document.type} - ${document.name}`,
+                                                    type: document.type,
+                                                }))}
                                                 placeholder="C.C."
                                                 filterOption={(input: any, option: any) => {
                                                     return (
@@ -202,7 +205,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             type="text"
                                             name="document_number"
                                             id="number_document_id"
-                                            className={`form-control ${(errors.document_number && touched.document_number) && 'error-input'}`}
+                                            className={`form-control ${
+                                                errors.document_number && touched.document_number && 'error-input'
+                                            }`}
                                             autoComplete="off"
                                             placeholder="No."
                                             min={7}
@@ -210,7 +215,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,14}$/;
+                                                const regex = /^\d{0,14}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -230,8 +235,8 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         component={Select}
                                         id="gender_id"
                                         name="gender"
-                                        status={(errors?.gender && touched.gender) ? 'error' : 'success'}
-                                        color='#603CE6'
+                                        status={errors?.gender && touched.gender ? 'error' : 'success'}
+                                        color="#603CE6"
                                         style={{ height: '38px' }}
                                         options={[
                                             { name: 'Femenino', id: 'F' },
@@ -254,7 +259,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         component={Select}
                                         id="entity_type_id"
                                         name="entity_type"
-                                        status={(errors?.entity_type && touched.entity_type) ? 'error' : 'success'}
+                                        status={errors?.entity_type && touched.entity_type ? 'error' : 'success'}
                                         style={{ height: '38px' }}
                                         options={[
                                             { name: 'Otro', id: 'Otro' },
@@ -277,7 +282,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     type="email"
                                     id="email_id"
                                     name="email"
-                                    className={`form-control ${(errors.email && touched.email) && 'error-input'}`}
+                                    className={`form-control ${errors.email && touched.email && 'error-input'}`}
                                     autoComplete="off"
                                     style={{ height: '38px' }}
                                     placeholder="Correo electrónico"
@@ -291,7 +296,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     component={ModalAddress}
                                     type="text"
-                                    className={`form-control ${(errors.address && touched.address) && 'error-input'}`}
+                                    className={`form-control ${errors.address && touched.address && 'error-input'}`}
                                     autoComplete="off"
                                     minLength={3}
                                     maxLength={100}
@@ -309,10 +314,10 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     <div className="col-4">
                                         <Field
                                             component={Select}
-                                            status={(errors?.contact_type && touched.contact_type) ? 'error' : 'success'}
+                                            status={errors?.contact_type && touched.contact_type ? 'error' : 'success'}
                                             id="type_contact_id"
                                             name="contact_type"
-                                            color='#603CE6'
+                                            color="#603CE6"
                                             options={[
                                                 {
                                                     name: 'Fijo',
@@ -334,7 +339,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             type="text"
                                             id="number_contact_id"
                                             name="contact_number"
-                                            className={`form-control ${(errors.contact_number && touched.contact_number) && 'error-input'}`}
+                                            className={`form-control ${
+                                                errors.contact_number && touched.contact_number && 'error-input'
+                                            }`}
                                             autoComplete="off"
                                             placeholder="No. Digita tu número de contacto."
                                             min={7}
@@ -359,10 +366,10 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     showSearch
                                     component={Select}
-                                    color='#603CE6'
+                                    color="#603CE6"
                                     id="country_id"
                                     name="country"
-                                    status={(errors?.country && touched.country) ? 'error' : 'success'}
+                                    status={errors?.country && touched.country ? 'error' : 'success'}
                                     style={{ height: '38px' }}
                                     options={countries.map((country: any) => ({
                                         name: country.name,
@@ -390,9 +397,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     showSearch
                                     component={Select}
-                                    status={(errors?.state && touched.state) ? 'error' : 'success'}
+                                    status={errors?.state && touched.state ? 'error' : 'success'}
                                     id="country_id"
-                                    color='#603CE6'
+                                    color="#603CE6"
                                     name="state"
                                     style={{ height: '38px' }}
                                     disabled={values.country !== 'CO'}
@@ -417,9 +424,9 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     showSearch
                                     component={Select}
                                     id="city_id"
-                                    color='#603CE6'
+                                    color="#603CE6"
                                     name="city"
-                                    status={(errors?.city && touched.city) ? 'error' : 'success'}
+                                    status={errors?.city && touched.city ? 'error' : 'success'}
                                     style={{ height: '38px' }}
                                     disabled={!values.state}
                                     options={cities.map((city: any) => ({ name: city.name, id: city.id }))}
@@ -444,18 +451,18 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                 <Field
                                     style={{ height: '38px' }}
                                     component={Select}
-                                    color='#603CE6'
+                                    color="#603CE6"
                                     disabled={values.city !== '05001-MEDELLÍN'}
                                     id="comuna_id"
                                     name="commune"
-                                    status={(errors?.commune && touched.commune) ? 'error' : 'success'}
+                                    status={errors?.commune && touched.commune ? 'error' : 'success'}
                                     options={communes?.map((commune: any) => ({
                                         id: commune?.id,
                                         name: commune?.commune,
                                     }))}
                                     extra_on_change={(id_commune: number) => {
-                                        console.log("Id comuna: ", id_commune);
-                                        
+                                        console.log('Id comuna: ', id_commune);
+
                                         setFieldValue('neighborhood', null, false);
                                         dispatch(actionsChallenge.get_neighborhoods(id_commune));
                                     }}
@@ -473,8 +480,8 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     disabled={!values.commune}
                                     id="neighborhood_id"
                                     name="neighborhood"
-                                    status={(errors?.neighborhood && touched.neighborhood) ? 'error' : 'success'}
-                                    color='#603CE6'
+                                    status={errors?.neighborhood && touched.neighborhood ? 'error' : 'success'}
+                                    color="#603CE6"
                                     options={neighborhoods?.map((neighborhood: any) => ({
                                         id: neighborhood?.neighborhood,
                                         name: neighborhood?.neighborhood,
@@ -508,6 +515,5 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
         </Formik>
     );
 };
-
 
 export default FormRegister;

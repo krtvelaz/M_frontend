@@ -9,15 +9,22 @@ export interface LoginModalProps {
     open?: boolean;
     toggle?: () => void;
     is_new_user: boolean;
-    pathPostulation?: any;
+    path?: any;
 }
 
-const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
+const ModalLogin: FC<LoginModalProps> = ({ open, toggle, path }) => {
     const navigate = useNavigate();
 
     return (
         <>
-            <Modal bodyStyle={{ height: '58rem' }} visible={open} footer={null} onCancel={toggle} title="" className='modal-form-login'>
+            <Modal
+                bodyStyle={{ height: '58rem' }}
+                open={open}
+                footer={null}
+                onCancel={toggle}
+                title=""
+                className="modal-form-login"
+            >
                 <div className="row" style={{ height: '100vh' }}>
                     <div className="col mt-5">
                         <div className="container-form-login mx-auto" style={{ width: 300 }}>
@@ -26,7 +33,7 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle, pathPostulation }) => {
                             </div>
                             <h5 className="sub-header-login text-center mb-5">Ingresa tus datos para iniciar sesión</h5>
                             <div className="form-login">
-                                <FormLogin toggle={toggle} pathPostulation={pathPostulation} />
+                                <FormLogin toggle={toggle} pathPostulation={path} />
                                 <div
                                     className="row"
                                     style={{

@@ -1,13 +1,14 @@
 FROM node:16.14.2 AS builder
+
 WORKDIR /app
 COPY . .
 COPY .env.prod .env
+
 # install node packages
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-RUN npm set progress=false && npm config set depth 0
-RUN npm install
-RUN npm install socket.io-client
+# RUN pnpm set progress=false && pnpm config set depth 0
+RUN npm i
 RUN npm run build
 
 # expose port and define CMD

@@ -15,7 +15,7 @@ interface IloginFormPros {
 
 const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) => {
     console.log(pathPostulation);
-    
+
     const [alert, set_alert] = useState<string>();
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
@@ -33,9 +33,9 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
         await promise
             .then((res: any) => {
                 if (res?.detail_user?.use_role?.id === 4) {
-                    if(pathPostulation) {
-                        navigate(`${pathPostulation.path}`, {state: pathPostulation.state});
-                    }else {
+                    if (pathPostulation) {
+                        navigate(`${pathPostulation.path}`, { state: pathPostulation.state });
+                    } else {
                         navigate('../', { replace: true });
                     }
                     context.toggle_login_modal();
@@ -46,7 +46,9 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
             })
             .catch((e: any) => {
                 if (e?.response?.data?.message === 'El usuario requiere cambio de contraseña') {
-                    navigate(`../auth/change-password/`, { state: { data_user: {...values, name: e?.response?.data?.data} } });
+                    navigate(`../auth/change-password/`, {
+                        state: { data_user: { ...values, name: e?.response?.data?.data } },
+                    });
                     toggle();
                     return;
                 }
@@ -130,8 +132,19 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
                         {alert && alert.length > 0 && (
                             <div style={{ paddingLeft: '10px', paddingRight: '10px', marginTop: '10px' }}>
                                 <div className="row container-error-login">
-                                    <div className="col-11 font-color-AD0808 font-size-12px font-family-Montserrat-Regular text-error-login">{alert}</div>
-                                    <div className="col-1 justify-content-flex-end font-size-12px font-color-AD0808" onClick={() => { set_alert('') }}><span style={{ color: '#AD0808', fontWeight: 'bold', cursor: 'pointer'}}>x</span></div>
+                                    <div className="col-11 font-color-AD0808 font-size-12px font-family-Montserrat-Regular text-error-login">
+                                        {alert}
+                                    </div>
+                                    <div
+                                        className="col-1 justify-content-flex-end font-size-12px font-color-AD0808"
+                                        onClick={() => {
+                                            set_alert('');
+                                        }}
+                                    >
+                                        <span style={{ color: '#AD0808', fontWeight: 'bold', cursor: 'pointer' }}>
+                                            x
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -146,7 +159,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
                                             if (toggle) toggle();
                                         }}
                                     >
-                                       {' '} Recupérala AQUÍ
+                                        Recupérala AQUÍ
                                     </a>
                                 </p>
                             </div>
@@ -159,7 +172,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
                                         }}
                                         type="button"
                                         className="btn btn-outline-primary  me-2"
-                                        onClick={() => { 
+                                        onClick={() => {
                                             context.toggle_login_modal();
                                         }}
                                     >

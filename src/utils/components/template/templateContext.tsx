@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import 'moment/locale/es-mx'
+import 'moment/locale/es-mx';
 
 type KeyPath = [string, string?];
 interface TemplateProps {
@@ -26,36 +26,38 @@ interface TemplateProps {
 
 export const TemplateContext = React.createContext<any>(null);
 
-const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
+const TemplateProvider: FC<{ children: any }> = React.memo(({ children }) => {
     const [menu_collapsed, set_menu_collapsed] = useState<boolean>(false);
     const [menu_key_path, set_menu_key_path] = useState<KeyPath>(['p0']);
     const [drawer_collapsed, set_drawer_collapsed] = useState<boolean>(false);
     const [sider_collapsed, set_sider_collapsed] = useState<boolean>(false);
     const [drawer_menu_collapsed, set_drawer_menu_collapsed] = useState<boolean>(false);
     const [login_modal, set_login_modal] = useState<boolean>(false);
+    const [pass_modal, set_pass_modal] = useState<boolean>(false);
     const [pathLogin, setPathLogin] = useState<any>(null);
     const [percentege, setpercentege] = useState<boolean>(false);
     const [idNode, set_idNode] = useState<string>('');
     const [docReact, setDocReact] = useState(null);
     const [width, setWidth] = useState<number>(window.innerWidth);
-    
-    const [device, setDevice] = useState<'sm' | 'md' | 'lg'>( window.innerWidth <= 767  ? 'sm' :  window.innerWidth  >= 768 && window.innerWidth < 1024 ? 'md' : 'lg' );
+
+    const [device, setDevice] = useState<'sm' | 'md' | 'lg'>(
+        window.innerWidth <= 767 ? 'sm' : window.innerWidth >= 768 && window.innerWidth < 1024 ? 'md' : 'lg'
+    );
     const updateDimensions = () => {
         const _width = window.innerWidth;
         let _device: 'sm' | 'md' | 'lg';
         switch (true) {
-            case _width <= 767 :
+            case _width <= 767:
                 _device = 'sm';
-                
-                
+
                 break;
             case _width >= 768 && _width < 1024:
                 _device = 'md';
-                
+
                 break;
             default:
                 _device = 'lg';
-                
+
                 break;
         }
         if (_width !== width) {
@@ -66,20 +68,14 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
         }
     };
 
-    
-
-
-    useEffect(() => {    
+    useEffect(() => {
         window.addEventListener('resize', updateDimensions.bind(this));
         window.addEventListener('load', updateDimensions.bind(this));
         return () => {
             window.removeEventListener('load', updateDimensions.bind(this));
             window.removeEventListener('resize', updateDimensions.bind(this));
         };
-        
-        
     }, [width]);
-
 
     return (
         <TemplateContext.Provider
@@ -90,6 +86,7 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 sider_collapsed,
                 drawer_collapsed,
                 login_modal,
+                pass_modal,
                 pathLogin,
                 percentege,
                 idNode,
@@ -105,9 +102,10 @@ const TemplateProvider: FC<{ children: any;  }> = React.memo(({children}) => {
                 drawer_open: () => set_drawer_collapsed(true),
                 drawer_close: () => set_drawer_collapsed(false),
                 toggle_login_modal: () => set_login_modal((collapsed) => !collapsed),
+                toggle_pass_modal: () => set_pass_modal((collapsed) => !collapsed),
                 toggle_percentage_modal: () => setpercentege((collapsed) => !collapsed),
-                toggle_path_login: (values: {path?: string, state?: any}) => setPathLogin(values ? {path: values.path, state: values.state}: null),
-                
+                toggle_path_login: (values: { path?: string; state?: any }) =>
+                    setPathLogin(values ? { path: values.path, state: values.state } : null),
             }}
         >
             {children}

@@ -1,7 +1,7 @@
 import { CheckOutlined } from '@ant-design/icons';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
 import { IResetPassword } from '../custom_types';
@@ -13,10 +13,11 @@ interface ResetPasswordFormPros {
     resetPassword?: IResetPassword;
 }
 const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, resetPassword, onSubmit }) => {
-    const [minuscula, setMinuscula] = useState(/^(?=.*[a-z])/);
-    const [mayuscula, setMayuscula] = useState(/^(?=.*[A-Z])/);
-    const [numero, setNumero] = useState(/^(?=.*[0-9])/);
-    const [caracteres, setCaracteres] = useState(/^(?=.{8,})/);
+    const location: any = useLocation();
+    const [minuscula, _setMinuscula] = useState(/^(?=.*[a-z])/);
+    const [mayuscula, _setMayuscula] = useState(/^(?=.*[A-Z])/);
+    const [numero, _setNumero] = useState(/^(?=.*\d)/);
+    const [caracteres, _setCaracteres] = useState(/^(?=.{8,})/);
 
     const passwordType = ['password', 'text'];
     const [type, setType] = useState(0);
@@ -66,7 +67,7 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^\d{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -74,6 +75,40 @@ const FormResetPassword: FC<ResetPasswordFormPros> = ({ innerRef, disabled, rese
                                 />
                                 <ErrorMessage name="user" />
                             </div>
+
+                            {location?.state['from'] === 'dashboard' && (
+                                <div className="col-12 col-md-4 col-lg-4">
+                                    <label htmlFor="provisional_password_id" className="form-label">
+                                        Contraseña Provisional
+                                    </label>
+                                    <div className="input-group ">
+                                        <Field
+                                            type={passwordType[type]}
+                                            className="form-control border-end-0"
+                                            id="provisional_password_id"
+                                            name="provisional_password"
+                                            autoComplete="on"
+                                            disabled={disabled}
+                                        />
+
+                                        <span
+                                            className="input-group-text bg-white border-start-0"
+                                            onClick={() => {
+                                                if (type === 0) {
+                                                    setType(1);
+                                                } else {
+                                                    setType(0);
+                                                }
+                                            }}
+                                            style={{ cursor: 'pointer', borderRadius: '0px 6px 6px 0px' }}
+                                        >
+                                            {type === 0 && <span style={{ color: '#1FAEEF' }}>VER</span>}
+                                            {type === 1 && <span style={{ color: '#1FAEEF' }}>OCULTAR</span>}
+                                        </span>
+                                        <ErrorMessage name="provisional_password" />
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="col-12 col-md-4 col-lg-4">
                                 <label htmlFor="password_id" className="form-label">

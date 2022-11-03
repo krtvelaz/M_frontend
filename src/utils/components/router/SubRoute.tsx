@@ -7,7 +7,7 @@ interface RouteWithSubRoutesProps {
     template: any;
     defaultRedirect: string;
     privateRedirect: string;
-    user: any; //TODO: agregar cuando este login
+    user: any; //TODO: Agregar interfáz de login
     test: boolean;
     lazy?: boolean;
 }
@@ -38,11 +38,11 @@ const SubRoute: FC<RouteWithSubRoutesProps> = ({
                         element={
                             <CustomRender
                                 lazy={lazy}
-                                defaultRedirect={defaultRedirect as string}
-                                privateRedirect={privateRedirect as string}
+                                defaultRedirect={defaultRedirect}
+                                privateRedirect={privateRedirect}
                                 template={template}
-                                user={user} //TODO: agregar cuando este login
-                                test={test as boolean}
+                                user={user}
+                                test={test}
                                 {...route}
                             />
                         }

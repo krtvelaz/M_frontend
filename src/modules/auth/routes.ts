@@ -33,7 +33,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.landing,
+            can_access: true,
             path: '/auth/change-password/',
             template_props: {
                 breadcrumbs: [
@@ -48,7 +48,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.landing,
+            can_access: true,
             path: '/auth/recover-password/',
             template_props: {
                 breadcrumbs: [

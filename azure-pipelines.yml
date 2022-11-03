@@ -1,0 +1,15 @@
+variables:
+    - ${{ if eq( variables['Build.SourceBranchName'],'PPD' ) }}:
+          - group: CD-Automation-PREPDD
+    - ${{ if eq( variables['Build.SourceBranchName'],'PDD' ) }}:
+          - group: CD-Automation-PROD
+
+resources:
+    repositories:
+        - repository: deploy
+          type: git
+          name: DevOps/DespliegueAutomatico
+          ref: 'develop'
+
+stages:
+    - template: azure-pipelines.yml@deploy

@@ -9,7 +9,7 @@ import Breadcrumbs from './breadcrumbs';
 import { Breadcrumb } from '../router/custom_types';
 import { useNavigate } from 'react-router-dom';
 import { actions as auth_actions } from '../../../modules/auth/redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import '../../assets/styles/template.scss';
 
 interface ITemplate {
@@ -23,7 +23,7 @@ interface ITemplate {
 const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user }) => {
     const { Header, Sider, Content } = Layout;
     const context = useContext(TemplateContext);
-    
+
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [menuSider, setMenuSider] = useState([]);
@@ -91,12 +91,7 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                                     <Breadcrumbs breadcrumbs={breadcrumbs as Breadcrumb[]} />
                                 </div>
                             )}
-                            <div
-                                
-                                className="content medeinn-main-content overflow-auto"
-                            >
-                                {children}
-                            </div>
+                            <div className="content medeinn-main-content overflow-auto">{children}</div>
                         </div>
                     </Content>
                 </Layout>
@@ -147,25 +142,18 @@ const Template: FC<ITemplate> = ({ children, breadcrumbs, show_breadcrumbs, user
                                     fontSize: '12px',
                                 }}
                                 key="Drawer-1"
-                                onClick={() => {
-                                    context?.toggle_pass_modal();
-                                    context?.drawer_close();
+                                onClick={(e: any) => {
+                                    navigate(`../auth/recover-password/`, {
+                                        state: {
+                                            data_user: { document: user?.use_id, email: user?.use_email },
+                                            from: 'dashboard',
+                                        },
+                                    });
+                                    context.drawer_close();
                                 }}
                             >
                                 Cambiar contraseña
                             </Menu.Item>
-                            {/* <Menu.Item
-                                style={{
-                                    borderBottom: '0.5px solid #00000029',
-                                    fontSize: '12px',
-                                }}
-                                key="Drawer-2"
-                                onClick={() => {
-                                    context?.drawer_close();
-                                }}
-                            >
-                                Editar usuario
-                            </Menu.Item> */}
                         </Menu>
                     </div>
                     {context?.device === 'sm' && (

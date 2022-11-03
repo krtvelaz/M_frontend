@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
 import { ILostPassword } from '../custom_types';
@@ -10,9 +11,11 @@ interface LostPasswordFormPros {
     lostPassword?: ILostPassword;
 }
 const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, onSubmit }) => {
+    const location: any = useLocation();
+
     const initialValues = {
-        document: '',
-        email: '',
+        document: location?.state.data_user.document || '',
+        email: location?.state.data_user.email || '',
         ...lostPassword,
     };
     const submit = async (values: any, form: any) => {
@@ -23,6 +26,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
         document: Yup.string().required('Campo obligatorio'),
         email: Yup.string().email('Ingrese un correo electrónico valido').required('Campo obligatorio'),
     });
+
     return (
         <Formik
             enableReinitialize
@@ -31,7 +35,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
             validationSchema={schema}
             innerRef={innerRef}
         >
-            {({ isSubmitting, values, handleChange }) => {
+            {({ handleChange }) => {
                 return (
                     <Form>
                         <div className="row ">
@@ -45,7 +49,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     id="user_id"
                                     name="document"
                                     placeholder="ingresa tu usuario, cédula o NIT"
-                                    // disabled={disabled}
+                                    disabled={location?.state['from'] === 'dashboard'}
                                     autoComplete="off"
                                     min={0}
                                     max={9999999999999999}
@@ -69,6 +73,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     type="email"
                                     id="email_id"
                                     name="email"
+                                    disabled={location?.state['from'] === 'dashboard'}
                                     className="form-control"
                                     autoComplete="off"
                                     style={{ height: '38px' }}
