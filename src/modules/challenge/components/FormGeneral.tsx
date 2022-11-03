@@ -357,7 +357,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     type="text"
                                     id="ret_imagen_principal_id"
                                     name="cha_imagen_principal"
-                                    className="form-control"
+                                    className={`form-control ${(errors.cha_imagen_principal && touched.cha_imagen_principal) && 'error-input'}`}
                                     placeholder="Seleccionar…"
                                 />
                                 <ErrorMessage name="cha_imagen_principal.name" />
