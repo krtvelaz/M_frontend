@@ -19,10 +19,10 @@ const ModalLogin: FC<LoginModalProps> = ({ open, toggle, path }) => {
         <>
             <Modal
                 bodyStyle={{ height: '58rem' }}
-                open={true}
+                open={open}
                 footer={null}
                 onCancel={toggle}
-                title="Login Modal"
+                title=""
                 className="modal-form-login"
             >
                 <div className="row" style={{ height: '100vh' }}>

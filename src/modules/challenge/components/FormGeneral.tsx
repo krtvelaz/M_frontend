@@ -109,7 +109,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                 const disabledDateStart: TimeRangePickerProps['disabledDate'] = (current) => {
                     return current && current > moment(values?.cha_end_date).endOf('day');
                 };
-                
+
                 return (
                     <Form>
                         <div className="row">
@@ -121,7 +121,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     type="number"
                                     id="cha_announcement_id"
                                     name="cha_announcement"
-                                    className={`form-control ${(errors.cha_announcement && touched.cha_announcement) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_announcement && touched.cha_announcement && 'error-input'
+                                    }`}
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                 />
@@ -136,7 +138,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     type="text"
                                     id="ret_nombre_id"
                                     name="cha_name"
-                                    className={`form-control ${(errors.cha_name && touched.cha_name) &&  'error-input'}`}
+                                    className={`form-control ${errors.cha_name && touched.cha_name && 'error-input'}`}
                                     aria-describedby="nombre del reto"
                                     autoComplete="off"
                                     maxLength={80}
@@ -160,7 +162,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <Field
                                     component={Select}
                                     maxTagCount="responsive"
-                                    status={(errors?.cha_profiles && touched.cha_profiles) ? 'error' : 'success'}
+                                    status={errors?.cha_profiles && touched.cha_profiles ? 'error' : 'success'}
                                     showArrow
                                     dropdownMatchSelectWidth={false}
                                     id="ret_perfil_id"
@@ -186,7 +188,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     component={Select}
                                     id="ret_dimension_id"
                                     name="cha_id_dimension"
-                                    status={(errors?.cha_id_dimension && touched?.cha_id_dimension)  ? 'error' : 'success'}
+                                    status={errors?.cha_id_dimension && touched?.cha_id_dimension ? 'error' : 'success'}
                                     options={dimensions?.map((dimension: any) => ({
                                         id: dimension?.id,
                                         name: dimension?.maedim_nombre,
@@ -203,7 +205,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     component={Select}
                                     id="ret_dependencia_id"
                                     name="cha_id_dependency"
-                                    status={(errors?.cha_id_dependency && touched?.cha_id_dependency) ? 'error' : 'success'}
+                                    status={
+                                        errors?.cha_id_dependency && touched?.cha_id_dependency ? 'error' : 'success'
+                                    }
                                     options={dependencies.map((dependency: any) => ({
                                         id: dependency?.id,
                                         name: dependency?.maedep_nombre,
@@ -219,7 +223,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     Fecha de inicio
                                 </label>
                                 <Field
-                                    className={`${(errors.cha_start_date && touched.cha_start_date) && 'error-input'}`}
+                                    className={`${errors.cha_start_date && touched.cha_start_date && 'error-input'}`}
                                     component={DateInput}
                                     name="cha_start_date"
                                     id="ret_fecha_inicio_id"
@@ -233,7 +237,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     Fecha de cierre
                                 </label>
                                 <Field
-                                    className={`${(errors.cha_end_date && touched.cha_end_date) && 'error-input'}`}
+                                    className={`${errors.cha_end_date && touched.cha_end_date && 'error-input'}`}
                                     component={DateInput}
                                     name="cha_end_date"
                                     id="ret_fecha_final_id"
@@ -247,7 +251,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_description && touched.cha_description) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_description && touched.cha_description && 'error-input'
+                                    }`}
                                     id="ret_descripcion_id"
                                     name="cha_description"
                                     autoComplete="off"
@@ -264,7 +270,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_details && touched.cha_details) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_details && touched.cha_details && 'error-input'
+                                    }`}
                                     id="ret_detalles_id"
                                     name="cha_details"
                                     autoComplete="off"
@@ -292,7 +300,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                             component={Select}
                                             id="ret_comuna_id"
                                             name="cha_id_commune"
-                                            status={(errors?.cha_id_commune && touched.cha_id_commune) ? 'error' : 'success'}
+                                            status={
+                                                errors?.cha_id_commune && touched.cha_id_commune ? 'error' : 'success'
+                                            }
                                             options={communes?.map((commune: any) => ({
                                                 id: commune?.id,
                                                 name: commune?.commune,
@@ -311,7 +321,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                             disabled={neighborhoods.length === 0}
                                             id="ret_barrio_id"
                                             name="cha_id_neighborhood"
-                                            status={(errors?.cha_id_neighborhood && touched.cha_id_neighborhood) ? 'error' : 'success'}
+                                            status={
+                                                errors?.cha_id_neighborhood && touched.cha_id_neighborhood
+                                                    ? 'error'
+                                                    : 'success'
+                                            }
                                             options={neighborhoods?.map((neighborhood: any) => ({
                                                 id: neighborhood?.id,
                                                 name: neighborhood?.neighborhood,
@@ -328,7 +342,11 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_details_population_impact && touched.cha_details_population_impact) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_details_population_impact &&
+                                        touched.cha_details_population_impact &&
+                                        'error-input'
+                                    }`}
                                     id="ret_detalles_poblacion_impactar_id"
                                     name="cha_details_population_impact"
                                     autoComplete="off"
@@ -384,7 +402,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_important_data && touched.cha_important_data) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_important_data && touched.cha_important_data && 'error-input'
+                                    }`}
                                     style={{ height: '38px' }}
                                     id="ret_dato_importante_id"
                                     name="cha_important_data"
@@ -409,7 +429,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_expected_results && touched.cha_expected_results) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_expected_results && touched.cha_expected_results && 'error-input'
+                                    }`}
                                     style={{ height: '38px' }}
                                     id="ret_resultado_esperado_id"
                                     name="cha_expected_results"
@@ -433,7 +455,9 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 </label>
                                 <Field
                                     as="textarea"
-                                    className={`form-control ${(errors.cha_impact_type && touched.cha_impact_type) && 'error-input'}`}
+                                    className={`form-control ${
+                                        errors.cha_impact_type && touched.cha_impact_type && 'error-input'
+                                    }`}
                                     id="cha_impact_type_id"
                                     name="cha_impact_type"
                                     autoComplete="off"
@@ -458,7 +482,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                 <Field
                                     // type="number"
                                     component={Input}
-                                    status={(errors?.cha_amount && touched.cha_amount) ? 'error' : 'success'}
+                                    status={errors?.cha_amount && touched.cha_amount ? 'error' : 'success'}
                                     name="cha_amount"
                                     id="ret_monto_id"
                                     min={0}
