@@ -1,5 +1,3 @@
-// import store from '../../config/store';
-
 import { IRoute } from "../../utils/components/router/custom_types";
 import { guards } from "../home/routes";
 import CreateIndicator from "./views/CreateIndicator";

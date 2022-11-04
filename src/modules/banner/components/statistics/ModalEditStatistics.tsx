@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 import { IIndicator } from '../../custom_types';
 import FormIndicator from './FormIndicator';
 
-interface statistics {
+interface Istatistics {
     data: IIndicator;
     on_submit: (values: IIndicator) => any;
 }
 
-const ModalEditStatistics: FC<statistics> = ({ data, on_submit }) => {
+const ModalEditStatistics: FC<Istatistics> = ({ data, on_submit }) => {
     const form_ref = useRef<FormikProps<FormikValues>>();
     const [visible, setvisible] = useState<boolean>(false);
     const loading = useSelector((store: any) => store.banner.testimony.loading);

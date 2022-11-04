@@ -180,7 +180,6 @@ export const delete_publication = (id: number) => {
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            // dispatch();
             return res.data;
         } catch (error) {
             await swal_error.fire({

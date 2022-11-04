@@ -1,6 +1,6 @@
 
 import { ReactNode } from 'react';
-import { PathRouteProps, RouteProps } from 'react-router-dom';
+import { PathRouteProps } from 'react-router-dom';
 
 export type CanAccess = ((props: any) => boolean) | boolean;
 export type Breadcrumb = { to?: any; name: string; icon?: any };

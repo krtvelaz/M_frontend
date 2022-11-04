@@ -143,14 +143,6 @@ export const edit_testimonial = (values: ITestimony, type?: boolean) => {
                 },
             });
             dispatch(testimony_success(res.data.data));
-            // await swal_success.fire({
-            //     title: 'Proceso exitoso',
-            //     html:
-            //         `<div class="mysubtitle">Actualización completada con exito.</div>` +
-            //         '<div class="mytext">De click en aceptar para continuar</div>',
-            //     showCancelButton: false,
-            //     confirmButtonText: 'Aceptar',
-            // });
             return res.data.data;
         } catch (error) {
             dispatch(testimony_fail);

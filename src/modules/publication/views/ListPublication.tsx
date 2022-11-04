@@ -24,10 +24,7 @@ const ListPublication = () => {
     const change_page = (page: number, page_size?: number) => {
         dispatch(actions.get_list_publications({ page, page_size }));
     };
-    const editPublication = async (id: number, values: IGeneralInfo) => {
-        await dispatch(actions.edit_publication(/*id ,*/ values));
-        setIsChange(true);
-    };
+
     useEffect(() => {
         getPublications();
     }, []);
@@ -116,7 +113,6 @@ const ListPublication = () => {
                     render: (id: number, values: IGeneralInfo) => {
                         return (
                             <Link
-                                //  onSubmit={editPublication(id, values)}
                                 to={`/publication/edit/${id}/`}
                                 name=""
                                 avatar={false}

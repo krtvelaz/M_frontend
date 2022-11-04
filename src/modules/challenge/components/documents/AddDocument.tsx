@@ -1,4 +1,3 @@
-import { FormikProps, FormikValues } from 'formik';
 import { FC, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from '../../../../utils/ui';

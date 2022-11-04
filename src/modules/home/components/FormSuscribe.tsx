@@ -72,7 +72,7 @@ const FormSuscribe = () => {
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,10}$/;
+                                        const regex = /^\d{0,10}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }

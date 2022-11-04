@@ -141,11 +141,14 @@ const ListTestimony: FC<IListTestimony> = ({ testimonials, onEdit, onDelete }) =
                 loading={loading}
                 edit={async () => {
                     const newdata = data?.map((d, i: number) => {
-                        return (d = {
+                        return ({
                             ...d,
                             tes_order: i + 1,
                         });
                     });
+
+                    console.log("New Data: ", newdata);
+                    
                     await Promise.all(newdata?.map((result: any) => dispatch(actions.edit_testimonial(result, true))));
                     const res = await dispatch(
                         actions.get_list_testimonials({

@@ -79,7 +79,7 @@ const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) =>
                                 onChange={(e: any) => {
                                     e.preventDefault();
                                     const { value } = e.target;
-                                    const regex = /^[0-9]{0,20}$/;
+                                    const regex = /^\d{0,20}$/;
                                     if (regex.test(value.toString())) {
                                         handleChange(e);
                                     }

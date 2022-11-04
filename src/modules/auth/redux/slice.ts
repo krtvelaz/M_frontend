@@ -9,7 +9,7 @@ interface State {
 }
 
 const buffer = localStorage.getItem('_uk_');
-const uk = buffer && atob(buffer).replaceAll('Ã±', 'ñ');
+const uk = buffer && window.atob(buffer).replaceAll('Ã±', 'ñ');
 const user: any = uk ? JSON.parse(uk) : null;
 const token: string | null = localStorage.getItem('_tk_');
 
@@ -54,7 +54,7 @@ export const authSlice = createSlice({
                 loaded: true,
             };
             localStorage.setItem('_tk_', state.user.value.token);
-            const user_hash = btoa(
+            const user_hash = window.btoa(
                 JSON.stringify(state.user.value.detail_user)
             );
             localStorage.setItem('_uk_', user_hash);

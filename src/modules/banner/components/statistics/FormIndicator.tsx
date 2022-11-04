@@ -54,7 +54,7 @@ const FormIndicator: FC<IndicarFormPros> = ({ innerRef, onSubmit, indicator }) =
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^\d{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }

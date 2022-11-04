@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { IGalleryInfo, IGeneralInfo, IPublication } from '../custom_types';
+import { IGalleryInfo } from '../custom_types';
 import { Field, Form, Formik } from 'formik';
 
 import * as Yup from 'yup';
-import { DocumentInput, ErrorMessage, Select } from '../../../utils/ui';
+import { DocumentInput, ErrorMessage } from '../../../utils/ui';
 
 interface GalleryPros {
     innerRef: any;

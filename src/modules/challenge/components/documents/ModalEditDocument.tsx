@@ -1,5 +1,4 @@
 import { Modal } from 'antd';
-import { FormikProps, FormikValues } from 'formik';
 import { FC, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PencilComponent from '../../../../utils/assets/img/PencilComponent';

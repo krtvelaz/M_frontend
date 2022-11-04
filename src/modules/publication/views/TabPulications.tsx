@@ -20,8 +20,6 @@ const TabPulications = () => {
                 ...(key !== '0' && { type: key }),
             })
         );
-        // const landingScroll: any = document.getElementById('scroll-landing');
-        //                             landingScroll.scrollTop = 100;
     };
     useEffect(() => {
         dispatch(actions.get_list_publications({ page: 1, page_size: 4, from: 'landing', is_published: true, order_by_value: 'desc' }));

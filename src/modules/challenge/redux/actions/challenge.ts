@@ -11,7 +11,7 @@ import {
 } from '../slice';
 
 
-interface filters {
+interface Ifilters {
     page: number;
     page_size?: number;
     order_by_key?: string;
@@ -175,7 +175,7 @@ export const get_image_principal = (id: number) => {
     };
 };
 
-export const get_list_challenges = (filters?: filters) => {
+export const get_list_challenges = (filters?: Ifilters) => {
     return async (dispatch: any) => {
         dispatch(loading_challenges());
         try {

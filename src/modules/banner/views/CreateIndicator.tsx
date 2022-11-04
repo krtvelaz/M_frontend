@@ -103,7 +103,7 @@ const CreateIndicator = () => {
                             loading={loading}
                             edit={async () => {
                                 const newdata = data?.map((d: any, i: number) => {
-                                    return (d = {
+                                    return ({
                                         id: d.id,
                                         sta_order: i + 1,
                                     });

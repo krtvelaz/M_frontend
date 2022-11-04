@@ -1,7 +1,6 @@
-import { CloseOutlined } from '@ant-design/icons';
-import { Avatar, Menu } from 'antd';
+import { Avatar } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 interface UrlVideo {
@@ -9,7 +8,6 @@ interface UrlVideo {
 }
 
 const ModalVideo: FC<UrlVideo> = ({ urlVideo }) => {
-    // const [img, setImg] = useState("");
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const [play, set_play] = useState<boolean>(false);
     const open = () => {

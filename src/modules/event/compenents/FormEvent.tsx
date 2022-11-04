@@ -1,4 +1,3 @@
-// import {  TimePicker } from "antd";
 import { Formik, Form, Field } from "formik";
 import { FC } from "react";
 import * as Yup from "yup";
@@ -9,8 +8,6 @@ import DateInput from "../../../utils/ui/DateInput";
 import TimeInput from "../../../utils/ui/TimeInput";
 import RadioMedeinn from "../../../utils/ui/Radio";
 import Input from "../../../utils/ui/CurrencyInput";
-
-
 
 interface EventFormPros {
     innerRef?: any;
