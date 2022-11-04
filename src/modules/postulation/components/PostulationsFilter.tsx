@@ -1,17 +1,16 @@
-import { Select } from '../../../utils/ui';
+import { ErrorMessage, Select } from '../../../utils/ui';
 import { Field, Form, Formik } from 'formik';
-import { ErrorMessage } from "../../../utils/ui";
 import { useDispatch } from 'react-redux';
 import { actions } from '../redux';
 import { FC, useRef } from 'react';
 import * as Yup from "yup";
 
-interface PostulationsFilter {
+interface IPostulationsFilter {
     setFilters: any;
     filters: any;
 }
 
-const PostulationsFilter: FC<PostulationsFilter> = ({ setFilters, filters }) => {
+const PostulationsFilter: FC<IPostulationsFilter> = ({ setFilters, filters }) => {
     const initial_values = {
         palabraClave: '',
         convocatoriaSearch: '',

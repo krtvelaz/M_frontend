@@ -113,7 +113,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -165,7 +165,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,14}$/;
+                                                const regex = /^\d{0,14}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -245,7 +245,7 @@ const FormPostulation: FC<PostulationFormPros> = ({ postulation,   id_challenge,
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,10}$/;
+                                                const regex = /^\d{0,10}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }

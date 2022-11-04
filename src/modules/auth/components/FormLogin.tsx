@@ -14,8 +14,6 @@ interface IloginFormPros {
 }
 
 const FormLogin: FC<IloginFormPros> = ({ disabled, toggle, pathPostulation }) => {
-    console.log(pathPostulation);
-
     const [alert, set_alert] = useState<string>();
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();

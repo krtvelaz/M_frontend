@@ -124,7 +124,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -151,7 +151,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                         onChange={(e: any) => {
                                             e.preventDefault();
                                             const { value } = e.target;
-                                            const regex = new RegExp(/^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ]*$/g);
+                                            const regex = new RegExp(/^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ]*$/g);
                                             if (regex.test(value.toString())) {
                                                 handleChange(e);
                                             }
@@ -349,7 +349,7 @@ const FormRegister: FC<RegisterFormPros> = ({ register, innerRef, onSubmit, type
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,10}$/;
+                                                const regex = /^\d{0,10}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }

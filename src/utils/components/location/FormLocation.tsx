@@ -104,7 +104,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                     onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^\d{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -130,7 +130,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
@@ -190,7 +190,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                     onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^\d{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -217,7 +217,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
@@ -276,7 +276,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                     onChange={(e:any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,6}$/;
+                                        const regex = /^\d{0,6}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -306,7 +306,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
@@ -336,7 +336,7 @@ const FormLocation: FC<IAddressFormPros> = ({ innerRef, onSubmit, address }) => 
                                         e.preventDefault();
                                         const { value } = e.target;
                                         const regex = new RegExp(
-                                            /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                            /^[A-Za-z\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                                         );
                                         if (regex.test(value.toString())) {
                                             handleChange(e);

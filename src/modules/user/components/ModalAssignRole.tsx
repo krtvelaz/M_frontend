@@ -41,8 +41,9 @@ const ModalAssignRole: FC<IModal> = ({ type, id, setSwitchGetUsers, switchGetUse
 
     const search_user = async (values: any) => {
         const user = await dispatch(actions.get_user(Number(values?.document)));
-        if(user)
-        setUserInfo(user)
+        if (user) {
+            setUserInfo(user)
+        }
     }
 
     useEffect(() => {

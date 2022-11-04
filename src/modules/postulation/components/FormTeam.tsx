@@ -17,7 +17,6 @@ interface PostulationTeamFormPros {
     i: number;
 }
 const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, i }) => {
-    const typeDocumentsForm = useSelector((store: any) => store.postulation.documentType.value);
     const typeListSexForm = useSelector((store: any) => store.postulation.listSexs.value);
     const TypeDocMember = useSelector((store: any) => store.postulation.loading_typeDocumentsMembers.value);
     const SexualOrientations = useSelector((store: any) => store.postulation.sexual_orientation.value);
@@ -37,11 +36,6 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, 
         DocumentTypeMemberPos();
         listSex_orientation();
     }, []);
-
-    
-    
-// console.log( );
-
 
     return (
         <div>
@@ -63,7 +57,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, 
                         onChange={(e: any) => {
                             e.preventDefault();
                             const { value } = e.target;
-                            const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                            const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                             if (regex.test(value.toString())) {
                                 handleChange(e);
                             }
@@ -112,7 +106,7 @@ const FormTeam: FC<PostulationTeamFormPros> = ({ handleChange, errors, touched, 
                                 onChange={(e: any) => {
                                     e.preventDefault();
                                     const { value } = e.target;
-                                    const regex = /^[0-9]{0,14}$/;
+                                    const regex = /^\d{0,14}$/;
                                     if (regex.test(value.toString())) {
                                         handleChange(e);
                                     }

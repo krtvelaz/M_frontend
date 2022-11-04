@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Loadable, IPageable } from '../../../custom_types';
+import { Loadable } from '../../../custom_types';
 
 interface State {
     user: Loadable<any | null>;

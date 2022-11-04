@@ -121,9 +121,9 @@ const OurChallenges = () => {
                                     className="btn btn-outline-landing-primary me-3 btn-dimension-active"
                                     id={`btn-dimension-all`}
                                     onClick={() => {
-                                        var matches = document.querySelectorAll(`.btn-dimension-active`);
-                                        for (let i = 0; i < matches.length; i++) {
-                                            matches[i].classList.remove('btn-dimension-active');
+                                        let matches = document.querySelectorAll(`.btn-dimension-active`);
+                                        for (let [index] of matches.entries()) {
+                                            matches[index].classList.remove('btn-dimension-active');
                                         }
                                         const element: any = document.querySelector(`#btn-dimension-all`);
                                         element.classList.add('btn-dimension-active');
@@ -146,9 +146,9 @@ const OurChallenges = () => {
                                         id={`btn-dimension-${dimension.id_dimension}`}
                                         key={`dimension-${index}`}
                                         onClick={() => {
-                                            var matches = document.querySelectorAll(`.btn-dimension-active`);
-                                            for (let i = 0; i < matches.length; i++) {
-                                                matches[i].classList.remove('btn-dimension-active');
+                                            let matches = document.querySelectorAll(`.btn-dimension-active`);
+                                            for (let [index] of matches.entries()) {
+                                                matches[index].classList.remove('btn-dimension-active');
                                             }
                                             const element: any = document.querySelector(
                                                 `#btn-dimension-${dimension.id_dimension}`
@@ -198,9 +198,9 @@ const OurChallenges = () => {
                                     className="btn btn-outline-landing-primary me-3 btn-dimension-active"
                                     id={`btn-dimension-close-all`}
                                     onClick={() => {
-                                        var matches = document.querySelectorAll(`.btn-dimension-active`);
-                                        for (let i = 0; i < matches.length; i++) {
-                                            matches[i].classList.remove('btn-dimension-active');
+                                        let matches = document.querySelectorAll(`.btn-dimension-active`);
+                                        for (let [index] of matches.entries()) {
+                                            matches[index].classList.remove('btn-dimension-active');
                                         }
                                         const element: any = document.querySelector(`#btn-dimension-close-all`);
                                         element.classList.add('btn-dimension-active');
@@ -223,9 +223,9 @@ const OurChallenges = () => {
                                         id={`btn-dimension-close-${dimension.id_dimension}`}
                                         key={`dimension-${index}`}
                                         onClick={() => {
-                                            var matches = document.querySelectorAll(`.btn-dimension-active`);
-                                            for (let i = 0; i < matches.length; i++) {
-                                                matches[i].classList.remove('btn-dimension-active');
+                                            let matches = document.querySelectorAll(`.btn-dimension-active`);
+                                            for (let [index] of matches.entries()) {
+                                                matches[index].classList.remove('btn-dimension-active');
                                             }
                                             const element: any = document.querySelector(
                                                 `#btn-dimension-close-${dimension.id_dimension}`

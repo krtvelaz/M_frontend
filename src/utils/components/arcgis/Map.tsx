@@ -4,44 +4,10 @@ import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer';
 import { marcadorPosicion } from '../../assets/img';
 import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Map = () => {
     const ref = useRef(false);
-    const [view, set_view] = useState<MapView>();
-    const geojson = {
-        type: 'FeatureCollection',
-        features: [
-            {
-                type: 'Feature',
-                id: 15,
-                properties: {
-                    cha_name: 'RETO PRUEBA?????',
-                    cha_impact_type: '',
-                    cha_commune: 'SANTA ELENA',
-                    cha_neighborhood: 'LA LOMA',
-                },
-                geometry: { type: 'Point', coordinates: [-75.58997744, 6.219193414] },
-            },
-            {
-                type: 'Feature',
-                id: 15,
-                properties: {
-                    cha_name: 'RETO PRUEBA',
-                    cha_impact_type: 'asdasdasdasd',
-                    cha_commune: 'SANTA ELENA',
-                    cha_neighborhood: 'LA LOMA',
-                },
-                geometry: { type: 'Point', coordinates: [-75.58997744, 6.219193414] },
-            },
-        ],
-    };
-
-    const blob = new Blob([JSON.stringify(geojson)], {
-        type: 'application/json',
-    });
-
-    const url = URL.createObjectURL(blob);
 
     useEffect(() => {
         if (!ref.current) {
@@ -75,7 +41,6 @@ const Map = () => {
                     browserTouchPanEnabled: false,
                 },
             });
-            set_view(_view);
         }
     }, [ref.current]);
 

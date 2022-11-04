@@ -1,4 +1,4 @@
-import { Children, FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { TemplateContext } from './templateContext';
 import Menu from 'antd/lib/menu';
 import logoAlcaldia from '../../../utils/assets/img/logoAlcaldia.svg';

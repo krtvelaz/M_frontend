@@ -114,7 +114,6 @@ const ModalAddress: FC<IModalAddress> = ({ field, form, extra_on_change, classNa
             >
                 <Formik onSubmit={submit} initialValues={initial_values} validationSchema={schema} innerRef={form_ref}>
                     {({ handleChange, values, errors, touched   }) => {
-                        console.log(values);
                         return (
                             <Form>
                                 <div className="row">

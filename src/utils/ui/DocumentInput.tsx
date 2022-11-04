@@ -13,7 +13,6 @@ interface InputDocProps {
 }
 
 const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size = 5, type_image }) => {
-    const [file, setFile] = useState();
     const fileInputRef = useRef<any>();
     const context = useContext(TemplateContext);
     const on_change = (value: any) => {

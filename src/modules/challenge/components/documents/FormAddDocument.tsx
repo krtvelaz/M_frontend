@@ -1,9 +1,9 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { DocumentInput, ErrorMessage, Select } from '../../../../utils/ui';
-import { IChallenge, IDocument, IMasters } from '../../custom_types';
+import { IChallenge, IDocument } from '../../custom_types';
 import { actions } from '../../redux';
 
 interface DocsFormPros {
@@ -190,7 +190,7 @@ const FormAddDocument: FC<DocsFormPros> = ({
                                             e.preventDefault();
                                             const { value } = e.target;
                                             const regex = new RegExp(
-                                                /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                                                /^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                                             );
                                             if (regex.test(value.toString())) {
                                                 handleChange(e);
