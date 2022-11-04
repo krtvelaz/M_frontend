@@ -6,8 +6,8 @@ export type CanAccess = ((props: any) => boolean) | boolean;
 export type Breadcrumb = { to?: any; name: string; icon?: any };
 export interface IRoute extends PathRouteProps {
     
-    exact?: boolean | undefined;
-    component?: React.ComponentType<any> | undefined;
+    exact: boolean | undefined;
+    component: React.ComponentType<any> | undefined;
 
     is_private: boolean;
     can_access?: CanAccess;

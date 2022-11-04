@@ -1,5 +1,4 @@
 import { Checkbox, Popover } from 'antd';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

@@ -2,7 +2,6 @@
 import { IRoute } from "../../utils/components/router/custom_types";
 import managePostulations from "./views/managePostulations";
 import { guards } from "../home/routes";
-import FormPostulation from "./components/FormPostulation";
 import CreatePostulation from "./views/CreatePostulation";
 import PostulationView from "./views/PostulationView";
 

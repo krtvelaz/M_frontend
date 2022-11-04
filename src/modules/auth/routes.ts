@@ -1,6 +1,5 @@
 import { IRoute } from '../../utils/components/router/custom_types';
 import Register from './views/Register';
-import { guards } from '../home/routes';
 import RecoverPassword from './views/RecoverPassword';
 import ChangePassword from './views/ChangePassword';
 

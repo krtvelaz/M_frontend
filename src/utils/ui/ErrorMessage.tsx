@@ -17,6 +17,18 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ name, withCount, max, className, 
         hasCount = withCount === true && (typeof value === 'string' || typeof value === 'number');
     }
 
+    const renderValueAndMax = (value: any, max: any) => {
+        let responseString: any = `${value.length}`;
+
+        if (max) {
+            responseString += `/${max}`;
+        } else {
+            responseString += '';
+        }
+
+        return responseString;
+    }
+
     return (
         <div className="row w-100 m-0">
             <div className="col">
@@ -25,7 +37,7 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ name, withCount, max, className, 
             {hasCount && (
                 <div className="col-4">
                     <span className="text-end d-block w-100 mt-1" style={{ height: '22px', fontSize: '10px', color: '#F28C02' }}>
-                        {`${`${value}`.length}${max ? `/${max}` : ''}`}
+                        { renderValueAndMax(value, max) }
                     </span>
                 </div>
             )}

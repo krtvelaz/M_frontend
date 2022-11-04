@@ -1,5 +1,3 @@
-import { number } from "yup";
-
 export interface IChallenge {
   general_information: IGeneralInformation;
   documents: IDocuments;

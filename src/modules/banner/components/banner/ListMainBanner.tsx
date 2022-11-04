@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { trash } from '../../../../utils/assets/img';
-import { swal_error, Table } from '../../../../utils/ui';
+import { swal_error } from '../../../../utils/ui';
 import ModalDetailDocument from '../../../../utils/ui/ModalDetailDocument';
 import { IMainBanner } from '../../custom_types';
 import { actions } from '../../redux';

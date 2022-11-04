@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { FC } from 'react';
+import { useContext, useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../redux';
 import { ModalDetailDocument } from '../../../utils/ui';

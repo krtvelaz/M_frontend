@@ -6,7 +6,10 @@ import { IPostulation } from '../custom_types';
 const CreatePostulation = () => {
     const form_ref = useRef<FormikProps<FormikValues>>();
 
-    const addPostulation = (values: IPostulation) => {};
+    const addPostulation = (values: IPostulation) => {
+        console.log("Add Postulation");
+    };
+    
     return (
         <div className="h-100 d-flex flex-column">
             <div className="flex-fill overflow-auto">

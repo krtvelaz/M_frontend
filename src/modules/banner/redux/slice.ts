@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Loadable, Pageable } from "../../../custom_types";
+import { Loadable } from "../../../custom_types";
 import { IIndicator, IMainBanner, ITestimony } from "../custom_types";
 
 interface State {

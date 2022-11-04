@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IGeneralInfo } from "../custom_types";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";

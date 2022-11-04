@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { FieldProps } from 'formik';
 import { getStatusClassNames } from 'antd/lib/_util/statusUtils';
 
 interface RadioButtonProps {

@@ -1,7 +1,6 @@
 import { Popover } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { downloadExcel } from 'react-export-table-to-excel';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Table } from '../../../utils/ui';
 import ModalExport from '../compenents/bulletin/ModalExport';

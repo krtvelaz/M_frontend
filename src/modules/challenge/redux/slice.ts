@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Loadable, IPageable, Pageable } from "../../../custom_types";
+import { Loadable, IPageable } from "../../../custom_types";
 import { IChallenge, IDocument } from "../custom_types";
 
 interface State {

@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { IChallenge, IDocument, IMasters } from '../../custom_types';
+import { IChallenge, IDocument } from '../../custom_types';
 
 import AddDocument from './AddDocument';
 
