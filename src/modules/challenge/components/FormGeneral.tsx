@@ -145,7 +145,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -281,7 +281,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -355,7 +355,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -413,7 +413,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -440,7 +440,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }
@@ -466,7 +466,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = new RegExp(/^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g);
+                                        const regex = new RegExp(/^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g);
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }

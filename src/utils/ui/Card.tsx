@@ -18,7 +18,7 @@ const ComponetCard: FC<SabiCardProps> = ({loading, title, extra, actions, childr
         bordered: false,
         className: [className, 'medeinn-content'].join(' '),
         bodyStyle,
-        style: style || { marginBottom: '1.5rem', fontFamily: 'Work-Sans-Regular', fontSize: '12px' },
+        style: style || { marginBottom: '11px', fontFamily: 'Work-Sans-Regular', fontSize: '12px' },
         ...(extra ? { extra } : {}),
         ...(actions ? { actions } : {}),
     };

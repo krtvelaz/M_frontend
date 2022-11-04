@@ -5,7 +5,7 @@ import { Modal } from 'antd';
 import ErrorMessage from '../../../utils/ui/ErrorMessage';
 import * as Yup from 'yup';
 
-interface ModalAddress extends FieldProps {
+interface IModalAddress extends FieldProps {
     className?: string;
     extra_on_change?: (value: any, prev_value?: any) => void;
 }
@@ -33,7 +33,7 @@ const optionsV = [
     },
 ];
 
-const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, className, ...props }) => {
+const ModalAddress: FC<IModalAddress> = ({ field, form, extra_on_change, className, ...props }) => {
     const [is_visible, set_is_visible] = useState<boolean>(false);
     const close = () => set_is_visible(false);
     const open = () => set_is_visible(true);
@@ -208,7 +208,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,3}$/;
+                                                const regex = /^\d{0,3}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -231,7 +231,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = new RegExp(/^[A-Za-z\\Ñ\\ñ"]*$/g);
+                                                const regex = new RegExp(/^[A-Za-z\\Ññ"]*$/g);
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -274,7 +274,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,3}$/;
+                                                const regex = /^\d{0,3}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -298,7 +298,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = new RegExp(/^[A-Za-z\\Ñ\\ñ"]*$/g);
+                                                const regex = new RegExp(/^[A-Za-z\\Ññ"]*$/g);
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }
@@ -355,7 +355,7 @@ const ModalAddress: FC<ModalAddress> = ({ field, form, extra_on_change, classNam
                                             onChange={(e: any) => {
                                                 e.preventDefault();
                                                 const { value } = e.target;
-                                                const regex = /^[0-9]{0,3}$/;
+                                                const regex = /^\d{0,3}$/;
                                                 if (regex.test(value.toString())) {
                                                     handleChange(e);
                                                 }

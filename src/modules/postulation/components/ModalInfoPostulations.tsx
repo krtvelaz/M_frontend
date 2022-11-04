@@ -10,13 +10,13 @@ import DetailGeneralPostulation from './DetailGeneralPostulation';
 import DetailGroupPostulation from './DetailGroupPostulation';
 import { actions } from '../redux';
 
-interface ModalInfoPostulations {
+interface IModalInfoPostulations {
     onSubmit: (values: any, form?: any) => any;
     id: number;
     state?: string;
 }
 
-const ModalInfoPostulations: FC<ModalInfoPostulations> = ({ onSubmit, id, state }) => {
+const ModalInfoPostulations: FC<IModalInfoPostulations> = ({ onSubmit, id, state }) => {
 
     const dispatch = useDispatch<any>();
     const form_ref = useRef<any>();
