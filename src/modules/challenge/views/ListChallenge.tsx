@@ -64,7 +64,6 @@ const ListChallenge = () => {
             align: 'left' as 'left',
             render: (value: string) => {
                 return 'Luisa Sánchez';
-                // return moment(value).format('DD / MM / YYYY');
             },
         },
         {
@@ -72,22 +71,6 @@ const ListChallenge = () => {
             align: 'left' as 'left',
             render: (value: any) => {
                 const onChange = async (e: any) => {
-                    // if (
-                    //     value.status !== 'Pendiente' &&
-                    //     value.status !== 'Aceptado' &&
-                    //     value.status !== 'Publicado' &&
-                    //     value.status !== 'Postulado'
-                    // ) {
-                    //     swal_error.fire({
-                    //         title: 'Está función no se puede realizar por el momento',
-                    //         html:
-                    //             '<div class="mysubtitle">El reto no cumple con todos los parámetros necesarios</div>' +
-                    //             '<div class="mytext">Por favor, termina de crear el reto</div>',
-                    //         showCancelButton: false,
-                    //         confirmButtonText: 'Aceptar',
-                    //     });
-                    //     return;
-                    // }
                     if (
                         value.cha_status !== 2 &&
                         value.cha_status !== 3 &&

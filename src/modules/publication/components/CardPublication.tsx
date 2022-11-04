@@ -5,7 +5,6 @@ import ArrowLeft from '../../../utils/assets/img/ArrowLeft';
 import ArrowRight from '../../../utils/assets/img/ArrowRight';
 import { actions } from '../redux';
 import { Buffer } from 'buffer';
-import { Skeleton } from 'antd';
 import ComponetLoading from '../../event/compenents/ComponetLoading';
 import { TemplateContext } from '../../../utils/components/template/templateContext';
 
@@ -131,11 +130,6 @@ export const DetailCardPublication: FC<IDetailCardPublication> = ({ keyTab }) =>
                                                                     } `,
                                                             }}
                                                         ></div>
-                                                        // <Skeleton.Image
-                                                        //     active={loading}
-                                                        //     className="w-100 "
-
-                                                        // />
                                                     )}
                                                 </>
                                             </div>

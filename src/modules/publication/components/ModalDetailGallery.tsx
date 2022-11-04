@@ -1,14 +1,12 @@
-import { Modal, Skeleton } from 'antd';
+import { Modal } from 'antd';
 import { FC, useState } from 'react';
 import { Buffer } from 'buffer';
-import { useSelector } from 'react-redux';
 
 interface DocumetFormProps {
     gallery: any;
 }
 
 const ModalDetailGallery: FC<DocumetFormProps> = ({ gallery }) => {
-    const loading: any = useSelector((states: any) => states.publication.publication.loading);
     const [is_visible, set_is_visible] = useState(false);
     const close = () => set_is_visible(false);
     const open = () => set_is_visible(true);

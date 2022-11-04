@@ -73,7 +73,7 @@ const AddReport: FC<ReportPros> = ({ challenge, setChallenge }) => {
   };
 
   const listReports = async () => {
-    const data = await dispatch(
+    await dispatch(
       actions.get_list_challenge_report(
         challenge.general_information.key || 2,
         {}

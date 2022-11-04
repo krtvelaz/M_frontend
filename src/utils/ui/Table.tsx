@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Table, { TablePaginationConfig } from 'antd/lib/table';
 import { Empty } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { flecha_pagination_left, flecha_pagination_rigth } from '../assets/img';
 
 interface CompressTableProps {

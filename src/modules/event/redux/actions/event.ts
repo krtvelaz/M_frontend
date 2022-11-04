@@ -16,7 +16,7 @@ import {
 import { IEvent } from '../../custom_types';
 import moment from 'moment';
 
-interface filter {
+interface Ifilter {
     page: number;
     page_size?: number;
     order_by_key?:  string;
@@ -72,7 +72,6 @@ export const create_event = (_values: IEvent) => {
 
 export const delete_event = (id: number) => {
     return async (dispatch: any) => {
-        // dispatch(default_event());
         try {
             const URI = `/events`;
             const res = await cms_http.delete(URI,{
@@ -88,10 +87,8 @@ export const delete_event = (id: number) => {
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
             });
-            // dispatch(res.data.body.data);
             return res.data;
         } catch (error) {
-            // dispatch(fail_event());
             await swal_error.fire({
                 title: 'Error en el proceso',
                 html:
@@ -105,7 +102,7 @@ export const delete_event = (id: number) => {
     };
 };
 
-export const get_list_events = (filter?: filter) => {
+export const get_list_events = (filter?: Ifilter) => {
     return async (dispatch: any) => {
         dispatch(default_list_event());
         try {

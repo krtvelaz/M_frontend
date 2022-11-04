@@ -1,5 +1,5 @@
 import { FieldProps } from 'formik';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -14,9 +14,6 @@ const RichText: FC<Props> = ({
     extra_on_change,
     ...props
 }) => {
-    let reactQuillRef: any = null;
-    let quillRef: any = null;
-
     const on_change = (value: any) => {
         form.setFieldValue(field.name, value, false);
         extra_on_change && extra_on_change(value, field.value);
@@ -55,9 +52,6 @@ const RichText: FC<Props> = ({
         <ReactQuill
         // readOnly
         // readonly={true}
-            ref={(el) => {
-                reactQuillRef = el;
-            }}
             theme="snow"
             modules={modules}
             formats={formats}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { swal_error } from '../../../utils/ui';
 import { swal_success } from '../../../utils/ui/swalAlert';
-import { IGalleryInfo, IGeneralInfo, IPublication, IPublicationInfo } from '../custom_types';
+import { IGalleryInfo, IGeneralInfo, IPublication } from '../custom_types';
 import { actions } from '../redux';
 import AddGallery from './AddGallery';
 import GeneralInformation from './GeneralInformation';

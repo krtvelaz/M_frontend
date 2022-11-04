@@ -36,7 +36,6 @@ const TemplateProvider: FC<{ children: any }> = React.memo(({ children }) => {
     const [pass_modal, set_pass_modal] = useState<boolean>(false);
     const [pathLogin, setPathLogin] = useState<any>(null);
     const [percentege, setpercentege] = useState<boolean>(false);
-    const [idNode, set_idNode] = useState<string>('');
     const [docReact, setDocReact] = useState(null);
     const [width, setWidth] = useState<number>(window.innerWidth);
 
@@ -89,7 +88,6 @@ const TemplateProvider: FC<{ children: any }> = React.memo(({ children }) => {
                 pass_modal,
                 pathLogin,
                 percentege,
-                idNode,
                 device,
                 docReact,
                 // width,

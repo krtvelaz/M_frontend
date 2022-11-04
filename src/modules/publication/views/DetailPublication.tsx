@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { invalidateImg, trazado_amarillo } from '../../../utils/assets/img';
@@ -26,7 +26,7 @@ const DetailPublication = () => {
     useEffect(() => {
         if (publication?.pub_description) {
             const content: any = document.getElementById('description-postulation');
-            var htmlObject: any = document.createElement('div');
+            let htmlObject: any = document.createElement('div');
             htmlObject.innerHTML = publication?.pub_description;
             while (content?.firstChild) {
                 content?.removeChild(content.firstChild);
@@ -132,29 +132,6 @@ const DetailPublication = () => {
                     </div>
                 </>
             ) : (
-                // <div className="container">
-                //     <div className="row my-5">
-                //         <div className="col"></div>
-                //         <div className="col">
-                //             <Skeleton active />
-                //         </div>
-                //     </div>
-                //     <Card className="my-5">
-                //         <Skeleton active />
-                //         <Skeleton active />
-                //         <div className="row mt-3">
-                //             <div className="col p-0">
-                //                 <Skeleton.Image className="w-100" active />
-                //             </div>
-                //             <div className="col p-0">
-                //                 <Skeleton.Image className="w-100" active />
-                //             </div>
-                //             <div className="col p-0">
-                //                 <Skeleton.Image className="w-100" active />
-                //             </div>
-                //         </div>
-                //     </Card>
-                // </div>
                 <div className="my-5">
                     <ComponetLoading height="450px" color="rgba(33, 25, 21, 0.4)" />
                 </div>

@@ -13,7 +13,7 @@ import {
     changeRole_fail,
 } from './slice';
 
-interface filter {
+interface Ifilter {
     page?: number;
     page_size?: number;
     order_by_key?: string;
@@ -24,7 +24,7 @@ interface filter {
     from?: string;
 }
 
-const get_list_users = (filter?: filter) => {
+const get_list_users = (filter?: Ifilter) => {
     return async (dispatch: any) => {
         dispatch(default_list_users());
         try {

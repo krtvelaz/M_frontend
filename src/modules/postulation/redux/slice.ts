@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IPageable, Loadable, Pageable } from '../../../custom_types';
+import { IPageable, Loadable } from '../../../custom_types';
 import {
-    IIndicator,
-    IPostulation,
-    ITestimony,
+    IPostulation
 } from '../../postulation/custom_types';
 
 interface State {

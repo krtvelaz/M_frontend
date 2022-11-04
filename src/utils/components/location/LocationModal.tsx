@@ -10,7 +10,6 @@ interface IAddressFormPros {
 const LocationModal: FC<IAddressFormPros> = ({ address, onSubmit }) => {
   const [is_visible, set_is_visible] = useState<boolean>(false);
   const form_ref = useRef<FormikProps<FormikValues>>();
-  const open = () => set_is_visible(true);
   const close = () => set_is_visible(false);
 
   const editImage = (value: IAddress) => {

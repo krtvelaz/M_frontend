@@ -76,16 +76,6 @@ const ListNewsletters = () => {
         },
     ];
 
-    const handleDownloadExcel = () => {
-        downloadExcel({
-            fileName: 'Tabla-inscritos-boletines',
-            sheet: 'Boletines',
-            tablePayload: {
-                header: ['id', 'email', 'fecha'],
-                body: newsletters,
-            },
-        });
-    };
     return (
         <div className="container-fluid">
             <div className="row justify-content-center">

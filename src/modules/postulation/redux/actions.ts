@@ -408,15 +408,6 @@ const generate_settled = (values: any) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            // const res = {
-            //     data: {
-            //         data: {
-            //             infoSettled: {
-            //                 pos_settled: 4522,
-            //             },
-            //         },
-            //     },
-            // };
             dispatch(GeneratePostulations_success(res.data.data));
             await swal_success.fire({
                 html:

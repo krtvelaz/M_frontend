@@ -10,7 +10,6 @@ import ComponetLoading from './ComponetLoading';
 const CarouselEvent = () => {
     const dispatch = useDispatch<any>();
     const events = useSelector((store: any) => store.event.list_event.value);
-    const loading = useSelector((store: any) => store.event.list_event.loading);
     const { total } = useSelector((store: any) => store.event.list_event.pagination);
     const { current_page } = useSelector((store: any) => store.event.list_event.pagination);
     const { last_page } = useSelector((store: any) => store.event.list_event.pagination);

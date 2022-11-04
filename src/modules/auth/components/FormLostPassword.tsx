@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ErrorMessage } from '../../../utils/ui';
@@ -56,7 +56,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     onChange={(e: any) => {
                                         e.preventDefault();
                                         const { value } = e.target;
-                                        const regex = /^[0-9]{0,15}$/;
+                                        const regex = /^\d{0,15}$/;
                                         if (regex.test(value.toString())) {
                                             handleChange(e);
                                         }

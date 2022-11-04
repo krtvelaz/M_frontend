@@ -64,7 +64,7 @@ const FormReport: FC<FormPros> = ({ onSubmit, innerRef, report }) => {
                     e.preventDefault();
                     const { value } = e.target;
                     const regex = new RegExp(
-                      /^[A-Za-z0-9\s\\Ñ\\ñ\\áéíóúüÁÉÍÓÚÜ,.;:()¿?¡!"]*$/g
+                      /^[A-Za-z0-9\s\\áéíóúüÁÉÍÓÚÜÑñ,.;:()¿?¡!"]*$/g
                     );
                     if (regex.test(value.toString())) {
                       handleChange(e);
