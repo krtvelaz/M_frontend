@@ -1,3 +1,7 @@
+## [1.2.1](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/compare/v1.2.0...v1.2.1) (2022-11-04)
+
+
+
 # [1.2.0](https://dev.azure.com/dationco/MEDEINN/_git/M_frontend/compare/v1.1.9...v1.2.0) (2022-11-04)
 
 
