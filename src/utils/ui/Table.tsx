@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Table, { TablePaginationConfig } from 'antd/lib/table';
-import { Empty } from 'antd';
+import { Empty, Select } from 'antd';
 import { flecha_pagination_left, flecha_pagination_rigth } from '../assets/img';
+import ArrowDown from '../assets/img/ArrowDown';
 
 interface CompressTableProps {
     columns: any;
@@ -19,19 +20,27 @@ interface CompressTableProps {
 // Pagination Table
 
 function itemRenderTable(current: any, type: any, originalElement: any) {
-    if (type === "prev") {
+    if (type === 'prev') {
         return (
-            <span className="border-ant-prev-table font-size-10px" style={{borderRadius: '4px 0 0 4px'}}>
-                <img src={flecha_pagination_left} className="font-color-1FAEEF" style={{ display: "inline-flex", paddingRight: "2px" }} />
+            <span className="border-ant-prev-table font-size-10px" style={{ borderRadius: '4px 0 0 4px' }}>
+                <img
+                    src={flecha_pagination_left}
+                    className="font-color-1FAEEF"
+                    style={{ display: 'inline-flex', paddingRight: '2px' }}
+                />
                 Ant.
             </span>
         );
     }
-    if (type === "next") {
+    if (type === 'next') {
         return (
-            <span className="border-ant-prev-table font-size-10px" style={{borderRadius: '0 4px 4px 0'}}>
+            <span className="border-ant-prev-table font-size-10px" style={{ borderRadius: '0 4px 4px 0' }}>
                 Sig.
-                <img src={flecha_pagination_rigth} className="font-color-1FAEEF" style={{ display: "inline-flex", paddingLeft: "2px" }} />
+                <img
+                    src={flecha_pagination_rigth}
+                    className="font-color-1FAEEF"
+                    style={{ display: 'inline-flex', paddingLeft: '2px' }}
+                />
             </span>
         );
     }
@@ -52,13 +61,37 @@ const getPaginator = (
         position: paginationTop ? ['bottomRight', 'topRight'] : ['bottomRight'],
         total: total || 0,
         itemRender: itemRenderTable,
+        selectComponentClass: (props: any) => {
+            // console.log(props.onChange)
+            
+            const [changeArrow, setChangeArrow] = useState<boolean>(false);
+            return (
+                <Select
+                    defaultValue="10"
+                    onDropdownVisibleChange={(e) => {
+                        setChangeArrow(e);
+                    }}
+                    value={props.value}
+                    onChange={(e: any) => props.onChange(e)}
+                    suffixIcon={<ArrowDown type={changeArrow ? 'down' : 'up'} color="#1D98D1" />}
+                    options={props.children?.map((option: any) => {
+                        return {
+                            value: option.props.value,
+                            label: option.props.value,
+                        };
+                    })}
+                />
+                
+            );
+        },
+
         ...(change_page
             ? {
-                onChange: change_page,
-                defaultPageSize: 10,
-                showSizeChanger: true,
-                // showQuickJumper: true,
-            }
+                  onChange: change_page,
+                  defaultPageSize: 10,
+                  showSizeChanger: true,
+                  // showQuickJumper: true,
+              }
             : {}),
         showTotal: (total /*, current*/) => {
             return (
@@ -106,6 +139,7 @@ const CompressTable: FC<CompressTableProps> = ({
     const ops = {
         columns: columns,
         dataSource: data,
+        pagination: false,
         ...(with_pagination
             ? {
                 pagination: getPaginator(count ? count : data?.length, paginationTop || false, change_page, title),
@@ -145,7 +179,7 @@ const CompressTable: FC<CompressTableProps> = ({
 
 CompressTable.defaultProps = {
     items: [],
-    change_page: () => { },
+    change_page: () => {},
     loading: false,
     with_pagination: true,
     scroll: true,
