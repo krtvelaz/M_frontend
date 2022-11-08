@@ -28,7 +28,6 @@ const AboutUs = () => {
         <div
           className="row justify-content-center container-about"
         >
-          
           <div className="d-flex flex-row" style={{margin: '70px 0 40px 0'}}>
             <h2 className="" style={{fontSize: '16px', fontFamily: 'Montserrat-SemiBold', color: '#FFFFFF', marginLeft: context.device === 'sm' ? '20px' : '110px'}}>Laboratorio de innovación Medeinn</h2>
           </div>

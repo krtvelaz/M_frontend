@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
-import esES from 'antd/lib/locale/es_ES';
+import esES from 'antd/es/locale/es_ES';
 import MedeinnApp from "./MedeinnApp";
 import "./utils/assets/styles/index.scss";
 import TemplateProvider from './utils/components/template/templateContext';

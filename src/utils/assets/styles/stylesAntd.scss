@@ -55,12 +55,13 @@
 .challenge-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #000000;
     font-family: 'Montserrat-SemiBold';
+    font-size: 13px;
 }
 
 .challenge-tabs .ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
     background-color: #1d98d1;
-    height: 3px !important;
-    border-radius: 6px;
+    height: 4px !important;
+    border-radius: 2px !important;
 }
 
 // table
@@ -679,4 +680,30 @@ textarea.form-control {
     img {
         margin: 0 5px;
     }
+}
+
+.ant-picker-calendar-mode-switch {
+    display: none;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: white;
+    border-color: rgb(46, 161, 254)!important;
+    border-radius: 4px!important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+    position: absolute;
+    display: table;
+    border: 2px solid #000;
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(45deg) scale(1) translate(-50%, -50%);
+    opacity: 1;
+    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    content: ' ';
+}
+
+.ant-menu-item-selected .principal-silder {
+    color: white!important;
 }

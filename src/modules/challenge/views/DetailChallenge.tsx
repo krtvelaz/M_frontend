@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { calendarLanding, invalidateImg, letras_medeinn, mujerOk, piezaRompecabezas } from '../../../utils/assets/img';
+import { calendarLanding, invalidateImg, letras_medeinn, mujerOk, detalleReto, piezaRompecabezas } from '../../../utils/assets/img';
 import { Link } from '../../../utils/ui';
 import { actions } from '../redux';
 import InfoDetailChallenge from '../components/InfoDetailChallenge';
@@ -78,7 +78,8 @@ const DetailChallenge = () => {
                         )}
                     </div>
 
-                    <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" />
+                    {/* <img src={letras_medeinn} alt="letras medeinn" className="imagen-fondo-detalle" /> */}
+                    <img src={detalleReto} alt="letras medeinn" className="imagen-fondo-detalle" />
 
                     <div
                         className="row"
@@ -110,7 +111,7 @@ const DetailChallenge = () => {
                                         className="card-detail-challenge"
                                         // style={{ position: 'relative', zIndex: 100 }}
                                     >
-                                        <img src={mujerOk} alt="" className="imagen-fondo-mujer" />
+                                        {/* <img src={mujerOk} alt="" className="imagen-fondo-mujer" /> */}
                                         <h5 className="my-4 card-title-challenge text-center">{challenge?.cha_name}</h5>
                                         <div className="row mb-3">
                                             <div className="col-2">

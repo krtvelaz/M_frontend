@@ -230,6 +230,12 @@
   background-color: #fff !important;
 }
 
+.ant-card .antd__table__hidden__pagination {
+  ul .ant-pagination .ant-table-pagination .ant-table-pagination-right {
+    display: none!important;
+  }
+}
+
 // Responsive class
 
 @media (max-width: 450px) {

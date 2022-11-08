@@ -3,12 +3,14 @@ import { Card } from 'antd';
 import { Buffer } from 'buffer';
 import { formatDate } from '../../../utils';
 import { calendarLanding, invalidateImg } from '../../../utils/assets/img';
+import { useNavigate } from 'react-router-dom';
 
 interface IPropsCards {
     data: any;
 }
 
 const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
+    const navigate = useNavigate();
     let _img = null;
     if (Array.isArray(data?.cha_image_buffer?.data)) {
         _img = Buffer.from(data?.cha_image_buffer?.data).toString('base64');
@@ -16,7 +18,11 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
 
     return (
         <Card
-            onClick={() => {}}
+            onClick={() => {
+                navigate(`../detail-challenge/${data?.id}`);
+                const landingScroll: any = document.getElementById('scroll-landing');
+                landingScroll.scrollTop = 0;
+            }}
             hoverable
             className="card-challenge"
             cover={
@@ -49,13 +55,13 @@ const CardImgChallenge: FC<IPropsCards> = ({ data }) => {
             }
         >
             <div className=" body-card-challenge">
-                <h3 className="mt-3 text-center">{data?.cha_name}</h3>
+                <h3 className="mt-3 mb-3 text-left">{data?.cha_name}</h3>
                 <div className="row">
                     <div className="col-2">
-                        <img alt="imagen de calendario" src={calendarLanding} />
+                        <img alt="imagen de calendario" src={calendarLanding} style={{ height: '38px', width: '33.25px' }} />
                     </div>
                     <div className="col-10 p-0 ">
-                        <p className="text-center">Fecha de vigencia para postulaciones</p>
+                        <p className="text-left">Fecha de vigencia para postulaciones</p>
                         <div className="date-card-challenge " style={{ fontSize: '10px' }}>
                             INICIO DEL RETO: <span> {formatDate(data?.cha_start_date)}</span>
                         </div>

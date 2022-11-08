@@ -97,7 +97,7 @@ const Homepage = () => {
                             <img
                                 src={figuraRetos}
                                 alt="figuras de fondo"
-                                style={{ position: 'absolute', top: '-3%', right: '-31%', width: '' }}
+                                style={{ position: 'absolute', top: '0%', right: '-31%', width: '' }}
                             />
                         </>
                     )}
@@ -127,7 +127,7 @@ const Homepage = () => {
                 <img
                     src={figuraRetos}
                     alt="figuras de fondo"
-                    style={{ position: 'absolute', top: '-35.6%', left: '10%', width: '377px' }}
+                    style={{ position: 'absolute', top: '-30.6%', left: '10%', width: '365px' }}
                 />
                 
                 }

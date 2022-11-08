@@ -110,7 +110,9 @@ const CompressTable: FC<CompressTableProps> = ({
             ? {
                 pagination: getPaginator(count ? count : data?.length, paginationTop || false, change_page, title),
             }
-            : {}),
+            : { 
+                pagination: false
+            }),
         ...(expandable ? expandable : {}),
         loading: loading,
         bordered: true,

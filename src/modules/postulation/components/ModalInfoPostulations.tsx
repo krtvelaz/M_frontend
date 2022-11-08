@@ -46,6 +46,7 @@ const ModalInfoPostulations: FC<IModalInfoPostulations> = ({ onSubmit, id, state
             {
                 state !== 'Sin finalizar' ?
                     <div
+                        style={{ cursor: 'pointer' }}
                         onClick={open}
                         className="button-assign-rol"
                     >

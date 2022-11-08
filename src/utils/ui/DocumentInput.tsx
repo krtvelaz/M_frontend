@@ -10,9 +10,10 @@ interface InputDocProps {
     maximum_size?: number;
     form: any;
     field: any;
+    className: any;
 }
 
-const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size = 5, type_image }) => {
+const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size = 5, type_image, className }) => {
     const fileInputRef = useRef<any>();
     const context = useContext(TemplateContext);
     const on_change = (value: any) => {
@@ -23,7 +24,7 @@ const DocumentInput: FC<InputDocProps> = ({ form, field, file_type, maximum_size
         <>
             <div className="input-group">
                 <div
-                    className="form-control"
+                    className={['form-control', className].join(' ')}
                     style={{
                         borderBottomLeftRadius: '6px',
                         borderTopLeftRadius: '6px',

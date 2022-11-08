@@ -12,12 +12,14 @@ interface LostPasswordFormPros {
 }
 const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, onSubmit }) => {
     const location: any = useLocation();
+    console.log("Location: ", location);
 
     const initialValues = {
-        document: location?.state.data_user.document || '',
-        email: location?.state.data_user.email || '',
+        document: (location?.state !== null && location?.state.data_user.document) || '',
+        email: (location?.state !== null && location?.state.data_user.email) || '',
         ...lostPassword,
     };
+    
     const submit = async (values: any, form: any) => {
         await onSubmit(values, form);
     };
@@ -49,7 +51,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     id="user_id"
                                     name="document"
                                     placeholder="ingresa tu usuario, cédula o NIT"
-                                    disabled={location?.state['from'] === 'dashboard'}
+                                    disabled={location?.state !== null && location?.state['from'] === 'dashboard'}
                                     autoComplete="off"
                                     min={0}
                                     max={9999999999999999}
@@ -73,7 +75,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                     type="email"
                                     id="email_id"
                                     name="email"
-                                    disabled={location?.state['from'] === 'dashboard'}
+                                    disabled={location?.state !== null && location?.state['from'] === 'dashboard'}
                                     className="form-control"
                                     autoComplete="off"
                                     style={{ height: '38px' }}

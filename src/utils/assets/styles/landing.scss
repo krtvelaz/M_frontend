@@ -430,8 +430,9 @@ img {
 
 .box-about {
     @if $development == true {
-        background-image: linear-gradient(to top, #ffffff 75%, transparent 85%, transparent),
+        background-image: linear-gradient(to top, #ffffff 75%, transparent 85%, transparent 80%),
             url('src/utils/assets/img/hombreGafasInteligentes.png');
+            
     }
     @if $production == true {
         background-image: linear-gradient(to top, #ffffff 60%, transparent),

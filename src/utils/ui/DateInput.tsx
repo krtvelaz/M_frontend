@@ -3,6 +3,7 @@ import { FieldProps } from "formik";
 import moment from "moment";
 import { FC, useEffect, useState } from "react";
 import { inputCalendar } from "../assets/img";
+import locale from "antd/es/date-picker/locale/es_ES";
 
 interface IProps extends FieldProps {
   extra_on_change?: (value: any, prev_value?: any) => void;
@@ -67,6 +68,7 @@ const DateInput: FC<IProps> = ({  field, form, extra_on_change,  className, ...p
         </div>
         <div className="col-1">
           <DatePicker
+            locale={locale}
             style={{
               paddingLeft: 0,
               cursor: "pointer",

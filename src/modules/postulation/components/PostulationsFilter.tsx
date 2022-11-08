@@ -105,6 +105,7 @@ const PostulationsFilter: FC<IPostulationsFilter> = ({ setFilters, filters }) =>
                                     />
                                 </div>
                             </div>
+
                             <div className="d-flex flex-row justify-content-end my-3">
                                 <button
                                     onClick={() => {
@@ -126,7 +127,7 @@ const PostulationsFilter: FC<IPostulationsFilter> = ({ setFilters, filters }) =>
                                     }}
                                     key="saveDoc"
                                     type="submit"
-                                    className="btn btn-primary me-4"
+                                    className="btn btn-primary"
                                 >
                                     Buscar
                                 </button>

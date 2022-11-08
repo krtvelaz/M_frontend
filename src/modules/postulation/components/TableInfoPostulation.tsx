@@ -152,7 +152,7 @@ const TableInfoPostulation = () => {
                     title="Listado de postulaciones"
                     columns={table_columns}
                     items={postulation?.members_info}
-                    with_pagination
+                    with_pagination={false}
                 />
             </Card>
         </div>

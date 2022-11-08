@@ -269,7 +269,7 @@ const managePostulations = () => {
                         <PostulationsFilter setFilters={setFilters} filters={filters} />
                     </Card>
 
-                    <Card>
+                    <Card style={{ marginBottom: '100px' }}>
                         <Table
                             title="Lista de postulaciones"
                             columns={table_columns}
@@ -280,12 +280,12 @@ const managePostulations = () => {
                             loading={loading}
                             with_pagination
                         />
-                        <div style={{ position: 'relative' }}>
+                        <div style={{ position: 'relative', bottom: '49px', textAlign: 'start', width: '200px' }}>
                             <button
                                 key="saveDoc"
                                 type="button"
                                 style={{ color: '#1D98D1' }}
-                                className="btn me-3"
+                                className="btn me-3 btn-outline-primary"
                                 onClick={OpenModalExportData}
                             >
                                 Exportar datos

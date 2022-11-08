@@ -69,7 +69,7 @@ const RecoverPassword = () => {
                             </div>
                         </div>
 
-                        <Card actions={[]}>
+                        <Card actions={[]} style={{ borderRadius: '32px' }}>
                             <div className="row px-5">
                                 <div className="" style={{ fontFamily: 'Montserrat-Bold', fontSize: '20px' }}>
                                     Completa los campos para iniciar el proceso de recuperación de tu contraseña
