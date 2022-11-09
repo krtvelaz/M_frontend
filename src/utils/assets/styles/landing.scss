@@ -1111,3 +1111,34 @@ img {
         display: none;
     }
 }
+
+/* Design responsive */
+
+@media (max-width: 967px) {
+    .carousel__arrows {
+        display: none;
+    }
+
+    .actions__carrousel {
+        margin-bottom: 30px;
+    }
+
+    .circle-text-wraps {
+        width: 11rem;
+    }
+
+    .text-end {
+        text-align: center!important;
+    }
+}
+
+@media (max-width: 430px) {
+    .form-login {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .modal-form-login .container-form-login {
+        width: 300px!important;
+    }
+}

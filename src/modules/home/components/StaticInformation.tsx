@@ -107,7 +107,7 @@ const StaticInformation = () => {
                         del territorio, busca fortalecer el ecosistema GovTech y generar valor público para Medellín.
                     </p>
                 </div>
-                <div className="col-12 my-3 col-md-3 col-lg-3 col-xl p-0">
+                <div className="col-6 my-3 col-md-6 col-lg-3 col-xl p-0 popover__landing">
                     <Popover
                         open={openPostulamos}
                         onOpenChange={(newOpen: boolean) => setOpenPostulamos(newOpen)}
@@ -130,7 +130,7 @@ const StaticInformation = () => {
                         </div>
                     </Popover>
                 </div>
-                <div className="col-12 my-3 col-md-3 col-lg-3 col-xl p-0">
+                <div className="col-6 my-3 col-md-6 col-lg-3 col-xl p-0 popover__landing">
                     <Popover
                         open={openSeleccionamos}
                         onOpenChange={(newOpen: boolean) => setOpenSeleccionamos(newOpen)}
@@ -153,7 +153,7 @@ const StaticInformation = () => {
                         </div>
                     </Popover>
                 </div>
-                <div className="col-12 my-3 col-md-3 col-lg-3 col-xl p-0">
+                <div className="col-6 my-3 col-md-6 col-lg-3 col-xl p-0 popover__landing">
                     <Popover
                         open={openAcompañamos}
                         onOpenChange={(newOpen: boolean) => setOpenAcompañamos(newOpen)}
@@ -176,7 +176,7 @@ const StaticInformation = () => {
                         </div>
                     </Popover>
                 </div>
-                <div className="col-12 my-3 col-md-3 col-lg-3 col-xl p-0">
+                <div className="col-6 my-3 col-md-6 col-lg-3 col-xl p-0 popover__landing">
                     <Popover open={openPremiamos} onOpenChange={(newOpen: boolean) => setOpenPremiamos(newOpen)}  content={contenido_premiamos} trigger="hover">
                         <div className="circle-text-wraps  mx-auto">
                             <div className="circle-number-container">

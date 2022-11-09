@@ -41,7 +41,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                 return (
                     <Form>
                         <div className="row ">
-                            <div className="col-6">
+                            <div className="col-12 col-md-6">
                                 <label htmlFor="user_id" className="form-label label-landing">
                                     Digita tu usuario
                                 </label>
@@ -67,7 +67,7 @@ const FormLostPassword: FC<LostPasswordFormPros> = ({ lostPassword, innerRef, on
                                 <ErrorMessage name="document" />
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-12 col-md-6">
                                 <label htmlFor="email_id" className="form-label label-landing">
                                     Correo electrónico
                                 </label>

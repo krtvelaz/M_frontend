@@ -55,19 +55,21 @@ const CarouselMedeinn = () => {
                                     <h2>{item?.ban_title}</h2>
                                     <p>{item?.ban_description}</p>
 
-                                    {item?.ban_embedded_video ? (
-                                        <ModalVideo urlVideo={item?.ban_embedded_video} />
-                                    ) : null}
-
-                                    {item?.ban_reference_url && (
-                                        <a
-                                            href={`${item?.ban_reference_url}`}
-                                            target="_blank"
-                                            className="btn btn-outline-landing-primary ms-5"
-                                        >
-                                            Conoce más
-                                        </a>
-                                    )}
+                                    <div className='actions__carrousel'>
+                                        {item?.ban_embedded_video ? (
+                                            <ModalVideo urlVideo={item?.ban_embedded_video} />
+                                        ) : null}
+                                        
+                                        {item?.ban_reference_url && (
+                                            <a
+                                                href={`${item?.ban_reference_url}`}
+                                                target="_blank"
+                                                className={`btn btn-outline-landing-primary ${item?.ban_embedded_video ? 'ms-5' : ''}`}
+                                            >
+                                                Conoce más
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="col-12  col-md-12 col-lg-8 height-carousel">
                                     <div className="contenedor-magen-carrusel">
@@ -86,7 +88,7 @@ const CarouselMedeinn = () => {
                             </div>
                         </div>
                     ))}
-                    <div style={{ position: 'absolute', bottom: context.device === 'lg' ? '100px' : '-12px', left: context.device === 'lg' ? '0' : '20px', textAlign: 'end' }}>
+                    <div style={{ position: 'absolute', bottom: context.device === 'lg' ? '100px' : '-12px', left: context.device === 'lg' ? '0' : '20px', textAlign: 'end' }} className='carousel__arrows'>
                         <div
                             data-bs-target="#carouselIndicators"
                             data-bs-slide="prev"
