@@ -48,12 +48,7 @@ const RecoverPassword = () => {
                     <img
                         src={trazado_amarillo}
                         alt="trazado"
-                        style={{
-                            position: 'absolute',
-                            top: '-1%',
-                            left: '-40%',
-                            maxWidth: '3500px',
-                        }}
+                        className='trazado__amarillo__recover__pass'
                     />
                     <div className="row justify-content-center">
                         <div className="d-flex flex-row m-5 col-md-12">

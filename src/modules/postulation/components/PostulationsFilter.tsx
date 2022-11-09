@@ -106,6 +106,8 @@ const PostulationsFilter: FC<IPostulationsFilter> = ({ setFilters, filters }) =>
                                 </div>
                             </div>
 
+                            <div className="ant-card-actions"></div>
+
                             <div className="d-flex flex-row justify-content-end my-3">
                                 <button
                                     onClick={() => {
@@ -116,7 +118,7 @@ const PostulationsFilter: FC<IPostulationsFilter> = ({ setFilters, filters }) =>
                                         });
                                         dispatch(actions.get_list_postulation({ page: 1, page_size: 10 }));
                                     }}
-                                    className="btn me-3"
+                                    className="btn me-3 mt"
                                     style={{ color: '#1D98D1' }}
                                 >
                                     Limpiar filtros
