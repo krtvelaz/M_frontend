@@ -21,8 +21,8 @@ export const guards = {
     login_citizen: (props?: any) => {                
         return props?.user?.detail_user?.use_role?.id === 4 ;
     },
-    landing: (props?: any) => {                      
-        return !props?.user?.token || props?.user?.detail_user?.use_role?.id === 4;
+    landing: (props?: any) => { 
+        return props?.user?.token || !props?.user?.token || props?.user?.detail_user?.use_role?.id === 4;
     },
 };
 
@@ -45,7 +45,7 @@ const get_routes = (): IRoute[] => {
             exact: true,
             is_private: false,
             format: true,
-            can_access: guards.landing,
+            can_access: true,
             path: '/',
             template_props: {
                 show_breadcrumbs: false

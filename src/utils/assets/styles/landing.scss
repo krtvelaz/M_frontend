@@ -1128,7 +1128,20 @@ img {
     }
 
     .text-end {
-        text-align: center!important;
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 580px) {
+    .ant-pagination.ant-pagination-mini .ant-pagination-item {
+        min-width: auto!important;
+        height: auto!important;
+        margin: 0!important;
+        line-height: 30px!important;
+    }
+
+    .header-name {
+        height: 22px !important;
     }
 }
 
@@ -1139,6 +1152,14 @@ img {
     }
 
     .modal-form-login .container-form-login {
-        width: 300px!important;
+        width: 300px !important;
+    }
+
+    #viewDiv {
+        height: 60vh !important;
+    }
+
+    .modal__address__medeinn .ant-modal-body {
+        height: 970px !important;
     }
 }

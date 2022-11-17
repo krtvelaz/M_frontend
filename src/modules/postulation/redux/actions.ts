@@ -102,9 +102,13 @@ const create_memberPostulation = (
     return async (dispatch: any) => {
         dispatch(members_default());
         try {
-            const URI = `postulations/member/${id_postulation}`;
+            const URI = `postulations/member`;
             const res = await http.post(URI, {
                 members: [...values],
+            }, {
+                params: {
+                    idPostulation: id_postulation
+                }
             });
             dispatch(members_success(res.data.data));
             await swal_success.fire({

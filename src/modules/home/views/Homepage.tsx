@@ -26,6 +26,7 @@ const Homepage = () => {
     const context = useContext(TemplateContext);
     const publications = useSelector((store: any) => store.publication.list_publication.value);
     const challenges = useSelector((store: any) => store.challenge.challenges.value);
+
     return (
         <>
             <section>

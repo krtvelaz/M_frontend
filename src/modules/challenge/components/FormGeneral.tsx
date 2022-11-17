@@ -328,7 +328,7 @@ const FormGeneral: FC<GeneralInformationFormPros> = ({
                                             }
                                             options={neighborhoods?.map((neighborhood: any) => ({
                                                 id: neighborhood?.id,
-                                                name: neighborhood?.neighborhood,
+                                                name: neighborhood?.nei_name,
                                             }))}
                                             placeholder={`${neighborhoods.length > 0 ? 'Seleccionar…' : '------'}`}
                                         />

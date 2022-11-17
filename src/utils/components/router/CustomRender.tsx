@@ -44,7 +44,7 @@ const CustomRender: FC<RouteWithSubRoutesProps> = ({
             };
             return template ? <Template {...template_ops}>{cp}</Template> : cp;
         } else {
-            if (_props.user && _props?.user?.detail_user?.use_role?.id !== 4) {
+            if (_props?.user?.detail_user?.use_role?.id && _props?.user?.detail_user?.use_role?.id !== 4) {
                 return compute_redirect(privateRedirect, location);
             } else {
                 return compute_redirect(defaultRedirect, location);

@@ -83,7 +83,7 @@ const InfoDetailChallenge: FC<DetailChallenge> = ({ challenge }) => {
             {challenge?.cha_total_days !== 0 && (
                 <button
                     onClick={() => {
-                        if (!user) {
+                        if (!user || !user.detail_user) {
                             console.log(challenge);
                             context.toggle_login_modal();
                             context.toggle_path_login({ path: `../postulation/challenge/${challenge?.id}`,  state: { challenge: challenge } });

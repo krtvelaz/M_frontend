@@ -70,14 +70,14 @@ const LandingPage: FC<ILanding> = ({ children, show_breadcrumbs, breadcrumbs, us
             >
                 <div className="drawer-content d-flex flex-column">
                     <div style={{ padding: '16px 0px 16px 16px' }}>
-                        <Menu mode="inline" selectedKeys={[]} style={{ paddingLeft: '40px' }}>
+                        <Menu onSelect={context?.drawer_close} mode="inline" selectedKeys={[]} style={{ paddingLeft: '40px' }}>
                             <Menu.Item
                                 style={{
                                     borderBottom: '0.5px solid #00000029',
                                     fontSize: '12px',
                                 }}
                                 key="Drawer-landing-1"
-                                onClick={() => {}}
+                                onClick={() => navigate('../about-us')}
                             >
                                 Nosotros
                             </Menu.Item>

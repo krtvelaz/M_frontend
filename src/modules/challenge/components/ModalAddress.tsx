@@ -85,6 +85,7 @@ const ModalAddress: FC<IModalAddress> = ({ field, form, extra_on_change, classNa
                 {field.value}
             </div>
             <Modal
+                className='modal__address__medeinn'
                 title={
                     <>
                         <div style={{ fontFamily: 'Montserrat-Bold', fontSize: '16px' }}>Ingrese la dirección</div>

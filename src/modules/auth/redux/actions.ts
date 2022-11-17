@@ -27,6 +27,7 @@ const login = (document: string, password: string) => {
                 document,
                 password,
             });
+            
             if (res_token.data.data.token) {
                 const resul_user: any = await auth_http.post(
                     '/auth/verify',
@@ -37,7 +38,7 @@ const login = (document: string, password: string) => {
                         },
                     }
                 );
-                
+
                 user = {
                     token: res_token.data.data.token,
                     detail_user: resul_user.data.data.userData,
@@ -47,9 +48,9 @@ const login = (document: string, password: string) => {
 
             dispatch(success_user(user));
             return user;
-        } catch (error:any) {
-            dispatch(fail_user());         
-            
+        } catch (error: any) {
+            dispatch(fail_user());
+
             return Promise.reject(error);
         }
     };
@@ -62,13 +63,13 @@ const logout = () => {
 };
 
 const register = (data: any) => {
-    return async (dispatch: any) => {        
+    return async (dispatch: any) => {
         const final_data = {
             ...data,
             state: data?.state || data?.country,
             city: data?.city || data?.country,
             neighborhood: data?.neighborhood || data?.country,
-            
+
         }
         delete final_data.commune;
         delete final_data.radioPolitica;
@@ -156,18 +157,29 @@ const change_password = (
 
 const get_countries = () => {
     return async (dispatch: any) => {
+        // let user = null;
         dispatch(loading_countries());
         try {
             const URI = '/lists/countries';
             const res: any = await auth_http.get(URI);
             dispatch(success_countries(res.data.data));
             return res.data.data;
-        } catch (error) {
+        } catch (error: any) {
+            // const tokenStorage = localStorage.getItem('__tk__');
+            // if (error?.response?.data?.status === 307) {
+            //     user = {
+            //         token: error.response.data.data.token,
+            //         detail_user: null,
+            //         can_access: true,
+            //     };
+            //     dispatch(success_user(user));
+            // }
             dispatch(fail_countries());
             return Promise.reject(error);
         }
     };
 };
+
 const get_states = () => {
     return async (dispatch: any) => {
         dispatch(loading_states());

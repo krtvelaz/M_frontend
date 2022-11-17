@@ -119,7 +119,7 @@ const FormFilterUser: FC<IPros> = ({ innerRef, onSubmit, type, setUserInfoId, in
                                     <ErrorMessage name="role" />
                                 </div>
                             ) : (
-                                <div className="col-12 col-md-2" style={{ marginTop: '25px' }}>
+                                <div className="col-12 col-md-2" style={{ marginTop: '25px', textAlign: 'end' }}>
                                     <button type="submit" className="btn btn-primary">
                                         Buscar
                                     </button>

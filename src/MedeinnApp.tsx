@@ -11,7 +11,7 @@ const MedeinnApp = () => {
     const allRoutes = useRoutes();
     return (
         <div>
-            <AppRouter template={ user && user?.detail_user?.use_role?.id !== 4 ? Template   : LandingPage  } routes={allRoutes} user={user} />
+            <AppRouter template={ user?.detail_user?.use_role?.id && user?.detail_user?.use_role?.id !== 4 ? Template   : LandingPage  } routes={allRoutes} user={user} />
         </div>
     );
 };
